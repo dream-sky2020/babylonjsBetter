@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Babylon.js 伪2D场景</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+      #renderCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        touch-action: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="renderCanvas"></canvas>
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script type="module">
+      import { EventBus } from "./event/event-bus.js";
+      import { EntityStateModule } from "./event/entity-state-module.js";
+      import { GAME_EVENTS } from "./event/events.js";
+      import { InputModule } from "./input/input-module.js";
+      import { RhythmModule } from "./rhythm/rhythm-module.js";
+      import { ObservableGameManager } from "./game-manager.js";
+
+      const canvas = document.getElementById("renderCanvas");
+      const engine = new BABYLON.Engine(canvas, true);
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0.07, 0.09, 0.14, 1);
+
+      
+      const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -10), scene);
+      camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+
+      // --- 在这里添加管道配置 ---
+      const pipeline = new BABYLON.DefaultRenderingPipeline(
+        "defaultPipeline", // 管道名称
+        true,              // 启用 HDR (如果不需要可设为 false)
+        scene,
+        [camera]           // 指定相机
+      );
+
+      // 开启 FXAA
+      pipeline.fxaaEnabled = true;
+
+
+      const syncOrtho = () => {
+        const ratio = engine.getRenderWidth() / engine.getRenderHeight();
+        const halfHeight = 6;
+        camera.orthoTop = halfHeight;
+        camera.orthoBottom = -halfHeight;
+        camera.orthoLeft = -halfHeight * ratio;
+        camera.orthoRight = halfHeight * ratio;
+      };
+      syncOrtho();
+
+      const eventBus = new EventBus();
+      const manager = new ObservableGameManager(engine, scene, camera, eventBus);
+      const entityStateModule = new EntityStateModule(eventBus);
+      const inputModule = new InputModule(eventBus);
+      const rhythmModule = new RhythmModule(eventBus, manager);
+      entityStateModule.init();
+      inputModule.init();
+      rhythmModule.init();
+
+      manager.initializeDefaultEntities();
+      manager.start();
+      window.gameManager = manager;
+      window.eventBus = eventBus;
+      window.entityStateModule = entityStateModule;
+      window.inputModule = inputModule;
+      window.rhythmModule = rhythmModule;
+
+      eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_HIT, (payload) => {
+        console.log("[RHYTHM_NOTE_HIT]", payload);
+      });
+      eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_MISS, (payload) => {
+        console.log("[RHYTHM_NOTE_MISS]", payload);
+      });
+
+      eventBus.emit(GAME_EVENTS.RHYTHM_START, {});
+
+      window.addEventListener("resize", () => {
+        engine.resize();
+        syncOrtho();
+      });
+    </script>
+  </body>
+</html>
