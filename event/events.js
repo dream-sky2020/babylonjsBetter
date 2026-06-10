@@ -1,0 +1,17 @@
+export const GAME_EVENTS = Object.freeze({
+  PAUSED: "game:paused",
+  RESUMED: "game:resumed",
+  FPS_CHANGED: "game:fpsChanged",
+  GAME_RESET: "game:reset",
+  INPUT_TRIGGER: "input:trigger",
+  RHYTHM_TEST_TRIGGER: "rhythm:testTrigger",
+  RHYTHM_START: "rhythm:start",
+  RHYTHM_JUDGE_TRIGGERED: "rhythm:judgeTriggered",
+  RHYTHM_NOTE_HIT: "rhythm:noteHit",
+  RHYTHM_NOTE_MISS: "rhythm:noteMiss",
+  ENTITY_UPDATED: "entity:updated",
+  OBJECT_ADDED: "entity:added",
+  OBJECT_REMOVED: "entity:removed",
+  DEBUG_LAYER_TOGGLED: "debug:layerToggled",
+  SCREENSHOT_CAPTURED: "debug:screenshotCaptured"
+});
