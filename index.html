@@ -28,6 +28,7 @@
       import { GAME_EVENTS } from "./event/events.js";
       import { InputModule } from "./input/input-module.js";
       import { RhythmModule } from "./rhythm/rhythm-module.js";
+      import { ParticleModule } from "./vfx/particle-module.js";
       import { ObservableGameManager } from "./game-manager.js";
 
       const canvas = document.getElementById("renderCanvas");
@@ -66,9 +67,11 @@
       const entityStateModule = new EntityStateModule(eventBus);
       const inputModule = new InputModule(eventBus);
       const rhythmModule = new RhythmModule(eventBus, manager);
+      const particleModule = new ParticleModule(eventBus, manager);
       entityStateModule.init();
       inputModule.init();
       rhythmModule.init();
+      particleModule.init();
 
       manager.initializeDefaultEntities();
       manager.start();
@@ -77,6 +80,7 @@
       window.entityStateModule = entityStateModule;
       window.inputModule = inputModule;
       window.rhythmModule = rhythmModule;
+      window.particleModule = particleModule;
 
       eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_HIT, (payload) => {
         console.log("[RHYTHM_NOTE_HIT]", payload);

@@ -166,6 +166,8 @@ export class RhythmModule {
       this.eventBus.emit(GAME_EVENTS.RHYTHM_NOTE_HIT, {
         id: bestId,
         lane: note.lane,
+        x: note.x,
+        y: this.laneY[note.lane] ?? 0,
         distance: bestDistance
       });
       return;
@@ -173,7 +175,8 @@ export class RhythmModule {
 
     this.eventBus.emit(GAME_EVENTS.RHYTHM_NOTE_MISS, {
       lineX: this.lineX,
-      lane: inputPayload?.lane
+      lane: inputPayload?.lane,
+      y: Number.isInteger(inputPayload?.lane) ? this.laneY[inputPayload.lane] ?? 0 : 0
     });
   }
 
