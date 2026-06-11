@@ -8,6 +8,9 @@ export class InputModule {
       KeyS: 1,
       KeyD: 2
     };
+    // 新增：配置触发确认的按键 code，默认支持空格和回车
+    this.confirmKeys = options.confirmKeys || ["Space", "Enter"];
+
     this.testComboWindowMs = options.testComboWindowMs ?? 300;
     this._lastKeyTime = {
       KeyT: 0,
@@ -30,6 +33,19 @@ export class InputModule {
     }
 
     const now = performance.now();
+
+    // 新增：检测是否按下了确认键 (空格或回车)
+    if (this.confirmKeys.includes(event.code)) {
+      // 阻止默认行为（非常重要：防止按空格键时浏览器页面往下滚动）
+      event.preventDefault(); 
+      
+      this.eventBus.emit(GAME_EVENTS.INPUT_CONFIRM, {
+        code: event.code,
+        timestamp: now
+      });
+      return; // 触发确认事件后直接返回，不再执行后续逻辑
+    }
+    
     if (event.code === "KeyT" || event.code === "KeyR") {
       this._lastKeyTime[event.code] = now;
       const diff = Math.abs(this._lastKeyTime.KeyT - this._lastKeyTime.KeyR);

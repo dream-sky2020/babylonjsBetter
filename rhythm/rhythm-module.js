@@ -9,7 +9,11 @@ export class RhythmModule {
     this.endX = options.endX ?? 5;
     this.travelDurationMs = options.travelDurationMs ?? 6000;
     this.speedMultiplier = options.speedMultiplier ?? 1;
-    this.judgeRange = options.judgeRange ?? 0.45;
+
+    this.perfectRange = options.perfectRange ?? 0.15; // 完美判定距离
+    this.greatRange = options.greatRange ?? 0.30;     // 优秀判定距离
+    this.judgeRange = options.judgeRange ?? 0.45;     // 最大判定范围 (在这个范围内但大于 greatRange 算作过早/过晚的 Miss)\
+    this.missRange = options.missRange ?? 0.60;     // 超过judgeRange且小于missRange算作Miss
 
     this.judgeLineId = "rhythm-judge-line";
     this.trackIds = [];
@@ -44,6 +48,14 @@ export class RhythmModule {
 
     this.unsubscribers.push(
       this.eventBus.subscribe(GAME_EVENTS.INPUT_TRIGGER, (payload) => {
+        this._judge(payload);
+      })
+    );
+
+    // 2. 新增：在这里监听全局确认事件！
+    this.unsubscribers.push(
+      this.eventBus.subscribe(GAME_EVENTS.INPUT_CONFIRM, (payload) => {
+        // 当接收到确认事件时，触发你的判定逻辑
         this._judge(payload);
       })
     );
@@ -145,40 +157,72 @@ export class RhythmModule {
       input: inputPayload
     });
 
-    let bestId = null;
-    let bestDistance = Number.POSITIVE_INFINITY;
+    const isGlobalConfirm = inputPayload?.lane === undefined;
+
+    // --- 核心修改：使用 Map 记录【每个轨道】中距离最近的音符 ---
+    // Key: lane (轨道ID), Value: { id, note, distance }
+    const closestNotesPerLane = new Map();
 
     for (const [id, note] of this.noteData.entries()) {
-      if (inputPayload?.lane !== undefined && note.lane !== inputPayload.lane) {
+      // 1. 如果是单轨道输入，直接过滤掉其他轨道的音符
+      if (!isGlobalConfirm && note.lane !== inputPayload.lane) {
         continue;
       }
-      const distance = Math.abs(note.x - this.lineX);
-      if (distance < bestDistance) {
-        bestDistance = distance;
-        bestId = id;
+      
+      const distanceX = Math.abs(note.x - this.lineX);
+      
+      // 2. 仅在判定范围内进行打擂台
+      if (distanceX <= this.judgeRange) {
+        const existingClosest = closestNotesPerLane.get(note.lane);
+        
+        // 3. 如果该轨道还没记录过音符，或者当前音符比已记录的更近，则占领该轨道！
+        if (!existingClosest || distanceX < existingClosest.distance) {
+          closestNotesPerLane.set(note.lane, { id, note, distance: distanceX });
+        }
       }
     }
 
-    if (bestId && bestDistance <= this.judgeRange) {
-      const note = this.noteData.get(bestId);
-      this.noteData.delete(bestId);
-      this.manager.removeObject(bestId);
-      this.eventBus.emit(GAME_EVENTS.RHYTHM_NOTE_HIT, {
-        id: bestId,
-        lane: note.lane,
-        x: note.x,
-        y: this.laneY[note.lane] ?? 0,
-        distance: bestDistance
+    // --- 批量处理找出的最近音符（每个轨道最多 1 个） ---
+    if (closestNotesPerLane.size > 0) {
+      closestNotesPerLane.forEach((closestNoteData, lane) => {
+        const { id, note, distance } = closestNoteData;
+
+        // 数据清理与画面移除
+        this.noteData.delete(id);
+        this.manager.removeObject(id);
+        
+        // 判定分级逻辑
+        let judgeEventName;
+        if (distance <= this.perfectRange) {
+          judgeEventName = GAME_EVENTS.RHYTHM_NOTE_PERFECT;
+        } else if (distance <= this.greatRange) {
+          judgeEventName = GAME_EVENTS.RHYTHM_NOTE_GREAT;
+        } else {
+          judgeEventName = GAME_EVENTS.RHYTHM_NOTE_HIT; 
+        }
+
+        // 派发事件
+        this.eventBus.emit(judgeEventName, {
+          id: id,
+          lane: note.lane, 
+          x: note.x,
+          y: this.laneY[note.lane] ?? 0,
+          distance: distance 
+        });
       });
-      return;
+      
+      return; // 只要有任何轨道命中，就视为有效击打，结束函数
     }
 
+    // 所有受检查的轨道都没有命中，触发 Miss
     this.eventBus.emit(GAME_EVENTS.RHYTHM_NOTE_MISS, {
       lineX: this.lineX,
       lane: inputPayload?.lane,
       y: Number.isInteger(inputPayload?.lane) ? this.laneY[inputPayload.lane] ?? 0 : 0
     });
   }
+
+
 
   _stopLoop() {
     this.isRunning = false;
