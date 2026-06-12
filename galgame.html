@@ -7,12 +7,15 @@
         /* 基础样式重置与全屏设置 */
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body, html { width: 100%; height: 100%; overflow: hidden; background-color: #f0f0f0; font-family: "Microsoft YaHei", sans-serif; }
+        html.overlay-mode, body.overlay-mode { background-color: transparent; }
 
         /* 游戏主容器 */
         #game-container { position: relative; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover; }
+        .overlay-mode #game-container { background: transparent; }
 
         /* 立绘占位区（用渐变色模拟一个人形轮廓） */
         #sprite { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 400px; height: 600px; background: linear-gradient(to top, rgba(50,50,50,0.9), rgba(150,150,150,0.2)); border-radius: 200px 200px 0 0; border: 2px solid rgba(255,255,255,0.5); border-bottom: none; }
+        .overlay-mode #sprite { display: none; }
 
         /* UI 总图层 */
         #ui-layer { position: absolute; width: 100%; height: 100%; transition: opacity 0.3s ease; }
@@ -20,6 +23,7 @@
 
         /* 控制台 (右上角) */
         #custom-console { position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.7); padding: 10px; border-radius: 8px; border: 1px solid #555; display: flex; gap: 5px; }
+        .overlay-mode #custom-console { display: none; }
         #custom-console input { padding: 5px; border-radius: 4px; border: none; outline: none; width: 200px; }
         #custom-console button { padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; background: #007bff; color: white; }
         #custom-console button:hover { background: #0056b3; }
@@ -67,7 +71,7 @@
 
         <div id="dialogue-area">
             <div id="speaker-box">系统</div>
-            <div id="text-box" id="text-box-click">
+            <div id="text-box">
                 <div id="text-content"></div>
                 <div id="controls">
                     <button class="control-btn" id="btn-auto">自动</button>
@@ -88,6 +92,27 @@
 </div>
 
 <script>
+    const query = new URLSearchParams(window.location.search);
+    const isOverlayMode = query.get("overlay") === "1";
+    if (isOverlayMode) {
+        document.documentElement.classList.add("overlay-mode");
+        document.body.classList.add("overlay-mode");
+    }
+
+    // 关键：在覆盖层模式下把按键转发给父页面，保证父页面输入模块仍然工作
+    window.addEventListener("keydown", (event) => {
+        if (!isOverlayMode) return;
+        window.parent.postMessage(
+            {
+                type: "galgame-keydown",
+                key: event.key,
+                code: event.code,
+                repeat: event.repeat
+            },
+            window.location.origin
+        );
+    });
+
     // --- 数据与状态 ---
     const scriptData = [
         { speaker: "向导", text: "欢迎来到纯前端构建的 Galgame 界面。" },

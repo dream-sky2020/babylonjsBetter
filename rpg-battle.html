@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>纯净版 RPG 行动栏 UI</title>
+    <style>
+        /* 基础重置 */
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+        body { background-color: #111; color: #fff; font-family: "Microsoft YaHei", sans-serif; display: flex; justify-content: center; align-items: flex-end; height: 100vh; overflow: hidden; padding-bottom: 20px; }
+        html.overlay-mode, body.overlay-mode { background: transparent; }
+
+        /* 行动栏 UI 总容器 (可按需调整宽度) */
+        #battle-ui-container { width: 816px; position: relative; }
+        .overlay-mode #battle-ui-container { margin-bottom: 0; }
+
+        /* RPG Maker 经典窗口皮肤样式 */
+        .window { background: linear-gradient(to bottom, rgba(0, 0, 80, 0.9), rgba(0, 0, 30, 0.9)); border: 3px solid #fff; border-radius: 6px; padding: 15px; position: absolute; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+
+        /* 底部主 UI 区域 (固定高度) */
+        #ui-bottom { width: 100%; height: 160px; display: flex; gap: 5px; position: relative; }
+
+        /* 战斗日志信息框 (覆盖在底部 UI 上方) */
+        #message-window { width: 100%; height: 100%; top: 0; left: 0; display: none; z-index: 10; display: flex; align-items: center; }
+        #message-text { font-size: 22px; line-height: 1.5; }
+
+        /* 指令菜单窗口 */
+        #command-window { width: 150px; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: space-around; padding: 10px; }
+        .command-btn { background: transparent; color: #fff; border: none; font-size: 20px; font-family: inherit; text-align: left; cursor: pointer; padding: 5px 10px; transition: background 0.1s; border-radius: 4px; }
+        .command-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* 队伍状态窗口 */
+        #status-window { flex: 1; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 20px; }
+        .actor-status { display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: bold; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
+        
+        /* 血条和蓝条 */
+        .stat-group { display: flex; flex-direction: column; gap: 5px; }
+        .stat-bar { width: 160px; background: #333; height: 12px; border-radius: 6px; overflow: hidden; border: 1px solid #fff; }
+        .hp-fill { background: linear-gradient(to right, #cc0000, #ff5555); height: 100%; width: 100%; transition: width 0.3s ease; }
+        .mp-fill { background: linear-gradient(to right, #0000cc, #5555ff); height: 100%; width: 100%; transition: width 0.3s ease; }
+
+        /* 技能/物品 子菜单窗口 (悬浮在行动栏上方) */
+        .sub-window { bottom: 165px; left: 0; width: 400px; height: 200px; display: none; flex-wrap: wrap; align-content: flex-start; z-index: 20; overflow-y: auto; }
+        .list-item { width: 50%; padding: 10px; cursor: pointer; font-size: 18px; display: flex; justify-content: space-between; }
+        .list-item:hover { background: rgba(255, 255, 255, 0.3); border-radius: 4px; }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.5); border-radius: 3px; }
+    </style>
+</head>
+<body>
+
+<div id="battle-ui-container">
+    
+    <div id="skill-window" class="window sub-window">
+        <div class="list-item" onclick="useAction('技能: 重击', -10, 'mp')"><span>💥 重击</span><span>10 MP</span></div>
+        <div class="list-item" onclick="useAction('技能: 治愈术', -15, 'mp', 50)"><span>✨ 治愈术</span><span>15 MP</span></div>
+        <div class="list-item" onclick="closeSubWindows()"><span>返回</span></div>
+    </div>
+
+    <div id="item-window" class="window sub-window">
+        <div class="list-item" onclick="useAction('物品: 恢复药水', 0, 'none', 50)"><span>🧪 恢复药水</span></div>
+        <div class="list-item" onclick="useAction('物品: 魔法水', 30, 'mp_recover')"><span>💧 魔法水</span></div>
+        <div class="list-item" onclick="closeSubWindows()"><span>返回</span></div>
+    </div>
+
+    <div id="ui-bottom">
+        
+        <div id="message-window" class="window" style="display: none;">
+            <div id="message-text"></div>
+        </div>
+
+        <div id="command-window" class="window">
+            <button class="command-btn" onclick="basicAction('攻击')">攻击</button>
+            <button class="command-btn" onclick="openSkillWindow()">技能</button>
+            <button class="command-btn" onclick="openItemWindow()">物品</button>
+            <button class="command-btn" onclick="basicAction('防御')">防御</button>
+            <button class="command-btn" onclick="basicAction('逃跑')">逃跑</button>
+        </div>
+
+        <div id="status-window" class="window">
+            <div class="actor-status">
+                <div style="font-size: 24px;">勇者</div>
+                <div class="stat-group">
+                    <div>HP <span id="player-hp-text">100/100</span></div>
+                    <div class="stat-bar"><div id="player-hp-bar" class="hp-fill"></div></div>
+                </div>
+                <div class="stat-group">
+                    <div>MP <span id="player-mp-text">50/50</span></div>
+                    <div class="stat-bar"><div id="player-mp-bar" class="mp-fill"></div></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // overlay=1 时作为 index.html 的覆盖层运行
+    const query = new URLSearchParams(window.location.search);
+    const isOverlayMode = query.get("overlay") === "1";
+    if (isOverlayMode) {
+        document.documentElement.classList.add("overlay-mode");
+        document.body.classList.add("overlay-mode");
+    }
+
+    // 覆盖层模式下，将按键同步给父页面，保证父页面输入检测仍可用
+    window.addEventListener("keydown", (event) => {
+        if (!isOverlayMode) return;
+        window.parent.postMessage(
+            {
+                type: "galgame-keydown",
+                key: event.key,
+                code: event.code,
+                repeat: event.repeat
+            },
+            window.location.origin
+        );
+    });
+
+    // --- UI 数据状态 ---
+    const player = { name: "勇者", maxHp: 100, hp: 100, maxMp: 50, mp: 50 };
+
+    // --- DOM 元素引用 ---
+    const msgWindow = document.getElementById('message-window');
+    const msgText = document.getElementById('message-text');
+    const cmdWindow = document.getElementById('command-window');
+    const statusWindow = document.getElementById('status-window');
+    const skillWindow = document.getElementById('skill-window');
+    const itemWindow = document.getElementById('item-window');
+
+    // --- 更新状态面板 ---
+    function updateStatusUI() {
+        // 限制在正常范围内
+        player.hp = Math.max(0, Math.min(player.maxHp, player.hp));
+        player.mp = Math.max(0, Math.min(player.maxMp, player.mp));
+
+        document.getElementById('player-hp-text').innerText = `${player.hp}/${player.maxHp}`;
+        document.getElementById('player-hp-bar').style.width = `${(player.hp / player.maxHp) * 100}%`;
+        
+        document.getElementById('player-mp-text').innerText = `${player.mp}/${player.maxMp}`;
+        document.getElementById('player-mp-bar').style.width = `${(player.mp / player.maxMp) * 100}%`;
+    }
+
+    // --- 显示消息框 ---
+    function showMessage(text) {
+        // 关闭其他窗口，显示消息
+        closeSubWindows();
+        cmdWindow.style.display = 'none';
+        statusWindow.style.display = 'none';
+        
+        msgWindow.style.display = 'flex';
+        msgText.innerHTML = text;
+
+        // 1.5 秒后恢复原始 UI
+        setTimeout(() => {
+            msgWindow.style.display = 'none';
+            cmdWindow.style.display = 'flex';
+            statusWindow.style.display = 'flex';
+        }, 1500);
+    }
+
+    // --- 菜单开关控制 ---
+    function openSkillWindow() { 
+        skillWindow.style.display = 'flex'; 
+        itemWindow.style.display = 'none'; 
+    }
+    function openItemWindow() { 
+        itemWindow.style.display = 'flex'; 
+        skillWindow.style.display = 'none'; 
+    }
+    function closeSubWindows() { 
+        skillWindow.style.display = 'none'; 
+        itemWindow.style.display = 'none'; 
+    }
+
+    // --- 基础行动逻辑模拟 ---
+    function basicAction(actionName) {
+        closeSubWindows();
+        if (actionName === '攻击') showMessage(`${player.name} 挥剑发起了攻击！`);
+        if (actionName === '防御') showMessage(`${player.name} 举起盾牌采取了防御姿态。`);
+        if (actionName === '逃跑') showMessage(`${player.name} 想要脚底抹油，但是被阻止了！`);
+    }
+
+    // --- 技能与物品使用逻辑模拟 ---
+    function useAction(actionName, mpCostOrRecover, type, hpHeal = 0) {
+        // 检查 MP 是否足够
+        if (type === 'mp' && player.mp < Math.abs(mpCostOrRecover)) {
+            alert("MP 不足！");
+            return;
+        }
+
+        // 扣除/恢复 MP
+        if (type === 'mp') player.mp += mpCostOrRecover; // 负数即为扣除
+        if (type === 'mp_recover') player.mp += mpCostOrRecover;
+
+        // 恢复 HP
+        if (hpHeal > 0) {
+            player.hp += hpHeal;
+        }
+
+        updateStatusUI();
+        showMessage(`${player.name} 使用了【${actionName}】！`);
+    }
+
+    // 初始化一次 UI
+    updateStatusUI();
+</script>
+</body>
+</html>
