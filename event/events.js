@@ -12,8 +12,6 @@ export const GAME_EVENTS = Object.freeze({
   RHYTHM_NOTE_GREAT: "rhythm:noteGreat",
   RHYTHM_NOTE_HIT: "rhythm:noteHit",
   RHYTHM_NOTE_MISS: "rhythm:noteMiss",
-  DIALOGUE_LINE_CHANGED: "dialogue:lineChanged",
-  DIALOGUE_HISTORY_REQUESTED: "dialogue:historyRequested",
   ENTITY_UPDATED: "entity:updated",
   OBJECT_ADDED: "entity:added",
   OBJECT_REMOVED: "entity:removed",
