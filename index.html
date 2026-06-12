@@ -22,7 +22,6 @@
   <body>
     <canvas id="renderCanvas"></canvas>
     <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
     <script type="module">
       import { EventBus } from "./event/event-bus.js";
       import { EntityStateModule } from "./event/entity-state-module.js";
@@ -30,8 +29,6 @@
       import { InputModule } from "./input/input-module.js";
       import { RhythmModule } from "./rhythm/rhythm-module.js";
       import { ParticleModule } from "./vfx/particle-module.js";
-      import { DialogueModule } from "./dialogue/dialogue-module.js";
-      import { HistoryModule } from "./dialogue/history-module.js";
       import { ObservableGameManager } from "./game-manager.js";
 
       const canvas = document.getElementById("renderCanvas");
@@ -71,68 +68,19 @@
       const inputModule = new InputModule(eventBus);
       const rhythmModule = new RhythmModule(eventBus, manager);
       const particleModule = new ParticleModule(eventBus, manager);
-      const historyModule = new HistoryModule(eventBus, manager);
-      const dialogueModule = new DialogueModule(eventBus, manager, {
-        defaultVisuals: {
-          background: { textureUrl: "https://placehold.co/1920x1080/1d2e52/f8f8ff.png?text=BG+Default" },
-          leftPortrait: { textureUrl: "https://placehold.co/768x1200/2a3f64/cfe2ff.png?text=YOU" },
-          rightPortrait: { textureUrl: "https://placehold.co/768x1200/4a325a/ffd4f4.png?text=MIO" }
-        },
-        buttonIcons: {
-          skip: { textureUrl: "https://placehold.co/256x128/1f2433/f9e2af.png?text=SKIP" },
-          auto: { textureUrl: "https://placehold.co/256x128/1f2433/a6e3a1.png?text=AUTO" },
-          speed: { textureUrl: "https://placehold.co/256x128/1f2433/89dceb.png?text=SPEED" },
-          hide: { textureUrl: "https://placehold.co/256x128/1f2433/f5c2e7.png?text=HIDE" },
-          history: { textureUrl: "https://placehold.co/256x128/1f2433/fab387.png?text=LOG" }
-        },
-        lines: [
-          {
-            speaker: "旁白",
-            text: "雨停后，旧城区的霓虹重新亮起。你站在十字路口，耳机里传来一段熟悉的旋律。",
-            background: { textureUrl: "https://placehold.co/1920x1080/1d2e52/f8f8ff.png?text=Crossroad+Night" },
-            portraits: {
-              left: { textureUrl: "https://placehold.co/768x1200/263e66/8db0ff.png?text=YOU+Idle" },
-              right: { textureUrl: "https://placehold.co/768x1200/3b2f55/ffc6f2.png?text=MIO+Smile" }
-            }
-          },
-          {
-            speaker: "澪",
-            text: "终于来了？今晚的演出可不等人。按空格继续，或者点右下角按钮切换自动和倍速。",
-            background: { textureUrl: "https://placehold.co/1920x1080/1f2f46/f8f8ff.png?text=Backstage" },
-            portraits: {
-              left: { textureUrl: "https://placehold.co/768x1200/25385a/87a6ea.png?text=YOU+Listen" },
-              right: { textureUrl: "https://placehold.co/768x1200/4a325a/ffc4ef.png?text=MIO+Talk" }
-            }
-          },
-          {
-            speaker: "你",
-            text: "我准备好了。先把舞台灯光打开，然后去看你说的那份旧档案。",
-            background: { textureUrl: "https://placehold.co/1920x1080/2a2448/f8f8ff.png?text=Archive+Room" },
-            portraits: {
-              left: { textureUrl: "https://placehold.co/768x1200/345480/bae1ff.png?text=YOU+Resolve" },
-              right: { textureUrl: "https://placehold.co/768x1200/3e3154/f2b5e4.png?text=MIO+Calm" }
-            }
-          }
-        ]
-      });
       entityStateModule.init();
       inputModule.init();
       rhythmModule.init();
       particleModule.init();
-      historyModule.init();
-      dialogueModule.init();
 
       manager.initializeDefaultEntities();
       manager.start();
-      dialogueModule.start();
       window.gameManager = manager;
       window.eventBus = eventBus;
       window.entityStateModule = entityStateModule;
       window.inputModule = inputModule;
       window.rhythmModule = rhythmModule;
       window.particleModule = particleModule;
-      window.historyModule = historyModule;
-      window.dialogueModule = dialogueModule;
 
       eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_HIT, (payload) => {
         console.log("[RHYTHM_NOTE_HIT]", payload);
