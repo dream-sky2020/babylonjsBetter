@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>边狱巴士战斗 UI - 游戏层</title>
     <style>
+        
         :root {
             --bg-color: #1a1a1a;
             --panel-bg: #2d2d2d;
@@ -79,6 +80,20 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: transform 0.1s, border-color 0.2s, box-shadow 0.2s;
             position: relative;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .skill-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 2;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .skill-node.selected {
@@ -98,6 +113,7 @@
             opacity: 0;
             transition: opacity 0.2s;
             pointer-events: none;
+            z-index: 3;
         }
 
         .skill-node.selected .glow {
@@ -199,6 +215,7 @@
         let chain = [];
         let isDragging = false;
         let currentMousePos = { x: 0, y: 0 };
+        let customSkillPool = [];
 
         function distToSegmentSquared(p, v, w) {
             const l2 = (w.x - v.x) ** 2 + (w.y - v.y) ** 2;
@@ -213,7 +230,8 @@
         window.LimbusAPI = {
             setBoardConfig: function (cols, rowCounts) { numCols = cols; colRowCounts = rowCounts; initBoard(); },
             rerollBoard: function () { initBoard(); },
-            autoChain: function () { executeAutoChain(); }
+            autoChain: function () { executeAutoChain(); },
+            setSkillPool: function (pool) { customSkillPool = Array.isArray(pool) ? pool : []; initBoard(); }
         };
 
         const query = new URLSearchParams(window.location.search);
@@ -235,6 +253,7 @@
                     case "setBoardConfig": LimbusAPI.setBoardConfig(payload.numCols, payload.colRowCounts); break;
                     case "rerollBoard": LimbusAPI.rerollBoard(); break;
                     case "autoChain": LimbusAPI.autoChain(); break;
+                    case "setSkillPool": LimbusAPI.setSkillPool(payload); break;
                     default: return;
                 }
                 emitEvent("ack", { ok: true, command }, requestId);
@@ -243,6 +262,26 @@
 
         window.addEventListener("message", (e) => { if (e.data && e.data.command === "hello") { emitEvent("ready", { source: "postMessage" }); return; } processCommand(e.data); });
         if (controlChannel) controlChannel.addEventListener("message", (e) => { if (e.data && e.data.command === "hello") { emitEvent("ready", { source: "broadcast" }); return; } processCommand(e.data); });
+
+        function pickSkillFromPool() {
+            if (!Array.isArray(customSkillPool) || customSkillPool.length === 0) return null;
+            const preparedPool = customSkillPool.filter(skill => skill && typeof skill === 'object');
+            if (preparedPool.length === 0) return null;
+
+            const totalWeight = preparedPool.reduce((sum, skill) => {
+                const weight = Number(skill.weight);
+                return sum + (Number.isFinite(weight) && weight > 0 ? weight : 1);
+            }, 0);
+
+            let roll = Math.random() * totalWeight;
+            for (const skill of preparedPool) {
+                const weight = Number(skill.weight);
+                const normalizedWeight = Number.isFinite(weight) && weight > 0 ? weight : 1;
+                roll -= normalizedWeight;
+                if (roll <= 0) return skill;
+            }
+            return preparedPool[preparedPool.length - 1];
+        }
 
         function initBoard() {
             const dashboard = document.getElementById('dashboard');
@@ -260,11 +299,40 @@
                 const rowsForThisCol = colRowCounts[col] || 1;
 
                 for (let row = 0; row < rowsForThisCol; row++) {
-                    const randomColor = SIN_COLORS[Math.floor(Math.random() * SIN_COLORS.length)];
+                    let colorData;
+                    let bgColor;
+                    let borderColor;
+                    let iconUrl;
+
+                    const skillDef = pickSkillFromPool();
+                    if (skillDef) {
+                        colorData = {
+                            name: skillDef.colorName || 'Unknown',
+                            hex: skillDef.colorHex || '#ffffff'
+                        };
+                        bgColor = skillDef.background || skillDef.colorHex || '#333333';
+                        borderColor = skillDef.borderColor || '#222';
+                        iconUrl = skillDef.icon || null;
+                    } else {
+                        const randomColor = SIN_COLORS[Math.floor(Math.random() * SIN_COLORS.length)];
+                        colorData = randomColor;
+                        bgColor = randomColor.hex;
+                        borderColor = '#222';
+                        iconUrl = null;
+                    }
+
                     const node = document.createElement('div');
                     node.className = 'skill-node';
-                    node.style.backgroundColor = randomColor.hex;
-                    node.style.color = randomColor.hex;
+                    node.style.background = bgColor;
+                    node.style.borderColor = borderColor;
+                    node.style.color = colorData.hex;
+
+                    if (iconUrl) {
+                        const iconImg = document.createElement('img');
+                        iconImg.className = 'skill-icon';
+                        iconImg.src = iconUrl;
+                        node.appendChild(iconImg);
+                    }
 
                     const glow = document.createElement('div');
                     glow.className = 'glow';
@@ -272,11 +340,11 @@
 
                     node.addEventListener('mousedown', (e) => {
                         updateMousePos(e);
-                        handleNodeMouseDown(col, row, node, randomColor);
+                        handleNodeMouseDown(col, row, node, colorData);
                     });
 
                     colDiv.appendChild(node);
-                    colData.push({ col, row, element: node, colorData: randomColor });
+                    colData.push({ col, row, element: node, colorData: colorData });
                 }
                 grid.push(colData);
                 dashboard.appendChild(colDiv);

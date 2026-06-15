@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能图标合成器</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-group input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .input-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .pick-btn {
+            border: 1px solid #888;
+            border-radius: 4px;
+            background: #fafafa;
+            color: #333;
+            font-size: 12px;
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+
+        .pick-btn:hover {
+            background: #efefef;
+        }
+
+        .layer-status {
+            font-size: 12px;
+            color: #666;
+            min-height: 16px;
+            word-break: break-all;
+        }
+
+        /* 核心预览区域样式 */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: #666;
+            min-height: 18px;
+            max-width: 240px;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .icon-container {
+            position: relative; /* 相对定位，作为绝对定位图层的参考点 */
+            width: 128px;       /* 定义图标大小 */
+            height: 128px;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #222; /* 默认底色 */
+        }
+
+        /* 所有图层共用的绝对定位样式 */
+        .layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 确保图片铺满并按比例缩放 */
+            pointer-events: none; /* 防止遮挡鼠标事件 */
+        }
+
+        /* 严格控制层级 */
+        #layer-bg { z-index: 1; }
+        #layer-icon { z-index: 2; object-fit: contain; /* 技能图标通常居中且不被裁切 */ }
+        #layer-border { z-index: 3; }
+
+    </style>
+</head>
+<body>
+
+    <h2>技能图标预览工具</h2>
+
+    <div class="container">
+        <div class="controls">
+            <div class="input-group">
+                <label for="bg-url">1. 技能背景 URL (底层)</label>
+                <input type="text" id="bg-url" placeholder="输入背景图链接..." value="https://via.placeholder.com/128/4A90E2/4A90E2">
+                <div class="input-actions">
+                    <button type="button" id="pick-bg-btn" class="pick-btn">选择本地文件</button>
+                </div>
+                <div id="bg-status" class="layer-status">背景层：等待输入</div>
+            </div>
+            <div class="input-group">
+                <label for="icon-url">2. 技能图标 URL (中层)</label>
+                <input type="text" id="icon-url" placeholder="输入带有透明通道的图标链接..." value="https://via.placeholder.com/90/FFFFFF/000000?text=Icon">
+                <div class="input-actions">
+                    <button type="button" id="pick-icon-btn" class="pick-btn">选择本地文件</button>
+                </div>
+                <div id="icon-status" class="layer-status">图标层：等待输入</div>
+            </div>
+            <div class="input-group">
+                <label for="border-url">3. 技能边框 URL (顶层)</label>
+                <input type="text" id="border-url" placeholder="输入镂空边框链接..." value="https://via.placeholder.com/128/FFD700/FFD700?text=+">
+                <div class="input-actions">
+                    <button type="button" id="pick-border-btn" class="pick-btn">选择本地文件</button>
+                </div>
+                <div id="border-status" class="layer-status">边框层：等待输入</div>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <strong>实时预览</strong>
+            <div class="icon-container">
+                <img id="layer-bg" class="layer" src="https://via.placeholder.com/128/4A90E2/4A90E2" alt="背景层">
+                <img id="layer-icon" class="layer" src="https://via.placeholder.com/90/FFFFFF/000000?text=Icon" alt="图标层">
+                <img id="layer-border" class="layer" style="opacity: 0.5;" src="https://via.placeholder.com/128/FFD700/FFD700?text=Border" alt="边框层"> </div>
+            <div id="status-text" class="status-text">提示：可直接粘贴本地路径（如 D:\xx\a.png），会自动走本地图片服务器代理；也可点击“选择本地文件”。</div>
+        </div>
+    </div>
+
+    <script>
+        // 获取输入框和对应的图片图层元素
+        const bgInput = document.getElementById('bg-url');
+        const iconInput = document.getElementById('icon-url');
+        const borderInput = document.getElementById('border-url');
+        const bgStatus = document.getElementById('bg-status');
+        const iconStatus = document.getElementById('icon-status');
+        const borderStatus = document.getElementById('border-status');
+
+        const bgLayer = document.getElementById('layer-bg');
+        const iconLayer = document.getElementById('layer-icon');
+        const borderLayer = document.getElementById('layer-border');
+
+        const LOCAL_IMAGE_PROXY = 'http://127.0.0.1:5050/proxy_local_image?path=';
+        const DEBOUNCE_MS = 300;
+        const layerState = {
+            bg: { input: bgInput, layer: bgLayer, status: bgStatus, name: '背景层', pickBtnId: 'pick-bg-btn', objectUrl: null },
+            icon: { input: iconInput, layer: iconLayer, status: iconStatus, name: '图标层', pickBtnId: 'pick-icon-btn', objectUrl: null },
+            border: { input: borderInput, layer: borderLayer, status: borderStatus, name: '边框层', pickBtnId: 'pick-border-btn', objectUrl: null }
+        };
+        const debounceTimers = {};
+
+        function normalizeImageInput(value) {
+            const raw = (value || '').trim();
+            if (!raw) return '';
+            if (/^(https?:)?\/\//i.test(raw) || raw.startsWith('data:') || raw.startsWith('blob:')) return raw;
+            if (/^[a-zA-Z]:[\\/]/.test(raw)) {
+                return LOCAL_IMAGE_PROXY + encodeURIComponent(raw.replace(/\\/g, '/'));
+            }
+            return raw;
+        }
+
+        function setLayerStatus(key, message, isError = false) {
+            const state = layerState[key];
+            state.status.textContent = `${state.name}：${message}`;
+            state.status.style.color = isError ? '#c0392b' : '#666';
+        }
+
+        function revokeLayerObjectUrl(key) {
+            const state = layerState[key];
+            if (state.objectUrl) {
+                URL.revokeObjectURL(state.objectUrl);
+                state.objectUrl = null;
+            }
+        }
+
+        function applyLayerValue(key, rawValue, source = 'text') {
+            const state = layerState[key];
+            if (source !== 'file') {
+                revokeLayerObjectUrl(key);
+            }
+
+            const src = normalizeImageInput(rawValue);
+            if (!src) {
+                state.layer.src = '';
+                state.layer.dataset.lastRequestedSrc = '';
+                setLayerStatus(key, '已清空');
+                return;
+            }
+
+            state.layer.dataset.lastRequestedSrc = src;
+            state.layer.src = src;
+            setLayerStatus(key, '加载中...');
+
+            if (key === 'border') {
+                borderLayer.style.opacity = 1;
+            }
+        }
+
+        function bindLayerInput(key) {
+            const state = layerState[key];
+            const onTextInput = () => {
+                clearTimeout(debounceTimers[key]);
+                debounceTimers[key] = setTimeout(() => {
+                    applyLayerValue(key, state.input.value, 'text');
+                }, DEBOUNCE_MS);
+            };
+
+            const onTextChange = () => {
+                clearTimeout(debounceTimers[key]);
+                applyLayerValue(key, state.input.value, 'text');
+            };
+
+            state.input.addEventListener('input', onTextInput);
+            state.input.addEventListener('change', onTextChange);
+        }
+
+        function bindLocalFilePicker(key) {
+            const state = layerState[key];
+            const button = document.getElementById(state.pickBtnId);
+            if (!button) return;
+
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+
+            button.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', () => {
+                const file = fileInput.files && fileInput.files[0];
+                if (!file) return;
+                if (!file.type.startsWith('image/')) {
+                    setLayerStatus(key, `文件不是图片：${file.name}`, true);
+                    return;
+                }
+
+                clearTimeout(debounceTimers[key]);
+                revokeLayerObjectUrl(key);
+                const objectUrl = URL.createObjectURL(file);
+                state.objectUrl = objectUrl;
+                state.input.value = objectUrl;
+                applyLayerValue(key, objectUrl, 'file');
+                fileInput.value = '';
+            });
+        }
+
+        bindLayerInput('bg');
+        bindLayerInput('icon');
+        bindLayerInput('border');
+        bindLocalFilePicker('bg');
+        bindLocalFilePicker('icon');
+        bindLocalFilePicker('border');
+
+        // 图片加载失败的容错处理
+        Object.keys(layerState).forEach(key => {
+            const state = layerState[key];
+            state.layer.addEventListener('load', function() {
+                setLayerStatus(key, '加载成功');
+            });
+            state.layer.addEventListener('error', function() {
+                // 如果输入的地址无效或跨域被拦截，清空src以防显示破碎图标
+                const failedSrc = this.dataset.lastRequestedSrc || this.src;
+                this.src = '';
+                setLayerStatus(key, `加载失败：${failedSrc}`, true);
+            });
+        });
+
+        window.addEventListener('beforeunload', () => {
+            Object.keys(layerState).forEach(revokeLayerObjectUrl);
+        });
+    </script>
+
+</body>
+</html>
