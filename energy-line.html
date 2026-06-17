@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>真实边缘侵蚀能量线</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #0a0a0c; color: #eee; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; height: 100vh; overflow: hidden; }
+        #controls { width: 320px; padding: 25px; background-color: #151518; box-shadow: 5px 0 20px rgba(0,0,0,0.8); z-index: 10; border-right: 1px solid #2a2a30; display: flex; flex-direction: column; gap: 20px; }
+        h2 { margin-top: 0; color: #00ffff; text-shadow: 0 0 10px rgba(0,255,255,0.3); font-size: 20px; letter-spacing: 1px; }
+        #canvas-container { flex-grow: 1; position: relative; }
+        canvas { background-image: radial-gradient(circle at center, #1a1a24 0%, #050505 100%); cursor: crosshair; display: block; width: 100%; height: 100%; }
+        .control-group { display: flex; flex-direction: column; gap: 8px; }
+        .val-display { color: #00ffff; font-weight: bold; float: right; }
+        label { font-size: 13px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+        input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; background: #333; border-radius: 3px; outline: none; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #00ffff; cursor: pointer; box-shadow: 0 0 10px #00ffff; }
+        input[type="color"] { width: 100%; height: 40px; border: none; cursor: pointer; border-radius: 6px; background: transparent; }
+        .instructions { font-size: 12px; color: #666; margin-top: auto; line-height: 1.6; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; }
+        .highlight { color: #aaa; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="controls">
+        <h2>⚡ 边缘侵蚀特效系统</h2>
+        
+        <div class="control-group">
+            <label>边缘侵蚀程度 <span id="erosionVal" class="val-display">0%</span></label>
+            <input type="range" id="erosionSlider" min="0" max="1" step="0.01" value="0">
+        </div>
+
+        <div class="control-group">
+            <label>能量线颜色</label>
+            <input type="color" id="colorPicker" value="#00ffff">
+        </div>
+
+        <div class="control-group">
+            <label>流动速度 <span id="speedVal" class="val-display">3.0</span></label>
+            <input type="range" id="speedSlider" min="-10" max="10" step="0.5" value="3">
+        </div>
+
+        <div class="instructions">
+            <p><span class="highlight">原理解析：</span><br>系统会计算像素的“易感度”（距离边缘越近、噪点值越高，越容易被侵蚀）。拖动侵蚀滑块时，只在内存中计算一次扣图，主循环零负担。</p>
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="mainCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // UI 控件绑定
+        const colorPicker = document.getElementById('colorPicker');
+        const erosionSlider = document.getElementById('erosionSlider');
+        const speedSlider = document.getElementById('speedSlider');
+
+        erosionSlider.oninput = (e) => {
+            document.getElementById('erosionVal').innerText = Math.round(e.target.value * 100) + '%';
+            generateErodedTexture(); // 滑块变动时重新计算纹理
+        };
+        speedSlider.oninput = (e) => document.getElementById('speedVal').innerText = parseFloat(e.target.value).toFixed(1);
+        colorPicker.oninput = () => generateErodedTexture();
+
+        // 两点坐标
+        let p1 = { x: canvas.width * 0.2, y: canvas.height * 0.5, radius: 8, isDragging: false };
+        let p2 = { x: canvas.width * 0.8, y: canvas.height * 0.5, radius: 8, isDragging: false };
+        let offset = 0;
+
+        // ==========================================
+        // 核心一：生成平滑噪点图 (云雾状噪点)
+        // ==========================================
+        const texWidth = 120;
+        const texHeight = 40;
+        
+        // 创建一个极小的画布填随机像素，然后放大，就能得到类似云雾的平滑噪点！
+        const noiseGenCanvas = document.createElement('canvas');
+        noiseGenCanvas.width = texWidth / 6; 
+        noiseGenCanvas.height = texHeight / 6;
+        const ngCtx = noiseGenCanvas.getContext('2d');
+        const ngData = ngCtx.createImageData(noiseGenCanvas.width, noiseGenCanvas.height);
+        for(let i=0; i<ngData.data.length; i+=4) {
+            const val = Math.random() * 255;
+            ngData.data[i] = ngData.data[i+1] = ngData.data[i+2] = val;
+            ngData.data[i+3] = 255;
+        }
+        ngCtx.putImageData(ngData, 0, 0);
+
+        // 将小噪点图平滑放大到实际纹理尺寸
+        const noiseCanvas = document.createElement('canvas');
+        noiseCanvas.width = texWidth;
+        noiseCanvas.height = texHeight;
+        const nCtx = noiseCanvas.getContext('2d');
+        nCtx.imageSmoothingEnabled = true;
+        nCtx.drawImage(noiseGenCanvas, 0, 0, texWidth, texHeight);
+        
+        // 提取噪点像素数据供后续计算使用
+        const noisePixels = nCtx.getImageData(0, 0, texWidth, texHeight).data;
+
+
+        // ==========================================
+        // 核心二：预渲染基础锁链图
+        // ==========================================
+        const baseCanvas = document.createElement('canvas');
+        baseCanvas.width = texWidth;
+        baseCanvas.height = texHeight;
+        const bCtx = baseCanvas.getContext('2d');
+
+        function drawBaseChain() {
+            bCtx.clearRect(0, 0, texWidth, texHeight);
+            const color = colorPicker.value;
+            bCtx.strokeStyle = color;
+            bCtx.lineWidth = 4;
+            bCtx.lineCap = 'round';
+            bCtx.shadowColor = color;
+            bCtx.shadowBlur = 10;
+
+            // 画两节锁链确保能无缝拼接
+            bCtx.beginPath();
+            bCtx.ellipse(30, texHeight/2, 25, 10, 0, 0, Math.PI * 2);
+            bCtx.stroke();
+
+            bCtx.beginPath();
+            bCtx.ellipse(90, texHeight/2, 25, 10, 0, 0, Math.PI * 2);
+            bCtx.stroke();
+
+            bCtx.beginPath();
+            bCtx.ellipse(60, texHeight/2, 6, 16, 0, 0, Math.PI * 2);
+            bCtx.stroke();
+            
+            bCtx.beginPath();
+            bCtx.ellipse(0, texHeight/2, 6, 16, 0, 0, Math.PI * 2);
+            bCtx.stroke();
+        }
+
+        // ==========================================
+        // 核心三：执行边缘像素侵蚀 (只在滑动时触发)
+        // ==========================================
+        const finalCanvas = document.createElement('canvas');
+        finalCanvas.width = texWidth;
+        finalCanvas.height = texHeight;
+        const fCtx = finalCanvas.getContext('2d');
+
+        function generateErodedTexture() {
+            drawBaseChain(); // 先画底图
+            const baseImgData = bCtx.getImageData(0, 0, texWidth, texHeight);
+            const data = baseImgData.data;
+            const erosionLevel = parseFloat(erosionSlider.value);
+
+            // 如果没有侵蚀，直接用原图
+            if (erosionLevel <= 0) {
+                fCtx.putImageData(baseImgData, 0, 0);
+                return;
+            }
+
+            // 遍历所有像素，计算是否要被“扣掉”
+            for (let y = 0; y < texHeight; y++) {
+                // 计算该像素距离中心水平线的距离 (0代表在中心，1代表在最边缘)
+                const distFromCenter = Math.abs(y - texHeight/2) / (texHeight/2);
+                
+                for (let x = 0; x < texWidth; x++) {
+                    const index = (y * texWidth + x) * 4;
+                    
+                    // 如果该像素本来就是透明的，跳过
+                    if (data[index+3] === 0) continue; 
+
+                    // 读取该位置的噪点值 (0 到 1)
+                    const noiseVal = noisePixels[index] / 255;
+
+                    // ✨ 核心算法：边缘易感度 ✨
+                    // 边缘的权重高(0.6)，噪点的权重低(0.4)。这样保证越靠近边缘越容易消失，且缺口是不规则的。
+                    const susceptibility = (distFromCenter * 0.6) + (noiseVal * 0.4);
+
+                    // 根据滑块计算阈值，滑块越大，阈值越小，死掉的像素越多
+                    const threshold = 1.0 - (erosionLevel * 1.1); // 乘以1.1是为了确保拉到100%时完全消失
+
+                    // 如果该像素的“易感度”高于阈值，直接将透明度设为0 (抹除)
+                    if (susceptibility > threshold) {
+                        data[index + 3] = 0; 
+                    }
+                }
+            }
+
+            // 将扣完洞的像素数据放到最终画布里
+            fCtx.putImageData(baseImgData, 0, 0);
+        }
+
+        // 初始化生成一次
+        generateErodedTexture();
+
+        // ==========================================
+        // 渲染主循环 (极速平铺)
+        // ==========================================
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const distance = Math.hypot(dx, dy);
+            const angle = Math.atan2(dy, dx);
+            const speed = parseFloat(speedSlider.value);
+
+            // 流动
+            offset -= speed;
+            if (offset < -texWidth) offset %= texWidth;
+            if (offset > 0) offset = (offset % texWidth) - texWidth;
+
+            ctx.save();
+            ctx.translate(p1.x, p1.y);
+            ctx.rotate(angle);
+
+            // 沿着线段无脑平铺我们处理好的带洞的纹理
+            let startX = offset;
+            while (startX < distance) {
+                ctx.drawImage(finalCanvas, startX, -texHeight / 2);
+                startX += texWidth;
+            }
+            ctx.restore();
+
+            drawPoint(p1);
+            drawPoint(p2);
+
+            requestAnimationFrame(draw);
+        }
+
+        function drawPoint(p) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.isDragging ? '#fff' : '#666';
+            ctx.fill();
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        // ==========================================
+        // 鼠标拖拽
+        // ==========================================
+        function getMousePos(evt) {
+            const rect = canvas.getBoundingClientRect();
+            return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const pos = getMousePos(e);
+            if (Math.hypot(pos.x - p1.x, pos.y - p1.y) < p1.radius * 3) p1.isDragging = true;
+            if (Math.hypot(pos.x - p2.x, pos.y - p2.y) < p2.radius * 3) p2.isDragging = true;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const pos = getMousePos(e);
+            if (p1.isDragging) { p1.x = pos.x; p1.y = pos.y; }
+            if (p2.isDragging) { p2.x = pos.x; p2.y = pos.y; }
+        });
+
+        window.addEventListener('mouseup', () => { p1.isDragging = p2.isDragging = false; });
+
+        draw();
+    </script>
+</body>
+</html>

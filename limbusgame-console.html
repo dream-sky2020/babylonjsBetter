@@ -192,30 +192,6 @@
             <button class="danger" onclick="sendAuto()">触发自动选择 (Auto)</button>
         </div>
 
-        <div class="card">
-            <h2>🎴 全局技能池配置</h2>
-            <label style="margin-bottom: 8px; display: block;">以 JSON 数组 [ ... ] 格式定义所有会出现在战斗中的技能种类。面板刷新时将从这些技能中随机抽取。</label>
-            <textarea id="skill-pool-config" rows="14" spellcheck="false" placeholder='[
-  {
-    "id": "skill_red",
-    "colorName": "Wrath",
-    "colorHex": "#e74c3c",
-    "background": "#222222",
-    "borderColor": "#e74c3c",
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/120px-React-icon.svg.png"
-  },
-  {
-    "id": "skill_blue",
-    "colorName": "Gloom",
-    "colorHex": "#3498db",
-    "background": "url(https://via.placeholder.com/55/3498db/FFFFFF?text=BG)",
-    "borderColor": "#fff",
-    "icon": ""
-  }
-]' style="width: 100%; background: #1e1e1e; border: 1px solid #444; color: #a6e22e; padding: 10px; border-radius: 4px; font-family: monospace; resize: vertical; margin-bottom: 10px;"></textarea>
-            <button class="primary" onclick="applySkillPool()">保存并重置面板</button>
-        </div>
-
         <div class="card" style="opacity: 0.7; border: 1px dashed #555;">
             <p style="font-size: 12px; color: #999;">日志输出请查看浏览器控制台 (F12)。当游戏内连线完成后，控制台能收到 chainCompleted 事件回传。</p>
         </div>
@@ -238,7 +214,7 @@
         const commandQueue = [];
 
         function initGameFrame() {
-            const gameUrl = new URL('limbusgame.html', window.location.href);
+            const gameUrl = new URL('limbusgame_v2.html', window.location.href);
             gameUrl.searchParams.set('session', sessionId);
             gameFrame.src = gameUrl.toString();
         }
@@ -355,23 +331,6 @@
 
         function sendAuto() {
             dispatchCommand('autoChain');
-        }
-
-        function applySkillPool() {
-            const configText = document.getElementById('skill-pool-config').value;
-            try {
-                let pool = [];
-                if (configText.trim()) {
-                    pool = JSON.parse(configText);
-                    if (!Array.isArray(pool)) {
-                        throw new Error("配置必须是以 [ 开头，] 结尾的 JSON 数组！");
-                    }
-                }
-                dispatchCommand('setSkillPool', pool);
-                console.log("🎴 [技能池已更新]:", pool);
-            } catch (e) {
-                alert("JSON 格式错误，请检查！\n错误详情: " + e.message);
-            }
         }
 
         // 初始化

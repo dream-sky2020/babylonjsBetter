@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Chain Mask Local Loader</title>
+<style>
+    :root {
+        --mask-url: none;
+    }
+
+    body {
+        background-color: #0a0a1a;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        height: 100vh;
+        margin: 0;
+        color: #d9e6ff;
+        font-family: Arial, sans-serif;
+    }
+
+    .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 8px;
+    }
+
+    .toolbar button {
+        background: #1a7bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 12px;
+        cursor: pointer;
+    }
+
+    .toolbar button:hover {
+        background: #0f66de;
+    }
+
+    #status {
+        font-size: 13px;
+        color: #9fc1ff;
+    }
+
+    .energy-line {
+        width: 500px;
+        height: 60px;
+        background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
+
+        /* 本地文件选择后会注入 blob URL，避免 file:// 跨源拦截 */
+        -webkit-mask-image: var(--mask-url);
+        mask-image: var(--mask-url);
+
+        -webkit-mask-size: auto 400%;
+        mask-size: auto 400%;
+        -webkit-mask-position-y: 33.3%;
+        mask-position: 0 33.3%;
+        -webkit-mask-repeat: repeat-x;
+        mask-repeat: repeat-x;
+
+        filter: drop-shadow(0 0 10px #00f2fe) drop-shadow(0 0 20px #4facfe);
+        animation: energyFlow 0.5s linear infinite;
+    }
+
+    @keyframes energyFlow {
+        0% { -webkit-mask-position-x: 0px; mask-position: 0px 33.3%; }
+        100% { -webkit-mask-position-x: 500px; mask-position: 500px 33.3%; }
+    }
+</style>
+</head>
+<body>
+    <div class="toolbar">
+        <button id="pickBtn" type="button">选择 chain.png</button>
+        <span id="status">未加载纹理</span>
+        <input id="fileInput" type="file" accept=".png,.jpg,.jpeg,.webp,.gif,image/*" hidden>
+    </div>
+
+    <div class="energy-line"></div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const pickBtn = document.getElementById('pickBtn');
+        const statusEl = document.getElementById('status');
+        let currentBlobUrl = null;
+
+        pickBtn.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            if (currentBlobUrl) {
+                URL.revokeObjectURL(currentBlobUrl);
+                currentBlobUrl = null;
+            }
+
+            currentBlobUrl = URL.createObjectURL(file);
+            document.documentElement.style.setProperty('--mask-url', `url("${currentBlobUrl}")`);
+            statusEl.textContent = `已加载: ${file.name}`;
+        });
+    </script>
+</body>
+</html>
