@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技能图标合成器</title>
+    <title>技能图标合成器 (专业版) + 硬币配置</title>
     <style>
         body {
             font-family: sans-serif;
             padding: 20px;
             background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;      
+            justify-content: center;  
+            min-height: 100vh;        
         }
 
         .container {
@@ -18,69 +23,138 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
+            width: min(1100px, 95vw);
         }
 
         .controls {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
             flex: 1;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #eee;
         }
 
-        .input-group label {
+        .input-group label.title {
             font-size: 14px;
             font-weight: bold;
             color: #333;
         }
 
-        .input-group input {
+        .input-group input[type="text"] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
             width: 100%;
+            box-sizing: border-box;
+        }
+
+        .layer-controls {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .layer-controls input[type="number"] {
+            width: 50px;
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .layer-controls label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
         }
 
         .input-actions {
             display: flex;
-            justify-content: flex-end;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 4px;
         }
 
         .pick-btn {
             border: 1px solid #888;
             border-radius: 4px;
-            background: #fafafa;
+            background: #fff;
             color: #333;
             font-size: 12px;
-            padding: 4px 8px;
+            padding: 4px 10px;
             cursor: pointer;
         }
 
-        .pick-btn:hover {
-            background: #efefef;
+        .pick-btn:hover { background: #e0e0e0; }
+
+        .layer-status { font-size: 12px; color: #666; min-height: 16px; word-break: break-all; }
+
+        /* ================= 新增：硬币/骰子列表相关样式 ================= */
+        .input-row { display: flex; gap: 10px; align-items: center; }
+        .short-input { width: 60px !important; }
+        select.die-type, input.die-min, input.die-max, input.die-effect {
+            padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;
+        }
+        
+        #dice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .layer-status {
+        .die-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #fff;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            border-left: 4px solid #4A90E2;
+            position: relative;
+        }
+
+        .die-item .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
             font-size: 12px;
-            color: #666;
-            min-height: 16px;
-            word-break: break-all;
         }
 
-        /* 核心预览区域样式 */
+        .die-item .remove-btn:hover { background: #d9363e; }
+
+        .add-btn { 
+            width: 100%; border: 1px dashed #4A90E2; color: #4A90E2; 
+            padding: 8px; background: #fff; border-radius: 4px; cursor: pointer;
+            font-weight: bold;
+        }
+        .add-btn:hover { background: #e6f7ff; }
+        /* ============================================================== */
+
         .preview-section {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
+            min-width: 200px;
         }
 
         .status-text {
@@ -90,107 +164,441 @@
             max-width: 240px;
             text-align: center;
             word-break: break-all;
+            margin-top: 10px;
         }
+
+        .config-preview {
+            width: 240px; 
+            margin-top: 10px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            overflow-x: auto; 
+            overflow-y: auto;
+            max-height: 240px;
+            box-sizing: border-box;
+        }
+
+        .config-preview code {
+            white-space: pre-wrap; 
+            word-break: break-all;
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .config-actions {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .config-actions .pick-btn { flex: 1; }
 
         .icon-container {
-            position: relative; /* 相对定位，作为绝对定位图层的参考点 */
-            width: 128px;       /* 定义图标大小 */
+            position: relative;
+            width: 128px;
             height: 128px;
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #222; /* 默认底色 */
+            background-color: transparent; 
+            background-image: linear-gradient(45deg, #ddd 25%, transparent 25%), 
+                              linear-gradient(-45deg, #ddd 25%, transparent 25%), 
+                              linear-gradient(45deg, transparent 75%, #ddd 75%), 
+                              linear-gradient(-45deg, transparent 75%, #ddd 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
         }
 
-        /* 所有图层共用的绝对定位样式 */
+        #mask-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-mask-size: 90% 90%;
+            mask-size: 90% 90%;
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: center;
+            mask-position: center;
+            background-color: #222; 
+        }
+
         .layer {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* 确保图片铺满并按比例缩放 */
-            pointer-events: none; /* 防止遮挡鼠标事件 */
+            object-fit: cover;
+            pointer-events: none;
+            transform-origin: center center; 
         }
 
-        /* 严格控制层级 */
         #layer-bg { z-index: 1; }
-        #layer-icon { z-index: 2; object-fit: contain; /* 技能图标通常居中且不被裁切 */ }
+        #layer-icon { z-index: 2; object-fit: contain; }
         #layer-border { z-index: 3; }
 
     </style>
 </head>
 <body>
 
-    <h2>技能图标预览工具</h2>
+    <h2>技能图标与数据配置工具</h2>
 
     <div class="container">
         <div class="controls">
+
             <div class="input-group">
-                <label for="bg-url">1. 技能背景 URL (底层)</label>
-                <input type="text" id="bg-url" placeholder="输入背景图链接..." value="https://via.placeholder.com/128/4A90E2/4A90E2">
-                <div class="input-actions">
-                    <button type="button" id="pick-bg-btn" class="pick-btn">选择本地文件</button>
-                </div>
-                <div id="bg-status" class="layer-status">背景层：等待输入</div>
-            </div>
-            <div class="input-group">
-                <label for="icon-url">2. 技能图标 URL (中层)</label>
+                <label class="title" for="icon-url">1. 技能图标 URL (中层)</label>
                 <input type="text" id="icon-url" placeholder="输入带有透明通道的图标链接..." value="https://via.placeholder.com/90/FFFFFF/000000?text=Icon">
+                <div class="layer-controls">
+                    <label><input type="checkbox" id="icon-visible" checked> 显示</label>
+                    <label>X偏移: <input type="number" id="icon-x" value="0"></label>
+                    <label>Y偏移: <input type="number" id="icon-y" value="0"></label>
+                    <label>缩放比: <input type="number" id="icon-scale" value="1" step="0.1"></label>
+                </div>
                 <div class="input-actions">
+                    <div id="icon-status" class="layer-status">图标层：等待输入</div>
                     <button type="button" id="pick-icon-btn" class="pick-btn">选择本地文件</button>
                 </div>
-                <div id="icon-status" class="layer-status">图标层：等待输入</div>
             </div>
+
             <div class="input-group">
-                <label for="border-url">3. 技能边框 URL (顶层)</label>
+                <label class="title" for="border-url">2. 技能边框 URL (顶层)</label>
                 <input type="text" id="border-url" placeholder="输入镂空边框链接..." value="https://via.placeholder.com/128/FFD700/FFD700?text=+">
+                <div class="layer-controls">
+                    <label><input type="checkbox" id="border-visible" checked> 显示</label>
+                    <label>X偏移: <input type="number" id="border-x" value="0"></label>
+                    <label>Y偏移: <input type="number" id="border-y" value="0"></label>
+                    <label>缩放比: <input type="number" id="border-scale" value="1" step="0.1"></label>
+                </div>
                 <div class="input-actions">
+                    <div id="border-status" class="layer-status">边框层：等待输入</div>
                     <button type="button" id="pick-border-btn" class="pick-btn">选择本地文件</button>
                 </div>
-                <div id="border-status" class="layer-status">边框层：等待输入</div>
             </div>
-        </div>
+
+            <div class="input-group">
+                <label class="title" for="mask-url">3. 遮罩 URL (用于切除不规则边框外溢出的图案)</label>
+                <input type="text" id="mask-url" placeholder="输入一张纯色遮罩图(黑色代表保留，透明代表裁切)..." value="resources/skill-assets/Def1BG-93c5d2a6.png">                <div class="layer-controls">
+                    <label><input type="checkbox" id="mask-visible" checked> 开启遮罩裁剪</label>
+                </div>
+                <div class="input-actions">
+                    <div id="mask-status" class="layer-status">遮罩层：(选填) 留空则不裁剪</div>
+                    <button type="button" id="pick-mask-btn" class="pick-btn">选择本地文件</button>
+                </div>
+                <img id="layer-mask-preload" style="display:none;" alt="">
+            </div>
+
+            <div class="input-group">
+                <label class="title">4. 技能硬币配置</label>
+                <div id="dice-list">
+                    </div>
+                <button type="button" id="add-die-btn" class="add-btn">+ 添加一个动作 (硬币)</button>
+            </div>
+            </div>
 
         <div class="preview-section">
-            <strong>实时预览</strong>
+            <strong>图标预览</strong>
             <div class="icon-container">
-                <img id="layer-bg" class="layer" src="https://via.placeholder.com/128/4A90E2/4A90E2" alt="背景层">
-                <img id="layer-icon" class="layer" src="https://via.placeholder.com/90/FFFFFF/000000?text=Icon" alt="图标层">
-                <img id="layer-border" class="layer" style="opacity: 0.5;" src="https://via.placeholder.com/128/FFD700/FFD700?text=Border" alt="边框层"> </div>
-            <div id="status-text" class="status-text">提示：可直接粘贴本地路径（如 D:\xx\a.png），会自动走本地图片服务器代理；也可点击“选择本地文件”。</div>
+                <div id="mask-wrapper">
+                    <img id="layer-icon" class="layer" src="https://via.placeholder.com/90/FFFFFF/000000?text=Icon" alt="图标层">
+                </div>
+                <img id="layer-border" class="layer" style="opacity: 0.5;" src="https://via.placeholder.com/128/FFD700/FFD700?text=Border" alt="边框层"> 
+            </div>
+            <div id="status-text" class="status-text">
+                提示：支持直接粘贴本地路径 (如 D:\xx\a.png)。<br>
+                遮罩图建议使用一张和边框内轮廓完全一致的纯黑底透明PNG图。
+            </div>
+            <div class="config-actions">
+                <button type="button" id="import-config-btn" class="pick-btn">从剪贴板导入配置</button>
+                <button type="button" id="copy-config-btn" class="pick-btn">复制当前配置</button>
+            </div>
+            <pre class="config-preview"><code id="config-preview-code"></code></pre>
         </div>
     </div>
 
     <script>
-        // 获取输入框和对应的图片图层元素
-        const bgInput = document.getElementById('bg-url');
-        const iconInput = document.getElementById('icon-url');
-        const borderInput = document.getElementById('border-url');
-        const bgStatus = document.getElementById('bg-status');
-        const iconStatus = document.getElementById('icon-status');
-        const borderStatus = document.getElementById('border-status');
-
-        const bgLayer = document.getElementById('layer-bg');
-        const iconLayer = document.getElementById('layer-icon');
-        const borderLayer = document.getElementById('layer-border');
-
-        const LOCAL_IMAGE_PROXY = 'http://127.0.0.1:5050/proxy_local_image?path=';
+        const DICE_TYPES = [
+            { id: 'slash', label: '斩', color: '#ff4d4f' },
+            { id: 'pierce', label: '刺', color: '#faad14' },
+            { id: 'blunt', label: '打', color: '#1890ff' },
+        ];
+        const API_BASE = 'http://127.0.0.1:5050';
+        const RESOURCE_BASE = `${API_BASE}/resources/`;
         const DEBOUNCE_MS = 300;
+        const configPreviewCode = document.getElementById('config-preview-code');
+        const importConfigBtn = document.getElementById('import-config-btn');
+        const copyConfigBtn = document.getElementById('copy-config-btn');
+        const statusText = document.getElementById('status-text');
+        
+        const diceListEl = document.getElementById('dice-list');
+        const addDieBtn = document.getElementById('add-die-btn');
+
+        // 集中管理图层状态
         const layerState = {
-            bg: { input: bgInput, layer: bgLayer, status: bgStatus, name: '背景层', pickBtnId: 'pick-bg-btn', objectUrl: null },
-            icon: { input: iconInput, layer: iconLayer, status: iconStatus, name: '图标层', pickBtnId: 'pick-icon-btn', objectUrl: null },
-            border: { input: borderInput, layer: borderLayer, status: borderStatus, name: '边框层', pickBtnId: 'pick-border-btn', objectUrl: null }
+            icon: { input: document.getElementById('icon-url'), layer: document.getElementById('layer-icon'), status: document.getElementById('icon-status'), name: '图标层', pickBtnId: 'pick-icon-btn', localFileName: '' },
+            border: { input: document.getElementById('border-url'), layer: document.getElementById('layer-border'), status: document.getElementById('border-status'), name: '边框层', pickBtnId: 'pick-border-btn', localFileName: '' },
+            mask: { input: document.getElementById('mask-url'), layer: document.getElementById('layer-mask-preload'), status: document.getElementById('mask-status'), name: '遮罩层', pickBtnId: 'pick-mask-btn', localFileName: '' }
         };
         const debounceTimers = {};
+
+        // ================= 新增：硬币逻辑功能 =================
+        function createDieInput(data = {}) {
+            const div = document.createElement('div');
+            div.className = 'die-item';
+
+            // 动态生成类型复选框 HTML
+            const typeCheckboxesHtml = DICE_TYPES.map(t => `
+                <label style="margin-right:8px;">
+                    <input type="checkbox" value="${t.id}" class="die-type"> ${t.label}
+                </label>
+            `).join('');
+
+            div.innerHTML = `
+                <div class="types-wrapper">${typeCheckboxesHtml}</div>
+                <input type="number" class="die-min" value="${data.min || 0}" placeholder="最小值">
+                ~
+                <input type="number" class="die-max" value="${data.max || 0}" placeholder="最大值">
+                <input type="text" class="die-effect" value="${data.effect || ''}" placeholder="效果描述">
+            `;
+
+            // 自动勾选逻辑（适配数组数据）
+            if (data.type) {
+                const types = Array.isArray(data.type) ? data.type : [data.type];
+                types.forEach(t => {
+                    const checkbox = div.querySelector(`input[value="${t}"]`);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+
+            return div;
+        }
+
+        // 收集硬币数据
+        function buildDiceConfig() {
+        const dice = [];
+        document.querySelectorAll('.die-item').forEach(item => {
+            // 收集所有选中的类型 ID
+            const selectedTypes = Array.from(item.querySelectorAll('.die-type:checked'))
+                                    .map(cb => cb.value);
+                                    
+            dice.push({
+                type: selectedTypes, 
+                min: parseInt(item.querySelector('.die-min').value) || 0,
+                max: parseInt(item.querySelector('.die-max').value) || 0,
+                effect: item.querySelector('.die-effect').value
+            });
+        });
+        return dice;
+    }
+
+        addDieBtn.addEventListener('click', () => {
+            diceListEl.appendChild(createDieInput({ type: "slash", min: 4, max: 8, effect: "" }));
+            updateConfigPreview();
+        });
+        // ==============================================================
+
+        function toAbsoluteApiUrl(path) {
+            if (!path) return '';
+            return path.startsWith('http') ? path : `${API_BASE}${path}`;
+        }
+
+        function toResourceSource(rawValue) {
+            const raw = (rawValue || '').trim();
+            if (!raw) return '';
+
+            const normalized = raw.replace(/\\/g, '/');
+            const lower = normalized.toLowerCase();
+            const publicMarker = '/public/';
+            const resourcesMarker = '/resources/';
+
+            const publicIdx = lower.indexOf(publicMarker);
+            if (publicIdx >= 0) return `resources/${normalized.slice(publicIdx + publicMarker.length).replace(/^\/+/, '')}`;
+
+            const resIdx = lower.indexOf(resourcesMarker);
+            if (resIdx >= 0) return `resources/${normalized.slice(resIdx + resourcesMarker.length).replace(/^\/+/, '')}`;
+
+            if (lower.startsWith('resources/')) return `resources/${normalized.slice('resources/'.length).replace(/^\/+/, '')}`;
+            return '';
+        }
 
         function normalizeImageInput(value) {
             const raw = (value || '').trim();
             if (!raw) return '';
-            if (/^(https?:)?\/\//i.test(raw) || raw.startsWith('data:') || raw.startsWith('blob:')) return raw;
-            if (/^[a-zA-Z]:[\\/]/.test(raw)) {
-                return LOCAL_IMAGE_PROXY + encodeURIComponent(raw.replace(/\\/g, '/'));
+            if (/^https?:\/\//i.test(raw) || raw.startsWith('data:')) return raw;
+
+            const normalized = raw.replace(/\\/g, '/');
+            const lower = normalized.toLowerCase();
+            const publicMarker = '/public/';
+            const markerIdx = lower.indexOf(publicMarker);
+
+            if (markerIdx >= 0) {
+                const relPath = normalized.slice(markerIdx + publicMarker.length).replace(/^\/+/, '');
+                return `${RESOURCE_BASE}${encodeURI(relPath)}`;
             }
-            return raw;
+            if (normalized.startsWith('/resources/')) return toAbsoluteApiUrl(normalized);
+            if (normalized.startsWith('resources/')) return `${RESOURCE_BASE}${encodeURI(normalized.slice('resources/'.length))}`;
+            if (/^[a-zA-Z]:\//.test(normalized)) return '';
+            return `${RESOURCE_BASE}${encodeURI(normalized.replace(/^\/+/, ''))}`;
+        }
+
+        function buildLayerConfig(key) {
+            const state = layerState[key];
+            const raw = state.input.value.trim();
+            const visibleEl = document.getElementById(`${key}-visible`);
+            const xEl = document.getElementById(`${key}-x`);
+            const yEl = document.getElementById(`${key}-y`);
+            const scaleEl = document.getElementById(`${key}-scale`);
+            const previewUrl = normalizeImageInput(raw);
+            const resourceSource = toResourceSource(raw);
+
+            const config = {
+                source: resourceSource,
+                sourceType: resourceSource ? 'resourcePath' : 'unresolved',
+                localFileName: state.localFileName || '',
+                previewUrl,
+                visible: visibleEl ? visibleEl.checked : true
+            };
+
+            if (key !== 'mask') {
+                config.offsetX = Number(xEl?.value || 0);
+                config.offsetY = Number(yEl?.value || 0);
+                config.scale = Number(scaleEl?.value || 1);
+            }
+
+            return config;
+        }
+
+        // 修改：更新配置时将硬币数据一起写入
+        function updateConfigPreview() {
+            const config = {
+                icon: buildLayerConfig('icon'),
+                border: buildLayerConfig('border'),
+                mask: buildLayerConfig('mask'),
+                dice: buildDiceConfig() // 自动抓取并包含硬币列表
+            };
+            configPreviewCode.textContent = JSON.stringify(config, null, 2);
+        }
+
+        async function resolveResourceByName(fileName) {
+            if (!fileName) return '';
+            try {
+                const resp = await fetch(`${API_BASE}/api/find_resource_by_name?name=${encodeURIComponent(fileName)}`);
+                if (!resp.ok) return '';
+                const data = await resp.json();
+                if (!data.success || !data.url) return '';
+                return toAbsoluteApiUrl(data.url);
+            } catch {
+                return '';
+            }
+        }
+
+        async function applyImportedLayerConfig(key, cfg) {
+            if (!cfg || typeof cfg !== 'object') return { unresolvedBlob: false };
+            const state = layerState[key];
+            const rawSource = typeof cfg.source === 'string' ? cfg.source.trim() : '';
+            const previewSource = typeof cfg.previewUrl === 'string' ? cfg.previewUrl.trim() : '';
+            let importValue = rawSource || previewSource;
+
+            state.localFileName = typeof cfg.localFileName === 'string' ? cfg.localFileName : '';
+            const hasBlob = importValue.startsWith('blob:');
+            if (hasBlob) {
+                const resolvedByName = await resolveResourceByName(state.localFileName);
+                importValue = resolvedByName || '';
+            }
+            state.input.value = importValue;
+
+            clearTimeout(debounceTimers[key]);
+            applyLayerValue(key, importValue, 'text');
+
+            if (key !== 'mask') {
+                if (cfg.offsetX !== undefined) document.getElementById(`${key}-x`).value = Number(cfg.offsetX) || 0;
+                if (cfg.offsetY !== undefined) document.getElementById(`${key}-y`).value = Number(cfg.offsetY) || 0;
+                if (cfg.scale !== undefined) document.getElementById(`${key}-scale`).value = Number(cfg.scale) || 1;
+                updateTransform(key);
+            }
+
+            const visibleEl = document.getElementById(`${key}-visible`);
+            if (visibleEl && typeof cfg.visible === 'boolean') {
+                visibleEl.checked = cfg.visible;
+            }
+            updateVisibility(key);
+            return { unresolvedBlob: hasBlob && !importValue };
+        }
+
+        async function importConfigFromClipboard() {
+            let text = '';
+            try {
+                text = await navigator.clipboard.readText();
+            } catch (err) {
+                text = window.prompt('无法直接读取剪贴板，请粘贴配置 JSON：') || '';
+            }
+
+            if (!text.trim()) {
+                statusText.textContent = '未读取到可用配置';
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(text);
+                if (!parsed || typeof parsed !== 'object') {
+                    throw new Error('配置必须是 JSON 对象');
+                }
+
+                const results = await Promise.all([
+                    applyImportedLayerConfig('icon', parsed.icon),
+                    applyImportedLayerConfig('border', parsed.border),
+                    applyImportedLayerConfig('mask', parsed.mask)
+                ]);
+
+                // 导入：解析并生成硬币列表UI
+                diceListEl.innerHTML = '';
+                if (parsed.dice && Array.isArray(parsed.dice)) {
+                    parsed.dice.forEach(die => {
+                        // 1. 先生成硬币 UI 元素
+                        const dieEl = createDieInput(die);
+                        
+                        // 2. 检查并勾选对应的类型（逻辑在这里实现）
+                        if (die.type) {
+                            // 如果 die.type 是数组就直接用，不是就转成数组
+                            const types = Array.isArray(die.type) ? die.type : [die.type];
+                            
+                            // 遍历数组，找到对应的 checkbox 并勾选
+                            types.forEach(t => {
+                                const checkbox = dieEl.querySelector(`input[value="${t}"]`);
+                                if (checkbox) {
+                                    checkbox.checked = true;
+                                }
+                            });
+                        }
+                        
+                        // 3. 将配置好的 DOM 节点放入列表
+                        diceListEl.appendChild(dieEl);
+                    });
+                }
+
+                updateConfigPreview();
+
+                const unresolvedCount = results.filter(item => item.unresolvedBlob).length;
+                if (unresolvedCount > 0) {
+                    statusText.textContent = `配置已导入，但有 ${unresolvedCount} 项 blob 地址无法恢复，请改成 public 下资源路径。`;
+                } else {
+                    statusText.textContent = '配置已从剪贴板导入并应用预览';
+                }
+            } catch (err) {
+                statusText.textContent = `导入失败：${err.message}`;
+            }
+        }
+
+        async function copyConfigToClipboard() {
+            updateConfigPreview();
+            const text = configPreviewCode.textContent || '';
+            try {
+                await navigator.clipboard.writeText(text);
+                statusText.textContent = '配置 JSON 已复制到剪贴板';
+            } catch (err) {
+                statusText.textContent = `复制失败：${err.message}`;
+            }
         }
 
         function setLayerStatus(key, message, isError = false) {
@@ -199,21 +607,30 @@
             state.status.style.color = isError ? '#c0392b' : '#666';
         }
 
-        function revokeLayerObjectUrl(key) {
-            const state = layerState[key];
-            if (state.objectUrl) {
-                URL.revokeObjectURL(state.objectUrl);
-                state.objectUrl = null;
-            }
-        }
-
         function applyLayerValue(key, rawValue, source = 'text') {
             const state = layerState[key];
-            if (source !== 'file') {
-                revokeLayerObjectUrl(key);
-            }
+            if (source !== 'file') state.localFileName = '';
 
             const src = normalizeImageInput(rawValue);
+            
+            if (key === 'mask') {
+                const maskWrapper = document.getElementById('mask-wrapper');
+                const isMaskEnabled = document.getElementById('mask-visible').checked;
+                
+                if (!src || !isMaskEnabled) {
+                    maskWrapper.style.webkitMaskImage = 'none';
+                    maskWrapper.style.maskImage = 'none';
+                    state.layer.src = '';
+                    setLayerStatus(key, src ? '已关闭遮罩' : '未设置遮罩');
+                    return;
+                }
+                
+                state.layer.dataset.lastRequestedSrc = src;
+                state.layer.src = src; 
+                setLayerStatus(key, '加载中...');
+                return;
+            }
+
             if (!src) {
                 state.layer.src = '';
                 state.layer.dataset.lastRequestedSrc = '';
@@ -226,26 +643,57 @@
             setLayerStatus(key, '加载中...');
 
             if (key === 'border') {
-                borderLayer.style.opacity = 1;
+                state.layer.style.opacity = 1;
             }
+        }
+
+        function updateTransform(key) {
+            if (key === 'mask') return; 
+            const state = layerState[key];
+            const x = document.getElementById(`${key}-x`).value || 0;
+            const y = document.getElementById(`${key}-y`).value || 0;
+            const scale = document.getElementById(`${key}-scale`).value || 1;
+            
+            state.layer.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+            updateConfigPreview();
+        }
+
+        function updateVisibility(key) {
+            if (key === 'mask') {
+                applyLayerValue('mask', layerState['mask'].input.value, 'text');
+                updateConfigPreview();
+                return;
+            }
+            const state = layerState[key];
+            const visible = document.getElementById(`${key}-visible`).checked;
+            state.layer.style.display = visible ? 'block' : 'none';
+            updateConfigPreview();
         }
 
         function bindLayerInput(key) {
             const state = layerState[key];
+            
             const onTextInput = () => {
                 clearTimeout(debounceTimers[key]);
                 debounceTimers[key] = setTimeout(() => {
                     applyLayerValue(key, state.input.value, 'text');
                 }, DEBOUNCE_MS);
+                updateConfigPreview();
             };
-
             const onTextChange = () => {
                 clearTimeout(debounceTimers[key]);
                 applyLayerValue(key, state.input.value, 'text');
+                updateConfigPreview();
             };
-
             state.input.addEventListener('input', onTextInput);
             state.input.addEventListener('change', onTextChange);
+
+            if (key !== 'mask') {
+                document.getElementById(`${key}-x`).addEventListener('input', () => updateTransform(key));
+                document.getElementById(`${key}-y`).addEventListener('input', () => updateTransform(key));
+                document.getElementById(`${key}-scale`).addEventListener('input', () => updateTransform(key));
+            }
+            document.getElementById(`${key}-visible`).addEventListener('change', () => updateVisibility(key));
         }
 
         function bindLocalFilePicker(key) {
@@ -270,39 +718,69 @@
                 }
 
                 clearTimeout(debounceTimers[key]);
-                revokeLayerObjectUrl(key);
-                const objectUrl = URL.createObjectURL(file);
-                state.objectUrl = objectUrl;
-                state.input.value = objectUrl;
-                applyLayerValue(key, objectUrl, 'file');
-                fileInput.value = '';
+                setLayerStatus(key, '上传到 public 资源目录中...');
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('subdir', 'skill-assets');
+
+                fetch(`${API_BASE}/api/upload_image`, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(resp => resp.json())
+                    .then(data => {
+                        if (!data.success || !data.relativePath) {
+                            throw new Error(data.message || '上传失败');
+                        }
+                        const resourcePath = `resources/${data.relativePath}`;
+                        state.localFileName = file.name;
+                        state.input.value = resourcePath;
+                        applyLayerValue(key, resourcePath, 'file');
+                        updateConfigPreview();
+                    })
+                    .catch(err => {
+                        setLayerStatus(key, `上传失败：${err.message}`, true);
+                    })
+                    .finally(() => {
+                        fileInput.value = '';
+                    });
             });
         }
 
-        bindLayerInput('bg');
-        bindLayerInput('icon');
-        bindLayerInput('border');
-        bindLocalFilePicker('bg');
-        bindLocalFilePicker('icon');
-        bindLocalFilePicker('border');
+        ['icon', 'border', 'mask'].forEach(key => {
+            bindLayerInput(key);
+            bindLocalFilePicker(key);
 
-        // 图片加载失败的容错处理
-        Object.keys(layerState).forEach(key => {
             const state = layerState[key];
             state.layer.addEventListener('load', function() {
                 setLayerStatus(key, '加载成功');
+                
+                if (key === 'mask') {
+                    const maskWrapper = document.getElementById('mask-wrapper');
+                    maskWrapper.style.webkitMaskImage = `url("${this.src}")`;
+                    maskWrapper.style.maskImage = `url("${this.src}")`;
+                }
             });
             state.layer.addEventListener('error', function() {
-                // 如果输入的地址无效或跨域被拦截，清空src以防显示破碎图标
                 const failedSrc = this.dataset.lastRequestedSrc || this.src;
                 this.src = '';
                 setLayerStatus(key, `加载失败：${failedSrc}`, true);
+                
+                if (key === 'mask') {
+                    document.getElementById('mask-wrapper').style.webkitMaskImage = 'none';
+                    document.getElementById('mask-wrapper').style.maskImage = 'none';
+                }
             });
         });
 
-        window.addEventListener('beforeunload', () => {
-            Object.keys(layerState).forEach(revokeLayerObjectUrl);
-        });
+        importConfigBtn.addEventListener('click', importConfigFromClipboard);
+        copyConfigBtn.addEventListener('click', copyConfigToClipboard);
+
+        // 页面初始化：触发遮罩加载
+        applyLayerValue('mask', document.getElementById('mask-url').value, 'text');
+        // 页面初始化：提供一个默认硬币
+        diceListEl.appendChild(createDieInput({ type: "slash", min: 4, max: 8, effect: "[命中时] 施加 1 层脆弱" }));
+        updateConfigPreview();
     </script>
 
 </body>

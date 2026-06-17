@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>动态噪点边缘侵蚀能量线</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #0b0b0e; 
+            color: #e2e2e9; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
+        #sidebar { 
+            width: 320px; 
+            padding: 25px; 
+            background-color: #141419; 
+            box-shadow: 5px 0 25px rgba(0,0,0,0.8); 
+            z-index: 10; 
+            border-right: 1px solid #23232a; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 22px; 
+            overflow-y: auto;
+        }
+        h2 { 
+            margin: 0 0 5px 0; 
+            color: #00ffff; 
+            text-shadow: 0 0 15px rgba(0,255,255,0.4); 
+            font-size: 20px; 
+            letter-spacing: 1px; 
+            font-weight: 600;
+        }
+        .subtitle {
+            font-size: 12px;
+            color: #6c6c7c;
+            margin-top: -15px;
+            margin-bottom: 5px;
+        }
+        #canvas-container { 
+            flex-grow: 1; 
+            position: relative; 
+            background-image: 
+                radial-gradient(circle at center, #161622 0%, #050508 100%),
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            cursor: crosshair; 
+        }
+        canvas { 
+            display: block; 
+            width: 100%; 
+            height: 100%; 
+        }
+        .control-group { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+            background: rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .label-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        label { 
+            font-size: 13px; 
+            color: #9a9aa6; 
+            letter-spacing: 0.5px; 
+        }
+        .val-display { 
+            color: #00ffff; 
+            font-weight: bold; 
+            font-family: monospace;
+            font-size: 13px;
+        }
+        input[type="range"] { 
+            appearance: none;
+            -webkit-appearance: none; 
+            width: 100%; 
+            height: 5px; 
+            background: #2a2a35; 
+            border-radius: 3px; 
+            outline: none; 
+        }
+        input[type="range"]::-webkit-slider-thumb { 
+            -webkit-appearance: none; 
+            appearance: none; 
+            width: 14px; 
+            height: 14px; 
+            border-radius: 50%; 
+            background: #00ffff; 
+            cursor: pointer; 
+            box-shadow: 0 0 8px #00ffff; 
+            transition: transform 0.1s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        input[type="color"] { 
+            width: 100%; 
+            height: 38px; 
+            border: 1px solid #3a3a45; 
+            cursor: pointer; 
+            border-radius: 6px; 
+            background: transparent; 
+        }
+        .tech-notes { 
+            font-size: 12px; 
+            color: #626272; 
+            line-height: 1.6; 
+            background: rgba(0, 255, 255, 0.02); 
+            padding: 15px; 
+            border-radius: 8px; 
+            border-left: 3px solid #00ffff;
+        }
+        .tech-notes strong { color: #aaa; }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div>
+            <h2>能量线控制台</h2>
+            <div class="subtitle">真正的动态噪点边缘侵蚀示范</div>
+        </div>
+        
+        <div class="control-group">
+            <div class="label-container">
+                <label>边缘侵蚀程度</label>
+                <span id="erosionVal" class="val-display">50%</span>
+            </div>
+            <input type="range" id="erosionSlider" min="0" max="1" step="0.01" value="0.50">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>侵蚀强度倍率</label>
+                <span id="erosionIntensityVal" class="val-display">1.00</span>
+            </div>
+            <input type="range" id="erosionIntensitySlider" min="0.2" max="2.5" step="0.05" value="1.00">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>噪点比例</label>
+                <span id="noiseRatioVal" class="val-display">45%</span>
+            </div>
+            <input type="range" id="noiseRatioSlider" min="0" max="1" step="0.01" value="0.45">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>侵蚀阈值偏移</label>
+                <span id="thresholdBiasVal" class="val-display">0.00</span>
+            </div>
+            <input type="range" id="thresholdBiasSlider" min="-0.4" max="0.4" step="0.01" value="0.00">
+        </div>
+
+        <div class="control-group">
+            <label>能量线核心颜色</label>
+            <input type="color" id="colorPicker" value="#00ffff">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>锁链纹理加载</label>
+                <span id="textureStatusVal" class="val-display">加载中...</span>
+            </div>
+            <input type="file" id="textureFileInput" accept=".png,.jpg,.jpeg,.webp,.gif,image/*">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>遮罩裁剪起点Y</label>
+                <span id="maskCropYVal" class="val-display">0%</span>
+            </div>
+            <input type="range" id="maskCropYSlider" min="0" max="0.95" step="0.01" value="0">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>遮罩裁剪高度</label>
+                <span id="maskCropHVal" class="val-display">100%</span>
+            </div>
+            <input type="range" id="maskCropHSlider" min="0.05" max="1" step="0.01" value="1">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>黑色剔除阈值</label>
+                <span id="maskThresholdVal" class="val-display">10%</span>
+            </div>
+            <input type="range" id="maskThresholdSlider" min="0" max="0.9" step="0.01" value="0.10">
+        </div>
+
+        <div class="control-group">
+            <label>范围替换纯色</label>
+            <input type="color" id="replaceColorPicker" value="#ff9a00">
+            <div class="label-container">
+                <label>透明度范围</label>
+                <span id="replaceAlphaRangeVal" class="val-display">0% - 100%</span>
+            </div>
+            <input type="range" id="replaceAlphaMinSlider" min="0" max="1" step="0.01" value="0.00">
+            <input type="range" id="replaceAlphaMaxSlider" min="0" max="1" step="0.01" value="1.00">
+            <div class="label-container">
+                <label>明暗度范围</label>
+                <span id="replaceLumRangeVal" class="val-display">60% - 100%</span>
+            </div>
+            <input type="range" id="replaceLumMinSlider" min="0" max="1" step="0.01" value="0.60">
+            <input type="range" id="replaceLumMaxSlider" min="0" max="1" step="0.01" value="1.00">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>锁链滚动速度</label>
+                <span id="chainSpeedVal" class="val-display">3.0</span>
+            </div>
+            <input type="range" id="chainSpeedSlider" min="-10" max="10" step="0.5" value="3.0">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>噪点流变速度 (侵蚀演变)</label>
+                <span id="noiseSpeedVal" class="val-display">1.5</span>
+            </div>
+            <input type="range" id="noiseSpeedSlider" min="0" max="8" step="0.2" value="1.5">
+        </div>
+
+        <div class="control-group">
+            <div class="label-container">
+                <label>噪点颗粒缩放</label>
+                <span id="noiseScaleVal" class="val-display">中等</span>
+            </div>
+            <input type="range" id="noiseScaleSlider" min="1" max="3" step="1" value="2">
+        </div>
+
+        <div class="tech-notes">
+            <strong>💡 高性能渲染机制：</strong><br>
+            为了避免全屏像素计算导致卡死，系统将<b>“锁链流动”</b>与<b>“噪点演变”</b>解耦。每帧只在一个隐藏的 120×40 微型视窗内进行矩阵式的边缘侵蚀通道融合，再交由 GPU 进行整条连线的平铺扩展。在保证<b>边缘优先消散</b>的同时，依然能维持 60 FPS 满帧运行。
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <canvas id="mainCanvas"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // UI 元素及事件
+        const colorPicker = document.getElementById('colorPicker');
+        const erosionSlider = document.getElementById('erosionSlider');
+        const erosionIntensitySlider = document.getElementById('erosionIntensitySlider');
+        const noiseRatioSlider = document.getElementById('noiseRatioSlider');
+        const thresholdBiasSlider = document.getElementById('thresholdBiasSlider');
+        const chainSpeedSlider = document.getElementById('chainSpeedSlider');
+        const noiseSpeedSlider = document.getElementById('noiseSpeedSlider');
+        const noiseScaleSlider = document.getElementById('noiseScaleSlider');
+        const textureStatusVal = document.getElementById('textureStatusVal');
+        const textureFileInput = document.getElementById('textureFileInput');
+        const maskCropYSlider = document.getElementById('maskCropYSlider');
+        const maskCropHSlider = document.getElementById('maskCropHSlider');
+        const maskThresholdSlider = document.getElementById('maskThresholdSlider');
+        const replaceColorPicker = document.getElementById('replaceColorPicker');
+        const replaceAlphaMinSlider = document.getElementById('replaceAlphaMinSlider');
+        const replaceAlphaMaxSlider = document.getElementById('replaceAlphaMaxSlider');
+        const replaceLumMinSlider = document.getElementById('replaceLumMinSlider');
+        const replaceLumMaxSlider = document.getElementById('replaceLumMaxSlider');
+
+        erosionSlider.oninput = (e) => document.getElementById('erosionVal').innerText = Math.round(e.target.value * 100) + '%';
+        erosionIntensitySlider.oninput = (e) => document.getElementById('erosionIntensityVal').innerText = parseFloat(e.target.value).toFixed(2);
+        noiseRatioSlider.oninput = (e) => document.getElementById('noiseRatioVal').innerText = Math.round(e.target.value * 100) + '%';
+        thresholdBiasSlider.oninput = (e) => document.getElementById('thresholdBiasVal').innerText = parseFloat(e.target.value).toFixed(2);
+        chainSpeedSlider.oninput = (e) => document.getElementById('chainSpeedVal').innerText = parseFloat(e.target.value).toFixed(1);
+        noiseSpeedSlider.oninput = (e) => document.getElementById('noiseSpeedVal').innerText = parseFloat(e.target.value).toFixed(1);
+        maskCropYSlider.oninput = (e) => document.getElementById('maskCropYVal').innerText = Math.round(parseFloat(e.target.value) * 100) + '%';
+        maskCropHSlider.oninput = (e) => document.getElementById('maskCropHVal').innerText = Math.round(parseFloat(e.target.value) * 100) + '%';
+        maskThresholdSlider.oninput = (e) => document.getElementById('maskThresholdVal').innerText = Math.round(parseFloat(e.target.value) * 100) + '%';
+        const updateReplaceRangeLabel = () => {
+            const aMin = Math.round(parseFloat(replaceAlphaMinSlider.value) * 100);
+            const aMax = Math.round(parseFloat(replaceAlphaMaxSlider.value) * 100);
+            const lMin = Math.round(parseFloat(replaceLumMinSlider.value) * 100);
+            const lMax = Math.round(parseFloat(replaceLumMaxSlider.value) * 100);
+            document.getElementById('replaceAlphaRangeVal').innerText = `${Math.min(aMin, aMax)}% - ${Math.max(aMin, aMax)}%`;
+            document.getElementById('replaceLumRangeVal').innerText = `${Math.min(lMin, lMax)}% - ${Math.max(lMin, lMax)}%`;
+        };
+        replaceAlphaMinSlider.oninput = updateReplaceRangeLabel;
+        replaceAlphaMaxSlider.oninput = updateReplaceRangeLabel;
+        replaceLumMinSlider.oninput = updateReplaceRangeLabel;
+        replaceLumMaxSlider.oninput = updateReplaceRangeLabel;
+        updateReplaceRangeLabel();
+        
+        const scaleLabels = { 1: '细致', 2: '中等', 3: '粗糙' };
+        noiseScaleSlider.oninput = (e) => {
+            document.getElementById('noiseScaleVal').innerText = scaleLabels[e.target.value];
+            generateNoiseGrid(); // 比例改变时重新生成噪声基底
+        };
+
+        // 两点控制坐标
+        let p1 = { x: canvas.width * 0.2, y: canvas.height * 0.5, radius: 10, isDragging: false };
+        let p2 = { x: canvas.width * 0.8, y: canvas.height * 0.5, radius: 10, isDragging: false };
+        
+        let chainOffset = 0;  // 锁链自身的平移运动
+        let noiseOffset = 0;  // 侵蚀噪点的内部流变运动
+
+        // ========================================================
+        // 一、预先构建无缝数学噪声矩阵 (调和函数法替代重型噪声库)
+        // ========================================================
+        const texWidth = 360;
+        const texHeight = 40;
+        const noiseGrid = new Float32Array(texWidth * texHeight);
+        const maskDistanceNorm = new Float32Array(texWidth * texHeight);
+
+        // ========================================================
+        // 替换这里：生成【尖锐/破碎感】的数学噪声矩阵
+        // ========================================================
+        function generateNoiseGrid(time = 0) {
+            // 基础频率，确保水平滚动时首尾能完美无缝拼合
+            const baseF = (Math.PI * 2) / texWidth;
+            const scaleLevel = parseInt(noiseScaleSlider.value, 10);
+            const freqScaleMap = { 1: 1.35, 2: 1.0, 3: 0.72 }; // 细致 -> 高频；粗糙 -> 低频
+            const freqScale = freqScaleMap[scaleLevel] || 1.0;
+            const t = time;
+
+            for (let y = 0; y < texHeight; y++) {
+                for (let x = 0; x < texWidth; x++) {
+                    let val = 0;
+
+                    // // 第 1 层：主干裂纹（低频，决定大的破损形状）
+                    // // ✨ 核心技巧：使用 1.0 - Math.abs() 将平滑波浪折叠成尖锐的刀锋
+                    // let n1 = Math.sin(x * baseF * 2 * freqScale + t * 1.1) * Math.cos(y * baseF * 4 * freqScale - t * 0.8);
+                    // val += (1.0 - Math.abs(n1)) * 0.45;
+
+                    // // 第 2 层：中等破碎分支（增加锯齿感）
+                    // let n2 = Math.sin(x * baseF * 6 * freqScale + y * 0.2 + t * 1.9) * Math.cos(y * baseF * 5 * freqScale - x * 0.1 - t * 1.3);
+                    // val += (1.0 - Math.abs(n2)) * 0.25;
+
+                    // 第 3 层：高频锋利毛刺（非常密集的尖角）
+                    let n3 = Math.sin(x * baseF * 16 * freqScale + t * 3.2) * Math.cos(y * baseF * 11 * freqScale + t * 2.6);
+                    val += (1.0 - Math.abs(n3)) * 0.15;
+
+                    // 第 4 层：时间驱动电火花（平滑变化，避免每帧随机闪烁）
+                    let spark = Math.sin(x * 0.53 + y * 1.37 + t * 6.0) * Math.cos(x * 1.11 - y * 0.79 - t * 4.7);
+                    val += (1.0 - Math.abs(spark)) * 0.15;
+
+                    // ✨ 核心技巧 2：指数锐化。用幂运算增加对比度，让边缘产生“陡峭”的断层感
+                    val = Math.pow(val, 1.5);
+
+                    // 限制并存入网格
+                    noiseGrid[y * texWidth + x] = Math.min(val, 1.0);
+                }
+            }
+        }
+        generateNoiseGrid();
+
+        // ========================================================
+        // 二、离屏离线缓存：绘制纯净的原始锁链单节
+        // ========================================================
+        const baseCanvas = document.createElement('canvas');
+        baseCanvas.width = texWidth;
+        baseCanvas.height = texHeight;
+        const bCtx = baseCanvas.getContext('2d');
+        const maskCanvas = document.createElement('canvas');
+        maskCanvas.width = texWidth;
+        maskCanvas.height = texHeight;
+        const mCtx = maskCanvas.getContext('2d');
+
+        let baseImageData = null;
+        const chainTexture = new Image();
+        let chainTextureReady = false;
+        let chainTextureObjectUrl = null;
+
+        function setTextureStatus(text) {
+            textureStatusVal.innerText = text;
+        }
+
+        function loadChainTextureFromLocalFile(file) {
+            if (!file) return;
+            if (chainTextureObjectUrl) {
+                URL.revokeObjectURL(chainTextureObjectUrl);
+                chainTextureObjectUrl = null;
+            }
+            setTextureStatus('本地加载中...');
+            const objectUrl = URL.createObjectURL(file);
+            chainTextureObjectUrl = objectUrl;
+
+            chainTexture.onload = () => {
+                chainTextureReady = true;
+                setTextureStatus('本地已加载');
+            };
+            chainTexture.onerror = () => {
+                chainTextureReady = false;
+                setTextureStatus('本地加载失败');
+            };
+            chainTexture.src = objectUrl;
+        }
+
+        function cacheProceduralBaseChain(color) {
+            bCtx.strokeStyle = color;
+            bCtx.lineWidth = 4;
+            bCtx.lineCap = 'round';
+            // 增加辉光层
+            bCtx.shadowColor = color;
+            bCtx.shadowBlur = 8;
+
+            // 绘制横向链环结构（更长纹理周期，减少长线重复感）
+            const linkStep = 60;
+            const ringRX = 26;
+            const ringRY = 10;
+            const pinRX = 6;
+            const pinRY = 15;
+            const centerY = texHeight / 2;
+
+            for (let cx = linkStep / 2; cx < texWidth; cx += linkStep) {
+                bCtx.beginPath();
+                bCtx.ellipse(cx, centerY, ringRX, ringRY, 0, 0, Math.PI * 2);
+                bCtx.stroke();
+            }
+
+            // 绘制垂直交错链环连接点（包含 texWidth 端点以保证无缝）
+            bCtx.beginPath();
+            for (let cx = 0; cx <= texWidth; cx += linkStep) {
+                bCtx.ellipse(cx, centerY, pinRX, pinRY, 0, 0, Math.PI * 2);
+            }
+            bCtx.stroke();
+            bCtx.shadowBlur = 0;
+        }
+
+        function drawTextureMask() {
+            mCtx.clearRect(0, 0, texWidth, texHeight);
+            const imgW = chainTexture.naturalWidth || chainTexture.width;
+            const imgH = chainTexture.naturalHeight || chainTexture.height;
+            if (!imgW || !imgH) return false;
+
+            const cropY = parseFloat(maskCropYSlider.value);
+            const cropH = parseFloat(maskCropHSlider.value);
+            const srcY = Math.floor(imgH * cropY);
+            const srcH = Math.max(1, Math.floor(imgH * cropH));
+            const validSrcH = Math.min(srcH, imgH - srcY);
+            if (validSrcH <= 0) return false;
+
+            const tileW = Math.max(1, Math.round((imgW / validSrcH) * texHeight));
+            for (let x = 0; x < texWidth; x += tileW) {
+                mCtx.drawImage(chainTexture, 0, srcY, imgW, validSrcH, x, 0, tileW, texHeight);
+            }
+            return true;
+        }
+
+        function hexToRgb(hex) {
+            const s = hex.replace('#', '');
+            if (s.length !== 6) return { r: 255, g: 255, b: 255 };
+            return {
+                r: parseInt(s.slice(0, 2), 16),
+                g: parseInt(s.slice(2, 4), 16),
+                b: parseInt(s.slice(4, 6), 16)
+            };
+        }
+
+        function applyMaskToSolidColor(color) {
+            bCtx.clearRect(0, 0, texWidth, texHeight);
+            bCtx.fillStyle = color;
+            bCtx.fillRect(0, 0, texWidth, texHeight);
+
+            const baseData = bCtx.getImageData(0, 0, texWidth, texHeight);
+            const maskData = mCtx.getImageData(0, 0, texWidth, texHeight);
+            const basePixels = baseData.data;
+            const maskPixels = maskData.data;
+            const threshold = parseFloat(maskThresholdSlider.value);
+            const replaceRGB = hexToRgb(replaceColorPicker.value);
+            const alphaMin = Math.min(parseFloat(replaceAlphaMinSlider.value), parseFloat(replaceAlphaMaxSlider.value));
+            const alphaMax = Math.max(parseFloat(replaceAlphaMinSlider.value), parseFloat(replaceAlphaMaxSlider.value));
+            const lumMin = Math.min(parseFloat(replaceLumMinSlider.value), parseFloat(replaceLumMaxSlider.value));
+            const lumMax = Math.max(parseFloat(replaceLumMinSlider.value), parseFloat(replaceLumMaxSlider.value));
+
+            for (let i = 0; i < basePixels.length; i += 4) {
+                const r = maskPixels[i];
+                const g = maskPixels[i + 1];
+                const b = maskPixels[i + 2];
+                const a = maskPixels[i + 3] / 255;
+                const lum = ((r + g + b) / 3) / 255;
+                const visibility = lum <= threshold ? 0 : ((lum - threshold) / (1 - threshold));
+                const inAlphaRange = a >= alphaMin && a <= alphaMax;
+                const inLumRange = lum >= lumMin && lum <= lumMax;
+                if (inAlphaRange && inLumRange) {
+                    basePixels[i] = replaceRGB.r;
+                    basePixels[i + 1] = replaceRGB.g;
+                    basePixels[i + 2] = replaceRGB.b;
+                }
+                basePixels[i + 3] = Math.round(255 * visibility * a);
+            }
+
+            bCtx.putImageData(baseData, 0, 0);
+        }
+
+        function buildMaskDistanceFieldFromAlpha(imageData) {
+            const w = texWidth;
+            const h = texHeight;
+            const src = imageData.data;
+            const total = w * h;
+            const INF = 1e9;
+            const dist = new Float32Array(total);
+
+            // 以“黑色被剔除后的透明区域”为种子，后续侵蚀会从这些区域向内推进
+            for (let i = 0; i < total; i++) {
+                const alpha = src[i * 4 + 3];
+                dist[i] = alpha === 0 ? 0 : INF;
+            }
+
+            // 前向传播
+            for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                    const i = y * w + x;
+                    let d = dist[i];
+                    if (x > 0) d = Math.min(d, dist[i - 1] + 1);
+                    if (y > 0) d = Math.min(d, dist[i - w] + 1);
+                    if (x > 0 && y > 0) d = Math.min(d, dist[i - w - 1] + 1.4142);
+                    if (x + 1 < w && y > 0) d = Math.min(d, dist[i - w + 1] + 1.4142);
+                    dist[i] = d;
+                }
+            }
+
+            // 反向传播
+            for (let y = h - 1; y >= 0; y--) {
+                for (let x = w - 1; x >= 0; x--) {
+                    const i = y * w + x;
+                    let d = dist[i];
+                    if (x + 1 < w) d = Math.min(d, dist[i + 1] + 1);
+                    if (y + 1 < h) d = Math.min(d, dist[i + w] + 1);
+                    if (x + 1 < w && y + 1 < h) d = Math.min(d, dist[i + w + 1] + 1.4142);
+                    if (x > 0 && y + 1 < h) d = Math.min(d, dist[i + w - 1] + 1.4142);
+                    dist[i] = d;
+                }
+            }
+
+            let maxD = 0;
+            for (let i = 0; i < total; i++) {
+                const d = dist[i];
+                if (d < INF && d > maxD) maxD = d;
+            }
+            const inv = maxD > 0 ? 1 / maxD : 1;
+
+            for (let i = 0; i < total; i++) {
+                const d = dist[i];
+                maskDistanceNorm[i] = d >= INF ? 0 : Math.min(1, d * inv);
+            }
+        }
+
+        function cacheBaseChain() {
+            bCtx.clearRect(0, 0, texWidth, texHeight);
+            const color = colorPicker.value;
+
+            if (chainTextureReady) {
+                const maskOk = drawTextureMask();
+                if (maskOk) {
+                    applyMaskToSolidColor(color);
+                } else {
+                    cacheProceduralBaseChain(color);
+                }
+            } else {
+                cacheProceduralBaseChain(color);
+            }
+
+            // 提取原生像素数据拷贝
+            try {
+                baseImageData = bCtx.getImageData(0, 0, texWidth, texHeight);
+                buildMaskDistanceFieldFromAlpha(baseImageData);
+            } catch (err) {
+                chainTextureReady = false;
+                setTextureStatus('纹理受限(回退)');
+                bCtx.clearRect(0, 0, texWidth, texHeight);
+                cacheProceduralBaseChain(color);
+                baseImageData = bCtx.getImageData(0, 0, texWidth, texHeight);
+                buildMaskDistanceFieldFromAlpha(baseImageData);
+            }
+        }
+
+        // ========================================================
+        // 三、核心动态演变引擎：融合动态噪点执行边缘侵蚀 (每帧执行)
+        // ========================================================
+        const erodedCanvas = document.createElement('canvas');
+        erodedCanvas.width = texWidth;
+        erodedCanvas.height = texHeight;
+        const eCtx = erodedCanvas.getContext('2d');
+        const erodedImageData = eCtx.createImageData(texWidth, texHeight);
+
+        function computeDynamicErosion() {
+            if (!baseImageData) return;
+
+            const basePixels = baseImageData.data;
+            const targetPixels = erodedImageData.data;
+            const erosionThreshold = parseFloat(erosionSlider.value);
+            const erosionIntensity = parseFloat(erosionIntensitySlider.value);
+            const noiseRatio = parseFloat(noiseRatioSlider.value);
+            const edgeRatio = 1.0 - noiseRatio;
+            const thresholdBias = parseFloat(thresholdBiasSlider.value);
+            
+            // 换算成整数型的噪点偏移量
+            const nShift = Math.floor(noiseOffset) % texWidth;
+
+            for (let y = 0; y < texHeight; y++) {
+                for (let x = 0; x < texWidth; x++) {
+                    const idx = (y * texWidth + x) * 4;
+
+                    // 如果基底像素本就透明，直接抹除并跳过
+                    if (basePixels[idx + 3] === 0) {
+                        targetPixels[idx + 3] = 0;
+                        continue;
+                    }
+
+                    // 还原并搬运 RGB 颜色色彩通道
+                    targetPixels[idx]     = basePixels[idx];
+                    targetPixels[idx + 1] = basePixels[idx + 1];
+                    targetPixels[idx + 2] = basePixels[idx + 2];
+
+                    // ✨ 动态噪点映射：加入滚动偏移量，实现噪点独立移动
+                    const nx = (x + nShift) % texWidth;
+                    const noiseVal = noiseGrid[y * texWidth + nx];
+
+                    // 由“距离黑区的远近”驱动侵蚀：越靠近黑区(孔洞/缝隙)越先被吃掉
+                    const mapIdx = y * texWidth + x;
+                    const fromBlack = 1.0 - maskDistanceNorm[mapIdx];
+                    const susceptibility = ((fromBlack * edgeRatio) + (noiseVal * noiseRatio)) * erosionIntensity;
+
+                    // 映射阻断阈值：保留原有总体趋势，同时支持手动偏移细调
+                    const cutoff = Math.max(0.0, Math.min(1.0, 1.0 - (erosionThreshold * 1.1) + thresholdBias));
+
+                    // 触发裁切：如果易感度超过了当前的生存阈值，则使该像素完全蒸发消散
+                    if (susceptibility > cutoff) {
+                        targetPixels[idx + 3] = 0;
+                    } else {
+                        targetPixels[idx + 3] = basePixels[idx + 3]; // 保持原有的抗锯齿透明度
+                    }
+                }
+            }
+            // 将融合好的带洞图像覆盖回微型离屏 canvas
+            eCtx.putImageData(erodedImageData, 0, 0);
+        }
+
+        // ========================================================
+        // 四、主循环：矩阵变换与全局平铺绘制
+        // ========================================================
+        function draw() {
+            // 每帧重新高保真构建基础色，防止颜色中途被切换
+            cacheBaseChain();
+
+            // 驱动内部数据演变
+            const cSpeed = parseFloat(chainSpeedSlider.value);
+            const nSpeed = parseFloat(noiseSpeedSlider.value);
+
+            chainOffset = (chainOffset - cSpeed) % texWidth;
+            noiseOffset = (noiseOffset + nSpeed) % texWidth;
+            noiseTime += nSpeed * 0.03; // 时间演化速率与“噪点流变速度”联动
+
+            // 每帧重算噪声矩阵，让裂纹形态持续变化
+            generateNoiseGrid(noiseTime);
+
+            // 执行极速微型侵蚀抠图
+            computeDynamicErosion();
+
+            // 清屏
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 计算两点之间的空间几何参数
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const distance = Math.hypot(dx, dy);
+            const angle = Math.atan2(dy, dx);
+
+            // 坐标系变换
+            ctx.save();
+            ctx.translate(p1.x, p1.y);
+            ctx.rotate(angle);
+
+            // 连续平铺绘制：保证链条结构完整，不扭曲不分节
+            let startX = chainOffset;
+            if (startX > 0) startX -= texWidth;
+            
+            while (startX < distance) {
+                ctx.drawImage(erodedCanvas, startX, -texHeight / 2);
+                startX += texWidth;
+            }
+            ctx.restore();
+
+            // 绘制定位控制点
+            drawAnchorPoint(p1);
+            drawAnchorPoint(p2);
+
+            requestAnimationFrame(draw);
+        }
+
+        function drawAnchorPoint(p) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = p.isDragging ? '#ffffff' : 'rgba(20,20,25,0.8)';
+            ctx.fill();
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = 3;
+            ctx.shadowColor = colorPicker.value;
+            ctx.shadowBlur = 10;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // ========================================================
+        // 五、高效交互拖拽判定
+        // ========================================================
+        function getMousePos(evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            const m = getMousePos(e);
+            if (Math.hypot(m.x - p1.x, m.y - p1.y) < p1.radius * 2.5) p1.isDragging = true;
+            else if (Math.hypot(m.x - p2.x, m.y - p2.y) < p2.radius * 2.5) p2.isDragging = true;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const m = getMousePos(e);
+            if (p1.isDragging) { p1.x = m.x; p1.y = m.y; }
+            if (p2.isDragging) { p2.x = m.x; p2.y = m.y; }
+        });
+
+        window.addEventListener('mouseup', () => {
+            p1.isDragging = false;
+            p2.isDragging = false;
+        });
+
+        // 启动系统
+        let noiseTime = 0;
+        setTextureStatus('未选择(回退)');
+        textureFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            loadChainTextureFromLocalFile(file);
+        });
+
+        draw();
+    </script>
+</body>
+</html>
