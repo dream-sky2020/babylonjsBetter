@@ -20,7 +20,8 @@ function applyDamage(attackerId, targetId, results) {
             baseRoll: result.roll,
             damage: result.roll,       // 基础常规伤害初始等于点数
             extraTrueDamage: 0,          // 额外真实伤害初始为 0
-            effects: result.effects || (result.die && result.die.effects) || []
+            effects: result.effects || (result.die && result.die.effects) || [],
+            skillEffects: currentSkillEffects
         };
 
         // 2. 流经管线阶段 1：面板伤害修正

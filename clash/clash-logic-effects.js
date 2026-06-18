@@ -37,8 +37,37 @@ function registerAllCombatEffects(engine) {
         }
     }, 60);
 
-    
 
+    // 在 registerAllCombatEffects 函数内部添加：
+
+    // 1. 拼点前触发
+    engine.registerEffect('onBeforeClash', 'skill_effects_before_clash', (ctx) => {
+        processSkillEffects(ctx, 'onBeforeClash');
+    }, 80);
+
+    // 2. 拼点胜利时 (在管线的 onClashEnd 阶段中进行拦截)
+    engine.registerEffect('onClashEnd', 'skill_effects_clash_win', (ctx) => {
+        // 只有当自己是拼点胜方时，才触发 'onClashWin' 的技能效果
+        if (ctx.isWinner) {
+            processSkillEffects(ctx, 'onClashWin');
+        }
+    }, 80);
+
+    // 3. 命中前触发 (追加伤害等)
+    engine.registerEffect('onBeforeHit', 'skill_effects_before_hit', (ctx) => {
+        processSkillEffects(ctx, 'onBeforeHit');
+    }, 80);
+
+    // 4. 命中时触发 (上状态、回血等)
+    engine.registerEffect('onHit', 'skill_effects_hit', (ctx) => {
+        processSkillEffects(ctx, 'onHit');
+    }, 80);
+
+    // 5. 伤害结算后触发
+    engine.registerEffect('onAfterHit', 'skill_effects_after_hit', (ctx) => {
+        processSkillEffects(ctx, 'onAfterHit');
+    }, 80);
+    
     // ==========================================
     // 1. 拼点前阶段 (onBeforeClash)
     // ==========================================
@@ -228,4 +257,48 @@ function applyOrUpdateStatus(unitId, type, powerToAdd, stackToSet = 1) {
         statusList.appendChild(newStatus);
         log(`  ✅ 为 ${unitId} 添加了新状态: ${type} (强度: ${powerToAdd})`);
     }
+}
+/**
+ * 通用技能效果处理器
+ * @param {object} ctx - 战斗上下文
+ * @param {string} currentTiming - 当前处于的生命周期阶段
+ */
+function processSkillEffects(ctx, currentTiming) {
+    // 假设你在构建 ctx 时，将当前技能配置挂载到了 ctx.skillEffects 上
+    if (!ctx.skillEffects || ctx.skillEffects.length === 0) return;
+
+    ctx.skillEffects.forEach(effect => {
+        // 只执行符合当前生命周期的效果
+        if (effect.timing !== currentTiming) return;
+
+        // 根据 type 路由到具体逻辑
+        switch (effect.type) {
+            case 'dmg':
+                ctx.damage = (ctx.damage || 0) + (effect.value || 0);
+                log(`  💥 [技能效果] 追加伤害 +${effect.value} (当前总伤害: ${ctx.damage})`);
+                break;
+            
+            case 'applyStatus':
+                // 注意：需要区分目标是自己还是敌人。这里假设默认给目标上状态，
+                // 建议在 config 里加一个 target 字段 (如 'self' | 'enemy')
+                const targetId = effect.target === 'self' ? ctx.attackerId : ctx.targetId;
+                applyOrUpdateStatus(targetId, effect.statusId, effect.power, effect.stack);
+                log(`  ✨ [技能效果] 对 ${targetId} 赋予 [${effect.statusId}] (强度+${effect.power})`);
+                break;
+                
+            case 'heal':
+                // 恢复生命值逻辑
+                const healTargetId = effect.target === 'enemy' ? ctx.targetId : ctx.attackerId;
+                let currentHp = getVal('hp' + healTargetId);
+                // 假设有一个 maxHp 变量，如果没有可以去掉上限限制
+                let maxHp = getVal('maxHp' + healTargetId) || 999; 
+                let newHp = Math.min(maxHp, currentHp + effect.value);
+                setVal('hp' + healTargetId, newHp);
+                log(`  💚 [技能效果] 恢复生命值 +${effect.value} (HP: ${currentHp} → ${newHp})`);
+                break;
+                
+            default:
+                console.warn(`[CombatEngine] 未知的技能效果类型: ${effect.type}`);
+        }
+    });
 }
