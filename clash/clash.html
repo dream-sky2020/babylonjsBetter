@@ -127,6 +127,12 @@
             <div class="status-list" id="status-list-A"></div>
             <button type="button" class="add-status" id="add-status-btn-A">+ 添加一个特殊状态</button>
         </div>
+        <div style="margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
+            <span style="font-weight:600; color: #2c3e50;">技能效果列表</span>
+            <div id="skill-effect-list-A" style="margin-top:5px; display: flex; flex-direction: column; gap: 5px;">
+                </div>
+            <button id="add-skill-effect-A" style="margin-top: 5px; background-color: #34495e; color: white;">+ 添加技能效果</button>
+        </div>
     </div>
 
     <!-- 单位 B -->
@@ -147,6 +153,12 @@
             <div class="status-title">特殊状态列表</div>
             <div class="status-list" id="status-list-B"></div>
             <button type="button" class="add-status" id="add-status-btn-B">+ 添加一个特殊状态</button>
+        </div>
+        <div style="margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 10px;">
+            <span style="font-weight:600; color: #2c3e50;">技能效果列表</span>
+            <div id="skill-effect-list-B" style="margin-top:5px; display: flex; flex-direction: column; gap: 5px;">
+                </div>
+            <button id="add-skill-effect-B" style="margin-top: 5px; background-color: #34495e; color: white;">+ 添加技能效果</button>
         </div>
     </div>
 </div>
@@ -245,7 +257,13 @@
             power: parseInt(item.querySelector('.status-power').value) || 0
         }));
     }
-
+    // 在 buildDiceConfig 和 buildStatusConfig 附近添加：
+    function buildSkillEffectConfig(unitId) {
+        const list = document.getElementById(`skill-effect-list-${unitId}`);
+        if (!list) return [];
+        // 查找所有自定义组件（包括那些被包装在 div 里的）并提取数据
+        return Array.from(list.querySelectorAll('skill-effect-input')).map(el => el.getData());
+    }
     function getStatusLabel(typeId) {
         const match = STATUS_TYPES.find(s => s.id === typeId);
         return match ? match.label : typeId;
@@ -340,7 +358,15 @@
 
     setupStatusPanel('A', [{ type: 'bleed', stack: 1, power: 1 }]);
     setupStatusPanel('B', [{ type: 'protection', stack: 1, power: 1 }]);
-
+    // 【新增】初始化技能效果面板
+    setupSkillEffectPanel('A', [
+        // 比如：单位A命中时，赋予2层1强度的流血
+        { timing: 'onHit', type: 'applyStatus', statusId: 'bleed', power: 1, stack: 2 }
+    ]);
+    setupSkillEffectPanel('B', [
+        // 比如：单位B伤害计算后，恢复10点生命
+        { timing: 'onAfterHit', type: 'heal', value: 10 }
+    ]);
     // ==========================================
     // 回合结束结算逻辑
     // ==========================================
@@ -360,8 +386,49 @@
 
         log(`=== 回合结束结算完毕 ===`);
     }
+// ==========================================
+    // 技能效果面板的初始化与动态添加逻辑
+    // ==========================================
+    function setupSkillEffectPanel(unitId, defaults = []) {
+        const container = document.getElementById(`skill-effect-list-${unitId}`);
+        const addBtn = document.getElementById(`add-skill-effect-${unitId}`);
+        
+        if (!container || !addBtn) return;
+
+        container.innerHTML = '';
+
+        // 渲染默认传入的技能效果
+        defaults.forEach(effectData => {
+            const effectEl = document.createElement('skill-effect-input');
+            container.appendChild(effectEl);
+            
+            // 关键修复：等待组件加载完毕后再执行 setValues
+            customElements.whenDefined('skill-effect-input').then(() => {
+                if (typeof effectEl.setValues === 'function') {
+                    effectEl.setValues(effectData);
+                }
+            });
+        });
+
+        // 绑定“+ 添加技能效果”按钮事件
+        addBtn.onclick = () => {
+            const effectEl = document.createElement('skill-effect-input');
+            
+            const rowWrapper = document.createElement('div');
+            rowWrapper.className = 'effect-row-wrapper'; // 加上这个类名，方便组件识别
+            rowWrapper.style.display = 'flex';
+            rowWrapper.style.alignItems = 'center';
+            rowWrapper.style.gap = '5px';
+            
+            // 📢 【删掉原本在这里的 delBtn 创建和 append 代码】
+            
+            rowWrapper.appendChild(effectEl);
+            container.appendChild(rowWrapper);
+        };
+    }
 </script>
 <script type="module" src="./dice-input.js"></script>
+<script type="module" src="./skill-effect-input.js"></script>
 <script src="./clash-logic-engine.js"></script>
 <script src="./clash-logic-effects.js"></script>
 <script src="./clash-logic-applyDamage.js"></script>
