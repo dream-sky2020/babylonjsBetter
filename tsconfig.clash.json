@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "strict": true,
+    "noImplicitAny": true
+  },
+  "include": ["clash/**/*.ts", "clash/**/*.d.ts"]
+}
