@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>战斗拼点模拟器 - 调试版</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #eef2f3; padding: 20px; }
+        .container { display: flex; gap: 20px; justify-content: center; }
+        .panel { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            width: 45%;  /* 使用百分比，更灵活 */
+            min-width: 350px;  /* 设置最小宽度保证可读性 */
+        }
+        .input-group { margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        input { width: 60px; padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        .dice-group { margin-top: 12px; }
+        .dice-title { margin-bottom: 8px; font-weight: 600; color: #333; }
+        .dice-list { display: flex; flex-direction: column; gap: 8px; }
+        .die-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px;
+        }
+        .type-options { display: flex; gap: 4px; margin-right: 4px; }
+        .type-options label {
+            font-size: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 2px 6px;
+            background: #fff;
+            cursor: pointer;
+        }
+        .die-item input[type="number"] { width: 56px; }
+        .die-effect {
+            flex: 1;
+            min-width: 70px;
+            font-size: 12px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .remove-die {
+            width: auto;
+            margin-top: 0;
+            padding: 6px 8px;
+            background: #dc3545;
+            font-size: 12px;
+        }
+        .add-die {
+            margin-top: 8px;
+            padding: 8px;
+            background: #f7f7f7;
+            color: #333;
+            border: 1px dashed #999;
+            font-size: 13px;
+        }
+        .add-die:hover { background: #ececec; }
+        .status-group { margin-top: 12px; }
+        .status-title { margin-bottom: 8px; font-weight: 600; color: #333; }
+        .status-list { display: flex; flex-direction: column; gap: 8px; }
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fbff;
+            border: 1px solid #d8e8ff;
+            border-radius: 6px;
+            padding: 8px;
+        }
+        .status-type {
+            min-width: 90px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+        }
+        .status-item input[type="number"] { width: 62px; }
+        .remove-status {
+            width: auto;
+            margin-top: 0;
+            padding: 6px 8px;
+            background: #dc3545;
+            font-size: 12px;
+        }
+        .add-status {
+            margin-top: 8px;
+            padding: 8px;
+            background: #f7f7f7;
+            color: #333;
+            border: 1px dashed #999;
+            font-size: 13px;
+        }
+        .add-status:hover { background: #ececec; }
+        button { width: 100%; padding: 12px; margin-top: 15px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; }
+        button:hover { background: #0056b3; }
+        .log { margin: 20px auto; width: 660px; height: 180px; overflow-y: auto; background: #222; color: #0f0; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">战斗逻辑调试模拟器</h2>
+
+<div class="container">
+    <!-- 单位 A -->
+    <div class="panel" id="unitA">
+        <h3>单位 A</h3>
+        <div class="input-group">血量: <input type="number" id="hpA" value="250"></div>
+        <div class="input-group">护盾: <input type="number" id="shdA" value="20"></div>
+        <div class="input-group">临时护盾: <input type="number" id="tempShdA" value="0"></div>
+        <div class="input-group">理智: <input type="number" id="sanA" value="45"></div>
+        <div class="input-group">混乱值: <input type="number" id="chaosA" value="0"></div>
+        <div class="input-group">混乱阈值: <input type="number" id="chaosThresholdA" value="100"></div>
+        <div class="dice-group">
+            <div class="dice-title">骰子面板</div>
+            <div class="dice-list" id="dice-list-A"></div>
+            <button type="button" class="add-die" id="add-die-btn-A">+ 添加一个动作(骰子)</button>
+        </div>
+        <div class="status-group">
+            <div class="status-title">特殊状态列表</div>
+            <div class="status-list" id="status-list-A"></div>
+            <button type="button" class="add-status" id="add-status-btn-A">+ 添加一个特殊状态</button>
+        </div>
+    </div>
+
+    <!-- 单位 B -->
+    <div class="panel" id="unitB">
+        <h3>单位 B</h3>
+        <div class="input-group">血量: <input type="number" id="hpB" value="200"></div>
+        <div class="input-group">护盾: <input type="number" id="shdB" value="10"></div>
+        <div class="input-group">临时护盾: <input type="number" id="tempShdB" value="0"></div>
+        <div class="input-group">理智: <input type="number" id="sanB" value="45"></div>
+        <div class="input-group">混乱值: <input type="number" id="chaosB" value="0"></div>
+        <div class="input-group">混乱阈值: <input type="number" id="chaosThresholdB" value="70"></div>
+        <div class="dice-group">
+            <div class="dice-title">骰子面板</div>
+            <div class="dice-list" id="dice-list-B"></div>
+            <button type="button" class="add-die" id="add-die-btn-B">+ 添加一个动作(骰子)</button>
+        </div>
+        <div class="status-group">
+            <div class="status-title">特殊状态列表</div>
+            <div class="status-list" id="status-list-B"></div>
+            <button type="button" class="add-status" id="add-status-btn-B">+ 添加一个特殊状态</button>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
+    <button onclick="endTurn()" style="width: 200px; background: #fd7e14;">回合结束</button>
+    <button onclick="startClash()" style="width: 200px; background: #28a745;">开启拼点</button>
+</div>
+<div class="log" id="gameLog">系统就绪，等待指令...</div>
+<script>
+    const STATUS_TYPES = [
+        { id: 'bleed', label: '流血' },
+        { id: 'burn', label: '烧伤' },
+        { id: 'rupture', label: '破裂' },
+        { id: 'sinking', label: '沉沦' },        
+        { id: 'tremor', label: '震颤' },         
+        { id: 'charge', label: '充能' },         
+        { id: 'bind', label: '束缚' },
+        { id: 'strength', label: '强壮' },
+        { id: 'frailty', label: '虚弱' },
+        { id: 'agility', label: '迅捷' },        
+        { id: 'fragile', label: '脆弱' },
+        { id: 'protection', label: '守护' },
+        { id: 'confusion', label: '混乱' }
+    ];
+
+    function log(msg) {
+        const l = document.getElementById('gameLog');
+        l.innerHTML += `<div>> ${msg}</div>`;
+        l.scrollTop = l.scrollHeight;
+    }
+
+    function getVal(id) { return parseInt(document.getElementById(id).value); }
+    function setVal(id, val) { document.getElementById(id).value = val; }
+
+    // 修改前的 createDieInput 函数需要替换为：
+    function createDieInput(data = {}) {
+        const dieEl = document.createElement('dice-input');
+        
+        // 关键点：等待组件完成定义和初始化
+        customElements.whenDefined('dice-input').then(() => {
+            if (typeof dieEl.setValues === 'function') {
+                dieEl.setValues(data);
+            }
+        });
+        
+        return dieEl;
+    }
+
+    function createStatusInput(data = {}) {
+        const div = document.createElement('div');
+        div.className = 'status-item';
+
+        const statusOptions = STATUS_TYPES.map(s => `
+            <option value="${s.id}">${s.label}</option>
+        `).join('');
+
+        div.innerHTML = `
+            <select class="status-type">${statusOptions}</select>
+            <span>层数</span>
+            <input type="number" class="status-stack" value="${data.stack ?? 1}" min="0">
+            <span>强度</span>
+            <input type="number" class="status-power" value="${data.power ?? 1}" min="0">
+            <button type="button" class="remove-status">删</button>
+        `;
+
+        const selectEl = div.querySelector('.status-type');
+        if (data.type && STATUS_TYPES.some(s => s.id === data.type)) {
+            selectEl.value = data.type;
+        } else if (STATUS_TYPES.length > 0) {
+            selectEl.value = STATUS_TYPES[0].id;
+        }
+
+        div.querySelector('.remove-status').addEventListener('click', () => {
+            const parentList = div.parentElement;
+            if (!parentList) return;
+            div.remove();
+        });
+
+        return div;
+    }
+
+    function buildDiceConfig(unitId) {
+        const list = document.getElementById(`dice-list-${unitId}`);
+        // 直接查询自定义组件并调用其方法
+        return Array.from(list.querySelectorAll('dice-input')).map(el => el.getData());
+    }
+
+    function buildStatusConfig(unitId) {
+        const list = document.getElementById(`status-list-${unitId}`);
+        if (!list) return [];
+
+        return Array.from(list.querySelectorAll('.status-item')).map(item => ({
+            type: item.querySelector('.status-type').value,
+            stack: parseInt(item.querySelector('.status-stack').value) || 0,
+            power: parseInt(item.querySelector('.status-power').value) || 0
+        }));
+    }
+
+    function getStatusLabel(typeId) {
+        const match = STATUS_TYPES.find(s => s.id === typeId);
+        return match ? match.label : typeId;
+    }
+
+    function consumeStatus(unitId, typeId) {
+        const list = document.getElementById(`status-list-${unitId}`);
+        if (!list) return null;
+
+        const items = Array.from(list.querySelectorAll('.status-item'));
+        for (const item of items) {
+            const typeEl = item.querySelector('.status-type');
+            const stackEl = item.querySelector('.status-stack');
+            const powerEl = item.querySelector('.status-power');
+            if (!typeEl || !stackEl || !powerEl) continue;
+            if (typeEl.value !== typeId) continue;
+
+            const currentStack = parseInt(stackEl.value) || 0;
+            if (currentStack <= 0) continue;
+
+            const power = parseInt(powerEl.value) || 0;
+            stackEl.value = Math.max(0, currentStack - 1);
+            return {
+                type: typeId,
+                label: getStatusLabel(typeId),
+                power: power,
+                prevStack: currentStack,
+                nextStack: Math.max(0, currentStack - 1)
+            };
+        }
+        return null;
+    }
+
+    function dealDirectHpDamage(unitId, amount, reason) {
+        const dmg = Math.max(0, parseInt(amount) || 0);
+        if (dmg <= 0) return 0;
+
+        const oldHp = getVal('hp' + unitId);
+        const newHp = Math.max(0, oldHp - dmg);
+        const actual = oldHp - newHp;
+        setVal('hp' + unitId, newHp);
+        log(`${unitId} 触发${reason}，受到 ${actual} 点状态伤害 (HP: ${oldHp} → ${newHp})`);
+        if (newHp <= 0) {
+            log(`💀 ${unitId} 已阵亡！`);
+        }
+        return actual;
+    }
+
+    function rollFromDice(unitId) {
+    const dice = buildDiceConfig(unitId).filter(d => Number.isFinite(d.min) && Number.isFinite(d.max));
+    if (dice.length === 0) return null;
+
+        // 遍历所有骰子，投掷一遍，保存全部结果
+        const results = dice.map(die => {
+            const low = Math.min(die.min, die.max);
+            const high = Math.max(die.min, die.max);
+            const roll = Math.floor(Math.random() * (high - low + 1)) + low;
+            return {
+                die: die,
+                roll: roll
+            };
+        });
+
+        return results;
+    }
+
+    function setupDicePanel(unitId, defaults) {
+        const list = document.getElementById(`dice-list-${unitId}`);
+        const addBtn = document.getElementById(`add-die-btn-${unitId}`);
+        defaults.forEach(d => list.appendChild(createDieInput(d)));
+        addBtn.addEventListener('click', () => {
+            // 修改这里的默认初始化参数
+            list.appendChild(createDieInput({ tags: [], min: 0, max: 0, effect: '' }));
+        });
+    }
+
+    function setupStatusPanel(unitId, defaults) {
+        const list = document.getElementById(`status-list-${unitId}`);
+        const addBtn = document.getElementById(`add-status-btn-${unitId}`);
+        defaults.forEach(s => list.appendChild(createStatusInput(s)));
+        addBtn.addEventListener('click', () => {
+            list.appendChild(createStatusInput({}));
+        });
+    }
+
+    setupDicePanel('A', [
+        { tags: ['slash'], min: 4, max: 8, effect: '' }
+    ]);
+    setupDicePanel('B', [
+        { tags: ['slash'], min: 3, max: 10, effect: '' }
+    ]);
+
+    setupStatusPanel('A', [{ type: 'bleed', stack: 1, power: 1 }]);
+    setupStatusPanel('B', [{ type: 'protection', stack: 1, power: 1 }]);
+
+    // ==========================================
+    // 回合结束结算逻辑
+    // ==========================================
+    function endTurn() {
+        log(`=== 回合结束结算 ===`);
+        
+        // 遍历所有单位进行回合结束结算
+        ['A', 'B'].forEach(unitId => {
+            // 结算烧伤：consumeStatus 会自动把层数 -1，并返回当前的状态强度
+            const burn = consumeStatus(unitId, 'burn');
+            if (burn) {
+                dealDirectHpDamage(unitId, burn.power, '烧伤(回合结束)');
+            }
+            
+            // 如果后续还有流血在回合结束结算，或是其他状态掉层，都可以继续加在这里
+        });
+
+        log(`=== 回合结束结算完毕 ===`);
+    }
+</script>
+<script type="module" src="./dice-input.js"></script>
+<script src="./clash-logic-engine.js"></script>
+<script src="./clash-logic-effects.js"></script>
+<script src="./clash-logic-applyDamage.js"></script>
+<script src="./clash-logic-startClash.js"></script>
+
+<script>
+    // 4. 初始化并在全局注册所有状态特效
+    registerAllCombatEffects(combatEngine); 
+</script></body>
+</html>
