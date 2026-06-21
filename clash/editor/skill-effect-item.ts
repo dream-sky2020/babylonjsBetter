@@ -1,11 +1,9 @@
-import { SKILL_EFFECTS, STATUS_TYPES, TRIGGER_TIMINGS } from './skill-effect-config.ts';
-import type { SkillEffectConfig } from './types.ts';
+import { SKILL_EFFECTS, STATUS_TYPES, TRIGGER_TIMINGS } from '../config.ts';
+import type { SkillEffectConfig } from '../types.ts';
 
 function queryInShadow<T extends Element>(root: ShadowRoot, selector: string): T {
   const element = root.querySelector(selector);
-  if (!element) {
-    throw new Error(`Missing element: ${selector}`);
-  }
+  if (!element) throw new Error(`Missing element: ${selector}`);
   return element as T;
 }
 
@@ -21,11 +19,13 @@ class SkillEffectInput extends HTMLElement implements SkillEffectInputElement {
 
     root.innerHTML = `
       <style>
-        .effect-row { display: flex; gap: 6px; margin: 5px 0; align-items: center; padding: 5px; border-bottom: 1px solid #eee; }
+        .container { display: flex; gap: 5px; align-items: center; margin: 4px 0; font-size: 14px; flex-wrap: wrap; }
         select, input { padding: 4px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 4px 8px; cursor: pointer; background: #e74c3c; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #c0392b; }
         .hidden { display: none !important; }
       </style>
-      <div class="effect-row">
+      <div class="container">
         <select class="timing-select">
           ${TRIGGER_TIMINGS.map((timing) => `<option value="${timing.value}">${timing.label}</option>`).join('')}
         </select>
@@ -33,14 +33,18 @@ class SkillEffectInput extends HTMLElement implements SkillEffectInputElement {
           ${SKILL_EFFECTS.map((effect) => `<option value="${effect.value}">${effect.label}</option>`).join('')}
         </select>
 
-        <input type="number" class="val-input" placeholder="数值" style="width:60px">
-        <select class="status-select hidden">
+        <span class="val-group hidden">数值</span>
+        <input type="number" class="val-input val-group hidden" style="width:60px">
+        
+        <select class="status-select status-group hidden">
           ${STATUS_TYPES.map((status) => `<option value="${status.id}">${status.label}</option>`).join('')}
         </select>
-        <input type="number" class="power-input hidden" placeholder="强度" style="width:50px">
-        <input type="number" class="stack-input hidden" placeholder="层数" style="width:50px">
+        <span class="status-group hidden">强度</span>
+        <input type="number" class="power-input status-group hidden" style="width:50px">
+        <span class="status-group hidden">层数</span>
+        <input type="number" class="stack-input status-group hidden" style="width:50px">
 
-        <button class="del-btn">×</button>
+        <button class="del-btn">删</button>
       </div>
     `;
 
@@ -54,27 +58,22 @@ class SkillEffectInput extends HTMLElement implements SkillEffectInputElement {
     if (!root) return;
 
     const type = queryInShadow<HTMLSelectElement>(root, '.type-select').value;
-    const valInput = queryInShadow<HTMLInputElement>(root, '.val-input');
-    const statusSelect = queryInShadow<HTMLSelectElement>(root, '.status-select');
-    const powerInput = queryInShadow<HTMLInputElement>(root, '.power-input');
-    const stackInput = queryInShadow<HTMLInputElement>(root, '.stack-input');
+    const valGroups = root.querySelectorAll('.val-group');
+    const statusGroups = root.querySelectorAll('.status-group');
 
-    [valInput, statusSelect, powerInput, stackInput].forEach((element) => element.classList.add('hidden'));
+    valGroups.forEach(el => el.classList.add('hidden'));
+    statusGroups.forEach(el => el.classList.add('hidden'));
 
     if (type === 'applyStatus') {
-      statusSelect.classList.remove('hidden');
-      powerInput.classList.remove('hidden');
-      stackInput.classList.remove('hidden');
+      statusGroups.forEach(el => el.classList.remove('hidden'));
     } else {
-      valInput.classList.remove('hidden');
+      valGroups.forEach(el => el.classList.remove('hidden'));
     }
   }
 
   getData(): SkillEffectConfig {
     const root = this.shadowRoot;
-    if (!root) {
-      return { timing: 'onHit', type: 'dmg', value: 0 };
-    }
+    if (!root) return { timing: 'onHit', type: 'dmg', value: 0 };
 
     const type = queryInShadow<HTMLSelectElement>(root, '.type-select').value;
     const base: SkillEffectConfig = {
@@ -101,9 +100,7 @@ class SkillEffectInput extends HTMLElement implements SkillEffectInputElement {
     const root = this.shadowRoot;
     if (!root || !data) return;
 
-    if (data.timing) {
-      queryInShadow<HTMLSelectElement>(root, '.timing-select').value = data.timing;
-    }
+    if (data.timing) queryInShadow<HTMLSelectElement>(root, '.timing-select').value = data.timing;
     if (data.type) {
       queryInShadow<HTMLSelectElement>(root, '.type-select').value = data.type;
       this.updateFields();

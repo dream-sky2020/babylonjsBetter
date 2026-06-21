@@ -1,5 +1,5 @@
 import type { CombatEngine } from './clash-logic-engine.ts';
-import type { DiceConfig, DiceRollResult, SkillEffectConfig, StatusConfig, UnitId } from './types.ts';
+import type { DiceConfig, DiceRollResult, SkillData, SkillEffectConfig, StatusConfig, UnitId } from './types.ts';
 
 declare global {
   interface DiceInputElement extends HTMLElement {
@@ -17,6 +17,18 @@ declare global {
     getData(): unknown;
   }
 
+  interface StatusInputElement extends HTMLElement {
+    setValues(data: Partial<StatusConfig>): void;
+    getData(): StatusConfig;
+  }
+
+  interface UnitInputElement extends HTMLElement {
+    setValues(data: Partial<import('./types.ts').UnitConfig>): void;
+    getData(): import('./types.ts').UnitConfig;
+    setUnitId(id: string): void;
+    getUnitId(): string;
+  }
+
   interface Window {
     CombatEngine: typeof CombatEngine;
     combatEngine: CombatEngine;
@@ -27,7 +39,10 @@ declare global {
     log: (msg: string) => void;
     getVal: (id: string) => number;
     setVal: (id: string, val: number) => void;
+    getUnitElement: (unitId: UnitId) => UnitInputElement | null;
     buildStatusConfig: (unitId: UnitId) => StatusConfig[];
+    buildSkillData: (unitId: UnitId) => SkillData | null;
+    buildDiceConfig: (unitId: UnitId) => DiceConfig[];
     buildSkillEffectConfig: (unitId: UnitId) => SkillEffectConfig[];
     consumeStatus: (unitId: UnitId, typeId: string) => {
       type: string;
@@ -37,6 +52,6 @@ declare global {
       nextStack: number;
     } | null;
     dealDirectHpDamage: (unitId: UnitId, amount: number, reason: string) => number;
-    createStatusInput: (data?: Partial<StatusConfig>) => HTMLElement;
+    createStatusInput: (data?: Partial<StatusConfig>) => StatusInputElement;
   }
 }

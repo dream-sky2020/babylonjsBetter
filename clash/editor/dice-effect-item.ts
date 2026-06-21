@@ -1,4 +1,4 @@
-import { DICE_EFFECTS, STATUS_TYPES } from './dice-effect-config.ts';
+import { DICE_EFFECTS, STATUS_TYPES } from '../config.ts';
 
 type DiceEffectInputData =
   | { type: string; value: number }
@@ -6,9 +6,7 @@ type DiceEffectInputData =
 
 function queryInShadow<T extends Element>(root: ShadowRoot, selector: string): T {
   const element = root.querySelector(selector);
-  if (!element) {
-    throw new Error(`Missing element: ${selector}`);
-  }
+  if (!element) throw new Error(`Missing element: ${selector}`);
   return element as T;
 }
 
@@ -24,35 +22,29 @@ class EffectInput extends HTMLElement implements EffectInputElement {
 
     root.innerHTML = `
       <style>
-        .effect-row {
-          display: flex;
-          gap: 5px;
-          margin: 4px 0;
-          align-items: center;
-          font-size: 12px;
-          flex-wrap: wrap;
-        }
-        select, input {
-          padding: 4px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-        }
-        .hidden {
-          display: none !important;
-        }
+        .container { display: flex; gap: 5px; align-items: center; margin: 4px 0; font-size: 14px; flex-wrap: wrap; }
+        select, input { padding: 4px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 4px 8px; cursor: pointer; background: #e74c3c; color: white; border: none; border-radius: 4px; }
+        button:hover { background: #c0392b; }
+        .hidden { display: none !important; }
       </style>
-      <div class="effect-row">
+      <div class="container">
         <select class="type-select">
           ${DICE_EFFECTS.map((effect) => `<option value="${effect.value}" data-type="${effect.type}">${effect.label}</option>`).join('')}
         </select>
 
-        <select class="status-select hidden">
+        <select class="status-select status-group hidden">
           ${STATUS_TYPES.map((status) => `<option value="${status.id}">${status.label}</option>`).join('')}
         </select>
-        <input type="number" class="power-input hidden" placeholder="强度" style="width:50px">
-        <input type="number" class="stack-input hidden" placeholder="层数" style="width:50px">
-        <input type="number" class="val-input" placeholder="数值" style="width:50px">
-        <button class="del-btn">×</button>
+        <span class="status-group hidden">强度</span>
+        <input type="number" class="power-input status-group hidden" style="width:50px">
+        <span class="status-group hidden">层数</span>
+        <input type="number" class="stack-input status-group hidden" style="width:50px">
+        
+        <span class="val-group hidden">数值</span>
+        <input type="number" class="val-input val-group hidden" style="width:50px">
+        
+        <button class="del-btn">删</button>
       </div>
     `;
 
@@ -69,21 +61,15 @@ class EffectInput extends HTMLElement implements EffectInputElement {
     const selectedOption = typeSelect.options[typeSelect.selectedIndex];
     const effectType = selectedOption.dataset.type;
 
-    const statusSelect = queryInShadow<HTMLSelectElement>(root, '.status-select');
-    const powerInput = queryInShadow<HTMLInputElement>(root, '.power-input');
-    const stackInput = queryInShadow<HTMLInputElement>(root, '.stack-input');
-    const valInput = queryInShadow<HTMLInputElement>(root, '.val-input');
+    const statusGroups = root.querySelectorAll('.status-group');
+    const valGroups = root.querySelectorAll('.val-group');
 
     if (effectType === 'status') {
-      statusSelect.classList.remove('hidden');
-      powerInput.classList.remove('hidden');
-      stackInput.classList.remove('hidden');
-      valInput.classList.add('hidden');
+      statusGroups.forEach(el => el.classList.remove('hidden'));
+      valGroups.forEach(el => el.classList.add('hidden'));
     } else {
-      statusSelect.classList.add('hidden');
-      powerInput.classList.add('hidden');
-      stackInput.classList.add('hidden');
-      valInput.classList.remove('hidden');
+      statusGroups.forEach(el => el.classList.add('hidden'));
+      valGroups.forEach(el => el.classList.remove('hidden'));
     }
   }
 
@@ -98,8 +84,7 @@ class EffectInput extends HTMLElement implements EffectInputElement {
 
     const effectType = typeSelect.options[typeSelect.selectedIndex].dataset.type;
     if (effectType === 'status') {
-      queryInShadow<HTMLSelectElement>(root, '.status-select').value =
-        typeof typed.statusId === 'string' ? typed.statusId : STATUS_TYPES[0].id;
+      queryInShadow<HTMLSelectElement>(root, '.status-select').value = typeof typed.statusId === 'string' ? typed.statusId : STATUS_TYPES[0].id;
       queryInShadow<HTMLInputElement>(root, '.power-input').value = String(typed.power ?? '');
       queryInShadow<HTMLInputElement>(root, '.stack-input').value = String(typed.stack ?? '');
     } else {
@@ -109,9 +94,7 @@ class EffectInput extends HTMLElement implements EffectInputElement {
 
   getData(): DiceEffectInputData {
     const root = this.shadowRoot;
-    if (!root) {
-      return { type: 'dmg', value: 0 };
-    }
+    if (!root) return { type: 'dmg', value: 0 };
 
     const typeSelect = queryInShadow<HTMLSelectElement>(root, '.type-select');
     const selectedOption = typeSelect.options[typeSelect.selectedIndex];

@@ -1,4 +1,38 @@
-export type UnitId = 'A' | 'B';
+// --- 3. 完整的技能数据结构 ---
+
+export interface SkillData {
+  tags: string[];             // 技能标签，例如 'passive', 'active', 'buff', 'debuff'
+  skillId: string;            // 技能的唯一标识符
+  skillName: string;          // 技能名称
+  dice: DiceConfig[];         // 编辑器生成的硬币列表
+  skillEffects: SkillEffectConfig[];
+}
+
+// 1. 新增全局战场上下文
+export interface BattleContext {
+  leftCamp: UnitId[];
+  rightCamp: UnitId[];
+  turnCount: number;
+  // 未来可以扩展: weather, globalBuffs 等
+}
+
+export type UnitId = string;
+
+export interface UnitConfig {
+  id: UnitId;
+  name: string;
+  hp: number;
+  maxHp: number;
+  shield: number;
+  tempShield: number;
+  sanity: number;
+  maxSanity: number;
+  chaos: number;
+  chaosThreshold: number;
+  status: StatusConfig[];
+  skills: SkillData[];
+  activeSkillId?: string;
+}
 
 export type CombatPhase =
   | 'onTurnStart'
@@ -8,6 +42,15 @@ export type CombatPhase =
   | 'onHit'
   | 'onAfterHit'
   | 'onTurnEnd';
+
+// 结构化的伤害实例
+export interface DamageInstance {
+  tags: string[];           // 伤害标签，例如 'slash', 'pierce', 'true_damage'
+  baseAmount: number;    // 初始基础伤害
+  modifierFlat: number;  // 固定修正值（如 攻击力buff带来的固定增伤）
+  multiplier: number;    // 乘区修正值（如 50%抗性即为 0.5，200%暴击即为 2.0）
+  finalAmount: number;   // 最终结算伤害
+}
 
 export interface StatusConfig {
   type: string;
@@ -56,6 +99,7 @@ export interface ClashContext {
   currentRoll: number;
   skillEffects?: SkillEffectConfig[];
   isWinner?: boolean;
+  battle: BattleContext; // ✅ 注入全局战场
 }
 
 export interface HitContext {
@@ -63,9 +107,10 @@ export interface HitContext {
   targetId: UnitId;
   coinIndex: number;
   baseRoll: number;
-  damage: number;
+  damageInstances: DamageInstance[];
   extraTrueDamage?: number;
   effects?: DiceEffectConfig[];
   skillEffects?: SkillEffectConfig[];
   hpDamageTaken?: number;
+  battle: BattleContext; // ✅ 注入全局战场
 }
