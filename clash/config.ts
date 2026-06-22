@@ -9,6 +9,11 @@ export interface SkillEffectOption {
   params: string[];
 }
 
+export interface DamageTagOption {
+  value: string;
+  label: string;
+}
+
 export interface DiceTagOption {
   value: string;
   label: string;
@@ -43,12 +48,22 @@ export const SKILL_EFFECTS: SkillEffectOption[] = [
   { value: 'heal', label: '恢复生命', params: ['value'] },
 ];
 
+export const DAMAGE_TAGS: DamageTagOption[] = [
+  { value: 'bleed', label: '流血' },
+  { value: 'burn', label: '烧伤' },
+  { value: 'rupture', label: '破裂' },
+  { value: 'sinking', label: '沉沦' },
+  { value: 'tremor', label: '震颤' },
+  { value: 'charge', label: '充能' },
+  { value: 'slash', label: '斩击' },
+  { value: 'pierce', label: '突刺' },
+  { value: 'blunt', label: '打击' },
+];
+
 export const DICE_TAGS: DiceTagOption[] = [
   { value: 'slash', label: '斩击' },
   { value: 'pierce', label: '突刺' },
   { value: 'blunt', label: '打击' },
-  { value: 'guard', label: '防御' },
-  { value: 'evade', label: '闪避' },
 ];
 
 export const STATUS_TYPES: StatusTypeOption[] = [
@@ -65,6 +80,8 @@ export const STATUS_TYPES: StatusTypeOption[] = [
   { id: 'fragile', label: '脆弱' },
   { id: 'protection', label: '守护' },
   { id: 'confusion', label: '混乱' },
+  { id: 'kAmpule', label: 'K公司安瓿' },
+  { id: 'funeralWedge', label: '葬花楔' },
 ];
 
 export const DICE_EFFECTS: DiceEffectOption[] = [

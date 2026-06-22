@@ -3,214 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>战斗拼点模拟器 - 调试版</title>
+    <title>战斗拼点模拟器 - React 版</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
             background: #eef2f3;
-            padding: 20px;
+            padding: 0;
             margin: 0;
-        }
-
-        .main-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .camps-section {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: flex-start;
-        }
-
-        .camp {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .camp-title {
-            text-align: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #dee2e6;
-            font-size: 1.1em;
-        }
-
-        .camp-left {
-            border-top: 5px solid #007bff;
-        }
-
-        .camp-right {
-            border-top: 5px solid #dc3545;
-        }
-
-        .unit-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 5px;
-        }
-        .skill-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 5px;
-        }
-        .details-section {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .detail-panel {
-            flex: 1;
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            min-height: 400px;
-        }
-
-        .detail-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #eee;
-            color: #495057;
-        }
-
-        .add-unit-btn {
-            width: 100%;
-            padding: 8px;
-            margin-top: 10px;
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .add-unit-btn:hover {
-            background: #5a6268;
-        }
-
-        button.main-btn {
-            width: 200px;
-            padding: 12px;
-            cursor: pointer;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-
-        .log {
-            width: 100%;
-            height: 200px;
-            overflow-y: auto;
-            background: #222;
-            color: #0f0;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .selection-info {
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #495057;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
 
 <body>
-
-    <div class="main-layout">
-        <h2 style="text-align: center; margin: 10px 0;">战斗逻辑调试模拟器 - 阵营对战版</h2>
-
-        <div class="selection-info" id="selection-status">
-            请从左右阵营各选择一个单位进行拼点
-        </div>
-
-        <div class="camps-section">
-            <!-- 左侧阵营 -->
-            <div class="camp camp-left" id="camp-left">
-                <h3 class="camp-title">左侧阵营 (Camp A)</h3>
-                <div class="unit-list" id="unit-list-left"></div>
-                <button class="add-unit-btn" id="add-unit-left">+ 添加单位</button>
-            </div>
-
-            <!-- 右侧阵营 -->
-            <div class="camp camp-right" id="camp-right">
-                <h3 class="camp-title">右侧阵营 (Camp B)</h3>
-                <div class="unit-list" id="unit-list-right"></div>
-                <button class="add-unit-btn" id="add-unit-right">+ 添加单位</button>
-            </div>
-        </div>
-
-        <div class="details-section">
-            <div class="detail-panel" id="detail-left">
-                <div class="detail-header">左侧单位详情</div>
-                <div id="editor-container-left"></div>
-            </div>
-            <div class="detail-panel" id="detail-right">
-                <div class="detail-header">右侧单位详情</div>
-                <div id="editor-container-right"></div>
-            </div>
-        </div>
-        <div class="camps-section" style="margin-top: 20px;">
-            <div class="camp camp-left" id="skill-camp-left">
-                <h3 class="camp-title">左侧出战技能</h3>
-                <div class="unit-list" id="skill-list-left"></div>
-                <button class="add-unit-btn" id="add-skill-left">+ 添加左侧技能</button>
-            </div>
-
-            <div class="camp camp-right" id="skill-camp-right">
-                <h3 class="camp-title">右侧出战技能</h3>
-                <div class="unit-list" id="skill-list-right"></div>
-                <button class="add-unit-btn" id="add-skill-right">+ 添加右侧技能</button>
-            </div>
-        </div>
-
-        <div class="details-section" style="margin-top: 20px;">
-            <div class="detail-panel" id="skill-detail-left">
-                <div class="detail-header">左侧技能详情</div>
-                <div id="skill-editor-container-left"></div>
-            </div>
-            <div class="detail-panel" id="skill-detail-right">
-                <div class="detail-header">右侧技能详情</div>
-                <div id="skill-editor-container-right"></div>
-            </div>
-        </div>
-        <div style="text-align: center; display: flex; justify-content: center; gap: 20px;">
-            <button onclick="endTurn()" class="main-btn" style="background: #fd7e14;">回合结束</button>
-            <button onclick="startClash()" class="main-btn" style="background: #28a745;">开启拼点</button>
-        </div>
-
-        <div class="log" id="gameLog">系统就绪，等待指令...</div>
-    </div>
+    <div id="root"></div>
     <script type="module" src="./main.ts"></script>
+    <script type="module" src="./index.tsx"></script>
 </body>
 
 </html>
