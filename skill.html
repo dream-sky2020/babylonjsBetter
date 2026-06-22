@@ -8,12 +8,53 @@
         body {
             font-family: sans-serif;
             padding: 20px;
+            padding-top: 50px; /* 为状态栏留出空间 */
             background-color: #f5f5f5;
             display: flex;
             flex-direction: column;
             align-items: center;      
             justify-content: center;  
             min-height: 100vh;        
+        }
+
+        /* 后端状态栏 */
+        #api-status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 8px 20px;
+            font-size: 13px;
+            text-align: center;
+            z-index: 1000;
+            background: #fffbe6;
+            border-bottom: 1px solid #ffe58f;
+            color: #856404;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        #api-status-bar.online {
+            background: #f6ffed;
+            border-bottom: 1px solid #b7eb8f;
+            color: #389e0d;
+        }
+
+        #api-status-bar.offline {
+            background: #fff1f0;
+            border-bottom: 1px solid #ffa39e;
+            color: #cf1322;
+        }
+
+        .api-config-input {
+            padding: 2px 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            width: 180px;
         }
 
         .container {
@@ -242,6 +283,12 @@
 </head>
 <body>
 
+    <div id="api-status-bar">
+        <span id="api-status-text">正在检查后端服务连接...</span>
+        <input type="text" id="api-base-input" class="api-config-input" value="http://127.0.0.1:5050" placeholder="后端 API 地址">
+        <button type="button" id="api-reconnect-btn" class="pick-btn" style="padding: 2px 8px;">重新连接</button>
+    </div>
+
     <h2>技能图标与数据配置工具</h2>
 
     <div class="container">
@@ -249,7 +296,7 @@
 
             <div class="input-group">
                 <label class="title" for="icon-url">1. 技能图标 URL (中层)</label>
-                <input type="text" id="icon-url" placeholder="输入带有透明通道的图标链接..." value="https://via.placeholder.com/90/FFFFFF/000000?text=Icon">
+                <input type="text" id="icon-url" placeholder="输入带有透明通道的图标链接..." value="resources/Identity Skill Icons/Anatomize Hong Lu Icon.png">
                 <div class="layer-controls">
                     <label><input type="checkbox" id="icon-visible" checked> 显示</label>
                     <label>X偏移: <input type="number" id="icon-x" value="0"></label>
@@ -258,13 +305,13 @@
                 </div>
                 <div class="input-actions">
                     <div id="icon-status" class="layer-status">图标层：等待输入</div>
-                    <button type="button" id="pick-icon-btn" class="pick-btn">选择本地文件</button>
+                    <button type="button" id="pick-icon-btn" class="pick-btn">选择文件</button>
                 </div>
             </div>
 
             <div class="input-group">
                 <label class="title" for="border-url">2. 技能边框 URL (顶层)</label>
-                <input type="text" id="border-url" placeholder="输入镂空边框链接..." value="https://via.placeholder.com/128/FFD700/FFD700?text=+">
+                <input type="text" id="border-url" placeholder="输入镂空边框链接..." value="resources/Skill Border Assets/Pride3.png">
                 <div class="layer-controls">
                     <label><input type="checkbox" id="border-visible" checked> 显示</label>
                     <label>X偏移: <input type="number" id="border-x" value="0"></label>
@@ -273,45 +320,42 @@
                 </div>
                 <div class="input-actions">
                     <div id="border-status" class="layer-status">边框层：等待输入</div>
-                    <button type="button" id="pick-border-btn" class="pick-btn">选择本地文件</button>
+                    <button type="button" id="pick-border-btn" class="pick-btn">选择文件</button>
                 </div>
             </div>
 
             <div class="input-group">
                 <label class="title" for="mask-url">3. 遮罩 URL (用于切除不规则边框外溢出的图案)</label>
-                <input type="text" id="mask-url" placeholder="输入一张纯色遮罩图(黑色代表保留，透明代表裁切)..." value="resources/skill-assets/Def1BG-93c5d2a6.png">                <div class="layer-controls">
+                <input type="text" id="mask-url" placeholder="输入一张纯色遮罩图(黑色代表保留，透明代表裁切)..." value="resources/Skill Border Background Assets/Def1BG.png">                <div class="layer-controls">
                     <label><input type="checkbox" id="mask-visible" checked> 开启遮罩裁剪</label>
                 </div>
                 <div class="input-actions">
                     <div id="mask-status" class="layer-status">遮罩层：(选填) 留空则不裁剪</div>
-                    <button type="button" id="pick-mask-btn" class="pick-btn">选择本地文件</button>
+                    <button type="button" id="pick-mask-btn" class="pick-btn">选择文件</button>
                 </div>
                 <img id="layer-mask-preload" style="display:none;" alt="">
             </div>
 
-            <div class="input-group">
-                <label class="title">4. 技能硬币配置</label>
-                <div id="dice-list">
-                    </div>
-                <button type="button" id="add-die-btn" class="add-btn">+ 添加一个动作 (硬币)</button>
-            </div>
             </div>
 
         <div class="preview-section">
             <strong>图标预览</strong>
             <div class="icon-container">
                 <div id="mask-wrapper">
-                    <img id="layer-icon" class="layer" src="https://via.placeholder.com/90/FFFFFF/000000?text=Icon" alt="图标层">
+                    <img id="layer-icon" class="layer" src="resources/Identity Skill Icons/Anatomize Hong Lu Icon.png" alt="图标层">
                 </div>
-                <img id="layer-border" class="layer" style="opacity: 0.5;" src="https://via.placeholder.com/128/FFD700/FFD700?text=Border" alt="边框层"> 
+                <img id="layer-border" class="layer" src="resources/Skill Border Assets/Pride3.png" alt="边框层">            
             </div>
             <div id="status-text" class="status-text">
-                提示：支持直接粘贴本地路径 (如 D:\xx\a.png)。<br>
-                遮罩图建议使用一张和边框内轮廓完全一致的纯黑底透明PNG图。
+                提示：仅支持 public 下相对路径（如 resources/skill-assets/a.png 或 images/a.png）。<br>
+                页面实际加载地址为前端 /&lt;public相对路径&gt;；“选择文件”会调用后端文件管理器，仅返回路径。
             </div>
             <div class="config-actions">
                 <button type="button" id="import-config-btn" class="pick-btn">从剪贴板导入配置</button>
                 <button type="button" id="copy-config-btn" class="pick-btn">复制当前配置</button>
+            </div>
+            <div class="config-actions" style="margin-top: 5px;">
+                <button type="button" id="global-pick-btn" class="pick-btn" style="background: #e6f7ff; border-color: #91d5ff; color: #1890ff;">获取任意 Public 路径</button>
             </div>
             <pre class="config-preview"><code id="config-preview-code"></code></pre>
         </div>
@@ -323,16 +367,45 @@
             { id: 'pierce', label: '刺', color: '#faad14' },
             { id: 'blunt', label: '打', color: '#1890ff' },
         ];
-        const API_BASE = 'http://127.0.0.1:5050';
-        const RESOURCE_BASE = `${API_BASE}/resources/`;
+        
+        let API_BASE = localStorage.getItem('SKILL_TOOL_API_BASE') || 'http://127.0.0.1:5050';
+        
+        const apiStatusBar = document.getElementById('api-status-bar');
+        const apiStatusText = document.getElementById('api-status-text');
+        const apiBaseInput = document.getElementById('api-base-input');
+        const apiReconnectBtn = document.getElementById('api-reconnect-btn');
+        
+        apiBaseInput.value = API_BASE;
+
+        async function checkBackendConnection() {
+            apiStatusText.textContent = `正在连接后端: ${API_BASE}...`;
+            apiStatusBar.className = '';
+            try {
+                const resp = await fetch(`${API_BASE}/health`, { mode: 'cors' });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    apiStatusText.textContent = `后端已连接 (Public: ${data.publicDir})`;
+                    apiStatusBar.className = 'online';
+                    return true;
+                }
+            } catch (e) {}
+            apiStatusText.textContent = `后端连接失败，请确保 server.py 已启动并检查地址`;
+            apiStatusBar.className = 'offline';
+            return false;
+        }
+
+        apiReconnectBtn.addEventListener('click', () => {
+            API_BASE = apiBaseInput.value.trim().replace(/\/+$/, '');
+            localStorage.setItem('SKILL_TOOL_API_BASE', API_BASE);
+            checkBackendConnection();
+        });
+
+        const STATIC_PUBLIC_PREFIX = '/';
         const DEBOUNCE_MS = 300;
         const configPreviewCode = document.getElementById('config-preview-code');
         const importConfigBtn = document.getElementById('import-config-btn');
         const copyConfigBtn = document.getElementById('copy-config-btn');
         const statusText = document.getElementById('status-text');
-        
-        const diceListEl = document.getElementById('dice-list');
-        const addDieBtn = document.getElementById('add-die-btn');
 
         // 集中管理图层状态
         const layerState = {
@@ -342,104 +415,37 @@
         };
         const debounceTimers = {};
 
-        // ================= 新增：硬币逻辑功能 =================
-        function createDieInput(data = {}) {
-            const div = document.createElement('div');
-            div.className = 'die-item';
-
-            // 动态生成类型复选框 HTML
-            const typeCheckboxesHtml = DICE_TYPES.map(t => `
-                <label style="margin-right:8px;">
-                    <input type="checkbox" value="${t.id}" class="die-type"> ${t.label}
-                </label>
-            `).join('');
-
-            div.innerHTML = `
-                <div class="types-wrapper">${typeCheckboxesHtml}</div>
-                <input type="number" class="die-min" value="${data.min || 0}" placeholder="最小值">
-                ~
-                <input type="number" class="die-max" value="${data.max || 0}" placeholder="最大值">
-                <input type="text" class="die-effect" value="${data.effect || ''}" placeholder="效果描述">
-            `;
-
-            // 自动勾选逻辑（适配数组数据）
-            if (data.type) {
-                const types = Array.isArray(data.type) ? data.type : [data.type];
-                types.forEach(t => {
-                    const checkbox = div.querySelector(`input[value="${t}"]`);
-                    if (checkbox) checkbox.checked = true;
-                });
-            }
-
-            return div;
-        }
-
-        // 收集硬币数据
-        function buildDiceConfig() {
-        const dice = [];
-        document.querySelectorAll('.die-item').forEach(item => {
-            // 收集所有选中的类型 ID
-            const selectedTypes = Array.from(item.querySelectorAll('.die-type:checked'))
-                                    .map(cb => cb.value);
-                                    
-            dice.push({
-                type: selectedTypes, 
-                min: parseInt(item.querySelector('.die-min').value) || 0,
-                max: parseInt(item.querySelector('.die-max').value) || 0,
-                effect: item.querySelector('.die-effect').value
-            });
-        });
-        return dice;
-    }
-
-        addDieBtn.addEventListener('click', () => {
-            diceListEl.appendChild(createDieInput({ type: "slash", min: 4, max: 8, effect: "" }));
-            updateConfigPreview();
-        });
         // ==============================================================
 
-        function toAbsoluteApiUrl(path) {
-            if (!path) return '';
-            return path.startsWith('http') ? path : `${API_BASE}${path}`;
-        }
-
-        function toResourceSource(rawValue) {
+        function toPublicSource(rawValue) {
             const raw = (rawValue || '').trim();
             if (!raw) return '';
+            if (/^https?:\/\//i.test(raw) || raw.startsWith('data:')) return '';
 
             const normalized = raw.replace(/\\/g, '/');
             const lower = normalized.toLowerCase();
             const publicMarker = '/public/';
-            const resourcesMarker = '/resources/';
 
             const publicIdx = lower.indexOf(publicMarker);
-            if (publicIdx >= 0) return `resources/${normalized.slice(publicIdx + publicMarker.length).replace(/^\/+/, '')}`;
+            if (publicIdx >= 0) return normalized.slice(publicIdx + publicMarker.length).replace(/^\/+/, '');
 
-            const resIdx = lower.indexOf(resourcesMarker);
-            if (resIdx >= 0) return `resources/${normalized.slice(resIdx + resourcesMarker.length).replace(/^\/+/, '')}`;
+            if (lower.startsWith('public/')) return normalized.slice('public/'.length).replace(/^\/+/, '');
+            if (/^[a-z]:\//i.test(normalized)) return '';
 
-            if (lower.startsWith('resources/')) return `resources/${normalized.slice('resources/'.length).replace(/^\/+/, '')}`;
-            return '';
+            return normalized.replace(/^\/+/, '');
+        }
+
+        function toPublicPreviewUrl(source) {
+            if (!source) return '';
+            return `${STATIC_PUBLIC_PREFIX}${encodeURI(source)}`;
         }
 
         function normalizeImageInput(value) {
             const raw = (value || '').trim();
             if (!raw) return '';
-            if (/^https?:\/\//i.test(raw) || raw.startsWith('data:')) return raw;
-
-            const normalized = raw.replace(/\\/g, '/');
-            const lower = normalized.toLowerCase();
-            const publicMarker = '/public/';
-            const markerIdx = lower.indexOf(publicMarker);
-
-            if (markerIdx >= 0) {
-                const relPath = normalized.slice(markerIdx + publicMarker.length).replace(/^\/+/, '');
-                return `${RESOURCE_BASE}${encodeURI(relPath)}`;
-            }
-            if (normalized.startsWith('/resources/')) return toAbsoluteApiUrl(normalized);
-            if (normalized.startsWith('resources/')) return `${RESOURCE_BASE}${encodeURI(normalized.slice('resources/'.length))}`;
-            if (/^[a-zA-Z]:\//.test(normalized)) return '';
-            return `${RESOURCE_BASE}${encodeURI(normalized.replace(/^\/+/, ''))}`;
+            const publicSource = toPublicSource(raw);
+            if (!publicSource) return '';
+            return toPublicPreviewUrl(publicSource);
         }
 
         function buildLayerConfig(key) {
@@ -449,17 +455,14 @@
             const xEl = document.getElementById(`${key}-x`);
             const yEl = document.getElementById(`${key}-y`);
             const scaleEl = document.getElementById(`${key}-scale`);
-            const previewUrl = normalizeImageInput(raw);
-            const resourceSource = toResourceSource(raw);
+            const publicSource = toPublicSource(raw);
 
             const config = {
-                source: resourceSource,
-                sourceType: resourceSource ? 'resourcePath' : 'unresolved',
-                localFileName: state.localFileName || '',
-                previewUrl,
+                source: publicSource,
                 visible: visibleEl ? visibleEl.checked : true
             };
 
+            // 只有非遮罩层才附带位移和缩放属性
             if (key !== 'mask') {
                 config.offsetX = Number(xEl?.value || 0);
                 config.offsetY = Number(yEl?.value || 0);
@@ -475,7 +478,6 @@
                 icon: buildLayerConfig('icon'),
                 border: buildLayerConfig('border'),
                 mask: buildLayerConfig('mask'),
-                dice: buildDiceConfig() // 自动抓取并包含硬币列表
             };
             configPreviewCode.textContent = JSON.stringify(config, null, 2);
         }
@@ -486,8 +488,11 @@
                 const resp = await fetch(`${API_BASE}/api/find_resource_by_name?name=${encodeURIComponent(fileName)}`);
                 if (!resp.ok) return '';
                 const data = await resp.json();
-                if (!data.success || !data.url) return '';
-                return toAbsoluteApiUrl(data.url);
+                if (!data.success) return '';
+                if (typeof data.publicPath === 'string' && data.publicPath.trim()) return data.publicPath.trim();
+                if (typeof data.resourcePath === 'string' && data.resourcePath.trim()) return data.resourcePath.trim();
+                if (typeof data.url === 'string' && data.url.trim()) return toPublicSource(data.url);
+                return '';
             } catch {
                 return '';
             }
@@ -496,100 +501,83 @@
         async function applyImportedLayerConfig(key, cfg) {
             if (!cfg || typeof cfg !== 'object') return { unresolvedBlob: false };
             const state = layerState[key];
-            const rawSource = typeof cfg.source === 'string' ? cfg.source.trim() : '';
-            const previewSource = typeof cfg.previewUrl === 'string' ? cfg.previewUrl.trim() : '';
-            let importValue = rawSource || previewSource;
-
-            state.localFileName = typeof cfg.localFileName === 'string' ? cfg.localFileName : '';
+            
+            // 允许兼容 "source" 或简写 "src"
+            const rawSource = typeof cfg.source === 'string' ? cfg.source.trim() : (typeof cfg.src === 'string' ? cfg.src.trim() : '');
+            
+            let importValue = rawSource;
+            state.localFileName = rawSource.split('/').pop() || '';
+            
             const hasBlob = importValue.startsWith('blob:');
             if (hasBlob) {
                 const resolvedByName = await resolveResourceByName(state.localFileName);
                 importValue = resolvedByName || '';
             }
+            
+            // 1. 强行将文本框的值恢复
             state.input.value = importValue;
 
+            // 2. 清除可能存在的防抖，立即应用渲染视图
             clearTimeout(debounceTimers[key]);
             applyLayerValue(key, importValue, 'text');
 
+            // 3. 恢复非遮罩层的空间变换参数
             if (key !== 'mask') {
-                if (cfg.offsetX !== undefined) document.getElementById(`${key}-x`).value = Number(cfg.offsetX) || 0;
-                if (cfg.offsetY !== undefined) document.getElementById(`${key}-y`).value = Number(cfg.offsetY) || 0;
-                if (cfg.scale !== undefined) document.getElementById(`${key}-scale`).value = Number(cfg.scale) || 1;
+                const xVal = cfg.offsetX !== undefined ? cfg.offsetX : (cfg.x !== undefined ? cfg.x : 0);
+                const yVal = cfg.offsetY !== undefined ? cfg.offsetY : (cfg.y !== undefined ? cfg.y : 0);
+                const sVal = cfg.scale !== undefined ? cfg.scale : (cfg.s !== undefined ? cfg.s : 1);
+                
+                document.getElementById(`${key}-x`).value = Number(xVal);
+                document.getElementById(`${key}-y`).value = Number(yVal);
+                document.getElementById(`${key}-scale`).value = Number(sVal);
+                
+                // 必须显式调用：应用样式变形
                 updateTransform(key);
             }
 
+            // 4. 恢复显隐控制
             const visibleEl = document.getElementById(`${key}-visible`);
-            if (visibleEl && typeof cfg.visible === 'boolean') {
-                visibleEl.checked = cfg.visible;
+            if (visibleEl) {
+                const visVal = cfg.visible !== undefined ? cfg.visible : (cfg.vis !== undefined ? cfg.vis : true);
+                visibleEl.checked = !!visVal;
             }
+            
+            // 必须显式调用：应用显隐样式
             updateVisibility(key);
+            
             return { unresolvedBlob: hasBlob && !importValue };
         }
 
         async function importConfigFromClipboard() {
-            let text = '';
             try {
-                text = await navigator.clipboard.readText();
-            } catch (err) {
-                text = window.prompt('无法直接读取剪贴板，请粘贴配置 JSON：') || '';
-            }
+                const text = await navigator.clipboard.readText();
+                if (!text.trim()) return alert('剪贴板为空，请先复制 JSON 配置');
+                
+                const cfg = JSON.parse(text);
+                if (!cfg || typeof cfg !== 'object') return alert('无效的配置 JSON，解析失败');
 
-            if (!text.trim()) {
-                statusText.textContent = '未读取到可用配置';
-                return;
-            }
+                let statusMsg = '配置导入成功！';
 
-            try {
-                const parsed = JSON.parse(text);
-                if (!parsed || typeof parsed !== 'object') {
-                    throw new Error('配置必须是 JSON 对象');
-                }
-
-                const results = await Promise.all([
-                    applyImportedLayerConfig('icon', parsed.icon),
-                    applyImportedLayerConfig('border', parsed.border),
-                    applyImportedLayerConfig('mask', parsed.mask)
+                // 按顺序并行恢复三个图层的视觉参数
+                const [resIcon, resBorder, resMask] = await Promise.all([
+                    applyImportedLayerConfig('icon', cfg.icon),
+                    applyImportedLayerConfig('border', cfg.border),
+                    applyImportedLayerConfig('mask', cfg.mask)
                 ]);
 
-                // 导入：解析并生成硬币列表UI
-                diceListEl.innerHTML = '';
-                if (parsed.dice && Array.isArray(parsed.dice)) {
-                    parsed.dice.forEach(die => {
-                        // 1. 先生成硬币 UI 元素
-                        const dieEl = createDieInput(die);
-                        
-                        // 2. 检查并勾选对应的类型（逻辑在这里实现）
-                        if (die.type) {
-                            // 如果 die.type 是数组就直接用，不是就转成数组
-                            const types = Array.isArray(die.type) ? die.type : [die.type];
-                            
-                            // 遍历数组，找到对应的 checkbox 并勾选
-                            types.forEach(t => {
-                                const checkbox = dieEl.querySelector(`input[value="${t}"]`);
-                                if (checkbox) {
-                                    checkbox.checked = true;
-                                }
-                            });
-                        }
-                        
-                        // 3. 将配置好的 DOM 节点放入列表
-                        diceListEl.appendChild(dieEl);
-                    });
+                if (resIcon.unresolvedBlob || resBorder.unresolvedBlob || resMask.unresolvedBlob) {
+                    statusMsg += ' (部分本地 Blob 缓存已过期，已尝试恢复物理路径)';
                 }
 
+                statusText.textContent = statusMsg;
+                
+                // 关键：导入完成后重新生成一次预览区域的 JSON 文本
                 updateConfigPreview();
-
-                const unresolvedCount = results.filter(item => item.unresolvedBlob).length;
-                if (unresolvedCount > 0) {
-                    statusText.textContent = `配置已导入，但有 ${unresolvedCount} 项 blob 地址无法恢复，请改成 public 下资源路径。`;
-                } else {
-                    statusText.textContent = '配置已从剪贴板导入并应用预览';
-                }
             } catch (err) {
-                statusText.textContent = `导入失败：${err.message}`;
+                console.error(err);
+                alert('导入失败，请确保剪贴板中是合法的 JSON 格式，且允许了网页读取剪贴板权限');
             }
         }
-
         async function copyConfigToClipboard() {
             updateConfigPreview();
             const text = configPreviewCode.textContent || '';
@@ -612,6 +600,7 @@
             if (source !== 'file') state.localFileName = '';
 
             const src = normalizeImageInput(rawValue);
+            state.layer.dataset.fallbackSrc = '';
             
             if (key === 'mask') {
                 const maskWrapper = document.getElementById('mask-wrapper');
@@ -696,60 +685,63 @@
             document.getElementById(`${key}-visible`).addEventListener('change', () => updateVisibility(key));
         }
 
-        function bindLocalFilePicker(key) {
+        function bindPublicPathPicker(key) {
             const state = layerState[key];
             const button = document.getElementById(state.pickBtnId);
             if (!button) return;
 
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = 'image/*';
-            fileInput.style.display = 'none';
-            document.body.appendChild(fileInput);
+            button.addEventListener('click', async () => {
+                setLayerStatus(key, '正在打开后端文件管理器...');
+                const currentPath = toPublicSource(state.input.value || '');
 
-            button.addEventListener('click', () => fileInput.click());
+                try {
+                    const resp = await fetch(`${API_BASE}/api/pick_public_image`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            title: `选择${state.name}图片（仅 public 内）`,
+                            currentPath
+                        })
+                    });
+                    
+                    if (!resp.ok) {
+                        const errorData = await resp.json().catch(() => ({}));
+                        throw new Error(errorData.message || `HTTP 错误 ${resp.status}`);
+                    }
+                    
+                    const data = await resp.json();
+                    if (!data.success) {
+                        if (data.cancelled) {
+                            setLayerStatus(key, '已取消选择');
+                            return;
+                        }
+                        throw new Error(data.message || '后端选择失败');
+                    }
 
-            fileInput.addEventListener('change', () => {
-                const file = fileInput.files && fileInput.files[0];
-                if (!file) return;
-                if (!file.type.startsWith('image/')) {
-                    setLayerStatus(key, `文件不是图片：${file.name}`, true);
+                    const resolvedPath = typeof data.publicPath === 'string' ? data.publicPath.trim() : '';
+                    if (!resolvedPath) {
+                        throw new Error('后端未返回 publicPath');
+                    }
+
+                    state.localFileName = (typeof data.name === 'string' && data.name.trim())
+                        ? data.name.trim()
+                        : (resolvedPath.split('/').pop() || '');
+                    state.input.value = resolvedPath;
+                    clearTimeout(debounceTimers[key]);
+                    applyLayerValue(key, resolvedPath, 'text');
+                    updateConfigPreview();
+                } catch (err) {
+                    console.error('Pick error:', err);
+                    setLayerStatus(key, `选择失败：${err.message}`, true);
+                    alert(`无法调用后端接口，请检查：\n1. server.py 是否已启动\n2. 后端地址是否正确: ${API_BASE}\n3. 错误信息: ${err.message}`);
                     return;
                 }
-
-                clearTimeout(debounceTimers[key]);
-                setLayerStatus(key, '上传到 public 资源目录中...');
-                const formData = new FormData();
-                formData.append('file', file);
-                formData.append('subdir', 'skill-assets');
-
-                fetch(`${API_BASE}/api/upload_image`, {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(resp => resp.json())
-                    .then(data => {
-                        if (!data.success || !data.relativePath) {
-                            throw new Error(data.message || '上传失败');
-                        }
-                        const resourcePath = `resources/${data.relativePath}`;
-                        state.localFileName = file.name;
-                        state.input.value = resourcePath;
-                        applyLayerValue(key, resourcePath, 'file');
-                        updateConfigPreview();
-                    })
-                    .catch(err => {
-                        setLayerStatus(key, `上传失败：${err.message}`, true);
-                    })
-                    .finally(() => {
-                        fileInput.value = '';
-                    });
             });
         }
 
         ['icon', 'border', 'mask'].forEach(key => {
             bindLayerInput(key);
-            bindLocalFilePicker(key);
+            bindPublicPathPicker(key);
 
             const state = layerState[key];
             state.layer.addEventListener('load', function() {
@@ -773,13 +765,36 @@
             });
         });
 
-        importConfigBtn.addEventListener('click', importConfigFromClipboard);
+        importConfigBtn.addEventListener('click', importConfigFromClipboard); // 新增这一行绑定事件
         copyConfigBtn.addEventListener('click', copyConfigToClipboard);
+        
+        document.getElementById('global-pick-btn').addEventListener('click', async () => {
+            try {
+                const resp = await fetch(`${API_BASE}/api/pick_public_image`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title: "选择任意文件获取 Public 路径" })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    const path = data.publicPath;
+                    await navigator.clipboard.writeText(path);
+                    statusText.textContent = `已获取路径并复制到剪贴板：${path}`;
+                    alert(`获取成功！路径已复制：\n${path}`);
+                } else if (!data.cancelled) {
+                    alert(`获取失败：${data.message}`);
+                }
+            } catch (err) {
+                alert(`无法连接到后端服务，请检查 server.py 是否启动。`);
+            }
+        });
 
+        // 页面初始化：检查后端连接
+        checkBackendConnection();
+        
         // 页面初始化：触发遮罩加载
         applyLayerValue('mask', document.getElementById('mask-url').value, 'text');
         // 页面初始化：提供一个默认硬币
-        diceListEl.appendChild(createDieInput({ type: "slash", min: 4, max: 8, effect: "[命中时] 施加 1 层脆弱" }));
         updateConfigPreview();
     </script>
 
