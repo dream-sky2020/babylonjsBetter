@@ -116,6 +116,9 @@ export interface UnitConfig {
   status: StatusConfig[];
   skills: SkillData[];
   activeSkillId?: string;
+  speed: number;           
+  baseSpeed: number;       
+  speedModifier: number;   
 }
 
 export type CombatPhase =

@@ -49,6 +49,7 @@ export const UnitCard: React.FC<UnitCardProps> = ({ side, unitId }) => {
         <span>HP: {data.hp}/{maxHp}</span>
         <span style={{ color: '#007bff', fontWeight: 'bold' }}>SHD: {data.shield}</span>
         <span>SAN: {data.sanity}/{data.maxSanity ?? data.sanity ?? 0}</span>
+        <span style={{ color: '#ff6b6b' }}>SPD: {data.speed}</span>
       </div>
       <div style={{ marginTop: '6px', fontSize: '12px', color: '#555', display: 'flex', flexDirection: 'column', gap: '2px' }}>
         <span>技能数: {skills.length}</span>
@@ -57,6 +58,7 @@ export const UnitCard: React.FC<UnitCardProps> = ({ side, unitId }) => {
       <div style={{ width: '100%', height: '4px', background: '#eee', borderRadius: '2px', marginTop: '8px', overflow: 'hidden' }}>
         <div style={{ height: '100%', background: '#28a745', width: `${hpPercent}%` }}></div>
       </div>
+      
     </div>
   );
 };

@@ -64,6 +64,9 @@ export const UnitEditor: React.FC<UnitEditorProps> = ({ side, unitId, isSelected
         { label: '最大理智', field: 'maxSanity' },
         { label: '混乱值', field: 'chaos' },
         { label: '混乱阈值', field: 'chaosThreshold' },
+        { label: '当前速度', field: 'speed' },
+        { label: '基础速度', field: 'baseSpeed' },
+        { label: '速度变动值', field: 'speedModifier' },
       ].map((item) => (
         <div key={item.field} style={{ marginBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '14px' }}>
           {item.label}: 
