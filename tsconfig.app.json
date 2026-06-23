@@ -9,6 +9,11 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./*"],
+      "@app-types/*": ["./types/*"],
+      "@app-config/*": ["./config/*"]
+    },
     "allowJs": true,
     "checkJs": false,
     "allowImportingTsExtensions": true,
@@ -23,5 +28,10 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["game-manager.js"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", "clash", "python"]
 }

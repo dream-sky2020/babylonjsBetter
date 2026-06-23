@@ -34,7 +34,10 @@ export function getVal(id: string): number {
             san: 'sanity',
             maxSan: 'maxSanity',
             chaos: 'chaos',
-            chaosThreshold: 'chaosThreshold'
+            chaosThreshold: 'chaosThreshold',
+            speed: 'speed',
+            baseSpeed: 'baseSpeed',
+            speedModifier: 'speedModifier'
         };
         return Number(unit[fieldMap[field]]) || 0;
     }
@@ -58,7 +61,10 @@ export function setVal(id: string, val: number): void {
             san: 'sanity',
             maxSan: 'maxSanity',
             chaos: 'chaos',
-            chaosThreshold: 'chaosThreshold'
+            chaosThreshold: 'chaosThreshold',
+            speed: 'speed',
+            baseSpeed: 'baseSpeed',
+            speedModifier: 'speedModifier'
         };
         const targetField = fieldMap[field];
         const patch: Partial<UnitConfig> = { [targetField]: val } as Partial<UnitConfig>;
@@ -190,6 +196,9 @@ export function loadInitialData(): void {
         tempShield: 0,
         chaos: 0,
         chaosThreshold: 100,
+        speed: 10,
+        baseSpeed: 10,
+        speedModifier: 0,
         status: [{ type: 'bleed', stack: 1, power: 1 }],
         skills: [{
             skillId: 'LS1001',
@@ -212,7 +221,10 @@ export function loadInitialData(): void {
         shield: 10,
         tempShield: 0,
         chaos: 0,
-        chaosThreshold: 100,
+        chaosThreshold: 100,        
+        speed: 10,
+        baseSpeed: 10,
+        speedModifier: 0,
         status: [{ type: 'protection', stack: 1, power: 1 }],
         skills: [{
             skillId: 'RS1001',

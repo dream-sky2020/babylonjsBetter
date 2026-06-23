@@ -51,6 +51,9 @@ export const App: React.FC = () => {
       maxSanity: 45,
       chaos: 0,
       chaosThreshold: 100,
+      speed: 10,
+      baseSpeed: 10,
+      speedModifier: 0,  
       status: [],
       skills: [],
     };

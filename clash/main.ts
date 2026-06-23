@@ -29,7 +29,11 @@ type RuntimeSyncField =
   | 'sanity'
   | 'maxSanity'
   | 'chaos'
-  | 'chaosThreshold';
+  | 'chaosThreshold'
+  | 'speed'          
+  | 'baseSpeed'      
+  | 'speedModifier'; 
+;
 
 const RUNTIME_SYNC_FIELDS: RuntimeSyncField[] = [
   'hp',
@@ -40,6 +44,9 @@ const RUNTIME_SYNC_FIELDS: RuntimeSyncField[] = [
   'maxSanity',
   'chaos',
   'chaosThreshold',
+  'speed',          
+  'baseSpeed',      
+  'speedModifier', 
 ];
 
 function syncRuntimeUnitState(payload: ClashPayload): void {
