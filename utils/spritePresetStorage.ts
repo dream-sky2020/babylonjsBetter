@@ -2,8 +2,8 @@ import { spriteAnchorPresets } from '@app-config/spriteAnchorPresets';
 import type { NormalizedUv, SpriteAnchorPreset, SpriteAnchorPresetMap } from '@app-types/sprite-anchors.types';
 
 const SPRITE_ANCHOR_LOCAL_STORAGE_KEY = 'sprite-anchor-presets.v1';
-const ANCHOR_MIN = -0.5;
-const ANCHOR_MAX = 1.5;
+const ANCHOR_MIN = -1;
+const ANCHOR_MAX = 2;
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 

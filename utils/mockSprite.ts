@@ -93,6 +93,16 @@ export const drawSpriteDebugHelper = (mockSprite: MockSprite, scene: Scene): Mes
   boundsLine.parent = mesh;
   debugMeshes.push(boundsLine);
 
+  // 身体中轴线：贯穿整个平面高度，不再只覆盖 bodyBounds 区域。
+  const axisTop = getLocalPos(preset.bodyAxisX, 0);
+  const axisBottom = getLocalPos(preset.bodyAxisX, 1);
+  const axisLine = MeshBuilder.CreateLines(`debug_axis_${mockSprite.texturePath}`, {
+    points: [axisTop, axisBottom]
+  }, scene);
+  axisLine.color = new Color3(0.82, 0.5, 1);
+  axisLine.parent = mesh;
+  debugMeshes.push(axisLine);
+
   const createAnchorMarker = (name: string, u: number, v: number, color: Color3) => {
     const marker = MeshBuilder.CreateSphere(`debug_anchor_${name}`, { diameter: 0.05 }, scene);
     marker.position = getLocalPos(u, v);

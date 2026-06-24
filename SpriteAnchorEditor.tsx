@@ -38,8 +38,8 @@ const createEditablePreset = (imagePath: string): SpriteAnchorPreset => {
 
 const toFixedNumber = (value: number): number => Number(value.toFixed(4));
 const INPUT_STEP = 0.0001;
-const ANCHOR_MIN = -0.5;
-const ANCHOR_MAX = 1.5;
+const ANCHOR_MIN = -1;
+const ANCHOR_MAX = 2;
 const BOUNDS_MIN = 0;
 const BOUNDS_MAX = 1;
 
