@@ -30,17 +30,17 @@ interface BattleSkillUiProps {
   skillName?: string;             // 可选的技能名称
 }
 
-export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({ 
-  trackedState, 
+export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
+  trackedState,
   config = DEFAULT_SKILL_DATA, // 采用要求的默认数据作为 Fallback
-  skillName 
+  skillName
 }) => {
   // 如果当前 3D 追踪点不可见，或者未配置数据，或者核心图标不可见则不渲染
   if (!trackedState.visible || !config || !config.icon?.visible) return null;
 
   // 1. 解析遮罩层样式 (利用 CSS mask-image 裁剪)
-  const maskUrl = config.mask?.visible && config.mask.source 
-    ? `url("/${config.mask.source}")` 
+  const maskUrl = config.mask?.visible && config.mask.source
+    ? `url("/${config.mask.source}")`
     : 'none';
 
   const maskStyle: React.CSSProperties = {
@@ -57,6 +57,8 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
     position: 'absolute',
     top: 0,
     left: 0,
+    transform: 'scale(0.9)',
+    transformOrigin: 'center center',
   };
 
   return (

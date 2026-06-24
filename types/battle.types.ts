@@ -18,8 +18,18 @@ export const hiddenTrackedUi: TrackedUiState = {
 export interface UiTrackerConfig {
   /** 锚点偏移方向（相对于物体中心） */
   offsetDirection?: 'up' | 'down' | 'left' | 'right' | 'forward' | 'backward' | Vector3;
+  /**
+   * 锚点模式：
+   * - bounding: 使用物体中心作为基础锚点（默认）
+   * - normalized: 使用包围盒归一化坐标作为基础锚点（-1 到 1）
+   */
+  anchorMode?: 'bounding' | 'normalized';
+  /** 归一化锚点（仅在 anchorMode=normalized 时生效） */
+  anchorNormalized?: Vector3;
   /** 偏移距离（倍数） */
   offsetMultiplier?: number;
+  /** 是否按包围盒边缘自动贴边后再偏移（默认 true） */
+  useBoundingEdgeOffset?: boolean;
   /** 额外偏移量 */
   extraOffset?: number;
   /** 最小缩放 */
