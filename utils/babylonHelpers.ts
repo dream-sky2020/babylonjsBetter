@@ -237,19 +237,20 @@ export const getSpriteAnchorPreset = (
   source: SpritePresetSource = 'merged'
 ): SpriteAnchorPreset => {
   const normalizedPath = normalizeTexturePath(texturePath);
-  let preset: SpriteAnchorPreset | null = null;
-
   if (source === 'config') {
     const configPreset = spriteAnchorPresets[normalizedPath];
-    preset = configPreset ? sanitizePreset(configPreset) : null;
-  } else if (source === 'local') {
-    preset = getLocalSpriteAnchorPreset(normalizedPath);
-  } else {
-    const merged = getAllSpriteAnchorPresets();
-    preset = merged[normalizedPath] ?? null;
+    const resolvedPreset = configPreset ?? createDefaultPreset(normalizedPath);
+    return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
   }
 
-  const resolvedPreset = preset ?? createDefaultPreset(normalizedPath);
+  if (source === 'local') {
+    const localPreset = getLocalSpriteAnchorPreset(normalizedPath);
+    const resolvedPreset = localPreset ?? createDefaultPreset(normalizedPath);
+    return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
+  }
+
+  const merged = getAllSpriteAnchorPresets();
+  const resolvedPreset = merged[normalizedPath] ?? createDefaultPreset(normalizedPath);
   return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
 };
 

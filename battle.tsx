@@ -1,28 +1,29 @@
 // Battle.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BattleStartUI } from './BattleStartUI';
 import { BattleSkillUI } from './BattleSkillUI';
-import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, Color4, Mesh } from '@babylonjs/core';
+import { Engine, Mesh } from '@babylonjs/core';
 import type { TrackedUiState, SkillVisualData } from '@app-types/battle.types';
 import { hiddenTrackedUi } from '@app-types/battle.types';
 import { createMockSprite, drawSpriteDebugHelper, uvToNormalizedAnchor } from './utils/mockSprite';
 import { UiTracker } from './trackers/UiTracker';
 import { UiTrackerManager } from './trackers/UiTrackerManager';
-
-type SceneWithOrthoHelpers = Scene & {
-  _updateOrtho?: () => void;
-  _disposeCameraInteraction?: () => void;
-  _reloadAnchorPreset?: () => void;
-};
+import { createBattleScene } from './scene/createScene';
 
 export const Battle: React.FC = () => {
   const [isBattleStarting, setIsBattleStarting] = useState(false);
+  const [webglError, setWebglError] = useState('');
   const [topSkillTrackedUi, setTopSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const [bottomSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const [centerSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const trackerManagerRef = useRef<UiTrackerManager | null>(null);
-  const sceneRef = useRef<SceneWithOrthoHelpers | null>(null);
+  const reloadAnchorPresetRef = useRef<(() => void) | null>(null);
+  const reportWebglError = useCallback((message: string) => {
+    window.setTimeout(() => {
+      setWebglError(message);
+    }, 0);
+  }, []);
 
   const skillUiConfig: SkillVisualData = {
     icon: {
@@ -49,193 +50,64 @@ export const Battle: React.FC = () => {
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const engine = new Engine(canvas, true);
+    if (!Engine.IsSupported) {
+      reportWebglError('当前环境不支持 WebGL，Battle 场景无法渲染。请检查浏览器硬件加速设置或切换浏览器。');
+      return;
+    }
 
-    const createScene = () => {
-      const scene = new Scene(engine);
-      scene.clearColor = new Color4(0.1, 0.1, 0.15, 1);
+    let sceneContext: ReturnType<typeof createBattleScene>;
+    try {
+      sceneContext = createBattleScene(canvas);
+    } catch {
+      reportWebglError('Battle 场景初始化失败：当前环境可能不支持 WebGL。');
+      return;
+    }
+    const { scene, camera, engine, updateOrthographicFrustum, dispose } = sceneContext;
 
-      // 1. 设置相机初始位置（alpha = -Math.PI / 2, beta = Math.PI / 2 使其从 Z 轴负方向垂直看向原点，完美面对默认平面的正面）
-      const camera = new ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2, 10, Vector3.Zero(), scene);
-      // 锁定旋转，只允许平移 + 缩放
-      camera.lowerAlphaLimit = -Math.PI / 2;
-      camera.upperAlphaLimit = -Math.PI / 2;
-      camera.lowerBetaLimit = Math.PI / 2;
-      camera.upperBetaLimit = Math.PI / 2;
+    // 创建图标平面（Battle 只关注“放置物体”）
+    const iconTexturePath = encodeURI('/resources/优势.png');
+    const mockSprite = createMockSprite(scene, iconTexturePath, 4.8, 'merged');
+    const plane = mockSprite.mesh;
+    let debugItems: Mesh[] = [];
 
-      // 2. 开启正交模式
-      camera.mode = ArcRotateCamera.ORTHOGRAPHIC_CAMERA;
+    // 初始化追踪器管理器
+    trackerManagerRef.current = new UiTrackerManager();
 
-      // 3. 定义正交相机的垂直视野范围大小（值越小，物体看起来越大）
-      let orthoSize = 5;
-      const minOrthoSize = 1.5;
-      const maxOrthoSize = 14;
-      const zoomStep = 0.1;
+    const reloadAnchorPreset = () => {
+      const preset = mockSprite.refreshPreset();
 
-      // 4. 根据当前画布宽高比计算并更新正交相机的边界参数
-      const updateOrthographicFrustum = () => {
-        const aspectRatio = engine.getRenderWidth() / engine.getRenderHeight();
-        camera.orthoTop = orthoSize;
-        camera.orthoBottom = -orthoSize;
-        camera.orthoLeft = -orthoSize * aspectRatio;
-        camera.orthoRight = orthoSize * aspectRatio;
-      };
+      debugItems.forEach((mesh) => mesh.dispose());
+      debugItems = drawSpriteDebugHelper(mockSprite, scene);
 
-      // 首次初始化正交边界
-      updateOrthographicFrustum();
-
-      // 鼠标左键拖拽平移视口（水平移动，不旋转）
-      let isDragging = false;
-      let previousX = 0;
-      let previousY = 0;
-
-      const handlePointerDown = (event: PointerEvent) => {
-        if (event.button !== 0) return;
-        isDragging = true;
-        previousX = event.clientX;
-        previousY = event.clientY;
-      };
-
-      const handlePointerMove = (event: PointerEvent) => {
-        if (!isDragging) return;
-
-        const deltaX = event.clientX - previousX;
-        const deltaY = event.clientY - previousY;
-        previousX = event.clientX;
-        previousY = event.clientY;
-
-        const worldWidth = (camera.orthoRight ?? 0) - (camera.orthoLeft ?? 0);
-        const worldHeight = (camera.orthoTop ?? 0) - (camera.orthoBottom ?? 0);
-        const worldPerPixelX = worldWidth / engine.getRenderWidth();
-        const worldPerPixelY = worldHeight / engine.getRenderHeight();
-
-        camera.target.addInPlace(new Vector3(-deltaX * worldPerPixelX, deltaY * worldPerPixelY, 0));
-      };
-
-      const handlePointerUp = () => {
-        isDragging = false;
-      };
-
-      // 鼠标滚轮缩放正交视口
-      const handleWheel = (event: WheelEvent) => {
-        event.preventDefault();
-        const direction = Math.sign(event.deltaY);
-        if (direction === 0) return;
-
-        const nextOrthoSize = orthoSize * (1 + direction * zoomStep);
-        orthoSize = Math.min(maxOrthoSize, Math.max(minOrthoSize, nextOrthoSize));
-        updateOrthographicFrustum();
-      };
-
-      canvas.addEventListener('pointerdown', handlePointerDown);
-      canvas.addEventListener('pointermove', handlePointerMove);
-      window.addEventListener('pointerup', handlePointerUp);
-      canvas.addEventListener('wheel', handleWheel, { passive: false });
-
-      const light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
-      light.intensity = 0.7;
-
-      // 创建图标平面 (此时平面正面默认面朝 Z 轴负方向，正好与相机相对)
-      const iconTexturePath = encodeURI('/resources/优势.png');
-      // 与编辑器保持一致：读取 merged（config + localStorage 覆盖）
-      const mockSprite = createMockSprite(scene, iconTexturePath, 4.8, 'merged');
-      const plane = mockSprite.mesh;
-      let debugItems: Mesh[] = [];
-
-      // 初始化追踪器管理器
+      trackerManagerRef.current?.clear();
       trackerManagerRef.current = new UiTrackerManager();
 
-      const reloadAnchorPreset = () => {
-        const preset = mockSprite.refreshPreset();
-
-        debugItems.forEach((mesh) => mesh.dispose());
-        debugItems = drawSpriteDebugHelper(mockSprite, scene);
-
-        trackerManagerRef.current?.clear();
-        trackerManagerRef.current = new UiTrackerManager();
-
-        const headAnchorNormalized = uvToNormalizedAnchor(mockSprite.getAnchorUv('head'));
-        const topTracker = new UiTracker(
-          scene, camera, engine, plane, setTopSkillTrackedUi,
-          {
-            offsetDirection: 'up',
-            anchorMode: 'normalized',
-            anchorNormalized: headAnchorNormalized,
-            offsetMultiplier: 0,
-            useBoundingEdgeOffset: false,
-            extraOffset: 0.2,
-            minScale: 0.3,
-            maxScale: 1.4,
-            baseDistance: 10,
-            baseOrthoHeight: 10
-          }
-        );
-        trackerManagerRef.current.addTracker(topTracker);
-
-        console.log('[MockSprite Preset Reloaded]', preset);
-      };
-      reloadAnchorPreset();
-
-      // // 下方 UI：贴着平面下沿再下移一点
-      // const bottomTracker = new UiTracker(
-      //   scene, camera, engine, plane, setBottomSkillTrackedUi,
-      //   {
-      //     offsetDirection: 'down',
-      //     anchorMode: 'normalized',
-      //     anchorNormalized: footAnchorNormalized,
-      //     offsetMultiplier: 0,
-      //     useBoundingEdgeOffset: false,
-      //     extraOffset: 0.2,
-      //     minScale: 0.3,
-      //     maxScale: 1.4,
-      //     baseDistance: 10,
-      //     baseOrthoHeight: 10
-      //   }
-      // );
-      // trackerManagerRef.current.addTracker(bottomTracker);
-
-      // // 身体 UI：锁定到身体中部锚点
-      // const centerTracker = new UiTracker(
-      //   scene, camera, engine, plane, setCenterSkillTrackedUi,
-      //   {
-      //     offsetDirection: 'up',
-      //     anchorMode: 'normalized',
-      //     anchorNormalized: centerAnchorNormalized,
-      //     offsetMultiplier: 0,
-      //     useBoundingEdgeOffset: false,
-      //     extraOffset: 0,
-      //     minScale: 0.3,
-      //     maxScale: 1.4,
-      //     baseDistance: 10,
-      //     baseOrthoHeight: 10
-      //   }
-      // );
-      // trackerManagerRef.current.addTracker(centerTracker);
-
-      // 在渲染循环中更新所有追踪器
-      scene.onBeforeRenderObservable.add(() => {
-        if (trackerManagerRef.current) {
-          trackerManagerRef.current.updateAll();
+      const headAnchorNormalized = uvToNormalizedAnchor(mockSprite.getAnchorUv('head'));
+      const topTracker = new UiTracker(
+        scene, camera, engine, plane, setTopSkillTrackedUi,
+        {
+          anchorMode: 'normalized',
+          anchorNormalized: headAnchorNormalized,
+          offsetMultiplier: 0,
+          useBoundingEdgeOffset: false,
+          extraOffset: 0.2,
+          minScale: 0.3,
+          maxScale: 1.4
         }
-      });
+      );
+      trackerManagerRef.current.addTracker(topTracker);
 
-      // 将更新正交边界的方法挂载到 scene 上，方便外面 resize 监听时调用
-      const typedScene = scene as SceneWithOrthoHelpers;
-      typedScene._updateOrtho = updateOrthographicFrustum;
-      typedScene._reloadAnchorPreset = reloadAnchorPreset;
-      typedScene._disposeCameraInteraction = () => {
-        canvas.removeEventListener('pointerdown', handlePointerDown);
-        canvas.removeEventListener('pointermove', handlePointerMove);
-        window.removeEventListener('pointerup', handlePointerUp);
-        canvas.removeEventListener('wheel', handleWheel);
-        debugItems.forEach((mesh) => mesh.dispose());
-      };
-
-      return scene;
+      console.log('[MockSprite Preset Reloaded]', preset);
     };
+    reloadAnchorPresetRef.current = reloadAnchorPreset;
+    reloadAnchorPreset();
 
-    const scene = createScene();
-    sceneRef.current = scene as SceneWithOrthoHelpers;
+    // 在渲染循环中更新所有追踪器
+    scene.onBeforeRenderObservable.add(() => {
+      if (trackerManagerRef.current) {
+        trackerManagerRef.current.updateAll();
+      }
+    });
 
     engine.runRenderLoop(() => {
       scene.render();
@@ -243,30 +115,22 @@ export const Battle: React.FC = () => {
 
     const handleResize = () => {
       engine.resize();
-      // 5. 窗口大小改变时，必须重新计算正交相机的边界，否则画面会拉伸变形
-      const typedScene = scene as SceneWithOrthoHelpers;
-      if (typedScene._updateOrtho) {
-        typedScene._updateOrtho();
-      }
+      updateOrthographicFrustum();
     };
     window.addEventListener('resize', handleResize);
 
     return () => {
-      sceneRef.current = null;
+      reloadAnchorPresetRef.current = null;
       window.removeEventListener('resize', handleResize);
-      const typedScene = scene as SceneWithOrthoHelpers;
-      if (typedScene._disposeCameraInteraction) {
-        typedScene._disposeCameraInteraction();
-      }
+      debugItems.forEach((mesh) => mesh.dispose());
 
       if (trackerManagerRef.current) {
         trackerManagerRef.current.clear();
       }
 
-      scene.dispose();
-      engine.dispose();
+      dispose();
     };
-  }, []);
+  }, [reportWebglError]);
 
   const handleStartBattle = () => {
     setIsBattleStarting(true);
@@ -278,9 +142,7 @@ export const Battle: React.FC = () => {
   };
 
   const handleReloadAnchorPreset = () => {
-    const scene = sceneRef.current;
-    if (!scene?._reloadAnchorPreset) return;
-    scene._reloadAnchorPreset();
+    reloadAnchorPresetRef.current?.();
   };
 
   // ==================== 完整的 RETURN 部分 ====================
@@ -296,6 +158,27 @@ export const Battle: React.FC = () => {
           outline: 'none'
         }}
       />
+      {webglError ? (
+        <div
+          style={{
+            position: 'absolute',
+            left: 20,
+            bottom: 20,
+            zIndex: 30,
+            pointerEvents: 'none',
+            background: 'rgba(10, 12, 18, 0.8)',
+            border: '1px solid rgba(255, 99, 99, 0.5)',
+            color: '#ffd3d3',
+            padding: '10px 12px',
+            borderRadius: 8,
+            maxWidth: 520,
+            fontSize: 13,
+            lineHeight: 1.5
+          }}
+        >
+          {webglError}
+        </div>
+      ) : null}
 
       {/* 2. 页面普通 UI 交互层 */}
       <div

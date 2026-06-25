@@ -28,12 +28,14 @@ interface BattleSkillUiProps {
   trackedState: TrackedUiState;   // 绑定的 3D 追踪状态 (包含坐标、是否可见、3D远近缩放比例)
   config?: SkillVisualData | null;// 外部从接口获取的数据，如果不传，则直接使用上面的默认配置
   skillName?: string;             // 可选的技能名称
+  onClick?: () => void; // 1. 新增：提供对外暴露的点击事件接口
 }
 
 export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
   trackedState,
   config = DEFAULT_SKILL_DATA, // 采用要求的默认数据作为 Fallback
-  skillName
+  skillName,
+  onClick // 接收 onClick
 }) => {
   // 如果当前 3D 追踪点不可见，或者未配置数据，或者核心图标不可见则不渲染
   if (!trackedState.visible || !config || !config.icon?.visible) return null;
@@ -73,7 +75,7 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
         transform: `translate(-50%, -50%) scale(${trackedState.scale})`,
         transformOrigin: 'center center',
         zIndex: 25,
-        pointerEvents: 'none', // 穿透鼠标事件，不妨碍 3D 场景拖拽
+        pointerEvents: 'none', // 2. 保持外层穿透：防止整个 flex 容器的隐形边界挡住 3D 拖拽
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -82,11 +84,14 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
     >
       {/* 技能主体图层容器 (128x128 像素) */}
       <div
+        onClick={onClick} // 3. 绑定点击事件
         style={{
           position: 'relative',
           width: '128px',
           height: '128px',
-          userSelect: 'none'
+          userSelect: 'none',
+          pointerEvents: 'auto', // 4. 核心修改：让图标本体阻挡/接收鼠标事件
+          cursor: 'pointer',     // 5. 体验优化：鼠标悬浮时显示为点击手型
         }}
       >
         {/* 中层：受遮罩裁剪的技能 Icon */}

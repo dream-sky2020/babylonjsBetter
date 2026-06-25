@@ -1,0 +1,82 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.target-page {
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a24;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+  font-family: sans-serif;
+  position: relative;
+}
+
+.target-row {
+  position: relative;
+  display: flex;
+  gap: 80px;
+  z-index: 10;
+}
+
+.target-node {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2b2b40;
+  border: 3px solid #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  user-select: none;
+  position: relative;
+  z-index: 20;
+}
+
+.target-node:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+}
+
+.target-node.clashing {
+  border-color: #ff6600;
+  box-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+}
+
+.energy-line-flow {
+  animation: energy-line-flow 0.5s linear infinite;
+}
+
+@keyframes energy-line-flow {
+  from {
+    stroke-dashoffset: 18;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 强制压低连线与粒子层级，确保 UI 节点在最上层 */
+.battle-connection-overlay {
+  z-index: 1 !important;
+}
+
+.battle-connection-svg,
+.battle-connection-canvas {
+  z-index: 0 !important;
+}
