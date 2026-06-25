@@ -18,7 +18,7 @@ export class UiTrackerManager {
   }
 
   /** 通过目标对象移除追踪器 */
-  removeTrackerByTarget(target: any): void {
+  removeTrackerByTarget(target: unknown): void {
     this.trackers = this.trackers.filter(
       tracker => tracker.getTarget() !== target
     );
