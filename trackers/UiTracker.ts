@@ -3,6 +3,19 @@ import { Scene, ArcRotateCamera, Engine, Vector3, Mesh } from '@babylonjs/core';
 import type { TrackedUiState, UiTrackerConfig } from '@app-types/battle.types';
 import { worldToScreen, calculateScaleByDistance, calculateScaleByOrthoHeight, getDirectionVector } from '../utils/cameraUtils';
 
+export const DEFAULT_UI_TRACKER_CONFIG: Required<UiTrackerConfig> = {
+  offsetDirection: 'up',
+  anchorMode: 'bounding',
+  anchorNormalized: new Vector3(0, 0, 0),
+  offsetMultiplier: 2,
+  useBoundingEdgeOffset: true,
+  extraOffset: 0.5,
+  minScale: 0.65,
+  maxScale: 2.2,
+  baseDistance: 10,
+  baseOrthoHeight: 10
+};
+
 export class UiTracker {
   private scene: Scene;
   private camera: ArcRotateCamera;
@@ -17,7 +30,7 @@ export class UiTracker {
     engine: Engine,
     target: Mesh,
     onUpdate: (state: TrackedUiState) => void,
-    config: UiTrackerConfig = {}
+    config: Partial<UiTrackerConfig> = {}
   ) {
     this.scene = scene;
     this.camera = camera;
@@ -25,20 +38,7 @@ export class UiTracker {
     this.target = target;
     this.onUpdate = onUpdate;
 
-    // 默认配置
-    this.config = {
-      offsetDirection: 'up',
-      anchorMode: 'bounding',
-      anchorNormalized: new Vector3(0, 0, 0),
-      offsetMultiplier: 2,
-      useBoundingEdgeOffset: true,
-      extraOffset: 0.5,
-      minScale: 0.65,
-      maxScale: 2.2,
-      baseDistance: 10,
-      baseOrthoHeight: 10,
-      ...config
-    };
+    this.config = { ...DEFAULT_UI_TRACKER_CONFIG, ...config };
   }
 
   /** 更新追踪位置 */

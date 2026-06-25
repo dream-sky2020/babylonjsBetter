@@ -15,7 +15,7 @@ import type { MockSprite } from './utils/mockSprite';
 
 type DragTarget = 'head' | 'foot' | 'center' | 'axis' | null;
 
-const RESOURCE_IMAGE_MODULES = import.meta.glob('./public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
+const RESOURCE_IMAGE_MODULES = import.meta.glob('/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
   query: '?url',
   import: 'default'
@@ -65,8 +65,8 @@ export const SpriteAnchorEditor: React.FC = () => {
   const normalizedImagePath = toSpritePresetKey(imagePath);
 
   const scannedResourceImages = useMemo(() => {
-    return Object.keys(RESOURCE_IMAGE_MODULES)
-      .map((key) => key.replace(/^\.\/public\//, '').replace(/\\/g, '/'))
+    return Object.values(RESOURCE_IMAGE_MODULES)
+      .map((assetUrl) => toSpritePresetKey(assetUrl))
       .sort();
   }, []);
 
@@ -109,14 +109,15 @@ export const SpriteAnchorEditor: React.FC = () => {
     debugMeshesRef.current = drawSpriteDebugHelper(debugMockSprite, scene);
   }, [disposeDebugMeshes]);
 
-  useEffect(() => {
-    setPreset(createEditablePreset(imagePath));
+  const applyImagePath = useCallback((nextImagePath: string) => {
+    setImagePath(nextImagePath);
+    setPreset(createEditablePreset(nextImagePath));
     setPresetSourceLabel(
-      hasLocalSpriteAnchorPreset(imagePath)
+      hasLocalSpriteAnchorPreset(nextImagePath)
         ? '当前配置来源：本地配置（已自动导入）'
         : '当前配置来源：项目默认/内置'
     );
-  }, [imagePath]);
+  }, []);
 
   useEffect(() => {
     presetRef.current = preset;
@@ -256,8 +257,22 @@ export const SpriteAnchorEditor: React.FC = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (!Engine.IsSupported) {
+      window.setTimeout(() => {
+        setMessage('当前环境不支持 WebGL，无法初始化 Babylon 渲染。请检查浏览器图形加速设置或更换支持 WebGL 的浏览器。');
+      }, 0);
+      return;
+    }
 
-    const engine = new Engine(canvas, true);
+    let engine: Engine;
+    try {
+      engine = new Engine(canvas, true);
+    } catch {
+      window.setTimeout(() => {
+        setMessage('Babylon 引擎初始化失败：当前环境可能不支持 WebGL。');
+      }, 0);
+      return;
+    }
     const scene = new Scene(engine);
     scene.clearColor = new Color4(0.1, 0.1, 0.15, 1);
     const camera = new ArcRotateCamera('sprite_editor_camera', -Math.PI / 2, Math.PI / 2, 10, Vector3.Zero(), scene);
@@ -422,7 +437,7 @@ export const SpriteAnchorEditor: React.FC = () => {
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图片路径（public 下）</label>
         <input
           value={imagePath}
-          onChange={(e) => setImagePath(e.target.value)}
+          onChange={(e) => applyImagePath(e.target.value)}
           placeholder="resources/优势.png"
           style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         />
@@ -430,7 +445,7 @@ export const SpriteAnchorEditor: React.FC = () => {
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>资源图片列表（自动扫描 public/resources）</label>
         <select
           value={normalizedImagePath}
-          onChange={(e) => setImagePath(e.target.value)}
+          onChange={(e) => applyImagePath(e.target.value)}
           style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         >
           {resourceImageOptions.map((key) => (
@@ -441,7 +456,7 @@ export const SpriteAnchorEditor: React.FC = () => {
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>快速选择已有锚点配置</label>
         <select
           value={normalizedImagePath}
-          onChange={(e) => setImagePath(e.target.value)}
+          onChange={(e) => applyImagePath(e.target.value)}
           style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         >
           {allPresetKeys.map((key) => (
