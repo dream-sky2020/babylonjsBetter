@@ -142,6 +142,7 @@ const normalizeTexturePath = (texturePath: string): string => {
 export const toSpritePresetKey = (texturePath: string): string => normalizeTexturePath(texturePath);
 
 const createDefaultPreset = (imagePath: string): SpriteAnchorPreset => ({
+  presetKey: normalizeTexturePath(imagePath),
   imagePath,
   bodyBounds: {
     minU: 0.2,
@@ -163,6 +164,7 @@ const sanitizePreset = (preset: SpriteAnchorPreset): SpriteAnchorPreset => {
   const minV = clamp01(Math.min(preset.bodyBounds.minV, preset.bodyBounds.maxV));
   const maxV = clamp01(Math.max(preset.bodyBounds.minV, preset.bodyBounds.maxV));
   return {
+    presetKey: normalizeTexturePath(preset.presetKey || preset.imagePath),
     imagePath: normalizeTexturePath(preset.imagePath),
     bodyBounds: { minU, maxU, minV, maxV },
     bodyAxisX: clamp01(preset.bodyAxisX),
@@ -212,7 +214,7 @@ export const getLocalSpriteAnchorPreset = (texturePath: string): SpriteAnchorPre
   const normalizedPath = normalizeTexturePath(texturePath);
   const local = readLocalSpriteAnchorPresets();
   const preset = local[normalizedPath];
-  return preset ? sanitizePreset({ ...preset, imagePath: normalizedPath }) : null;
+  return preset ? sanitizePreset({ ...preset, presetKey: normalizedPath, imagePath: normalizedPath }) : null;
 };
 
 export const hasLocalSpriteAnchorPreset = (texturePath: string): boolean => {
@@ -240,18 +242,18 @@ export const getSpriteAnchorPreset = (
   if (source === 'config') {
     const configPreset = spriteAnchorPresets[normalizedPath];
     const resolvedPreset = configPreset ?? createDefaultPreset(normalizedPath);
-    return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
+    return sanitizePreset({ ...resolvedPreset, presetKey: normalizedPath, imagePath: normalizedPath });
   }
 
   if (source === 'local') {
     const localPreset = getLocalSpriteAnchorPreset(normalizedPath);
     const resolvedPreset = localPreset ?? createDefaultPreset(normalizedPath);
-    return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
+    return sanitizePreset({ ...resolvedPreset, presetKey: normalizedPath, imagePath: normalizedPath });
   }
 
   const merged = getAllSpriteAnchorPresets();
   const resolvedPreset = merged[normalizedPath] ?? createDefaultPreset(normalizedPath);
-  return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
+  return sanitizePreset({ ...resolvedPreset, presetKey: normalizedPath, imagePath: normalizedPath });
 };
 
 export const uvToNormalizedAnchor = (uv: NormalizedUv): Vector3 => {
