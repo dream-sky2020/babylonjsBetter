@@ -2,23 +2,98 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BattleStartUI } from './BattleStartUI';
 import { BattleSkillUI } from './BattleSkillUI';
-import { Engine, Mesh } from '@babylonjs/core';
+import { Color4, Engine, Mesh } from '@babylonjs/core';
 import type { TrackedUiState, SkillVisualData } from '@app-types/battle.types';
 import { hiddenTrackedUi } from '@app-types/battle.types';
 import { createMockSprite, drawSpriteDebugHelper, uvToNormalizedAnchor } from './utils/mockSprite';
+import { createBurstParticleEffect } from './utils/particleFactory';
+import type { ParticleController, ParticleEffectConfig } from './utils/particleFactory';
 import { UiTracker } from './trackers/UiTracker';
 import { UiTrackerManager } from './trackers/UiTrackerManager';
 import { createBattleScene } from './scene/createScene';
 
+type AnchorName = 'head' | 'foot' | 'center';
+type ParticlePresetId = 'spark' | 'halo' | 'sheetExplosion';
+const DEFAULT_PARTICLE_TEXTURE = '/particle_white.svg';
+const DEFAULT_PARTICLE_SHEET_TEXTURE = '/particle_white.svg';
+
+const particlePresetConfigs: Record<ParticlePresetId, Omit<ParticleEffectConfig, 'texturePath' | 'emitter'>> = {
+  spark: {
+    isOneShot: true,
+    autoDispose: true,
+    capacity: 120,
+    minLifeTime: 0.35,
+    maxLifeTime: 1.2,
+    emitDuration: 0.18,
+    colorGradients: [
+      { offset: 0, color: new Color4(1, 0.95, 0.55, 1) },
+      { offset: 0.6, color: new Color4(1, 0.45, 0.2, 0.65) },
+      { offset: 1, color: new Color4(1, 0.25, 0.1, 0) }
+    ],
+    sizeGradients: [
+      { offset: 0, size: 0.22 },
+      { offset: 0.5, size: 0.16 },
+      { offset: 1, size: 0.05 }
+    ]
+  },
+  halo: {
+    isOneShot: true,
+    autoDispose: true,
+    capacity: 140,
+    minLifeTime: 0.7,
+    maxLifeTime: 2.2,
+    emitDuration: 0.3,
+    colorGradients: [
+      { offset: 0, color: new Color4(0.55, 0.85, 1, 0.75) },
+      { offset: 0.4, color: new Color4(0.4, 0.75, 1, 0.45) },
+      { offset: 1, color: new Color4(0.2, 0.55, 1, 0) }
+    ],
+    sizeGradients: [
+      { offset: 0, size: 0.08 },
+      { offset: 0.6, size: 0.35 },
+      { offset: 1, size: 0.62 }
+    ]
+  },
+  sheetExplosion: {
+    isOneShot: true,
+    autoDispose: true,
+    capacity: 150,
+    minLifeTime: 1.0,
+    maxLifeTime: 3.8,
+    emitDuration: 0.3,
+    colorGradients: [
+      { offset: 0, color: new Color4(1, 0.95, 0.8, 1) },
+      { offset: 0.8, color: new Color4(1, 0.5, 0.25, 0.4) },
+      { offset: 1, color: new Color4(0.8, 0.2, 0.1, 0) }
+    ],
+    sizeGradients: [
+      { offset: 0, size: 0.2 },
+      { offset: 0.5, size: 0.34 },
+      { offset: 1, size: 0.1 }
+    ],
+    // 注：若要获得明显帧动画，请替换为规则网格的序列帧贴图。
+    spriteSheet: {
+      cellWidth: 32,
+      cellHeight: 32,
+      startCellID: 0,
+      endCellID: 15,
+      spriteCellChangeSpeed: 2
+    }
+  }
+};
+
 export const Battle: React.FC = () => {
   const [isBattleStarting, setIsBattleStarting] = useState(false);
   const [webglError, setWebglError] = useState('');
+  const [particlePreset, setParticlePreset] = useState<ParticlePresetId>('spark');
   const [topSkillTrackedUi, setTopSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const [bottomSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const [centerSkillTrackedUi] = useState<TrackedUiState>(hiddenTrackedUi);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const trackerManagerRef = useRef<UiTrackerManager | null>(null);
   const reloadAnchorPresetRef = useRef<(() => void) | null>(null);
+  const triggerParticleAtAnchorRef = useRef<((anchorName: AnchorName) => void) | null>(null);
+  const particlePresetRef = useRef<ParticlePresetId>('spark');
   const reportWebglError = useCallback((message: string) => {
     window.setTimeout(() => {
       setWebglError(message);
@@ -69,6 +144,7 @@ export const Battle: React.FC = () => {
     const mockSprite = createMockSprite(scene, iconTexturePath, 4.8, 'merged');
     const plane = mockSprite.mesh;
     let debugItems: Mesh[] = [];
+    const activeParticles = new Set<ParticleController>();
 
     // 初始化追踪器管理器
     trackerManagerRef.current = new UiTrackerManager();
@@ -102,6 +178,25 @@ export const Battle: React.FC = () => {
     reloadAnchorPresetRef.current = reloadAnchorPreset;
     reloadAnchorPreset();
 
+    triggerParticleAtAnchorRef.current = (anchorName: AnchorName) => {
+      const emitterPosition = mockSprite.getAnchorWorldPosition(anchorName).clone();
+      const selectedPreset = particlePresetRef.current;
+      const presetConfig = particlePresetConfigs[selectedPreset];
+      const texturePath = selectedPreset === 'sheetExplosion'
+        ? DEFAULT_PARTICLE_SHEET_TEXTURE
+        : DEFAULT_PARTICLE_TEXTURE;
+      const controller = createBurstParticleEffect(scene, {
+        texturePath,
+        emitter: emitterPosition,
+        ...presetConfig
+      });
+      activeParticles.add(controller);
+      controller.system.onDisposeObservable.addOnce(() => {
+        activeParticles.delete(controller);
+      });
+      controller.start();
+    };
+
     // 在渲染循环中更新所有追踪器
     scene.onBeforeRenderObservable.add(() => {
       if (trackerManagerRef.current) {
@@ -121,8 +216,11 @@ export const Battle: React.FC = () => {
 
     return () => {
       reloadAnchorPresetRef.current = null;
+      triggerParticleAtAnchorRef.current = null;
       window.removeEventListener('resize', handleResize);
       debugItems.forEach((mesh) => mesh.dispose());
+      activeParticles.forEach((controller) => controller.dispose());
+      activeParticles.clear();
 
       if (trackerManagerRef.current) {
         trackerManagerRef.current.clear();
@@ -143,6 +241,15 @@ export const Battle: React.FC = () => {
 
   const handleReloadAnchorPreset = () => {
     reloadAnchorPresetRef.current?.();
+  };
+
+  const handleTriggerAnchorParticle = (anchorName: AnchorName) => {
+    triggerParticleAtAnchorRef.current?.(anchorName);
+  };
+
+  const handleSwitchParticlePreset = (presetId: ParticlePresetId) => {
+    particlePresetRef.current = presetId;
+    setParticlePreset(presetId);
   };
 
   // ==================== 完整的 RETURN 部分 ====================
@@ -250,6 +357,102 @@ export const Battle: React.FC = () => {
           >
             重载锚点配置
           </button>
+
+          <div style={{ marginTop: 12, marginBottom: 6, color: '#374151', fontSize: 13, fontWeight: 'bold' }}>
+            粒子预设
+          </div>
+          <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginBottom: 8 }}>
+            <button
+              onClick={() => handleSwitchParticlePreset('spark')}
+              style={{
+                padding: '8px 12px',
+                fontSize: '12px',
+                color: '#fff',
+                backgroundColor: particlePreset === 'spark' ? '#7c3aed' : '#6b7280',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              小火花
+            </button>
+            <button
+              onClick={() => handleSwitchParticlePreset('halo')}
+              style={{
+                padding: '8px 12px',
+                fontSize: '12px',
+                color: '#fff',
+                backgroundColor: particlePreset === 'halo' ? '#0ea5e9' : '#6b7280',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              扩散光晕
+            </button>
+            <button
+              onClick={() => handleSwitchParticlePreset('sheetExplosion')}
+              style={{
+                padding: '8px 12px',
+                fontSize: '12px',
+                color: '#fff',
+                backgroundColor: particlePreset === 'sheetExplosion' ? '#f97316' : '#6b7280',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              序列帧爆炸
+            </button>
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, marginTop: 12, justifyContent: 'center' }}>
+            <button
+              onClick={() => handleTriggerAnchorParticle('head')}
+              style={{
+                padding: '10px 14px',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                color: '#fff',
+                backgroundColor: '#8b5cf6',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              头部粒子
+            </button>
+            <button
+              onClick={() => handleTriggerAnchorParticle('center')}
+              style={{
+                padding: '10px 14px',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                color: '#fff',
+                backgroundColor: '#10b981',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              中心粒子
+            </button>
+            <button
+              onClick={() => handleTriggerAnchorParticle('foot')}
+              style={{
+                padding: '10px 14px',
+                fontSize: '13px',
+                fontWeight: 'bold',
+                color: '#fff',
+                backgroundColor: '#f59e0b',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer'
+              }}
+            >
+              脚部粒子
+            </button>
+          </div>
         </div>
       </div>
 

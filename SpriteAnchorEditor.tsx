@@ -17,11 +17,21 @@ import type { SpriteFrameRegion } from './utils/meshFactory';
 
 type DragTarget = 'head' | 'foot' | 'center' | 'axis' | null;
 
-const RESOURCE_IMAGE_MODULES = import.meta.glob('/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
+const normalizePublicPath = (input: string): string => {
+  return decodeURI(input).replace(/^\/+/, '').replace(/^\.\/+/, '');
+};
+
+const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
   query: '?url',
   import: 'default'
 }) as Record<string, string>;
+const RESOURCE_ATLAS_PATHS = Object.keys(import.meta.glob('/public/**/*.json'));
+const DEFAULT_SCANNED_ATLAS_OPTIONS = RESOURCE_ATLAS_PATHS
+  .map((path) => normalizePublicPath(path).replace(/^public\/+/, ''))
+  .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+const LAST_ATLAS_JSON_STORAGE_KEY = 'sprite-anchor-editor.last-atlas-json-path';
+const LAST_EDITOR_MODE_STORAGE_KEY = 'sprite-anchor-editor.last-mode';
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(max, value));
@@ -48,10 +58,6 @@ type TexturePackerAtlas = {
   };
 };
 
-const normalizePublicPath = (input: string): string => {
-  return decodeURI(input).replace(/^\/+/, '').replace(/^\.\/+/, '');
-};
-
 const joinPublicPath = (basePath: string, relativeOrAbsolutePath: string): string => {
   const normalizedInput = normalizePublicPath(relativeOrAbsolutePath);
   if (normalizedInput.includes('/')) return normalizedInput;
@@ -59,6 +65,48 @@ const joinPublicPath = (basePath: string, relativeOrAbsolutePath: string): strin
   const slashIndex = normalizedBase.lastIndexOf('/');
   if (slashIndex < 0) return normalizedInput;
   return `${normalizedBase.slice(0, slashIndex + 1)}${normalizedInput}`;
+};
+
+const getLastAtlasJsonPath = (): string | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const saved = window.localStorage.getItem(LAST_ATLAS_JSON_STORAGE_KEY);
+    if (!saved) return null;
+    return normalizePublicPath(saved);
+  } catch {
+    return null;
+  }
+};
+
+const saveLastAtlasJsonPath = (atlasJsonPath: string): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    const normalized = normalizePublicPath(atlasJsonPath);
+    if (!normalized) return;
+    window.localStorage.setItem(LAST_ATLAS_JSON_STORAGE_KEY, normalized);
+  } catch {
+    // ignore storage errors
+  }
+};
+
+const getLastEditorMode = (): 'single' | 'atlas' | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const saved = window.localStorage.getItem(LAST_EDITOR_MODE_STORAGE_KEY);
+    if (saved === 'single' || saved === 'atlas') return saved;
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+const saveLastEditorMode = (mode: 'single' | 'atlas'): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(LAST_EDITOR_MODE_STORAGE_KEY, mode);
+  } catch {
+    // ignore storage errors
+  }
 };
 
 const toFrameRegion = (
@@ -130,8 +178,12 @@ export const SpriteAnchorEditor: React.FC = () => {
   const presetRef = useRef<SpriteAnchorPreset>(createEditablePreset(initialImagePath));
 
   const [imagePath, setImagePath] = useState(initialImagePath);
-  const [mode, setMode] = useState<'single' | 'atlas'>('atlas');
-  const [atlasJsonPath, setAtlasJsonPath] = useState(DEFAULT_ATLAS_JSON_PATH);
+  const [mode, setMode] = useState<'single' | 'atlas'>(() => getLastEditorMode() ?? 'atlas');
+  const [atlasJsonPath, setAtlasJsonPath] = useState(() => {
+    const saved = getLastAtlasJsonPath();
+    if (saved) return saved;
+    return DEFAULT_SCANNED_ATLAS_OPTIONS.length > 0 ? DEFAULT_SCANNED_ATLAS_OPTIONS[0] : DEFAULT_ATLAS_JSON_PATH;
+  });
   const [atlasImagePath, setAtlasImagePath] = useState('');
   const [atlasData, setAtlasData] = useState<TexturePackerAtlas | null>(null);
   const [frameNames, setFrameNames] = useState<string[]>([]);
@@ -150,6 +202,10 @@ export const SpriteAnchorEditor: React.FC = () => {
     return Object.values(RESOURCE_IMAGE_MODULES)
       .map((assetUrl) => toSpritePresetKey(assetUrl))
       .sort();
+  }, []);
+
+  const scannedAtlasOptions = useMemo(() => {
+    return DEFAULT_SCANNED_ATLAS_OPTIONS;
   }, []);
 
   const resourceImageOptions = useMemo(() => {
@@ -214,12 +270,7 @@ export const SpriteAnchorEditor: React.FC = () => {
     debugMeshesRef.current = drawSpriteDebugHelper(debugMockSprite, scene);
   }, [disposeDebugMeshes]);
 
-  const applyImagePath = useCallback((nextImagePath: string) => {
-    setImagePath(nextImagePath);
-    applyPresetBySelection(nextImagePath);
-  }, [applyPresetBySelection]);
-
-  const loadAtlas = useCallback(async (nextAtlasPath: string) => {
+  const loadAtlas = useCallback(async (nextAtlasPath: string, preferredFrameName?: string) => {
     const normalizedAtlasPath = normalizePublicPath(nextAtlasPath);
     if (!normalizedAtlasPath) return;
     try {
@@ -229,29 +280,29 @@ export const SpriteAnchorEditor: React.FC = () => {
       const names = Object.keys(atlasJson.frames).sort((a, b) => a.localeCompare(b, 'zh-CN'));
       if (names.length === 0) throw new Error('图集没有可用帧');
       const resolvedImagePath = joinPublicPath(normalizedAtlasPath, atlasJson.meta.image);
-      const firstFrameName = names[0];
-      const firstFrame = toFrameRegion(
+      const resolvedFrameName = (preferredFrameName && atlasJson.frames[preferredFrameName]) ? preferredFrameName : names[0];
+      const resolvedFrame = toFrameRegion(
         normalizedAtlasPath,
         resolvedImagePath,
-        firstFrameName,
-        atlasJson.frames[firstFrameName],
+        resolvedFrameName,
+        atlasJson.frames[resolvedFrameName],
         atlasJson.meta.size
       );
       setAtlasJsonPath(normalizedAtlasPath);
       setAtlasData(atlasJson);
       setAtlasImagePath(resolvedImagePath);
       setFrameNames(names);
-      setSelectedFrameName(firstFrameName);
+      setSelectedFrameName(resolvedFrameName);
       setMode('atlas');
-      applyPresetBySelection(resolvedImagePath, firstFrameName, {
+      applyPresetBySelection(resolvedImagePath, resolvedFrameName, {
         atlasPath: normalizedAtlasPath,
-        frameName: firstFrameName,
-        frame: firstFrame.frame,
-        spriteSourceSize: firstFrame.spriteSourceSize,
-        sourceSize: firstFrame.sourceSize,
-        atlasSize: firstFrame.atlasSize,
-        rotated: firstFrame.rotated,
-        trimmed: firstFrame.trimmed
+        frameName: resolvedFrameName,
+        frame: resolvedFrame.frame,
+        spriteSourceSize: resolvedFrame.spriteSourceSize,
+        sourceSize: resolvedFrame.sourceSize,
+        atlasSize: resolvedFrame.atlasSize,
+        rotated: resolvedFrame.rotated,
+        trimmed: resolvedFrame.trimmed
       });
       setMessage(`图集加载成功：${normalizedAtlasPath}`);
     } catch (error) {
@@ -261,6 +312,63 @@ export const SpriteAnchorEditor: React.FC = () => {
       setMessage(`图集加载失败：${normalizedAtlasPath} (${String(error)})`);
     }
   }, [applyPresetBySelection]);
+
+  const handleSpriteResourceChange = useCallback((
+    nextImagePath: string,
+    nextFrameName?: string,
+    nextAtlasFrame?: SpriteAnchorPreset['atlasFrame']
+  ) => {
+    if (nextFrameName) {
+      setMode('atlas');
+      setAtlasImagePath(nextImagePath);
+      setSelectedFrameName(nextFrameName);
+    } else {
+      setMode('single');
+      spriteRef.current?.setFrameRegion(null);
+      setImagePath(nextImagePath);
+    }
+    applyPresetBySelection(nextImagePath, nextFrameName, nextAtlasFrame);
+  }, [applyPresetBySelection]);
+
+  const handlePresetSelectionChange = useCallback(async (selectedKey: string) => {
+    if (!selectedKey) return;
+    const localPreset = getLocalSpriteAnchorPreset(selectedKey);
+    const targetPreset = localPreset ?? getSpriteAnchorPreset(selectedKey);
+    const parsed = parseSpritePresetKey(selectedKey);
+    const resolvedImagePath = targetPreset.imagePath || parsed.imagePath;
+    const resolvedFrameName = targetPreset.frameName ?? parsed.frameName;
+
+    if (!resolvedFrameName) {
+      handleSpriteResourceChange(resolvedImagePath);
+      return;
+    }
+
+    const atlasPath = targetPreset.atlasFrame?.atlasPath;
+    if (atlasPath) {
+      await loadAtlas(atlasPath, resolvedFrameName);
+      return;
+    }
+
+    handleSpriteResourceChange(resolvedImagePath, resolvedFrameName, targetPreset.atlasFrame);
+  }, [handleSpriteResourceChange, loadAtlas]);
+
+  const handleAtlasFrameSelectChange = useCallback((nextFrameName: string) => {
+    setSelectedFrameName(nextFrameName);
+    if (!atlasData || !atlasImagePath) return;
+    const nextFrame = atlasData.frames[nextFrameName];
+    if (!nextFrame) return;
+    const nextFrameRegion = toFrameRegion(atlasJsonPath, atlasImagePath, nextFrameName, nextFrame, atlasData.meta.size);
+    handleSpriteResourceChange(atlasImagePath, nextFrameName, {
+      atlasPath: atlasJsonPath,
+      frameName: nextFrameName,
+      frame: nextFrameRegion.frame,
+      spriteSourceSize: nextFrameRegion.spriteSourceSize,
+      sourceSize: nextFrameRegion.sourceSize,
+      atlasSize: nextFrameRegion.atlasSize,
+      rotated: nextFrameRegion.rotated,
+      trimmed: nextFrameRegion.trimmed
+    });
+  }, [atlasData, atlasImagePath, atlasJsonPath, handleSpriteResourceChange]);
 
   useEffect(() => {
     presetRef.current = preset;
@@ -592,6 +700,14 @@ export const SpriteAnchorEditor: React.FC = () => {
     spriteRef.current?.setFrameRegion(currentFrameRegion);
   }, [currentFrameRegion]);
 
+  useEffect(() => {
+    saveLastAtlasJsonPath(atlasJsonPath);
+  }, [atlasJsonPath]);
+
+  useEffect(() => {
+    saveLastEditorMode(mode);
+  }, [mode]);
+
   return (
     <div style={{ padding: 16, height: '100vh', boxSizing: 'border-box', display: 'grid', gridTemplateColumns: '420px 1fr', gap: 16 }}>
       <div style={{ background: '#1a1f29', borderRadius: 12, padding: 14, overflow: 'auto' }}>
@@ -601,9 +717,7 @@ export const SpriteAnchorEditor: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
           <button
             onClick={() => {
-              setMode('single');
-              spriteRef.current?.setFrameRegion(null);
-              applyPresetBySelection(imagePath);
+              handleSpriteResourceChange(imagePath);
             }}
             style={{ background: mode === 'single' ? '#2e3f5e' : undefined }}
           >
@@ -612,7 +726,7 @@ export const SpriteAnchorEditor: React.FC = () => {
           <button
             onClick={() => {
               setMode('atlas');
-              if (!atlasData) void loadAtlas(atlasJsonPath || DEFAULT_ATLAS_JSON_PATH);
+              if (!atlasData) void loadAtlas(atlasJsonPath || scannedAtlasOptions[0] || DEFAULT_ATLAS_JSON_PATH);
             }}
             style={{ background: mode === 'atlas' ? '#2e3f5e' : undefined }}
           >
@@ -622,47 +736,58 @@ export const SpriteAnchorEditor: React.FC = () => {
 
         {mode === 'single' ? (
           <>
-            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图片路径（public 下）</label>
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图片路径（基于 public）</label>
             <input
               value={imagePath}
-              onChange={(e) => applyImagePath(e.target.value)}
+              onChange={(e) => handleSpriteResourceChange(e.target.value)}
               placeholder="resources/优势.png"
               style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
             />
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>资源图片列表（自动扫描 public）</label>
+            <select
+              value={normalizedImagePath}
+              onChange={(e) => handleSpriteResourceChange(e.target.value)}
+              style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+            >
+              {resourceImageOptions.map((key) => (
+                <option key={key} value={key}>{key}</option>
+              ))}
+            </select>
           </>
         ) : (
           <>
-            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图集 JSON 路径（public 下）</label>
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图集 JSON 路径（自动扫描 public）</label>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 86px', gap: 8, marginBottom: 8 }}>
-              <input
-                value={atlasJsonPath}
-                onChange={(e) => setAtlasJsonPath(e.target.value)}
-                placeholder="君主宝(默认).json"
-                style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
-              />
+              {scannedAtlasOptions.length > 0 ? (
+                <select
+                  value={atlasJsonPath}
+                  onChange={(e) => {
+                    const newPath = e.target.value;
+                    if (!newPath || newPath === atlasJsonPath) return;
+                    setAtlasJsonPath(newPath);
+                    void loadAtlas(newPath);
+                  }}
+                  style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+                >
+                  <option value="" disabled>-- 请选择图集 --</option>
+                  {scannedAtlasOptions.map((path) => (
+                    <option key={path} value={path}>{path}</option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  value={atlasJsonPath}
+                  onChange={(e) => setAtlasJsonPath(e.target.value)}
+                  placeholder="未扫描到 JSON，请手动输入..."
+                  style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+                />
+              )}
               <button onClick={() => loadAtlas(atlasJsonPath)}>加载图集</button>
             </div>
             <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图集帧（同一纹理不同区域）</label>
             <select
               value={selectedFrameName}
-              onChange={(e) => {
-                const nextFrameName = e.target.value;
-                setSelectedFrameName(nextFrameName);
-                if (!atlasData || !atlasImagePath) return;
-                const nextFrame = atlasData.frames[nextFrameName];
-                if (!nextFrame) return;
-                const nextFrameRegion = toFrameRegion(atlasJsonPath, atlasImagePath, nextFrameName, nextFrame, atlasData.meta.size);
-                applyPresetBySelection(atlasImagePath, nextFrameName, {
-                  atlasPath: atlasJsonPath,
-                  frameName: nextFrameName,
-                  frame: nextFrameRegion.frame,
-                  spriteSourceSize: nextFrameRegion.spriteSourceSize,
-                  sourceSize: nextFrameRegion.sourceSize,
-                  atlasSize: nextFrameRegion.atlasSize,
-                  rotated: nextFrameRegion.rotated,
-                  trimmed: nextFrameRegion.trimmed
-                });
-              }}
+              onChange={(e) => handleAtlasFrameSelectChange(e.target.value)}
               style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
             >
               {frameNames.map((name) => (
@@ -675,52 +800,10 @@ export const SpriteAnchorEditor: React.FC = () => {
           </>
         )}
 
-        <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>资源图片列表（自动扫描 public/resources）</label>
-        <select
-          value={normalizedImagePath}
-          onChange={(e) => applyImagePath(e.target.value)}
-          style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
-        >
-          {resourceImageOptions.map((key) => (
-            <option key={key} value={key}>{key}</option>
-          ))}
-        </select>
-
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>快速选择已有锚点配置</label>
         <select
           value={activePresetKey}
-          onChange={(e) => {
-            const { imagePath: nextImagePath, frameName: nextFrameName } = parseSpritePresetKey(e.target.value);
-            if (nextFrameName) {
-              setMode('atlas');
-              setSelectedFrameName(nextFrameName);
-              setAtlasImagePath(nextImagePath);
-              if (atlasData?.frames[nextFrameName]) {
-                const nextFrameRegion = toFrameRegion(
-                  atlasJsonPath,
-                  nextImagePath,
-                  nextFrameName,
-                  atlasData.frames[nextFrameName],
-                  atlasData.meta.size
-                );
-                applyPresetBySelection(nextImagePath, nextFrameName, {
-                  atlasPath: atlasJsonPath,
-                  frameName: nextFrameName,
-                  frame: nextFrameRegion.frame,
-                  spriteSourceSize: nextFrameRegion.spriteSourceSize,
-                  sourceSize: nextFrameRegion.sourceSize,
-                  atlasSize: nextFrameRegion.atlasSize,
-                  rotated: nextFrameRegion.rotated,
-                  trimmed: nextFrameRegion.trimmed
-                });
-              } else {
-                applyPresetBySelection(nextImagePath, nextFrameName);
-              }
-            } else {
-              setMode('single');
-              applyImagePath(nextImagePath);
-            }
-          }}
+          onChange={(e) => { void handlePresetSelectionChange(e.target.value); }}
           style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         >
           {allPresetKeys.map((key) => (
