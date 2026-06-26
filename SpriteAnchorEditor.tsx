@@ -6,12 +6,14 @@ import {
   getLocalSpriteAnchorPreset,
   getSpriteAnchorPreset,
   hasLocalSpriteAnchorPreset,
+  parseSpritePresetKey,
   removeSpriteAnchorPreset,
   saveSpriteAnchorPreset,
   toSpritePresetKey
 } from './utils/spritePresetStorage';
 import { createMockSprite, drawSpriteDebugHelper } from './utils/mockSprite';
 import type { MockSprite } from './utils/mockSprite';
+import type { SpriteFrameRegion } from './utils/meshFactory';
 
 type DragTarget = 'head' | 'foot' | 'center' | 'axis' | null;
 
@@ -28,12 +30,83 @@ const MIN_ORTHO_SIZE = 1.5;
 const MAX_ORTHO_SIZE = 14;
 const ZOOM_STEP = 0.1;
 const DRAG_HIT_RADIUS_UV = 0.05;
+const DEFAULT_ATLAS_JSON_PATH = '君主宝(默认).json';
 
-const createEditablePreset = (imagePath: string): SpriteAnchorPreset => {
-  const normalizedPath = toSpritePresetKey(imagePath);
-  const localPreset = getLocalSpriteAnchorPreset(normalizedPath);
-  if (localPreset) return { ...localPreset, imagePath: normalizedPath };
-  return { ...getSpriteAnchorPreset(normalizedPath), imagePath: normalizedPath };
+type TexturePackerFrameRaw = {
+  frame: { x: number; y: number; w: number; h: number };
+  rotated: boolean;
+  trimmed: boolean;
+  spriteSourceSize: { x: number; y: number; w: number; h: number };
+  sourceSize: { w: number; h: number };
+};
+
+type TexturePackerAtlas = {
+  frames: Record<string, TexturePackerFrameRaw>;
+  meta: {
+    image: string;
+    size: { w: number; h: number };
+  };
+};
+
+const normalizePublicPath = (input: string): string => {
+  return decodeURI(input).replace(/^\/+/, '').replace(/^\.\/+/, '');
+};
+
+const joinPublicPath = (basePath: string, relativeOrAbsolutePath: string): string => {
+  const normalizedInput = normalizePublicPath(relativeOrAbsolutePath);
+  if (normalizedInput.includes('/')) return normalizedInput;
+  const normalizedBase = normalizePublicPath(basePath);
+  const slashIndex = normalizedBase.lastIndexOf('/');
+  if (slashIndex < 0) return normalizedInput;
+  return `${normalizedBase.slice(0, slashIndex + 1)}${normalizedInput}`;
+};
+
+const toFrameRegion = (
+  atlasPath: string,
+  atlasImagePath: string,
+  frameName: string,
+  frame: TexturePackerFrameRaw,
+  atlasSize: { w: number; h: number }
+): SpriteFrameRegion & { atlasPath: string; atlasImagePath: string } => {
+  return {
+    atlasPath,
+    atlasImagePath,
+    frameName,
+    frame: {
+      x: frame.frame.x,
+      y: frame.frame.y,
+      w: frame.frame.w,
+      h: frame.frame.h
+    },
+    spriteSourceSize: {
+      x: frame.spriteSourceSize.x,
+      y: frame.spriteSourceSize.y,
+      w: frame.spriteSourceSize.w,
+      h: frame.spriteSourceSize.h
+    },
+    sourceSize: {
+      w: frame.sourceSize.w,
+      h: frame.sourceSize.h
+    },
+    atlasSize: {
+      w: atlasSize.w,
+      h: atlasSize.h
+    },
+    rotated: frame.rotated,
+    trimmed: frame.trimmed
+  };
+};
+
+const createEditablePreset = (
+  imagePath: string,
+  frameName?: string,
+  atlasFrame?: SpriteAnchorPreset['atlasFrame']
+): SpriteAnchorPreset => {
+  const presetKey = toSpritePresetKey(imagePath, frameName);
+  const localPreset = getLocalSpriteAnchorPreset(presetKey);
+  if (localPreset) return { ...localPreset, presetKey, imagePath, frameName, atlasFrame: atlasFrame ?? localPreset.atlasFrame };
+  const mergedPreset = getSpriteAnchorPreset(presetKey);
+  return { ...mergedPreset, presetKey, imagePath, frameName, atlasFrame: atlasFrame ?? mergedPreset.atlasFrame };
 };
 
 const toFixedNumber = (value: number): number => Number(value.toFixed(4));
@@ -57,11 +130,20 @@ export const SpriteAnchorEditor: React.FC = () => {
   const presetRef = useRef<SpriteAnchorPreset>(createEditablePreset(initialImagePath));
 
   const [imagePath, setImagePath] = useState(initialImagePath);
+  const [mode, setMode] = useState<'single' | 'atlas'>('atlas');
+  const [atlasJsonPath, setAtlasJsonPath] = useState(DEFAULT_ATLAS_JSON_PATH);
+  const [atlasImagePath, setAtlasImagePath] = useState('');
+  const [atlasData, setAtlasData] = useState<TexturePackerAtlas | null>(null);
+  const [frameNames, setFrameNames] = useState<string[]>([]);
+  const [selectedFrameName, setSelectedFrameName] = useState('');
   const [preset, setPreset] = useState<SpriteAnchorPreset>(() => createEditablePreset(initialImagePath));
   const [message, setMessage] = useState('');
   const [presetSourceLabel, setPresetSourceLabel] = useState('当前配置来源：项目默认/内置');
   const [presetKeys, setPresetKeys] = useState<string[]>(() => Object.keys(getAllSpriteAnchorPresets()).sort());
   const [zoomLabel, setZoomLabel] = useState('1.00x');
+  const activeImagePath = mode === 'atlas' ? atlasImagePath : imagePath;
+  const activeFrameName = mode === 'atlas' ? selectedFrameName || undefined : undefined;
+  const activePresetKey = toSpritePresetKey(activeImagePath || imagePath, activeFrameName);
   const normalizedImagePath = toSpritePresetKey(imagePath);
 
   const scannedResourceImages = useMemo(() => {
@@ -71,14 +153,37 @@ export const SpriteAnchorEditor: React.FC = () => {
   }, []);
 
   const resourceImageOptions = useMemo(() => {
-    const merged = new Set<string>([...scannedResourceImages, ...presetKeys, normalizedImagePath]);
+    const parsedPresetImageKeys = presetKeys.map((key) => parseSpritePresetKey(key).imagePath);
+    const merged = new Set<string>([...scannedResourceImages, ...parsedPresetImageKeys, normalizedImagePath]);
     return [...merged].sort((a, b) => a.localeCompare(b, 'zh-CN'));
   }, [presetKeys, scannedResourceImages, normalizedImagePath]);
 
   const allPresetKeys = useMemo(() => {
-    const unique = new Set<string>([...presetKeys, normalizedImagePath]);
+    const unique = new Set<string>([...presetKeys, activePresetKey, normalizedImagePath]);
     return [...unique].sort((a, b) => a.localeCompare(b, 'zh-CN'));
-  }, [presetKeys, normalizedImagePath]);
+  }, [presetKeys, normalizedImagePath, activePresetKey]);
+
+  const currentFrameRegion = useMemo<(SpriteFrameRegion & { atlasPath: string; atlasImagePath: string }) | null>(() => {
+    if (mode !== 'atlas') return null;
+    if (!atlasData || !selectedFrameName || !atlasImagePath) return null;
+    const frame = atlasData.frames[selectedFrameName];
+    if (!frame) return null;
+    return toFrameRegion(atlasJsonPath, atlasImagePath, selectedFrameName, frame, atlasData.meta.size);
+  }, [mode, atlasData, selectedFrameName, atlasImagePath, atlasJsonPath]);
+
+  const applyPresetBySelection = useCallback((
+    nextImagePath: string,
+    nextFrameName?: string,
+    nextAtlasFrame?: SpriteAnchorPreset['atlasFrame']
+  ) => {
+    const nextPreset = createEditablePreset(nextImagePath, nextFrameName, nextAtlasFrame);
+    setPreset(nextPreset);
+    setPresetSourceLabel(
+      hasLocalSpriteAnchorPreset(nextPreset.presetKey)
+        ? '当前配置来源：本地配置（已自动导入）'
+        : '当前配置来源：项目默认/内置'
+    );
+  }, []);
 
   const updatePresetByDrag = useCallback((target: Exclude<DragTarget, null>, u: number, v: number) => {
     const clampedU = toFixedNumber(clamp01(u));
@@ -111,13 +216,51 @@ export const SpriteAnchorEditor: React.FC = () => {
 
   const applyImagePath = useCallback((nextImagePath: string) => {
     setImagePath(nextImagePath);
-    setPreset(createEditablePreset(nextImagePath));
-    setPresetSourceLabel(
-      hasLocalSpriteAnchorPreset(nextImagePath)
-        ? '当前配置来源：本地配置（已自动导入）'
-        : '当前配置来源：项目默认/内置'
-    );
-  }, []);
+    applyPresetBySelection(nextImagePath);
+  }, [applyPresetBySelection]);
+
+  const loadAtlas = useCallback(async (nextAtlasPath: string) => {
+    const normalizedAtlasPath = normalizePublicPath(nextAtlasPath);
+    if (!normalizedAtlasPath) return;
+    try {
+      const response = await fetch(encodeURI(`/${normalizedAtlasPath}`));
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const atlasJson = await response.json() as TexturePackerAtlas;
+      const names = Object.keys(atlasJson.frames).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+      if (names.length === 0) throw new Error('图集没有可用帧');
+      const resolvedImagePath = joinPublicPath(normalizedAtlasPath, atlasJson.meta.image);
+      const firstFrameName = names[0];
+      const firstFrame = toFrameRegion(
+        normalizedAtlasPath,
+        resolvedImagePath,
+        firstFrameName,
+        atlasJson.frames[firstFrameName],
+        atlasJson.meta.size
+      );
+      setAtlasJsonPath(normalizedAtlasPath);
+      setAtlasData(atlasJson);
+      setAtlasImagePath(resolvedImagePath);
+      setFrameNames(names);
+      setSelectedFrameName(firstFrameName);
+      setMode('atlas');
+      applyPresetBySelection(resolvedImagePath, firstFrameName, {
+        atlasPath: normalizedAtlasPath,
+        frameName: firstFrameName,
+        frame: firstFrame.frame,
+        spriteSourceSize: firstFrame.spriteSourceSize,
+        sourceSize: firstFrame.sourceSize,
+        atlasSize: firstFrame.atlasSize,
+        rotated: firstFrame.rotated,
+        trimmed: firstFrame.trimmed
+      });
+      setMessage(`图集加载成功：${normalizedAtlasPath}`);
+    } catch (error) {
+      setAtlasData(null);
+      setFrameNames([]);
+      setSelectedFrameName('');
+      setMessage(`图集加载失败：${normalizedAtlasPath} (${String(error)})`);
+    }
+  }, [applyPresetBySelection]);
 
   useEffect(() => {
     presetRef.current = preset;
@@ -213,33 +356,49 @@ export const SpriteAnchorEditor: React.FC = () => {
   );
 
   const importCurrentLocalPreset = () => {
-    const localPreset = getLocalSpriteAnchorPreset(normalizedImagePath);
+    const localPreset = getLocalSpriteAnchorPreset(activePresetKey);
     if (!localPreset) {
-      setMessage(`该图片暂无本地配置：${normalizedImagePath}`);
+      setMessage(`该资源暂无本地配置：${activePresetKey}`);
       return;
     }
-    setPreset({ ...localPreset, imagePath: normalizedImagePath });
+    setPreset({ ...localPreset, presetKey: activePresetKey, imagePath: activeImagePath || imagePath, frameName: activeFrameName });
     setPresetSourceLabel('当前配置来源：本地配置（手动导入）');
-    setMessage(`已导入本地配置：${normalizedImagePath}`);
+    setMessage(`已导入本地配置：${activePresetKey}`);
   };
 
   const saveCurrentPreset = () => {
-    if (!normalizedImagePath) {
-      setMessage('图片路径不能为空，无法保存配置');
+    const saveImagePath = activeImagePath || imagePath;
+    if (!saveImagePath) {
+      setMessage('资源路径不能为空，无法保存配置');
       return;
     }
-    saveSpriteAnchorPreset({ ...preset, imagePath: normalizedImagePath });
+    saveSpriteAnchorPreset({
+      ...preset,
+      presetKey: activePresetKey,
+      imagePath: saveImagePath,
+      frameName: activeFrameName
+    });
     setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
     setPresetSourceLabel('当前配置来源：本地配置（已保存）');
-    setMessage(`已保存: ${normalizedImagePath}`);
+    setMessage(`已保存: ${activePresetKey}`);
   };
 
   const clearCurrentPreset = () => {
-    removeSpriteAnchorPreset(normalizedImagePath);
-    setPreset(createEditablePreset(normalizedImagePath));
+    const clearImagePath = activeImagePath || imagePath;
+    removeSpriteAnchorPreset(activePresetKey);
+    setPreset(createEditablePreset(clearImagePath, activeFrameName, currentFrameRegion ? {
+      atlasPath: currentFrameRegion.atlasPath,
+      frameName: currentFrameRegion.frameName || '',
+      frame: currentFrameRegion.frame,
+      spriteSourceSize: currentFrameRegion.spriteSourceSize,
+      sourceSize: currentFrameRegion.sourceSize,
+      atlasSize: currentFrameRegion.atlasSize,
+      rotated: currentFrameRegion.rotated,
+      trimmed: currentFrameRegion.trimmed
+    } : undefined));
     setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
     setPresetSourceLabel('当前配置来源：项目默认/内置');
-    setMessage(`已清除本地覆盖: ${normalizedImagePath}`);
+    setMessage(`已清除本地覆盖: ${activePresetKey}`);
   };
 
   const exportJson = () => {
@@ -423,10 +582,15 @@ export const SpriteAnchorEditor: React.FC = () => {
     if (!scene) return;
     disposeDebugMeshes();
     spriteRef.current?.mesh.dispose(false, true);
-    const texturePath = encodeURI(`/${normalizedImagePath}`);
+    const texturePath = encodeURI(`/${activeImagePath || imagePath}`);
     spriteRef.current = createMockSprite(scene, texturePath, 4.8, 'merged');
+    spriteRef.current?.setFrameRegion(currentFrameRegion);
     redrawDebugHelper(presetRef.current);
-  }, [disposeDebugMeshes, normalizedImagePath, redrawDebugHelper]);
+  }, [disposeDebugMeshes, imagePath, activeImagePath, redrawDebugHelper, currentFrameRegion]);
+
+  useEffect(() => {
+    spriteRef.current?.setFrameRegion(currentFrameRegion);
+  }, [currentFrameRegion]);
 
   return (
     <div style={{ padding: 16, height: '100vh', boxSizing: 'border-box', display: 'grid', gridTemplateColumns: '420px 1fr', gap: 16 }}>
@@ -434,13 +598,82 @@ export const SpriteAnchorEditor: React.FC = () => {
         <h2 style={{ margin: 0, marginBottom: 10 }}>Sprite 锚点编辑器</h2>
         <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>右侧画布支持拖拽平移、滚轮缩放、左下角小地图与回正视角。</p>
 
-        <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图片路径（public 下）</label>
-        <input
-          value={imagePath}
-          onChange={(e) => applyImagePath(e.target.value)}
-          placeholder="resources/优势.png"
-          style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
-        />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
+          <button
+            onClick={() => {
+              setMode('single');
+              spriteRef.current?.setFrameRegion(null);
+              applyPresetBySelection(imagePath);
+            }}
+            style={{ background: mode === 'single' ? '#2e3f5e' : undefined }}
+          >
+            单图模式
+          </button>
+          <button
+            onClick={() => {
+              setMode('atlas');
+              if (!atlasData) void loadAtlas(atlasJsonPath || DEFAULT_ATLAS_JSON_PATH);
+            }}
+            style={{ background: mode === 'atlas' ? '#2e3f5e' : undefined }}
+          >
+            TexturePacker 图集模式
+          </button>
+        </div>
+
+        {mode === 'single' ? (
+          <>
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图片路径（public 下）</label>
+            <input
+              value={imagePath}
+              onChange={(e) => applyImagePath(e.target.value)}
+              placeholder="resources/优势.png"
+              style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+            />
+          </>
+        ) : (
+          <>
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图集 JSON 路径（public 下）</label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 86px', gap: 8, marginBottom: 8 }}>
+              <input
+                value={atlasJsonPath}
+                onChange={(e) => setAtlasJsonPath(e.target.value)}
+                placeholder="君主宝(默认).json"
+                style={{ width: '100%', padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+              />
+              <button onClick={() => loadAtlas(atlasJsonPath)}>加载图集</button>
+            </div>
+            <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>图集帧（同一纹理不同区域）</label>
+            <select
+              value={selectedFrameName}
+              onChange={(e) => {
+                const nextFrameName = e.target.value;
+                setSelectedFrameName(nextFrameName);
+                if (!atlasData || !atlasImagePath) return;
+                const nextFrame = atlasData.frames[nextFrameName];
+                if (!nextFrame) return;
+                const nextFrameRegion = toFrameRegion(atlasJsonPath, atlasImagePath, nextFrameName, nextFrame, atlasData.meta.size);
+                applyPresetBySelection(atlasImagePath, nextFrameName, {
+                  atlasPath: atlasJsonPath,
+                  frameName: nextFrameName,
+                  frame: nextFrameRegion.frame,
+                  spriteSourceSize: nextFrameRegion.spriteSourceSize,
+                  sourceSize: nextFrameRegion.sourceSize,
+                  atlasSize: nextFrameRegion.atlasSize,
+                  rotated: nextFrameRegion.rotated,
+                  trimmed: nextFrameRegion.trimmed
+                });
+              }}
+              style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+            >
+              {frameNames.map((name) => (
+                <option key={name} value={name}>{name}</option>
+              ))}
+            </select>
+            <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 8 }}>
+              当前图集纹理：{atlasImagePath || '-'}
+            </div>
+          </>
+        )}
 
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>资源图片列表（自动扫描 public/resources）</label>
         <select
@@ -455,14 +688,46 @@ export const SpriteAnchorEditor: React.FC = () => {
 
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>快速选择已有锚点配置</label>
         <select
-          value={normalizedImagePath}
-          onChange={(e) => applyImagePath(e.target.value)}
+          value={activePresetKey}
+          onChange={(e) => {
+            const { imagePath: nextImagePath, frameName: nextFrameName } = parseSpritePresetKey(e.target.value);
+            if (nextFrameName) {
+              setMode('atlas');
+              setSelectedFrameName(nextFrameName);
+              setAtlasImagePath(nextImagePath);
+              if (atlasData?.frames[nextFrameName]) {
+                const nextFrameRegion = toFrameRegion(
+                  atlasJsonPath,
+                  nextImagePath,
+                  nextFrameName,
+                  atlasData.frames[nextFrameName],
+                  atlasData.meta.size
+                );
+                applyPresetBySelection(nextImagePath, nextFrameName, {
+                  atlasPath: atlasJsonPath,
+                  frameName: nextFrameName,
+                  frame: nextFrameRegion.frame,
+                  spriteSourceSize: nextFrameRegion.spriteSourceSize,
+                  sourceSize: nextFrameRegion.sourceSize,
+                  atlasSize: nextFrameRegion.atlasSize,
+                  rotated: nextFrameRegion.rotated,
+                  trimmed: nextFrameRegion.trimmed
+                });
+              } else {
+                applyPresetBySelection(nextImagePath, nextFrameName);
+              }
+            } else {
+              setMode('single');
+              applyImagePath(nextImagePath);
+            }
+          }}
           style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         >
           {allPresetKeys.map((key) => (
             <option key={key} value={key}>{key}</option>
           ))}
         </select>
+        <div style={{ fontSize: 12, color: '#6f8098', marginBottom: 10 }}>当前预设 Key：{activePresetKey}</div>
 
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 10 }}>{presetSourceLabel}</div>
 

@@ -39,11 +39,47 @@ export type SpriteAnchorPoints = {
 };
 
 /**
+ * TexturePacker 中单帧的信息（用于同一图集下的独立锚点配置）。
+ */
+export type SpriteAtlasFrameMeta = {
+  atlasPath: string;
+  frameName: string;
+  frame: {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  };
+  spriteSourceSize: {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  };
+  sourceSize: {
+    w: number;
+    h: number;
+  };
+  atlasSize: {
+    w: number;
+    h: number;
+  };
+  rotated: boolean;
+  trimmed: boolean;
+};
+
+/**
  * 单张精灵图的锚点预设（编辑器与运行时共享的“共同数据”）。
  */
 export type SpriteAnchorPreset = {
+  /** 预设唯一键：单图为 imagePath，图集帧为 imagePath::frameName */
+  presetKey: string;
   /** 资源路径（相对 public 根，如 resources/xxx.png） */
   imagePath: string;
+  /** 图集帧名（仅图集模式有值） */
+  frameName?: string;
+  /** 图集帧信息（仅图集模式有值） */
+  atlasFrame?: SpriteAtlasFrameMeta;
   /** 身体包围盒定义（UV 空间） */
   bodyBounds: SpriteBodyBounds;
   /** 身体中轴线 X（U 值，0=左，1=右） */

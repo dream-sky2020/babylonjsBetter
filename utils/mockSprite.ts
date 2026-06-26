@@ -1,7 +1,7 @@
 import { Color3, Mesh, MeshBuilder, Scene, Vector3 } from '@babylonjs/core';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { NormalizedUv, SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
-import { createIconPlane } from './meshFactory';
+import { createIconPlane, type SpriteFrameRegion } from './meshFactory';
 import { getSpriteAnchorPreset, toSpritePresetKey, type SpritePresetSource } from './spritePresetStorage';
 
 export const uvToNormalizedAnchor = (uv: NormalizedUv): Vector3 => {
@@ -23,6 +23,8 @@ export type MockSprite = {
   mesh: Mesh;
   texturePath: string;
   preset: SpriteAnchorPreset;
+  frameRegion: SpriteFrameRegion | null;
+  setFrameRegion: (frameRegion: SpriteFrameRegion | null) => void;
   getAnchorUv: (anchorName: keyof SpriteAnchorPreset['anchors']) => NormalizedUv;
   getAnchorWorldPosition: (anchorName: keyof SpriteAnchorPreset['anchors']) => Vector3;
   refreshPreset: () => SpriteAnchorPreset;
@@ -40,15 +42,23 @@ export const createMockSprite = (
   scene: Scene,
   texturePath: string,
   baseSize: number = 2.5,
-  presetSource: SpritePresetSource = 'merged'
+  presetSource: SpritePresetSource = 'merged',
+  frameRegion: SpriteFrameRegion | null = null
 ): MockSprite => {
-  const mesh = createIconPlane(scene, texturePath, baseSize);
+  const iconPlane = createIconPlane(scene, texturePath, baseSize);
+  const mesh = iconPlane.mesh;
+  iconPlane.setFrameRegion(frameRegion);
   let currentPreset = getSpriteAnchorPreset(texturePath, presetSource);
 
   return {
     mesh,
     texturePath: toSpritePresetKey(texturePath),
     preset: currentPreset,
+    frameRegion,
+    setFrameRegion(nextFrameRegion) {
+      this.frameRegion = nextFrameRegion;
+      iconPlane.setFrameRegion(nextFrameRegion);
+    },
     getAnchorUv(anchorName) {
       return getBodyAxisAlignedAnchorUv(currentPreset, anchorName);
     },

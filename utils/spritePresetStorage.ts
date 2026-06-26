@@ -1,7 +1,13 @@
 import { spriteAnchorPresets } from '@app-config/spriteAnchorPresets';
-import type { NormalizedUv, SpriteAnchorPreset, SpriteAnchorPresetMap } from '@app-types/sprite-anchors.types';
+import type {
+  NormalizedUv,
+  SpriteAnchorPreset,
+  SpriteAnchorPresetMap,
+  SpriteAtlasFrameMeta
+} from '@app-types/sprite-anchors.types';
 
 const SPRITE_ANCHOR_LOCAL_STORAGE_KEY = 'sprite-anchor-presets.v1';
+const PRESET_KEY_SEPARATOR = '::';
 const ANCHOR_MIN = -1;
 const ANCHOR_MAX = 2;
 
@@ -20,10 +26,88 @@ const normalizeTexturePath = (texturePath: string): string => {
   return decoded.replace(/^\/+/, '');
 };
 
-export const toSpritePresetKey = (texturePath: string): string => normalizeTexturePath(texturePath);
+const isObject = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === 'object' && value !== null;
+};
 
-const createDefaultPreset = (imagePath: string): SpriteAnchorPreset => ({
-  imagePath,
+const toFiniteInt = (value: number, fallback: number): number => {
+  const finite = toFinite(value, fallback);
+  return Math.max(0, Math.round(finite));
+};
+
+const sanitizeAtlasFrameMeta = (
+  atlasFrame: SpriteAtlasFrameMeta | undefined,
+  imagePathFallback: string,
+  frameNameFallback: string
+): SpriteAtlasFrameMeta | undefined => {
+  if (!atlasFrame) return undefined;
+  return {
+    atlasPath: normalizeTexturePath(atlasFrame.atlasPath || imagePathFallback),
+    frameName: atlasFrame.frameName || frameNameFallback,
+    frame: {
+      x: toFiniteInt(atlasFrame.frame.x, 0),
+      y: toFiniteInt(atlasFrame.frame.y, 0),
+      w: Math.max(1, toFiniteInt(atlasFrame.frame.w, 1)),
+      h: Math.max(1, toFiniteInt(atlasFrame.frame.h, 1))
+    },
+    spriteSourceSize: {
+      x: toFiniteInt(atlasFrame.spriteSourceSize.x, 0),
+      y: toFiniteInt(atlasFrame.spriteSourceSize.y, 0),
+      w: Math.max(1, toFiniteInt(atlasFrame.spriteSourceSize.w, 1)),
+      h: Math.max(1, toFiniteInt(atlasFrame.spriteSourceSize.h, 1))
+    },
+    sourceSize: {
+      w: Math.max(1, toFiniteInt(atlasFrame.sourceSize.w, 1)),
+      h: Math.max(1, toFiniteInt(atlasFrame.sourceSize.h, 1))
+    },
+    atlasSize: {
+      w: Math.max(1, toFiniteInt(atlasFrame.atlasSize.w, 1)),
+      h: Math.max(1, toFiniteInt(atlasFrame.atlasSize.h, 1))
+    },
+    rotated: Boolean(atlasFrame.rotated),
+    trimmed: Boolean(atlasFrame.trimmed)
+  };
+};
+
+export const parseSpritePresetKey = (texturePathOrPresetKey: string): { imagePath: string; frameName?: string } => {
+  const normalized = normalizeTexturePath(texturePathOrPresetKey);
+  const separatorIndex = normalized.indexOf(PRESET_KEY_SEPARATOR);
+  if (separatorIndex < 0) return { imagePath: normalized };
+  const imagePath = normalized.slice(0, separatorIndex);
+  const frameName = normalized.slice(separatorIndex + PRESET_KEY_SEPARATOR.length) || undefined;
+  return { imagePath, frameName };
+};
+
+export const toSpritePresetKey = (texturePath: string, frameName?: string): string => {
+  const normalizedPath = normalizeTexturePath(texturePath);
+  return frameName ? `${normalizedPath}${PRESET_KEY_SEPARATOR}${frameName}` : normalizedPath;
+};
+
+const resolvePresetIdentity = (
+  texturePathOrPresetKey: string,
+  frameName?: string
+): { imagePath: string; frameName?: string; presetKey: string } => {
+  const parsed = parseSpritePresetKey(texturePathOrPresetKey);
+  const finalFrameName = frameName ?? parsed.frameName;
+  const imagePath = parsed.imagePath;
+  return {
+    imagePath,
+    frameName: finalFrameName,
+    presetKey: toSpritePresetKey(imagePath, finalFrameName)
+  };
+};
+
+const createDefaultPreset = (
+  texturePathOrPresetKey: string,
+  frameName?: string,
+  atlasFrame?: SpriteAtlasFrameMeta
+): SpriteAnchorPreset => {
+  const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
+  return {
+    presetKey: identity.presetKey,
+    imagePath: identity.imagePath,
+    frameName: identity.frameName,
+    atlasFrame: sanitizeAtlasFrameMeta(atlasFrame, identity.imagePath, identity.frameName ?? ''),
   bodyBounds: {
     minU: 0.2,
     maxU: 0.8,
@@ -36,16 +120,28 @@ const createDefaultPreset = (imagePath: string): SpriteAnchorPreset => ({
     foot: { u: 0.5, v: 0.95 },
     center: { u: 0.5, v: 0.54 }
   }
-});
+  };
+};
 
 const sanitizePreset = (preset: SpriteAnchorPreset): SpriteAnchorPreset => {
   const minU = clamp01(Math.min(preset.bodyBounds.minU, preset.bodyBounds.maxU));
   const maxU = clamp01(Math.max(preset.bodyBounds.minU, preset.bodyBounds.maxU));
   const minV = clamp01(Math.min(preset.bodyBounds.minV, preset.bodyBounds.maxV));
   const maxV = clamp01(Math.max(preset.bodyBounds.minV, preset.bodyBounds.maxV));
-  const fallback = createDefaultPreset(normalizeTexturePath(preset.imagePath));
+  const identity = resolvePresetIdentity(
+    preset.presetKey || toSpritePresetKey(preset.imagePath, preset.frameName),
+    preset.frameName
+  );
+  const fallback = createDefaultPreset(identity.presetKey, identity.frameName, preset.atlasFrame);
   return {
-    imagePath: normalizeTexturePath(preset.imagePath),
+    presetKey: identity.presetKey,
+    imagePath: identity.imagePath,
+    frameName: identity.frameName,
+    atlasFrame: sanitizeAtlasFrameMeta(
+      preset.atlasFrame,
+      identity.imagePath,
+      identity.frameName ?? fallback.frameName ?? ''
+    ),
     bodyBounds: { minU, maxU, minV, maxV },
     bodyAxisX: clampAnchor(toFinite(preset.bodyAxisX, fallback.bodyAxisX)),
     anchors: {
@@ -61,13 +157,18 @@ const readLocalSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
   try {
     const raw = window.localStorage.getItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY);
     if (!raw) return {};
-    const parsed = JSON.parse(raw) as SpriteAnchorPresetMap;
-    if (!parsed || typeof parsed !== 'object') return {};
+    const parsed = JSON.parse(raw) as unknown;
+    if (!isObject(parsed)) return {};
 
     const result: SpriteAnchorPresetMap = {};
     Object.entries(parsed).forEach(([key, value]) => {
-      if (!value) return;
-      result[normalizeTexturePath(key)] = sanitizePreset(value);
+      if (!isObject(value)) return;
+      const candidate = {
+        ...(value as SpriteAnchorPreset),
+        presetKey: toSpritePresetKey(key)
+      } as SpriteAnchorPreset;
+      const sanitized = sanitizePreset(candidate);
+      result[sanitized.presetKey] = sanitized;
     });
     return result;
   } catch {
@@ -79,36 +180,41 @@ export const saveSpriteAnchorPreset = (preset: SpriteAnchorPreset): void => {
   if (typeof window === 'undefined') return;
   const sanitized = sanitizePreset(preset);
   const saved = readLocalSpriteAnchorPresets();
-  saved[sanitized.imagePath] = sanitized;
+  saved[sanitized.presetKey] = sanitized;
   window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(saved));
 };
 
-export const removeSpriteAnchorPreset = (imagePath: string): void => {
+export const removeSpriteAnchorPreset = (texturePathOrPresetKey: string, frameName?: string): void => {
   if (typeof window === 'undefined') return;
-  const normalizedPath = normalizeTexturePath(imagePath);
+  const { presetKey } = resolvePresetIdentity(texturePathOrPresetKey, frameName);
   const saved = readLocalSpriteAnchorPresets();
-  delete saved[normalizedPath];
+  delete saved[presetKey];
   window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(saved));
 };
 
-export const getLocalSpriteAnchorPreset = (texturePath: string): SpriteAnchorPreset | null => {
-  const normalizedPath = normalizeTexturePath(texturePath);
+export const getLocalSpriteAnchorPreset = (
+  texturePathOrPresetKey: string,
+  frameName?: string
+): SpriteAnchorPreset | null => {
+  const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
   const local = readLocalSpriteAnchorPresets();
-  const preset = local[normalizedPath];
-  return preset ? sanitizePreset({ ...preset, imagePath: normalizedPath }) : null;
+  const preset = local[identity.presetKey];
+  return preset ? sanitizePreset({ ...preset, presetKey: identity.presetKey }) : null;
 };
 
-export const hasLocalSpriteAnchorPreset = (texturePath: string): boolean => {
-  return getLocalSpriteAnchorPreset(texturePath) !== null;
+export const hasLocalSpriteAnchorPreset = (texturePathOrPresetKey: string, frameName?: string): boolean => {
+  return getLocalSpriteAnchorPreset(texturePathOrPresetKey, frameName) !== null;
 };
 
 export const getAllSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
   const merged: SpriteAnchorPresetMap = {};
   Object.entries(spriteAnchorPresets).forEach(([key, value]) => {
-    merged[normalizeTexturePath(key)] = sanitizePreset(value);
+    const sanitized = sanitizePreset({ ...value, presetKey: toSpritePresetKey(key) });
+    merged[sanitized.presetKey] = sanitized;
   });
   Object.entries(readLocalSpriteAnchorPresets()).forEach(([key, value]) => {
-    merged[normalizeTexturePath(key)] = sanitizePreset(value);
+    const sanitized = sanitizePreset({ ...value, presetKey: toSpritePresetKey(key) });
+    merged[sanitized.presetKey] = sanitized;
   });
   return merged;
 };
@@ -116,22 +222,28 @@ export const getAllSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
 export type SpritePresetSource = 'merged' | 'config' | 'local';
 
 export const getSpriteAnchorPreset = (
-  texturePath: string,
-  source: SpritePresetSource = 'merged'
+  texturePathOrPresetKey: string,
+  source: SpritePresetSource = 'merged',
+  frameName?: string
 ): SpriteAnchorPreset => {
-  const normalizedPath = normalizeTexturePath(texturePath);
+  const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
   let preset: SpriteAnchorPreset | null = null;
 
   if (source === 'config') {
-    const configPreset = spriteAnchorPresets[normalizedPath];
-    preset = configPreset ? sanitizePreset(configPreset) : null;
+    const configPreset = spriteAnchorPresets[identity.presetKey] ?? spriteAnchorPresets[identity.imagePath];
+    preset = configPreset ? sanitizePreset({ ...configPreset, presetKey: identity.presetKey }) : null;
   } else if (source === 'local') {
-    preset = getLocalSpriteAnchorPreset(normalizedPath);
+    preset = getLocalSpriteAnchorPreset(identity.presetKey);
   } else {
     const merged = getAllSpriteAnchorPresets();
-    preset = merged[normalizedPath] ?? null;
+    preset = merged[identity.presetKey] ?? merged[identity.imagePath] ?? null;
   }
 
-  const resolvedPreset = preset ?? createDefaultPreset(normalizedPath);
-  return sanitizePreset({ ...resolvedPreset, imagePath: normalizedPath });
+  const resolvedPreset = preset ?? createDefaultPreset(identity.presetKey, identity.frameName);
+  return sanitizePreset({
+    ...resolvedPreset,
+    presetKey: identity.presetKey,
+    imagePath: identity.imagePath,
+    frameName: identity.frameName
+  });
 };

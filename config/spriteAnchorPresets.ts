@@ -2,6 +2,7 @@ import type { SpriteAnchorPresetMap } from '@app-types/sprite-anchors.types';
 
 export const spriteAnchorPresets: SpriteAnchorPresetMap = {
   'resources/优势.png': {
+    presetKey: 'resources/优势.png',
     imagePath: 'resources/优势.png',
     bodyBounds: {
       minU: 0.24,
