@@ -27,6 +27,21 @@ export interface ParticleEffectConfig {
   maxLifeTime?: number;
   /** 单次爆发的持续时间（秒），仅在 isOneShot 为 true 时有效，默认 0.12 */
   emitDuration?: number;
+  /** 持续发射模式下每秒发射数量，默认 50 */
+  emitRate?: number;
+  /** 粒子发射初始随机盒子范围 */
+  minEmitBox?: Vector3;
+  maxEmitBox?: Vector3;
+  /** 初速度方向范围 */
+  direction1?: Vector3;
+  direction2?: Vector3;
+  /** 初始速度范围 */
+  minEmitPower?: number;
+  maxEmitPower?: number;
+  /** 粒子系统更新步长 */
+  updateSpeed?: number;
+  /** 重力向量，默认 (0, -9.81, 0) */
+  gravity?: Vector3;
   /**
    * 颜色与透明度渐变过程。
    * 示例: [{offset: 0, color: 新生颜色}, {offset: 0.8, color: 衰退颜色}, {offset: 1, color: 完全透明}]
@@ -77,8 +92,8 @@ export const createBurstParticleEffect = (
   particleSystem.particleTexture = new Texture(config.texturePath, scene);
   particleSystem.emitter = config.emitter;
 
-  particleSystem.minEmitBox = new Vector3(-0.2, 0, -0.2);
-  particleSystem.maxEmitBox = new Vector3(0.2, 0, 0.2);
+  particleSystem.minEmitBox = config.minEmitBox ?? new Vector3(-0.2, 0, -0.2);
+  particleSystem.maxEmitBox = config.maxEmitBox ?? new Vector3(0.2, 0, 0.2);
   particleSystem.minLifeTime = minLifeTime;
   particleSystem.maxLifeTime = maxLifeTime;
 
@@ -123,21 +138,20 @@ export const createBurstParticleEffect = (
     particleSystem.manualEmitCount = capacity;
     particleSystem.targetStopDuration = emitDuration;
   } else {
-    particleSystem.emitRate = 50;
+    particleSystem.emitRate = Math.max(1, config.emitRate ?? 50);
   }
 
-  particleSystem.direction1 = new Vector3(-2, 2, -2);
-  particleSystem.direction2 = new Vector3(2, 5, 2);
-  particleSystem.minEmitPower = 2;
-  particleSystem.maxEmitPower = 5;
-  particleSystem.updateSpeed = 0.01;
-  particleSystem.gravity = new Vector3(0, -9.81, 0);
+  particleSystem.direction1 = config.direction1 ?? new Vector3(-2, 2, -2);
+  particleSystem.direction2 = config.direction2 ?? new Vector3(2, 5, 2);
+  particleSystem.minEmitPower = Math.max(0.01, config.minEmitPower ?? 2);
+  particleSystem.maxEmitPower = Math.max(particleSystem.minEmitPower, config.maxEmitPower ?? 5);
+  particleSystem.updateSpeed = Math.max(0.0001, config.updateSpeed ?? 0.01);
+  particleSystem.gravity = config.gravity ?? new Vector3(0, -9.81, 0);
   particleSystem.blendMode = ParticleSystem.BLENDMODE_ONEONE;
 
   if (autoDispose && isOneShot) {
-    particleSystem.onStoppedObservable.addOnce(() => {
-      particleSystem.dispose();
-    });
+    // 让 Babylon.js 在停止发射且所有现存粒子寿命结束后，再安全销毁
+    particleSystem.disposeOnStop = true;
   }
 
   const startNow = () => {
