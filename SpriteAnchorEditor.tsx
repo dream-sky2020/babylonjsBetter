@@ -584,21 +584,23 @@ export const SpriteAnchorEditor: React.FC = () => {
 
       const normalizedU = normalizeBounds(parsed.bodyBounds.minU, parsed.bodyBounds.maxU);
       const normalizedV = normalizeBounds(parsed.bodyBounds.minV, parsed.bodyBounds.maxV);
+      const safeAnchors = parsed.anchors;
+      const safeBodyAxisX = parsed.bodyAxisX;
 
       setPreset((prev) => ({
         ...prev,
         anchors: {
           head: {
-            u: toFixedNumber(clamp(parsed.anchors!.head!.u!, ANCHOR_MIN, ANCHOR_MAX)),
-            v: toFixedNumber(clamp(parsed.anchors!.head!.v!, ANCHOR_MIN, ANCHOR_MAX))
+            u: toFixedNumber(clamp(safeAnchors.head!.u!, ANCHOR_MIN, ANCHOR_MAX)),
+            v: toFixedNumber(clamp(safeAnchors.head!.v!, ANCHOR_MIN, ANCHOR_MAX))
           },
           foot: {
-            u: toFixedNumber(clamp(parsed.anchors!.foot!.u!, ANCHOR_MIN, ANCHOR_MAX)),
-            v: toFixedNumber(clamp(parsed.anchors!.foot!.v!, ANCHOR_MIN, ANCHOR_MAX))
+            u: toFixedNumber(clamp(safeAnchors.foot!.u!, ANCHOR_MIN, ANCHOR_MAX)),
+            v: toFixedNumber(clamp(safeAnchors.foot!.v!, ANCHOR_MIN, ANCHOR_MAX))
           },
           center: {
-            u: toFixedNumber(clamp(parsed.anchors!.center!.u!, ANCHOR_MIN, ANCHOR_MAX)),
-            v: toFixedNumber(clamp(parsed.anchors!.center!.v!, ANCHOR_MIN, ANCHOR_MAX))
+            u: toFixedNumber(clamp(safeAnchors.center!.u!, ANCHOR_MIN, ANCHOR_MAX)),
+            v: toFixedNumber(clamp(safeAnchors.center!.v!, ANCHOR_MIN, ANCHOR_MAX))
           }
         },
         bodyBounds: {
@@ -607,7 +609,7 @@ export const SpriteAnchorEditor: React.FC = () => {
           minV: normalizedV.min,
           maxV: normalizedV.max
         },
-        bodyAxisX: toFixedNumber(clamp(parsed.bodyAxisX, ANCHOR_MIN, ANCHOR_MAX))
+        bodyAxisX: toFixedNumber(clamp(safeBodyAxisX, ANCHOR_MIN, ANCHOR_MAX))
       }));
       setPresetSourceLabel('当前配置来源：从剪贴板粘贴（未保存）');
       setMessage('已成功粘贴剪贴板配置，请记得保存到本地');

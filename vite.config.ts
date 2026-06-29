@@ -14,6 +14,15 @@ export default defineConfig({
       '@app-types': path.resolve(__dirname, 'types'), // types 别名
       '@app-config': path.resolve(__dirname, 'config'),  // ← 新增
     }
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        index: path.resolve(__dirname, 'index.html'),
+        spriteAnchorEditor: path.resolve(__dirname, 'sprite-anchor-editor.html'),
+        particleEditor: path.resolve(__dirname, 'particle-editor.html')
+      }
+    }
   }
 
 })
