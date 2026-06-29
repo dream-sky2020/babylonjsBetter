@@ -38,9 +38,6 @@ export const createIconPlane = (
     Texture.TRILINEAR_SAMPLINGMODE
   );
 
-  // 统一渲染参数：提升斜视角采样质量。
-  iconTexture.anisotropicFilteringLevel = 16;
-
   const applyPlaneScale = (region: SpriteFrameRegion | null) => {
     const textureSize = iconTexture.getSize();
     const displayWidth = region?.spriteSourceSize.w ?? Math.max(1, textureSize.width);
