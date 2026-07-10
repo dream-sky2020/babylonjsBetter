@@ -251,7 +251,6 @@ export const SpriteAnchorEditor: React.FC = () => {
           {renderDragNumberControl('center.u（中心锚点 X）', 'center.u', preset.anchors.center.u, ANCHOR_MIN, ANCHOR_MAX)}
           {renderDragNumberControl('center.v（中心锚点 Y）', 'center.v', preset.anchors.center.v, ANCHOR_MIN, ANCHOR_MAX)}
           {renderDragNumberControl('bodyAxisX（身体中轴线）', 'bodyAxisX', preset.bodyAxisX, ANCHOR_MIN, ANCHOR_MAX)}
-          <div style={{ color: '#9fb0c5', fontSize: 12, marginTop: 2 }}>当前缩放: {zoomLabel}</div>
         </div>
 
         <h3 style={{ margin: '12px 0 8px 0', fontSize: 15 }}>特殊包围盒（{BOUNDS_MIN}~{BOUNDS_MAX}）</h3>
@@ -266,7 +265,10 @@ export const SpriteAnchorEditor: React.FC = () => {
       <div style={{ background: '#1a1f29', borderRadius: 12, padding: 12, position: 'relative', minHeight: 0 }}>
         <div style={{ marginBottom: 8, color: '#9fb0c5', fontSize: 13, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>使用 Babylon 实时渲染：红=head，蓝=center，绿=foot，黄框=bodyBounds（drawSpriteDebugHelper）</span>
-          <button onClick={resetView} style={{ marginLeft: 8 }}>视角回到原位</button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 12, color: '#cdd6e1' }}>相机缩放：{zoomLabel}</span>
+            <button onClick={resetView} style={{ marginLeft: 8 }}>视角回到原位</button>
+          </div>
         </div>
 
         <canvas
