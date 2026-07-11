@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <base href="/">
+    <title>格子背包 · 4x4 分页版</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body {
+            background: linear-gradient(145deg, #2b3a4a 0%, #1d2a35 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            padding: 16px;
+            color: #d4e9ff;
+        }
+        /* 主布局：左右分栏 (移动端上下分栏) */
+        .layout-container {
+            display: flex;
+            gap: 24px;
+            background: #3e4d5e;
+            padding: 24px;
+            border-radius: 32px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.08);
+            border: 1px solid #5b6f82;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+
+        /* 左侧背包区 */
+        .backpack-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .backpack-container {
+            background: #25323e;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: inset 0 8px 12px rgba(0,0,0,0.5), 0 2px 0 #4a5e70;
+        }
+        svg {
+            display: block;
+            width: 300px;  /* 4格 * 75px */
+            height: 300px;
+            background: #1e2a33;
+            border-radius: 16px;
+            box-shadow: 0 0 0 2px #3d5062, 0 8px 16px rgba(0,0,0,0.5);
+            touch-action: none;
+        }
+        .draggable-item { cursor: grab; }
+        .draggable-item:active { cursor: grabbing; }
+
+        /* 分页控件 */
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: #25323e;
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: inset 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .pagination button {
+            background: #4f6b7a;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .pagination button:hover:not(:disabled) { background: #6c8c9c; }
+        .pagination button:disabled { background: #3d5062; cursor: not-allowed; opacity: 0.5; }
+        .page-text { font-weight: bold; min-width: 50px; text-align: center; }
+
+        /* 右侧详情区 */
+        .details-section {
+            flex: 1;
+            min-width: 250px;
+            background: #25323e;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: inset 0 8px 12px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .details-title {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #fff;
+            border-bottom: 2px solid #4a5e70;
+            padding-bottom: 12px;
+        }
+        .details-desc {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #a3c2d1;
+            flex: 1;
+        }
+        .details-meta {
+            font-size: 0.85rem;
+            color: #6c8c9c;
+            background: #1e2a33;
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .layout-container { flex-direction: column; padding: 16px; }
+            .details-section { min-height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout-container">
+    <div class="backpack-section">
+        <div class="backpack-container">
+            <svg id="backpackSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="75" height="75" patternUnits="userSpaceOnUse">
+                        <rect width="75" height="75" fill="#2a3a47" stroke="#405463" stroke-width="1.5" rx="6" />
+                    </pattern>
+                </defs>
+                <rect width="300" height="300" fill="url(#grid)" rx="8" />
+                <g id="itemsGroup"></g>
+                <g id="dragIndicator" style="display: none;">
+                    <circle cx="0" cy="0" r="34" fill="rgba(255,255,200,0.15)" stroke="#ffe88a" stroke-width="3" stroke-dasharray="6 6" />
+                </g>
+            </svg>
+        </div>
+        <div class="pagination">
+            <button id="btnPrev">◀ 上一页</button>
+            <div class="page-text" id="pageText">1 / 1</div>
+            <button id="btnNext">下一页 ▶</button>
+        </div>
+    </div>
+
+    <div class="details-section">
+        <h3 class="details-title" id="detName">未选择物品</h3>
+        <div class="details-desc" id="detDesc">请点击背包中的物品以查看详细信息。</div>
+        <div class="details-meta" id="detMeta">
+            ID: --<br>
+            位置: --
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    // --- 核心数据模型 ---
+    let itemsData = []; // 存储所有物品数据
+    let currentPage = 1;
+    let maxPage = 1;
+
+    // --- 常量配置 ---
+    const GRID_SIZE = 4; // 4x4
+    const CELL_SIZE = 75; // 像素
+    const ITEM_SIZE = 56; // 物品图标大小
+
+    // --- DOM 元素 ---
+    const svg = document.getElementById('backpackSvg');
+    const itemsGroup = document.getElementById('itemsGroup');
+    const indicator = document.getElementById('dragIndicator');
+    const indicatorCircle = indicator.querySelector('circle');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const pageText = document.getElementById('pageText');
+    
+    const detName = document.getElementById('detName');
+    const detDesc = document.getElementById('detDesc');
+    const detMeta = document.getElementById('detMeta');
+
+    // --- 交互状态 ---
+    let activeItemDOM = null;
+    let activeItemData = null;
+    let isDragging = false;
+    let startClickX = 0, startClickY = 0;
+    let currentCol = 0, currentRow = 0;
+
+    // ==========================================
+    // 渲染与数据管理
+    // ==========================================
+
+    function updatePagination() {
+        // 计算最大页数 (找到所有物品中最大的page，如果为空则是1)
+        maxPage = itemsData.reduce((max, item) => Math.max(max, item.page), 1);
+        if (currentPage > maxPage) currentPage = maxPage;
+        if (currentPage < 1) currentPage = 1;
+
+        pageText.innerText = `${currentPage} / ${maxPage}`;
+        btnPrev.disabled = currentPage <= 1;
+        btnNext.disabled = currentPage >= maxPage;
+    }
+
+    function renderCurrentPage() {
+        updatePagination();
+        itemsGroup.innerHTML = ''; // 清空当前渲染
+        
+        const currentItems = itemsData.filter(item => item.page === currentPage);
+        
+        currentItems.forEach(item => {
+            // 计算像素位置 (居中)
+            const cx = item.col * CELL_SIZE + CELL_SIZE / 2;
+            const cy = item.row * CELL_SIZE + CELL_SIZE / 2;
+            const x = cx - ITEM_SIZE / 2;
+            const y = cy - ITEM_SIZE / 2;
+
+            // 创建物品容器 <g>
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.setAttribute('class', 'draggable-item');
+            g.setAttribute('data-id', item.id);
+            g.style.transform = `translate(${x}px, ${y}px)`; // 使用 transform 方便平滑移动
+
+            // 背景框
+            const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            rect.setAttribute('width', ITEM_SIZE);
+            rect.setAttribute('height', ITEM_SIZE);
+            rect.setAttribute('rx', '10');
+            rect.setAttribute('fill', item.color || '#6c8c9c');
+            rect.setAttribute('stroke', '#ffffff');
+            rect.setAttribute('stroke-width', '2');
+            rect.setAttribute('stroke-opacity', '0.5');
+
+            // 图标 (Emoji)
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', ITEM_SIZE / 2);
+            text.setAttribute('y', ITEM_SIZE / 2 + 8); // 微调垂直居中
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('font-size', '28');
+            text.textContent = item.icon;
+
+            g.appendChild(rect);
+            g.appendChild(text);
+            itemsGroup.appendChild(g);
+        });
+    }
+
+    function showItemDetails(item) {
+        if (!item) {
+            detName.innerText = "未选择物品";
+            detDesc.innerText = "请点击背包中的物品以查看详细信息。";
+            detMeta.innerHTML = "ID: --<br>位置: --";
+            return;
+        }
+        detName.innerText = item.name;
+        detDesc.innerText = item.desc;
+        detMeta.innerHTML = `ID: ${item.id}<br>位置: 第 ${item.page} 页, 行 ${item.row + 1}, 列 ${item.col + 1}`;
+    }
+
+    // ==========================================
+    // 拖拽与网格算法
+    // ==========================================
+
+    function getGridPosition(px, py) {
+        let col = Math.floor(px / CELL_SIZE);
+        let row = Math.floor(py / CELL_SIZE);
+        col = Math.min(Math.max(col, 0), GRID_SIZE - 1);
+        row = Math.min(Math.max(row, 0), GRID_SIZE - 1);
+        return { col, row };
+    }
+
+    function isOverlapping(ignoreId, col, row, page) {
+        return itemsData.some(item => 
+            item.id !== ignoreId && 
+            item.page === page && 
+            item.col === col && 
+            item.row === row
+        );
+    }
+
+    function findNearestFreeCell(ignoreId, targetCol, targetRow, page) {
+        if (!isOverlapping(ignoreId, targetCol, targetRow, page)) {
+            return { col: targetCol, row: targetRow };
+        }
+        // 螺旋搜索
+        for (let r = 1; r < GRID_SIZE; r++) {
+            for (let dx = -r; dx <= r; dx++) {
+                for (let dy = -r; dy <= r; dy++) {
+                    if (Math.abs(dx) !== r && Math.abs(dy) !== r) continue;
+                    const cCol = targetCol + dx;
+                    const cRow = targetRow + dy;
+                    if (cCol >= 0 && cCol < GRID_SIZE && cRow >= 0 && cRow < GRID_SIZE) {
+                        if (!isOverlapping(ignoreId, cCol, cRow, page)) {
+                            return { col: cCol, row: cRow };
+                        }
+                    }
+                }
+            }
+        }
+        return { col: targetCol, row: targetRow }; // 如果满了返回原位 (需在外部处理防溢出)
+    }
+
+    function clientToSvg(clientX, clientY) {
+        const ctm = svg.getScreenCTM();
+        if (!ctm) return null;
+        const point = new DOMPoint(clientX, clientY).matrixTransform(ctm.inverse());
+        return { x: point.x, y: point.y };
+    }
+
+    // ==========================================
+    // 事件处理 (Pointer Events 兼容 PC 和 移动端)
+    // ==========================================
+
+    function onPointerDown(e) {
+        const target = e.target.closest('.draggable-item');
+        if (!target) return;
+        
+        activeItemDOM = target;
+        const itemId = target.getAttribute('data-id');
+        activeItemData = itemsData.find(i => i.id === itemId);
+        
+        isDragging = false; // 初始算作点击，移动距离超过阈值才算拖拽
+        startClickX = e.clientX;
+        startClickY = e.clientY;
+
+        activeItemDOM.style.zIndex = 10;
+        // 捕获指针，防止滑动出界丢失事件
+        svg.setPointerCapture(e.pointerId);
+    }
+
+    function onPointerMove(e) {
+        if (!activeItemDOM) return;
+
+        const dx = e.clientX - startClickX;
+        const dy = e.clientY - startClickY;
+        
+        // 移动超过 5 像素才判定为拖拽 (区分点击)
+        if (!isDragging && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+            isDragging = true;
+            indicator.style.display = 'block';
+        }
+
+        if (isDragging) {
+            const svgPoint = clientToSvg(e.clientX, e.clientY);
+            if (!svgPoint) return;
+            const svgX = svgPoint.x;
+            const svgY = svgPoint.y;
+
+            const { col, row } = getGridPosition(svgX, svgY);
+            currentCol = col;
+            currentRow = row;
+
+            // 移动指示器
+            indicatorCircle.setAttribute('cx', col * CELL_SIZE + CELL_SIZE / 2);
+            indicatorCircle.setAttribute('cy', row * CELL_SIZE + CELL_SIZE / 2);
+
+            // 实时移动物品节点 (跟随鼠标居中)
+            activeItemDOM.style.transform = `translate(${svgX - ITEM_SIZE/2}px, ${svgY - ITEM_SIZE/2}px)`;
+        }
+    }
+
+    function onPointerUp(e) {
+        if (!activeItemDOM) return;
+        svg.releasePointerCapture(e.pointerId);
+
+        if (!isDragging) {
+            // 未触发拖拽，判定为点击 -> 显示详情
+            showItemDetails(activeItemData);
+        } else {
+            // 处理拖拽放置
+            const freeCell = findNearestFreeCell(activeItemData.id, currentCol, currentRow, currentPage);
+            
+            // 更新数据模型
+            activeItemData.col = freeCell.col;
+            activeItemData.row = freeCell.row;
+            
+            // 如果放置后立刻更新详情位置信息
+            if(detName.innerText === activeItemData.name) {
+                showItemDetails(activeItemData);
+            }
+        }
+
+        // 清理与重绘当前页 (吸附回格子)
+        activeItemDOM.style.zIndex = 'auto';
+        activeItemDOM = null;
+        activeItemData = null;
+        isDragging = false;
+        indicator.style.display = 'none';
+        
+        renderCurrentPage();
+    }
+
+    svg.addEventListener('pointerdown', onPointerDown);
+    svg.addEventListener('pointermove', onPointerMove);
+    svg.addEventListener('pointerup', onPointerUp);
+    svg.addEventListener('pointercancel', onPointerUp);
+
+    // ==========================================
+    // 翻页控制
+    // ==========================================
+    btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderCurrentPage();
+        }
+    });
+    btnNext.addEventListener('click', () => {
+        // 允许向后翻一页空的，方便存放新物品
+        if (currentPage < maxPage + 1) {
+            currentPage++;
+            renderCurrentPage();
+        }
+    });
+
+
+    // ==========================================
+    // 暴露外部 API 接口
+    // ==========================================
+    window.BackpackAPI = {
+        /**
+         * 导入完整数据 (会覆盖现有数据)
+         * @param {Array} items 物品数组
+         */
+        importData: function(items) {
+            itemsData = items || [];
+            currentPage = 1;
+            renderCurrentPage();
+            showItemDetails(null);
+            console.log('背包数据已导入:', itemsData);
+        },
+        
+        /**
+         * 添加单个物品到第一页的第一个空位
+         * @param {Object} item 物品对象
+         */
+        addItem: function(item) {
+            // 简单寻找空位逻辑 (这里演示只找第一页)
+            let targetCol = 0, targetRow = 0;
+            let found = false;
+            for(let r=0; r<GRID_SIZE; r++){
+                for(let c=0; c<GRID_SIZE; c++){
+                    if(!isOverlapping('new_id_temp', c, r, currentPage)) {
+                        targetCol = c; targetRow = r; found = true; break;
+                    }
+                }
+                if(found) break;
+            }
+            if(!found) {
+                console.warn('当前页已满！无法添加。');
+                return;
+            }
+            
+            item.page = currentPage;
+            item.col = targetCol;
+            item.row = targetRow;
+            itemsData.push(item);
+            renderCurrentPage();
+        },
+
+        /**
+         * 获取当前内部物品数据副本
+         */
+        getData: function() {
+            return JSON.parse(JSON.stringify(itemsData));
+        }
+    };
+
+    // --- 初始化演示数据 ---
+    const demoData = [
+        { id: 'item_1', name: '勇者之剑', desc: '一把散发着微光的长剑，攻击力 +15。', icon: '⚔️', color: '#6c8c9c', page: 1, col: 0, row: 0 },
+        { id: 'item_2', name: '大红药水', desc: '恢复 500 点生命值。', icon: '🧪', color: '#8f4b6e', page: 1, col: 1, row: 0 },
+        { id: 'item_3', name: '木质大盾', desc: '有些破旧，但能有效格挡物理伤害。防御 +10。', icon: '🛡️', color: '#4f6b7a', page: 1, col: 2, row: 1 },
+        { id: 'item_4', name: '神秘水晶', desc: '蕴含着未知的魔法能量。可以用来锻造装备。', icon: '💎', color: '#c97d4a', page: 1, col: 3, row: 2 },
+        { id: 'item_5', name: '地下城钥匙', desc: '生锈的铁钥匙，用于开启第一层的 boss 房间。', icon: '🔑', color: '#5a6e4a', page: 2, col: 0, row: 0 }
+    ];
+
+    // 初始化启动
+    window.BackpackAPI.importData(demoData);
+
+})();
+</script>
+</body>
+</html>

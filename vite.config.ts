@@ -19,8 +19,10 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: path.resolve(__dirname, 'index.html'),
-        spriteAnchorEditor: path.resolve(__dirname, 'sprite-anchor-editor.html'),
-        particleEditor: path.resolve(__dirname, 'particle-editor.html')
+        spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
+        particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
+        desktopPet: path.resolve(__dirname, 'desktop-pet.html'),
+        tauriGame: path.resolve(__dirname, 'tauri-game.html')
       }
     }
   }

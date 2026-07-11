@@ -1,0 +1,54 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "DesktopPetSkeleton",
+  "version": "0.1.0",
+  "identifier": "com.example.desktoppetskeleton",
+  "build": {
+    "beforeDevCommand": "npm run dev -- --host",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:1184",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Babylon Better",
+        "label": "game",
+        "url": "/tauri-game.html",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 960,
+        "minHeight": 640,
+        "transparent": false,
+        "decorations": true,
+        "shadow": true,
+        "alwaysOnTop": false,
+        "skipTaskbar": false,
+        "resizable": true
+      },
+      {
+        "title": "DesktopPet",
+        "label": "pet",
+        "url": "/desktop-pet.html?debug=1",
+        "width": 320,
+        "height": 320,
+        "minWidth": 220,
+        "minHeight": 220,
+        "transparent": true,
+        "decorations": false,
+        "shadow": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "resizable": false,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": false,
+    "targets": "all"
+  }
+}

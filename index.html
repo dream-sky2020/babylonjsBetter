@@ -3,196 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Babylon.js 伪2D场景</title>
+    <title>Web 调试入口</title>
     <style>
-      html,
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-        overflow: hidden;
+        min-height: 100vh;
+        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+        background: #101318;
+        color: #e8edf2;
       }
-      #renderCanvas {
-        width: 100%;
-        height: 100%;
+      .wrap {
+        width: min(960px, 92vw);
+        margin: 40px auto;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 26px;
+      }
+      p {
+        margin: 0 0 24px;
+        color: #a6b0be;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      a {
         display: block;
-        touch-action: none;
+        padding: 14px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        border: 1px solid #2d3542;
+        background: #171c25;
+        color: #e8edf2;
       }
-      #galgame-overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 20;
-        display: none;
-        background: transparent;
+      a:hover {
+        border-color: #4a7bff;
+        background: #1c2431;
       }
-      #galgame-overlay.visible {
-        display: block;
-      }
-      #galgame-frame {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        background: transparent;
-      }
-      .overlay-btn {
-        position: absolute;
-        left: 12px;
-        z-index: 30;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        border-radius: 8px;
-        padding: 6px 12px;
-        background: rgba(9, 13, 24, 0.72);
-        color: #f1f4ff;
-        cursor: pointer;
-      }
-      #toggle-galgame-btn {
-        top: 12px;
-      }
-      #open-battle-btn {
-        top: 48px;
+      .hint {
+        margin-top: 22px;
+        font-size: 13px;
+        color: #8d99aa;
       }
     </style>
   </head>
   <body>
-    <canvas id="renderCanvas"></canvas>
-    <button id="toggle-galgame-btn" class="overlay-btn" type="button">打开对话层</button>
-    <button id="open-battle-btn" class="overlay-btn" type="button">打开战斗层</button>
-    <div id="galgame-overlay">
-      <iframe id="galgame-frame" title="Galgame Overlay" loading="lazy"></iframe>
-    </div>
-    <script src="https://cdn.babylonjs.com/babylon.js"></script>
-    <script type="module">
-      import { EventBus } from "./event/event-bus.js";
-      import { EntityStateModule } from "./event/entity-state-module.js";
-      import { GAME_EVENTS } from "./event/events.js";
-      import { InputModule } from "./input/input-module.js";
-      import { RhythmModule } from "./rhythm/rhythm-module.js";
-      import { ParticleModule } from "./vfx/particle-module.js";
-      import { ObservableGameManager } from "./game-manager.js";
-
-      const canvas = document.getElementById("renderCanvas");
-      const galgameOverlay = document.getElementById("galgame-overlay");
-      const galgameFrame = document.getElementById("galgame-frame");
-      const toggleGalgameBtn = document.getElementById("toggle-galgame-btn");
-      const openBattleBtn = document.getElementById("open-battle-btn");
-      const engine = new BABYLON.Engine(canvas, true);
-      const scene = new BABYLON.Scene(engine);
-      scene.clearColor = new BABYLON.Color4(0.07, 0.09, 0.14, 1);
-
-      
-      const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -10), scene);
-      camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
-
-      // --- 在这里添加管道配置 ---
-      const pipeline = new BABYLON.DefaultRenderingPipeline(
-        "defaultPipeline", // 管道名称
-        true,              // 启用 HDR (如果不需要可设为 false)
-        scene,
-        [camera]           // 指定相机
-      );
-
-      // 开启 FXAA
-      pipeline.fxaaEnabled = true;
-
-
-      const syncOrtho = () => {
-        const ratio = engine.getRenderWidth() / engine.getRenderHeight();
-        const halfHeight = 6;
-        camera.orthoTop = halfHeight;
-        camera.orthoBottom = -halfHeight;
-        camera.orthoLeft = -halfHeight * ratio;
-        camera.orthoRight = halfHeight * ratio;
-      };
-      syncOrtho();
-
-      const eventBus = new EventBus();
-      const manager = new ObservableGameManager(engine, scene, camera, eventBus);
-      const entityStateModule = new EntityStateModule(eventBus);
-      const inputModule = new InputModule(eventBus);
-      const rhythmModule = new RhythmModule(eventBus, manager);
-      const particleModule = new ParticleModule(eventBus, manager);
-      entityStateModule.init();
-      inputModule.init();
-      rhythmModule.init();
-      particleModule.init();
-
-      manager.initializeDefaultEntities();
-      manager.start();
-      window.gameManager = manager;
-      window.eventBus = eventBus;
-      window.entityStateModule = entityStateModule;
-      window.inputModule = inputModule;
-      window.rhythmModule = rhythmModule;
-      window.particleModule = particleModule;
-
-      eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_HIT, (payload) => {
-        console.log("[RHYTHM_NOTE_HIT]", payload);
-      });
-      eventBus.subscribe(GAME_EVENTS.RHYTHM_NOTE_MISS, (payload) => {
-        console.log("[RHYTHM_NOTE_MISS]", payload);
-      });
-
-      eventBus.emit(GAME_EVENTS.RHYTHM_START, {});
-
-      let isGalgameOpen = false;
-      let overlayPagePath = "./galgame.html";
-      const setGalgameOverlayVisible = (visible) => {
-        isGalgameOpen = visible;
-        if (visible) {
-          const url = new URL(overlayPagePath, window.location.href);
-          url.searchParams.set("overlay", "1");
-          if (galgameFrame.src !== url.toString()) {
-            galgameFrame.src = url.toString();
-          }
-        }
-        galgameOverlay.classList.toggle("visible", visible);
-        toggleGalgameBtn.textContent = visible ? "关闭对话层" : "打开对话层";
-      };
-
-      // 关键：转发 iframe 内的键盘事件到父页面，保证 InputModule 仍能收到 keydown
-      window.addEventListener("message", (event) => {
-        if (event.source !== galgameFrame.contentWindow) return;
-        const data = event.data;
-        if (!data || data.type !== "galgame-keydown") return;
-        const syntheticEvent = new KeyboardEvent("keydown", {
-          key: data.key,
-          code: data.code,
-          repeat: Boolean(data.repeat),
-          bubbles: true,
-          cancelable: true
-        });
-        window.dispatchEvent(syntheticEvent);
-      });
-
-      toggleGalgameBtn.addEventListener("click", () => {
-        setGalgameOverlayVisible(!isGalgameOpen);
-      });
-      openBattleBtn.addEventListener("click", () => {
-        window.setOverlayPage("./rpg-battle.html");
-        setGalgameOverlayVisible(true);
-      });
-
-      window.addEventListener("keydown", (event) => {
-        if (event.code === "F2") {
-          event.preventDefault();
-          setGalgameOverlayVisible(!isGalgameOpen);
-        }
-      });
-
-      window.setGalgameOverlayVisible = setGalgameOverlayVisible;
-      window.setOverlayPage = (path) => {
-        if (typeof path !== "string" || !path.trim()) return;
-        overlayPagePath = path.trim();
-        if (isGalgameOpen) {
-          setGalgameOverlayVisible(true);
-        }
-      };
-
-      window.addEventListener("resize", () => {
-        engine.resize();
-        syncOrtho();
-      });
-    </script>
+    <main class="wrap">
+      <h1>网页端调试界面</h1>
+      <p>此页面仅作为调试导航，不再自动启动游戏场景或其它测试模块。</p>
+      <section class="grid">
+        <a href="/tools/sprite-anchor-editor/index.html">Sprite Anchor Editor</a>
+        <a href="/tools/particle-editor/index.html">Particle Editor</a>
+        <a href="/tools/target-link-lab/index.html">Target Link Lab</a>
+        <a href="/tools/battle-lab/battle.html">Battle Lab</a>
+        <a href="/tools/skill-lab/skilleffect.html">Skill Effect Lab</a>
+        <a href="/tools/render-lab/energy-line.html">Energy Line Lab</a>
+        <a href="/tools/render-lab/energy_line_dynamic_erosion.html">Energy Erosion Lab</a>
+        <a href="/tools/galgame-lab/galgame-console.html">Galgame Console</a>
+        <a href="/tools/limbus-lab/limbusgame-console.html">Limbus Console</a>
+        <a href="/tools/limbus-lab/rpg-battle.html">RPG Battle Debug</a>
+      </section>
+      <div class="hint">如果只想调一个页面，直接访问对应链接即可。</div>
+    </main>
   </body>
 </html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <title>Galgame 导演控制台</title>
+    <style>
+        /* 全局样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #1e1e1e;
+            color: #eee;
+            overflow: hidden;
+        }
+
+        /* 左侧控制台 */
+        #console-panel {
+            width: 400px;
+            min-width: 350px;
+            background: #252526;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #console-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #console-panel::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #4fc3f7;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 16px;
+            color: #ffca28;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 卡片式表单容器 */
+        .card {
+            background: #333333;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 表单元素 */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 5px;
+            color: #bbb;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            background: #1e1e1e;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            border-color: #4fc3f7;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .flex-row>div {
+            flex: 1;
+        }
+
+        /* 按钮 */
+        button {
+            width: 100%;
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background: #005f9e;
+        }
+
+        button.danger {
+            background: #d32f2f;
+        }
+
+        button.danger:hover {
+            background: #b71c1c;
+        }
+
+        button.small {
+            padding: 5px;
+            font-size: 12px;
+            width: auto;
+            margin-top: 0;
+        }
+
+        /* 分支选项列表 */
+        .choice-item {
+            background: #444;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .choice-item input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* 右侧游戏画面 */
+        #game-view {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="console-panel">
+        <h1>🎬 Galgame 导演控制台</h1>
+
+        <div class="card">
+            <h2>💬 即时对话插入</h2>
+            <div class="form-group">
+                <label>角色名</label>
+                <input type="text" id="ctrl-speaker" value="神秘少女">
+            </div>
+            <div class="form-group">
+                <label>台词文本</label>
+                <textarea id="ctrl-text">这是一条从外部控制台直接注入的实时对话！</textarea>
+            </div>
+            <button onclick="applyDialogue()">立即播放对话</button>
+        </div>
+
+        <div class="card">
+            <h2>🖼️ 立绘控制</h2>
+            <div class="form-group">
+                <label>资源路径 (URL)</label>
+                <input type="text" id="ctrl-sprite-url"
+                    value="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop"
+                    placeholder="留空则隐藏立绘">
+            </div>
+            <div class="flex-row">
+                <div class="form-group">
+                    <label>X轴位置 (如 50%)</label>
+                    <input type="text" id="ctrl-sprite-x" value="50%">
+                </div>
+                <div class="form-group">
+                    <label>缩放 (如 1.0)</label>
+                    <input type="number" id="ctrl-sprite-scale" value="1.0" step="0.1">
+                </div>
+            </div>
+            <button onclick="applySprite()">设置立绘</button>
+            <button class="danger"
+                onclick="document.getElementById('ctrl-sprite-url').value=''; applySprite()">隐藏立绘</button>
+        </div>
+
+        <div class="card">
+            <h2>🔀 分支选项设置 <button class="small" onclick="addChoiceInput()">+ 添加</button></h2>
+            <div id="choices-wrapper">
+            </div>
+            <button onclick="applyChoices()">触发分支选项</button>
+        </div>
+        <div class="card">
+            <h2>📜 剧本序列注入 (JSON)</h2>
+            <div class="form-group">
+                <label>注入后续对话节点（支持立绘控制与分支选项）</label>
+                <textarea id="ctrl-json" style="height: 350px;">[
+                    { 
+                      "speaker": "系统", 
+                      "text": "大厅里空无一人。" 
+                    },
+                    {
+                      "speaker": "向导",
+                      "text": "呼……总算赶到了。(出现在屏幕左侧)",
+                      "sprites": {
+                        "guide": {
+                          "url": "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=400&auto=format&fit=crop",
+                          "x": "25%",
+                          "scale": 1.0
+                        }
+                      }
+                    },
+                    {
+                      "speaker": "神秘少女",
+                      "text": "我已经在这里等你们很久了哦！(出现在屏幕右侧，两人同台)",
+                      "sprites": {
+                        "girl": {
+                          "url": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop",
+                          "x": "75%",
+                          "scale": 1.0
+                        }
+                      }
+                    },
+                    {
+                      "speaker": "向导",
+                      "text": "哇！吓我一跳！（向导左移并淡出消失）",
+                      "sprites": {
+                        "guide": { "url": "" } 
+                      }
+                    },
+                    {
+                      "speaker": "神秘少女",
+                      "text": "真是个胆小鬼。(少女移动到正中间)",
+                      "sprites": {
+                        "girl": { 
+                          "url": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=400&auto=format&fit=crop", 
+                          "x": "50%", 
+                          "scale": 1.1 
+                        }
+                      }
+                    }
+                  ]</textarea>
+            </div>
+            <button onclick="applyNextDialogues()">覆盖后续剧本</button>
+        </div>
+    </div>
+
+    <div id="game-view">
+        <iframe id="game-frame" src="/tools/galgame-lab/galgame.html"></iframe>
+    </div>
+
+    <script>
+        const query = new URLSearchParams(window.location.search);
+        const sessionId = query.get('session') || 'demo1';
+        const mode = query.get('mode') || 'iframe';
+        const gameFrame = document.getElementById('game-frame');
+        const channelName = `galgame-control-${sessionId}`;
+        const controlChannel = typeof BroadcastChannel !== 'undefined'
+            ? new BroadcastChannel(channelName)
+            : null;
+
+        let gameReady = false;
+        let requestSeq = 0;
+        const commandQueue = [];
+
+        function initGameFrame() {
+            const gameUrl = new URL('/tools/galgame-lab/galgame.html', window.location.href);
+            gameUrl.searchParams.set('session', sessionId);
+            gameFrame.src = gameUrl.toString();
+
+            if (mode === 'tab') {
+                gameFrame.style.display = 'none';
+            }
+        }
+
+        function buildCommand(command, payload = {}) {
+            requestSeq += 1;
+            return {
+                type: 'galgame-command',
+                sessionId,
+                command,
+                payload,
+                requestId: `req-${Date.now()}-${requestSeq}`
+            };
+        }
+
+        function sendMessageToGame(message) {
+            let sent = false;
+
+            if (gameFrame.contentWindow) {
+                gameFrame.contentWindow.postMessage(message, window.location.origin);
+                sent = true;
+            }
+
+            if (controlChannel) {
+                controlChannel.postMessage(message);
+                sent = true;
+            }
+
+            return sent;
+        }
+
+        function tryMarkReadyByIframeApi() {
+            if (gameFrame.contentWindow && gameFrame.contentWindow.GalgameAPI) {
+                gameReady = true;
+                flushQueuedCommands();
+            }
+        }
+
+        function dispatchCommand(command, payload = {}) {
+            const message = buildCommand(command, payload);
+
+            if (!gameReady) {
+                commandQueue.push(message);
+                requestReadyHandshake();
+                return true;
+            }
+
+            const sent = sendMessageToGame(message);
+            if (!sent) {
+                commandQueue.push(message);
+                gameReady = false;
+                requestReadyHandshake();
+                return false;
+            }
+            return true;
+        }
+
+        function flushQueuedCommands() {
+            if (!gameReady || commandQueue.length === 0) return;
+            while (commandQueue.length > 0) {
+                const command = commandQueue.shift();
+                sendMessageToGame(command);
+            }
+        }
+
+        function requestReadyHandshake() {
+            const helloMessage = {
+                type: 'galgame-event',
+                sessionId,
+                command: 'hello',
+                payload: {}
+            };
+            sendMessageToGame(helloMessage);
+            tryMarkReadyByIframeApi();
+        }
+
+        function handleIncomingEvent(message) {
+            if (!message || message.type !== 'galgame-event') return;
+            if (message.sessionId !== sessionId) return;
+
+            if (message.command === 'ready') {
+                gameReady = true;
+                flushQueuedCommands();
+                return;
+            }
+
+            if (message.command === 'ack') {
+                console.debug('[galgame-console] ACK:', message.payload || {}, message.requestId || '');
+            }
+        }
+
+        window.addEventListener('message', (event) => {
+            if (event.origin !== window.location.origin) return;
+            handleIncomingEvent(event.data);
+        });
+
+        if (controlChannel) {
+            controlChannel.addEventListener('message', (event) => {
+                handleIncomingEvent(event.data);
+            });
+        }
+
+        // --- 1. 应用对话 ---
+        function applyDialogue() {
+            const speaker = document.getElementById('ctrl-speaker').value;
+            const text = document.getElementById('ctrl-text').value;
+            dispatchCommand('setCurrentDialogue', { speaker, text });
+        }
+
+        // --- 2. 应用立绘 ---
+        function applySprite() {
+            const url = document.getElementById('ctrl-sprite-url').value;
+            const x = document.getElementById('ctrl-sprite-x').value;
+            const scale = document.getElementById('ctrl-sprite-scale').value;
+            const options = { x: x, scale: parseFloat(scale) };
+            dispatchCommand('setSprite', { imageUrl: url, options });
+        }
+
+        // --- 3. 分支选项逻辑 ---
+        let choiceCount = 0;
+        function addChoiceInput(defaultText = "新选项") {
+            const wrapper = document.getElementById('choices-wrapper');
+            const div = document.createElement('div');
+            div.className = 'choice-item';
+            div.id = `choice-${choiceCount}`;
+
+            div.innerHTML = `
+                <input type="text" class="choice-text-input" value="${defaultText}">
+                <button class="danger small" onclick="this.parentElement.remove()">删</button>
+            `;
+            wrapper.appendChild(div);
+            choiceCount++;
+        }
+
+        function applyChoices() {
+            const inputs = document.querySelectorAll('.choice-text-input');
+            const choices = [];
+
+            inputs.forEach(input => {
+                const text = input.value.trim();
+                if (text) {
+                    choices.push({ text });
+                }
+            });
+
+            if (choices.length > 0) {
+                dispatchCommand('setChoices', { choices });
+            } else {
+                alert("请至少添加一个选项！");
+            }
+        }
+
+        // --- 4. 应用 JSON 剧本 ---
+        function applyNextDialogues() {
+            try {
+                const jsonStr = document.getElementById('ctrl-json').value;
+                const dialogues = JSON.parse(jsonStr);
+                if (Array.isArray(dialogues)) {
+                    dispatchCommand('setNextDialogues', { dialogues, replace: true });
+                    alert("剧本注入成功！");
+                } else {
+                    alert("JSON 格式错误：必须是一个数组 []");
+                }
+            } catch (e) {
+                alert("JSON 解析失败: " + e.message);
+            }
+        }
+
+        // 初始化默认添加两个选项供测试
+        window.onload = () => {
+            initGameFrame();
+            requestReadyHandshake();
+            gameFrame.addEventListener('load', () => {
+                tryMarkReadyByIframeApi();
+                requestReadyHandshake();
+            });
+            addChoiceInput("同意她的请求");
+            addChoiceInput("转身离开");
+        };
+    </script>
+</body>
+
+</html>
