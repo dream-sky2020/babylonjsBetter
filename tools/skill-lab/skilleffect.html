@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>技能书页合成器 (废墟图书馆风格)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: min(1200px, 95vw);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex: 1;
+            max-width: 60%;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .input-group label.title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        input[type="text"], input[type="number"], select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        
+        .short-input {
+            width: 80px !important;
+        }
+
+        /* 骰子/硬币列表容器 */
+        #dice-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .die-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #fff;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            border-left: 4px solid #4A90E2;
+            position: relative;
+        }
+
+        .die-item .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        .die-item .remove-btn:hover { background: #d9363e; }
+
+        .pick-btn {
+            border: 1px solid #888;
+            border-radius: 4px;
+            background: #fff;
+            color: #333;
+            font-size: 13px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .pick-btn:hover { background: #e0e0e0; }
+        .add-btn { width: 100%; border-style: dashed; border-color: #4A90E2; color: #4A90E2; }
+        .add-btn:hover { background: #e6f7ff; }
+
+        /* 预览区域样式 */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex: 0.8;
+            min-width: 300px;
+        }
+
+        /* 视觉卡牌预览 */
+        .card-preview {
+            width: 260px;
+            background: #2c2c2c;
+            border: 2px solid #555;
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #1a1a1a;
+            border-bottom: 2px solid #555;
+        }
+
+        .card-cost {
+            background: #d4af37;
+            color: #000;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .card-name { font-size: 16px; font-weight: bold; flex: 1; }
+
+        .card-image-container {
+            height: 120px;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-dice-container {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #222;
+        }
+
+        .card-die {
+            display: flex;
+            align-items: stretch;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .die-icon {
+            width: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+        
+        /* 骰子类型颜色 */
+        .type-slash { background: #e74c3c; }   /* 斩击: 红 */
+        .type-pierce { background: #f1c40f; color: #000; } /* 突刺: 黄 */
+        .type-blunt { background: #3498db; }   /* 打击: 蓝 */
+        .type-block { background: #2ecc71; }   /* 防御: 绿 */
+        .type-evade { background: #9b59b6; }   /* 闪避: 紫 */
+
+        .die-info {
+            flex: 1;
+            padding: 4px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .die-range { font-size: 14px; font-weight: bold; margin-bottom: 2px; }
+        .die-effect { font-size: 11px; color: #ccc; line-height: 1.2; }
+
+        .config-preview {
+            width: 100%;
+            margin-top: 10px;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 6px;
+            padding: 10px;
+            font-size: 12px;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 300px;
+            box-sizing: border-box;
+        }
+
+        .config-preview code {
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .config-actions {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .config-actions .pick-btn { flex: 1; }
+
+        .status-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>技能书页编辑器 (Ruina & Limbus 风格)</h2>
+
+    <div class="container">
+        <div class="controls" id="editor-form">
+            
+            <div class="input-group">
+                <label class="title">基础信息</label>
+                <div class="input-row">
+                    <input type="text" id="skill-name" placeholder="技能名称 (例如：殷红迷雾)" value="极意·斩">
+                    <input type="number" id="skill-cost" class="short-input" placeholder="费用" value="3" min="0">
+                </div>
+                <input type="text" id="skill-image" placeholder="技能插图 URL (留空纯黑)" value="https://via.placeholder.com/260x120/4A90E2/FFFFFF?text=Skill+Image">
+            </div>
+
+            <div class="input-group">
+                <label class="title">硬币 / 骰子列表</label>
+                <div id="dice-list">
+                    </div>
+                <button type="button" id="add-die-btn" class="pick-btn add-btn">+ 添加一个动作 (硬币/骰子)</button>
+            </div>
+
+        </div>
+
+        <div class="preview-section">
+            <strong>视觉预览</strong>
+            
+            <div class="card-preview" id="card-preview">
+                <div class="card-header">
+                    <div class="card-cost" id="preview-cost">3</div>
+                    <div class="card-name" id="preview-name">极意·斩</div>
+                </div>
+                <div class="card-image-container">
+                    <img id="preview-image" src="https://via.placeholder.com/260x120/4A90E2/FFFFFF?text=Skill+Image" alt="">
+                </div>
+                <div class="card-dice-container" id="preview-dice">
+                    </div>
+            </div>
+
+            <div class="config-actions">
+                <button type="button" id="import-btn" class="pick-btn">从剪贴板导入 JSON</button>
+                <button type="button" id="export-btn" class="pick-btn">复制 JSON 配置</button>
+            </div>
+            <div id="status-text" class="status-text">就绪</div>
+            
+            <pre class="config-preview"><code id="json-output"></code></pre>
+        </div>
+    </div>
+
+    <script>
+        // DOM 节点引用
+        const diceListEl = document.getElementById('dice-list');
+        const addDieBtn = document.getElementById('add-die-btn');
+        const editorForm = document.getElementById('editor-form');
+        const jsonOutput = document.getElementById('json-output');
+        const statusText = document.getElementById('status-text');
+
+        // 预览节点
+        const previewCost = document.getElementById('preview-cost');
+        const previewName = document.getElementById('preview-name');
+        const previewImage = document.getElementById('preview-image');
+        const previewDice = document.getElementById('preview-dice');
+
+        // 类型映射表
+        const typeConfig = {
+            'slash': { name: '斩击', class: 'type-slash', symbol: '⚔️' },
+            'pierce': { name: '突刺', class: 'type-pierce', symbol: '🗡️' },
+            'blunt': { name: '打击', class: 'type-blunt', symbol: '🔨' },
+            'block': { name: '防御', class: 'type-block', symbol: '🛡️' },
+            'evade': { name: '闪避', class: 'type-evade', symbol: '💨' }
+        };
+
+        // 默认数据结构
+        let defaultData = {
+            name: "极意·斩",
+            cost: 3,
+            imageUrl: "https://via.placeholder.com/260x120/4A90E2/FFFFFF?text=Skill+Image",
+            dice: [
+                { type: "slash", min: 4, max: 8, effect: "[命中时] 施加 2 层流血" },
+                { type: "block", min: 2, max: 6, effect: "" }
+            ]
+        };
+
+        // --- 核心渲染与数据收集 ---
+
+        // 1. 生成单条骰子输入框的 HTML
+        function createDieInput(die) {
+            const div = document.createElement('div');
+            div.className = 'die-item';
+            div.innerHTML = `
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateAll();">删除</button>
+                <div class="input-row">
+                    <select class="die-type" style="width: 100px;">
+                        <option value="slash" ${die.type === 'slash' ? 'selected' : ''}>斩击</option>
+                        <option value="pierce" ${die.type === 'pierce' ? 'selected' : ''}>突刺</option>
+                        <option value="blunt" ${die.type === 'blunt' ? 'selected' : ''}>打击</option>
+                        <option value="block" ${die.type === 'block' ? 'selected' : ''}>防御</option>
+                        <option value="evade" ${die.type === 'evade' ? 'selected' : ''}>闪避</option>
+                    </select>
+                    <input type="number" class="die-min short-input" placeholder="Min" value="${die.min}">
+                    <span>~</span>
+                    <input type="number" class="die-max short-input" placeholder="Max" value="${die.max}">
+                </div>
+                <input type="text" class="die-effect" placeholder="硬币/骰子特效 (例如：[拼点胜利] 恢复自身3点精神值)" value="${die.effect}">
+            `;
+            // 根据选择的类型动态调整左侧边框颜色
+            const selectEl = div.querySelector('.die-type');
+            const updateBorderColor = () => {
+                const colorMap = { slash: '#e74c3c', pierce: '#f1c40f', blunt: '#3498db', block: '#2ecc71', evade: '#9b59b6'};
+                div.style.borderLeftColor = colorMap[selectEl.value];
+            };
+            selectEl.addEventListener('change', updateBorderColor);
+            updateBorderColor();
+
+            return div;
+        }
+
+        // 2. 从表单中提取数据生成 JSON 对象
+        function collectDataFromUI() {
+            const name = document.getElementById('skill-name').value;
+            const cost = parseInt(document.getElementById('skill-cost').value) || 0;
+            const imageUrl = document.getElementById('skill-image').value;
+            
+            const dice = [];
+            document.querySelectorAll('.die-item').forEach(item => {
+                dice.push({
+                    type: item.querySelector('.die-type').value,
+                    min: parseInt(item.querySelector('.die-min').value) || 0,
+                    max: parseInt(item.querySelector('.die-max').value) || 0,
+                    effect: item.querySelector('.die-effect').value
+                });
+            });
+
+            return { name, cost, imageUrl, dice };
+        }
+
+        // 3. 将数据写入左侧表单
+        function populateUI(data) {
+            document.getElementById('skill-name').value = data.name || '';
+            document.getElementById('skill-cost').value = data.cost || 0;
+            document.getElementById('skill-image').value = data.imageUrl || '';
+            
+            diceListEl.innerHTML = ''; // 清空列表
+            if (data.dice && Array.isArray(data.dice)) {
+                data.dice.forEach(die => {
+                    diceListEl.appendChild(createDieInput(die));
+                });
+            }
+        }
+
+        // 4. 更新右侧视觉预览卡牌和 JSON 文本
+        function updateAll() {
+            const data = collectDataFromUI();
+            
+            // 更新 JSON
+            jsonOutput.textContent = JSON.stringify(data, null, 2);
+
+            // 更新卡牌 UI
+            previewName.textContent = data.name || '未命名技能';
+            previewCost.textContent = data.cost;
+            
+            if (data.imageUrl) {
+                previewImage.style.display = 'block';
+                previewImage.src = data.imageUrl;
+            } else {
+                previewImage.style.display = 'none';
+            }
+
+            // 更新卡牌骰子
+            previewDice.innerHTML = '';
+            data.dice.forEach(die => {
+                const conf = typeConfig[die.type];
+                const dieHtml = `
+                    <div class="card-die">
+                        <div class="die-icon ${conf.class}">${conf.symbol}</div>
+                        <div class="die-info">
+                            <div class="die-range">${die.min} - ${die.max}</div>
+                            ${die.effect ? `<div class="die-effect">${die.effect}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                previewDice.insertAdjacentHTML('beforeend', dieHtml);
+            });
+        }
+
+        // --- 事件监听 ---
+
+        // 监听表单内任意输入变化（利用事件委托）
+        editorForm.addEventListener('input', () => {
+            updateAll();
+        });
+
+        // 添加硬币按钮
+        addDieBtn.addEventListener('click', () => {
+            diceListEl.appendChild(createDieInput({ type: "slash", min: 1, max: 5, effect: "" }));
+            updateAll();
+        });
+
+        // 导出配置
+        document.getElementById('export-btn').addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(jsonOutput.textContent);
+                statusText.textContent = '✅ JSON 成功复制到剪贴板！';
+                statusText.style.color = '#2ecc71';
+            } catch (err) {
+                statusText.textContent = '❌ 复制失败，请手动复制 JSON 框内文本。';
+                statusText.style.color = '#e74c3c';
+            }
+        });
+
+        // 导入配置
+        document.getElementById('import-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                const parsed = JSON.parse(text);
+                if (!parsed.dice || !Array.isArray(parsed.dice)) {
+                    throw new Error("JSON 格式错误，缺少 dice 数组");
+                }
+                populateUI(parsed);
+                updateAll();
+                statusText.textContent = '✅ 配置导入成功！';
+                statusText.style.color = '#2ecc71';
+            } catch (err) {
+                const text = window.prompt("无法直接读取剪贴板或格式错误，请在这里粘贴 JSON：");
+                if (text) {
+                    try {
+                        const parsed = JSON.parse(text);
+                        populateUI(parsed);
+                        updateAll();
+                        statusText.textContent = '✅ 配置手动导入成功！';
+                        statusText.style.color = '#2ecc71';
+                    } catch (e) {
+                        statusText.textContent = '❌ JSON 格式无效！';
+                        statusText.style.color = '#e74c3c';
+                    }
+                } else {
+                    statusText.textContent = '⚠️ 已取消导入。';
+                    statusText.style.color = '#f39c12';
+                }
+            }
+        });
+
+        // 图片加载容错
+        previewImage.addEventListener('error', function() {
+            this.src = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22260%22%20height%3D%22120%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20260%20120%22%20preserveAspectRatio%3D%22none%22%3E%3Crect%20width%3D%22260%22%20height%3D%22120%22%20fill%3D%22%23444%22%20%2F%3E%3Ctext%20x%3D%22130%22%20y%3D%2260%22%20fill%3D%22%23888%22%20font-family%3D%22sans-serif%22%20font-size%3D%2214%22%20text-anchor%3D%22middle%22%3EImage%20Load%20Failed%3C%2Ftext%3E%3C%2Fsvg%3E';
+        });
+
+        // 初始化
+        populateUI(defaultData);
+        updateAll();
+
+    </script>
+</body>
+</html>

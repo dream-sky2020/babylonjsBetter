@@ -8,20 +8,25 @@
     "build": "vite build",
     "typecheck:clash": "tsc --noEmit -p tsconfig.clash.json",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
   },
   "dependencies": {
     "@babylonjs/core": "^9.11.0",
     "@babylonjs/loaders": "^9.11.0",
     "@babylonjs/materials": "^9.11.0",
+    "@tauri-apps/api": "^2.11.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "three": "^0.185.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
     "@eslint/js": "^10.0.1",
     "@rolldown/plugin-babel": "^0.2.3",
+    "@tauri-apps/cli": "^2.11.4",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
@@ -34,6 +39,7 @@
     "globals": "^17.6.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.12"
+    "vite": "^8.0.12",
+    "@tauri-apps/cli": "^2.9.1"
   }
 }

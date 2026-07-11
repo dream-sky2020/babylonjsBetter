@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import {
+  hydrateSpriteAnchorPresetStorage,
   getAllSpriteAnchorPresets,
   getLocalSpriteAnchorPreset,
   removeSpriteAnchorPreset,
@@ -70,6 +71,23 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
   useEffect(() => {
     presetRef.current = preset;
   }, [preset]);
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      await hydrateSpriteAnchorPresetStorage();
+      if (cancelled) return;
+      setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
+      setPreset((prev) => {
+        const refreshed = createEditablePreset(prev.imagePath, prev.frameName, prev.atlasFrame);
+        setPresetSourceLabel(getPresetSourceLabel(refreshed.presetKey));
+        return refreshed;
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const applyPresetBySelection = useCallback((
     nextImagePath: string,

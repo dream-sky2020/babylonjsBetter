@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <title>Checkerboard + Limbus Skills (Canvas2D)</title>
+    <style>
+        :root {
+            --bg: #161616;
+            --panel: #252526;
+            --card: #333;
+            --text: #eee;
+            --muted: #aaa;
+            --accent: #27ae60;
+            --danger: #8b0000;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        #console-panel {
+            width: 390px;
+            min-width: 350px;
+            background: var(--panel);
+            border-right: 1px solid #3a3a3a;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 20px;
+            color: #e74c3c;
+            text-align: center;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 15px;
+            color: #ffca28;
+        }
+
+        .form-group { margin-bottom: 10px; }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: #c9c9c9;
+            margin-bottom: 4px;
+        }
+
+        input[type="number"], textarea {
+            width: 100%;
+            background: #1f1f1f;
+            color: #fff;
+            border: 1px solid #4a4a4a;
+            border-radius: 4px;
+            padding: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+            font-family: Consolas, monospace;
+            color: #a6e22e;
+        }
+
+        input[type="number"]:focus, textarea:focus {
+            border-color: #e74c3c;
+        }
+
+        button {
+            width: 100%;
+            border: 1px solid #555;
+            background: #444;
+            color: #fff;
+            border-radius: 4px;
+            padding: 9px;
+            cursor: pointer;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        button:hover { background: #575757; }
+
+        button.primary { background: var(--accent); border-color: #2ecc71; }
+        button.primary:hover { background: #2ecc71; }
+
+        button.danger { background: var(--danger); border-color: #ff4444; }
+        button.danger:hover { background: #a00000; }
+
+        #game-view {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #121212;
+        }
+
+        #game-wrap {
+            flex: 1;
+            padding: 12px;
+        }
+
+        #board {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 10px;
+            border: 1px solid #2b2b2b;
+            background: #1e1e24;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            cursor: crosshair;
+        }
+
+        #info {
+            min-height: 54px;
+            border-top: 1px solid #2b2b2b;
+            padding: 10px 14px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.45;
+            background: #1a1a1a;
+        }
+
+        #log {
+            background: #1d1d1d;
+            border: 1px dashed #4a4a4a;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+            max-height: 130px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .row-inline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <aside id="console-panel">
+        <h1>⛓️ 战斗 UI 控制台</h1>
+
+        <section class="card">
+            <h2>🎛️ 面板配置</h2>
+            <div class="row-inline">
+                <div class="form-group">
+                    <label for="cols-input">列数 X (2~12)</label>
+                    <input id="cols-input" type="number" min="2" max="12" value="8" />
+                </div>
+                <div class="form-group">
+                    <label for="rows-input">行数 Z (2~12)</label>
+                    <input id="rows-input" type="number" min="2" max="12" value="6" />
+                </div>
+            </div>
+            <button class="primary" id="apply-btn">应用配置并重建</button>
+            <button id="reroll-btn">重新打乱面板 (Reroll)</button>
+            <button class="danger" id="auto-btn">触发自动连线 (Auto)</button>
+        </section>
+
+        <section class="card">
+            <h2>🎴 全局技能池 (JSON)</h2>
+            <label for="skill-pool-config">格式沿用 limbus 的 skillDef（支持 previewUrl/visible/scale/offsetX/offsetY/weight）</label>
+            <textarea id="skill-pool-config" spellcheck="false" placeholder='[
+  {
+    "colorName": "Wrath (愤怒)",
+    "colorHex": "#e74c3c",
+    "weight": 1,
+    "background": { "previewUrl": "https://via.placeholder.com/128/e74c3c/e74c3c", "visible": true, "scale": 1, "offsetX": 0, "offsetY": 0 },
+    "icon": { "previewUrl": "https://via.placeholder.com/90/FFFFFF/000000?text=SK", "visible": true, "scale": 1, "offsetX": 0, "offsetY": 0 },
+    "border": { "previewUrl": "https://via.placeholder.com/128/FFFFFF/FFFFFF?text=+", "visible": true, "scale": 1, "offsetX": 0, "offsetY": 0 },
+    "mask": { "previewUrl": "", "visible": false }
+  }
+]'></textarea>
+            <button class="primary" id="apply-pool-btn">保存技能池并重置</button>
+        </section>
+
+        <section class="card">
+            <h2>🧾 控制台日志</h2>
+            <div id="log">等待初始化...</div>
+        </section>
+    </aside>
+
+    <main id="game-view">
+        <div id="game-wrap">
+            <canvas id="board"></canvas>
+        </div>
+        <div id="info">按住鼠标从左到右拖拽，选择每一列中的技能。</div>
+    </main>
+
+    <script src="skills.js"></script>
+    <script>
+        // -----------------------------
+        // 常量和基础状态
+        // -----------------------------
+        const canvas = document.getElementById("board");
+        const ctx = canvas.getContext("2d");
+        const info = document.getElementById("info");
+        const logEl = document.getElementById("log");
+
+        const inputCols = document.getElementById("cols-input");
+        const inputRows = document.getElementById("rows-input");
+        const btnApply = document.getElementById("apply-btn");
+        const btnReroll = document.getElementById("reroll-btn");
+        const btnAuto = document.getElementById("auto-btn");
+        const btnApplyPool = document.getElementById("apply-pool-btn");
+        const poolText = document.getElementById("skill-pool-config");
+
+        const offscreenCanvas = document.createElement("canvas");
+        const offCtx = offscreenCanvas.getContext("2d");
+        const imageCache = new Map();
+
+        const BASE_SIZE = 128;
+        const BASE_NODE_SIZE = 54;
+        const MAX_NODE_SIZE = 86;
+        const MIN_NODE_SIZE = 24;
+        // 全局技能尺寸倍率：只改这里即可整体放大/缩小技能图标
+        // 1.00 = 默认；1.20 = 放大 20%；0.90 = 缩小 10%
+        const SKILL_SIZE_MULTIPLIER = 1.5;
+
+        let cols = 8;
+        let rows = 6;
+        let tileSize = 60;
+        let fov = 620;
+        let horizonY = 170;
+        let camera = { x: 0, y: 300, z: -460 };
+
+        let nodes = [];
+        let chain = [];
+        let isDragging = false;
+        let mouse = { x: 0, y: 0 };
+        let customSkillPool = [];
+
+        const SIN_COLORS = [
+            { name: "Wrath (愤怒)", hex: "#e74c3c" },
+            { name: "Lust (色欲)", hex: "#e67e22" },
+            { name: "Sloth (怠惰)", hex: "#f1c40f" },
+            { name: "Gluttony (暴食)", hex: "#2ecc71" },
+            { name: "Gloom (忧郁)", hex: "#3498db" },
+            { name: "Pride (傲慢)", hex: "#11105e" },
+            { name: "Envy (嫉妒)", hex: "#9b59b6" }
+        ];
+
+        let DEFAULT_SKILLS = SIN_COLORS.map(sin => ({
+            colorName: sin.name,
+            colorHex: sin.hex,
+            weight: 1,
+            background: {
+                previewUrl: `https://via.placeholder.com/128/${sin.hex.replace("#", "")}/${sin.hex.replace("#", "")}`,
+                visible: true, scale: 1, offsetX: 0, offsetY: 0
+            },
+            icon: {
+                previewUrl: "https://via.placeholder.com/90/FFFFFF/000000?text=Skill",
+                visible: true, scale: 1, offsetX: 0, offsetY: 0
+            },
+            border: {
+                previewUrl: "https://via.placeholder.com/128/FFFFFF/FFFFFF?text=+",
+                visible: true, scale: 1, offsetX: 0, offsetY: 0
+            },
+            mask: { previewUrl: "", visible: false }
+        }));
+
+        const outsideSkillsSource = (typeof OUTSIDE_SKILLS !== "undefined" && Array.isArray(OUTSIDE_SKILLS))
+            ? OUTSIDE_SKILLS
+            : (Array.isArray(window.OUTSIDE_SKILLS) ? window.OUTSIDE_SKILLS : []);
+        if (outsideSkillsSource.length > 0) {
+            DEFAULT_SKILLS = outsideSkillsSource;
+        }
+
+        function log(msg) {
+            const t = new Date().toLocaleTimeString();
+            logEl.textContent += `\n[${t}] ${msg}`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function clearLog(msg) {
+            logEl.textContent = msg || "";
+        }
+
+        function clamp(n, min, max) {
+            return Math.max(min, Math.min(max, n));
+        }
+
+        function getCachedImage(url) {
+            if (!url) return null;
+            if (imageCache.has(url)) return imageCache.get(url);
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.src = url;
+            imageCache.set(url, img);
+            return img;
+        }
+
+        function pickSkillFromPool() {
+            const poolRaw = (Array.isArray(customSkillPool) && customSkillPool.length > 0) ? customSkillPool : DEFAULT_SKILLS;
+            const pool = poolRaw.filter(s => s && typeof s === "object");
+            if (pool.length === 0) return DEFAULT_SKILLS[0];
+
+            const total = pool.reduce((sum, s) => {
+                const w = Number(s.weight);
+                return sum + (Number.isFinite(w) && w > 0 ? w : 1);
+            }, 0);
+
+            let roll = Math.random() * total;
+            for (const s of pool) {
+                const w = Number(s.weight);
+                const ww = Number.isFinite(w) && w > 0 ? w : 1;
+                roll -= ww;
+                if (roll <= 0) return s;
+            }
+            return pool[pool.length - 1];
+        }
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = Math.max(1, Math.floor(rect.width));
+            canvas.height = Math.max(1, Math.floor(rect.height));
+            horizonY = Math.round(canvas.height * 0.28);
+        }
+
+        function project(x3d, y3d, z3d) {
+            const zRel = z3d - camera.z;
+            if (zRel <= 0) return { x: 0, y: 0, scale: 0 };
+            const scale = fov / zRel;
+            const x2d = canvas.width / 2 + (x3d - camera.x) * scale;
+            const y2d = horizonY + (camera.y - y3d) * scale;
+            return { x: x2d, y: y2d, scale };
+        }
+
+        function roundedRectPath(c, x, y, w, h, r) {
+            const rr = Math.min(r, w / 2, h / 2);
+            c.beginPath();
+            c.moveTo(x + rr, y);
+            c.arcTo(x + w, y, x + w, y + h, rr);
+            c.arcTo(x + w, y + h, x, y + h, rr);
+            c.arcTo(x, y + h, x, y, rr);
+            c.arcTo(x, y, x + w, y, rr);
+            c.closePath();
+        }
+
+        function drawLayerToContext(targetCtx, layerDef, centerX, centerY, nodeSize) {
+            if (!layerDef || !layerDef.visible || !layerDef.previewUrl) return;
+            const img = getCachedImage(layerDef.previewUrl);
+            if (!img || !img.complete || img.naturalWidth === 0) return;
+
+            const ratio = nodeSize / BASE_SIZE;
+            const lx = (layerDef.offsetX || 0) * ratio;
+            const ly = (layerDef.offsetY || 0) * ratio;
+            const scale = Number(layerDef.scale) || 1;
+
+            targetCtx.save();
+            targetCtx.translate(centerX + lx, centerY + ly);
+            targetCtx.scale(scale, scale);
+            targetCtx.drawImage(img, -nodeSize / 2, -nodeSize / 2, nodeSize, nodeSize);
+            targetCtx.restore();
+        }
+
+        function distance2D(a, b) {
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        function calcTileMetrics(col, row) {
+            const xStart = -(cols * tileSize) / 2;
+            const x3d = xStart + col * tileSize;
+            const z3d = row * tileSize;
+
+            const p1 = project(x3d, 0, z3d);
+            const p2 = project(x3d + tileSize, 0, z3d);
+            const p3 = project(x3d + tileSize, 0, z3d + tileSize);
+            const p4 = project(x3d, 0, z3d + tileSize);
+
+            const centerX = (p1.x + p2.x + p3.x + p4.x) * 0.25;
+            const centerY = (p1.y + p2.y + p3.y + p4.y) * 0.25;
+            const scale = (p1.scale + p2.scale + p3.scale + p4.scale) * 0.25;
+
+            const width = (distance2D(p1, p2) + distance2D(p4, p3)) * 0.5;
+            const height = (distance2D(p1, p4) + distance2D(p2, p3)) * 0.5;
+
+            // 技能图标尺寸取格子短边的固定比例，保证严格随透视变化
+            const sizePx = clamp(
+                Math.min(width, height) * 0.78 * SKILL_SIZE_MULTIPLIER,
+                MIN_NODE_SIZE * SKILL_SIZE_MULTIPLIER,
+                MAX_NODE_SIZE * SKILL_SIZE_MULTIPLIER
+            );
+
+            return { x: centerX, y: centerY, scale, sizePx };
+        }
+
+        function buildBoardAndSkills() {
+            nodes = [];
+            chain = [];
+
+            for (let z = 0; z < rows; z++) {
+                for (let x = 0; x < cols; x++) {
+                    const metrics = calcTileMetrics(x, z);
+                    const skillDef = pickSkillFromPool();
+                    nodes.push({
+                        id: `node_${x}_${z}`,
+                        col: x,
+                        row: z,
+                        x: metrics.x,
+                        y: metrics.y,
+                        scalePerspective: metrics.scale,
+                        sizePx: metrics.sizePx,
+                        isSelected: false,
+                        skillDef,
+                        colorData: {
+                            name: skillDef.colorName || "Unknown",
+                            hex: skillDef.colorHex || "#ffffff"
+                        }
+                    });
+
+                    if (skillDef.mask?.previewUrl) getCachedImage(skillDef.mask.previewUrl);
+                    if (skillDef.background?.previewUrl) getCachedImage(skillDef.background.previewUrl);
+                    if (skillDef.icon?.previewUrl) getCachedImage(skillDef.icon.previewUrl);
+                    if (skillDef.border?.previewUrl) getCachedImage(skillDef.border.previewUrl);
+                }
+            }
+        }
+
+        function syncSelectionState() {
+            nodes.forEach(n => n.isSelected = false);
+            chain.forEach(n => n.isSelected = true);
+        }
+
+        function drawCheckerboard() {
+            const gradient = ctx.createLinearGradient(0, 0, 0, horizonY + 30);
+            gradient.addColorStop(0, "#121212");
+            gradient.addColorStop(1, "#2c2c34");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, horizonY + 35);
+
+            const xStart = -(cols * tileSize) / 2;
+
+            for (let z = 0; z < rows; z++) {
+                for (let x = 0; x < cols; x++) {
+                    const x3d = xStart + x * tileSize;
+                    const z3d = z * tileSize;
+
+                    const p1 = project(x3d, 0, z3d);
+                    const p2 = project(x3d + tileSize, 0, z3d);
+                    const p3 = project(x3d + tileSize, 0, z3d + tileSize);
+                    const p4 = project(x3d, 0, z3d + tileSize);
+
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.lineTo(p3.x, p3.y);
+                    ctx.lineTo(p4.x, p4.y);
+                    ctx.closePath();
+
+                    const light = ((x + z) % 2 === 0);
+                    ctx.fillStyle = light ? "#f0f0f0" : "#3a3a45";
+                    ctx.fill();
+
+                    ctx.strokeStyle = "#111";
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function drawChain() {
+            if (chain.length === 0) return;
+
+            ctx.save();
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.lineWidth = 6;
+
+            for (let i = 0; i < chain.length - 1; i++) {
+                const a = chain[i], b = chain[i + 1];
+                ctx.save();
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = a.colorData.hex;
+                ctx.strokeStyle = a.colorData.hex;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            if (isDragging) {
+                const last = chain[chain.length - 1];
+                ctx.save();
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = last.colorData.hex;
+                ctx.strokeStyle = last.colorData.hex;
+                ctx.beginPath();
+                ctx.moveTo(last.x, last.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        function drawSkillNode(node) {
+            const size = clamp(
+                Number.isFinite(node.sizePx) ? node.sizePx : (BASE_NODE_SIZE * node.scalePerspective * 1.2),
+                MIN_NODE_SIZE,
+                MAX_NODE_SIZE
+            );
+            const radius = Math.max(6, size * 0.14);
+
+            if (node.isSelected) {
+                ctx.save();
+                ctx.shadowBlur = 22;
+                ctx.shadowColor = node.colorData.hex;
+                ctx.fillStyle = "rgba(0,0,0,0.01)";
+                roundedRectPath(ctx, node.x - size / 2, node.y - size / 2, size, size, radius);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            const sDef = node.skillDef;
+            const maskImg = sDef.mask?.visible && sDef.mask?.previewUrl ? getCachedImage(sDef.mask.previewUrl) : null;
+
+            // 兜底底板：即使外部贴图加载失败，也保证技能块可见
+            ctx.save();
+            ctx.fillStyle = node.colorData.hex || "#666";
+            ctx.globalAlpha = 0.24;
+            roundedRectPath(ctx, node.x - size / 2, node.y - size / 2, size, size, radius);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+            ctx.strokeStyle = "rgba(255,255,255,0.38)";
+            ctx.lineWidth = Math.max(1, size * 0.03);
+            roundedRectPath(ctx, node.x - size / 2, node.y - size / 2, size, size, radius);
+            ctx.stroke();
+            ctx.restore();
+
+            if (maskImg && maskImg.complete && maskImg.naturalWidth > 0) {
+                offscreenCanvas.width = Math.ceil(size);
+                offscreenCanvas.height = Math.ceil(size);
+                offCtx.clearRect(0, 0, size, size);
+
+                offCtx.drawImage(maskImg, 0, 0, size, size);
+                offCtx.globalCompositeOperation = "source-in";
+                drawLayerToContext(offCtx, sDef.background, size / 2, size / 2, size);
+                drawLayerToContext(offCtx, sDef.icon, size / 2, size / 2, size);
+                offCtx.globalCompositeOperation = "source-over";
+
+                ctx.drawImage(offscreenCanvas, node.x - size / 2, node.y - size / 2, size, size);
+            } else {
+                ctx.save();
+                roundedRectPath(ctx, node.x - size / 2, node.y - size / 2, size, size, radius);
+                ctx.clip();
+                drawLayerToContext(ctx, sDef.background, node.x, node.y, size);
+                drawLayerToContext(ctx, sDef.icon, node.x, node.y, size);
+                ctx.restore();
+            }
+
+            drawLayerToContext(ctx, sDef.border, node.x, node.y, size);
+        }
+
+        // 统一渲染层级：远处(屏幕上方)先画，近处(屏幕下方)后画
+        // 这样近处技能会自然覆盖远处技能
+        function getRenderSortedNodes() {
+            return [...nodes].sort((a, b) => {
+                if (a.y !== b.y) return a.y - b.y;
+                if (a.row !== b.row) return b.row - a.row;
+                return a.col - b.col;
+            });
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawCheckerboard();
+            drawChain();
+            const renderNodes = getRenderSortedNodes();
+            renderNodes.forEach(drawSkillNode);
+            requestAnimationFrame(render);
+        }
+
+        function recalcNodePositions() {
+            nodes.forEach(n => {
+                const metrics = calcTileMetrics(n.col, n.row);
+                n.x = metrics.x;
+                n.y = metrics.y;
+                n.scalePerspective = metrics.scale;
+                n.sizePx = metrics.sizePx;
+            });
+        }
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+        }
+
+        function getNodeAt(x, y) {
+            // 从可视最上层开始命中检测，保证点击的是“压在上面”的那个节点
+            const renderNodes = getRenderSortedNodes();
+            for (let i = renderNodes.length - 1; i >= 0; i--) {
+                const n = renderNodes[i];
+                const baseSize = Number.isFinite(n.sizePx) ? n.sizePx : (BASE_NODE_SIZE * n.scalePerspective * 1.2);
+                const r = clamp(baseSize * 0.52, 12, 48);
+                if ((x - n.x) * (x - n.x) + (y - n.y) * (y - n.y) <= r * r) {
+                    return n;
+                }
+            }
+            return null;
+        }
+
+        function distToSegmentSquared(p, v, w) {
+            const l2 = (w.x - v.x) ** 2 + (w.y - v.y) ** 2;
+            if (l2 === 0) return (p.x - v.x) ** 2 + (p.y - v.y) ** 2;
+            let t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+            t = Math.max(0, Math.min(1, t));
+            const projX = v.x + t * (w.x - v.x);
+            const projY = v.y + t * (w.y - v.y);
+            return (p.x - projX) ** 2 + (p.y - projY) ** 2;
+        }
+
+        function calculateResonance() {
+            const map = {};
+            let maxCount = 0;
+            let maxColor = "None";
+            chain.forEach(n => {
+                const k = n.colorData.name;
+                map[k] = (map[k] || 0) + 1;
+                if (map[k] > maxCount) {
+                    maxCount = map[k];
+                    maxColor = k;
+                }
+            });
+            return { colorName: maxColor, count: maxCount };
+        }
+
+        function executeAutoChain() {
+            chain = [];
+            let prevColor = null;
+            for (let c = 0; c < cols; c++) {
+                const colNodes = nodes.filter(n => n.col === c);
+                if (colNodes.length === 0) continue;
+
+                let pick = colNodes[Math.floor(Math.random() * colNodes.length)];
+                if (prevColor) {
+                    const same = colNodes.filter(n => n.colorData.name === prevColor);
+                    if (same.length > 0) pick = same[Math.floor(Math.random() * same.length)];
+                }
+                prevColor = pick.colorData.name;
+                chain.push(pick);
+            }
+            syncSelectionState();
+
+            const res = calculateResonance();
+            info.innerHTML = `已自动连线：<b>${chain.length}</b> 列。最高共鸣：<b style="color:${chain[0] ? chain[0].colorData.hex : "#fff"}">${res.colorName}</b> (${res.count})`;
+            log(`Auto 完成。chain=${chain.length}, resonance=${res.colorName}:${res.count}`);
+        }
+
+        function resetBoard() {
+            cols = clamp(parseInt(inputCols.value, 10) || 8, 2, 12);
+            rows = clamp(parseInt(inputRows.value, 10) || 6, 2, 12);
+            inputCols.value = cols;
+            inputRows.value = rows;
+
+            resizeCanvas();
+            buildBoardAndSkills();
+            info.textContent = "面板已重置。按住鼠标从第 1 列开始连线。";
+            log(`Board 重建：cols=${cols}, rows=${rows}`);
+        }
+
+        // -----------------------------
+        // 鼠标交互
+        // -----------------------------
+        canvas.addEventListener("mousedown", (e) => {
+            getMousePos(e);
+            const picked = getNodeAt(mouse.x, mouse.y);
+            if (!picked) return;
+
+            const col = picked.col;
+            const idx = chain.findIndex(n => n.col === col);
+
+            if (idx !== -1) {
+                chain[idx] = picked;
+                chain = chain.slice(0, idx + 1);
+                isDragging = true;
+            } else if (chain.length === 0 && col === 0) {
+                chain = [picked];
+                isDragging = true;
+            } else if (col === chain.length) {
+                chain.push(picked);
+                isDragging = true;
+            }
+
+            syncSelectionState();
+        });
+
+        canvas.addEventListener("mousemove", (e) => {
+            if (!isDragging) return;
+            getMousePos(e);
+            if (chain.length === 0) return;
+
+            // 同列替换
+            const currentCol = chain.length - 1;
+            const currentNode = chain[currentCol];
+            const sameColNodes = nodes.filter(n => n.col === currentCol);
+
+            const A = chain.length > 1
+                ? { x: chain[chain.length - 2].x, y: chain[chain.length - 2].y }
+                : { x: currentNode.x, y: currentNode.y };
+            const B = { x: mouse.x, y: mouse.y };
+
+            let bestSwap = null;
+            let bestDist = 42 * 42;
+            const currDist = distToSegmentSquared({ x: currentNode.x, y: currentNode.y }, A, B);
+
+            for (const n of sameColNodes) {
+                if (n === currentNode) continue;
+                const d = distToSegmentSquared({ x: n.x, y: n.y }, A, B);
+                if (d < bestDist && d < currDist - 250) {
+                    bestDist = d;
+                    bestSwap = n;
+                }
+            }
+            if (bestSwap) chain[currentCol] = bestSwap;
+
+            // 向下一列吸附
+            if (chain.length < cols) {
+                const last = chain[chain.length - 1];
+                const nextColNodes = nodes.filter(n => n.col === chain.length);
+                let bestPush = null;
+                let minPush = 58 * 58;
+
+                const from = { x: last.x, y: last.y };
+                const to = { x: mouse.x, y: mouse.y };
+
+                for (const n of nextColNodes) {
+                    const d = distToSegmentSquared({ x: n.x, y: n.y }, from, to);
+                    if (d < minPush) {
+                        minPush = d;
+                        bestPush = n;
+                    }
+                }
+                if (bestPush) chain.push(bestPush);
+            }
+
+            // 向后退格
+            for (let i = chain.length - 2; i >= 0; i--) {
+                const prev = chain[i];
+                const d2 = (mouse.x - prev.x) ** 2 + (mouse.y - prev.y) ** 2;
+                if (d2 < 28 * 28 || mouse.x < prev.x + 22) {
+                    chain = chain.slice(0, i + 1);
+                    break;
+                }
+            }
+
+            syncSelectionState();
+        });
+
+        window.addEventListener("mouseup", () => {
+            if (!isDragging) return;
+            isDragging = false;
+
+            if (chain.length === cols) {
+                const res = calculateResonance();
+                info.innerHTML = `行动已确认！连线 <b>${chain.length}</b> 列。最高共鸣：<b style="color:${chain[0] ? chain[0].colorData.hex : "#fff"}">${res.colorName}</b> (${res.count})`;
+                log(`Chain 完成。len=${chain.length}, resonance=${res.colorName}:${res.count}`);
+                emitEvent("chainCompleted", { length: chain.length, resonance: res });
+            } else if (chain.length > 0) {
+                info.innerHTML = "<span style='color:#e74c3c'>连线未满，可继续拖拽或点击修正。</span>";
+            }
+
+            syncSelectionState();
+        });
+
+        // -----------------------------
+        // 控制台按钮
+        // -----------------------------
+        btnApply.addEventListener("click", () => resetBoard());
+        btnReroll.addEventListener("click", () => {
+            buildBoardAndSkills();
+            info.textContent = "已重新打乱技能分布。";
+            log("Reroll 完成。");
+        });
+        btnAuto.addEventListener("click", () => executeAutoChain());
+        btnApplyPool.addEventListener("click", () => {
+            try {
+                const txt = poolText.value.trim();
+                const parsed = txt ? JSON.parse(txt) : [];
+                if (!Array.isArray(parsed)) {
+                    throw new Error("技能池必须是 JSON 数组。");
+                }
+                customSkillPool = parsed;
+                resetBoard();
+                log(`技能池已更新。items=${customSkillPool.length}`);
+            } catch (err) {
+                alert(`JSON 解析失败：${String(err.message || err)}`);
+            }
+        });
+
+        // -----------------------------
+        // 外部通信（对齐 limbus 控制台）
+        // -----------------------------
+        const query = new URLSearchParams(window.location.search);
+        const sessionId = query.get("session") || "demo1";
+        const controlChannel = (typeof BroadcastChannel !== "undefined")
+            ? new BroadcastChannel(`limbus-control-${sessionId}`)
+            : null;
+
+        function emitEvent(command, payload = {}, requestId = "") {
+            const message = { type: "limbus-event", sessionId, command, payload, requestId };
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage(message, window.location.origin);
+            }
+            if (controlChannel) {
+                controlChannel.postMessage(message);
+            }
+        }
+
+        window.LimbusAPI = {
+            setBoardConfig(nextCols, nextRows) {
+                cols = clamp(parseInt(nextCols, 10) || cols, 2, 12);
+                rows = clamp(parseInt(nextRows, 10) || rows, 2, 12);
+                inputCols.value = cols;
+                inputRows.value = rows;
+                resizeCanvas();
+                buildBoardAndSkills();
+                info.textContent = "外部已更新面板配置。";
+                log(`收到 setBoardConfig：cols=${cols}, rows=${rows}`);
+            },
+            rerollBoard() {
+                buildBoardAndSkills();
+                info.textContent = "外部触发 reroll 完成。";
+                log("收到 rerollBoard。");
+            },
+            autoChain() {
+                executeAutoChain();
+                log("收到 autoChain。");
+            },
+            setSkillPool(pool) {
+                customSkillPool = Array.isArray(pool) ? pool : [];
+                resetBoard();
+                log(`收到 setSkillPool。items=${customSkillPool.length}`);
+            }
+        };
+
+        function processCommand(data) {
+            if (!data || data.type !== "limbus-command" || data.sessionId !== sessionId) return;
+            const { command, payload = {}, requestId = "" } = data;
+            try {
+                if (command === "setBoardConfig") {
+                    let nextRows = payload.numRows;
+                    if (!Number.isFinite(Number(nextRows)) && Array.isArray(payload.colRowCounts) && payload.colRowCounts.length > 0) {
+                        const parsed = payload.colRowCounts
+                            .map(v => parseInt(v, 10))
+                            .filter(v => Number.isFinite(v) && v > 0);
+                        if (parsed.length > 0) nextRows = Math.max(...parsed);
+                    }
+                    window.LimbusAPI.setBoardConfig(payload.numCols, nextRows);
+                } else if (command === "rerollBoard") {
+                    window.LimbusAPI.rerollBoard();
+                } else if (command === "autoChain") {
+                    window.LimbusAPI.autoChain();
+                } else if (command === "setSkillPool") {
+                    window.LimbusAPI.setSkillPool(payload);
+                }
+                emitEvent("ack", { ok: true, command }, requestId);
+            } catch (err) {
+                emitEvent("ack", { ok: false, error: String(err) }, requestId);
+            }
+        }
+
+        window.addEventListener("message", (e) => {
+            if (e.data && e.data.command === "hello") {
+                emitEvent("ready", { source: "postMessage" });
+            } else {
+                processCommand(e.data);
+            }
+        });
+
+        if (controlChannel) {
+            controlChannel.addEventListener("message", (e) => {
+                if (e.data && e.data.command === "hello") {
+                    emitEvent("ready", { source: "broadcast" });
+                } else {
+                    processCommand(e.data);
+                }
+            });
+        }
+
+        window.addEventListener("resize", () => {
+            resizeCanvas();
+            recalcNodePositions();
+        });
+
+        // -----------------------------
+        // 启动
+        // -----------------------------
+        clearLog("初始化日志：");
+        resizeCanvas();
+        buildBoardAndSkills();
+        emitEvent("ready", { source: "boot" });
+        log(`启动完成。session=${sessionId}, cols=${cols}, rows=${rows}`);
+        requestAnimationFrame(render);
+    </script>
+</body>
+</html>

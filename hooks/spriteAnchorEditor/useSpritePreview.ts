@@ -16,6 +16,7 @@ interface UseSpritePreviewParams {
   imagePath: string;
   activeImagePath: string;
   currentFrameRegion: AtlasFrameRegion | null;
+  isDebugVisible: boolean;
 }
 
 interface UseSpritePreviewResult {
@@ -30,9 +31,11 @@ export const useSpritePreview = ({
   presetRef,
   imagePath,
   activeImagePath,
-  currentFrameRegion
+  currentFrameRegion,
+  isDebugVisible
 }: UseSpritePreviewParams): UseSpritePreviewResult => {
   const debugMeshesRef = useRef<ReturnType<typeof drawSpriteDebugHelper>>([]);
+  const isDebugVisibleRef = useRef(isDebugVisible);
 
   const disposeDebugMeshes = useCallback(() => {
     debugMeshesRef.current.forEach((mesh) => mesh.dispose());
@@ -44,6 +47,7 @@ export const useSpritePreview = ({
     const sprite = spriteRef.current;
     if (!scene || !sprite) return;
     disposeDebugMeshes();
+    if (!isDebugVisibleRef.current) return;
     const debugMockSprite: MockSprite = { ...sprite, preset: nextPreset };
     debugMeshesRef.current = drawSpriteDebugHelper(debugMockSprite, scene);
   }, [disposeDebugMeshes, sceneRef]);
@@ -52,6 +56,11 @@ export const useSpritePreview = ({
     presetRef.current = preset;
     redrawDebugHelper(preset);
   }, [preset, presetRef, redrawDebugHelper]);
+
+  useEffect(() => {
+    isDebugVisibleRef.current = isDebugVisible;
+    redrawDebugHelper(presetRef.current);
+  }, [isDebugVisible, presetRef, redrawDebugHelper]);
 
   useEffect(() => {
     const scene = sceneRef.current;

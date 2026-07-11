@@ -1,4 +1,5 @@
 import { spriteAnchorPresets } from '@app-config/spriteAnchorPresets';
+import { invoke } from '@tauri-apps/api/core';
 import type {
   NormalizedUv,
   SpriteAnchorPreset,
@@ -10,6 +11,11 @@ const SPRITE_ANCHOR_LOCAL_STORAGE_KEY = 'sprite-anchor-presets.v1';
 const PRESET_KEY_SEPARATOR = '::';
 const ANCHOR_MIN = -1;
 const ANCHOR_MAX = 2;
+const SPRITE_PRESET_APP_DATA_COMMAND_READ = 'sprite_presets_read_json';
+const SPRITE_PRESET_APP_DATA_COMMAND_WRITE = 'sprite_presets_write_json';
+
+let appDataPresetCache: SpriteAnchorPresetMap | null = null;
+let appDataHydrated = false;
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -28,6 +34,10 @@ const normalizeTexturePath = (texturePath: string): string => {
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null;
+};
+
+const isTauriRuntime = (): boolean => {
+  return typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
 };
 
 const toFiniteInt = (value: number, fallback: number): number => {
@@ -152,28 +162,60 @@ const sanitizePreset = (preset: SpriteAnchorPreset): SpriteAnchorPreset => {
   };
 };
 
-const readLocalSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
+const parsePresetMap = (raw: unknown): SpriteAnchorPresetMap => {
+  if (!isObject(raw)) return {};
+  const result: SpriteAnchorPresetMap = {};
+  Object.entries(raw).forEach(([key, value]) => {
+    if (!isObject(value)) return;
+    const candidate = {
+      ...(value as SpriteAnchorPreset),
+      presetKey: toSpritePresetKey(key)
+    } as SpriteAnchorPreset;
+    const sanitized = sanitizePreset(candidate);
+    result[sanitized.presetKey] = sanitized;
+  });
+  return result;
+};
+
+const readBrowserSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
   if (typeof window === 'undefined') return {};
   try {
     const raw = window.localStorage.getItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY);
     if (!raw) return {};
-    const parsed = JSON.parse(raw) as unknown;
-    if (!isObject(parsed)) return {};
-
-    const result: SpriteAnchorPresetMap = {};
-    Object.entries(parsed).forEach(([key, value]) => {
-      if (!isObject(value)) return;
-      const candidate = {
-        ...(value as SpriteAnchorPreset),
-        presetKey: toSpritePresetKey(key)
-      } as SpriteAnchorPreset;
-      const sanitized = sanitizePreset(candidate);
-      result[sanitized.presetKey] = sanitized;
-    });
-    return result;
+    return parsePresetMap(JSON.parse(raw) as unknown);
   } catch {
     return {};
   }
+};
+
+const readLocalSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
+  if (isTauriRuntime()) return appDataPresetCache ?? {};
+  return readBrowserSpriteAnchorPresets();
+};
+
+const persistSpriteAnchorPresets = (presets: SpriteAnchorPresetMap): void => {
+  if (!isTauriRuntime()) {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(presets));
+    return;
+  }
+
+  const payload = JSON.stringify(presets);
+  void invoke(SPRITE_PRESET_APP_DATA_COMMAND_WRITE, { json: payload }).catch(() => {
+    // Keep in-memory cache even if disk write failed; UI should remain responsive.
+  });
+};
+
+export const hydrateSpriteAnchorPresetStorage = async (): Promise<void> => {
+  if (!isTauriRuntime()) return;
+  if (appDataHydrated) return;
+  try {
+    const raw = await invoke<string>(SPRITE_PRESET_APP_DATA_COMMAND_READ);
+    appDataPresetCache = parsePresetMap(JSON.parse(raw) as unknown);
+  } catch {
+    appDataPresetCache = {};
+  }
+  appDataHydrated = true;
 };
 
 export const saveSpriteAnchorPreset = (preset: SpriteAnchorPreset): void => {
@@ -181,7 +223,8 @@ export const saveSpriteAnchorPreset = (preset: SpriteAnchorPreset): void => {
   const sanitized = sanitizePreset(preset);
   const saved = readLocalSpriteAnchorPresets();
   saved[sanitized.presetKey] = sanitized;
-  window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(saved));
+  if (isTauriRuntime()) appDataPresetCache = saved;
+  persistSpriteAnchorPresets(saved);
 };
 
 export const removeSpriteAnchorPreset = (texturePathOrPresetKey: string, frameName?: string): void => {
@@ -189,7 +232,8 @@ export const removeSpriteAnchorPreset = (texturePathOrPresetKey: string, frameNa
   const { presetKey } = resolvePresetIdentity(texturePathOrPresetKey, frameName);
   const saved = readLocalSpriteAnchorPresets();
   delete saved[presetKey];
-  window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(saved));
+  if (isTauriRuntime()) appDataPresetCache = saved;
+  persistSpriteAnchorPresets(saved);
 };
 
 export const getLocalSpriteAnchorPreset = (
@@ -227,17 +271,17 @@ export const getSpriteAnchorPreset = (
   frameName?: string
 ): SpriteAnchorPreset => {
   const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
-  let preset: SpriteAnchorPreset | null = null;
-
-  if (source === 'config') {
-    const configPreset = spriteAnchorPresets[identity.presetKey] ?? spriteAnchorPresets[identity.imagePath];
-    preset = configPreset ? sanitizePreset({ ...configPreset, presetKey: identity.presetKey }) : null;
-  } else if (source === 'local') {
-    preset = getLocalSpriteAnchorPreset(identity.presetKey);
-  } else {
+  const preset: SpriteAnchorPreset | null = (() => {
+    if (source === 'config') {
+      const configPreset = spriteAnchorPresets[identity.presetKey] ?? spriteAnchorPresets[identity.imagePath];
+      return configPreset ? sanitizePreset({ ...configPreset, presetKey: identity.presetKey }) : null;
+    }
+    if (source === 'local') {
+      return getLocalSpriteAnchorPreset(identity.presetKey);
+    }
     const merged = getAllSpriteAnchorPresets();
-    preset = merged[identity.presetKey] ?? merged[identity.imagePath] ?? null;
-  }
+    return merged[identity.presetKey] ?? merged[identity.imagePath] ?? null;
+  })();
 
   const resolvedPreset = preset ?? createDefaultPreset(identity.presetKey, identity.frameName);
   return sanitizePreset({
