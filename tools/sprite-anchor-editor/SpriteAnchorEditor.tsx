@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import type { MockSprite } from '../../utils/mockSprite';
+import type { MockSprite } from '../../shared/core/scene/mockSprite';
 import { usePresetManagement } from '../../hooks/spriteAnchorEditor/usePresetManagement';
 import { useAtlasManagement } from '../../hooks/spriteAnchorEditor/useAtlasManagement';
 import { useSpritePreview } from '../../hooks/spriteAnchorEditor/useSpritePreview';

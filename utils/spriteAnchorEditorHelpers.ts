@@ -1,5 +1,5 @@
 import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
-import type { SpriteFrameRegion } from './meshFactory';
+import type { SpriteFrameRegion } from '../shared/core/scene/meshFactory';
 import {
   getLocalSpriteAnchorPreset,
   getSpriteAnchorPreset,

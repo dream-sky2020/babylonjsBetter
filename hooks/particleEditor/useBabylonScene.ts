@@ -7,8 +7,8 @@ import {
   DEFAULT_3D_CAMERA_ALPHA,
   DEFAULT_3D_CAMERA_BETA,
   DEFAULT_3D_CAMERA_RADIUS
-} from '../../utils/particleEditorHelpers';
-import { createParticleEditorScene } from '../../scene/createParticleEditorScene';
+} from '../../shared/core/scene/particleEditor.constants';
+import { createParticleEditorScene } from '../../shared/core/scene/createParticleEditorScene';
 
 const DEFAULT_3D_CAMERA_TARGET = Vector3.Zero();
 

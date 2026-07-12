@@ -3,13 +3,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BattleStartUI } from './BattleStartUI';
 import { BattleSkillUI } from './BattleSkillUI';
 import { Color4, Engine, Mesh } from '@babylonjs/core';
-import type { TrackedUiState, SkillVisualData } from '@app-types/battle.types';
-import { hiddenTrackedUi } from '@app-types/battle.types';
+import type { SkillVisualData, TrackedUiState } from '../../shared/core/types/battle.types';
+import { hiddenTrackedUi } from '../../shared/core/types/battle.types';
 import { createMockSprite, drawSpriteDebugHelper, uvToNormalizedAnchor } from '../../utils/mockSprite';
 import { createBurstParticleEffect } from '../../utils/particleFactory';
 import type { ParticleController, ParticleEffectConfig } from '../../utils/particleFactory';
-import { UiTracker } from '../../trackers/UiTracker';
-import { UiTrackerManager } from '../../trackers/UiTrackerManager';
+import { UiTracker } from '../../shared/core/tracking/UiTracker';
+import { UiTrackerManager } from '../../shared/core/tracking/UiTrackerManager';
 import { createBattleScene } from '../../scene/createScene';
 
 type AnchorName = 'head' | 'foot' | 'center';

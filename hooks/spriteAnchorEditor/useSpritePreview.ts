@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef } from 'react';
 import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import { createMockSprite, drawSpriteDebugHelper } from '../../utils/mockSprite';
-import type { MockSprite } from '../../utils/mockSprite';
+import type { MockSprite } from '../../shared/core/scene/mockSprite';
 import type { Scene } from '@babylonjs/core';
 import type { MutableRefObject } from 'react';
-import type { SpriteFrameRegion } from '../../utils/meshFactory';
+import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
 

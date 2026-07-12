@@ -1,6 +1,6 @@
 // BattleSkillUI.tsx
 import React from 'react';
-import type { TrackedUiState, SkillVisualData } from '@app-types/battle.types';
+import type { SkillVisualData, TrackedUiState } from '../../shared/core/types/battle.types';
 
 // 你要求的默认技能视觉数据配置
 const DEFAULT_SKILL_DATA: SkillVisualData = {
