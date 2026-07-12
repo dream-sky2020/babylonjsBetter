@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { MutableRefObject } from 'react';
 import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import { Scene, Vector3, Engine } from '@babylonjs/core';
-import type { MockSprite } from '../../utils/mockSprite';
-import { createSpriteAnchorEditorScene } from '../../scene/createSpriteAnchorEditorScene';
+import type { MockSprite } from '../../shared/core/scene/mockSprite';
+import { createSpriteAnchorEditorScene } from '../../shared/core/scene/createSpriteAnchorEditorScene';
 import {
   DEFAULT_ORTHO_SIZE,
   DRAG_HIT_RADIUS_UV,

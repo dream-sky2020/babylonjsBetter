@@ -1,4 +1,11 @@
 // utils/particleEditorHelpers.ts
+import {
+  DEFAULT_3D_CAMERA_ALPHA,
+  DEFAULT_3D_CAMERA_BETA,
+  DEFAULT_3D_CAMERA_RADIUS,
+  ORTHO_HALF_HEIGHT
+} from '../shared/core/scene/particleEditor.constants';
+
 export const toFixedNumber = (value: number): number => Number(value.toFixed(4));
 
 export const clamp = (value: number, min: number, max: number): number => 
@@ -70,7 +77,9 @@ export const createGradientNodeId = (prefix: 'cg' | 'sg'): string => {
 
 // 常量
 export const INPUT_STEP = 0.01;
-export const ORTHO_HALF_HEIGHT = 4.5;
-export const DEFAULT_3D_CAMERA_ALPHA = Math.PI / 4;
-export const DEFAULT_3D_CAMERA_BETA = Math.PI / 3;
-export const DEFAULT_3D_CAMERA_RADIUS = 8;
+export {
+  DEFAULT_3D_CAMERA_ALPHA,
+  DEFAULT_3D_CAMERA_BETA,
+  DEFAULT_3D_CAMERA_RADIUS,
+  ORTHO_HALF_HEIGHT
+};

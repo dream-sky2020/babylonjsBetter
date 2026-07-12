@@ -1,4 +1,12 @@
-import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, Engine, Scene } from '@babylonjs/core';
+import {
+  applyBattleOrthographicFrustum,
+  BATTLE_CAMERA_ZOOM_STEP,
+  clampBattleOrthoSize,
+  createBattleCamera,
+  DEFAULT_BATTLE_ORTHO_SIZE,
+  panBattleCameraTargetByPixels
+} from '../shared/core/scene/battleCamera.core';
 
 export interface CameraControllerContext {
   camera: ArcRotateCamera;
@@ -11,24 +19,12 @@ export const createBattleCameraController = (
   engine: Engine,
   canvas: HTMLCanvasElement
 ): CameraControllerContext => {
-  const camera = new ArcRotateCamera('camera', -Math.PI / 2, Math.PI / 2, 10, Vector3.Zero(), scene);
-  camera.lowerAlphaLimit = -Math.PI / 2;
-  camera.upperAlphaLimit = -Math.PI / 2;
-  camera.lowerBetaLimit = Math.PI / 2;
-  camera.upperBetaLimit = Math.PI / 2;
-  camera.mode = ArcRotateCamera.ORTHOGRAPHIC_CAMERA;
+  const camera = createBattleCamera(scene);
 
-  let orthoSize = 5;
-  const minOrthoSize = 1.5;
-  const maxOrthoSize = 14;
-  const zoomStep = 0.1;
+  let orthoSize = DEFAULT_BATTLE_ORTHO_SIZE;
 
   const updateOrthographicFrustum = () => {
-    const aspectRatio = engine.getRenderWidth() / engine.getRenderHeight();
-    camera.orthoTop = orthoSize;
-    camera.orthoBottom = -orthoSize;
-    camera.orthoLeft = -orthoSize * aspectRatio;
-    camera.orthoRight = orthoSize * aspectRatio;
+    applyBattleOrthographicFrustum(camera, engine, orthoSize);
   };
   updateOrthographicFrustum();
 
@@ -51,12 +47,7 @@ export const createBattleCameraController = (
     previousX = event.clientX;
     previousY = event.clientY;
 
-    const worldWidth = (camera.orthoRight ?? 0) - (camera.orthoLeft ?? 0);
-    const worldHeight = (camera.orthoTop ?? 0) - (camera.orthoBottom ?? 0);
-    const worldPerPixelX = worldWidth / engine.getRenderWidth();
-    const worldPerPixelY = worldHeight / engine.getRenderHeight();
-
-    camera.target.addInPlace(new Vector3(-deltaX * worldPerPixelX, deltaY * worldPerPixelY, 0));
+    panBattleCameraTargetByPixels(camera, engine, deltaX, deltaY);
   };
 
   const handlePointerUp = () => {
@@ -68,8 +59,8 @@ export const createBattleCameraController = (
     const direction = Math.sign(event.deltaY);
     if (direction === 0) return;
 
-    const nextOrthoSize = orthoSize * (1 + direction * zoomStep);
-    orthoSize = Math.min(maxOrthoSize, Math.max(minOrthoSize, nextOrthoSize));
+    const nextOrthoSize = orthoSize * (1 + direction * BATTLE_CAMERA_ZOOM_STEP);
+    orthoSize = clampBattleOrthoSize(nextOrthoSize);
     updateOrthographicFrustum();
   };
 

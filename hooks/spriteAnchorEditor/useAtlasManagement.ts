@@ -19,7 +19,7 @@ import {
   toFrameRegion
 } from '../../utils/spriteAnchorEditorHelpers';
 import type { TexturePackerAtlas } from '../../utils/spriteAnchorEditorHelpers';
-import type { SpriteFrameRegion } from '../../utils/meshFactory';
+import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
 

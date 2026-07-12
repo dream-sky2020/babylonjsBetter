@@ -18,7 +18,7 @@ import {
   getPresetSourceLabel,
   toFixedNumber
 } from '../../utils/spriteAnchorEditorHelpers';
-import type { SpriteFrameRegion } from '../../utils/meshFactory';
+import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
 import type { DragTarget } from '../../utils/spriteAnchorEditorHelpers';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
