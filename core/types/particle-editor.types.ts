@@ -1,4 +1,4 @@
-import type { ParticleEffectConfig } from '../utils/particleFactory';
+import type { ParticleEffectConfig } from '../core/adapters/particleFactory';
 
 export type ParticleEditorPreset = {
   presetKey: string;

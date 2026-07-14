@@ -1,21 +1,25 @@
-import { spriteAnchorPresets } from '@app-config/spriteAnchorPresets';
-import { invoke } from '@tauri-apps/api/core';
 import type {
   NormalizedUv,
   SpriteAnchorPreset,
   SpriteAnchorPresetMap,
   SpriteAtlasFrameMeta
-} from '@app-types/sprite-anchors.types';
+} from '@/core/types/sprite-anchors.types.ts';
 
-const SPRITE_ANCHOR_LOCAL_STORAGE_KEY = 'sprite-anchor-presets.v1';
+const SPRITE_ANCHOR_CONFIG_JSON_URL = '/config/spriteAnchorPresets.json';
+const SPRITE_ANCHOR_DEV_API_URL = 'http://127.0.0.1:5050/api/sprite-anchor-presets';
 const PRESET_KEY_SEPARATOR = '::';
 const ANCHOR_MIN = -1;
 const ANCHOR_MAX = 2;
-const SPRITE_PRESET_APP_DATA_COMMAND_READ = 'sprite_presets_read_json';
-const SPRITE_PRESET_APP_DATA_COMMAND_WRITE = 'sprite_presets_write_json';
 
-let appDataPresetCache: SpriteAnchorPresetMap | null = null;
-let appDataHydrated = false;
+let configPresetCache: SpriteAnchorPresetMap = {};
+let configHydrated = false;
+
+export type SpritePresetValidationReport = {
+  reachable: boolean;
+  valid: boolean;
+  errors: string[];
+  message?: string;
+};
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -34,10 +38,6 @@ const normalizeTexturePath = (texturePath: string): string => {
 
 const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null;
-};
-
-const isTauriRuntime = (): boolean => {
-  return typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
 };
 
 const toFiniteInt = (value: number, fallback: number): number => {
@@ -177,63 +177,119 @@ const parsePresetMap = (raw: unknown): SpriteAnchorPresetMap => {
   return result;
 };
 
-const readBrowserSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
+const readConfigSpriteAnchorPresets = (): SpriteAnchorPresetMap => configPresetCache;
+
+const readConfigJson = async (): Promise<SpriteAnchorPresetMap> => {
   if (typeof window === 'undefined') return {};
   try {
-    const raw = window.localStorage.getItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY);
-    if (!raw) return {};
-    return parsePresetMap(JSON.parse(raw) as unknown);
+    const response = await fetch(`${SPRITE_ANCHOR_CONFIG_JSON_URL}?t=${Date.now()}`, {
+      cache: 'no-store'
+    });
+    if (!response.ok) return {};
+    const json = await response.json() as unknown;
+    return parsePresetMap(json);
   } catch {
     return {};
   }
 };
 
-const readLocalSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
-  if (isTauriRuntime()) return appDataPresetCache ?? {};
-  return readBrowserSpriteAnchorPresets();
+const writeConfigJsonInDevServer = async (presets: SpriteAnchorPresetMap): Promise<void> => {
+  const response = await fetch(SPRITE_ANCHOR_DEV_API_URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(presets)
+  });
+  if (!response.ok) {
+    let detail = '';
+    try {
+      const payload = await response.json() as { message?: string; errors?: string[] };
+      const headline = payload.message ? String(payload.message) : '';
+      const firstError = Array.isArray(payload.errors) && payload.errors.length > 0 ? String(payload.errors[0]) : '';
+      detail = [headline, firstError].filter(Boolean).join('；');
+    } catch {
+      // ignore json parse failure and use status code only
+    }
+    throw new Error(`保存失败（HTTP ${response.status}${detail ? `: ${detail}` : ''}）`);
+  }
 };
 
-const persistSpriteAnchorPresets = (presets: SpriteAnchorPresetMap): void => {
-  if (!isTauriRuntime()) {
-    if (typeof window === 'undefined') return;
-    window.localStorage.setItem(SPRITE_ANCHOR_LOCAL_STORAGE_KEY, JSON.stringify(presets));
-    return;
-  }
+export const fetchSpritePresetValidationReport = async (): Promise<SpritePresetValidationReport> => {
+  try {
+    const response = await fetch(`${SPRITE_ANCHOR_DEV_API_URL}?t=${Date.now()}`, {
+      cache: 'no-store'
+    });
+    if (!response.ok) {
+      let message = `校验接口请求失败（HTTP ${response.status}）`;
+      try {
+        const payload = await response.json() as { message?: string };
+        if (payload.message) message = String(payload.message);
+      } catch {
+        // ignore parse failure
+      }
+      return {
+        reachable: false,
+        valid: false,
+        errors: [],
+        message
+      };
+    }
 
-  const payload = JSON.stringify(presets);
-  void invoke(SPRITE_PRESET_APP_DATA_COMMAND_WRITE, { json: payload }).catch(() => {
-    // Keep in-memory cache even if disk write failed; UI should remain responsive.
-  });
+    const payload = await response.json() as {
+      success?: boolean;
+      valid?: boolean;
+      errors?: unknown;
+      message?: string;
+    };
+    const errors = Array.isArray(payload.errors) ? payload.errors.map((item) => String(item)) : [];
+    return {
+      reachable: true,
+      valid: payload.valid === undefined ? errors.length === 0 : Boolean(payload.valid),
+      errors,
+      message: payload.message ? String(payload.message) : undefined
+    };
+  } catch {
+    return {
+      reachable: false,
+      valid: false,
+      errors: [],
+      message: '无法连接 python/server.py 校验接口'
+    };
+  }
 };
 
 export const hydrateSpriteAnchorPresetStorage = async (): Promise<void> => {
-  if (!isTauriRuntime()) return;
-  if (appDataHydrated) return;
-  try {
-    const raw = await invoke<string>(SPRITE_PRESET_APP_DATA_COMMAND_READ);
-    appDataPresetCache = parsePresetMap(JSON.parse(raw) as unknown);
-  } catch {
-    appDataPresetCache = {};
+  if (configHydrated) return;
+  configPresetCache = await readConfigJson();
+  configHydrated = true;
+};
+
+export const reloadSpriteAnchorPresetStorage = async (): Promise<void> => {
+  configPresetCache = await readConfigJson();
+  configHydrated = true;
+};
+
+export const saveSpriteAnchorPreset = async (preset: SpriteAnchorPreset): Promise<void> => {
+  if (!configHydrated) {
+    await hydrateSpriteAnchorPresetStorage();
   }
-  appDataHydrated = true;
-};
-
-export const saveSpriteAnchorPreset = (preset: SpriteAnchorPreset): void => {
-  if (typeof window === 'undefined') return;
   const sanitized = sanitizePreset(preset);
-  const saved = readLocalSpriteAnchorPresets();
+  const saved = { ...readConfigSpriteAnchorPresets() };
   saved[sanitized.presetKey] = sanitized;
-  if (isTauriRuntime()) appDataPresetCache = saved;
-  persistSpriteAnchorPresets(saved);
+  configPresetCache = saved;
+  await writeConfigJsonInDevServer(saved);
 };
 
-export const removeSpriteAnchorPreset = (texturePathOrPresetKey: string, frameName?: string): void => {
-  if (typeof window === 'undefined') return;
+export const removeSpriteAnchorPreset = async (texturePathOrPresetKey: string, frameName?: string): Promise<void> => {
+  if (!configHydrated) {
+    await hydrateSpriteAnchorPresetStorage();
+  }
   const { presetKey } = resolvePresetIdentity(texturePathOrPresetKey, frameName);
-  const saved = readLocalSpriteAnchorPresets();
+  const saved = { ...readConfigSpriteAnchorPresets() };
   delete saved[presetKey];
-  if (isTauriRuntime()) appDataPresetCache = saved;
-  persistSpriteAnchorPresets(saved);
+  configPresetCache = saved;
+  await writeConfigJsonInDevServer(saved);
 };
 
 export const getLocalSpriteAnchorPreset = (
@@ -241,7 +297,7 @@ export const getLocalSpriteAnchorPreset = (
   frameName?: string
 ): SpriteAnchorPreset | null => {
   const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
-  const local = readLocalSpriteAnchorPresets();
+  const local = readConfigSpriteAnchorPresets();
   const preset = local[identity.presetKey];
   return preset ? sanitizePreset({ ...preset, presetKey: identity.presetKey }) : null;
 };
@@ -252,11 +308,7 @@ export const hasLocalSpriteAnchorPreset = (texturePathOrPresetKey: string, frame
 
 export const getAllSpriteAnchorPresets = (): SpriteAnchorPresetMap => {
   const merged: SpriteAnchorPresetMap = {};
-  Object.entries(spriteAnchorPresets).forEach(([key, value]) => {
-    const sanitized = sanitizePreset({ ...value, presetKey: toSpritePresetKey(key) });
-    merged[sanitized.presetKey] = sanitized;
-  });
-  Object.entries(readLocalSpriteAnchorPresets()).forEach(([key, value]) => {
+  Object.entries(readConfigSpriteAnchorPresets()).forEach(([key, value]) => {
     const sanitized = sanitizePreset({ ...value, presetKey: toSpritePresetKey(key) });
     merged[sanitized.presetKey] = sanitized;
   });
@@ -272,15 +324,11 @@ export const getSpriteAnchorPreset = (
 ): SpriteAnchorPreset => {
   const identity = resolvePresetIdentity(texturePathOrPresetKey, frameName);
   const preset: SpriteAnchorPreset | null = (() => {
-    if (source === 'config') {
-      const configPreset = spriteAnchorPresets[identity.presetKey] ?? spriteAnchorPresets[identity.imagePath];
-      return configPreset ? sanitizePreset({ ...configPreset, presetKey: identity.presetKey }) : null;
-    }
-    if (source === 'local') {
-      return getLocalSpriteAnchorPreset(identity.presetKey);
-    }
     const merged = getAllSpriteAnchorPresets();
-    return merged[identity.presetKey] ?? merged[identity.imagePath] ?? null;
+    if (source === 'config' || source === 'local' || source === 'merged') {
+      return merged[identity.presetKey] ?? merged[identity.imagePath] ?? null;
+    }
+    return null;
   })();
 
   const resolvedPreset = preset ?? createDefaultPreset(identity.presetKey, identity.frameName);
