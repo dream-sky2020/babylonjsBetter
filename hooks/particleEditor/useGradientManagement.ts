@@ -1,7 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
-import type { ParticleEditorPreset } from '@app-types/particle-editor.types';
-import { clamp, createGradientNodeId, hexToRgb, lerp, toFixedNumber } from '../../utils/particleEditorHelpers';
-import type { ColorGradientNode, SetPresetState, SizeGradientNode } from './types';
+import {
+  createGradientNodeId,
+  type ParticleEditorPreset
+} from '@/core/particle';
+import type { ColorGradientNode, SetPresetState, SizeGradientNode } from './types.ts';
+import { hexToRgb } from '@/core/utils/color.ts';
+import { clamp, lerp, toFixedNumber } from '@/core/utils/math.ts';
 
 interface UseGradientManagementParams {
   initialPreset: ParticleEditorPreset;

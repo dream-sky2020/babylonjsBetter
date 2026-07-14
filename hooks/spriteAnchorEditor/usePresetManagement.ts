@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import {
+  fetchSpritePresetServerConnection,
   hydrateSpriteAnchorPresetStorage,
+  reloadSpriteAnchorPresetStorage,
+  fetchSpritePresetValidationReport,
   getAllSpriteAnchorPresets,
   getLocalSpriteAnchorPreset,
   removeSpriteAnchorPreset,
-  saveSpriteAnchorPreset
-} from '../../utils/spritePresetStorage';
-import {
+  saveSpriteAnchorPreset,
   ANCHOR_MAX,
   ANCHOR_MIN,
   BOUNDS_MAX,
@@ -16,10 +16,11 @@ import {
   clamp01,
   createEditablePreset,
   getPresetSourceLabel,
-  toFixedNumber
-} from '../../utils/spriteAnchorEditorHelpers';
-import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
-import type { DragTarget } from '../../utils/spriteAnchorEditorHelpers';
+  toFixedNumber,
+  type DragTarget,
+  type SpriteAnchorPreset,
+  type SpriteFrameRegion
+} from '@/core/sprite';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
 
@@ -31,6 +32,12 @@ interface UsePresetManagementResult {
   preset: SpriteAnchorPreset;
   presetRef: React.MutableRefObject<SpriteAnchorPreset>;
   message: string;
+  validationStatus: 'valid' | 'invalid' | 'unreachable' | 'unknown';
+  validationErrors: string[];
+  validationMessage: string;
+  serverConnected: boolean;
+  serverPort: number | null;
+  retryServerConnection: () => void;
   presetSourceLabel: string;
   presetKeys: string[];
   setMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -61,16 +68,112 @@ interface UsePresetManagementResult {
   exportJson: () => void;
 }
 
+const normalizePresetForCompare = (value: SpriteAnchorPreset | null | undefined): unknown => {
+  if (!value) return null;
+  return {
+    presetKey: value.presetKey,
+    imagePath: value.imagePath,
+    frameName: value.frameName ?? null,
+    bodyBounds: value.bodyBounds,
+    bodyAxisX: value.bodyAxisX,
+    anchors: value.anchors,
+    atlasFrame: value.atlasFrame ?? null
+  };
+};
+
+const collectDiffPaths = (beforeValue: unknown, afterValue: unknown, prefix = ''): string[] => {
+  if (beforeValue === afterValue) return [];
+  const beforeIsObj = typeof beforeValue === 'object' && beforeValue !== null;
+  const afterIsObj = typeof afterValue === 'object' && afterValue !== null;
+  if (!beforeIsObj || !afterIsObj) {
+    return [prefix || '(root)'];
+  }
+
+  const beforeRecord = beforeValue as Record<string, unknown>;
+  const afterRecord = afterValue as Record<string, unknown>;
+  const allKeys = new Set([...Object.keys(beforeRecord), ...Object.keys(afterRecord)]);
+  const result: string[] = [];
+  allKeys.forEach((key) => {
+    result.push(...collectDiffPaths(beforeRecord[key], afterRecord[key], prefix ? `${prefix}.${key}` : key));
+  });
+  return result;
+};
+
 export const usePresetManagement = ({ initialImagePath }: UsePresetManagementParams): UsePresetManagementResult => {
   const [preset, setPreset] = useState<SpriteAnchorPreset>(() => createEditablePreset(initialImagePath));
   const presetRef = useRef<SpriteAnchorPreset>(createEditablePreset(initialImagePath));
   const [message, setMessage] = useState('');
-  const [presetSourceLabel, setPresetSourceLabel] = useState('当前配置来源：项目默认/内置');
+  const [validationStatus, setValidationStatus] = useState<'valid' | 'invalid' | 'unreachable' | 'unknown'>('unknown');
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [validationMessage, setValidationMessage] = useState('');
+  const [serverConnected, setServerConnected] = useState(false);
+  const [serverPort, setServerPort] = useState<number | null>(null);
+  const serverProbeInFlightRef = useRef(false);
+  const serverProbeFailureCountRef = useRef(0);
+  const [presetSourceLabel, setPresetSourceLabel] = useState('当前配置来源：默认模板（尚未写入 JSON）');
   const [presetKeys, setPresetKeys] = useState<string[]>(() => Object.keys(getAllSpriteAnchorPresets()).sort());
+
+  const refreshServerConnection = useCallback(async () => {
+    if (serverProbeInFlightRef.current) return;
+    serverProbeInFlightRef.current = true;
+    const status = await fetchSpritePresetServerConnection();
+    if (status.connected) {
+      serverProbeFailureCountRef.current = 0;
+      setServerConnected(true);
+      setServerPort(status.port);
+    } else {
+      serverProbeFailureCountRef.current += 1;
+      if (serverProbeFailureCountRef.current >= 2) {
+        setServerConnected(false);
+        setServerPort(null);
+      }
+    }
+    serverProbeInFlightRef.current = false;
+  }, []);
+
+  const refreshValidationStatus = useCallback(async (): Promise<{
+    status: 'valid' | 'invalid' | 'unreachable' | 'unknown';
+    errors: string[];
+    message: string;
+  }> => {
+    const report = await fetchSpritePresetValidationReport();
+    if (!report.reachable) {
+      setValidationStatus('unreachable');
+      setValidationErrors([]);
+      setValidationMessage(report.message || '无法连接校验接口');
+      return {
+        status: 'unreachable',
+        errors: [],
+        message: report.message || '无法连接校验接口'
+      };
+    }
+
+    if (report.valid) {
+      setValidationStatus('valid');
+      setValidationErrors([]);
+      setValidationMessage('配置文件校验通过');
+      return {
+        status: 'valid',
+        errors: [],
+        message: '配置文件校验通过'
+      };
+    }
+
+    const trimmedErrors = report.errors.slice(0, 12);
+    const msg = report.message || `配置文件校验失败（${report.errors.length} 条）`;
+    setValidationStatus('invalid');
+    setValidationErrors(trimmedErrors);
+    setValidationMessage(msg);
+    return {
+      status: 'invalid',
+      errors: trimmedErrors,
+      message: msg
+    };
+  }, []);
 
   useEffect(() => {
     presetRef.current = preset;
-  }, [preset]);
+  }, [preset, refreshValidationStatus]);
 
   useEffect(() => {
     let cancelled = false;
@@ -83,11 +186,21 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
         setPresetSourceLabel(getPresetSourceLabel(refreshed.presetKey));
         return refreshed;
       });
+      await refreshValidationStatus();
     })();
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [refreshValidationStatus]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      void refreshServerConnection();
+    }, 3000);
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, [refreshServerConnection]);
 
   const applyPresetBySelection = useCallback((
     nextImagePath: string,
@@ -175,7 +288,7 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
   ) => {
     const localPreset = getLocalSpriteAnchorPreset(activePresetKey);
     if (!localPreset) {
-      setMessage(`该资源暂无本地配置：${activePresetKey}`);
+      setMessage(`该资源暂无配置文件记录：${activePresetKey}`);
       return;
     }
     setPreset({
@@ -184,8 +297,8 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
       imagePath: activeImagePath || imagePath,
       frameName: activeFrameName
     });
-    setPresetSourceLabel('当前配置来源：本地配置（手动导入）');
-    setMessage(`已导入本地配置：${activePresetKey}`);
+    setPresetSourceLabel('当前配置来源：项目配置(JSON)');
+    setMessage(`已从配置文件导入：${activePresetKey}`);
   }, []);
 
   const saveCurrentPreset = useCallback((
@@ -199,16 +312,51 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
       setMessage('资源路径不能为空，无法保存配置');
       return;
     }
-    saveSpriteAnchorPreset({
-      ...preset,
-      presetKey: activePresetKey,
-      imagePath: saveImagePath,
-      frameName: activeFrameName
-    });
-    setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
-    setPresetSourceLabel('当前配置来源：本地配置（已保存）');
-    setMessage(`已保存: ${activePresetKey}`);
-  }, [preset]);
+    void (async () => {
+      try {
+        await saveSpriteAnchorPreset({
+          ...preset,
+          presetKey: activePresetKey,
+          imagePath: saveImagePath,
+          frameName: activeFrameName
+        });
+        await reloadSpriteAnchorPresetStorage();
+        const reloadedPreset = getLocalSpriteAnchorPreset(activePresetKey);
+        const draftPreset: SpriteAnchorPreset = {
+          ...preset,
+          presetKey: activePresetKey,
+          imagePath: saveImagePath,
+          frameName: activeFrameName
+        };
+        const beforeData = normalizePresetForCompare(draftPreset);
+        const afterData = normalizePresetForCompare(reloadedPreset);
+        const diffPaths = collectDiffPaths(beforeData, afterData).filter((path) => path !== '(root)');
+        const diffSummary = diffPaths.length > 0
+          ? `；校验修正字段：${diffPaths.slice(0, 6).join(', ')}${diffPaths.length > 6 ? ' ...' : ''}`
+          : '；内容与提交一致';
+
+        setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
+        setPresetSourceLabel(getPresetSourceLabel(activePresetKey));
+        if (reloadedPreset) {
+          setPreset((prev) => ({
+            ...reloadedPreset,
+            presetKey: activePresetKey,
+            imagePath: saveImagePath || prev.imagePath,
+            frameName: activeFrameName
+          }));
+        }
+        const validation = await refreshValidationStatus();
+        const validationSummary = validation.status === 'invalid'
+          ? `；校验失败 ${validation.errors.length} 条（见下方）`
+          : validation.status === 'valid'
+            ? '；校验通过'
+            : `；校验状态未知：${validation.message}`;
+        setMessage(`已写入并重载 config/spriteAnchorPresets.json：${activePresetKey}${diffSummary}${validationSummary}`);
+      } catch (error) {
+        setMessage(`写入配置文件失败，请确认 python/server.py 已启动：${String(error)}`);
+      }
+    })();
+  }, [preset, refreshValidationStatus]);
 
   const clearCurrentPreset = useCallback((
     activePresetKey: string,
@@ -218,21 +366,34 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
     currentFrameRegion?: AtlasFrameRegion | null
   ) => {
     const clearImagePath = activeImagePath || imagePath;
-    removeSpriteAnchorPreset(activePresetKey);
-    setPreset(createEditablePreset(clearImagePath, activeFrameName, currentFrameRegion ? {
-      atlasPath: currentFrameRegion.atlasPath,
-      frameName: currentFrameRegion.frameName || '',
-      frame: currentFrameRegion.frame,
-      spriteSourceSize: currentFrameRegion.spriteSourceSize,
-      sourceSize: currentFrameRegion.sourceSize,
-      atlasSize: currentFrameRegion.atlasSize,
-      rotated: currentFrameRegion.rotated,
-      trimmed: currentFrameRegion.trimmed
-    } : undefined));
-    setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
-    setPresetSourceLabel('当前配置来源：项目默认/内置');
-    setMessage(`已清除本地覆盖: ${activePresetKey}`);
-  }, []);
+    void (async () => {
+      try {
+        await removeSpriteAnchorPreset(activePresetKey);
+        await reloadSpriteAnchorPresetStorage();
+        setPreset(createEditablePreset(clearImagePath, activeFrameName, currentFrameRegion ? {
+          atlasPath: currentFrameRegion.atlasPath,
+          frameName: currentFrameRegion.frameName || '',
+          frame: currentFrameRegion.frame,
+          spriteSourceSize: currentFrameRegion.spriteSourceSize,
+          sourceSize: currentFrameRegion.sourceSize,
+          atlasSize: currentFrameRegion.atlasSize,
+          rotated: currentFrameRegion.rotated,
+          trimmed: currentFrameRegion.trimmed
+        } : undefined));
+        setPresetKeys(Object.keys(getAllSpriteAnchorPresets()).sort());
+        setPresetSourceLabel('当前配置来源：默认模板（尚未写入 JSON）');
+        const validation = await refreshValidationStatus();
+        const validationSummary = validation.status === 'invalid'
+          ? `；校验失败 ${validation.errors.length} 条（见下方）`
+          : validation.status === 'valid'
+            ? '；校验通过'
+            : `；校验状态未知：${validation.message}`;
+        setMessage(`已从配置文件移除：${activePresetKey}${validationSummary}`);
+      } catch (error) {
+        setMessage(`删除配置失败，请确认 python/server.py 已启动：${String(error)}`);
+      }
+    })();
+  }, [refreshValidationStatus]);
 
   const exportJson = useCallback(() => {
     const all = getAllSpriteAnchorPresets();
@@ -250,6 +411,12 @@ export const usePresetManagement = ({ initialImagePath }: UsePresetManagementPar
     preset,
     presetRef,
     message,
+    validationStatus,
+    validationErrors,
+    validationMessage,
+    serverConnected,
+    serverPort,
+    retryServerConnection: () => { void refreshServerConnection(); },
     presetSourceLabel,
     presetKeys,
     setMessage,

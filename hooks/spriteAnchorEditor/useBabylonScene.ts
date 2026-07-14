@@ -1,9 +1,15 @@
+// useBabylonScene
+// ├── 场景初始化（Engine + Scene + Camera）
+// ├── 视角控制（缩放/平移/复位）
+// ├── 拖拽交互（锚点拖拽 + 画布平移）
+// ├── 渲染循环管理
+// └── 资源清理
+
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { MutableRefObject } from 'react';
-import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import { Scene, Vector3, Engine } from '@babylonjs/core';
-import type { MockSprite } from '../../shared/core/scene/mockSprite';
-import { createSpriteAnchorEditorScene } from '../../shared/core/scene/createSpriteAnchorEditorScene';
+import { createSpriteAnchorEditorScene } from '@/core/scene/createSpriteAnchorEditorScene.ts';
 import {
   DEFAULT_ORTHO_SIZE,
   DRAG_HIT_RADIUS_UV,
@@ -11,13 +17,15 @@ import {
   MIN_ORTHO_SIZE,
   ZOOM_STEP,
   clamp,
-  clamp01
-} from '../../utils/spriteAnchorEditorHelpers';
-import type { DragTarget } from '../../utils/spriteAnchorEditorHelpers';
+  clamp01,
+  type DragTarget,
+  type SpriteAnchorPreset,
+  type SpriteEntity
+} from '@/core/sprite';
 
 interface UseBabylonSceneParams {
   presetRef: MutableRefObject<SpriteAnchorPreset>;
-  spriteRef: MutableRefObject<MockSprite | null>;
+  spriteRef: MutableRefObject<SpriteEntity | null>;
   updatePresetByDrag: (target: Exclude<DragTarget, null>, u: number, v: number) => void;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
 }

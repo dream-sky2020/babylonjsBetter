@@ -3,8 +3,8 @@ import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
 
-const SHARED_DATA_ROUTE = '/shared/data'
-const SHARED_DATA_DIR = path.resolve(__dirname, 'shared/data')
+const CONFIG_ROUTE = '/config'
+const CONFIG_DIR = path.resolve(__dirname, 'config')
 
 const copyDir = async (srcDir: string, destDir: string): Promise<void> => {
   await fsp.mkdir(destDir, { recursive: true })
@@ -32,19 +32,19 @@ const contentTypeFromExt = (pathname: string): string => {
   return 'application/octet-stream'
 }
 
-const sharedDataPlugin = () => ({
-  name: 'shared-data-public-bridge',
+const sharedConfigPlugin = () => ({
+  name: 'shared-config-public-bridge',
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
       const url = req.url ?? ''
-      if (!url.startsWith(SHARED_DATA_ROUTE)) {
+      if (!url.startsWith(CONFIG_ROUTE)) {
         next()
         return
       }
       const rawPath = url.split('?')[0]
-      const relPath = decodeURIComponent(rawPath.slice(SHARED_DATA_ROUTE.length)).replace(/^\/+/, '')
-      const absPath = path.resolve(SHARED_DATA_DIR, relPath)
-      if (!absPath.startsWith(SHARED_DATA_DIR)) {
+      const relPath = decodeURIComponent(rawPath.slice(CONFIG_ROUTE.length)).replace(/^\/+/, '')
+      const absPath = path.resolve(CONFIG_DIR, relPath)
+      if (!absPath.startsWith(CONFIG_DIR)) {
         res.statusCode = 403
         res.end('Forbidden')
         return
@@ -59,16 +59,16 @@ const sharedDataPlugin = () => ({
     })
   },
   async writeBundle(options: any) {
-    if (!fs.existsSync(SHARED_DATA_DIR)) return
+    if (!fs.existsSync(CONFIG_DIR)) return
     const outDir = options.dir ?? path.resolve(__dirname, 'dist')
-    const outDataDir = path.join(outDir, 'shared', 'data')
-    await copyDir(SHARED_DATA_DIR, outDataDir)
+    const outDataDir = path.join(outDir, 'config')
+    await copyDir(CONFIG_DIR, outDataDir)
   }
 })
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [sharedDataPlugin()],
+  plugins: [sharedConfigPlugin()],
   server: {
     port: 1184, // 将端口设置为你想要的数字
     strictPort: true, // 如果端口被占用，直接报错退出，而不是自动切换到下一个端口
@@ -88,8 +88,8 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
-        desktopPet: path.resolve(__dirname, 'desktop-pet.html'),
-        tauriGame: path.resolve(__dirname, 'tauri-game.html')
+        desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
+        mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }
     }
   }

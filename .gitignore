@@ -30,7 +30,17 @@ coverage
 # Python resource downloader artifacts
 python/.venv/
 python/Identity_Skill_Icons/
+python/__pycache__/
 
-# Tauri / Rust build artifacts
-src-tauri/target/
-src-tauri/gen/
+# Electron packaging artifacts
+out/
+release/
+*.asar
+*.blockmap
+
+# Optional tool caches
+.eslintcache
+.cache/
+.vite/
+.turbo/
+

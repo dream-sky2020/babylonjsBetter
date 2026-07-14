@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { getAllParticlePresets } from '../../utils/particlePresetStorage';
+import { getAllParticlePresets } from '@/core/particle';
 
 interface UseExportActionsParams {
   setMessage: (message: string) => void;

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import type { ParticleEditorPreset } from '@app-types/particle-editor.types';
+import type { ParticleEditorPreset } from '@/core/particle';
 
 interface UseClipboardActionsParams {
   preset: ParticleEditorPreset;
