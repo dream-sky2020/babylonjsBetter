@@ -1,1 +1,1 @@
-export * from '../shared/core/tracking/UiTrackerManager';
+export * from '../core/tracking/UiTrackerManager';

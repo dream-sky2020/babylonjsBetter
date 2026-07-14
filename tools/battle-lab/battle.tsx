@@ -3,13 +3,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { BattleStartUI } from './BattleStartUI';
 import { BattleSkillUI } from './BattleSkillUI';
 import { Color4, Engine, Mesh } from '@babylonjs/core';
-import type { SkillVisualData, TrackedUiState } from '../../shared/core/types/battle.types';
-import { hiddenTrackedUi } from '../../shared/core/types/battle.types';
-import { createMockSprite, drawSpriteDebugHelper, uvToNormalizedAnchor } from '../../utils/mockSprite';
-import { createBurstParticleEffect } from '../../utils/particleFactory';
-import type { ParticleController, ParticleEffectConfig } from '../../utils/particleFactory';
-import { UiTracker } from '../../shared/core/tracking/UiTracker';
-import { UiTrackerManager } from '../../shared/core/tracking/UiTrackerManager';
+import type { SkillVisualData, TrackedUiState } from '../../core/types/battle.types.ts';
+import { hiddenTrackedUi } from '../../core/types/battle.types.ts';
+import { createSpriteEntity, drawSpriteDebugOverlay, uvToNormalizedAnchor } from '@/core/sprite';
+import { createBurstParticleEffect, type ParticleController, type ParticleEffectConfig } from '@/core/particle';
+import { UiTracker } from '../../core/tracking/UiTracker';
+import { UiTrackerManager } from '../../core/tracking/UiTrackerManager';
 import { createBattleScene } from '../../scene/createScene';
 
 type AnchorName = 'head' | 'foot' | 'center';
@@ -141,7 +140,7 @@ export const Battle: React.FC = () => {
 
     // 创建图标平面（Battle 只关注“放置物体”）
     const iconTexturePath = encodeURI('/resources/优势.png');
-    const mockSprite = createMockSprite(scene, iconTexturePath, 4.8, 'merged');
+    const mockSprite = createSpriteEntity(scene, iconTexturePath, 4.8, 'merged');
     const plane = mockSprite.mesh;
     let debugItems: Mesh[] = [];
     const activeParticles = new Set<ParticleController>();
@@ -153,7 +152,7 @@ export const Battle: React.FC = () => {
       const preset = mockSprite.refreshPreset();
 
       debugItems.forEach((mesh) => mesh.dispose());
-      debugItems = drawSpriteDebugHelper(mockSprite, scene);
+      debugItems = drawSpriteDebugOverlay(mockSprite, scene);
 
       trackerManagerRef.current?.clear();
       trackerManagerRef.current = new UiTrackerManager();
@@ -173,7 +172,7 @@ export const Battle: React.FC = () => {
       );
       trackerManagerRef.current.addTracker(topTracker);
 
-      console.log('[MockSprite Preset Reloaded]', preset);
+      console.log('[SpriteEntity Preset Reloaded]', preset);
     };
     reloadAnchorPresetRef.current = reloadAnchorPreset;
     reloadAnchorPreset();

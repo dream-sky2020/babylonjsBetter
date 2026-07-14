@@ -1,16 +1,19 @@
 import { useCallback, useEffect, useRef } from 'react';
-import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
-import { createMockSprite, drawSpriteDebugHelper } from '../../utils/mockSprite';
-import type { MockSprite } from '../../shared/core/scene/mockSprite';
+import {
+  createSpriteEntity,
+  drawSpriteDebugOverlay,
+  type SpriteAnchorPreset,
+  type SpriteEntity,
+  type SpriteFrameRegion
+} from '@/core/sprite';
 import type { Scene } from '@babylonjs/core';
 import type { MutableRefObject } from 'react';
-import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
 
 interface UseSpritePreviewParams {
   sceneRef: MutableRefObject<Scene | null>;
-  spriteRef: MutableRefObject<MockSprite | null>;
+  spriteRef: MutableRefObject<SpriteEntity | null>;
   preset: SpriteAnchorPreset;
   presetRef: MutableRefObject<SpriteAnchorPreset>;
   imagePath: string;
@@ -34,7 +37,7 @@ export const useSpritePreview = ({
   currentFrameRegion,
   isDebugVisible
 }: UseSpritePreviewParams): UseSpritePreviewResult => {
-  const debugMeshesRef = useRef<ReturnType<typeof drawSpriteDebugHelper>>([]);
+  const debugMeshesRef = useRef<ReturnType<typeof drawSpriteDebugOverlay>>([]);
   const isDebugVisibleRef = useRef(isDebugVisible);
 
   const disposeDebugMeshes = useCallback(() => {
@@ -48,8 +51,8 @@ export const useSpritePreview = ({
     if (!scene || !sprite) return;
     disposeDebugMeshes();
     if (!isDebugVisibleRef.current) return;
-    const debugMockSprite: MockSprite = { ...sprite, preset: nextPreset };
-    debugMeshesRef.current = drawSpriteDebugHelper(debugMockSprite, scene);
+    const debugSpriteEntity: SpriteEntity = { ...sprite, preset: nextPreset };
+    debugMeshesRef.current = drawSpriteDebugOverlay(debugSpriteEntity, scene);
   }, [disposeDebugMeshes, sceneRef]);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ export const useSpritePreview = ({
     disposeDebugMeshes();
     spriteRef.current?.mesh.dispose(false, true);
     const texturePath = encodeURI(`/${activeImagePath || imagePath}`);
-    spriteRef.current = createMockSprite(scene, texturePath, 4.8, 'merged');
+    spriteRef.current = createSpriteEntity(scene, texturePath, 4.8, 'merged');
     spriteRef.current?.setFrameRegion(currentFrameRegion);
     redrawDebugHelper(presetRef.current);
   }, [activeImagePath, currentFrameRegion, disposeDebugMeshes, imagePath, presetRef, redrawDebugHelper, sceneRef]);

@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import { ArcRotateCamera, Camera, Engine, Scene, Vector3 } from '@babylonjs/core';
-import type { ParticleController } from '../../utils/particleFactory';
-import type { ViewMode } from './types';
 import {
   DEFAULT_3D_CAMERA_ALPHA,
   DEFAULT_3D_CAMERA_BETA,
-  DEFAULT_3D_CAMERA_RADIUS
-} from '../../shared/core/scene/particleEditor.constants';
-import { createParticleEditorScene } from '../../shared/core/scene/createParticleEditorScene';
+  DEFAULT_3D_CAMERA_RADIUS,
+  type ParticleController
+} from '@/core/particle';
+import type { ViewMode } from './types.ts';
+import { createParticleEditorScene } from '@/core/scene/createParticleEditorScene.ts';
 
 const DEFAULT_3D_CAMERA_TARGET = Vector3.Zero();
 

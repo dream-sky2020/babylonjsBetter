@@ -2,7 +2,7 @@ import { createBattleCameraController } from '../cameraController/CameraControll
 import {
   createBattleScene as createCoreBattleScene,
   type BattleSceneContext
-} from '../shared/core/scene/createBattleScene';
+} from '../core/scene/createBattleScene';
 
 export const createBattleScene = (canvas: HTMLCanvasElement): BattleSceneContext => {
   return createCoreBattleScene(canvas, createBattleCameraController);

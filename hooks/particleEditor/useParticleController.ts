@@ -2,10 +2,12 @@ import { useCallback } from 'react';
 import { Color4, Vector3 } from '@babylonjs/core';
 import type { MutableRefObject } from 'react';
 import type { Scene } from '@babylonjs/core';
-import type { ParticleEditorPreset } from '@app-types/particle-editor.types';
-import { createBurstParticleEffect } from '../../utils/particleFactory';
-import type { ParticleController } from '../../utils/particleFactory';
-import { normalizePublicPath } from '../../utils/particleEditorHelpers';
+import {
+  createBurstParticleEffect,
+  normalizePublicPath,
+  type ParticleController,
+  type ParticleEditorPreset
+} from '@/core/particle';
 
 interface UseParticleControllerParams {
   sceneRef: MutableRefObject<Scene | null>;

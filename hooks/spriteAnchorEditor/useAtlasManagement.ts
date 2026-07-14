@@ -1,12 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import {
   getLocalSpriteAnchorPreset,
   getSpriteAnchorPreset,
   parseSpritePresetKey,
-  toSpritePresetKey
-} from '../../utils/spritePresetStorage';
-import {
+  toSpritePresetKey,
   DEFAULT_ATLAS_JSON_PATH,
   DEFAULT_SCANNED_ATLAS_OPTIONS,
   RESOURCE_IMAGE_MODULES,
@@ -16,10 +13,11 @@ import {
   normalizePublicPath,
   saveLastAtlasJsonPath,
   saveLastEditorMode,
-  toFrameRegion
-} from '../../utils/spriteAnchorEditorHelpers';
-import type { TexturePackerAtlas } from '../../utils/spriteAnchorEditorHelpers';
-import type { SpriteFrameRegion } from '../../shared/core/scene/meshFactory';
+  toFrameRegion,
+  type TexturePackerAtlas,
+  type SpriteAnchorPreset,
+  type SpriteFrameRegion
+} from '@/core/sprite';
 
 type AtlasFrameRegion = SpriteFrameRegion & { atlasPath: string; atlasImagePath: string };
 

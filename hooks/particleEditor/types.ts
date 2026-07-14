@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from 'react';
-import type { ParticleEditorPreset } from '@app-types/particle-editor.types';
+import type { ParticleEditorPreset } from '@/core/particle';
 
 export type ViewMode = '2d' | '3d';
 

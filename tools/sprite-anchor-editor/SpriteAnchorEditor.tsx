@@ -1,28 +1,41 @@
+// SpriteAnchorEditor (UI 容器)
+//     ├── useBabylonScene    → 创建/管理 Babylon 场景、相机、画布
+//     ├── useSpritePreview   → 监听配置变化，更新精灵和调试信息
+//     ├── useAtlasManagement → 管理图片/图集资源、帧选择
+//     └── usePresetManagement → 管理锚点配置数据
+
+
 import React, { useRef, useState } from 'react';
-import type { MockSprite } from '../../shared/core/scene/mockSprite';
-import { usePresetManagement } from '../../hooks/spriteAnchorEditor/usePresetManagement';
-import { useAtlasManagement } from '../../hooks/spriteAnchorEditor/useAtlasManagement';
-import { useSpritePreview } from '../../hooks/spriteAnchorEditor/useSpritePreview';
-import { useBabylonScene } from '../../hooks/spriteAnchorEditor/useBabylonScene';
-import { useClipboardActions } from '../../hooks/spriteAnchorEditor/useClipboardActions';
 import {
   ANCHOR_MAX,
   ANCHOR_MIN,
   BOUNDS_MAX,
   BOUNDS_MIN,
   DEFAULT_ATLAS_JSON_PATH,
-  INPUT_STEP
-} from '../../utils/spriteAnchorEditorHelpers';
+  INPUT_STEP,
+  type SpriteEntity
+} from '@/core/sprite';
+import { usePresetManagement } from '@/hooks/spriteAnchorEditor/usePresetManagement.ts';
+import { useAtlasManagement } from '@/hooks/spriteAnchorEditor/useAtlasManagement.ts';
+import { useSpritePreview } from '@/hooks/spriteAnchorEditor/useSpritePreview.ts';
+import { useBabylonScene } from '@/hooks/spriteAnchorEditor/useBabylonScene.ts';
+import { useClipboardActions } from '@/hooks/spriteAnchorEditor/useClipboardActions.ts';
 
 export const SpriteAnchorEditor: React.FC = () => {
   const initialImagePath = 'resources/优势.png';
-  const spriteRef = useRef<MockSprite | null>(null);
+  const spriteRef = useRef<SpriteEntity | null>(null);
   const [isDebugVisible, setIsDebugVisible] = useState(false);
 
   const {
     preset,
     presetRef,
     message,
+    validationStatus,
+    validationErrors,
+    validationMessage,
+    serverConnected,
+    serverPort,
+    retryServerConnection,
     presetSourceLabel,
     presetKeys,
     setMessage,
@@ -132,6 +145,12 @@ export const SpriteAnchorEditor: React.FC = () => {
       <div style={{ background: '#1a1f29', borderRadius: 12, padding: 14, overflow: 'auto' }}>
         <h2 style={{ margin: 0, marginBottom: 10 }}>Sprite 锚点编辑器</h2>
         <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>右侧画布支持拖拽平移、滚轮缩放、左下角小地图与回正视角。</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <div style={{ fontSize: 12, color: serverConnected ? '#95d5a6' : '#f0a8a8' }}>
+            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : '未连接（将自动扫描 4550-4600）'}
+          </div>
+          <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
           <button
@@ -232,17 +251,38 @@ export const SpriteAnchorEditor: React.FC = () => {
         <div style={{ fontSize: 12, color: '#6f8098', marginBottom: 10 }}>当前预设 Key：{activePresetKey}</div>
 
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 10 }}>{presetSourceLabel}</div>
+        <div style={{ fontSize: 12, color: serverConnected ? '#8fd19e' : '#ffb3b3', marginBottom: 10 }}>
+          开发服务器：{serverConnected ? `已连接（端口 ${serverPort ?? '-' }）` : '未连接'}
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
-          <button onClick={() => importCurrentLocalPreset(activePresetKey, activeImagePath, imagePath, activeFrameName)}>导入本地配置</button>
-          <button onClick={() => saveCurrentPreset(activePresetKey, activeImagePath, imagePath, activeFrameName)}>保存到本地</button>
-          <button onClick={() => clearCurrentPreset(activePresetKey, activeImagePath, imagePath, activeFrameName, currentFrameRegion)}>清除本地覆盖</button>
+          <button onClick={() => importCurrentLocalPreset(activePresetKey, activeImagePath, imagePath, activeFrameName)}>从配置文件导入</button>
+          <button onClick={() => saveCurrentPreset(activePresetKey, activeImagePath, imagePath, activeFrameName)}>保存到配置文件</button>
+          <button onClick={() => clearCurrentPreset(activePresetKey, activeImagePath, imagePath, activeFrameName, currentFrameRegion)}>从配置文件移除</button>
           <button onClick={exportJson}>导出 JSON</button>
           <button onClick={copyCurrentPreset}>复制配置</button>
           <button onClick={pastePreset}>粘贴配置</button>
         </div>
 
         <div style={{ marginBottom: 12, fontSize: 12, color: '#9fb0c5' }}>{message}</div>
+        <div
+          style={{
+            marginBottom: 12,
+            padding: '8px 10px',
+            borderRadius: 8,
+            background: validationStatus === 'invalid' ? '#2c1515' : '#141a23',
+            border: validationStatus === 'invalid' ? '1px solid #8d3b3b' : '1px solid #2a3442'
+          }}
+        >
+          <div style={{ fontSize: 12, color: validationStatus === 'invalid' ? '#ffb3b3' : '#9fb0c5', marginBottom: validationErrors.length > 0 ? 6 : 0 }}>
+            配置校验：{validationMessage || '未获取'}
+          </div>
+          {validationErrors.length > 0 ? (
+            <div style={{ fontSize: 11, color: '#f2c3c3', whiteSpace: 'pre-wrap' }}>
+              {validationErrors.map((err, idx) => `${idx + 1}. ${err}`).join('\n')}
+            </div>
+          ) : null}
+        </div>
 
         <h3 style={{ margin: '10px 0 8px 0', fontSize: 15 }}>锚点精确数据（{ANCHOR_MIN}~{ANCHOR_MAX}）</h3>
         <div>

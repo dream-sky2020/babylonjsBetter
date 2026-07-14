@@ -6,7 +6,7 @@ import {
   createBattleCamera,
   DEFAULT_BATTLE_ORTHO_SIZE,
   panBattleCameraTargetByPixels
-} from '../shared/core/scene/battleCamera.core';
+} from '../core/camera/battleCamera.core.ts';
 
 export interface CameraControllerContext {
   camera: ArcRotateCamera;

@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
-import type { SpriteAnchorPreset } from '@app-types/sprite-anchors.types';
 import {
   ANCHOR_MAX,
   ANCHOR_MIN,
   BOUNDS_MAX,
   BOUNDS_MIN,
   clamp,
-  toFixedNumber
-} from '../../utils/spriteAnchorEditorHelpers';
+  toFixedNumber,
+  type SpriteAnchorPreset
+} from '@/core/sprite';
 
 interface UseClipboardActionsParams {
   preset: SpriteAnchorPreset;

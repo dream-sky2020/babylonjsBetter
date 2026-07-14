@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import type { ParticleController } from '../../utils/particleFactory';
-import type { ParticleEditorPreset } from '@app-types/particle-editor.types';
 import {
   INPUT_STEP,
-  clamp,
   normalizePublicPath,
-  rgbToHex,
-  toFixedNumber
-} from '../../utils/particleEditorHelpers';
-import { useClipboardActions } from '../../hooks/particleEditor/useClipboardActions';
-import { useBabylonScene } from '../../hooks/particleEditor/useBabylonScene';
-import { useExportActions } from '../../hooks/particleEditor/useExportActions';
-import { useGradientManagement } from '../../hooks/particleEditor/useGradientManagement';
-import { useParticleController } from '../../hooks/particleEditor/useParticleController';
-import { usePresetManagement } from '../../hooks/particleEditor/usePresetManagement';
+  type ParticleController,
+  type ParticleEditorPreset
+} from '@/core/particle';
+import { useClipboardActions } from '@/hooks/particleEditor/useClipboardActions.ts';
+import { useBabylonScene } from '@/hooks/particleEditor/useBabylonScene.ts';
+import { useExportActions } from '@/hooks/particleEditor/useExportActions.ts';
+import { useGradientManagement } from '@/hooks/particleEditor/useGradientManagement.ts';
+import { useParticleController } from '@/hooks/particleEditor/useParticleController.ts';
+import { usePresetManagement } from '@/hooks/particleEditor/usePresetManagement.ts';
+import { rgbToHex } from '@/core/utils/color.ts';
+import { clamp, toFixedNumber } from '@/core/utils/math.ts';
 
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
@@ -35,6 +34,9 @@ export const ParticleEditor: React.FC = () => {
     setPreset,
     fallbackPreset,
     loadedPresetVersion,
+    serverConnected,
+    serverPort,
+    retryServerConnection,
     refreshPresetState,
     handlePresetSelectionChange,
     saveCurrentPreset,
@@ -174,7 +176,13 @@ export const ParticleEditor: React.FC = () => {
     <div style={{ padding: 16, height: '100vh', boxSizing: 'border-box', display: 'grid', gridTemplateColumns: '430px 1fr', gap: 16 }}>
       <div style={{ background: '#1a1f29', borderRadius: 12, padding: 14, overflow: 'auto' }}>
         <h2 style={{ margin: 0, marginBottom: 10 }}>Particle 粒子编辑器</h2>
-        <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>支持实时测试、保存本地预设、导出 JSON，并可复用到战斗场景。</p>
+        <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>支持实时测试、写入 config JSON、导出 JSON，并可复用到战斗场景。</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <div style={{ fontSize: 12, color: serverConnected ? '#95d5a6' : '#f0a8a8' }}>
+            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : '未连接（将自动扫描 4550-4600）'}
+          </div>
+          <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>
+        </div>
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 8 }}>{presetSourceLabel}</div>
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 10 }}>{message}</div>
 
@@ -222,9 +230,9 @@ export const ParticleEditor: React.FC = () => {
         </select>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
-          <button onClick={importCurrentLocalPreset}>导入本地配置</button>
-          <button onClick={saveCurrentPreset}>保存到本地</button>
-          <button onClick={clearCurrentPreset}>清除本地覆盖</button>
+          <button onClick={importCurrentLocalPreset}>导入配置文件</button>
+          <button onClick={saveCurrentPreset}>保存到配置文件</button>
+          <button onClick={clearCurrentPreset}>从配置文件删除</button>
           <button onClick={exportJson}>导出 JSON</button>
           <button onClick={copyCurrentPreset}>复制配置</button>
           <button onClick={pastePreset}>粘贴配置</button>

@@ -1,1 +1,1 @@
-export * from '../shared/core/tracking/UiTracker';
+export * from '../core/tracking/UiTracker';
