@@ -87,6 +87,7 @@ export default defineConfig({
       input: {
         index: path.resolve(__dirname, 'index.html'),
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
+        spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')

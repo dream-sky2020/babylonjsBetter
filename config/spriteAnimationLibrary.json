@@ -1,0 +1,102 @@
+{
+  "rigs": {
+    "demo_xiaoren": {
+      "rigId": "demo_xiaoren",
+      "name": "演示小人（可改）",
+      "atlasJsonPath": "resources/小人3.json",
+      "atlasImagePath": "resources/小人3.png",
+      "baseSize": 2.2,
+      "parts": [
+        {
+          "partId": "body",
+          "label": "身体",
+          "defaultFrameName": "静止.png",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "rotationDeg": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          "zIndex": 0
+        }
+      ]
+    }
+  },
+  "clips": {
+    "demo_xiaoren/idle": {
+      "clipId": "demo_xiaoren/idle",
+      "rigId": "demo_xiaoren",
+      "name": "idle",
+      "fps": 8,
+      "duration": 2,
+      "loop": true,
+      "keys": [
+        {
+          "time": 0,
+          "parts": {
+            "body": {
+              "frameName": "静止.png",
+              "x": 0,
+              "y": 0,
+              "scaleX": 1,
+              "scaleY": 1
+            },
+            "overlay": {
+              "frameName": "img_4750.png",
+              "x": 0.35,
+              "y": 0.2,
+              "rotationDeg": 0
+            }
+          }
+        },
+        {
+          "time": 0.5,
+          "parts": {
+            "body": {
+              "frameName": "移动1.png",
+              "x": 0,
+              "y": 0,
+              "scaleX": 1,
+              "scaleY": 1
+            },
+            "overlay": {
+              "frameName": "img_4757.png",
+              "x": 0.4,
+              "y": 0.25,
+              "rotationDeg": 12
+            }
+          }
+        },
+        {
+          "time": 1,
+          "parts": {
+            "body": {
+              "frameName": "静止.png",
+              "x": 0,
+              "y": 0,
+              "scaleX": 1,
+              "scaleY": 1
+            },
+            "overlay": {
+              "frameName": "img_4750.png",
+              "x": 0.35,
+              "y": 0.2,
+              "rotationDeg": 0
+            }
+          }
+        },
+        {
+          "time": 1.5,
+          "parts": {
+            "body": {
+              "frameName": "移动2.png",
+              "x": 0,
+              "y": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -11,7 +11,8 @@ from werkzeug.utils import secure_filename
 # 导入抽离出去的工具和计算逻辑
 from utils import (
     normalize_slashes, to_resource_path, to_public_path, is_path_inside,
-    is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload
+    is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
+    validate_sprite_animation_payload
 )
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(PROJECT_DIR, ".."))
 PUBLIC_DIR = os.path.join(PROJECT_ROOT, "public")
 PUBLIC_RESOURCES_DIR = os.path.join(PUBLIC_DIR, "resources")
 SPRITE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnchorPresets.json")
+SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnimationLibrary.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
@@ -118,6 +120,45 @@ def handle_sprite_anchor_presets():
                 json.dump(payload, f, ensure_ascii=False, indent=2)
             os.replace(f"{SPRITE_PRESET_CONFIG_PATH}.tmp", SPRITE_PRESET_CONFIG_PATH)
             return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(SPRITE_PRESET_CONFIG_PATH)})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+
+@app.route("/api/sprite-animation-library", methods=["GET", "PUT"])
+def handle_sprite_animation_library():
+    if request.method == "GET":
+        if not os.path.isfile(SPRITE_ANIMATION_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {"rigs": {}, "clips": {}}})
+        try:
+            with open(SPRITE_ANIMATION_CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "配置文件根节点必须是 JSON 对象", "valid": False}), 500
+            errors = validate_sprite_animation_payload(data)
+            rig_count = len(data.get("rigs", {})) if isinstance(data.get("rigs"), dict) else 0
+            clip_count = len(data.get("clips", {})) if isinstance(data.get("clips"), dict) else 0
+            return jsonify({
+                "success": True,
+                "count": rig_count + clip_count,
+                "data": data,
+                "valid": len(errors) == 0,
+                "errors": errors[:50]
+            })
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
+
+    elif request.method == "PUT":
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"success": False, "message": "body must be a json object"}), 400
+        errors = validate_sprite_animation_payload(payload)
+        if errors:
+            return jsonify({"success": False, "message": "配置校验失败", "errorCount": len(errors), "errors": errors[:50]}), 400
+        try:
+            os.makedirs(os.path.dirname(SPRITE_ANIMATION_CONFIG_PATH), exist_ok=True)
+            with open(f"{SPRITE_ANIMATION_CONFIG_PATH}.tmp", "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            os.replace(f"{SPRITE_ANIMATION_CONFIG_PATH}.tmp", SPRITE_ANIMATION_CONFIG_PATH)
+            return jsonify({"success": True, "path": normalize_slashes(SPRITE_ANIMATION_CONFIG_PATH)})
         except Exception as exc:
             return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
 
