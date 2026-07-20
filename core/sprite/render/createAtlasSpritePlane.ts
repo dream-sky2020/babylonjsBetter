@@ -1,6 +1,15 @@
 import { Color3, MeshBuilder, Scene, Texture } from '@babylonjs/core';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { IconPlaneController, SpriteFrameRegion } from '@/core/sprite/types/sprite.types.ts';
+import {
+  acquireSharedAtlasTexture,
+  releaseSharedAtlasTexture
+} from '@/core/sprite/render/sharedAtlasTexture.ts';
+
+export type CreateAtlasSpritePlaneOptions = {
+  /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
+  shareTexture?: boolean;
+};
 
 /**
  * 创建图标平面并配置材质与纹理采样参数。
@@ -8,19 +17,23 @@ import type { IconPlaneController, SpriteFrameRegion } from '@/core/sprite/types
 export const createAtlasSpritePlane = (
   scene: Scene,
   texturePath: string,
-  baseSize: number = 2.5
+  baseSize: number = 2.5,
+  options: CreateAtlasSpritePlaneOptions = {}
 ): IconPlaneController => {
+  const shareTexture = options.shareTexture === true;
   const plane = MeshBuilder.CreatePlane('plane', { size: 1 }, scene);
   const planeMaterial = new StandardMaterial('planeMat', scene);
   let currentRegion: SpriteFrameRegion | null = null;
 
-  const iconTexture = new Texture(
-    texturePath,
-    scene,
-    false,
-    true,
-    Texture.TRILINEAR_SAMPLINGMODE
-  );
+  const iconTexture = shareTexture
+    ? acquireSharedAtlasTexture(scene, texturePath)
+    : new Texture(texturePath, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
+
+  if (!shareTexture) {
+    iconTexture.hasAlpha = true;
+    iconTexture.wrapU = Texture.CLAMP_ADDRESSMODE;
+    iconTexture.wrapV = Texture.CLAMP_ADDRESSMODE;
+  }
 
   const applyPlaneScale = (region: SpriteFrameRegion | null) => {
     const textureSize = iconTexture.getSize();
@@ -58,10 +71,6 @@ export const createAtlasSpritePlane = (
     applyTextureRegion(currentRegion);
   });
 
-  iconTexture.hasAlpha = true;
-  iconTexture.wrapU = Texture.CLAMP_ADDRESSMODE;
-  iconTexture.wrapV = Texture.CLAMP_ADDRESSMODE;
-
   planeMaterial.transparencyMode = 1;
   planeMaterial.diffuseTexture = iconTexture;
   planeMaterial.useAlphaFromDiffuseTexture = true;
@@ -81,6 +90,14 @@ export const createAtlasSpritePlane = (
     setFrameRegion: (region: SpriteFrameRegion | null) => {
       currentRegion = region;
       applyTextureRegion(region);
+    },
+    dispose: () => {
+      planeMaterial.dispose();
+      iconTexture.dispose();
+      if (shareTexture) {
+        releaseSharedAtlasTexture(texturePath);
+      }
+      plane.dispose();
     }
   };
 };

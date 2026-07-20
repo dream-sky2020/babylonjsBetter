@@ -27,8 +27,99 @@ export {
   uvToPlaneLocal
 } from '@/core/sprite/entity/anchors.ts';
 
+// types — animation
+export type {
+  SpriteTransform2D,
+  SpritePartPose,
+  SpritePartDef,
+  SpriteRigDef,
+  SpriteAnimKeyframe,
+  SpriteAnimClip,
+  SpriteAnimationLibrary,
+  CurveChannel
+} from '@/core/sprite/types/sprite-animation.types.ts';
+export { DEFAULT_SPRITE_TRANSFORM } from '@/core/sprite/types/sprite-animation.types.ts';
+
 // render
 export { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
+export type { CreateAtlasSpritePlaneOptions } from '@/core/sprite/render/createAtlasSpritePlane.ts';
+export {
+  acquireSharedAtlasTexture,
+  releaseSharedAtlasTexture,
+  clearSharedAtlasTextureCache
+} from '@/core/sprite/render/sharedAtlasTexture.ts';
+
+// atlas
+export {
+  normalizeTexturePackerAtlas,
+  loadTexturePackerAtlas
+} from '@/core/sprite/atlas/normalizeTexturePackerAtlas.ts';
+
+// composition
+export type {
+  AtlasBundle,
+  CompositeSprite,
+  CompositeSpritePart,
+  CreateCompositeSpriteOptions
+} from '@/core/sprite/composition/createCompositeSprite.ts';
+export { createCompositeSprite } from '@/core/sprite/composition/createCompositeSprite.ts';
+export type { ResolvedPartAtlas } from '@/core/sprite/composition/resolvePartAtlas.ts';
+export {
+  resolvePartAtlas,
+  collectRigAtlasJsonPaths
+} from '@/core/sprite/composition/resolvePartAtlas.ts';
+export { loadRigAtlases, getAtlasFrameNames } from '@/core/sprite/atlas/loadRigAtlases.ts';
+
+// animation runtime
+export {
+  evaluateSpriteAnimClip,
+  getClipDuration
+} from '@/core/sprite/animation/evaluateSpriteAnimClip.ts';
+export type { SpriteAnimPlayer, SpriteAnimPlayerState } from '@/core/sprite/animation/createSpriteAnimPlayer.ts';
+export { createSpriteAnimPlayer } from '@/core/sprite/animation/createSpriteAnimPlayer.ts';
+
+// onion skin
+export type {
+  OnionSkinMode,
+  OnionSkinSettings,
+  OnionSkinSample
+} from '@/core/sprite/animation/onionSkinSamples.ts';
+export {
+  DEFAULT_ONION_SKIN_SETTINGS,
+  computeOnionSkinSamples
+} from '@/core/sprite/animation/onionSkinSamples.ts';
+export type { OnionSkinController } from '@/core/sprite/animation/createOnionSkinController.ts';
+export { createOnionSkinController } from '@/core/sprite/animation/createOnionSkinController.ts';
+
+// animation library
+export type { SpriteAnimationValidationReport } from '@/core/sprite/animation/spriteAnimationValidation.ts';
+export {
+  sanitizeAnimationLibrary,
+  validateAnimationLibrary,
+  createEmptyAnimationLibrary,
+  createDefaultDemoRig,
+  createDefaultDemoClip,
+  sanitizeRig,
+  sanitizeClip
+} from '@/core/sprite/animation/spriteAnimationValidation.ts';
+export {
+  fetchSpriteAnimationServerConnection,
+  fetchSpriteAnimationValidationReport
+} from '@/core/sprite/animation/spriteAnimationApi.ts';
+export {
+  hydrateSpriteAnimationLibrary,
+  reloadSpriteAnimationLibrary,
+  getSpriteAnimationLibrary,
+  getSpriteRig,
+  getSpriteAnimClip,
+  listSpriteRigs,
+  listSpriteAnimClips,
+  saveSpriteAnimationLibrary,
+  saveSpriteRig,
+  saveSpriteAnimClip,
+  removeSpriteRig,
+  removeSpriteAnimClip
+} from '@/core/sprite/animation/spriteAnimationRepository.ts';
 
 // debug
 export { drawSpriteDebugOverlay } from '@/core/sprite/debug/drawSpriteDebugOverlay.ts';
@@ -98,3 +189,27 @@ export {
   createEditablePreset,
   getPresetSourceLabel
 } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
+
+// editor helpers — animation
+export {
+  SPRITE_ANIM_LAST_RIG_KEY,
+  SPRITE_ANIM_LAST_CLIP_KEY,
+  SPRITE_ANIM_DEFAULT_ORTHO_SIZE,
+  SPRITE_ANIM_MIN_ORTHO_SIZE,
+  SPRITE_ANIM_MAX_ORTHO_SIZE,
+  SPRITE_ANIM_ZOOM_STEP,
+  getLastAnimRigId,
+  saveLastAnimRigId,
+  getLastAnimClipId,
+  saveLastAnimClipId,
+  createEmptyPart,
+  createEmptyRig,
+  createEmptyClip,
+  upsertKeyframe,
+  removeKeyframeAt,
+  removeKeyframesAt,
+  moveKeyframeTime,
+  shiftKeyframesTime,
+  samplePoseFromKeyframe,
+  upsertPoseChannel
+} from '@/core/sprite/editor/spriteAnimationEditorHelpers.ts';

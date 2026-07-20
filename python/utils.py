@@ -201,3 +201,113 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
                 _req_num(entry, "size", errors, s_path, 0.0001)
 
     return errors
+
+def validate_sprite_animation_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    rigs = payload.get("rigs")
+    clips = payload.get("clips")
+    if not isinstance(rigs, dict):
+        errors.append("rigs 必须是对象")
+        rigs = {}
+    if not isinstance(clips, dict):
+        errors.append("clips 必须是对象")
+        clips = {}
+
+    for key, rig in rigs.items():
+        p_path = f"rigs[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("rigs 的 key 必须是非空字符串")
+            continue
+        if not isinstance(rig, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+        rig_id = _req_str(rig, "rigId", errors, p_path)
+        if rig_id and rig_id != key:
+            errors.append(f"{p_path}.rigId 必须与 key 一致")
+        _req_str(rig, "atlasJsonPath", errors, p_path)
+        _req_str(rig, "atlasImagePath", errors, p_path)
+        if rig.get("baseSize") is not None:
+            _req_num(rig, "baseSize", errors, p_path, 0.01)
+        parts = rig.get("parts")
+        if not isinstance(parts, list) or len(parts) == 0:
+            errors.append(f"{p_path}.parts 至少需要一个部件")
+            continue
+        seen = set()
+        for idx, part in enumerate(parts):
+            part_path = f"{p_path}.parts[{idx}]"
+            if not isinstance(part, dict):
+                errors.append(f"{part_path} 必须是对象")
+                continue
+            part_id = _req_str(part, "partId", errors, part_path)
+            if part_id:
+                if part_id in seen:
+                    errors.append(f"{p_path} 重复 partId: {part_id}")
+                seen.add(part_id)
+            for optional_str in ("atlasJsonPath", "atlasImagePath", "defaultFrameName", "label"):
+                if part.get(optional_str) is not None and not isinstance(part.get(optional_str), str):
+                    errors.append(f"{part_path}.{optional_str} 必须是字符串")
+            if part.get("zIndex") is not None:
+                _req_num(part, "zIndex", errors, part_path)
+            transform = part.get("transform")
+            if transform is not None:
+                if not isinstance(transform, dict):
+                    errors.append(f"{part_path}.transform 必须是对象")
+                else:
+                    for field in ("x", "y", "rotationDeg", "scaleX", "scaleY"):
+                        if transform.get(field) is not None:
+                            _req_num(transform, field, errors, f"{part_path}.transform")
+
+    for key, clip in clips.items():
+        p_path = f"clips[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("clips 的 key 必须是非空字符串")
+            continue
+        if not isinstance(clip, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+        clip_id = _req_str(clip, "clipId", errors, p_path)
+        if clip_id and clip_id != key:
+            errors.append(f"{p_path}.clipId 必须与 key 一致")
+        rig_id = _req_str(clip, "rigId", errors, p_path)
+        if rig_id and rig_id not in rigs:
+            errors.append(f"{p_path}.rigId 引用了不存在的 rig: {rig_id}")
+        _req_num(clip, "fps", errors, p_path, 0.01)
+        if clip.get("duration") is not None:
+            _req_num(clip, "duration", errors, p_path, 0)
+        if not isinstance(clip.get("loop"), bool):
+            errors.append(f"{p_path}.loop 必须是布尔值")
+        keys = clip.get("keys")
+        if not isinstance(keys, list):
+            errors.append(f"{p_path}.keys 必须是数组")
+            continue
+        last_time = -1.0
+        for idx, keyframe in enumerate(keys):
+            k_path = f"{p_path}.keys[{idx}]"
+            if not isinstance(keyframe, dict):
+                errors.append(f"{k_path} 必须是对象")
+                continue
+            time_val = _req_num(keyframe, "time", errors, k_path, 0)
+            if time_val < last_time:
+                errors.append(f"{p_path}.keys 必须按 time 升序")
+            last_time = time_val
+            parts = keyframe.get("parts")
+            if not isinstance(parts, dict):
+                errors.append(f"{k_path}.parts 必须是对象")
+                continue
+            for part_id, pose in parts.items():
+                pose_path = f"{k_path}.parts[{part_id}]"
+                if not isinstance(pose, dict):
+                    errors.append(f"{pose_path} 必须是对象")
+                    continue
+                if pose.get("frameName") is not None and not isinstance(pose.get("frameName"), str):
+                    errors.append(f"{pose_path}.frameName 必须是字符串")
+                if pose.get("visible") is not None and not isinstance(pose.get("visible"), bool):
+                    errors.append(f"{pose_path}.visible 必须是布尔值")
+                for field in ("x", "y", "rotationDeg", "scaleX", "scaleY"):
+                    if pose.get(field) is not None:
+                        _req_num(pose, field, errors, pose_path)
+
+    return errors

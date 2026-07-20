@@ -15,4 +15,5 @@ export type IconPlaneController = {
   texture: Texture;
   getFrameRegion: () => SpriteFrameRegion | null;
   setFrameRegion: (region: SpriteFrameRegion | null) => void;
+  dispose?: () => void;
 };
