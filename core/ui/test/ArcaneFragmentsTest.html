@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 空间悬浮梯形流光按钮</title>
+    <style>
+        /* 基础重置 */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* --- 3D 舞台与平面控制 --- */
+        .stage {
+            /* 提供 3D 摄像机景深 */
+            perspective: 1200px;
+            margin-top: 50px;
+        }
+
+        .btn-container {
+            position: relative;
+            /* 梯形基础尺寸由 JS 动态计算生成的内容撑开，这里定义物理边界 */
+            width: 270px;
+            height: 77.94px;
+            cursor: pointer;
+            /* 关键：让子元素保留 3D 属性 */
+            transform-style: preserve-3d;
+            /* 绑定 CSS 变量，接收控制面板的实时角度 */
+            transform: rotateX(var(--rx, 20deg)) rotateY(var(--ry, -20deg)) rotateZ(var(--rz, 0deg));
+            transition: transform 0.1s linear; /* 平滑跟随滑块，不加过渡会略显生硬 */
+        }
+
+        /* --- 三角形与流光样式 (保持之前的高性能配置) --- */
+        .btn-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            z-index: 100;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            /* 将文字拉出 3D 空间 40px，防止不同角度下与背面的三角形穿模 */
+            transform: translateZ(40px);
+        }
+
+        .btn-container:hover .btn-text {
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.9);
+            letter-spacing: 6px;
+        }
+
+        .tri-wrapper {
+            position: absolute;
+            width: 30px;
+            height: 25.981px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition-delay: var(--delay);
+            will-change: transform;
+        }
+
+        .btn-container:hover .tri-wrapper {
+            transform: rotateY(180deg);
+        }
+
+        .face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            will-change: transform, filter;
+        }
+
+        .face.up { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+        .front.up { transform-origin: 50% 66.66%; transform: scale(0.92); }
+        .back.up { transform-origin: 50% 66.66%; transform: rotateY(180deg) scale(0.92); }
+
+        .face.down { clip-path: polygon(0% 0%, 100% 0%, 50% 100%); }
+        .front.down { transform-origin: 50% 33.33%; transform: scale(0.92); }
+        .back.down { transform-origin: 50% 33.33%; transform: rotateY(180deg) scale(0.92); }
+
+        .front {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid transparent;
+        }
+
+        .back {
+            background-color: var(--color);
+            filter: drop-shadow(0 0 6px rgba(255,255,255,0.3)) hue-rotate(0deg);
+            animation: chromaFlow 2.5s linear infinite;
+        }
+
+        @keyframes chromaFlow {
+            100% { filter: drop-shadow(0 0 6px rgba(255,255,255,0.3)) hue-rotate(360deg); }
+        }
+
+        /* --- 控制面板样式 --- */
+        .control-panel {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 30px;
+            z-index: 999;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 自定义滑动条 */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        /* 角度输入框 */
+        input[type=number] {
+            width: 60px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            text-align: center;
+            padding: 4px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .reset-btn {
+            margin-top: auto;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .reset-btn:hover { background: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body>
+
+<div class="stage">
+    <div class="btn-container" id="magicBtn" style="--rx: 30deg; --ry: -20deg; --rz: 0deg;">
+        <div class="btn-text">START</div>
+    </div>
+</div>
+
+<div class="control-panel">
+    <div class="control-group">
+        <label>Rotate X</label>
+        <input type="range" id="rx-range" min="-180" max="180" value="30">
+        <input type="number" id="rx-num" value="30">
+    </div>
+    <div class="control-group">
+        <label>Rotate Y</label>
+        <input type="range" id="ry-range" min="-180" max="180" value="-20">
+        <input type="number" id="ry-num" value="-20">
+    </div>
+    <div class="control-group">
+        <label>Rotate Z</label>
+        <input type="range" id="rz-range" min="-180" max="180" value="0">
+        <input type="number" id="rz-num" value="0">
+    </div>
+    <button class="reset-btn" onclick="resetAngles()">Reset</button>
+</div>
+
+<script>
+    // --- 1. 梯形网格生成逻辑 (纯等边三角形) ---
+    const container = document.getElementById('magicBtn');
+    const rows = 3;
+    const a = 30;
+    const h = 25.981;
+    const startUpCount = 7;
+
+    for (let r = 0; r < rows; r++) {
+        const minC = -r;
+        const maxC = 2 * startUpCount - 2 + r;
+
+        for (let c = minC; c <= maxC; c++) {
+            const isUp = Math.abs(r + c) % 2 === 0;
+            const typeClass = isUp ? 'up' : 'down';
+
+            const wrapper = document.createElement('div');
+            wrapper.className = `tri-wrapper`;
+
+            const xPos = (c + 2) * (a / 2);
+            const yPos = r * h;
+
+            wrapper.style.left = `${xPos}px`;
+            wrapper.style.top = `${yPos}px`;
+            // 计算从左到右的延迟，波浪翻转
+            wrapper.style.setProperty('--delay', `${(c + 2) * 0.035}s`);
+
+            const front = document.createElement('div');
+            front.className = `face front ${typeClass}`;
+            const back = document.createElement('div');
+            back.className = `face back ${typeClass}`;
+
+            const hue = (c * 12 - r * 25 + 360) % 360;
+            back.style.setProperty('--color', `hsl(${hue}, 90%, 65%)`);
+
+            wrapper.appendChild(front);
+            wrapper.appendChild(back);
+            container.appendChild(wrapper);
+        }
+    }
+
+    // --- 2. 3D 角度控制逻辑 ---
+    const axes = ['rx', 'ry', 'rz'];
+    const defaults = { rx: 30, ry: -20, rz: 0 };
+
+    // 绑定事件：滑动条与数字框双向同步，并更新 CSS 变量
+    axes.forEach(axis => {
+        const rangeInput = document.getElementById(`${axis}-range`);
+        const numInput = document.getElementById(`${axis}-num`);
+
+        const updateAngle = (val) => {
+            const degrees = Math.max(-180, Math.min(180, val)); // 限制范围
+            rangeInput.value = degrees;
+            numInput.value = degrees;
+            container.style.setProperty(`--${axis}`, `${degrees}deg`);
+        };
+
+        rangeInput.addEventListener('input', (e) => updateAngle(e.target.value));
+        numInput.addEventListener('input', (e) => updateAngle(e.target.value));
+    });
+
+    // 恢复默认视角
+    window.resetAngles = () => {
+        axes.forEach(axis => {
+            const val = defaults[axis];
+            document.getElementById(`${axis}-range`).value = val;
+            document.getElementById(`${axis}-num`).value = val;
+            container.style.setProperty(`--${axis}`, `${val}deg`);
+        });
+    };
+</script>
+</body>
+</html>

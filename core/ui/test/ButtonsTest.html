@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酷炫动画按钮展示</title>
+    <style>
+        /* 基础页面样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0d0e15;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #ff007f, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        /* 按钮容器网格 */
+        .btn-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) {
+            .btn-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 统一卡片样式 */
+        .btn-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-box span {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================
+           按钮 1: 赛博朋克流光溢彩 (Neon Liquid Border)
+           ========================================== */
+        .btn-neon {
+            position: relative;
+            padding: 15px 35px;
+            background: #000;
+            color: #00f0ff;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.5s;
+            border-radius: 4px;
+        }
+
+        .btn-neon:hover {
+            color: #fff;
+            background: #00f0ff;
+            box-shadow: 0 0 10px #00f0ff, 0 0 40px #00f0ff, 0 0 80px #00f0ff;
+            transition-delay: 1s;
+        }
+
+        /* 四条边框线流光动画 */
+        .btn-neon span {
+            position: absolute;
+            display: block;
+        }
+
+        .btn-neon span:nth-child(1) {
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f0ff);
+        }
+        .btn-neon:hover span:nth-child(1) {
+            left: 100%;
+            transition: 1s;
+        }
+
+        .btn-neon span:nth-child(2) {
+            top: -100%;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, #00f0ff);
+        }
+        .btn-neon:hover span:nth-child(2) {
+            top: 100%;
+            transition: 1s;
+            transition-delay: 0.25s;
+        }
+
+        .btn-neon span:nth-child(3) {
+            bottom: 0;
+            right: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(270deg, transparent, #00f0ff);
+        }
+        .btn-neon:hover span:nth-child(3) {
+            right: 100%;
+            transition: 1s;
+            transition-delay: 0.5s;
+        }
+
+        .btn-neon span:nth-child(4) {
+            bottom: -100%;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(360deg, transparent, #00f0ff);
+        }
+        .btn-neon:hover span:nth-child(4) {
+            bottom: 100%;
+            transition: 1s;
+            transition-delay: 0.75s;
+        }
+
+        /* ==========================================
+           按钮 2: 液体气泡填充 (Liquid Fill)
+           ========================================== */
+        .btn-liquid {
+            position: relative;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid #ff007f;
+            border-radius: 40px;
+            overflow: hidden;
+            background: transparent;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-liquid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ff007f;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .btn-liquid:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn-liquid:hover {
+            box-shadow: 0 0 20px #ff007f;
+            text-shadow: 0 0 5px #fff;
+        }
+
+        /* ==========================================
+           按钮 3: 3D 拟物点击感 (3D Push Effect)
+           ========================================== */
+        .btn-3d {
+            position: relative;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: white;
+            background: #8e44ad;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 9px #6c3483;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.1s ease;
+        }
+
+        .btn-3d:hover {
+            background-color: #9b59b6;
+        }
+
+        .btn-3d:active {
+            background-color: #8e44ad;
+            box-shadow: 0 3px #6c3483;
+            transform: translateY(6px);
+        }
+
+        /* ==========================================
+           按钮 4: 渐变旋转粒子 (Rotating Border Glow)
+           ========================================== */
+        .btn-glow-wrap {
+            position: relative;
+            width: 160px;
+            height: 55px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #ff007f, #7f00ff, #00f0ff, #ff007f);
+            background-size: 400%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: animateGlow 20s linear infinite;
+        }
+
+        .btn-glow-wrap::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff007f, #7f00ff, #00f0ff, #ff007f);
+            background-size: 400%;
+            border-radius: 40px;
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .btn-glow-wrap:hover::before {
+            filter: blur(20px);
+            opacity: 1;
+        }
+
+        .btn-glow-inner {
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            background: #0d0e15;
+            border-radius: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-glow-wrap:hover .btn-glow-inner {
+            background: transparent;
+        }
+
+        @keyframes animateGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>超级动画按钮展示舱</h1>
+
+<div class="btn-container">
+    <div class="btn-box">
+        <button class="btn-neon">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            CYBERPUNK
+        </button>
+        <span>赛博流光 (悬停看边缘)</span>
+    </div>
+
+    <div class="btn-box">
+        <button class="btn-liquid">Fill In</button>
+        <span>果冻填充 (横向吞噬)</span>
+    </div>
+
+    <div class="btn-box">
+        <button class="btn-3d">PUSH ME</button>
+        <span>拟物3D (点击物理下沉)</span>
+    </div>
+
+    <div class="btn-box">
+        <div class="btn-glow-wrap">
+            <div class="btn-glow-inner">GLOWING</div>
+        </div>
+        <span>幻彩炫光 (悬停背景极光)</span>
+    </div>
+</div>
+
+</body>
+</html>

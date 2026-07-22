@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手电筒光束旋转模拟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #080810;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            cursor: crosshair;
+            background: radial-gradient(circle at center, #111125, #05050b);
+        }
+        .info {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            pointer-events: none;
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<canvas id="shapeCanvas"></canvas>
+<div class="info">✦ 鼠标移动 · 控制手电筒朝向 ✦</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('shapeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = 0;
+        let height = 0;
+
+// 鼠标坐标 (用于计算朝向角)
+        let mouseX = 0;
+        let mouseY = 0;
+        let mouseInside = false;
+
+// 手电筒底座（光源起点）固定在屏幕底部中央
+        let sourceX = 0;
+        let sourceY = 0;
+
+// ---------- 手电筒固定参数 ----------
+        const LIGHT_START_WIDTH = 1;  // 手电筒口宽度（固定）
+        const DIVERGENCE_RATE = 0.01;  // 固定的发散比例（决定手电筒光锥的夹角）
+        let beamLength = 0;            // 光束固定长度（初始化时根据屏幕大小计算，确保射出屏幕）
+
+// 动态尘埃微粒
+        const particles = [];
+        const PARTICLE_COUNT = 50;
+
+        class DustParticle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = -Math.random() * 0.3 - 0.1; // 缓慢向上漂浮
+                this.alpha = 0;
+                this.maxAlpha = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0 || this.x < 0 || this.x > width) {
+                    this.reset();
+                    this.y = height;
+                }
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new DustParticle());
+            }
+        }
+
+// ---------- 尺寸自适应 ----------
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            sourceX = width / 2;
+            sourceY = height - 15; // 露出手电筒外壳
+
+            // 光束长度固定为屏幕对角线长度，确保能一直射到屏幕外
+            beamLength = Math.sqrt(width * width + height * height);
+
+            if (!mouseInside) {
+                mouseX = width / 2;
+                mouseY = height / 3;
+            }
+        }
+
+// ---------- 绘制核心 ----------
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+
+            // 1. 计算手电筒朝向角度 (只由鼠标位置决定朝向)
+            const dx = mouseX - sourceX;
+            const dy = mouseY - sourceY;
+            const angle = Math.atan2(dy, dx);
+
+            // 2. 核心改变：终点宽度基于“固定光束长度”，而非鼠标距离
+            const lightEndWidth = LIGHT_START_WIDTH + beamLength * DIVERGENCE_RATE;
+
+            // 3. 计算光束终点的中心坐标
+            const endX = sourceX + beamLength * Math.cos(angle);
+            const endY = sourceY + beamLength * Math.sin(angle);
+
+            // 4. 计算光束（发散三角形/梯形）的四个关键顶点
+            const sinA = Math.sin(angle);
+            const cosA = Math.cos(angle);
+
+            // 起点处左右两点 (窄)
+            const xStartLeft = sourceX + LIGHT_START_WIDTH * sinA;
+            const yStartLeft = sourceY - LIGHT_START_WIDTH * cosA;
+            const xStartRight = sourceX - LIGHT_START_WIDTH * sinA;
+            const yStartRight = sourceY + LIGHT_START_WIDTH * cosA;
+
+            // 终点处左右两点 (宽，发散)
+            const xEndLeft = endX + lightEndWidth * sinA;
+            const yEndLeft = endY - lightEndWidth * cosA;
+            const xEndRight = endX - lightEndWidth * sinA;
+            const yEndRight = endY + lightEndWidth * cosA;
+
+            // ========== 绘制发散光束主体 ==========
+            ctx.beginPath();
+            ctx.moveTo(xStartLeft, yStartLeft);
+            ctx.lineTo(xEndLeft, yEndLeft);
+            ctx.lineTo(xEndRight, yEndRight);
+            ctx.lineTo(xStartRight, yStartRight);
+            ctx.closePath();
+
+            // 渐变色：从底部手电筒口向射出方向延伸，越远越暗
+            const beamGradient = ctx.createLinearGradient(sourceX, sourceY, endX, endY);
+            beamGradient.addColorStop(0, 'rgba(255, 255, 255, 0.85)');   // 起点：高亮白光
+            beamGradient.addColorStop(0.1, 'rgba(0, 242, 254, 0.5)');   // 青色过渡
+            beamGradient.addColorStop(0.4, 'rgba(79, 172, 254, 0.25)');  // 蓝色过渡
+            beamGradient.addColorStop(0.8, 'rgba(245, 87, 108, 0.05)');  // 边缘暖红
+            beamGradient.addColorStop(1, 'rgba(240, 147, 251, 0.0)');    // 终点：消散在黑暗中
+
+            ctx.fillStyle = beamGradient;
+            ctx.fill();
+
+            // ========== 绘制边缘发光 (Glow) ==========
+            ctx.shadowColor = 'rgba(79, 172, 254, 0.3)';
+            ctx.shadowBlur = 35;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.shadowBlur = 0; // 重置阴影
+
+            // ========== 照亮范围内的动态尘埃 ==========
+            particles.forEach(p => {
+                p.update();
+
+                // 判定尘埃是否在固定长度的光束内
+                // t 代表微粒在光束中心线上的投影比例 (0 ~ 1)
+                const t = ((p.x - sourceX) * Math.cos(angle) + (p.y - sourceY) * Math.sin(angle)) / beamLength;
+
+                if (t >= 0 && t <= 1) {
+                    const projX = sourceX + t * beamLength * Math.cos(angle);
+                    const projY = sourceY + t * beamLength * Math.sin(angle);
+                    const dToAxis = Math.sqrt((p.x - projX) ** 2 + (p.y - projY) ** 2);
+
+                    // 当前位置光束的限制半宽
+                    const currentHalfWidth = (LIGHT_START_WIDTH + (t * beamLength) * DIVERGENCE_RATE);
+
+                    if (dToAxis < currentHalfWidth) {
+                        // 越靠近光源越亮，越靠近光束中心越亮
+                        const intensity = (1 - (dToAxis / currentHalfWidth)) * (1 - t * 0.8);
+                        p.alpha = Math.min(p.maxAlpha, intensity * 0.7);
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                        ctx.shadowBlur = 3;
+                        ctx.shadowColor = '#00f2fe';
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                    }
+                }
+            });
+
+            // ========== 绘制手电筒物理喷口 (底部旋转底座) ==========
+            ctx.save();
+            ctx.translate(sourceX, sourceY);
+            ctx.rotate(angle + Math.PI/2); // 旋转指向鼠标
+
+            // 金属外壳
+            ctx.fillStyle = '#1e1e2f';
+            ctx.strokeStyle = '#4e4e6a';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-10, 10);
+            ctx.lineTo(-6, -5);
+            ctx.lineTo(6, -5);
+            ctx.lineTo(10, 10);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 镜片光源
+            const glassGradient = ctx.createRadialGradient(0, -3, 1, 0, -3, 6);
+            glassGradient.addColorStop(0, '#ffffff');
+            glassGradient.addColorStop(0.5, '#00f2fe');
+            glassGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = glassGradient;
+            ctx.beginPath();
+            ctx.arc(0, -3, 6, 0, Math.PI, true);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+// ---------- 循环渲染动画 ----------
+        function tick() {
+            draw();
+            requestAnimationFrame(tick);
+        }
+
+// ---------- 鼠标事件 ----------
+        function onMouseMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            mouseX = (e.clientX - rect.left) * scaleX;
+            mouseY = (e.clientY - rect.top) * scaleY;
+
+            mouseInside = true;
+        }
+
+        function onMouseLeave() {
+            mouseInside = false;
+        }
+
+        function onMouseEnter(e) {
+            mouseInside = true;
+            onMouseMove(e);
+        }
+
+// ---------- 窗口自适应 ----------
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+        });
+
+// ---------- 初始化 ----------
+        function init() {
+            resizeCanvas();
+            initParticles();
+
+            mouseX = width / 2;
+            mouseY = height / 4;
+            mouseInside = true;
+
+            canvas.addEventListener('mousemove', onMouseMove);
+            canvas.addEventListener('mouseleave', onMouseLeave);
+            canvas.addEventListener('mouseenter', onMouseEnter);
+
+            tick();
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
