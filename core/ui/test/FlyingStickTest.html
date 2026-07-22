@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞棍遮挡特效按钮</title>
+    <style>
+        /* 让按钮在页面居中显示，方便预览 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c3e50; /* 深色背景更能衬托白色按钮 */
+            margin: 0;
+        }
+
+        /* 1. 基地是白色的 */
+        .magic-btn {
+            position: relative;
+            background: #ffffff;
+            border: none;
+            padding: 20px 60px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            overflow: hidden; /* 必须：隐藏按钮外的飞棍 */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* 文字层需要保持在最上层，避免被长方体遮挡 */
+        .magic-btn .text {
+            position: relative;
+            z-index: 10;
+            transition: color 0.3s ease 0.3s; /* 配合背景变色延迟变化 */
+        }
+
+        /* 当鼠标悬浮时，文字变白以适应深色的长方体背景 */
+        .magic-btn:hover .text {
+            color: #ffffff;
+        }
+
+        /* 2. 初始状态：准备两根“飞棍” */
+        .magic-btn::before,
+        .magic-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 6px; /* 飞棍的初始宽度 */
+            /* 鼠标移开时的还原动画：先变细（0.3s），然后再飞走（延迟0.3s执行位置变化） */
+            transition: width 0.3s ease 0s, left 0.3s ease 0.3s, right 0.3s ease 0.3s;
+        }
+
+        /* 3. 左边的飞棍 (前层) */
+        .magic-btn::before {
+            left: -20px; /* 初始隐藏在左侧外面 */
+            background-color: #FF3366; /* 亮粉色 */
+            z-index: 3; /* z-index大，一前一后的 "前" */
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3); /* 加一点阴影突出前后立体的遮挡感 */
+        }
+
+        /* 4. 右边的飞棍 (后层) */
+        .magic-btn::after {
+            right: -20px; /* 初始隐藏在右侧外面 */
+            background-color: #00C9B1; /* 青绿色，与粉色恰好是高对比度色 */
+            z-index: 2; /* z-index小，一前一后的 "后" */
+        }
+
+        /* 5. 鼠标悬浮动画 (Hover) */
+
+        /* 左侧飞棍：先飞到边缘，再拉长变成长方体 */
+        .magic-btn:hover::before {
+            left: 0;
+            width: 65%; /* 宽度超过50%，让两个长方体在中间产生重叠遮挡 */
+            /* 悬浮时的进场动画：先飞入（0s延迟），再变宽（延迟0.3s执行宽度变化） */
+            transition: left 0.3s ease 0s, width 0.3s ease 0.3s;
+        }
+
+        /* 右侧飞棍：先飞到边缘，再拉长变成长方体 */
+        .magic-btn:hover::after {
+            right: 0;
+            width: 65%; /* 同样超过50%产生重叠 */
+            /* 悬浮时的进场动画：先飞入（0s延迟），再变宽（延迟0.3s执行宽度变化） */
+            transition: right 0.3s ease 0s, width 0.3s ease 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<button class="magic-btn">
+    <span class="text">HOVER ME</span>
+</button>
+
+</body>
+</html>
