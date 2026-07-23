@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复古示波器声波信号</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #050b08; /* 深黑绿色复古背景 */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: monospace;
+    }
+    /* 网格背景模拟老式示波器荧光屏 */
+    .screen {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background-linear-gradient: transparent;
+      background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="screen">
+    <canvas id="scopeCanvas"></canvas>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('scopeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    let history = []; // 存储波形的历史数据
+    const speed = 4;   // 信号向左滚动的速度
+    
+    // 鼠标移动强度记录
+    let mouseActivity = 0;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      // 初始化历史缓冲区
+      const maxPoints = Math.ceil(width / speed);
+      history = new Array(maxPoints).fill(0);
+    }
+
+    // 监听鼠标移动，越快/幅度越大，生成的声波强度越强
+    window.addEventListener('mousemove', (e) => {
+      const dx = e.clientX - lastMouseX;
+      const dy = e.clientY - lastMouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      
+      // 将鼠标移动的速度转化为声波震荡幅度
+      mouseActivity += dist * 1.5;
+      
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+    });
+
+    window.addEventListener('resize', resize);
+
+    function animate() {
+      // 1. 绘制半透明黑色背景，产生老式CRT显示屏的“荧光残影”效果
+      ctx.fillStyle = 'rgba(5, 11, 8, 0.25)';
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. 生成当前时刻的信号点 (Y轴偏移量)
+      let signal = 0;
+
+      if (mouseActivity > 0.5) {
+        // 模拟复杂的声波/电信号：多个高频正弦波 + 随机高频噪点
+        const time = Date.now() * 0.02;
+        const baseWave = Math.sin(time) * Math.cos(time * 2.3);
+        const noise = (Math.random() - 0.5) * 2;
+        
+        // 鼠标活动强时，波形剧烈上下跳动
+        signal = (baseWave + noise * 0.7) * Math.min(mouseActivity, 150);
+        
+        // 衰减鼠标活动度
+        mouseActivity *= 0.88;
+      } else {
+        // 没有鼠标操作时，保持极小的“基线微弱噪声”（老仪器特有的杂波）
+        signal = (Math.random() - 0.5) * 2;
+      }
+
+      // 3. 将新信号存入历史数组，旧信号向前推
+      history.push(signal);
+      history.shift();
+
+      // 4. 绘制信号波形
+      const centerY = height / 2;
+      
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#00ff41'; // 复古示波器经典的绿色荧光
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#00ff41'; // 绿光发光扩散
+
+      for (let i = 0; i < history.length; i++) {
+        const x = i * speed;
+        const y = centerY + history[i];
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          // 折线连接（保持老式仪器的锯齿感与高频感）
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.stroke();
+
+      requestAnimationFrame(animate);
+    }
+
+    // 启动
+    resize();
+    animate();
+  </script>
+</body>
+</html>
