@@ -22,6 +22,14 @@ let heartbeatTimer = null;
 let gameWindow = null;
 /** @type {BrowserWindow | null} */
 let petWindow = null;
+const RESOLUTION_PRESETS = [
+  { width: 1024, height: 576 },
+  { width: 1152, height: 648 },
+  { width: 1280, height: 720 },
+  { width: 1366, height: 768 },
+  { width: 1600, height: 900 },
+  { width: 1920, height: 1080 },
+];
 
 // File used to persist sprite-anchor presets in Electron app data.
 const SPRITE_PRESETS_FILENAME = "sprite-anchor-presets.json";
@@ -165,6 +173,47 @@ const registerIpcHandlers = () => {
     if (petWindow && !petWindow.isDestroyed()) {
       petWindow.hide();
     }
+  });
+
+  // Read current main game window display settings and built-in presets.
+  ipcMain.handle("window:get-display-settings", async () => {
+    if (!gameWindow || gameWindow.isDestroyed()) {
+      return {
+        width: 1280,
+        height: 720,
+        fullscreen: false,
+        resolutions: RESOLUTION_PRESETS,
+      };
+    }
+    const [width, height] = gameWindow.getSize();
+    return {
+      width,
+      height,
+      fullscreen: gameWindow.isFullScreen(),
+      resolutions: RESOLUTION_PRESETS,
+    };
+  });
+
+  // Apply main game window size/fullscreen settings.
+  ipcMain.handle("window:apply-display-settings", async (_event, payload) => {
+    if (!gameWindow || gameWindow.isDestroyed()) {
+      return { ok: false, message: "game window not available" };
+    }
+    const nextWidth = Number(payload?.width);
+    const nextHeight = Number(payload?.height);
+    const nextFullscreen = Boolean(payload?.fullscreen);
+
+    if (Number.isFinite(nextWidth) && Number.isFinite(nextHeight)) {
+      gameWindow.setSize(Math.max(640, Math.round(nextWidth)), Math.max(360, Math.round(nextHeight)));
+    }
+    gameWindow.setFullScreen(nextFullscreen);
+    const [width, height] = gameWindow.getSize();
+    return {
+      ok: true,
+      width,
+      height,
+      fullscreen: gameWindow.isFullScreen(),
+    };
   });
 
   // Read sprite presets json from Electron app data.

@@ -42,6 +42,7 @@ export const OscilloscopeUiLab: React.FC = () => {
   const [showImpactMarkers, setShowImpactMarkers] = useState(true);
   const [autoInjectOnPointerDown, setAutoInjectOnPointerDown] = useState(true);
   const [maxActiveWaves, setMaxActiveWaves] = useState(24);
+  const [edgePadding, setEdgePadding] = useState(18);
   const [shapeSizeRatio, setShapeSizeRatio] = useState(0.22);
   const [shapeWidthScale, setShapeWidthScale] = useState(1);
   const [shapeHeightScale, setShapeHeightScale] = useState(1);
@@ -54,6 +55,9 @@ export const OscilloscopeUiLab: React.FC = () => {
   const [imageUrl, setImageUrl] = useState('');
   const [waveCount, setWaveCount] = useState(0);
   const [exportStatusText, setExportStatusText] = useState('');
+  const [previewWidth, setPreviewWidth] = useState(480);
+  const [previewHeight, setPreviewHeight] = useState(260);
+  const isEdgeFitShape = shapeType === 'square' || shapeType === 'rectangle';
   const isRectangleShape = shapeType === 'rectangle';
   const isPolygonShape = shapeType === 'polygon';
   const isStarShape = shapeType === 'star';
@@ -77,6 +81,7 @@ export const OscilloscopeUiLab: React.FC = () => {
     showImpactMarkers,
     autoInjectOnPointerDown,
     maxActiveWaves,
+    edgePadding,
     shapeSizeRatio,
     shapeWidthScale,
     shapeHeightScale,
@@ -105,6 +110,7 @@ export const OscilloscopeUiLab: React.FC = () => {
     showImpactMarkers,
     autoInjectOnPointerDown,
     maxActiveWaves,
+    edgePadding,
     shapeSizeRatio,
     shapeWidthScale,
     shapeHeightScale,
@@ -216,6 +222,9 @@ export const OscilloscopeUiLab: React.FC = () => {
         <h3 style={{ margin: 0, color: '#4ade80' }}>Oscilloscope UI Lab</h3>
         <div style={{ fontSize: 12, opacity: 0.9 }}>
           组件接口联调：创建、参数设置、波纹触发、背景切换、承载 React 内容。
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.9 }}>
+          `square/rectangle` 会沿容器边缘采样，非全屏尺寸也可直接作为 UI 边框层使用。
         </div>
 
         <label>
@@ -420,6 +429,49 @@ export const OscilloscopeUiLab: React.FC = () => {
         </label>
 
         <label>
+          预览宽度 {previewWidth}px
+          <input
+            type="range"
+            min={100}
+            max={900}
+            step={2}
+            value={previewWidth}
+            onChange={(event) => setPreviewWidth(Number(event.target.value))}
+            style={{ width: '100%' }}
+          />
+        </label>
+
+        <label>
+          预览高度 {previewHeight}px
+          <input
+            type="range"
+            min={50}
+            max={500}
+            step={2}
+            value={previewHeight}
+            onChange={(event) => setPreviewHeight(Number(event.target.value))}
+            style={{ width: '100%' }}
+          />
+        </label>
+
+        <label>
+          边缘留白（震动缓冲） {edgePadding}px
+          <input
+            type="range"
+            min={0}
+            max={80}
+            step={1}
+            value={edgePadding}
+            onChange={(event) => {
+              const next = Number(event.target.value);
+              setEdgePadding(next);
+              panelRef.current?.setConfig({ edgePadding: next });
+            }}
+            style={{ width: '100%' }}
+          />
+        </label>
+
+        <label>
           点击波强度倍率 {pointerWaveIntensityMultiplier.toFixed(2)}
           <input
             type="range"
@@ -504,58 +556,62 @@ export const OscilloscopeUiLab: React.FC = () => {
           />
         </label>
 
-        <label>
-          形状尺寸 {shapeSizeRatio.toFixed(2)}
-          <input
-            type="range"
-            min={0.12}
-            max={0.36}
-            step={0.01}
-            value={shapeSizeRatio}
-            onChange={(event) => {
-              const next = Number(event.target.value);
-              setShapeSizeRatio(next);
-              panelRef.current?.setConfig({ shapeSizeRatio: next });
-            }}
-            style={{ width: '100%' }}
-          />
-        </label>
+        {!isEdgeFitShape ? (
+          <>
+            <label>
+              形状尺寸 {shapeSizeRatio.toFixed(2)}
+              <input
+                type="range"
+                min={0.12}
+                max={0.36}
+                step={0.01}
+                value={shapeSizeRatio}
+                onChange={(event) => {
+                  const next = Number(event.target.value);
+                  setShapeSizeRatio(next);
+                  panelRef.current?.setConfig({ shapeSizeRatio: next });
+                }}
+                style={{ width: '100%' }}
+              />
+            </label>
 
-        <label>
-          水平缩放 {shapeWidthScale.toFixed(2)}
-          <input
-            type="range"
-            min={0.4}
-            max={2}
-            step={0.01}
-            value={shapeWidthScale}
-            onChange={(event) => {
-              const next = Number(event.target.value);
-              setShapeWidthScale(next);
-              panelRef.current?.setConfig({ shapeWidthScale: next });
-            }}
-            style={{ width: '100%' }}
-          />
-        </label>
+            <label>
+              水平缩放 {shapeWidthScale.toFixed(2)}
+              <input
+                type="range"
+                min={0.4}
+                max={2}
+                step={0.01}
+                value={shapeWidthScale}
+                onChange={(event) => {
+                  const next = Number(event.target.value);
+                  setShapeWidthScale(next);
+                  panelRef.current?.setConfig({ shapeWidthScale: next });
+                }}
+                style={{ width: '100%' }}
+              />
+            </label>
 
-        <label>
-          垂直缩放 {shapeHeightScale.toFixed(2)}
-          <input
-            type="range"
-            min={0.4}
-            max={2}
-            step={0.01}
-            value={shapeHeightScale}
-            onChange={(event) => {
-              const next = Number(event.target.value);
-              setShapeHeightScale(next);
-              panelRef.current?.setConfig({ shapeHeightScale: next });
-            }}
-            style={{ width: '100%' }}
-          />
-        </label>
+            <label>
+              垂直缩放 {shapeHeightScale.toFixed(2)}
+              <input
+                type="range"
+                min={0.4}
+                max={2}
+                step={0.01}
+                value={shapeHeightScale}
+                onChange={(event) => {
+                  const next = Number(event.target.value);
+                  setShapeHeightScale(next);
+                  panelRef.current?.setConfig({ shapeHeightScale: next });
+                }}
+                style={{ width: '100%' }}
+              />
+            </label>
+          </>
+        ) : null}
 
-        {isRectangleShape ? (
+        {isRectangleShape && !isEdgeFitShape ? (
           <>
             <label>
               矩形宽比 {rectangleWidthRatio.toFixed(2)}
@@ -745,15 +801,29 @@ export const OscilloscopeUiLab: React.FC = () => {
         </div>
       </aside>
 
-      <main style={{ padding: 24, minWidth: 0, minHeight: 0 }}>
+      <main
+        style={{
+          padding: 24,
+          minWidth: 0,
+          minHeight: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
         <div
           style={{
-            width: '100%',
-            height: '100%',
+            width: previewWidth,
+            height: previewHeight,
+            maxWidth: '100%',
+            maxHeight: '100%',
+            minWidth: 100,
+            minHeight: 50,
             border: '1px solid rgba(74, 222, 128, 0.25)',
             borderRadius: 10,
             overflow: 'hidden',
-            background: '#010302'
+            background: '#010302',
+            resize: 'both'
           }}
         >
           <OscilloscopeMaskPanel

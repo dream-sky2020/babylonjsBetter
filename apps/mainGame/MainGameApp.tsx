@@ -1,8 +1,10 @@
 import { useCallback, useMemo, useState } from 'react';
 import { getRuntimeKind, invokeNative, isElectronRuntime } from '@/runtime/nativeBridge';
+import { GameDisplaySettingsPanel } from '@/core/ui';
 
 export const MainGameApp = () => {
   const [statusText, setStatusText] = useState('当前是 MainGame 模式');
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const runtimeText = useMemo(() => getRuntimeKind(), []);
 
   const switchToPetMode = useCallback(async () => {
@@ -29,8 +31,12 @@ export const MainGameApp = () => {
           <button type="button" onClick={() => { void switchToPetMode(); }}>
             切换到桌宠模式
           </button>
+          <button type="button" onClick={() => setIsSettingsOpen(true)}>
+            打开显示设置
+          </button>
         </div>
       </section>
+      <GameDisplaySettingsPanel open={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
     </main>
   );
 };
