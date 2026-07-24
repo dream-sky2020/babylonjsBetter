@@ -89,6 +89,7 @@ export default defineConfig({
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
         spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
+        oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }

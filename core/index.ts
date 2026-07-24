@@ -11,3 +11,4 @@ export * from './scene/createParticleEditorScene';
 export * from './scene/createBattleScene';
 export * from './camera/battleCamera.core.ts';
 export * from './types/battle.types';
+export * from './ui';

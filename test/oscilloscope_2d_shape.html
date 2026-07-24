@@ -212,6 +212,8 @@
     let impactMarkers = [];
     // 点击前的放置预览位置
     const hoverPlacement = { x: -1000, y: -1000, index: -1, distance: Infinity };
+    // 简单帧计数，用于驱动遮罩内的 UI 动效
+    let frameTick = 0;
 
     const WAVE_PRESETS = {
       ecg_sharp: {
@@ -534,10 +536,72 @@
       ctx.restore();
     }
 
+    // 将当前“扭动后”的外轮廓写成路径，供描边/裁剪复用
+    function traceCurrentShapePath(targetCtx) {
+      targetCtx.beginPath();
+      for (let i = 0; i < N; i++) {
+        const pt = points[i];
+        const offset = offsets[i] || 0;
+        const x = centerX + pt.baseX + pt.nx * offset;
+        const y = centerY + pt.baseY + pt.ny * offset;
+        if (i === 0) {
+          targetCtx.moveTo(x, y);
+        } else {
+          targetCtx.lineTo(x, y);
+        }
+      }
+      targetCtx.closePath();
+    }
+
+    // 把扭动轮廓当成动态遮罩，在内部承载 UI 纹理
+    function drawMaskedUIContent(color) {
+      const t = frameTick * 0.02;
+
+      ctx.save();
+      traceCurrentShapePath(ctx);
+      ctx.clip();
+
+      // 面板底色 + 轻微呼吸感
+      const panelGlow = ctx.createRadialGradient(
+        centerX, centerY, Math.min(width, height) * 0.08,
+        centerX, centerY, Math.min(width, height) * 0.48
+      );
+      panelGlow.addColorStop(0, 'rgba(10, 32, 20, 0.88)');
+      panelGlow.addColorStop(1, 'rgba(2, 10, 7, 0.96)');
+      ctx.fillStyle = panelGlow;
+      ctx.fillRect(0, 0, width, height);
+
+      // 扫描线（会流动，且被动态轮廓约束）
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = 0.14;
+      const scanGap = 14;
+      for (let y = -scanGap; y < height + scanGap; y += scanGap) {
+        const waveX = Math.sin(t + y * 0.03) * 12;
+        ctx.beginPath();
+        ctx.moveTo(-20 + waveX, y + ((frameTick % scanGap) * 0.75));
+        ctx.lineTo(width + 20 + waveX, y + ((frameTick % scanGap) * 0.75));
+        ctx.stroke();
+      }
+
+      // 内部假 UI 条形（示波器数据条）
+      ctx.globalAlpha = 0.24;
+      for (let i = 0; i < 7; i++) {
+        const bandY = centerY - 90 + i * 30;
+        const amp = 0.45 + 0.55 * Math.abs(Math.sin(t * 1.4 + i * 0.8));
+        const barW = Math.min(width, height) * 0.22 * amp;
+        ctx.fillStyle = color;
+        ctx.fillRect(centerX - barW * 0.5, bandY, barW, 7);
+      }
+
+      ctx.restore();
+    }
+
     // 渲染图层（残影 + 发光线条 + 注入点标记）
     function draw() {
       ctx.fillStyle = 'rgba(2, 6, 4, 0.25)';
       ctx.fillRect(0, 0, width, height);
+      frameTick += 1;
 
       updateWavesAndOffsets();
       if (
@@ -551,28 +615,13 @@
         hoverPlacement.distance = target.distance;
       }
       const color = colorThemeSelect.value;
+      drawMaskedUIContent(color);
 
       ctx.strokeStyle = color;
       ctx.lineWidth = 2.2;
       ctx.shadowBlur = 10;
       ctx.shadowColor = color;
-
-      ctx.beginPath();
-      for (let i = 0; i < N; i++) {
-        const pt = points[i];
-        const offset = offsets[i];
-
-        // 沿着法线偏移
-        const x = centerX + pt.baseX + pt.nx * offset;
-        const y = centerY + pt.baseY + pt.ny * offset;
-
-        if (i === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      ctx.closePath();
+      traceCurrentShapePath(ctx);
       ctx.stroke();
       drawPlacementPreview(color);
       drawImpactMarkers(color);
