@@ -11,6 +11,32 @@ export type HeartbeatPayload = {
   unix_ms: number;
 };
 
+export type DisplayResolution = {
+  width: number;
+  height: number;
+};
+
+export type DisplaySettingsSnapshot = {
+  width: number;
+  height: number;
+  fullscreen: boolean;
+  resolutions: DisplayResolution[];
+};
+
+export type ApplyDisplaySettingsPayload = {
+  width: number;
+  height: number;
+  fullscreen: boolean;
+};
+
+export type ApplyDisplaySettingsResult = {
+  ok: boolean;
+  width?: number;
+  height?: number;
+  fullscreen?: boolean;
+  message?: string;
+};
+
 // Event channels pushed from Electron main process to renderer.
 type NativeEventPayloadMap = {
   "pet://state_changed": PetStatePayload;
@@ -24,6 +50,8 @@ type NativeInvokeMap = {
   "pet:set-state": PetStatePayload;
   "window:switch-to-pet-mode": undefined;
   "window:switch-to-game-mode": undefined;
+  "window:get-display-settings": undefined;
+  "window:apply-display-settings": ApplyDisplaySettingsPayload;
   "sprite-presets:read-json": undefined;
   "sprite-presets:write-json": string;
 };

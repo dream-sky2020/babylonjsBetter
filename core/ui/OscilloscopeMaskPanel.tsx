@@ -20,6 +20,7 @@ type PointData = {
 };
 
 type WaveConfig = {
+  // 单次波形的静态参数（可视为预设模板）
   intensity: number;
   durationFrames: number;
   decayPerFrame: number;
@@ -32,6 +33,7 @@ type WaveConfig = {
 };
 
 type WaveRuntime = {
+  // 单次波形在运行时的状态（每帧都会更新）
   centerIndex: number;
   radius: number;
   age: number;
@@ -81,6 +83,7 @@ export type OscilloscopePanelConfig = {
   clearFillAlpha: number;
   previewSpan: number;
   interactionRadius: number;
+  edgePadding: number;
   shapeSizeRatio: number;
   shapeWidthScale: number;
   shapeHeightScale: number;
@@ -136,6 +139,7 @@ const DEFAULT_CONFIG: OscilloscopePanelConfig = {
   clearFillAlpha: 0.25,
   previewSpan: 8,
   interactionRadius: 140,
+  edgePadding: 18,
   shapeSizeRatio: 0.22,
   shapeWidthScale: 1,
   shapeHeightScale: 1,
@@ -169,6 +173,7 @@ const DEFAULT_BACKGROUND: OscilloscopeBackgroundConfig = {
 };
 
 const WAVE_PRESETS: Record<OscilloscopeWavePresetId, WaveConfig> = {
+  // ECG 风格：峰值尖锐、传播较快，视觉冲击更强
   ecg_sharp: {
     intensity: 38,
     durationFrames: 90,
@@ -188,6 +193,7 @@ const WAVE_PRESETS: Record<OscilloscopeWavePresetId, WaveConfig> = {
     }
   },
   soft: {
+    // 柔和模式：传播慢、衰减慢，整体更平滑
     intensity: 26,
     durationFrames: 110,
     decayPerFrame: 0.975,
@@ -206,6 +212,7 @@ const WAVE_PRESETS: Record<OscilloscopeWavePresetId, WaveConfig> = {
     }
   },
   shock: {
+    // 冲击模式：强度高、时长短，适合“点击触发”的反馈
     intensity: 52,
     durationFrames: 58,
     decayPerFrame: 0.948,
@@ -249,6 +256,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     const markersRef = useRef<MarkerRuntime[]>([]);
     const cfgRef = useRef<OscilloscopePanelConfig>({ ...DEFAULT_CONFIG, ...(config ?? {}) });
     const bgRef = useRef<OscilloscopeBackgroundConfig>({ ...DEFAULT_BACKGROUND, ...(background ?? {}) });
+    // stateRef 存放“不会触发 React 重渲染”的高频状态，避免每帧 setState 带来的性能开销
     const stateRef = useRef({
       width: 0,
       height: 0,
@@ -267,6 +275,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     const hasChildren = useMemo(() => Boolean(children), [children]);
 
     const loadBackgroundImage = (url: string) => {
+      // 背景图仅缓存最后一次成功加载的 Image，失败则清空，绘制时自动回退到渐变逻辑
       if (!url) {
         backgroundImageRef.current = null;
         return;
@@ -282,6 +291,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const generateShape = () => {
+      // 根据当前配置离散化生成 N 个轮廓采样点（点位 + 法线）
       const cfg = cfgRef.current;
       const nextPoints: PointData[] = [];
       const { width, height } = stateRef.current;
@@ -292,11 +302,13 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       const sinR = Math.sin(rotationRad);
       const shapeWidthScale = Math.max(0.1, cfg.shapeWidthScale);
       const shapeHeightScale = Math.max(0.1, cfg.shapeHeightScale);
-      const rectangleWidthRatio = Math.max(0.2, cfg.rectangleWidthRatio);
-      const rectangleHeightRatio = Math.max(0.2, cfg.rectangleHeightRatio);
       const polygonSides = Math.max(3, Math.floor(cfg.polygonSides));
       const starPoints = Math.max(3, Math.floor(cfg.starPoints));
       const starInnerRatio = Math.min(0.95, Math.max(0.05, cfg.starInnerRatio));
+      const halfWidth = width * 0.5;
+      const halfHeight = height * 0.5;
+      const maxEdgePadding = Math.max(2, Math.min(halfWidth, halfHeight) - 1);
+      const edgePadding = Math.min(maxEdgePadding, Math.max(0, cfg.edgePadding));
 
       for (let i = 0; i < N; i++) {
         const t = (i / N) * Math.PI * 2;
@@ -312,37 +324,39 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
           nx = bx / len;
           ny = by / len;
         } else if (cfg.shapeType === 'square' || cfg.shapeType === 'rectangle') {
-          const shapeRatioX = cfg.shapeType === 'rectangle' ? rectangleWidthRatio : 1;
-          const shapeRatioY = cfg.shapeType === 'rectangle' ? rectangleHeightRatio : 1;
-          const w = size * shapeWidthScale * shapeRatioX;
-          const h = size * shapeHeightScale * shapeRatioY;
-          const p = i / N;
-          if (p < 0.25) {
-            const sub = p / 0.25;
-            bx = -w + sub * 2 * w;
-            by = -h;
+          // 方形/矩形模式改为“贴边矩形”：直接沿容器边缘采样，不再依赖中心半径 size。
+          const left = -halfWidth + edgePadding;
+          const right = halfWidth - edgePadding;
+          const top = -halfHeight + edgePadding;
+          const bottom = halfHeight - edgePadding;
+          const horizontal = Math.max(1, right - left);
+          const vertical = Math.max(1, bottom - top);
+          const perimeter = horizontal * 2 + vertical * 2;
+          const d = (i / N) * perimeter;
+
+          if (d < horizontal) {
+            bx = left + d;
+            by = top;
             nx = 0;
             ny = -1;
-          } else if (p < 0.5) {
-            const sub = (p - 0.25) / 0.25;
-            bx = w;
-            by = -h + sub * 2 * h;
+          } else if (d < horizontal + vertical) {
+            bx = right;
+            by = top + (d - horizontal);
             nx = 1;
             ny = 0;
-          } else if (p < 0.75) {
-            const sub = (p - 0.5) / 0.25;
-            bx = w - sub * 2 * w;
-            by = h;
+          } else if (d < horizontal * 2 + vertical) {
+            bx = right - (d - horizontal - vertical);
+            by = bottom;
             nx = 0;
             ny = 1;
           } else {
-            const sub = (p - 0.75) / 0.25;
-            bx = -w;
-            by = h - sub * 2 * h;
+            bx = left;
+            by = bottom - (d - horizontal * 2 - vertical);
             nx = -1;
             ny = 0;
           }
         } else if (cfg.shapeType === 'polygon') {
+          // 多边形：先定位当前边，再在线段上插值
           const angleStep = (Math.PI * 2) / polygonSides;
           const sideIndex = Math.floor(t / angleStep);
           const a1 = sideIndex * angleStep;
@@ -358,6 +372,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
           nx = bx / len;
           ny = by / len;
         } else {
+          // 星形：外点和内点交替形成折线轮廓
           const rOuterX = size * shapeWidthScale;
           const rOuterY = size * shapeHeightScale;
           const rInnerX = rOuterX * starInnerRatio;
@@ -382,6 +397,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
         nextPoints.push({ baseX: bx, baseY: by, nx, ny });
       }
       for (let i = 0; i < nextPoints.length; i++) {
+        // 在形状生成后统一做旋转，避免在每种分支里重复旋转代码
         const pt = nextPoints[i];
         const rotatedX = pt.baseX * cosR - pt.baseY * sinR;
         const rotatedY = pt.baseX * sinR + pt.baseY * cosR;
@@ -394,6 +410,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       }
 
       pointsRef.current = nextPoints;
+      // 形状拓扑发生变化后，历史波形和 marker 会失效，直接清空可避免错位
       wavesRef.current = [];
       markersRef.current = [];
       stateRef.current.offsets = new Float32Array(N);
@@ -402,6 +419,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const resizeCanvas = () => {
+      // 画布尺寸与容器保持一致，并在尺寸变化后重建形状采样点
       const root = rootRef.current;
       const canvas = canvasRef.current;
       if (!root || !canvas) return;
@@ -422,6 +440,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const findClosestPointIndex = (x: number, y: number) => {
+      // 在“当前已形变轮廓”上寻找离指针最近的采样点，用于交互落点
       const points = pointsRef.current;
       const offsets = stateRef.current.offsets;
       const { centerX, centerY } = stateRef.current;
@@ -442,6 +461,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const createWaveAt = (centerIndex: number, overrides: TriggerWaveOverrides = {}) => {
+      // 以预设为基准叠加 overrides，创建一条独立传播的运行时波
       const cfg = cfgRef.current;
       const basePreset = WAVE_PRESETS[cfg.wavePreset];
       const merged = { ...basePreset, ...overrides };
@@ -461,6 +481,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
         shapeFn: merged.shapeFn
       });
       const maxActiveWaves = Math.max(1, Math.floor(cfg.maxActiveWaves));
+      // 控制并发波数量，防止长时间交互后累计过多导致计算开销上升
       if (wavesRef.current.length > maxActiveWaves) {
         wavesRef.current.splice(0, wavesRef.current.length - maxActiveWaves);
       }
@@ -471,6 +492,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const createPointerWaveOverrides = (): TriggerWaveOverrides => {
+      // 指针触发的波支持使用独立预设，并按 multiplier 做整体缩放
       const cfg = cfgRef.current;
       const basePreset =
         cfg.pointerWavePreset === 'inherit'
@@ -494,6 +516,8 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const updateWavesAndOffsets = () => {
+      // 每帧两步：
+      // 1) 推进每条 wave 的生命周期；2) 累加所有 wave 对每个采样点的法线位移
       const waves = wavesRef.current;
       const cfg = cfgRef.current;
       const N = cfg.pointCount;
@@ -520,6 +544,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
           if (dist > N / 2) dist = N - dist;
           const x = (dist - wave.radius) / wave.spread;
           if (x > -1.25 && x < 1.15) {
+            // shapeFn 提供“ECG 轮廓”，localFalloff/ life 负责空间与时间上的包络衰减
             const localFalloff = Math.exp(-Math.pow(x / 0.72, 2));
             const life = 1 - wave.age / wave.durationFrames;
             const baseShape = wave.shapeFn(x) * localFalloff * life;
@@ -533,6 +558,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const traceCurrentShapePath = (ctx: CanvasRenderingContext2D) => {
+      // 把“基础点 + 当前偏移”串起来得到本帧真实轮廓路径
       const points = pointsRef.current;
       const offsets = stateRef.current.offsets;
       const { centerX, centerY } = stateRef.current;
@@ -552,12 +578,9 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       const bg = bgRef.current;
       const { width, height, centerX, centerY } = stateRef.current;
       const t = frameTickRef.current * 0.02;
-      ctx.save();
-      traceCurrentShapePath(ctx);
-      ctx.clip();
 
       if (bg.mode === 'none') {
-        ctx.clearRect(0, 0, width, height);
+        // Mode 为 none 时什么都不画，内部也是透的
       } else if (bg.mode === 'solid') {
         ctx.fillStyle = bg.solidColor;
         ctx.fillRect(0, 0, width, height);
@@ -589,6 +612,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       }
 
       if (bg.mode === 'scanline') {
+        // 扫描线做轻微正弦偏移，形成 CRT 式动态感
         ctx.strokeStyle = cfgRef.current.colorTheme;
         ctx.lineWidth = 1;
         ctx.globalAlpha = bg.scanLineAlpha;
@@ -603,6 +627,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       }
 
       if (bg.mode === 'grid') {
+        // 网格模式：与主题色统一，透明度较低避免喧宾夺主
         const step = Math.max(8, bg.gridSpacing);
         ctx.strokeStyle = cfgRef.current.colorTheme;
         ctx.globalAlpha = 0.12;
@@ -620,11 +645,10 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
           ctx.stroke();
         }
       }
-
-      ctx.restore();
     };
 
     const drawPlacementPreview = (ctx: CanvasRenderingContext2D) => {
+      // 仅在 hover 靠近轮廓时显示高亮片段，提示“当前点击会打到哪里”
       const cfg = cfgRef.current;
       const hover = stateRef.current.hover;
       if (!cfg.showPlacementPreview) return;
@@ -656,6 +680,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const drawImpactMarkers = (ctx: CanvasRenderingContext2D) => {
+      // 波注入点的短暂闪烁标记，ttl 递减到 0 后自动回收
       if (!cfgRef.current.showImpactMarkers) return;
       const markers = markersRef.current;
       const points = pointsRef.current;
@@ -693,12 +718,14 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const updateClipPath = () => {
+      // children 层通过 CSS clip-path 跟随同一轮廓，实现“内容被动态形状裁剪”
       if (!hasChildren) return;
       const content = contentRef.current;
       const points = pointsRef.current;
       const { offsets, width, height, centerX, centerY } = stateRef.current;
       if (!content || points.length === 0 || width <= 0 || height <= 0) return;
       const sampleCount = 72;
+      // clip-path 不需要使用全部点，抽样可降低字符串构建和样式更新成本
       const step = Math.max(1, Math.floor(points.length / sampleCount));
       const coords: string[] = [];
       for (let i = 0; i < points.length; i += step) {
@@ -733,12 +760,22 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
         hover.distance = target.distance;
       }
 
+      // 不使用 fillRect 填满背景，保证外围全部为完全透明
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.save();
+      traceCurrentShapePath(ctx);
+      ctx.clip();
+
       if (cfgRef.current.clearFrameEachTick) {
         const alpha = Math.min(1, Math.max(0, cfgRef.current.clearFillAlpha));
         ctx.fillStyle = `rgba(2, 6, 4, ${alpha})`;
         ctx.fillRect(0, 0, width, height);
       }
+
       drawMaskedBackground(ctx);
+      ctx.restore();
+
       ctx.strokeStyle = cfgRef.current.colorTheme;
       ctx.lineWidth = cfgRef.current.lineWidth;
       if (cfgRef.current.enableLineGlow) {
@@ -747,14 +784,17 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       } else {
         ctx.shadowBlur = 0;
       }
+
       traceCurrentShapePath(ctx);
       ctx.stroke();
+
       drawPlacementPreview(ctx);
       drawImpactMarkers(ctx);
       updateClipPath();
     };
 
     const loop = () => {
+      // requestAnimationFrame 自驱动渲染循环
       drawFrame();
       rafIdRef.current = requestAnimationFrame(loop);
     };
@@ -767,6 +807,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      // 记录鼠标在 canvas 内的位置，并实时更新最近采样点
       const pos = getCanvasPos(event);
       const hover = stateRef.current.hover;
       hover.x = pos.x;
@@ -778,6 +819,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     const onPointerDown = (event: PointerEvent) => {
+      // 点击时若命中交互半径内点位，注入一条指针波
       const cfg = cfgRef.current;
       const pos = getCanvasPos(event);
       if (!cfg.autoInjectOnPointerDown) return;
@@ -795,6 +837,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     };
 
     useImperativeHandle(ref, () => ({
+      // 对外暴露 imperative API：方便父级用 ref 主动触发波形/改配置
       triggerWaveByIndex: (index, overrides) => {
         const N = cfgRef.current.pointCount;
         if (!Number.isFinite(index) || N <= 0) return;
@@ -815,10 +858,12 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       },
       setConfig: (nextConfig) => {
         cfgRef.current = { ...cfgRef.current, ...nextConfig };
+        // 只有影响“轮廓拓扑/采样”的配置变化才触发重建，其余参数在下一帧自然生效
         if (
           typeof nextConfig.pointCount === 'number' ||
           typeof nextConfig.shapeType === 'string' ||
           typeof nextConfig.shapeRotationDeg === 'number' ||
+          typeof nextConfig.edgePadding === 'number' ||
           typeof nextConfig.shapeSizeRatio === 'number' ||
           typeof nextConfig.shapeWidthScale === 'number' ||
           typeof nextConfig.shapeHeightScale === 'number' ||
@@ -856,6 +901,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     }), [onPlacement]);
 
     useEffect(() => {
+      // 响应外部 config prop 变更
       cfgRef.current = { ...cfgRef.current, ...(config ?? {}) };
       resizeCanvas();
     }, [config]);
@@ -869,6 +915,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
     }, [background]);
 
     useEffect(() => {
+      // 首次挂载：绑定事件、监听容器尺寸、启动 raf 循环；卸载时完整清理
       loadBackgroundImage(bgRef.current.imageUrl);
       resizeCanvas();
       const canvas = canvasRef.current;

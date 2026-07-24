@@ -5,6 +5,8 @@ type ElectronInvokeChannel =
   | "pet:set-state"
   | "window:switch-to-pet-mode"
   | "window:switch-to-game-mode"
+  | "window:get-display-settings"
+  | "window:apply-display-settings"
   | "sprite-presets:read-json"
   | "sprite-presets:write-json";
 
