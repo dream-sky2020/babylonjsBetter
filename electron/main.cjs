@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, screen } = require("electron");
+const { app, BrowserWindow, ipcMain, screen, Menu } = require("electron");
 const fs = require("node:fs");
 const path = require("node:path");
 
@@ -81,6 +81,7 @@ const createWindows = async () => {
     resizable: true,
     alwaysOnTop: false,
     skipTaskbar: false,
+    autoHideMenuBar: true,
     webPreferences: {
       preload: preloadPath,
       contextIsolation: true,
@@ -88,6 +89,8 @@ const createWindows = async () => {
       sandbox: false,
     },
   });
+
+  gameWindow.setMenu(null);
 
   petWindow = new BrowserWindow({
     title: "DesktopPet",
@@ -197,6 +200,7 @@ const stopHeartbeat = () => {
 // 2) create windows
 // 3) start heartbeat
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(null);
   registerIpcHandlers();
   await createWindows();
   startHeartbeat();
