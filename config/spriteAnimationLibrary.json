@@ -3,14 +3,40 @@
     "demo_xiaoren": {
       "rigId": "demo_xiaoren",
       "name": "演示小人（可改）",
-      "atlasJsonPath": "resources/小人3.json",
-      "atlasImagePath": "resources/小人3.png",
-      "baseSize": 2.2,
+      "atlasJsonPath": "resources/原始位置信息保留——腿部_手部.json",
+      "atlasImagePath": "resources/原始位置信息保留——腿部_手部.png",
+      "baseSize": 2,
       "parts": [
         {
           "partId": "body",
           "label": "身体",
-          "defaultFrameName": "静止.png",
+          "defaultFrameName": "后头发.png",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "rotationDeg": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          "zIndex": 3
+        },
+        {
+          "partId": "part_5",
+          "label": "后头部",
+          "defaultFrameName": "角色默认-006.png",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "rotationDeg": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          "zIndex": 6
+        },
+        {
+          "partId": "part_3",
+          "label": "前手",
+          "defaultFrameName": "后手1.png",
           "transform": {
             "x": 0,
             "y": 0,
@@ -19,6 +45,32 @@
             "scaleY": 1
           },
           "zIndex": 0
+        },
+        {
+          "partId": "part_4",
+          "label": "后手",
+          "defaultFrameName": "后手1.png",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "rotationDeg": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          "zIndex": 5
+        },
+        {
+          "partId": "part_6",
+          "label": "腿",
+          "defaultFrameName": "后手1.png",
+          "transform": {
+            "x": 0,
+            "y": 0,
+            "rotationDeg": 0,
+            "scaleX": 1,
+            "scaleY": 1
+          },
+          "zIndex": 5
         }
       ]
     }
@@ -93,6 +145,73 @@
               "frameName": "移动2.png",
               "x": 0,
               "y": 0
+            }
+          }
+        }
+      ]
+    },
+    "demo_xiaoren/new_clip": {
+      "clipId": "demo_xiaoren/new_clip",
+      "rigId": "demo_xiaoren",
+      "name": "左下小人移动1",
+      "fps": 12,
+      "duration": 2,
+      "loop": true,
+      "keys": [
+        {
+          "time": 0,
+          "parts": {
+            "body": {
+              "frameName": "身体.png",
+              "x": 0,
+              "y": 0,
+              "rotationDeg": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "visible": true
+            },
+            "part_2": {
+              "frameName": "动作1后腿.png",
+              "x": 1.152,
+              "y": -2.7546
+            },
+            "part_3": {
+              "frameName": "前手臂1.png",
+              "x": 0,
+              "y": 0
+            },
+            "part_4": {
+              "frameName": "后手1.png",
+              "x": 0,
+              "y": 0
+            },
+            "part_5": {
+              "frameName": "后头发.png"
+            },
+            "part_6": {
+              "frameName": "腿1.png"
+            }
+          }
+        },
+        {
+          "time": 1,
+          "parts": {
+            "body": {
+              "frameName": "身体.png",
+              "x": 0,
+              "y": 0
+            },
+            "part_5": {
+              "frameName": "后头发.png"
+            },
+            "part_3": {
+              "frameName": "前手臂3.png"
+            },
+            "part_4": {
+              "frameName": "后手3.png"
+            },
+            "part_6": {
+              "frameName": "腿3.png"
             }
           }
         }

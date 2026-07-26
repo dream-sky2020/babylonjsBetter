@@ -57,6 +57,10 @@ export const SpriteAnimationEditor: React.FC = () => {
   });
   const [curveChannel, setCurveChannel] = useState<CurveChannel>('x');
   const [onionSkin, setOnionSkin] = useState<OnionSkinSettings>(DEFAULT_ONION_SKIN_SETTINGS);
+  const [draggingPartId, setDraggingPartId] = useState('');
+  const [dragOverPartId, setDragOverPartId] = useState('');
+  const [customRigAtlasPath, setCustomRigAtlasPath] = useState('');
+  const [customPartAtlasPath, setCustomPartAtlasPath] = useState('');
   const selectedKeyTimeRef = useRef(lib.selectedKeyTime);
   const updateClipRef = useRef(lib.updateClip);
   useEffect(() => {
@@ -103,6 +107,49 @@ export const SpriteAnimationEditor: React.FC = () => {
 
   const selectedPose: SpritePartPose = selectedKey?.parts[lib.selectedPartId] ?? {};
   const partAtlas = lib.rig && selectedPart ? resolvePartAtlas(lib.rig, selectedPart) : null;
+
+  useEffect(() => {
+    const isTypingTarget = (target: EventTarget | null): boolean => {
+      if (!(target instanceof HTMLElement)) return false;
+      const tag = target.tagName.toLowerCase();
+      return tag === 'input' || tag === 'textarea' || target.isContentEditable;
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      const modifier = event.ctrlKey || event.metaKey;
+      if (!modifier) return;
+      const key = event.key.toLowerCase();
+      const typing = isTypingTarget(event.target);
+
+      if (key === 's') {
+        event.preventDefault();
+        void lib.saveLibrary();
+        return;
+      }
+
+      if (typing) return;
+
+      if (!event.shiftKey && key === 'z') {
+        if (!lib.canUndo) return;
+        event.preventDefault();
+        lib.undo();
+        return;
+      }
+
+      // Windows 常用 Ctrl+Y；也兼容 Cmd/Ctrl+Shift+Z
+      const isRedo = key === 'y' || (key === 'z' && event.shiftKey);
+      if (isRedo) {
+        if (!lib.canRedo) return;
+        event.preventDefault();
+        lib.redo();
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [lib.canRedo, lib.canUndo, lib.redo, lib.saveLibrary, lib.undo]);
 
   const updatePoseField = (field: keyof SpritePartPose, raw: string | boolean) => {
     if (!lib.clip || !lib.selectedPartId) return;
@@ -206,6 +253,25 @@ export const SpriteAnimationEditor: React.FC = () => {
               </option>
             ))}
           </select>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 72px', gap: 6, marginBottom: 10 }}>
+            <input
+              style={inputStyle}
+              value={customRigAtlasPath}
+              placeholder="或手填 atlas 路径"
+              onChange={(event) => setCustomRigAtlasPath(event.target.value)}
+            />
+            <button
+              type="button"
+              style={buttonStyle}
+              onClick={() => {
+                const value = customRigAtlasPath.trim();
+                if (!value) return;
+                void lib.loadAtlasIntoRig(value);
+              }}
+            >
+              载入
+            </button>
+          </div>
 
           <div style={labelStyle}>Rig</div>
           <select
@@ -247,7 +313,7 @@ export const SpriteAnimationEditor: React.FC = () => {
           ) : null}
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={labelStyle}>部件（点击高亮，画布可拖）</div>
+            <div style={labelStyle}>部件（点击高亮，画布可拖，可拖动排序）</div>
             <div style={{ display: 'flex', gap: 6 }}>
               <button type="button" style={buttonStyle} onClick={lib.addPart}>
                 +
@@ -262,13 +328,38 @@ export const SpriteAnimationEditor: React.FC = () => {
               <button
                 key={part.partId}
                 type="button"
+                draggable
                 style={{
                   ...buttonStyle,
                   textAlign: 'left',
+                  outline:
+                    draggingPartId && dragOverPartId === part.partId
+                      ? '2px solid #ffd166'
+                      : 'none',
                   background: part.partId === lib.selectedPartId ? '#2f6fed' : '#243044',
                   borderColor: part.partId === lib.selectedPartId ? '#2f6fed' : '#3b4b63'
                 }}
                 onClick={() => lib.setSelectedPartId(part.partId)}
+                onDragStart={() => {
+                  setDraggingPartId(part.partId);
+                  setDragOverPartId('');
+                }}
+                onDragEnd={() => {
+                  setDraggingPartId('');
+                  setDragOverPartId('');
+                }}
+                onDragOver={(event) => {
+                  if (!draggingPartId || draggingPartId === part.partId) return;
+                  event.preventDefault();
+                  if (dragOverPartId !== part.partId) setDragOverPartId(part.partId);
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  if (!draggingPartId || draggingPartId === part.partId) return;
+                  lib.movePart(draggingPartId, part.partId);
+                  setDraggingPartId('');
+                  setDragOverPartId('');
+                }}
               >
                 {part.label || part.partId}
                 {part.atlasJsonPath ? ' · 独立图集' : ''}
@@ -307,6 +398,25 @@ export const SpriteAnimationEditor: React.FC = () => {
                   </option>
                 ))}
               </select>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 72px', gap: 6, marginBottom: 8 }}>
+                <input
+                  style={inputStyle}
+                  value={customPartAtlasPath}
+                  placeholder="或手填部件 atlas 路径"
+                  onChange={(event) => setCustomPartAtlasPath(event.target.value)}
+                />
+                <button
+                  type="button"
+                  style={buttonStyle}
+                  onClick={() => {
+                    const value = customPartAtlasPath.trim();
+                    if (!value) return;
+                    void lib.loadAtlasIntoSelectedPart(value);
+                  }}
+                >
+                  载入
+                </button>
+              </div>
               <div style={{ color: '#6f8098', fontSize: 11, marginBottom: 8 }}>
                 当前：{partAtlas?.atlasJsonPath || '（无）'}
               </div>
@@ -536,6 +646,7 @@ export const SpriteAnimationEditor: React.FC = () => {
             删除选中关键帧
           </button>
           <span style={{ fontSize: 12, color: '#6f8098' }}>{lib.message}</span>
+          <span style={{ fontSize: 11, color: '#6f8098' }}>Ctrl+Z 撤销 · Ctrl+Y 重做 · Ctrl+S 保存</span>
         </div>
 
         <div

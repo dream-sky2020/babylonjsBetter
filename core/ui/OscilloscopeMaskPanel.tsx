@@ -126,6 +126,7 @@ export type OscilloscopeMaskPanelProps = {
   onPlacement?: (index: number) => void;
   children?: React.ReactNode;
   contentPointerEvents?: React.CSSProperties['pointerEvents'];
+  canvasPointerEvents?: React.CSSProperties['pointerEvents'];
 };
 
 const DEFAULT_CONFIG: OscilloscopePanelConfig = {
@@ -240,7 +241,8 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
       background,
       onPlacement,
       children,
-      contentPointerEvents = 'none'
+      contentPointerEvents = 'none',
+      canvasPointerEvents = 'auto'
     },
     ref
   ) {
@@ -324,7 +326,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
           nx = bx / len;
           ny = by / len;
         } else if (cfg.shapeType === 'square' || cfg.shapeType === 'rectangle') {
-          // 方形/矩形模式改为“贴边矩形”：直接沿容器边缘采样，不再依赖中心半径 size。
+          // square / rectangle 均沿容器边缘采样，保证点位与点击视觉预期一致
           const left = -halfWidth + edgePadding;
           const right = halfWidth - edgePadding;
           const top = -halfHeight + edgePadding;
@@ -965,6 +967,7 @@ export const OscilloscopeMaskPanel = forwardRef<OscilloscopeMaskPanelHandle, Osc
             width: '100%',
             height: '100%',
             display: 'block',
+            pointerEvents: canvasPointerEvents,
             cursor: 'crosshair'
           }}
         />
