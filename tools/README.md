@@ -6,6 +6,8 @@
 
 - `sprite-anchor-editor/`
   - `index.html`（原 `sprite-anchor-editor.html`）
+- `atlas-json-editor/`
+  - `index.html`（大图切片并导出 TexturePacker 风格 JSON）
 - `particle-editor/`
   - `index.html`（原 `particle-editor.html`）
 - `battle-lab/`
@@ -41,6 +43,7 @@
 ## 访问路径示例（开发模式）
 
 - `/tools/sprite-anchor-editor/index.html`
+- `/tools/atlas-json-editor/index.html`
 - `/tools/particle-editor/index.html`
 - `/tools/target-link-lab/index.html`
 - `/tools/target-link-lab/legacy.html`

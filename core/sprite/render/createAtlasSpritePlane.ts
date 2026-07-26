@@ -9,6 +9,8 @@ import {
 export type CreateAtlasSpritePlaneOptions = {
   /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
   shareTexture?: boolean;
+  /** 世界单位 / 像素，用于按 sourceSize 自动换算尺寸 */
+  worldUnitsPerPixel?: number;
 };
 
 /**
@@ -21,6 +23,7 @@ export const createAtlasSpritePlane = (
   options: CreateAtlasSpritePlaneOptions = {}
 ): IconPlaneController => {
   const shareTexture = options.shareTexture === true;
+  const worldUnitsPerPixel = options.worldUnitsPerPixel;
   const plane = MeshBuilder.CreatePlane('plane', { size: 1 }, scene);
   const planeMaterial = new StandardMaterial('planeMat', scene);
   let currentRegion: SpriteFrameRegion | null = null;
@@ -35,10 +38,40 @@ export const createAtlasSpritePlane = (
     iconTexture.wrapV = Texture.CLAMP_ADDRESSMODE;
   }
 
+  const toDisplaySize = (
+    region: SpriteFrameRegion | null,
+    textureWidth: number,
+    textureHeight: number
+  ): { width: number; height: number } => {
+    if (!region) {
+      return {
+        width: Math.max(1, textureWidth),
+        height: Math.max(1, textureHeight)
+      };
+    }
+    const sourceW = region.sourceSize?.w;
+    const sourceH = region.sourceSize?.h;
+    if (Number.isFinite(sourceW) && Number.isFinite(sourceH) && sourceW > 0 && sourceH > 0) {
+      return { width: sourceW, height: sourceH };
+    }
+    return {
+      width: Math.max(1, region.spriteSourceSize.w),
+      height: Math.max(1, region.spriteSourceSize.h)
+    };
+  };
+
   const applyPlaneScale = (region: SpriteFrameRegion | null) => {
     const textureSize = iconTexture.getSize();
-    const displayWidth = region?.spriteSourceSize.w ?? Math.max(1, textureSize.width);
-    const displayHeight = region?.spriteSourceSize.h ?? Math.max(1, textureSize.height);
+    const { width: displayWidth, height: displayHeight } = toDisplaySize(
+      region,
+      textureSize.width,
+      textureSize.height
+    );
+    if (typeof worldUnitsPerPixel === 'number' && Number.isFinite(worldUnitsPerPixel) && worldUnitsPerPixel > 0) {
+      plane.scaling.x = displayWidth * worldUnitsPerPixel;
+      plane.scaling.y = displayHeight * worldUnitsPerPixel;
+      return;
+    }
     const aspectRatio = Math.max(0.0001, displayWidth / Math.max(1, displayHeight));
     plane.scaling.x = baseSize * aspectRatio;
     plane.scaling.y = baseSize;
@@ -71,7 +104,8 @@ export const createAtlasSpritePlane = (
     applyTextureRegion(currentRegion);
   });
 
-  planeMaterial.transparencyMode = 1;
+  // 叠层部件需要半透明混合，AlphaTest 会导致边缘发硬/锯齿明显
+  planeMaterial.transparencyMode = 2;
   planeMaterial.diffuseTexture = iconTexture;
   planeMaterial.useAlphaFromDiffuseTexture = true;
   planeMaterial.diffuseColor = Color3.White();

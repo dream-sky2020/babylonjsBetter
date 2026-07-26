@@ -70,6 +70,24 @@ const resolveFrameRegion = (
   return toFrameRegion(atlasJsonPath, atlasImagePath, frameName, frame, atlas.meta.size);
 };
 
+const getFrameDisplayHeight = (atlas: TexturePackerAtlas, frameName: string | undefined): number | null => {
+  const candidate =
+    (frameName && atlas.frames[frameName]) || Object.values(atlas.frames)[0];
+  const frame = candidate;
+  if (!frame) return null;
+  if (frame.sourceSize?.h && Number.isFinite(frame.sourceSize.h) && frame.sourceSize.h > 0) {
+    return frame.sourceSize.h;
+  }
+  if (
+    frame.spriteSourceSize?.h &&
+    Number.isFinite(frame.spriteSourceSize.h) &&
+    frame.spriteSourceSize.h > 0
+  ) {
+    return frame.spriteSourceSize.h;
+  }
+  return null;
+};
+
 /**
  * 创建「固定父节点 + 多精灵部件」组合体。
  * 支持部件级多图集；同一 atlas 路径共享 GPU 纹理。
@@ -86,6 +104,17 @@ export const createCompositeSprite = (
 
   const root = new TransformNode(`sprite_rig_${rig.rigId}${nameSuffix}`, scene);
   const baseSize = rig.baseSize ?? 2.5;
+  const defaultPixelHeight =
+    rig.parts
+      .map((partDef) => {
+        const { atlasJsonPath } = resolvePartAtlas(rig, partDef);
+        const atlas = atlases[atlasJsonPath];
+        if (!atlas) return null;
+        return getFrameDisplayHeight(atlas, partDef.defaultFrameName);
+      })
+      .find((height): height is number => typeof height === 'number' && Number.isFinite(height) && height > 0) ??
+    100;
+  const worldUnitsPerPixel = baseSize / Math.max(1, defaultPixelHeight);
   const parts = new Map<string, CompositeSpritePart>();
   const meshIdToPartId = new Map<number, string>();
   let styleTint: Color3 | null = null;
@@ -102,7 +131,8 @@ export const createCompositeSprite = (
     }
 
     const plane = createAtlasSpritePlane(scene, atlasImagePath, baseSize, {
-      shareTexture: true
+      shareTexture: true,
+      worldUnitsPerPixel
     });
     plane.mesh.name = `sprite_part_${rig.rigId}_${partDef.partId}${nameSuffix}`;
     plane.mesh.parent = root;

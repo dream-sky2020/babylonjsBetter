@@ -256,6 +256,51 @@ def upload_image():
     rel_path = normalize_slashes(os.path.relpath(full_path, PUBLIC_RESOURCES_DIR))
     return jsonify({"success": True, "name": final_name, "relativePath": rel_path, "resourcePath": to_resource_path(rel_path), "url": f"/{to_resource_path(rel_path)}"})
 
+@app.route("/api/atlas-json", methods=["PUT"])
+def save_atlas_json():
+    payload = request.get_json(silent=True) or {}
+    raw_path = str(payload.get("path", "")).strip()
+    atlas_data = payload.get("data")
+
+    if not raw_path:
+        return jsonify({"success": False, "message": "missing path"}), 400
+    if not isinstance(atlas_data, dict):
+        return jsonify({"success": False, "message": "data must be a json object"}), 400
+
+    normalized = normalize_slashes(raw_path).lstrip("/")
+    if not normalized.lower().endswith(".json"):
+        normalized = f"{normalized}.json"
+    if normalized.startswith("public/"):
+        normalized = normalized[len("public/"):]
+
+    abs_target = os.path.abspath(os.path.join(PUBLIC_DIR, normalized))
+    if not is_path_inside(PUBLIC_DIR, abs_target):
+        return jsonify({"success": False, "message": "path outside public is not allowed"}), 403
+    if not abs_target.lower().endswith(".json"):
+        return jsonify({"success": False, "message": "only .json is allowed"}), 400
+
+    meta = atlas_data.get("meta")
+    if not isinstance(meta, dict):
+        return jsonify({"success": False, "message": "atlas data missing meta object"}), 400
+    image_value = meta.get("image")
+    if not isinstance(image_value, str) or not image_value.strip():
+        return jsonify({"success": False, "message": "meta.image is required"}), 400
+
+    try:
+        os.makedirs(os.path.dirname(abs_target), exist_ok=True)
+        tmp_path = f"{abs_target}.tmp"
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(atlas_data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp_path, abs_target)
+        public_path = to_public_path(os.path.relpath(abs_target, PUBLIC_DIR))
+        return jsonify({
+            "success": True,
+            "path": normalize_slashes(abs_target),
+            "publicPath": public_path
+        })
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"写入 atlas json 失败: {exc}"}), 500
+
 @app.route("/images/<path:relative_path>", methods=["GET"])
 def serve_from_pool(relative_path: str):
     safe_path = os.path.normpath(relative_path).replace("\\", "/")

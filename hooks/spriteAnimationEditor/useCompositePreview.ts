@@ -10,6 +10,7 @@ import {
   toFixedNumber,
   type AtlasBundle,
   type CompositeSprite,
+  type CompositeSpritePart,
   type OnionSkinController,
   type OnionSkinSettings,
   type SpriteAnimClip,
@@ -79,6 +80,7 @@ export const useCompositePreview = ({
   const atlasesRef = useRef<AtlasBundle | null>(null);
   const clipRef = useRef<SpriteAnimClip | null>(clip);
   const onionSkinRef = useRef(onionSkin);
+  const selectedPartIdRef = useRef(selectedPartId);
   const rigSignatureRef = useRef('');
   const scrubTimeRef = useRef(scrubTime);
   const onPartPickedRef = useRef(onPartPicked);
@@ -93,6 +95,7 @@ export const useCompositePreview = ({
   onPartDraggedRef.current = onPartDragged;
   clipRef.current = clip;
   onionSkinRef.current = onionSkin;
+  selectedPartIdRef.current = selectedPartId;
 
   const syncOnionSkin = useCallback((time: number) => {
     const activeClip = clipRef.current;
@@ -247,7 +250,13 @@ export const useCompositePreview = ({
   }, [onionSkin, syncOnionSkin]);
 
   useEffect(() => {
-    compositeRef.current?.setHighlightedPart(selectedPartId || null);
+    const composite = compositeRef.current;
+    if (!composite) return;
+    composite.setHighlightedPart(selectedPartId || null);
+    for (const part of composite.parts.values()) {
+      // 保持所有部件可拾取；真正可拖目标在 pointerdown 时按 selectedPartId 过滤
+      part.plane.mesh.isPickable = true;
+    }
   }, [selectedPartId]);
 
   useEffect(() => {
@@ -280,6 +289,8 @@ export const useCompositePreview = ({
       partId: string;
       pointerId: number;
       grabOffset: { x: number; y: number };
+      lastPose: { x: number; y: number };
+      moved: boolean;
     };
     let drag: DragState | null = null;
 
@@ -305,10 +316,25 @@ export const useCompositePreview = ({
       const rect = canvas.getBoundingClientRect();
       const px = ((event.clientX - rect.left) / Math.max(1, rect.width)) * canvas.width;
       const py = ((event.clientY - rect.top) / Math.max(1, rect.height)) * canvas.height;
-      const pick = scene.pick(px, py, (mesh) => mesh.isPickable && mesh.isEnabled(), false, camera);
-      if (!pick?.hit || !pick.pickedMesh) return;
+      const activePartId = selectedPartIdRef.current;
+      if (!activePartId) return;
+      const picks = scene.multiPick(
+        px,
+        py,
+        (mesh) => mesh.isPickable && mesh.isEnabled(),
+        camera
+      );
+      if (!picks || picks.length === 0) return;
 
-      const part = compositeRef.current?.getPartByMeshUniqueId(pick.pickedMesh.uniqueId);
+      let part = null as CompositeSpritePart | null;
+      for (const hit of picks) {
+        if (!hit.hit || !hit.pickedMesh) continue;
+        const candidate = compositeRef.current?.getPartByMeshUniqueId(hit.pickedMesh.uniqueId);
+        if (candidate?.partId === activePartId) {
+          part = candidate;
+          break;
+        }
+      }
       if (!part) return;
 
       event.preventDefault();
@@ -320,11 +346,12 @@ export const useCompositePreview = ({
         grabOffset: {
           x: pose.x - (world?.x ?? pose.x),
           y: pose.y - (world?.y ?? pose.y)
-        }
+        },
+        lastPose: { x: pose.x, y: pose.y },
+        moved: false
       };
       draggingRef.current = true;
       canvas.setPointerCapture(event.pointerId);
-      onPartPickedRef.current?.(part.partId);
       playerRef.current?.pause();
       setPlaying(false);
     };
@@ -337,12 +364,17 @@ export const useCompositePreview = ({
         x: toFixedNumber(world.x + drag.grabOffset.x),
         y: toFixedNumber(world.y + drag.grabOffset.y)
       };
+      if (Math.abs(next.x - drag.lastPose.x) < 1e-4 && Math.abs(next.y - drag.lastPose.y) < 1e-4) {
+        return;
+      }
+      drag.lastPose = next;
+      drag.moved = true;
       compositeRef.current?.getPart(drag.partId)?.applyPose(next);
-      onPartDraggedRef.current?.(drag.partId, next);
     };
 
     const onPointerUp = (event: PointerEvent) => {
       if (!drag || drag.pointerId !== event.pointerId) return;
+      const doneDrag = drag;
       try {
         canvas.releasePointerCapture(event.pointerId);
       } catch {
@@ -350,7 +382,11 @@ export const useCompositePreview = ({
       }
       drag = null;
       draggingRef.current = false;
-      playerRef.current?.seek(scrubTimeRef.current);
+      if (doneDrag.moved) {
+        onPartDraggedRef.current?.(doneDrag.partId, doneDrag.lastPose);
+      } else {
+        playerRef.current?.seek(scrubTimeRef.current);
+      }
       const time = playerRef.current?.getTime() ?? scrubTimeRef.current;
       setCurrentTime(time);
       syncOnionSkin(time);

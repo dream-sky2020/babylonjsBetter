@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   createEmptyClip,
   createEmptyPart,
@@ -45,6 +45,11 @@ interface UseLibraryManagementResult {
   updateRig: (updater: (prev: SpriteRigDef) => SpriteRigDef) => void;
   updateClip: (updater: (prev: SpriteAnimClip) => SpriteAnimClip) => void;
   updateSelectedPart: (updater: (prev: SpritePartDef) => SpritePartDef) => void;
+  movePart: (fromPartId: string, toPartId: string) => void;
+  undo: () => void;
+  canUndo: boolean;
+  redo: () => void;
+  canRedo: boolean;
   addPart: () => void;
   removeSelectedPart: () => void;
   addClip: () => void;
@@ -56,6 +61,21 @@ interface UseLibraryManagementResult {
 }
 
 export const useLibraryManagement = (): UseLibraryManagementResult => {
+  type UndoSnapshot = {
+    library: SpriteAnimationLibrary;
+    activeRigId: string;
+    activeClipId: string;
+    selectedPartId: string;
+    selectedKeyTimes: number[];
+  };
+
+  const cloneLibrary = (input: SpriteAnimationLibrary): SpriteAnimationLibrary => {
+    if (typeof structuredClone === 'function') {
+      return structuredClone(input);
+    }
+    return JSON.parse(JSON.stringify(input)) as SpriteAnimationLibrary;
+  };
+
   const [message, setMessage] = useState('正在加载动画库…');
   const [serverConnected, setServerConnected] = useState(false);
   const [serverPort, setServerPort] = useState<number | null>(null);
@@ -65,6 +85,44 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
   const [atlasFramesCache, setAtlasFramesCache] = useState<Record<string, string[]>>({});
   const [selectedPartId, setSelectedPartId] = useState('');
   const [selectedKeyTimes, setSelectedKeyTimes] = useState<number[]>([0]);
+  const undoStackRef = useRef<UndoSnapshot[]>([]);
+  const redoStackRef = useRef<UndoSnapshot[]>([]);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+  const activeRigIdRef = useRef(activeRigId);
+  const activeClipIdRef = useRef(activeClipId);
+  const selectedPartIdRef = useRef(selectedPartId);
+  const selectedKeyTimesRef = useRef(selectedKeyTimes);
+
+  useEffect(() => {
+    activeRigIdRef.current = activeRigId;
+    activeClipIdRef.current = activeClipId;
+    selectedPartIdRef.current = selectedPartId;
+    selectedKeyTimesRef.current = selectedKeyTimes;
+  }, [activeRigId, activeClipId, selectedPartId, selectedKeyTimes]);
+
+  const createSnapshot = useCallback((librarySnapshot: SpriteAnimationLibrary): UndoSnapshot => {
+    return {
+      library: cloneLibrary(librarySnapshot),
+      activeRigId: activeRigIdRef.current,
+      activeClipId: activeClipIdRef.current,
+      selectedPartId: selectedPartIdRef.current,
+      selectedKeyTimes: [...selectedKeyTimesRef.current]
+    };
+  }, []);
+
+  const pushUndoSnapshot = useCallback((prevLibrary: SpriteAnimationLibrary) => {
+    const snapshot: UndoSnapshot = {
+      ...createSnapshot(prevLibrary)
+    };
+    undoStackRef.current.push(snapshot);
+    if (undoStackRef.current.length > 100) {
+      undoStackRef.current.splice(0, undoStackRef.current.length - 100);
+    }
+    redoStackRef.current = [];
+    setCanUndo(true);
+    setCanRedo(false);
+  }, [createSnapshot]);
 
   const rig = library.rigs[activeRigId] ?? null;
   const clip = library.clips[activeClipId] ?? null;
@@ -185,6 +243,8 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
       const current = prev.rigs[activeRigId];
       if (!current) return prev;
       const nextRig = updater(current);
+      if (nextRig === current) return prev;
+      pushUndoSnapshot(prev);
       return {
         ...prev,
         rigs: {
@@ -193,13 +253,15 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
         }
       };
     });
-  }, [activeRigId]);
+  }, [activeRigId, pushUndoSnapshot]);
 
   const updateClip = useCallback((updater: (prev: SpriteAnimClip) => SpriteAnimClip) => {
     setLibrary((prev) => {
       const current = prev.clips[activeClipId];
       if (!current) return prev;
       const nextClip = updater(current);
+      if (nextClip === current) return prev;
+      pushUndoSnapshot(prev);
       return {
         ...prev,
         clips: {
@@ -208,7 +270,7 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
         }
       };
     });
-  }, [activeClipId]);
+  }, [activeClipId, pushUndoSnapshot]);
 
   const updateSelectedPart = useCallback((updater: (prev: SpritePartDef) => SpritePartDef) => {
     updateRig((prev) => ({
@@ -216,6 +278,21 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
       parts: prev.parts.map((part) => (part.partId === selectedPartId ? updater(part) : part))
     }));
   }, [selectedPartId, updateRig]);
+
+  const movePart = useCallback((fromPartId: string, toPartId: string) => {
+    if (!rig || fromPartId === toPartId) return;
+    updateRig((prev) => {
+      const fromIndex = prev.parts.findIndex((part) => part.partId === fromPartId);
+      const toIndex = prev.parts.findIndex((part) => part.partId === toPartId);
+      if (fromIndex < 0 || toIndex < 0) return prev;
+      const nextParts = [...prev.parts];
+      const [moved] = nextParts.splice(fromIndex, 1);
+      if (!moved) return prev;
+      nextParts.splice(toIndex, 0, moved);
+      return { ...prev, parts: nextParts };
+    });
+    setMessage(`已调整部件顺序：${fromPartId} -> ${toPartId}`);
+  }, [rig, updateRig]);
 
   const addPart = useCallback(() => {
     if (!rig) return;
@@ -257,15 +334,18 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
       rig.rigId,
       rig.parts.map((part) => part.partId)
     );
-    setLibrary((prev) => ({
-      ...prev,
-      clips: { ...prev.clips, [nextClip.clipId]: nextClip }
-    }));
+    setLibrary((prev) => {
+      pushUndoSnapshot(prev);
+      return {
+        ...prev,
+        clips: { ...prev.clips, [nextClip.clipId]: nextClip }
+      };
+    });
     setActiveClipId(nextClip.clipId);
     saveLastAnimClipId(nextClip.clipId);
     setSelectedKeyTimes([0]);
     setMessage(`已创建片段：${nextClip.clipId}`);
-  }, [rig, library.clips]);
+  }, [rig, library.clips, pushUndoSnapshot]);
 
   const applyAtlasToPaths = useCallback(async (atlasJsonPath: string) => {
     const normalized = normalizePublicPath(atlasJsonPath);
@@ -290,12 +370,14 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
             frameName: names[0]
           };
         }
-        const nextLibrary: SpriteAnimationLibrary = {
-          ...library,
-          rigs: { ...library.rigs, [nextRig.rigId]: nextRig },
-          clips: { ...library.clips, [nextClip.clipId]: nextClip }
-        };
-        setLibrary(nextLibrary);
+        setLibrary((prev) => {
+          pushUndoSnapshot(prev);
+          return {
+            ...prev,
+            rigs: { ...prev.rigs, [nextRig.rigId]: nextRig },
+            clips: { ...prev.clips, [nextClip.clipId]: nextClip }
+          };
+        });
         setActiveRigId(nextRig.rigId);
         setActiveClipId(nextClip.clipId);
         setSelectedPartId('part_1');
@@ -324,7 +406,7 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
     } catch (error) {
       setMessage(`图集加载失败：${String(error)}`);
     }
-  }, [rig, library, updateRig, applyAtlasToPaths]);
+  }, [rig, updateRig, applyAtlasToPaths, pushUndoSnapshot]);
 
   const loadAtlasIntoSelectedPart = useCallback(async (atlasJsonPath: string) => {
     if (!rig || !selectedPartId) {
@@ -375,6 +457,50 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
     setMessage(result.connected ? `开发服务器已连接 :${result.port ?? '?'}` : '开发服务器未连接，保存将失败');
   }, []);
 
+  const undo = useCallback(() => {
+    const snapshot = undoStackRef.current.pop();
+    if (!snapshot) {
+      setCanUndo(false);
+      setMessage('没有可撤销的操作');
+      return;
+    }
+    const currentSnapshot = createSnapshot(library);
+    redoStackRef.current.push(currentSnapshot);
+    if (redoStackRef.current.length > 100) {
+      redoStackRef.current.splice(0, redoStackRef.current.length - 100);
+    }
+    setLibrary(snapshot.library);
+    setActiveRigId(snapshot.activeRigId);
+    setActiveClipId(snapshot.activeClipId);
+    setSelectedPartId(snapshot.selectedPartId);
+    setSelectedKeyTimes(snapshot.selectedKeyTimes.length > 0 ? snapshot.selectedKeyTimes : [0]);
+    setCanUndo(undoStackRef.current.length > 0);
+    setCanRedo(redoStackRef.current.length > 0);
+    setMessage('已撤销上一步');
+  }, [createSnapshot, library]);
+
+  const redo = useCallback(() => {
+    const snapshot = redoStackRef.current.pop();
+    if (!snapshot) {
+      setCanRedo(false);
+      setMessage('没有可重做的操作');
+      return;
+    }
+    const currentSnapshot = createSnapshot(library);
+    undoStackRef.current.push(currentSnapshot);
+    if (undoStackRef.current.length > 100) {
+      undoStackRef.current.splice(0, undoStackRef.current.length - 100);
+    }
+    setLibrary(snapshot.library);
+    setActiveRigId(snapshot.activeRigId);
+    setActiveClipId(snapshot.activeClipId);
+    setSelectedPartId(snapshot.selectedPartId);
+    setSelectedKeyTimes(snapshot.selectedKeyTimes.length > 0 ? snapshot.selectedKeyTimes : [0]);
+    setCanUndo(undoStackRef.current.length > 0);
+    setCanRedo(redoStackRef.current.length > 0);
+    setMessage('已重做一步');
+  }, [createSnapshot, library]);
+
   return {
     message,
     setMessage,
@@ -396,6 +522,11 @@ export const useLibraryManagement = (): UseLibraryManagementResult => {
     updateRig,
     updateClip,
     updateSelectedPart,
+    movePart,
+    undo,
+    canUndo,
+    redo,
+    canRedo,
     addPart,
     removeSelectedPart,
     addClip,

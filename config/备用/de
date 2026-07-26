@@ -1,0 +1,69 @@
+现在OscilloscopeWrapper 的“吃满剩余高度”的模式无法正常运行
+
+问题出在 OscilloscopeWrapper 内部的 DOM 层级没有正确继承外部传入的高度。
+
+在你的 DbGameSelfstatusLab 布局中，你已经通过 Grid 布局的 minmax(0, 1fr) 让容器吃满剩余空间，并且也给 OscilloscopeWrapper 传递了 style={{ width: '100%', height: '100%' }}。但是，在 OscilloscopeWrapper 组件内部，包含 margin: -expand 的外衣、OscilloscopeMaskPanel 本身、以及带有 padding: expand 的内容插槽，这三层 DOM 都没有设置 height，导致它们发生了高度坍塌。  
+TSX
++ 1
+
+你需要修改 OscilloscopeWrapper 组件（对应 Source 3），让高度层层透传。
+
+🛠️ 修复方案
+请将 OscilloscopeWrapper 组件的 return 部分替换为以下代码：  
+TSX
+
+TypeScript
+  return (
+    <div
+      className={className}
+      onPointerDownCapture={handlePointerDownCapture}
+      style={{
+        position: 'relative',
+        width: '100%',
+        // 💡 兜底：确保外层默认撑满
+        height: '100%', 
+        ...style
+      }}
+    >
+      <div
+        style={{
+          margin: -expand,
+          pointerEvents: 'none',
+          // 💡 修复 1：由于存在负 margin，高度需要用 calc 补偿回来才能完美贴合外部容器
+          height: `calc(100% + ${expand * 2}px)`
+        }}
+      >
+        <OscilloscopeMaskPanel
+          ref={panelRef}
+          config={mergedConfig}
+          background={background}
+          onPlacement={onPlacement}
+          contentPointerEvents="auto"
+          canvasPointerEvents={lockHitAreaToHost ? 'none' : 'auto'}
+          style={{
+            // 💡 修复 2：让核心画板组件撑满负 margin 容器
+            height: '100%',
+            ...panelStyle,
+            pointerEvents: lockHitAreaToHost ? 'none' : 'auto'
+          }}
+        >
+          <div
+            style={{
+              padding: expand,
+              pointerEvents: contentPointerEvents,
+              // 💡 修复 3：让内容包裹层撑满高度，并添加 border-box 抵消 padding 影响
+              height: '100%',
+              boxSizing: 'border-box'
+            }}
+          >
+            {children}
+          </div>
+        </OscilloscopeMaskPanel>
+      </div>
+    </div>
+  );
+💡 为什么这样改？
+height: calc(100% + ${expand * 2}px)：因为为了不让波形被裁剪，你巧妙地使用了 margin: -expand 向外扩张。但在标准的 CSS 盒模型中，静态定位的区块如果设置了负边距，必须显式声明带有补偿运算的高度，否则它依然只会包含其内部子元素的高度。  
+TSX
+
+height: '100%' 与 boxSizing: 'border-box'：内部的 <div style={{ padding: expand }}> 加上 100% 高度后，如果不加 boxSizing: 'border-box'，内容区域的高度会被 padding 额外撑大，导致溢出。加上之后，内部高度的计算逻辑就完美闭环了。  
