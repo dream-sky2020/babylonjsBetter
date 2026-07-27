@@ -202,6 +202,74 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
 
     return errors
 
+def validate_stripe_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    for key, preset in payload.items():
+        p_path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("root 的 key 必须是非空字符串")
+            continue
+        if not isinstance(preset, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+
+        p_key = _req_str(preset, "presetKey", errors, p_path)
+        _req_str(preset, "name", errors, p_path)
+        if p_key and p_key != key:
+            errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
+
+        _req_num(preset, "angleDeg", errors, p_path, -360, 360)
+        _req_num(preset, "speed", errors, p_path, -5000, 5000)
+        mode = preset.get("mode")
+        if mode is not None:
+            if not isinstance(mode, str):
+                errors.append(f"{p_path}.mode 必须是字符串")
+                mode = "stripes"
+            elif mode not in ("stripes", "solid"):
+                errors.append(f"{p_path}.mode 仅支持 stripes / solid")
+                mode = "stripes"
+        else:
+            mode = "stripes"
+
+        background = preset.get("background")
+        if background is not None and not isinstance(background, str):
+            errors.append(f"{p_path}.background 必须是字符串")
+
+        if mode == "solid":
+            _req_str(preset, "solidColor", errors, p_path)
+            # 纯色模式允许省略 segments
+            continue
+
+        segments = preset.get("segments")
+        if not isinstance(segments, list) or len(segments) == 0:
+            errors.append(f"{p_path}.segments 至少需要 1 段")
+            continue
+
+        for idx, segment in enumerate(segments):
+            s_path = f"{p_path}.segments[{idx}]"
+            if not isinstance(segment, dict):
+                errors.append(f"{s_path} 必须是对象")
+                continue
+            _req_num(segment, "width", errors, s_path, 0.01)
+            fill_type = _req_str(segment, "fillType", errors, s_path)
+            if fill_type not in ("solid", "gradient"):
+                errors.append(f"{s_path}.fillType 仅支持 solid / gradient")
+                continue
+            if fill_type == "solid":
+                _req_str(segment, "color", errors, s_path)
+            else:
+                _req_str(segment, "fromColor", errors, s_path)
+                _req_str(segment, "toColor", errors, s_path)
+
+            opacity = segment.get("opacity")
+            if opacity is not None:
+                _req_num(segment, "opacity", errors, s_path, 0, 1)
+
+    return errors
+
 def validate_sprite_animation_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict):

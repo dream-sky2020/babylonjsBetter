@@ -88,6 +88,8 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
         spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
+        stripesConfigLab: path.resolve(__dirname, 'tools/stripes-config-lab/index.html'),
+        stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
         atlasJsonEditor: path.resolve(__dirname, 'tools/atlas-json-editor/index.html'),

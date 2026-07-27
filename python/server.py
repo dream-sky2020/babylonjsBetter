@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 from utils import (
     normalize_slashes, to_resource_path, to_public_path, is_path_inside,
     is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
-    validate_sprite_animation_payload
+    validate_sprite_animation_payload, validate_stripe_preset_payload
 )
 
 app = Flask(__name__)
@@ -25,6 +25,7 @@ PUBLIC_RESOURCES_DIR = os.path.join(PUBLIC_DIR, "resources")
 SPRITE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnchorPresets.json")
 SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnimationLibrary.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
+STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -200,6 +201,47 @@ def handle_particle_presets():
                 json.dump(payload, f, ensure_ascii=False, indent=2)
             os.replace(f"{PARTICLE_PRESET_CONFIG_PATH}.tmp", PARTICLE_PRESET_CONFIG_PATH)
             return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(PARTICLE_PRESET_CONFIG_PATH)})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+
+@app.route("/api/stripe-presets", methods=["GET", "PUT"])
+def handle_stripe_presets():
+    if request.method == "GET":
+        if not os.path.isfile(STRIPE_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(STRIPE_PRESET_CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "配置文件根节点必须是 JSON 对象", "valid": False}), 500
+
+            errors = validate_stripe_preset_payload(data)
+            return jsonify({
+                "success": True,
+                "count": len(data),
+                "data": data,
+                "valid": len(errors) == 0,
+                "errors": errors[:50]
+            })
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
+
+    elif request.method == "PUT":
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"success": False, "message": "body must be a json object"}), 400
+
+        errors = validate_stripe_preset_payload(payload)
+        if errors:
+            return jsonify({"success": False, "message": "配置校验失败", "errorCount": len(errors), "errors": errors[:50]}), 400
+
+        try:
+            os.makedirs(os.path.dirname(STRIPE_PRESET_CONFIG_PATH), exist_ok=True)
+            with open(f"{STRIPE_PRESET_CONFIG_PATH}.tmp", "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            os.replace(f"{STRIPE_PRESET_CONFIG_PATH}.tmp", STRIPE_PRESET_CONFIG_PATH)
+            return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(STRIPE_PRESET_CONFIG_PATH)})
         except Exception as exc:
             return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
 
