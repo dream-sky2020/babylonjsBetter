@@ -1,6 +1,11 @@
 const CONFIG_URL = '/config/stripePresets.json';
 const STRIPE_NONE = '__none__';
 const LAYER_KEYS = ['bottomFillMask', 'bottomBorder', 'body', 'line'];
+const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
 const LAYER_LABELS = {
   bottomFillMask: '底部边框内填色图',
   bottomBorder: '底部边框图',
@@ -39,7 +44,8 @@ const state = {
     bottomFillMask: null
   },
   patternCache: new Map(),
-  maskCanvas: document.createElement('canvas')
+  maskCanvas: document.createElement('canvas'),
+  resourceImageOptions: []
 };
 
 const el = {
@@ -120,6 +126,21 @@ const normalizeLibrary = (library) => {
 const sortedPresetEntries = () =>
   Object.entries(state.presets).sort((a, b) => a[0].localeCompare(b[0], 'zh-CN'));
 
+const decodePublicPath = (input) => decodeURI(String(input || '')).replace(/^\/+/, '').replace(/^\.\/+/, '');
+
+const getScannedResourceImages = () => {
+  const fromModules = Object.values(RESOURCE_IMAGE_MODULES)
+    .map((assetUrl) => decodePublicPath(assetUrl))
+    .map((path) => path.replace(/^public\/+/, ''))
+    .filter((path) => path.startsWith('resources/'));
+  const merged = new Set(fromModules);
+  for (const layerKey of LAYER_KEYS) {
+    const raw = normalizeResourcePath(state.layers[layerKey].path);
+    if (raw) merged.add(`resources/${raw}`);
+  }
+  return [...merged].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+};
+
 const normalizeResourcePath = (pathText) => {
   const raw = String(pathText || '').trim().replace(/\\/g, '/');
   if (!raw) return '';
@@ -145,9 +166,9 @@ const loadImage = (src) =>
 
 const buildAssetDatalist = () => {
   el.monsterAssetList.innerHTML = '';
-  for (const layerKey of LAYER_KEYS) {
+  for (const fullPath of state.resourceImageOptions) {
     const option = document.createElement('option');
-    option.value = state.layers[layerKey].path;
+    option.value = fullPath.replace(/^resources\//, '');
     el.monsterAssetList.appendChild(option);
   }
 };
@@ -207,8 +228,10 @@ const renderLayerControls = () => {
     return `
       <div class="sub-card" data-layer="${layerKey}">
         <div class="label">${LAYER_LABELS[layerKey]}</div>
-        <div class="label">图片路径（public/resources 下相对路径）</div>
-        <input data-role="path" data-layer="${layerKey}" type="text" list="monsterAssetList" value="${layer.path}" />
+        <div class="label">图片列表（自动扫描 public/resources）</div>
+        <select data-role="path-select" data-layer="${layerKey}"></select>
+        <div class="label" style="margin-top:8px">图片路径（可手动修正）</div>
+        <input data-role="path-input" data-layer="${layerKey}" type="text" list="monsterAssetList" value="${layer.path}" />
         <div class="label" style="margin-top:8px">条纹配置</div>
         <select data-role="stripe" data-layer="${layerKey}">
           ${presetOptions}
@@ -219,11 +242,38 @@ const renderLayerControls = () => {
 
   LAYER_KEYS.forEach((layerKey) => {
     const layer = state.layers[layerKey];
+    const pathSelect = el.layersBox.querySelector(`select[data-role="path-select"][data-layer="${layerKey}"]`);
+    if (pathSelect) {
+      const optionsHtml = state.resourceImageOptions
+        .map((fullPath) => {
+          const relativePath = fullPath.replace(/^resources\//, '');
+          return `<option value="${relativePath}">${relativePath}</option>`;
+        })
+        .join('');
+      pathSelect.innerHTML = optionsHtml;
+      const currentPath = normalizeResourcePath(layer.path);
+      if (state.resourceImageOptions.some((fullPath) => fullPath.replace(/^resources\//, '') === currentPath)) {
+        pathSelect.value = currentPath;
+      } else if (state.resourceImageOptions.length > 0) {
+        pathSelect.value = state.resourceImageOptions[0].replace(/^resources\//, '');
+      }
+    }
     const stripeSelect = el.layersBox.querySelector(`select[data-role="stripe"][data-layer="${layerKey}"]`);
     if (stripeSelect) stripeSelect.value = layer.stripePresetKey;
   });
 
-  el.layersBox.querySelectorAll('input[data-role="path"]').forEach((input) => {
+  el.layersBox.querySelectorAll('select[data-role="path-select"]').forEach((select) => {
+    select.addEventListener('change', (event) => {
+      const layerKey = event.currentTarget.getAttribute('data-layer');
+      if (!layerKey || !state.layers[layerKey]) return;
+      state.layers[layerKey].path = event.currentTarget.value;
+      const input = el.layersBox.querySelector(`input[data-role="path-input"][data-layer="${layerKey}"]`);
+      if (input) input.value = event.currentTarget.value;
+      void loadAllLayerImages();
+    });
+  });
+
+  el.layersBox.querySelectorAll('input[data-role="path-input"]').forEach((input) => {
     input.addEventListener('input', (event) => {
       const layerKey = event.currentTarget.getAttribute('data-layer');
       if (!layerKey || !state.layers[layerKey]) return;
@@ -255,6 +305,7 @@ const loadAllLayerImages = async () => {
     const layer = state.layers[layerKey];
     layer.path = normalizeResourcePath(layer.path) || DEFAULT_ASSETS[layerKey];
   }
+  state.resourceImageOptions = getScannedResourceImages();
   renderLayerControls();
   buildAssetDatalist();
 
@@ -478,6 +529,7 @@ const bindEvents = () => {
 };
 
 const boot = async () => {
+  state.resourceImageOptions = getScannedResourceImages();
   buildAssetDatalist();
   renderOrderControls();
   renderLayerControls();
