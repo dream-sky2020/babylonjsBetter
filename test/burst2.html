@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆角胶囊-彩边爆炸</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050508;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            font-family: sans-serif;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hint {
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            color: #64748b;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hint">点击屏幕爆发圆角线条</div>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class RoundedRay {
+            constructor(x, y, angle, color) {
+                this.x = x;
+                this.y = y;
+                this.angle = angle;
+                
+                // 爆炸速度与阻尼
+                this.speed = Math.random() * 18 + 12;
+                this.friction = 0.90;
+                
+                // 长条尺寸设定
+                this.length = Math.random() * 100 + 80; // 较长的线条
+                this.thickness = Math.random() * 6 + 6;  // 较厚实的宽度，方便看清圆角
+                
+                this.life = 1.0;
+                this.decay = Math.random() * 0.02 + 0.02; // 消失速率
+                
+                this.color = color; // 描边颜色
+            }
+
+            update() {
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                
+                this.speed *= this.friction;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                if (this.life <= 0) return;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = Math.max(0, this.life);
+
+                // 线条长度随速度动态缩放（保留张力感）
+                const currentLen = this.length * (this.speed / 15 + 0.4);
+                const r = this.thickness / 2; // 圆角半径
+
+                // 绘制两端均为半圆的长条（胶囊体 / Rounded Pill）
+                ctx.beginPath();
+                ctx.arc(0, 0, r, Math.PI / 2, Math.PI * 1.5); // 起点圆弧
+                ctx.lineTo(currentLen, -r);
+                ctx.arc(currentLen, 0, r, Math.PI * 1.5, Math.PI / 2); // 终点圆弧
+                ctx.lineTo(0, r);
+                ctx.closePath();
+
+                // 1. 内部填充（半透明暗色，突出彩边）
+                ctx.fillStyle = 'rgba(10, 15, 26, 0.85)';
+                ctx.fill();
+
+                // 2. 彩色发光外描边
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2.5;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 10; // 柔和发光效果
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        let particles = [];
+
+        function triggerExplosion(x, y) {
+            // 高饱和霓虹配色
+            const colors = ['#00f0ff', '#ff0055', '#ffea00', '#00ff66', '#b000ff', '#ff7700'];
+            const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const count = 24; // 均匀 360 度爆开
+            for (let i = 0; i < count; i++) {
+                const angle = (Math.PI * 2 / count) * i + (Math.random() * 0.08 - 0.04);
+                particles.push(new RoundedRay(x, y, angle, chosenColor));
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            triggerExplosion(e.clientX, e.clientY);
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
