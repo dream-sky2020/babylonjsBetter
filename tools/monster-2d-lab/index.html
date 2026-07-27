@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2D Monster Lab</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: #0f131a;
+      color: #e8edf2;
+    }
+
+    .root {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .panel {
+      background: #171b24;
+      border: 1px solid #2a3344;
+      border-radius: 10px;
+      padding: 12px;
+      overflow: auto;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .hint {
+      margin-top: 4px;
+      color: #8fa0b5;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .row {
+      margin-top: 12px;
+    }
+
+    .label {
+      margin-bottom: 4px;
+      color: #8fa0b5;
+      font-size: 12px;
+    }
+
+    input,
+    select,
+    button {
+      width: 100%;
+      background: #0f131a;
+      color: #e8edf2;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 6px 8px;
+    }
+
+    button {
+      cursor: pointer;
+      background: #243044;
+    }
+
+    .preview-wrap {
+      min-height: 0;
+    }
+
+    #preview {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #2a3344;
+      background: #090c11;
+      cursor: grab;
+    }
+
+    .status {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #9fb0c5;
+      line-height: 1.4;
+    }
+
+    .sub-card {
+      margin-top: 8px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 8px;
+      background: #111722;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="root">
+    <section class="panel">
+      <div class="title">2D 怪物展示 Lab</div>
+      <div class="hint">
+        每层都可独立设置：图片路径、是否使用条纹、使用哪个条纹预设。
+        <br />
+        同时可配置“底到顶”的渲染顺序。
+      </div>
+
+      <div class="row">
+        <button id="reloadBtn">重载条纹配置</button>
+        <div id="statusText" class="status"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">渲染顺序（从底到顶）</div>
+        <div id="orderBox"></div>
+      </div>
+
+      <div class="row">
+        <div class="label">每层配置</div>
+        <div id="layersBox"></div>
+      </div>
+
+      <div class="row">
+        <button id="reloadImagesBtn">重载当前图片与配置</button>
+      </div>
+
+      <div class="row">
+        <div class="label">怪物大小</div>
+        <input id="sizeInput" type="range" min="240" max="900" step="1" value="560" />
+      </div>
+
+      <div class="row">
+        <button id="resetPositionBtn">恢复原位</button>
+      </div>
+
+      <datalist id="monsterAssetList"></datalist>
+    </section>
+    <section class="preview-wrap">
+      <canvas id="preview"></canvas>
+    </section>
+  </main>
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
