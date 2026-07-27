@@ -61,6 +61,7 @@ export const SpriteAnimationEditor: React.FC = () => {
   const [dragOverPartId, setDragOverPartId] = useState('');
   const [customRigAtlasPath, setCustomRigAtlasPath] = useState('');
   const [customPartAtlasPath, setCustomPartAtlasPath] = useState('');
+  const [keyTimeDraft, setKeyTimeDraft] = useState('0');
   const selectedKeyTimeRef = useRef(lib.selectedKeyTime);
   const updateClipRef = useRef(lib.updateClip);
   useEffect(() => {
@@ -107,6 +108,10 @@ export const SpriteAnimationEditor: React.FC = () => {
 
   const selectedPose: SpritePartPose = selectedKey?.parts[lib.selectedPartId] ?? {};
   const partAtlas = lib.rig && selectedPart ? resolvePartAtlas(lib.rig, selectedPart) : null;
+
+  useEffect(() => {
+    setKeyTimeDraft(String(lib.selectedKeyTime));
+  }, [lib.selectedKeyTime]);
 
   useEffect(() => {
     const isTypingTarget = (target: EventTarget | null): boolean => {
@@ -172,14 +177,28 @@ export const SpriteAnimationEditor: React.FC = () => {
     lib.updateClip((prev) => upsertKeyframe(prev, lib.selectedKeyTime, lib.selectedPartId, nextPose));
   };
 
-  const applyKeyTimeEdit = (raw: string) => {
-    const next = Number(raw);
-    if (Number.isNaN(next) || next < 0) return;
+  const applyKeyTimeEdit = () => {
+    if (!lib.clip) return;
+    const next = Number(keyTimeDraft);
+    if (Number.isNaN(next) || next < 0) {
+      lib.setMessage('关键帧时间无效，请输入大于等于 0 的数字');
+      setKeyTimeDraft(String(lib.selectedKeyTime));
+      return;
+    }
     const from = lib.selectedKeyTime;
     const to = toFixedNumber(next);
+    const hasDuplicate = lib.clip.keys.some(
+      (key) => Math.abs(key.time - to) < 1e-4 && Math.abs(key.time - from) >= 1e-4
+    );
+    if (hasDuplicate) {
+      lib.setMessage(`关键帧时间禁止重复：${to}s 已存在`);
+      setKeyTimeDraft(String(lib.selectedKeyTime));
+      return;
+    }
     lib.updateClip((prev) => moveKeyframeTime(prev, from, to));
     lib.setSelectedKeyTime(to);
     preview.seek(to);
+    setKeyTimeDraft(String(to));
   };
 
   const rigOptions = Object.values(lib.library.rigs);
@@ -551,8 +570,18 @@ export const SpriteAnimationEditor: React.FC = () => {
                 type="number"
                 step={0.01}
                 style={{ ...inputStyle, marginBottom: 8 }}
-                value={lib.selectedKeyTime}
-                onChange={(event) => applyKeyTimeEdit(event.target.value)}
+                value={keyTimeDraft}
+                onChange={(event) => setKeyTimeDraft(event.target.value)}
+                onBlur={applyKeyTimeEdit}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    applyKeyTimeEdit();
+                    return;
+                  }
+                  if (event.key === 'Escape') {
+                    setKeyTimeDraft(String(lib.selectedKeyTime));
+                  }
+                }}
               />
 
               <div style={labelStyle}>当前关键帧姿态 · {lib.selectedPartId || '未选部件'}</div>

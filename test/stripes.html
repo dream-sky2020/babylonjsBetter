@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stripes Runtime Preview</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        color: #fff;
+        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      }
+      #preview {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .overlay {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+      .overlay a {
+        color: #8cc8ff;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="preview"></canvas>
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+      const canvas = document.getElementById("preview");
+      const overlay = document.getElementById("overlay");
+      const params = new URLSearchParams(window.location.search);
+      const presetKey = params.get("preset") || "monster_blessing_tier_1";
+
+      let preset = null;
+      let phase = 0;
+      let lastSec = performance.now() / 1000;
+
+      const toNumber = (value, fallback) => {
+        const num = Number(value);
+        return Number.isFinite(num) ? num : fallback;
+      };
+
+      const normalizePreset = (key, source) => {
+        const safe = source && typeof source === "object" ? source : {};
+        const segments = Array.isArray(safe.segments)
+          ? safe.segments.map((seg) => ({
+              width: Math.max(0.01, toNumber(seg.width, 20)),
+              fillType: seg.fillType === "gradient" ? "gradient" : "solid",
+              color: typeof seg.color === "string" ? seg.color : "#ffffff",
+              fromColor: typeof seg.fromColor === "string" ? seg.fromColor : "#ffffff",
+              toColor: typeof seg.toColor === "string" ? seg.toColor : "#000000",
+              opacity: Math.max(0, Math.min(1, toNumber(seg.opacity, 1)))
+            }))
+          : [{ width: 20, fillType: "solid", color: "#ffffff", opacity: 1 }];
+        return {
+          presetKey: key,
+          name: typeof safe.name === "string" ? safe.name : key,
+          mode: safe.mode === "solid" ? "solid" : "stripes",
+          solidColor: typeof safe.solidColor === "string" ? safe.solidColor : "#ffffff",
+          angleDeg: Math.max(-360, Math.min(360, toNumber(safe.angleDeg, 45))),
+          speed: Math.max(-5000, Math.min(5000, toNumber(safe.speed, 90))),
+          background: typeof safe.background === "string" ? safe.background : "#000000",
+          segments
+        };
+      };
+
+      const buildPatternCanvas = (currentPreset) => {
+        const period = Math.max(1, Math.round(currentPreset.segments.reduce((sum, seg) => sum + seg.width, 0)));
+        const off = document.createElement("canvas");
+        off.width = period;
+        off.height = 64;
+        const ctx = off.getContext("2d");
+        let cursor = 0;
+        for (const seg of currentPreset.segments) {
+          const width = Math.max(1, Math.round(seg.width));
+          ctx.globalAlpha = seg.opacity;
+          if (seg.fillType === "gradient") {
+            const grad = ctx.createLinearGradient(cursor, 0, cursor + width, 0);
+            grad.addColorStop(0, seg.fromColor);
+            grad.addColorStop(1, seg.toColor);
+            ctx.fillStyle = grad;
+          } else {
+            ctx.fillStyle = seg.color;
+          }
+          ctx.fillRect(cursor, 0, width, off.height);
+          cursor += width;
+        }
+        ctx.globalAlpha = 1;
+        return { image: off, period: Math.max(1, cursor) };
+      };
+
+      const resizeCanvas = () => {
+        const ratio = Math.max(1, window.devicePixelRatio || 1);
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+        canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+      };
+
+      const render = (dt) => {
+        if (!preset) return;
+        resizeCanvas();
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        if (preset.mode === "solid") {
+          ctx.fillStyle = preset.solidColor || "#ffffff";
+          ctx.fillRect(0, 0, w, h);
+          return;
+        }
+        phase += preset.speed * dt;
+        const { image, period } = buildPatternCanvas(preset);
+        const shift = ((phase % period) + period) % period;
+        const diag = Math.ceil(Math.sqrt(w * w + h * h));
+
+        ctx.fillStyle = preset.background;
+        ctx.fillRect(0, 0, w, h);
+        ctx.save();
+        ctx.translate(w / 2, h / 2);
+        ctx.rotate((preset.angleDeg * Math.PI) / 180);
+        for (let x = -diag - period * 2; x < diag + period * 2; x += period) {
+          ctx.drawImage(image, x - shift, -diag, period, diag * 2);
+        }
+        ctx.restore();
+      };
+
+      const tick = () => {
+        const now = performance.now() / 1000;
+        const dt = Math.max(0, now - lastSec);
+        lastSec = now;
+        render(dt);
+        requestAnimationFrame(tick);
+      };
+
+      const loadPreset = async () => {
+        try {
+          const response = await fetch(`/config/stripePresets.json?t=${Date.now()}`, { cache: "no-store" });
+          const data = await response.json();
+          if (!data || typeof data !== "object") throw new Error("stripePresets.json 不是对象");
+          const chosen = data[presetKey] || Object.values(data)[0];
+          if (!chosen) throw new Error("没有可用条纹预设");
+          const key = chosen.presetKey || presetKey;
+          preset = normalizePreset(key, chosen);
+          overlay.innerHTML = `preset: <b>${preset.presetKey}</b><br/>name: ${preset.name}<br/><a href="/tools/stripes-config-lab/index.html" target="_blank">打开配置 Lab</a>`;
+        } catch (error) {
+          overlay.textContent = `加载预设失败：${String(error)}`;
+        }
+      };
+
+      window.addEventListener("resize", resizeCanvas);
+      void (async () => {
+        resizeCanvas();
+        await loadPreset();
+        requestAnimationFrame(tick);
+      })();
+    </script>
+  </body>
+</html>

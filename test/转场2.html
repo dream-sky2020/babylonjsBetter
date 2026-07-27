@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>密密麻麻菱形网格转场</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    /* 底层背景场景 */
+    #base-scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .scene-dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    .scene-light {
+      background-color: #e0e0e0;
+      color: #1a1a1a;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    /* 网格容器：覆盖全屏 */
+    #grid-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      /* 动态控制行列，默认 12 行 12 列 */
+      grid-template-columns: repeat(var(--cols, 12), 1fr);
+      grid-template-rows: repeat(var(--rows, 12), 1fr);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* 每个网格小单元 */
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      /* 初始状态：菱形缩小为 0% */
+      clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    }
+
+    /* 触发网格菱形放大动画 */
+    #grid-container.animate .grid-item {
+      animation: diamondGridExpand 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      /* 通过 delay 产生从中心向外波浪扩散的酷炫效果 */
+      animation-delay: var(--delay, 0s);
+    }
+
+    /* 在各自小网格内，菱形从中心点放大并完全撑满网格 */
+    @keyframes diamondGridExpand {
+      0% {
+        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+      }
+      /* 中途重叠覆盖，确保没有缝隙 */
+      100% {
+        clip-path: polygon(50% -50%, 150% 50%, 50% 150%, -50% 50%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 底层场景 -->
+  <div id="base-scene" class="scene-dark">
+    <h1>DARK SCENE</h1>
+    <p>点击任意位置触发密密麻麻的菱形网格转场</p>
+  </div>
+
+  <!-- 网格转场层 -->
+  <div id="grid-container"></div>
+
+  <script>
+    const ROWS = 10; // 网格行数（可以自行修改密度）
+    const COLS = 10; // 网格列数
+
+    const baseScene = document.getElementById('base-scene');
+    const gridContainer = document.getElementById('grid-container');
+
+    // 设置 CSS 网格行列变量
+    gridContainer.style.setProperty('--rows', ROWS);
+    gridContainer.style.setProperty('--cols', COLS);
+
+    let isDark = true;
+    let isAnimating = false;
+
+    // 初始化网格 DOM
+    function createGrid() {
+      gridContainer.innerHTML = '';
+      const centerR = (ROWS - 1) / 2;
+      const centerC = (COLS - 1) / 2;
+      const maxDist = Math.sqrt(centerR * centerR + centerC * centerC);
+
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const item = document.createElement('div');
+          item.classList.add('grid-item');
+          
+          // 计算每个格子距离中心点的距离，形成波浪式的交替延迟
+          const dist = Math.sqrt(Math.pow(r - centerR, 2) + Math.pow(c - centerC, 2));
+          const delay = (dist / maxDist) * 0.3; // 最大延迟 0.3 秒
+          item.style.setProperty('--delay', `${delay.toFixed(2)}s`);
+
+          gridContainer.appendChild(item);
+        }
+      }
+    }
+
+    createGrid();
+
+    document.addEventListener('click', () => {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const nextTheme = isDark ? 'scene-light' : 'scene-dark';
+      const nextTitle = isDark ? 'LIGHT SCENE' : 'DARK SCENE';
+
+      // 1. 给网格里的每个小格子填入新场景的背景色
+      const items = gridContainer.querySelectorAll('.grid-item');
+      items.forEach(item => {
+        item.className = `grid-item ${nextTheme}`;
+      });
+
+      // 2. 播放动画
+      gridContainer.classList.add('animate');
+
+      // 3. 动画结束后更新底层场景并重置网格
+      setTimeout(() => {
+        baseScene.className = nextTheme;
+        baseScene.querySelector('h1').innerText = nextTitle;
+
+        gridContainer.classList.remove('animate');
+        isDark = !isDark;
+        isAnimating = false;
+      }, 1000); // 包含动画时长(0.7s) + 最大延迟(0.3s)
+    });
+  </script>
+</body>
+</html>

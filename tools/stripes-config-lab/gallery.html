@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stripes Preset Gallery</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+        background: #0f131a;
+        color: #e8edf2;
+      }
+      .wrap {
+        padding: 14px;
+      }
+      .topbar {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .hint {
+        color: #8fa0b5;
+        font-size: 12px;
+      }
+      .btn {
+        background: #243044;
+        color: #e8edf2;
+        border: 1px solid #3b4b63;
+        border-radius: 6px;
+        padding: 6px 10px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .btn.primary {
+        background: #2f6fed;
+        border-color: #2f6fed;
+      }
+      .btn.warn {
+        background: #60222a;
+        border-color: #7b2f39;
+      }
+      .search {
+        width: min(420px, 100%);
+        background: #0f131a;
+        color: #e8edf2;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        padding: 6px 8px;
+      }
+      .status {
+        margin-bottom: 10px;
+        color: #9fb0c5;
+        font-size: 12px;
+      }
+      .check-panel {
+        margin-bottom: 12px;
+        background: #171b24;
+        border: 1px solid #2a3344;
+        border-radius: 10px;
+        padding: 10px;
+      }
+      .check-title {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .check-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .check-col {
+        background: #121722;
+        border: 1px solid #2a3344;
+        border-radius: 8px;
+        padding: 8px;
+      }
+      .check-col-title {
+        font-size: 12px;
+        color: #9fb0c5;
+        margin-bottom: 6px;
+      }
+      .check-list {
+        margin: 0;
+        padding-left: 16px;
+        font-size: 12px;
+        color: #d7dee8;
+      }
+      .check-ok {
+        font-size: 12px;
+        color: #7dcea0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 10px;
+      }
+      .card {
+        background: #171b24;
+        border: 1px solid #2a3344;
+        border-radius: 10px;
+        padding: 10px;
+        cursor: pointer;
+      }
+      .card:hover {
+        border-color: #4a7bff;
+      }
+      .card-canvas {
+        width: 100%;
+        height: 120px;
+        display: block;
+        border-radius: 8px;
+        border: 1px solid #2a3344;
+        background: #000;
+      }
+      .card-id {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #9fb0c5;
+        word-break: break-all;
+      }
+      .card-name {
+        margin-top: 2px;
+        font-size: 14px;
+      }
+      .rename-row {
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+      }
+      .rename-input {
+        width: 100%;
+        background: #0f131a;
+        color: #e8edf2;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        padding: 6px 8px;
+      }
+      .rename-btn {
+        background: #243044;
+        color: #e8edf2;
+        border: 1px solid #3b4b63;
+        border-radius: 6px;
+        padding: 6px 10px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .action-row {
+        margin-top: 6px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .empty {
+        padding: 16px;
+        border: 1px dashed #3b4b63;
+        border-radius: 10px;
+        color: #8fa0b5;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="topbar">
+        <div class="title">Stripes 预设卡片总览</div>
+        <a id="backToEditorBtn" class="btn" href="./index.html">返回编辑器</a>
+        <button id="reloadBtn" class="btn primary">重载配置</button>
+        <button id="saveBtn" class="btn primary">保存到服务器</button>
+        <input id="searchInput" class="search" placeholder="按 ID / 名称过滤..." />
+      </div>
+      <div class="hint">点击卡片可跳转到编辑页；改 ID/名称需按确认才生效。复制、删除后请点击“保存到服务器”。</div>
+      <div id="statusText" class="status">正在加载...</div>
+      <section class="check-panel">
+        <div class="check-title">批量保存前校验面板</div>
+        <div class="check-grid">
+          <div class="check-col">
+            <div class="check-col-title">待保存变更</div>
+            <ul id="pendingList" class="check-list"></ul>
+            <div id="pendingOk" class="check-ok" style="display:none">当前没有待保存变更</div>
+          </div>
+          <div class="check-col">
+            <div class="check-col-title">空字段/无效字段</div>
+            <ul id="issuesList" class="check-list"></ul>
+            <div id="issuesOk" class="check-ok" style="display:none">未发现空字段或无效字段</div>
+          </div>
+        </div>
+      </section>
+      <section id="cardsGrid" class="grid"></section>
+    </main>
+
+    <script type="module" src="./gallery.js"></script>
+  </body>
+</html>

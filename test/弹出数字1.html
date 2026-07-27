@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击生成直角矩形随机数</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none; /* 防止点击时选中文本 */
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #0f172a; /* 深色背景 */
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            cursor: pointer;
+        }
+
+        .hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #64748b;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+
+        /* 长方形边框样式 */
+        .number-box {
+            position: absolute;
+            /* 严格直角，无圆角 */
+            border-radius: 0; 
+            /* 极简直角边框：2px 实线 */
+            border: 2px solid #38bdf8;
+            background-color: rgba(15, 23, 42, 0.85);
+            color: #38bdf8;
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace; /* 等宽字体保证数字质感 */
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); /* 微微的冷色发光 */
+            
+            /* 淡入并向上浮动的动画 */
+            animation: spawn 0.8s ease-out forwards;
+            pointer-events: none; /* 防止遮挡下一次点击 */
+        }
+
+        @keyframes spawn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -30%) scale(0.9);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -70%) scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hint">点击屏幕任意位置生成数字</div>
+
+    <script>
+        document.body.addEventListener('click', function(e) {
+            // 生成随机数（范围：1000 ~ 9999，可根据需要修改）
+            const randomNumber = Math.floor(1000 + Math.random() * 9000);
+
+            // 创建矩形框元素
+            const box = document.createElement('div');
+            box.className = 'number-box';
+            box.innerText = randomNumber;
+
+            // 设置显示位置（以鼠标点击坐标为中心）
+            box.style.left = e.clientX + 'px';
+            box.style.top = e.clientY + 'px';
+
+            // 随机切换不同的直角框配色（可选，增加趣味性）
+            const colors = ['#38bdf8', '#4ade80', '#f43f5e', '#a855f7', '#f59e0b'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            box.style.borderColor = randomColor;
+            box.style.color = randomColor;
+            box.style.boxShadow = `0 0 15px ${randomColor}33`;
+
+            // 添加到页面
+            document.body.appendChild(box);
+
+            // 动画结束后自动清理 DOM 节点
+            setTimeout(() => {
+                box.remove();
+            }, 800);
+        });
+    </script>
+</body>
+</html>

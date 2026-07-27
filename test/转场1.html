@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>酷炫菱形转场动画</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    /* 基础场景样式 */
+    .scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* 场景 1：黑色背景 */
+    .scene-dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    /* 场景 2：灰白背景 */
+    .scene-light {
+      background-color: #e0e0e0;
+      color: #1a1a1a;
+    }
+
+    /* 文本与提示 */
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.7;
+    }
+
+    /* 转场覆盖层 */
+    #transition-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      /* 初始状态：菱形缩小到 0% */
+      clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    }
+
+    /* 执行菱形放大动画 */
+    #transition-layer.animate {
+      animation: diamondExpand 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    /* 核心关键帧：从中心点 0% 扩散到超出全屏的巨型菱形 */
+    @keyframes diamondExpand {
+      0% {
+        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+      }
+      100% {
+        /* 上、右、下、左 四个顶点向外极度延伸，覆盖整个屏幕 */
+        clip-path: polygon(50% -100%, 200% 50%, 50% 200%, -100% 50%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 底层场景 (初始化为黑色场景) -->
+  <div id="base-scene" class="scene scene-dark">
+    <h1>DARK SCENE</h1>
+    <p>点击任意位置触发菱形转场</p>
+  </div>
+
+  <!-- 转场层 (初始隐藏，动画时在上方展开) -->
+  <div id="transition-layer" class="scene scene-light">
+    <h1>LIGHT SCENE</h1>
+    <p>点击任意位置触发菱形转场</p>
+  </div>
+
+  <script>
+    const baseScene = document.getElementById('base-scene');
+    const transLayer = document.getElementById('transition-layer');
+
+    // 状态管理：isDark 表示当前底层场景是否为黑色
+    let isDark = true;
+    let isAnimating = false;
+
+    document.addEventListener('click', () => {
+      // 防止重复点击导致动画重置
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // 1. 准备转场层：设定为即将切换到的新场景样式
+      if (isDark) {
+        // 当前是黑，新场景设为灰白
+        transLayer.className = 'scene scene-light';
+        transLayer.querySelector('h1').innerText = 'LIGHT SCENE';
+      } else {
+        // 当前是灰白，新场景设为黑
+        transLayer.className = 'scene scene-dark';
+        transLayer.querySelector('h1').innerText = 'DARK SCENE';
+      }
+
+      // 2. 触发 CSS 动画
+      transLayer.classList.add('animate');
+
+      // 3. 动画结束后的清理与状态同步
+      setTimeout(() => {
+        // 将底层场景直接更新为新场景
+        if (isDark) {
+          baseScene.className = 'scene scene-light';
+          baseScene.querySelector('h1').innerText = 'LIGHT SCENE';
+        } else {
+          baseScene.className = 'scene scene-dark';
+          baseScene.querySelector('h1').innerText = 'DARK SCENE';
+        }
+
+        // 移除转场层的动画 Class，恢复到初始的 clip-path(0%)
+        transLayer.classList.remove('animate');
+
+        // 翻转状态标识
+        isDark = !isDark;
+        isAnimating = false;
+      }, 800); // 时间需与 CSS animation-duration 保持一致 (0.8s)
+    });
+  </script>
+</body>
+</html>

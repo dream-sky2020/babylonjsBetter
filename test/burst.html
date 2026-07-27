@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>硬核干脆-线条爆炸</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050508;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            font-family: sans-serif;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hint {
+            position: relative;
+            z-index: 2;
+            pointer-events: none;
+            color: #4a5568;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hint">点击屏幕爆发激光射线</div>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class SharpRay {
+            constructor(x, y, angle, color) {
+                this.x = x;
+                this.y = y;
+                this.angle = angle; // 绝对固定的直线角度
+                
+                this.speed = Math.random() * 25 + 15; // 超高初始爆发速度
+                this.friction = 0.92;                // 快速减速
+                
+                this.length = Math.random() * 80 + 60; // 极长的直线线条
+                this.thickness = Math.random() * 3 + 1.5;
+                
+                this.life = 1.0;
+                this.decay = Math.random() * 0.03 + 0.03; // 快速干脆地消失
+                
+                this.color = color;
+            }
+
+            update() {
+                // 沿着绝对笔直的方向延伸
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                
+                this.speed *= this.friction;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                if (this.life <= 0) return;
+
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.globalAlpha = Math.max(0, this.life);
+
+                // 当前线段长度（根据速度微调，保持张力）
+                const len = this.length * (this.speed / 20 + 0.5);
+
+                // --- 第一层：外层硬核描边（黑色/深色高对比外框）---
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = this.thickness + 2.5;
+                ctx.lineCap = 'butt'; // 扁平切口，比 round 更硬朗直挺
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(len, 0);
+                ctx.stroke();
+
+                // --- 第二层：内层核心亮线（高饱和彩色）---
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = this.thickness;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(len, 0);
+                ctx.stroke();
+
+                // --- 第三层：中心高光白线（增加锐利感）---
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = Math.max(1, this.thickness - 1.5);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(len * 0.8, 0);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        }
+
+        let particles = [];
+
+        function triggerExplosion(x, y) {
+            // 每次点击随机选一种高饱和度的科技/动漫配色
+            const colors = ['#00f0ff', '#ff0055', '#ffea00', '#00ff66', '#b000ff'];
+            const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const count = 36; // 均匀或随机向四周360度绝对直线爆开
+            for (let i = 0; i < count; i++) {
+                // 精确均匀发散 + 少量角度微调，保持绝对直线
+                const angle = (Math.PI * 2 / count) * i + (Math.random() * 0.1 - 0.05);
+                particles.push(new SharpRay(x, y, angle, chosenColor));
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            triggerExplosion(e.clientX, e.clientY);
+        });
+
+        function animate() {
+            // 【核心修改】：彻底清空上一帧，零残影、零拖尾！
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
