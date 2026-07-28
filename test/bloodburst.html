@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态超酷红色血迹爆炸</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #080808;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-family: monospace, sans-serif;
+            text-align: center;
+            pointer-events: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hint" id="hint">
+        [ 点击任意位置 ] 触发红色爆炸<br><br>
+        <span style="font-size: 0.85rem; color: #444;">[ 右键点击 ] 清空屏幕</span>
+    </div>
+
+    <canvas id="bloodCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('bloodCanvas');
+        const ctx = canvas.getContext('2d');
+        const hint = document.getElementById('hint');
+
+        // 离屏 Canvas：用来保存爆炸后凝固在屏幕上的血迹，避免每帧重绘性能下降
+        const splatCanvas = document.createElement('canvas');
+        const splatCtx = splatCanvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            splatCanvas.width = window.innerWidth;
+            splatCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const baseColors = ['#ff1a1a', '#cc0000', '#8b0000', '#4a0000', '#ff4d4d'];
+
+        // 动画粒子数组与冲击波数组
+        let particles = [];
+        let shockwaves = [];
+
+        // 1. 冲击波类 (Explosion Shockwave)
+        class Shockwave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 1;
+                this.maxRadius = Math.random() * 60 + 40;
+                this.alpha = 1;
+                this.color = baseColors[Math.floor(Math.random() * baseColors.length)];
+            }
+
+            update() {
+                this.radius += (this.maxRadius - this.radius) * 0.15;
+                this.alpha -= 0.05;
+            }
+
+            draw(context) {
+                if (this.alpha <= 0) return;
+                context.save();
+                context.beginPath();
+                context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                context.strokeStyle = this.color;
+                context.globalAlpha = this.alpha;
+                context.lineWidth = 4;
+                context.stroke();
+                context.restore();
+            }
+        }
+
+        // 2. 飞溅血迹粒子类 (Particle)
+        class Particle {
+            constructor(x, y, type) {
+                this.x = x;
+                this.y = y;
+                this.type = type; // 'core' (核心爆裂), 'tendril' (拉丝液滴), 'mist' (细微血雾)
+                this.color = baseColors[Math.floor(Math.random() * baseColors.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                let speed;
+
+                if (type === 'core') {
+                    speed = Math.random() * 8 + 4;
+                    this.radius = Math.random() * 5 + 3;
+                    this.friction = 0.88; // 阻力
+                    this.gravity = 0.2;  // 重力
+                    this.life = Math.random() * 20 + 10;
+                } else if (type === 'tendril') {
+                    speed = Math.random() * 18 + 8; // 速度更快，形成拉丝
+                    this.radius = Math.random() * 3 + 1;
+                    this.friction = 0.92;
+                    this.gravity = 0.15;
+                    this.life = Math.random() * 30 + 15;
+                } else if (type === 'mist') {
+                    speed = Math.random() * 12 + 2;
+                    this.radius = Math.random() * 1.5 + 0.5;
+                    this.friction = 0.95;
+                    this.gravity = 0.02; // 极轻微下落
+                    this.life = Math.random() * 40 + 20;
+                }
+
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.maxLife = this.life;
+                this.trail = []; // 轨迹拖尾 (用于拉丝效果)
+            }
+
+            update() {
+                // 保存过去的位置以绘制拉丝/尾迹
+                this.trail.push({ x: this.x, y: this.y });
+                if (this.trail.length > 5) this.trail.shift();
+
+                // 物理计算
+                this.vx *= this.friction;
+                this.vy *= this.friction;
+                this.vy += this.gravity;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                this.life--;
+
+                // 当粒子减速停下或生命结束时，将其“凝固”画在离屏 Canvas 上，成为永久血迹
+                if (this.life <= 0 || (Math.abs(this.vx) < 0.2 && Math.abs(this.vy) < 0.2)) {
+                    this.splat();
+                    return false; // 移除该粒子
+                }
+                return true;
+            }
+
+            draw(context) {
+                context.save();
+                context.fillStyle = this.color;
+                context.strokeStyle = this.color;
+
+                // 绘制拉丝拖尾
+                if (this.trail.length > 1) {
+                    context.beginPath();
+                    context.moveTo(this.trail[0].x, this.trail[0].y);
+                    for (let p of this.trail) {
+                        context.lineTo(p.x, p.y);
+                    }
+                    context.lineWidth = this.radius;
+                    context.lineCap = 'round';
+                    context.stroke();
+                }
+
+                // 绘制粒子头部
+                context.beginPath();
+                context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                context.fill();
+                context.restore();
+            }
+
+            // 粒子落定后印在背景上
+            splat() {
+                splatCtx.save();
+                splatCtx.fillStyle = this.color;
+                splatCtx.beginPath();
+                // 打印一个稍不规则的血滴印记
+                splatCtx.arc(this.x, this.y, this.radius * (Math.random() * 0.5 + 0.8), 0, Math.PI * 2);
+                splatCtx.fill();
+                splatCtx.restore();
+            }
+        }
+
+        // 触发爆炸函数
+        function createExplosion(x, y) {
+            // 隐藏提示
+            if (hint.style.opacity !== '0') {
+                hint.style.opacity = '0';
+            }
+
+            // 1. 添加冲击波
+            shockwaves.push(new Shockwave(x, y));
+
+            // 2. 生成中心爆裂粒子
+            const coreCount = Math.floor(Math.random() * 15) + 20;
+            for (let i = 0; i < coreCount; i++) {
+                particles.push(new Particle(x, y, 'core'));
+            }
+
+            // 3. 生成放射状泼洒拉丝粒子
+            const tendrilCount = Math.floor(Math.random() * 30) + 40;
+            for (let i = 0; i < tendrilCount; i++) {
+                particles.push(new Particle(x, y, 'tendril'));
+            }
+
+            // 4. 生成细微雾状喷溅粒子
+            const mistCount = Math.floor(Math.random() * 40) + 30;
+            for (let i = 0; i < mistCount; i++) {
+                particles.push(new Particle(x, y, 'mist'));
+            }
+        }
+
+        // 点击事件
+        window.addEventListener('click', (e) => {
+            createExplosion(e.clientX, e.clientY);
+        });
+
+        // 右键清屏
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            splatCtx.clearRect(0, 0, splatCanvas.width, splatCanvas.height);
+            particles = [];
+            shockwaves = [];
+            hint.style.opacity = '1';
+        });
+
+        // 主动画循环 (60 FPS)
+        function animate() {
+            // 清空当前帧 Canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 第一层：绘制已经凝固的背景血痕
+            ctx.drawImage(splatCanvas, 0, 0);
+
+            // 第二层：更新并绘制冲击波
+            for (let i = shockwaves.length - 1; i >= 0; i--) {
+                shockwaves[i].update();
+                shockwaves[i].draw(ctx);
+                if (shockwaves[i].alpha <= 0) {
+                    shockwaves.splice(i, 1);
+                }
+            }
+
+            // 第三层：更新并绘制飞行的血滴粒子
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const isAlive = particles[i].update();
+                if (isAlive) {
+                    particles[i].draw(ctx);
+                } else {
+                    particles.splice(i, 1); // 粒子死后从数组移除
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // 启动动画循环
+        animate();
+    </script>
+</body>
+</html>

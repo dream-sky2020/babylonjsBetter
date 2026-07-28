@@ -112,8 +112,6 @@
       <div class="title">2D 怪物展示 Lab</div>
       <div class="hint">
         每层都可独立设置：图片路径、是否使用条纹、使用哪个条纹预设。
-        <br />
-        同时可配置“底到顶”的渲染顺序。
       </div>
 
       <div class="row">
@@ -122,8 +120,31 @@
       </div>
 
       <div class="row">
-        <div class="label">渲染顺序（从底到顶）</div>
-        <div id="orderBox"></div>
+        <div class="label">怪物显示配置</div>
+        <select id="monsterConfigSelect"></select>
+      </div>
+      <div class="row">
+        <div class="label">配置 ID（唯一）</div>
+        <input id="monsterIdInput" type="text" placeholder="monster_default" />
+      </div>
+      <div class="row">
+        <div class="label">配置名称</div>
+        <input id="monsterNameInput" type="text" placeholder="默认怪物展示" />
+      </div>
+      <div class="row">
+        <button id="newMonsterConfigBtn">新建配置</button>
+      </div>
+      <div class="row">
+        <button id="duplicateMonsterConfigBtn">复制当前配置</button>
+      </div>
+      <div class="row">
+        <button id="deleteMonsterConfigBtn">删除当前配置</button>
+      </div>
+      <div class="row">
+        <button id="loadMonsterConfigsBtn">从服务器读取配置</button>
+      </div>
+      <div class="row">
+        <button id="saveMonsterConfigsBtn">保存怪物配置到服务器</button>
       </div>
 
       <div class="row">

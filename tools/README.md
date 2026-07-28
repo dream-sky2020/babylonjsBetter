@@ -39,6 +39,8 @@
 - `target-link-lab/`
   - `index.html`（原 `targeindex.html`）
   - `legacy.html`（原 `targeindex_old.html`）
+- `pop-number-lab/`
+  - `index.html`（点击位置弹出数字，可调范围/固定值/消失时间/发光）
 
 ## 访问路径示例（开发模式）
 
@@ -49,3 +51,4 @@
 - `/tools/target-link-lab/legacy.html`
 - `/tools/render-lab/energy-line.html`
 - `/tools/render-lab/energy_line_dynamic_erosion.html`
+- `/tools/pop-number-lab/index.html`

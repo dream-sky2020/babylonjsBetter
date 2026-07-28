@@ -1,6 +1,15 @@
+import {
+  getResolvedDevServerPort,
+  probeDevServerConnection,
+  requestDevServer
+} from '/core/network/devServerPortResolver.ts';
+
 const CONFIG_URL = '/config/stripePresets.json';
+const MONSTER_CONFIG_API_PATH = '/api/monster-display-configs';
 const STRIPE_NONE = '__none__';
 const LAYER_KEYS = ['bottomFillMask', 'bottomBorder', 'body', 'line'];
+const FIXED_RENDER_ORDER = [...LAYER_KEYS];
+const preferredMonsterConfigFromQuery = (new URLSearchParams(window.location.search).get('monsterConfig') || '').trim();
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
   query: '?url',
@@ -21,6 +30,8 @@ const DEFAULT_ASSETS = {
 
 const state = {
   presets: {},
+  monsterConfigs: {},
+  activeMonsterConfigId: '',
   lastTimeSec: performance.now() / 1000,
   animTimeSec: 0,
   offsetCssPx: { x: 0, y: 0 },
@@ -30,7 +41,6 @@ const state = {
     lastClientX: 0,
     lastClientY: 0
   },
-  renderOrder: ['bottomFillMask', 'bottomBorder', 'body', 'line'],
   layers: {
     line: { path: DEFAULT_ASSETS.line, stripePresetKey: STRIPE_NONE },
     body: { path: DEFAULT_ASSETS.body, stripePresetKey: STRIPE_NONE },
@@ -50,9 +60,16 @@ const state = {
 
 const el = {
   reloadBtn: document.getElementById('reloadBtn'),
+  loadMonsterConfigsBtn: document.getElementById('loadMonsterConfigsBtn'),
+  saveMonsterConfigsBtn: document.getElementById('saveMonsterConfigsBtn'),
+  newMonsterConfigBtn: document.getElementById('newMonsterConfigBtn'),
+  duplicateMonsterConfigBtn: document.getElementById('duplicateMonsterConfigBtn'),
+  deleteMonsterConfigBtn: document.getElementById('deleteMonsterConfigBtn'),
+  monsterConfigSelect: document.getElementById('monsterConfigSelect'),
+  monsterIdInput: document.getElementById('monsterIdInput'),
+  monsterNameInput: document.getElementById('monsterNameInput'),
   reloadImagesBtn: document.getElementById('reloadImagesBtn'),
   statusText: document.getElementById('statusText'),
-  orderBox: document.getElementById('orderBox'),
   layersBox: document.getElementById('layersBox'),
   sizeInput: document.getElementById('sizeInput'),
   resetPositionBtn: document.getElementById('resetPositionBtn'),
@@ -70,6 +87,36 @@ const setStatus = (message, isError = false) => {
   el.statusText.style.color = isError ? '#e07474' : '#9fb0c5';
 };
 
+const parseJsonPayload = async (response) => {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    const head = text.slice(0, 120).trim().toLowerCase();
+    if (head.startsWith('<!doctype') || head.startsWith('<html')) {
+      throw new Error('接口返回了 HTML，而不是 JSON（通常是 API 地址未连到 python/server.py）');
+    }
+    throw new Error(`接口返回非 JSON 内容：${text.slice(0, 120)}`);
+  }
+};
+
+const requestMonsterConfigApi = async (method, body) => {
+  const response = await requestDevServer(
+    method === 'GET' ? `${MONSTER_CONFIG_API_PATH}?t=${Date.now()}` : MONSTER_CONFIG_API_PATH,
+    {
+      method,
+      headers: method === 'PUT' ? { 'Content-Type': 'application/json' } : undefined,
+      body: method === 'PUT' ? JSON.stringify(body) : undefined
+    }
+  );
+  const payload = await parseJsonPayload(response);
+  if (!response.ok || payload.success === false) {
+    const detail = Array.isArray(payload.errors) && payload.errors.length > 0 ? `：${payload.errors[0]}` : '';
+    throw new Error(`${payload.message || `HTTP ${response.status}`}${detail}`);
+  }
+  return payload;
+};
+
 const createDefaultPreset = (key) => ({
   presetKey: key,
   name: key,
@@ -82,6 +129,19 @@ const createDefaultPreset = (key) => ({
     { width: 24, fillType: 'solid', color: '#101218', opacity: 1 },
     { width: 24, fillType: 'solid', color: '#9fd3ff', opacity: 1 }
   ]
+});
+
+const createDefaultMonsterConfig = (id) => ({
+  id,
+  name: id,
+  scaleSize: 560,
+  renderOrder: [...FIXED_RENDER_ORDER],
+  layers: {
+    line: { path: DEFAULT_ASSETS.line, stripePresetKey: STRIPE_NONE },
+    body: { path: DEFAULT_ASSETS.body, stripePresetKey: STRIPE_NONE },
+    bottomBorder: { path: DEFAULT_ASSETS.bottomBorder, stripePresetKey: STRIPE_NONE },
+    bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask, stripePresetKey: STRIPE_NONE }
+  }
 });
 
 const normalizePreset = (key, preset) => {
@@ -119,6 +179,49 @@ const normalizeLibrary = (library) => {
   for (const [key, preset] of Object.entries(library)) {
     if (!key.trim()) continue;
     out[key] = normalizePreset(key, preset);
+  }
+  return out;
+};
+
+const normalizeMonsterLayer = (layer, fallbackPath) => {
+  const source = layer && typeof layer === 'object' ? layer : {};
+  const path = typeof source.path === 'string' && source.path.trim() ? source.path : fallbackPath;
+  const stripePresetKey = typeof source.stripePresetKey === 'string' && source.stripePresetKey.trim()
+    ? source.stripePresetKey
+    : STRIPE_NONE;
+  return { path, stripePresetKey };
+};
+
+const normalizeMonsterConfig = (key, config) => {
+  const fallback = createDefaultMonsterConfig(key);
+  const source = config && typeof config === 'object' ? config : {};
+  const id = typeof source.id === 'string' && source.id.trim() ? source.id : key;
+  const name = typeof source.name === 'string' && source.name.trim() ? source.name : id;
+  const scaleSize = Math.max(1, toNumber(source.scaleSize, fallback.scaleSize));
+
+  const layersRaw = source.layers && typeof source.layers === 'object' ? source.layers : {};
+  const layers = {
+    line: normalizeMonsterLayer(layersRaw.line, fallback.layers.line.path),
+    body: normalizeMonsterLayer(layersRaw.body, fallback.layers.body.path),
+    bottomBorder: normalizeMonsterLayer(layersRaw.bottomBorder, fallback.layers.bottomBorder.path),
+    bottomFillMask: normalizeMonsterLayer(layersRaw.bottomFillMask, fallback.layers.bottomFillMask.path)
+  };
+
+  return {
+    id,
+    name,
+    scaleSize,
+    renderOrder: [...FIXED_RENDER_ORDER],
+    layers
+  };
+};
+
+const normalizeMonsterConfigLibrary = (library) => {
+  if (!library || typeof library !== 'object') return {};
+  const out = {};
+  for (const [key, config] of Object.entries(library)) {
+    if (!key.trim()) continue;
+    out[key] = normalizeMonsterConfig(key, config);
   }
   return out;
 };
@@ -182,39 +285,118 @@ const sanitizeLayerPresetKeys = () => {
   }
 };
 
-const renderOrderControls = () => {
-  const options = LAYER_KEYS.map((layerKey) => `<option value="${layerKey}">${LAYER_LABELS[layerKey]}</option>`).join('');
-  el.orderBox.innerHTML = state.renderOrder
-    .map((layerKey, idx) => {
-      const slotLabel = `第 ${idx + 1} 层（${idx === 0 ? '最下层' : idx === state.renderOrder.length - 1 ? '最上层' : '中间层'}）`;
-      return `
-        <div class="sub-card">
-          <div class="label">${slotLabel}</div>
-          <select data-role="order-slot" data-slot="${idx}">
-            ${options}
-          </select>
-        </div>
-      `;
-    })
-    .join('');
-  const selects = el.orderBox.querySelectorAll('[data-role="order-slot"]');
-  selects.forEach((select, idx) => {
-    select.value = state.renderOrder[idx];
-    select.addEventListener('change', (event) => {
-      const slot = Number(event.currentTarget.getAttribute('data-slot'));
-      const nextLayer = event.currentTarget.value;
-      const currentIndex = state.renderOrder.indexOf(nextLayer);
-      if (currentIndex >= 0 && currentIndex !== slot) {
-        const oldLayer = state.renderOrder[slot];
-        state.renderOrder[slot] = nextLayer;
-        state.renderOrder[currentIndex] = oldLayer;
-      } else {
-        state.renderOrder[slot] = nextLayer;
-      }
-      renderOrderControls();
-      setStatus('渲染顺序已更新。');
-    });
+const activeMonsterConfig = () => state.monsterConfigs[state.activeMonsterConfigId] || null;
+
+const findDuplicateMonsterIds = (library) => {
+  const seen = new Map();
+  const duplicates = [];
+  for (const [key, config] of Object.entries(library || {})) {
+    const rawId = String(config?.id || key).trim();
+    const normalized = rawId.toLowerCase();
+    if (!normalized) continue;
+    if (seen.has(normalized)) {
+      duplicates.push({
+        id: rawId,
+        firstKey: seen.get(normalized),
+        currentKey: key
+      });
+      continue;
+    }
+    seen.set(normalized, key);
+  }
+  return duplicates;
+};
+
+const syncActiveConfigFromCurrentDisplay = () => {
+  const config = activeMonsterConfig();
+  if (!config) return;
+  config.scaleSize = Math.max(1, toNumber(el.sizeInput.value, config.scaleSize || 560));
+  config.renderOrder = [...FIXED_RENDER_ORDER];
+  for (const layerKey of LAYER_KEYS) {
+    config.layers[layerKey] = {
+      path: state.layers[layerKey].path,
+      stripePresetKey: state.layers[layerKey].stripePresetKey
+    };
+  }
+};
+
+const applyDisplayFromConfig = (config) => {
+  if (!config) return;
+  for (const layerKey of LAYER_KEYS) {
+    state.layers[layerKey] = {
+      path: config.layers[layerKey].path,
+      stripePresetKey: config.layers[layerKey].stripePresetKey
+    };
+  }
+  el.sizeInput.value = String(Math.max(1, toNumber(config.scaleSize, 560)));
+  sanitizeLayerPresetKeys();
+  syncActiveConfigFromCurrentDisplay();
+};
+
+const refreshMonsterConfigSelect = () => {
+  const keys = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  if (keys.length === 0) {
+    const fallbackId = 'monster_default';
+    state.monsterConfigs[fallbackId] = createDefaultMonsterConfig(fallbackId);
+  }
+
+  const sorted = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  if (!state.activeMonsterConfigId || !state.monsterConfigs[state.activeMonsterConfigId]) {
+    state.activeMonsterConfigId = sorted[0];
+  }
+
+  el.monsterConfigSelect.innerHTML = '';
+  for (const id of sorted) {
+    const option = document.createElement('option');
+    option.value = id;
+    option.textContent = `${id} · ${state.monsterConfigs[id].name || id}`;
+    el.monsterConfigSelect.appendChild(option);
+  }
+  el.monsterConfigSelect.value = state.activeMonsterConfigId;
+
+  const config = activeMonsterConfig();
+  if (config) {
+    el.monsterIdInput.value = config.id;
+    el.monsterNameInput.value = config.name || config.id;
+  }
+};
+
+const renameActiveMonsterConfigId = () => {
+  const currentId = state.activeMonsterConfigId;
+  const config = activeMonsterConfig();
+  if (!currentId || !config) return;
+  const nextId = String(el.monsterIdInput.value || '').trim();
+  if (!nextId) {
+    setStatus('配置 ID 不能为空', true);
+    el.monsterIdInput.value = currentId;
+    return;
+  }
+  if (nextId === currentId) {
+    config.id = nextId;
+    return;
+  }
+  const normalizedNextId = nextId.toLowerCase();
+  const hasConflict = Object.keys(state.monsterConfigs).some((existingKey) => {
+    if (existingKey === currentId) return false;
+    return String(existingKey).toLowerCase() === normalizedNextId;
   });
+  if (hasConflict) {
+    setStatus(`配置 ID 冲突（忽略大小写后重复）：${nextId}`, true);
+    el.monsterIdInput.value = currentId;
+    return;
+  }
+  if (state.monsterConfigs[nextId]) {
+    setStatus(`配置 ID 已存在：${nextId}`, true);
+    el.monsterIdInput.value = currentId;
+    return;
+  }
+
+  delete state.monsterConfigs[currentId];
+  config.id = nextId;
+  state.monsterConfigs[nextId] = config;
+  state.activeMonsterConfigId = nextId;
+  refreshMonsterConfigSelect();
+  setStatus(`已修改配置 ID：${currentId} -> ${nextId}`);
 };
 
 const renderLayerControls = () => {
@@ -269,6 +451,8 @@ const renderLayerControls = () => {
       state.layers[layerKey].path = event.currentTarget.value;
       const input = el.layersBox.querySelector(`input[data-role="path-input"][data-layer="${layerKey}"]`);
       if (input) input.value = event.currentTarget.value;
+      syncActiveConfigFromCurrentDisplay();
+      refreshMonsterConfigSelect();
       void loadAllLayerImages();
     });
   });
@@ -278,10 +462,13 @@ const renderLayerControls = () => {
       const layerKey = event.currentTarget.getAttribute('data-layer');
       if (!layerKey || !state.layers[layerKey]) return;
       state.layers[layerKey].path = event.currentTarget.value;
+      syncActiveConfigFromCurrentDisplay();
     });
     input.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
         event.preventDefault();
+        syncActiveConfigFromCurrentDisplay();
+        refreshMonsterConfigSelect();
         void loadAllLayerImages();
       }
     });
@@ -292,6 +479,8 @@ const renderLayerControls = () => {
       const layerKey = event.currentTarget.getAttribute('data-layer');
       if (!layerKey || !state.layers[layerKey]) return;
       state.layers[layerKey].stripePresetKey = event.currentTarget.value || STRIPE_NONE;
+      syncActiveConfigFromCurrentDisplay();
+      refreshMonsterConfigSelect();
       setStatus(`${LAYER_LABELS[layerKey]} 条纹配置已更新。`);
     });
   });
@@ -327,6 +516,55 @@ const loadAllLayerImages = async () => {
     setStatus(`部分图片加载失败：${errors.join('；')}`, true);
   } else {
     setStatus('分层图片加载成功。');
+  }
+};
+
+const loadMonsterConfigsFromServer = async () => {
+  setStatus('正在读取怪物显示配置...');
+  try {
+    const payload = await requestMonsterConfigApi('GET');
+    const data = normalizeMonsterConfigLibrary(payload.data);
+    state.monsterConfigs = data;
+
+    const sorted = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    if (preferredMonsterConfigFromQuery && state.monsterConfigs[preferredMonsterConfigFromQuery]) {
+      state.activeMonsterConfigId = preferredMonsterConfigFromQuery;
+    } else {
+      state.activeMonsterConfigId = sorted[0] || '';
+    }
+
+    refreshMonsterConfigSelect();
+    const activeConfig = activeMonsterConfig();
+    if (activeConfig) {
+      applyDisplayFromConfig(activeConfig);
+      renderLayerControls();
+      await loadAllLayerImages();
+    }
+    const valid = payload.valid !== false;
+    const port = getResolvedDevServerPort();
+    const hostLabel = port ? `127.0.0.1:${port}` : '未知端口';
+    setStatus(valid ? `已读取怪物配置（${hostLabel}）` : `怪物配置已读取，但存在校验错误：${(payload.errors || []).join('；')}`, !valid);
+  } catch (error) {
+    setStatus(`读取怪物配置失败：${String(error)}`, true);
+  }
+};
+
+const saveMonsterConfigsToServer = async () => {
+  setStatus('正在保存怪物显示配置...');
+  try {
+    syncActiveConfigFromCurrentDisplay();
+    const payload = normalizeMonsterConfigLibrary(state.monsterConfigs);
+    const duplicateIds = findDuplicateMonsterIds(payload);
+    if (duplicateIds.length > 0) {
+      const first = duplicateIds[0];
+      throw new Error(`存在重复 ID（忽略大小写）：${first.id}（${first.firstKey} / ${first.currentKey}）`);
+    }
+    const data = await requestMonsterConfigApi('PUT', payload);
+    const port = getResolvedDevServerPort();
+    const hostLabel = port ? `127.0.0.1:${port}` : '未知端口';
+    setStatus(`怪物配置保存成功：${data.path || 'config/monsterDisplayConfigs.json'}（${hostLabel}）`);
+  } catch (error) {
+    setStatus(`保存怪物配置失败：${String(error)}`, true);
   }
 };
 
@@ -471,7 +709,7 @@ const renderPreview = (dt) => {
   const centerY = h * 0.5 + state.offsetCssPx.y * ratio;
   const drawRect = calcDrawRect(referenceImg, centerX, centerY, size);
 
-  for (const layerKey of state.renderOrder) {
+  for (const layerKey of FIXED_RENDER_ORDER) {
     drawOneLayer(ctx, layerKey, drawRect);
   }
 };
@@ -488,7 +726,97 @@ const bindEvents = () => {
   el.reloadBtn.addEventListener('click', () => {
     void loadStripePresets();
   });
+  el.loadMonsterConfigsBtn.addEventListener('click', () => {
+    void loadMonsterConfigsFromServer();
+  });
+  el.saveMonsterConfigsBtn.addEventListener('click', () => {
+    void saveMonsterConfigsToServer();
+  });
+  el.newMonsterConfigBtn.addEventListener('click', () => {
+    const id = (window.prompt('输入新的怪物配置 ID（唯一）', 'monster_new') || '').trim();
+    if (!id) return;
+    if (state.monsterConfigs[id]) {
+      setStatus(`配置 ID 已存在：${id}`, true);
+      return;
+    }
+    syncActiveConfigFromCurrentDisplay();
+    state.monsterConfigs[id] = createDefaultMonsterConfig(id);
+    state.activeMonsterConfigId = id;
+    refreshMonsterConfigSelect();
+    applyDisplayFromConfig(state.monsterConfigs[id]);
+    renderLayerControls();
+    void loadAllLayerImages();
+    setStatus(`已创建怪物配置：${id}`);
+  });
+  el.duplicateMonsterConfigBtn.addEventListener('click', () => {
+    const source = activeMonsterConfig();
+    if (!source) return;
+    const id = (window.prompt('输入复制后的怪物配置 ID（唯一）', `${source.id}_copy`) || '').trim();
+    if (!id) return;
+    if (state.monsterConfigs[id]) {
+      setStatus(`配置 ID 已存在：${id}`, true);
+      return;
+    }
+    syncActiveConfigFromCurrentDisplay();
+    const copied = normalizeMonsterConfig(id, {
+      ...JSON.parse(JSON.stringify(source)),
+      id,
+      name: `${source.name} (copy)`
+    });
+    state.monsterConfigs[id] = copied;
+    state.activeMonsterConfigId = id;
+    refreshMonsterConfigSelect();
+    applyDisplayFromConfig(copied);
+    renderLayerControls();
+    void loadAllLayerImages();
+    setStatus(`已复制怪物配置：${id}`);
+  });
+  el.deleteMonsterConfigBtn.addEventListener('click', () => {
+    const config = activeMonsterConfig();
+    if (!config) return;
+    if (!window.confirm(`确认删除怪物配置：${config.id} ?`)) return;
+    delete state.monsterConfigs[config.id];
+    const sorted = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    state.activeMonsterConfigId = sorted[0] || '';
+    refreshMonsterConfigSelect();
+    const nextConfig = activeMonsterConfig();
+    if (nextConfig) {
+      applyDisplayFromConfig(nextConfig);
+      renderLayerControls();
+      void loadAllLayerImages();
+    }
+    setStatus('已删除当前怪物配置。');
+  });
+  el.monsterConfigSelect.addEventListener('change', () => {
+    syncActiveConfigFromCurrentDisplay();
+    state.activeMonsterConfigId = el.monsterConfigSelect.value;
+    refreshMonsterConfigSelect();
+    const config = activeMonsterConfig();
+    if (config) {
+      applyDisplayFromConfig(config);
+      renderLayerControls();
+      void loadAllLayerImages();
+      const nextUrl = new URL(window.location.href);
+      nextUrl.searchParams.set('monsterConfig', config.id);
+      window.history.replaceState(null, '', nextUrl.toString());
+    }
+  });
+  el.monsterIdInput.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    renameActiveMonsterConfigId();
+  });
+  el.monsterIdInput.addEventListener('blur', () => {
+    renameActiveMonsterConfigId();
+  });
+  el.monsterNameInput.addEventListener('input', () => {
+    const config = activeMonsterConfig();
+    if (!config) return;
+    config.name = el.monsterNameInput.value || config.id;
+    refreshMonsterConfigSelect();
+  });
   el.reloadImagesBtn.addEventListener('click', () => {
+    syncActiveConfigFromCurrentDisplay();
     void loadAllLayerImages();
   });
   el.resetPositionBtn.addEventListener('click', () => {
@@ -526,16 +854,34 @@ const bindEvents = () => {
   el.preview.addEventListener('pointerup', stopDrag);
   el.preview.addEventListener('pointercancel', stopDrag);
   window.addEventListener('resize', resizeCanvas);
+  el.sizeInput.addEventListener('input', () => {
+    syncActiveConfigFromCurrentDisplay();
+  });
 };
 
 const boot = async () => {
   state.resourceImageOptions = getScannedResourceImages();
+  state.monsterConfigs = {
+    monster_default: createDefaultMonsterConfig('monster_default')
+  };
+  state.activeMonsterConfigId = 'monster_default';
   buildAssetDatalist();
-  renderOrderControls();
+  refreshMonsterConfigSelect();
+  applyDisplayFromConfig(activeMonsterConfig());
   renderLayerControls();
   bindEvents();
+
+  const connection = await probeDevServerConnection(MONSTER_CONFIG_API_PATH);
+  if (!connection.connected) {
+    setStatus('开发服务器未连接（请启动 python/server.py）', true);
+  }
+
   await loadStripePresets();
-  await loadAllLayerImages();
+  if (connection.connected) {
+    await loadMonsterConfigsFromServer();
+  } else {
+    await loadAllLayerImages();
+  }
   resizeCanvas();
   requestAnimationFrame(tick);
 };

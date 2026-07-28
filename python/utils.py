@@ -379,3 +379,70 @@ def validate_sprite_animation_payload(payload: dict) -> list[str]:
                         _req_num(pose, field, errors, pose_path)
 
     return errors
+
+def validate_monster_display_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    valid_layer_keys = {"bottomFillMask", "bottomBorder", "body", "line"}
+    seen_ids: dict[str, str] = {}
+
+    for key, config in payload.items():
+        p_path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("root 的 key 必须是非空字符串")
+            continue
+        if not isinstance(config, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+
+        cfg_id = _req_str(config, "id", errors, p_path)
+        _req_str(config, "name", errors, p_path)
+        if cfg_id and cfg_id != key:
+            errors.append(f"{p_path}.id 必须与对象 key 一致")
+        if cfg_id:
+            lowered = cfg_id.lower()
+            if lowered in seen_ids and seen_ids[lowered] != key:
+                errors.append(f"{p_path}.id 与 {seen_ids[lowered]} 重复（忽略大小写）")
+            else:
+                seen_ids[lowered] = key
+
+        _req_num(config, "scaleSize", errors, p_path, 1)
+
+        render_order = config.get("renderOrder")
+        if not isinstance(render_order, list) or len(render_order) == 0:
+            errors.append(f"{p_path}.renderOrder 必须是非空数组")
+        else:
+            seen = set()
+            for idx, layer_key in enumerate(render_order):
+                if not isinstance(layer_key, str):
+                    errors.append(f"{p_path}.renderOrder[{idx}] 必须是字符串")
+                    continue
+                if layer_key not in valid_layer_keys:
+                    errors.append(f"{p_path}.renderOrder[{idx}] 非法图层 key: {layer_key}")
+                if layer_key in seen:
+                    errors.append(f"{p_path}.renderOrder 出现重复图层 key: {layer_key}")
+                seen.add(layer_key)
+
+        layers = config.get("layers")
+        if not isinstance(layers, dict):
+            errors.append(f"{p_path}.layers 必须是对象")
+            continue
+
+        for layer_key in valid_layer_keys:
+            layer = layers.get(layer_key)
+            layer_path = f"{p_path}.layers[{layer_key}]"
+            if not isinstance(layer, dict):
+                errors.append(f"{layer_path} 必须是对象")
+                continue
+            _req_str(layer, "path", errors, layer_path)
+            stripe_key = layer.get("stripePresetKey")
+            if stripe_key is not None and not isinstance(stripe_key, str):
+                errors.append(f"{layer_path}.stripePresetKey 必须是字符串")
+
+        for provided_key in layers.keys():
+            if provided_key not in valid_layer_keys:
+                errors.append(f"{p_path}.layers 包含未知图层 key: {provided_key}")
+
+    return errors

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞溅血迹生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #0d0d0d;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hint {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #555;
+            font-family: monospace, sans-serif;
+            text-align: center;
+            pointer-events: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hint" id="hint">
+        [ 左键点击 ] 泼洒飞溅血迹<br><br>
+        <span style="font-size: 0.85rem; color: #444;">[ 右键点击 ] 清除屏幕</span>
+    </div>
+
+    <canvas id="bloodCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('bloodCanvas');
+        const ctx = canvas.getContext('2d');
+        const hint = document.getElementById('hint');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // 点击生成飞溅血迹
+        window.addEventListener('click', (e) => {
+            if (hint.style.opacity !== '0') {
+                hint.style.opacity = '0';
+            }
+            drawSplatter(e.clientX, e.clientY);
+        });
+
+        // 右键清除
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hint.style.opacity = '1';
+        });
+
+        function drawSplatter(x, y) {
+            // 色彩配置：暗红与鲜红交错
+            const baseColors = ['#660000', '#8b0000', '#4a0000', '#3b0000'];
+            
+            // 1. 中心冲击爆裂痕迹
+            const coreSpokes = Math.floor(Math.random() * 8) + 12;
+            ctx.fillStyle = baseColors[Math.floor(Math.random() * baseColors.length)];
+            
+            for (let i = 0; i < coreSpokes; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const length = Math.random() * 40 + 10;
+                const width = Math.random() * 8 + 3;
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(width, length / 2, 0, length);
+                ctx.quadraticCurveTo(-width, length / 2, 0, 0);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // 2. 放射状泼洒拉丝 (Splatter Tendrils)
+            const rayCount = Math.floor(Math.random() * 15) + 20;
+            for (let i = 0; i < rayCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 180 + 30; // 泼洒扩散范围
+                const startX = x;
+                const startY = y;
+                const endX = x + Math.cos(angle) * distance;
+                const endY = y + Math.sin(angle) * distance;
+
+                ctx.strokeStyle = baseColors[Math.floor(Math.random() * baseColors.length)];
+                ctx.lineWidth = Math.random() * 3 + 0.5;
+                ctx.lineCap = 'round';
+
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                // 曲线拉丝
+                const controlX = startX + Math.cos(angle + (Math.random() - 0.5) * 0.5) * (distance * 0.5);
+                const controlY = startY + Math.sin(angle + (Math.random() - 0.5) * 0.5) * (distance * 0.5);
+                ctx.quadraticCurveTo(controlX, controlY, endX, endY);
+                ctx.stroke();
+
+                // 在拉丝末端生成飞溅出去的细小颗粒 (Droplets)
+                if (Math.random() > 0.3) {
+                    const dropCount = Math.floor(Math.random() * 4) + 1;
+                    for (let j = 0; j < dropCount; j++) {
+                        const dropDist = distance + Math.random() * 50;
+                        const dropX = x + Math.cos(angle + (Math.random() - 0.5) * 0.2) * dropDist;
+                        const dropY = y + Math.sin(angle + (Math.random() - 0.5) * 0.2) * dropDist;
+                        const dropRadius = Math.random() * 2 + 0.5;
+
+                        ctx.fillStyle = baseColors[Math.floor(Math.random() * baseColors.length)];
+                        ctx.beginPath();
+                        ctx.arc(dropX, dropY, dropRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            }
+
+            // 3. 极细微雾状喷溅 (Fine Mist)
+            const mistCount = Math.floor(Math.random() * 40) + 30;
+            for (let i = 0; i < mistCount; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 220 + 20;
+                const mistX = x + Math.cos(angle) * dist;
+                const mistY = y + Math.sin(angle) * dist;
+                const r = Math.random() * 1.2 + 0.3;
+
+                ctx.fillStyle = '#8b0000';
+                ctx.globalAlpha = Math.random() * 0.7 + 0.3;
+                ctx.beginPath();
+                ctx.arc(mistX, mistY, r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1.0;
+            }
+        }
+    </script>
+</body>
+</html>
