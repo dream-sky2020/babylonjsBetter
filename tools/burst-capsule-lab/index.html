@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burst Capsule Lab</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; }
+    body {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      background: #050508;
+      color: #d1d5db;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      overflow: hidden;
+    }
+    .panel {
+      border-right: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 14px;
+      overflow: auto;
+      background: rgba(7, 10, 16, 0.92);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .panel h3 {
+      margin: 0;
+      color: #67e8f9;
+      font-size: 16px;
+    }
+    .help {
+      margin: 0;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.45;
+    }
+    .control label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #cbd5e1;
+    }
+    .control input[type="range"],
+    .control input[type="color"],
+    .control select {
+      width: 100%;
+    }
+    .row {
+      display: flex;
+      gap: 8px;
+    }
+    button {
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.8);
+      color: #e2e8f0;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    button:hover { background: rgba(30, 41, 59, 0.9); }
+    .viewport {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .hint {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 12px;
+      pointer-events: none;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <aside class="panel">
+    <h3>Burst Capsule Lab</h3>
+    <p class="help">点击右侧画布可从中心向外爆发胶囊射线。参数改动后立即生效。</p>
+
+    <div class="control">
+      <label for="spawnCount">发射数量 <span id="spawnCountValue"></span></label>
+      <input id="spawnCount" type="range" min="6" max="120" step="1">
+    </div>
+    <div class="control">
+      <label for="spawnJitter">角度抖动 <span id="spawnJitterValue"></span></label>
+      <input id="spawnJitter" type="range" min="0" max="0.6" step="0.01">
+    </div>
+    <div class="row">
+      <div class="control" style="flex:1">
+        <label for="speedMin">最小速度 <span id="speedMinValue"></span></label>
+        <input id="speedMin" type="range" min="1" max="40" step="0.5">
+      </div>
+      <div class="control" style="flex:1">
+        <label for="speedMax">最大速度 <span id="speedMaxValue"></span></label>
+        <input id="speedMax" type="range" min="1" max="55" step="0.5">
+      </div>
+    </div>
+    <div class="control">
+      <label for="friction">摩擦衰减 <span id="frictionValue"></span></label>
+      <input id="friction" type="range" min="0.86" max="0.999" step="0.001">
+    </div>
+    <div class="row">
+      <div class="control" style="flex:1">
+        <label for="decayMin">最小消散 <span id="decayMinValue"></span></label>
+        <input id="decayMin" type="range" min="0.002" max="0.08" step="0.001">
+      </div>
+      <div class="control" style="flex:1">
+        <label for="decayMax">最大消散 <span id="decayMaxValue"></span></label>
+        <input id="decayMax" type="range" min="0.003" max="0.12" step="0.001">
+      </div>
+    </div>
+    <div class="row">
+      <div class="control" style="flex:1">
+        <label for="lengthMin">最短长度 <span id="lengthMinValue"></span></label>
+        <input id="lengthMin" type="range" min="10" max="180" step="1">
+      </div>
+      <div class="control" style="flex:1">
+        <label for="lengthMax">最长长度 <span id="lengthMaxValue"></span></label>
+        <input id="lengthMax" type="range" min="20" max="260" step="1">
+      </div>
+    </div>
+    <div class="row">
+      <div class="control" style="flex:1">
+        <label for="thicknessMin">最细粗度 <span id="thicknessMinValue"></span></label>
+        <input id="thicknessMin" type="range" min="1" max="12" step="0.1">
+      </div>
+      <div class="control" style="flex:1">
+        <label for="thicknessMax">最粗粗度 <span id="thicknessMaxValue"></span></label>
+        <input id="thicknessMax" type="range" min="2" max="20" step="0.1">
+      </div>
+    </div>
+    <div class="control">
+      <label for="outlineWidth">描边增量 <span id="outlineWidthValue"></span></label>
+      <input id="outlineWidth" type="range" min="0" max="8" step="0.1">
+    </div>
+    <div class="control">
+      <label for="trailAlpha">拖尾残影强度 <span id="trailAlphaValue"></span></label>
+      <input id="trailAlpha" type="range" min="0" max="1" step="0.01">
+    </div>
+    <div class="control">
+      <label for="decayVisualMode">衰减视觉模式</label>
+      <select id="decayVisualMode">
+        <option value="fade">透明衰减（逐渐变淡）</option>
+        <option value="shrink">缩短衰减（逐渐变短）</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="shrinkPower">缩短衰减强度 <span id="shrinkPowerValue"></span></label>
+      <input id="shrinkPower" type="range" min="0.4" max="4" step="0.05">
+    </div>
+    <div class="control">
+      <label for="colorMode">颜色模式</label>
+      <select id="colorMode">
+        <option value="single">单一颜色</option>
+        <option value="random">随机颜色</option>
+      </select>
+    </div>
+    <div class="row">
+      <div class="control" style="flex:1">
+        <label for="singleMainColor">单色主色</label>
+        <input id="singleMainColor" type="color" value="#00f0ff">
+      </div>
+      <div class="control" style="flex:1">
+        <label for="singleStrokeColor">单色描边</label>
+        <input id="singleStrokeColor" type="color" value="#ffffff">
+      </div>
+    </div>
+
+    <div class="row">
+      <button id="burstCenterBtn" type="button">中心爆发</button>
+      <button id="burstRingBtn" type="button">环形连发</button>
+    </div>
+    <div class="row">
+      <button id="clearBtn" type="button">清空</button>
+      <button id="randomizeBtn" type="button">随机参数</button>
+    </div>
+  </aside>
+
+  <main class="viewport">
+    <canvas id="canvas"></canvas>
+    <div class="hint">点击画布触发爆发</div>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

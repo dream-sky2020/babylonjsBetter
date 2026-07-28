@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   OscilloscopeMaskPanel,
   type OscilloscopeMaskPanelHandle,
@@ -20,12 +20,22 @@ const SHAPE_OPTIONS: OscilloscopeShapeType[] = ['square', 'rectangle', 'circle',
 const PRESET_OPTIONS: OscilloscopeWavePresetId[] = ['ecg_sharp', 'soft', 'shock'];
 const POINTER_PRESET_OPTIONS: Array<OscilloscopeWavePresetId | 'inherit'> = ['inherit', ...PRESET_OPTIONS];
 const BACKGROUND_MODE_OPTIONS: OscilloscopeBackgroundMode[] = ['scanline', 'grid', 'solid', 'image', 'none'];
+const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
+const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
+
+const decodePublicPath = (input: string): string => String(input || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '');
 
 export const OscilloscopeUiLab: React.FC = () => {
   const panelRef = useRef<OscilloscopeMaskPanelHandle | null>(null);
+  const localImageObjectUrlRef = useRef<string | null>(null);
   const [shapeType, setShapeType] = useState<OscilloscopeShapeType>('square');
   const [shapeRotationDeg, setShapeRotationDeg] = useState(0);
   const [themeColor, setThemeColor] = useState('#00ff41');
+  const [themeColorText, setThemeColorText] = useState('#00ff41');
   const [wavePreset, setWavePreset] = useState<OscilloscopeWavePresetId>('ecg_sharp');
   const [pointerWavePreset, setPointerWavePreset] = useState<OscilloscopeWavePresetId | 'inherit'>('inherit');
   const [pointerWaveIntensityMultiplier, setPointerWaveIntensityMultiplier] = useState(1);
@@ -57,6 +67,14 @@ export const OscilloscopeUiLab: React.FC = () => {
   const [exportStatusText, setExportStatusText] = useState('');
   const [previewWidth, setPreviewWidth] = useState(480);
   const [previewHeight, setPreviewHeight] = useState(260);
+  const resourceImageOptions = useMemo(() => {
+    return Object.values(RESOURCE_IMAGE_MODULES)
+      .map((assetUrl) => decodePublicPath(assetUrl as string))
+      .map((path) => path.replace(/^public\/+/, ''))
+      .filter((path) => path.startsWith('resources/'))
+      .map((path) => `/${path}`)
+      .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  }, []);
   const isEdgeFitShape = shapeType === 'square' || shapeType === 'rectangle';
   const isRectangleShape = shapeType === 'rectangle';
   const isPolygonShape = shapeType === 'polygon';
@@ -134,6 +152,20 @@ export const OscilloscopeUiLab: React.FC = () => {
     panelRef.current?.triggerWaveAtRatio(Math.random());
   };
 
+  const applyThemeColor = (nextColor: string) => {
+    setThemeColor(nextColor);
+    setThemeColorText(nextColor);
+    panelRef.current?.setThemeColor(nextColor);
+  };
+
+  const applyImageUrl = (nextImageUrl: string) => {
+    setImageUrl(nextImageUrl);
+    panelRef.current?.setBackground({
+      mode: backgroundMode,
+      imageUrl: nextImageUrl
+    });
+  };
+
   const triggerBurst = () => {
     for (let i = 0; i < 5; i++) {
       const ratio = i / 5 + Math.random() * 0.05;
@@ -149,6 +181,15 @@ export const OscilloscopeUiLab: React.FC = () => {
       imageUrl
     });
   };
+
+  useEffect(() => {
+    return () => {
+      if (localImageObjectUrlRef.current) {
+        URL.revokeObjectURL(localImageObjectUrlRef.current);
+        localImageObjectUrlRef.current = null;
+      }
+    };
+  }, []);
 
   const copyTextByLegacyExecCommand = (text: string): boolean => {
     if (typeof document === 'undefined') {
@@ -301,8 +342,7 @@ export const OscilloscopeUiLab: React.FC = () => {
             value={themeColor}
             onChange={(event) => {
               const next = event.target.value;
-              setThemeColor(next);
-              panelRef.current?.setThemeColor(next);
+              applyThemeColor(next);
             }}
             style={{ width: '100%', marginTop: 4 }}
           >
@@ -310,6 +350,31 @@ export const OscilloscopeUiLab: React.FC = () => {
               <option key={color} value={color}>{color}</option>
             ))}
           </select>
+        </label>
+        <label>
+          自定义主题色
+          <div style={{ display: 'flex', gap: 8, marginTop: 4 }}>
+            <input
+              type="color"
+              value={themeColor}
+              onChange={(event) => applyThemeColor(event.target.value)}
+              style={{ width: 56, height: 32, padding: 0, border: 'none', background: 'transparent' }}
+            />
+            <input
+              type="text"
+              value={themeColorText}
+              onChange={(event) => setThemeColorText(event.target.value)}
+              onBlur={() => {
+                if (HEX_COLOR_PATTERN.test(themeColorText)) {
+                  applyThemeColor(themeColorText);
+                  return;
+                }
+                setThemeColorText(themeColor);
+              }}
+              placeholder="#00ff41"
+              style={{ flex: 1 }}
+            />
+          </div>
         </label>
 
         <label>
@@ -747,6 +812,39 @@ export const OscilloscopeUiLab: React.FC = () => {
             value={imageUrl}
             onChange={(event) => setImageUrl(event.target.value)}
             placeholder="/resources/xxx.png"
+            style={{ width: '100%', marginTop: 4 }}
+          />
+        </label>
+        <label>
+          资源库图片（public/resources）
+          <select
+            value={resourceImageOptions.includes(imageUrl) ? imageUrl : ''}
+            onChange={(event) => applyImageUrl(event.target.value)}
+            style={{ width: '100%', marginTop: 4 }}
+          >
+            <option value="">请选择资源图</option>
+            {resourceImageOptions.map((url) => (
+              <option key={url} value={url}>{url}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          本地选择图片
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (!file) return;
+              if (localImageObjectUrlRef.current) {
+                URL.revokeObjectURL(localImageObjectUrlRef.current);
+                localImageObjectUrlRef.current = null;
+              }
+              const localObjectUrl = URL.createObjectURL(file);
+              localImageObjectUrlRef.current = localObjectUrl;
+              applyImageUrl(localObjectUrl);
+              event.currentTarget.value = '';
+            }}
             style={{ width: '100%', marginTop: 4 }}
           />
         </label>
