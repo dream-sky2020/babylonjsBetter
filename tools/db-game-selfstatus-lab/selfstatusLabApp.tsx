@@ -1,5 +1,5 @@
 import React from 'react';
-import { OscilloscopeWrapper } from '@/core/ui';
+import { CharacterAvatarCard, OscilloscopeWrapper } from '@/core/ui';
 
 // ⚠️ 保持完全不动
 const rightPanelConfig = {
@@ -129,24 +129,7 @@ export const DbGameSelfstatusLab: React.FC = () => {
                 boxSizing: 'border-box'
               }}
             >
-              <div
-                style={{
-                  width: 156,
-                  height: 156,
-                  borderRadius: 10,
-                  border: '2px solid rgba(134, 239, 172, 0.72)',
-                  boxShadow: '0 0 24px rgba(74, 222, 128, 0.28)',
-                  background: 'linear-gradient(145deg, rgba(52, 211, 153, 0.95) 0%, rgba(22, 101, 52, 0.9) 62%, rgba(4, 30, 18, 0.96) 100%)',
-                  color: '#ecfdf5',
-                  display: 'grid',
-                  placeItems: 'center',
-                  fontSize: 42,
-                  fontWeight: 700,
-                  letterSpacing: 2
-                }}
-              >
-                晨曦
-              </div>
+              <CharacterAvatarCard displayName="晨曦" />
             </div>
           </OscilloscopeWrapper>
 

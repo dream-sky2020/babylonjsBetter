@@ -92,6 +92,8 @@ export default defineConfig({
         stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
+        avatarVisualLab: path.resolve(__dirname, 'tools/avatar-visual-lab/index.html'),
+        specialStatusVisualLab: path.resolve(__dirname, 'tools/special-status-visual-lab/index.html'),
         atlasJsonEditor: path.resolve(__dirname, 'tools/atlas-json-editor/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
