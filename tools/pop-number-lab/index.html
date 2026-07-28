@@ -100,6 +100,26 @@
       flex: 1;
     }
 
+    .direction-visual {
+      margin-top: 10px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #0b1220;
+      padding: 8px;
+    }
+
+    .direction-visual svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .direction-legend {
+      margin-top: 6px;
+      color: #93c5fd;
+      font-size: 12px;
+    }
+
     .checkbox-line {
       display: flex;
       align-items: center;
@@ -157,6 +177,11 @@
       box-shadow: none;
     }
 
+    .number-box.projectile {
+      animation: none;
+      opacity: 1;
+    }
+
     @keyframes spawn {
       0% {
         opacity: 0;
@@ -184,6 +209,54 @@
   <aside class="panel">
     <h1 class="title">Pop Number Lab</h1>
     <div class="hint">点击右侧区域触发弹出数字。修改参数后立即生效。</div>
+
+    <div class="group">
+      <div class="label">弹出模式</div>
+      <select id="popMode">
+        <option value="float">原始上浮</option>
+        <option value="projectile">随机方向抛射（重力）</option>
+      </select>
+    </div>
+
+    <div id="projectileControls" class="group" style="display:none">
+      <div class="label">方向范围（角度，右=0，上=-90）</div>
+      <div class="row">
+        <div class="col">
+          <div class="label">最小角度</div>
+          <input id="directionMinDeg" type="number" value="-120" step="1" />
+        </div>
+        <div class="col">
+          <div class="label">最大角度</div>
+          <input id="directionMaxDeg" type="number" value="-60" step="1" />
+        </div>
+      </div>
+
+      <div class="label" style="margin-top:8px">速度范围（px/s）</div>
+      <div class="row">
+        <div class="col">
+          <div class="label">最小速度</div>
+          <input id="speedMin" type="number" value="260" step="10" min="0" />
+        </div>
+        <div class="col">
+          <div class="label">最大速度</div>
+          <input id="speedMax" type="number" value="460" step="10" min="0" />
+        </div>
+      </div>
+
+      <div class="label" style="margin-top:8px">重力（px/s²）</div>
+      <input id="gravity" type="number" value="900" step="10" />
+
+      <div class="direction-visual">
+        <svg id="directionRangeSvg" viewBox="0 0 200 200" aria-label="方向范围预览">
+          <circle cx="100" cy="100" r="72" fill="none" stroke="#ffffff" stroke-width="2" />
+          <path id="directionRangeSector" fill="rgba(56, 189, 248, 0.45)"></path>
+          <line id="directionRangeStart" x1="100" y1="100" x2="100" y2="28" stroke="#60a5fa" stroke-width="2"></line>
+          <line id="directionRangeEnd" x1="100" y1="100" x2="172" y2="100" stroke="#60a5fa" stroke-width="2"></line>
+          <circle cx="100" cy="100" r="2.5" fill="#ffffff"></circle>
+        </svg>
+        <div id="directionRangeLabel" class="direction-legend"></div>
+      </div>
+    </div>
 
     <div class="group">
       <div class="label">数字模式</div>
