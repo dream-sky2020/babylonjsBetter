@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Glass & Ink Splash</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+      --glass-bg: rgba(255, 255, 255, 0.07);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --accent: #ec4899;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-gradient);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #f8fafc;
+      overflow: hidden;
+    }
+
+    /* Ambient background glows */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 350px;
+      height: 350px;
+      background: rgba(236, 72, 153, 0.25);
+      top: 10%;
+      left: 15%;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: rgba(99, 102, 241, 0.25);
+      bottom: 10%;
+      right: 15%;
+    }
+
+    /* Header Controls */
+    .ui-layer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    select, button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f8fafc;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    select:hover, button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    option {
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    /* Glass Window Container */
+    .glass-frame {
+      position: relative;
+      width: clamp(320px, 85vw, 850px);
+      height: clamp(300px, 60vh, 550px);
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+      overflow: hidden;
+      cursor: crosshair;
+      z-index: 5;
+    }
+
+    /* Glass Glare Highlight */
+    .glass-frame::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 100%
+      );
+      pointer-events: none;
+      border-radius: 20px 20px 0 0;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="ui-layer">
+    <h1>Frosted Glass Ink Studio</h1>
+    <div class="toolbar">
+      <div class="control-group">
+        <label for="paletteSelect">Palette:</label>
+        <select id="paletteSelect">
+          <option value="neon">Neon Magic</option>
+          <option value="pastel">Soft Pastel</option>
+          <option value="metallic">Gold & Silver</option>
+          <option value="ocean">Deep Ocean</option>
+          <option value="monochrome">Dark Ink</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="typeSelect">Ink Type:</label>
+        <select id="typeSelect">
+          <option value="splash">High Viscosity Splash</option>
+          <option value="watercolor">Watercolor Bleed</option>
+          <option value="fine">Fine Droplets</option>
+        </select>
+      </div>
+
+      <button id="clearBtn">Clear Glass</button>
+    </div>
+  </div>
+
+  <div class="glass-frame" id="glassFrame">
+    <canvas id="inkCanvas"></canvas>
+    <div class="hint">Click or drag anywhere on the glass to splash ink</div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('inkCanvas');
+    const ctx = canvas.getContext('2d');
+    const frame = document.getElementById('glassFrame');
+    const clearBtn = document.getElementById('clearBtn');
+    const paletteSelect = document.getElementById('paletteSelect');
+    const typeSelect = document.getElementById('typeSelect');
+
+    let particles = [];
+    let stains = [];
+    let isMouseDown = false;
+
+    // Color Palettes
+    const PALETTES = {
+      neon: ['#ec4899', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'],
+      pastel: ['#f472b6', '#c084fc', '#38bdf8', '#34d399', '#fbbf24'],
+      metallic: ['#d97706', '#fbbf24', '#f59e0b', '#94a3b8', '#cbd5e1'],
+      ocean: ['#0284c7', '#0369a1', '#0f766e', '#14b8a6', '#38bdf8'],
+      monochrome: ['#0f172a', '#1e293b', '#334155', '#475569', '#64748b']
+    };
+
+    function resizeCanvas() {
+      const rect = frame.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      
+      redrawStains();
+    }
+
+    class Stain {
+      constructor(x, y, radius, color, alpha = 0.8) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        this.alpha = alpha;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class InkParticle {
+      constructor(x, y, color, type) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.type = type;
+
+        const angle = Math.random() * Math.PI * 2;
+        let speedMultiplier = 1;
+
+        if (type === 'splash') speedMultiplier = Math.random() * 8 + 2;
+        if (type === 'fine') speedMultiplier = Math.random() * 12 + 4;
+        if (type === 'watercolor') speedMultiplier = Math.random() * 2 + 0.5;
+
+        this.vx = Math.cos(angle) * speedMultiplier;
+        this.vy = Math.sin(angle) * speedMultiplier;
+
+        if (type === 'fine') {
+          this.radius = Math.random() * 3 + 1;
+        } else if (type === 'watercolor') {
+          this.radius = Math.random() * 20 + 15;
+        } else {
+          this.radius = Math.random() * 10 + 4;
+        }
+
+        this.friction = type === 'watercolor' ? 0.85 : 0.92;
+        this.gravity = type === 'splash' ? 0.15 : 0.05;
+        this.life = 1.0;
+        this.decay = Math.random() * 0.03 + 0.015;
+      }
+
+      update() {
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+        this.life -= this.decay;
+
+        // Leave permanent stain on glass as it slows down
+        if (Math.random() < 0.3 && this.life > 0.2) {
+          stains.push(new Stain(
+            this.x,
+            this.y,
+            this.radius * this.life,
+            this.color,
+            this.type === 'watercolor' ? 0.05 : 0.3
+          ));
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, this.life);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, Math.max(0.1, this.radius * this.life), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function createSplash(x, y) {
+      const palette = PALETTES[paletteSelect.value];
+      const type = typeSelect.value;
+      const count = type === 'fine' ? 60 : (type === 'watercolor' ? 15 : 35);
+
+      // Core splash stain
+      const mainColor = palette[Math.floor(Math.random() * palette.length)];
+      stains.push(new Stain(x, y, Math.random() * 15 + 10, mainColor, 0.7));
+
+      for (let i = 0; i < count; i++) {
+        const color = palette[Math.floor(Math.random() * palette.length)];
+        particles.push(new InkParticle(x, y, color, type));
+      }
+    }
+
+    function redrawStains() {
+      stains.forEach(stain => stain.draw());
+    }
+
+    function animate() {
+      // Semi-transparent clear for smooth particle motion, keeping underlying stains
+      const rect = frame.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+
+      redrawStains();
+
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.update();
+        p.draw();
+
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    function getCanvasCoordinates(e) {
+      const rect = frame.getBoundingClientRect();
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    }
+
+    // Event Listeners
+    window.addEventListener('resize', resizeCanvas);
+
+    frame.addEventListener('mousedown', (e) => {
+      isMouseDown = true;
+      const coords = getCanvasCoordinates(e);
+      createSplash(coords.x, coords.y);
+    });
+
+    frame.addEventListener('mousemove', (e) => {
+      if (!isMouseDown) return;
+      if (Math.random() < 0.4) {
+        const coords = getCanvasCoordinates(e);
+        createSplash(coords.x, coords.y);
+      }
+    });
+
+    window.addEventListener('mouseup', () => isMouseDown = false);
+
+    // Touch Support
+    frame.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const coords = getCanvasCoordinates(touch);
+      createSplash(coords.x, coords.y);
+    }, { passive: false });
+
+    clearBtn.addEventListener('click', () => {
+      stains = [];
+      particles = [];
+      const rect = frame.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+    });
+
+    // Init
+    resizeCanvas();
+    animate();
+  </script>
+</body>
+</html>
