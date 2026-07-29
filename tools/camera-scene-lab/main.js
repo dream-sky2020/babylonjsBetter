@@ -26,22 +26,44 @@ const drag = {
   lastClientY: 0
 };
 
-canvas.addEventListener('pointerdown', (event) => {
-  if (event.button !== 0) return;
+const beginDrag = (event) => {
   drag.active = true;
   drag.pointerId = event.pointerId;
   drag.lastClientX = event.clientX;
   drag.lastClientY = event.clientY;
   canvas.style.cursor = 'grabbing';
   canvas.setPointerCapture(event.pointerId);
-  const shouldLockPointer = controller.state.lookControlMode === 'pointerLock';
-  const mode = controller.state.mode;
-  if ((mode === 'firstPerson' || mode === 'drone') && shouldLockPointer && document.pointerLockElement !== canvas) {
-    canvas.requestPointerLock?.();
+};
+
+const endDrag = (pointerId) => {
+  if (!drag.active || pointerId !== drag.pointerId) return;
+  drag.active = false;
+  drag.pointerId = -1;
+  canvas.style.cursor = 'grab';
+  if (canvas.hasPointerCapture(pointerId)) {
+    canvas.releasePointerCapture(pointerId);
   }
+};
+
+canvas.addEventListener('pointerdown', (event) => {
+  if (event.button !== 0) return;
+  const shouldLockPointer = controller.state.lookControlMode === 'pointerLock';
+  if (shouldLockPointer) {
+    if (document.pointerLockElement !== canvas) {
+      Promise.resolve(canvas.requestPointerLock?.()).catch(() => {
+        controller.state.lookControlMode = 'drag';
+        beginDrag(event);
+        panel.syncFromController();
+        panel.updateStatus();
+      });
+    }
+    return;
+  }
+  beginDrag(event);
 });
 
 canvas.addEventListener('pointermove', (event) => {
+  if (controller.state.lookControlMode !== 'drag') return;
   if (!drag.active || event.pointerId !== drag.pointerId) return;
   const dx = event.clientX - drag.lastClientX;
   const dy = event.clientY - drag.lastClientY;
@@ -53,19 +75,26 @@ canvas.addEventListener('pointermove', (event) => {
 });
 
 const stopDrag = (event) => {
-  if (!drag.active || event.pointerId !== drag.pointerId) return;
-  drag.active = false;
-  drag.pointerId = -1;
-  canvas.style.cursor = 'grab';
-  if (canvas.hasPointerCapture(event.pointerId)) {
-    canvas.releasePointerCapture(event.pointerId);
-  }
+  endDrag(event.pointerId);
 };
 canvas.addEventListener('pointerup', stopDrag);
 canvas.addEventListener('pointercancel', stopDrag);
 
 document.addEventListener('pointerlockchange', () => {
+  if (document.pointerLockElement === canvas) {
+    drag.active = false;
+    drag.pointerId = -1;
+  } else if (controller.state.lookControlMode === 'pointerLock') {
+    canvas.style.cursor = 'grab';
+  }
   canvas.style.cursor = document.pointerLockElement === canvas ? 'none' : 'grab';
+});
+document.addEventListener('pointerlockerror', () => {
+  if (controller.state.lookControlMode === 'pointerLock') {
+    controller.state.lookControlMode = 'drag';
+    panel.syncFromController();
+    panel.updateStatus();
+  }
 });
 document.addEventListener('mousemove', (event) => {
   if (document.pointerLockElement !== canvas) return;
