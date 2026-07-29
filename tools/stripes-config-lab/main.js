@@ -1,4 +1,16 @@
 import {
+  ArcRotateCamera,
+  Color4,
+  Engine,
+  HemisphericLight,
+  MeshBuilder,
+  Scene,
+  Vector3
+} from '@babylonjs/core';
+import {
+  createStripeShaderMaterial
+} from '/core/sprite/render/createStripeMaskMaterial.ts';
+import {
   getResolvedDevServerPort,
   probeDevServerConnection,
   requestDevServer
@@ -11,11 +23,21 @@ const state = {
   activeKey: '',
   lastTimeSec: performance.now() / 1000,
   phase: 0,
-  presetKeyDraft: ''
+  presetKeyDraft: '',
+  previewMode: 'canvas2d',
+  babylon: {
+    engine: null,
+    scene: null,
+    camera: null,
+    plane: null,
+    stripeController: null,
+    timeSec: 0
+  }
 };
 
 const el = {
   presetSelect: document.getElementById('presetSelect'),
+  previewModeSelect: document.getElementById('previewModeSelect'),
   newPresetBtn: document.getElementById('newPresetBtn'),
   duplicatePresetBtn: document.getElementById('duplicatePresetBtn'),
   deletePresetBtn: document.getElementById('deletePresetBtn'),
@@ -35,7 +57,8 @@ const el = {
   saveBtn: document.getElementById('saveBtn'),
   statusText: document.getElementById('statusText'),
   jsonView: document.getElementById('jsonView'),
-  preview: document.getElementById('preview')
+  preview: document.getElementById('preview'),
+  babylonPreview: document.getElementById('babylonPreview')
 };
 
 const createDefaultPreset = (key) => ({
@@ -281,6 +304,12 @@ const renderSegmentsEditor = () => {
 };
 
 const bindFormEvents = () => {
+  el.previewModeSelect?.addEventListener('change', () => {
+    state.previewMode = el.previewModeSelect.value === 'babylon' ? 'babylon' : 'canvas2d';
+    updatePreviewVisibility();
+    setStatus(state.previewMode === 'babylon' ? '已切换到 Babylon.js shader 预览。' : '已切换到 Canvas 2D 参考预览。');
+  });
+
   el.presetSelect.addEventListener('change', () => {
     state.activeKey = el.presetSelect.value;
     refreshPresetSelect();
@@ -518,6 +547,87 @@ const saveToServer = async () => {
   }
 };
 
+const updatePreviewVisibility = () => {
+  const isBabylon = state.previewMode === 'babylon';
+  el.preview.style.display = isBabylon ? 'none' : 'block';
+  el.babylonPreview.style.display = isBabylon ? 'block' : 'none';
+  if (isBabylon) {
+    initBabylonPreview();
+    resizeBabylonPreview();
+  } else {
+    resizeCanvas();
+  }
+};
+
+const resizeBabylonPreview = () => {
+  const { engine, camera, plane, stripeController } = state.babylon;
+  if (!engine || !camera || !plane || !stripeController) return;
+  engine.resize();
+  const width = Math.max(1, engine.getRenderWidth());
+  const height = Math.max(1, engine.getRenderHeight());
+  const aspect = width / height;
+  const halfHeight = 3;
+  const halfWidth = halfHeight * aspect;
+  camera.orthoLeft = -halfWidth;
+  camera.orthoRight = halfWidth;
+  camera.orthoTop = halfHeight;
+  camera.orthoBottom = -halfHeight;
+  plane.scaling.set(halfWidth * 2, halfHeight * 2, 1);
+  stripeController.updateRenderSize(width, height);
+};
+
+const initBabylonPreview = () => {
+  if (state.babylon.engine) return;
+  const engine = new Engine(el.babylonPreview, true, {
+    preserveDrawingBuffer: true,
+    stencil: true
+  });
+  const scene = new Scene(engine);
+  scene.clearColor = new Color4(0.02, 0.03, 0.05, 1);
+
+  const camera = new ArcRotateCamera('stripesLabShaderCamera', -Math.PI / 2, Math.PI / 2, 10, Vector3.Zero(), scene);
+  camera.mode = ArcRotateCamera.ORTHOGRAPHIC_CAMERA;
+  camera.inputs.clear();
+  camera.setTarget(Vector3.Zero());
+
+  const light = new HemisphericLight('stripesLabShaderLight', new Vector3(0, 1, 0), scene);
+  light.intensity = 1;
+
+  const plane = MeshBuilder.CreatePlane('stripesLabShaderPlane', { size: 1 }, scene);
+  const stripeController = createStripeShaderMaterial(
+    scene,
+    'stripes_lab_shader_material',
+    activePreset() || createDefaultPreset('preview'),
+    {
+      renderSizePx: {
+        width: Math.max(1, engine.getRenderWidth()),
+        height: Math.max(1, engine.getRenderHeight())
+      }
+    }
+  );
+  plane.material = stripeController.material;
+  plane.isPickable = false;
+
+  state.babylon.engine = engine;
+  state.babylon.scene = scene;
+  state.babylon.camera = camera;
+  state.babylon.plane = plane;
+  state.babylon.stripeController = stripeController;
+  resizeBabylonPreview();
+};
+
+const renderBabylonPreview = (dt) => {
+  initBabylonPreview();
+  const preset = activePreset();
+  const { engine, scene, stripeController } = state.babylon;
+  if (!engine || !scene || !stripeController || !preset) return;
+  resizeBabylonPreview();
+  state.babylon.timeSec += dt;
+  stripeController.updatePreset(preset);
+  stripeController.updateTime(state.babylon.timeSec);
+  scene.render();
+};
+
 const resizeCanvas = () => {
   const ratio = Math.max(1, window.devicePixelRatio || 1);
   const rect = el.preview.getBoundingClientRect();
@@ -556,6 +666,11 @@ const buildPatternCanvas = (preset) => {
 };
 
 const renderPreview = (dt) => {
+  if (state.previewMode === 'babylon') {
+    renderBabylonPreview(dt);
+    return;
+  }
+
   resizeCanvas();
   const preset = activePreset();
   const ctx = el.preview.getContext('2d');
@@ -599,7 +714,11 @@ const tick = () => {
 
 const boot = async () => {
   bindFormEvents();
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', () => {
+    if (state.previewMode === 'babylon') resizeBabylonPreview();
+    else resizeCanvas();
+  });
+  updatePreviewVisibility();
 
   const connection = await probeDevServerConnection(API_PATH);
   if (!connection.connected) {

@@ -107,11 +107,13 @@ export const createAtlasSpritePlane = (
   // 叠层部件需要半透明混合，AlphaTest 会导致边缘发硬/锯齿明显
   planeMaterial.transparencyMode = 2;
   planeMaterial.diffuseTexture = iconTexture;
+  planeMaterial.emissiveTexture = iconTexture;
   planeMaterial.useAlphaFromDiffuseTexture = true;
-  planeMaterial.diffuseColor = Color3.White();
+  planeMaterial.diffuseColor = Color3.Black();
   planeMaterial.emissiveColor = Color3.White();
   planeMaterial.specularColor = new Color3(0, 0, 0);
   planeMaterial.ambientColor = Color3.White();
+  planeMaterial.disableLighting = true;
   planeMaterial.backFaceCulling = false;
 
   plane.material = planeMaterial;
