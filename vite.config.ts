@@ -90,6 +90,7 @@ export default defineConfig({
         spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
         stripesConfigLab: path.resolve(__dirname, 'tools/stripes-config-lab/index.html'),
         stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
+        cameraSceneLab: path.resolve(__dirname, 'tools/camera-scene-lab/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
         avatarVisualLab: path.resolve(__dirname, 'tools/avatar-visual-lab/index.html'),
