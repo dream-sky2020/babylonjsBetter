@@ -9,6 +9,8 @@ export * from './tracking/UiTrackerManager';
 export * from './scene/createSpriteAnchorEditorScene';
 export * from './scene/createParticleEditorScene';
 export * from './scene/createBattleScene';
+export * from './scene/createCameraLabScene';
 export * from './camera/battleCamera.core.ts';
+export * from './camera/cameraLabController.ts';
 export * from './types/battle.types';
 export * from './ui';
