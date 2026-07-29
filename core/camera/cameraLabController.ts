@@ -43,7 +43,7 @@ export const CAMERA_LAB_MODE_LABELS: Record<CameraLabMode, string> = {
 
 export const CAMERA_LAB_DEFAULT_STATE: CameraLabControllerState = {
   mode: 'orbit',
-  lookControlMode: 'pointerLock',
+  lookControlMode: 'drag',
   moveSpeed: 18,
   mouseSensitivity: 0.003,
   firstPersonHeight: 1.8,
@@ -106,6 +106,7 @@ export const createCameraLabController = (
       );
       camera.position.copyFrom(state.orbitCenter.add(offset));
       camera.setTarget(state.orbitCenter);
+      camera.rebuildAnglesAndRadius();
       return;
     }
 
@@ -113,6 +114,7 @@ export const createCameraLabController = (
       state.lockPosition.y = state.lockPlaneY;
       camera.position.copyFrom(state.lockPosition);
       camera.setTarget(state.lockTarget);
+      camera.rebuildAnglesAndRadius();
       return;
     }
 
@@ -123,6 +125,7 @@ export const createCameraLabController = (
     state.pitch = clamp(state.pitch, degToRad(-85), degToRad(85));
     camera.position.copyFrom(position);
     camera.setTarget(position.add(lookForwardFromYawPitch(state.yaw, state.pitch)));
+    camera.rebuildAnglesAndRadius();
   };
 
   const update = (dt: number): void => {

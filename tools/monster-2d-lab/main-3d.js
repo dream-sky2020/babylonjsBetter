@@ -141,6 +141,8 @@ const el = {
   statusText: document.getElementById('statusText'),
   layersBox: document.getElementById('layersBox'),
   sizeInput: document.getElementById('sizeInput'),
+  scene3dScaleInput: document.getElementById('scene3dScaleInput'),
+  scene3dHeightInput: document.getElementById('scene3dHeightInput'),
   resetPositionBtn: document.getElementById('resetPositionBtn'),
   preview: document.getElementById('preview'),
   monsterAssetList: document.getElementById('monsterAssetList'),
@@ -288,6 +290,8 @@ const createDefaultMonsterConfig = (id) => ({
   id,
   name: id,
   scaleSize: 560,
+  scene3dScale: 1,
+  scene3dHeight: 0,
   renderOrder: [...FIXED_RENDER_ORDER],
   monsterStripePresetKey: DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   layers: {
@@ -360,6 +364,8 @@ const normalizeMonsterConfig = (key, config) => {
   const id = typeof source.id === 'string' && source.id.trim() ? source.id : key;
   const name = typeof source.name === 'string' && source.name.trim() ? source.name : id;
   const scaleSize = Math.max(1, toNumber(source.scaleSize, fallback.scaleSize));
+  const scene3dScale = Math.max(0.01, toNumber(source.scene3dScale, fallback.scene3dScale));
+  const scene3dHeight = toNumber(source.scene3dHeight, fallback.scene3dHeight);
   const monsterStripePresetKey = typeof source.monsterStripePresetKey === 'string' && source.monsterStripePresetKey.trim()
     ? source.monsterStripePresetKey
     : DEFAULT_MONSTER_STRIPE_PRESET_KEY;
@@ -376,6 +382,8 @@ const normalizeMonsterConfig = (key, config) => {
     id,
     name,
     scaleSize,
+    scene3dScale,
+    scene3dHeight,
     renderOrder: [...FIXED_RENDER_ORDER],
     monsterStripePresetKey,
     layers
@@ -626,6 +634,8 @@ const syncActiveConfigFromCurrentDisplay = () => {
   const config = activeMonsterConfig();
   if (!config) return;
   config.scaleSize = Math.max(1, toNumber(el.sizeInput.value, config.scaleSize || 560));
+  config.scene3dScale = Math.max(0.01, toNumber(el.scene3dScaleInput?.value, config.scene3dScale || 1));
+  config.scene3dHeight = toNumber(el.scene3dHeightInput?.value, config.scene3dHeight || 0);
   config.renderOrder = [...FIXED_RENDER_ORDER];
   config.monsterStripePresetKey = state.activeMonsterStripePresetKey || DEFAULT_MONSTER_STRIPE_PRESET_KEY;
   for (const layerKey of LAYER_KEYS) {
@@ -647,7 +657,9 @@ const applyDisplayFromConfig = (config) => {
   refreshMonsterStripePresetSelect();
   refreshMonsterStripePresetEditor();
   el.sizeInput.value = String(Math.max(1, toNumber(config.scaleSize, 560)));
-  applyMonsterScaleFromInput();
+  el.scene3dScaleInput.value = String(Math.max(0.01, toNumber(config.scene3dScale, 1)));
+  el.scene3dHeightInput.value = String(toNumber(config.scene3dHeight, 0));
+  applyMonsterTransformFromInputs();
   syncActiveConfigFromCurrentDisplay();
 };
 
@@ -798,11 +810,15 @@ const disposeLayerHandle = (layerKey) => {
   state.babylon.layerHandles.delete(layerKey);
 };
 
-const applyMonsterScaleFromInput = () => {
+const applyMonsterTransformFromInputs = () => {
   const root = state.babylon.root;
   if (!root) return;
   const sizeRatio = Math.max(0.2, toNumber(el.sizeInput.value, 560) / 560);
-  root.scaling.set(sizeRatio, sizeRatio, 1);
+  const scene3dScale = Math.max(0.01, toNumber(el.scene3dScaleInput?.value, 1));
+  const finalScale = sizeRatio * scene3dScale;
+  const scene3dHeight = toNumber(el.scene3dHeightInput?.value, 0);
+  root.scaling.set(finalScale, finalScale, finalScale);
+  root.position.y = scene3dHeight;
 };
 
 const updateCameraProjection = () => {
@@ -1071,7 +1087,7 @@ const loadAllLayerMeshes = async () => {
   }
 
   syncStripeMaterialsForAllLayers();
-  applyMonsterScaleFromInput();
+  applyMonsterTransformFromInputs();
 
   if (errors.length > 0) {
     setStatus(`部分图片加载失败：${errors.join('；')}`, true);
@@ -1556,7 +1572,15 @@ const bindEvents = () => {
     updateCameraProjection();
   });
   el.sizeInput.addEventListener('input', () => {
-    applyMonsterScaleFromInput();
+    applyMonsterTransformFromInputs();
+    syncActiveConfigFromCurrentDisplay();
+  });
+  el.scene3dScaleInput?.addEventListener('input', () => {
+    applyMonsterTransformFromInputs();
+    syncActiveConfigFromCurrentDisplay();
+  });
+  el.scene3dHeightInput?.addEventListener('input', () => {
+    applyMonsterTransformFromInputs();
     syncActiveConfigFromCurrentDisplay();
   });
 };

@@ -188,6 +188,8 @@ const createDefaultMonsterConfig = (id) => ({
   id,
   name: id,
   scaleSize: 560,
+  scene3dScale: 1,
+  scene3dHeight: 0,
   renderOrder: [...FIXED_RENDER_ORDER],
   monsterStripePresetKey: DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   layers: {
@@ -260,6 +262,8 @@ const normalizeMonsterConfig = (key, config) => {
   const id = typeof source.id === 'string' && source.id.trim() ? source.id : key;
   const name = typeof source.name === 'string' && source.name.trim() ? source.name : id;
   const scaleSize = Math.max(1, toNumber(source.scaleSize, fallback.scaleSize));
+  const scene3dScale = Math.max(0.01, toNumber(source.scene3dScale, fallback.scene3dScale));
+  const scene3dHeight = toNumber(source.scene3dHeight, fallback.scene3dHeight);
   const monsterStripePresetKey = typeof source.monsterStripePresetKey === 'string' && source.monsterStripePresetKey.trim()
     ? source.monsterStripePresetKey
     : DEFAULT_MONSTER_STRIPE_PRESET_KEY;
@@ -276,6 +280,8 @@ const normalizeMonsterConfig = (key, config) => {
     id,
     name,
     scaleSize,
+    scene3dScale,
+    scene3dHeight,
     renderOrder: [...FIXED_RENDER_ORDER],
     monsterStripePresetKey,
     layers
@@ -525,6 +531,8 @@ const syncActiveConfigFromCurrentDisplay = () => {
   const config = activeMonsterConfig();
   if (!config) return;
   config.scaleSize = Math.max(1, toNumber(el.sizeInput.value, config.scaleSize || 560));
+  config.scene3dScale = Math.max(0.01, toNumber(config.scene3dScale, 1));
+  config.scene3dHeight = toNumber(config.scene3dHeight, 0);
   config.renderOrder = [...FIXED_RENDER_ORDER];
   config.monsterStripePresetKey = state.activeMonsterStripePresetKey || DEFAULT_MONSTER_STRIPE_PRESET_KEY;
   for (const layerKey of LAYER_KEYS) {

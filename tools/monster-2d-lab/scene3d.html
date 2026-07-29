@@ -197,6 +197,14 @@
         <div class="label">怪物大小</div>
         <input id="sizeInput" type="range" min="240" max="900" step="1" value="560" />
       </div>
+      <div class="row">
+        <div class="label">3D 场景倍率（最终大小 = 怪物大小倍率 * 3D 场景倍率）</div>
+        <input id="scene3dScaleInput" type="number" min="0.01" max="20" step="0.01" value="1" />
+      </div>
+      <div class="row">
+        <div class="label">3D 场景高度（Y）</div>
+        <input id="scene3dHeightInput" type="number" step="0.1" value="0" />
+      </div>
 
       <div class="row">
         <button id="resetPositionBtn">恢复原位</button>

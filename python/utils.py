@@ -409,6 +409,12 @@ def validate_monster_display_payload(payload: dict) -> list[str]:
                 seen_ids[lowered] = key
 
         _req_num(config, "scaleSize", errors, p_path, 1)
+        scene3d_scale = config.get("scene3dScale")
+        if scene3d_scale is not None:
+            _req_num(config, "scene3dScale", errors, p_path, 0.01)
+        scene3d_height = config.get("scene3dHeight")
+        if scene3d_height is not None:
+            _req_num(config, "scene3dHeight", errors, p_path)
         stripe_preset_binding = config.get("monsterStripePresetKey")
         if stripe_preset_binding is not None and not isinstance(stripe_preset_binding, str):
             errors.append(f"{p_path}.monsterStripePresetKey 必须是字符串")
