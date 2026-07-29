@@ -49,6 +49,28 @@ const CAMERA_HOME_TARGET = new Vector3(0, -0.15, -18);
 const CAMERA_HOME_ALPHA = Math.PI / 2;
 const CAMERA_HOME_BETA = 1.36;
 const CAMERA_HOME_RADIUS = 42;
+const CAMERA_MODE_LABELS = {
+  firstPerson: '第一人称漫游',
+  drone: '无人机视角',
+  orbit: '环绕模式',
+  lockPan: '终点锁定 / 定向平移'
+};
+const CAMERA_DEFAULTS = {
+  moveSpeed: 18,
+  mouseSensitivity: 0.003,
+  firstPersonHeight: 1.8,
+  yaw: Math.PI,
+  pitch: -0.08,
+  dronePosition: new Vector3(0, 7, 16),
+  firstPersonPosition: new Vector3(0, 1.8, 12),
+  orbitCenter: CAMERA_HOME_TARGET.clone(),
+  orbitYaw: 0,
+  orbitPitchDeg: 12,
+  orbitRadius: CAMERA_HOME_RADIUS,
+  lockPlaneY: 6,
+  lockPosition: new Vector3(0, 6, 20),
+  lockTarget: new Vector3(0, -0.15, -520)
+};
 
 const state = {
   presets: {},
@@ -76,6 +98,26 @@ const state = {
       pointerId: -1,
       lastClientX: 0,
       lastClientY: 0
+    },
+    cameraControl: {
+      mode: 'orbit',
+      lookControlMode: 'pointerLock',
+      keys: new Set(),
+      pointerLocked: false,
+      moveSpeed: CAMERA_DEFAULTS.moveSpeed,
+      mouseSensitivity: CAMERA_DEFAULTS.mouseSensitivity,
+      firstPersonHeight: CAMERA_DEFAULTS.firstPersonHeight,
+      yaw: CAMERA_DEFAULTS.yaw,
+      pitch: CAMERA_DEFAULTS.pitch,
+      firstPersonPosition: CAMERA_DEFAULTS.firstPersonPosition.clone(),
+      dronePosition: CAMERA_DEFAULTS.dronePosition.clone(),
+      orbitCenter: CAMERA_DEFAULTS.orbitCenter.clone(),
+      orbitYaw: CAMERA_DEFAULTS.orbitYaw,
+      orbitPitchDeg: CAMERA_DEFAULTS.orbitPitchDeg,
+      orbitRadius: CAMERA_DEFAULTS.orbitRadius,
+      lockPlaneY: CAMERA_DEFAULTS.lockPlaneY,
+      lockPosition: CAMERA_DEFAULTS.lockPosition.clone(),
+      lockTarget: CAMERA_DEFAULTS.lockTarget.clone()
     }
   }
 };
@@ -99,6 +141,22 @@ const el = {
   resetPositionBtn: document.getElementById('resetPositionBtn'),
   preview: document.getElementById('preview'),
   monsterAssetList: document.getElementById('monsterAssetList'),
+  cameraModeSelect: document.getElementById('cameraModeSelect'),
+  lookControlModeSelect: document.getElementById('lookControlModeSelect'),
+  cameraSpeedInput: document.getElementById('cameraSpeedInput'),
+  mouseSensitivityInput: document.getElementById('mouseSensitivityInput'),
+  cameraHeightInput: document.getElementById('cameraHeightInput'),
+  lockPlaneYInput: document.getElementById('lockPlaneYInput'),
+  orbitCenterXInput: document.getElementById('orbitCenterXInput'),
+  orbitCenterYInput: document.getElementById('orbitCenterYInput'),
+  orbitCenterZInput: document.getElementById('orbitCenterZInput'),
+  orbitRadiusInput: document.getElementById('orbitRadiusInput'),
+  orbitPitchInput: document.getElementById('orbitPitchInput'),
+  lockTargetXInput: document.getElementById('lockTargetXInput'),
+  lockTargetYInput: document.getElementById('lockTargetYInput'),
+  lockTargetZInput: document.getElementById('lockTargetZInput'),
+  applyCameraParamsBtn: document.getElementById('applyCameraParamsBtn'),
+  cameraStatusText: document.getElementById('cameraStatusText'),
   reloadStripeBtn: document.getElementById('reloadStripeBtn'),
   reloadMonsterStripePresetBtn: document.getElementById('reloadMonsterStripePresetBtn'),
   saveMonsterStripePresetBtn: document.getElementById('saveMonsterStripePresetBtn'),
@@ -115,6 +173,29 @@ const el = {
 const toNumber = (value, fallback) => {
   const num = Number(value);
   return Number.isFinite(num) ? num : fallback;
+};
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const degToRad = (deg) => (deg * Math.PI) / 180;
+const radToDeg = (rad) => (rad * 180) / Math.PI;
+const formatNumber = (value) => (Number.isFinite(value) ? value.toFixed(2) : 'NaN');
+
+const isTypingTarget = (target) => {
+  if (!(target instanceof HTMLElement)) return false;
+  const tag = target.tagName.toLowerCase();
+  return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
+};
+
+const horizontalForwardFromYaw = (yaw) => new Vector3(Math.sin(yaw), 0, Math.cos(yaw));
+const rightFromYaw = (yaw) => new Vector3(-Math.cos(yaw), 0, Math.sin(yaw));
+
+const lookForwardFromYawPitch = (yaw, pitch) => {
+  const cosPitch = Math.cos(pitch);
+  return new Vector3(
+    Math.sin(yaw) * cosPitch,
+    Math.sin(pitch),
+    Math.cos(yaw) * cosPitch
+  );
 };
 
 const setStatus = (message, isError = false) => {
@@ -732,11 +813,158 @@ const updateCameraProjection = () => {
 const applyCameraHomePose = () => {
   const camera = state.babylon.camera;
   if (!camera) return;
-  camera.alpha = CAMERA_HOME_ALPHA;
-  camera.beta = CAMERA_HOME_BETA;
-  camera.radius = CAMERA_HOME_RADIUS;
-  camera.setTarget(CAMERA_HOME_TARGET.clone());
+  const control = state.babylon.cameraControl;
+  control.mode = 'orbit';
+  control.orbitCenter = CAMERA_DEFAULTS.orbitCenter.clone();
+  control.orbitYaw = CAMERA_DEFAULTS.orbitYaw;
+  control.orbitPitchDeg = CAMERA_DEFAULTS.orbitPitchDeg;
+  control.orbitRadius = CAMERA_DEFAULTS.orbitRadius;
+  syncCameraControlInputs();
+  applyCameraControlPose();
   updateCameraProjection();
+};
+
+const readCameraControlInputs = () => {
+  const control = state.babylon.cameraControl;
+  control.mode = el.cameraModeSelect?.value || control.mode;
+  control.lookControlMode = el.lookControlModeSelect?.value === 'drag' ? 'drag' : 'pointerLock';
+  control.moveSpeed = Math.max(0.1, toNumber(el.cameraSpeedInput?.value, control.moveSpeed));
+  control.mouseSensitivity = clamp(toNumber(el.mouseSensitivityInput?.value, control.mouseSensitivity), 0.0005, 0.02);
+  control.firstPersonHeight = toNumber(el.cameraHeightInput?.value, control.firstPersonHeight);
+  control.lockPlaneY = toNumber(el.lockPlaneYInput?.value, control.lockPlaneY);
+  control.orbitCenter = new Vector3(
+    toNumber(el.orbitCenterXInput?.value, control.orbitCenter.x),
+    toNumber(el.orbitCenterYInput?.value, control.orbitCenter.y),
+    toNumber(el.orbitCenterZInput?.value, control.orbitCenter.z)
+  );
+  control.orbitRadius = Math.max(1, toNumber(el.orbitRadiusInput?.value, control.orbitRadius));
+  control.orbitPitchDeg = clamp(toNumber(el.orbitPitchInput?.value, control.orbitPitchDeg), -80, 80);
+  control.lockTarget = new Vector3(
+    toNumber(el.lockTargetXInput?.value, control.lockTarget.x),
+    toNumber(el.lockTargetYInput?.value, control.lockTarget.y),
+    toNumber(el.lockTargetZInput?.value, control.lockTarget.z)
+  );
+};
+
+const syncCameraControlInputs = () => {
+  const control = state.babylon.cameraControl;
+  if (el.cameraModeSelect) el.cameraModeSelect.value = control.mode;
+  if (el.lookControlModeSelect) el.lookControlModeSelect.value = control.lookControlMode;
+  if (el.cameraSpeedInput) el.cameraSpeedInput.value = String(control.moveSpeed);
+  if (el.mouseSensitivityInput) el.mouseSensitivityInput.value = String(control.mouseSensitivity);
+  if (el.cameraHeightInput) el.cameraHeightInput.value = String(control.firstPersonHeight);
+  if (el.lockPlaneYInput) el.lockPlaneYInput.value = String(control.lockPlaneY);
+  if (el.orbitCenterXInput) el.orbitCenterXInput.value = String(control.orbitCenter.x);
+  if (el.orbitCenterYInput) el.orbitCenterYInput.value = String(control.orbitCenter.y);
+  if (el.orbitCenterZInput) el.orbitCenterZInput.value = String(control.orbitCenter.z);
+  if (el.orbitRadiusInput) el.orbitRadiusInput.value = String(control.orbitRadius);
+  if (el.orbitPitchInput) el.orbitPitchInput.value = String(control.orbitPitchDeg);
+  if (el.lockTargetXInput) el.lockTargetXInput.value = String(control.lockTarget.x);
+  if (el.lockTargetYInput) el.lockTargetYInput.value = String(control.lockTarget.y);
+  if (el.lockTargetZInput) el.lockTargetZInput.value = String(control.lockTarget.z);
+};
+
+const applyCameraControlPose = () => {
+  const camera = state.babylon.camera;
+  if (!camera) return;
+  const control = state.babylon.cameraControl;
+  updateCameraProjection();
+
+  if (control.mode === 'orbit') {
+    const pitch = degToRad(control.orbitPitchDeg);
+    const cosPitch = Math.cos(pitch);
+    const offset = new Vector3(
+      Math.sin(control.orbitYaw) * cosPitch * control.orbitRadius,
+      Math.sin(pitch) * control.orbitRadius,
+      Math.cos(control.orbitYaw) * cosPitch * control.orbitRadius
+    );
+    camera.position.copyFrom(control.orbitCenter.add(offset));
+    camera.setTarget(control.orbitCenter);
+    return;
+  }
+
+  if (control.mode === 'lockPan') {
+    control.lockPosition.y = control.lockPlaneY;
+    camera.position.copyFrom(control.lockPosition);
+    camera.setTarget(control.lockTarget);
+    return;
+  }
+
+  const position = control.mode === 'firstPerson' ? control.firstPersonPosition : control.dronePosition;
+  if (control.mode === 'firstPerson') {
+    position.y = control.firstPersonHeight;
+  }
+  const pitch = clamp(control.pitch, degToRad(-85), degToRad(85));
+  control.pitch = pitch;
+  camera.position.copyFrom(position);
+  camera.setTarget(position.add(lookForwardFromYawPitch(control.yaw, pitch)));
+};
+
+const updateCameraStatus = () => {
+  const camera = state.babylon.camera;
+  const control = state.babylon.cameraControl;
+  if (!camera || !el.cameraStatusText) return;
+  const target = camera.getTarget();
+  el.cameraStatusText.value = [
+    `模式: ${CAMERA_MODE_LABELS[control.mode] || control.mode}`,
+    `position: x=${formatNumber(camera.position.x)}, y=${formatNumber(camera.position.y)}, z=${formatNumber(camera.position.z)}`,
+    `target:   x=${formatNumber(target.x)}, y=${formatNumber(target.y)}, z=${formatNumber(target.z)}`,
+    `yaw/pitch: ${formatNumber(radToDeg(control.yaw))}° / ${formatNumber(radToDeg(control.pitch))}°`,
+    `lookControl: ${control.lookControlMode === 'drag' ? '按住左键拖拽' : '点击画布锁定鼠标'}`,
+    `orbit: center=(${formatNumber(control.orbitCenter.x)}, ${formatNumber(control.orbitCenter.y)}, ${formatNumber(control.orbitCenter.z)}), radius=${formatNumber(control.orbitRadius)}, pitch=${formatNumber(control.orbitPitchDeg)}°`,
+    `firstPersonHeight=${formatNumber(control.firstPersonHeight)}, lockPlaneY=${formatNumber(control.lockPlaneY)}`,
+    `speed=${formatNumber(control.moveSpeed)}, sensitivity=${control.mouseSensitivity}`
+  ].join('\n');
+};
+
+const updateCameraControl = (dt) => {
+  const camera = state.babylon.camera;
+  if (!camera) return;
+  const control = state.babylon.cameraControl;
+  const moveStep = control.moveSpeed * Math.max(0, dt);
+  const forward = horizontalForwardFromYaw(control.yaw);
+  const right = rightFromYaw(control.yaw);
+
+  if (control.mode === 'firstPerson' || control.mode === 'drone') {
+    const position = control.mode === 'firstPerson' ? control.firstPersonPosition : control.dronePosition;
+    if (control.keys.has('KeyW')) position.addInPlace(forward.scale(moveStep));
+    if (control.keys.has('KeyS')) position.addInPlace(forward.scale(-moveStep));
+    if (control.keys.has('KeyD')) position.addInPlace(right.scale(moveStep));
+    if (control.keys.has('KeyA')) position.addInPlace(right.scale(-moveStep));
+    if (control.mode === 'drone') {
+      if (control.keys.has('KeyE')) position.y += moveStep;
+      if (control.keys.has('KeyQ')) position.y -= moveStep;
+    } else {
+      position.y = control.firstPersonHeight;
+    }
+  } else if (control.mode === 'lockPan') {
+    if (control.keys.has('KeyW')) control.lockPosition.z -= moveStep;
+    if (control.keys.has('KeyS')) control.lockPosition.z += moveStep;
+    if (control.keys.has('KeyD')) control.lockPosition.x += moveStep;
+    if (control.keys.has('KeyA')) control.lockPosition.x -= moveStep;
+    control.lockPosition.y = control.lockPlaneY;
+  }
+
+  applyCameraControlPose();
+  updateCameraStatus();
+};
+
+const handleCameraPointerDelta = (dx, dy) => {
+  const control = state.babylon.cameraControl;
+  const sensitivity = control.mouseSensitivity;
+  if (control.mode === 'orbit') {
+    control.orbitYaw -= dx * sensitivity;
+    control.orbitPitchDeg = clamp(control.orbitPitchDeg + dy * sensitivity * 40, -80, 80);
+    syncCameraControlInputs();
+  } else if (control.mode === 'firstPerson' || control.mode === 'drone') {
+    control.yaw -= dx * sensitivity;
+    control.pitch = clamp(control.pitch - dy * sensitivity, degToRad(-85), degToRad(85));
+  } else if (control.mode === 'lockPan') {
+    control.lockPosition.x -= dx * 0.04;
+    control.lockPosition.z += dy * 0.04;
+  }
+  applyCameraControlPose();
+  updateCameraStatus();
 };
 
 const createEnvironment = (scene) => {
@@ -1297,6 +1525,42 @@ const bindEvents = () => {
     setStatus('已恢复到默认镜头位置。');
   });
 
+  const cameraParamInputs = [
+    el.lookControlModeSelect,
+    el.cameraSpeedInput,
+    el.mouseSensitivityInput,
+    el.cameraHeightInput,
+    el.lockPlaneYInput,
+    el.orbitCenterXInput,
+    el.orbitCenterYInput,
+    el.orbitCenterZInput,
+    el.orbitRadiusInput,
+    el.orbitPitchInput,
+    el.lockTargetXInput,
+    el.lockTargetYInput,
+    el.lockTargetZInput
+  ].filter(Boolean);
+
+  const applyCameraParamsFromPanel = () => {
+    readCameraControlInputs();
+    applyCameraControlPose();
+    updateCameraStatus();
+  };
+
+  el.cameraModeSelect?.addEventListener('change', () => {
+    readCameraControlInputs();
+    applyCameraControlPose();
+    updateCameraStatus();
+    setStatus(`已切换摄像机模式：${CAMERA_MODE_LABELS[state.babylon.cameraControl.mode] || state.babylon.cameraControl.mode}`);
+  });
+  cameraParamInputs.forEach((input) => {
+    input.addEventListener('input', applyCameraParamsFromPanel);
+  });
+  el.applyCameraParamsBtn?.addEventListener('click', () => {
+    applyCameraParamsFromPanel();
+    setStatus('摄像机参数已应用。');
+  });
+
   el.preview.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;
     state.babylon.drag.active = true;
@@ -1305,29 +1569,20 @@ const bindEvents = () => {
     state.babylon.drag.lastClientY = event.clientY;
     el.preview.style.cursor = 'grabbing';
     el.preview.setPointerCapture(event.pointerId);
+    const mode = state.babylon.cameraControl.mode;
+    const shouldLockPointer = state.babylon.cameraControl.lookControlMode === 'pointerLock';
+    if ((mode === 'firstPerson' || mode === 'drone') && shouldLockPointer && document.pointerLockElement !== el.preview) {
+      el.preview.requestPointerLock?.();
+    }
   });
 
   el.preview.addEventListener('pointermove', (event) => {
     if (!state.babylon.drag.active || event.pointerId !== state.babylon.drag.pointerId) return;
-    const camera = state.babylon.camera;
-    if (!camera) return;
     const dx = event.clientX - state.babylon.drag.lastClientX;
     const dy = event.clientY - state.babylon.drag.lastClientY;
     state.babylon.drag.lastClientX = event.clientX;
     state.babylon.drag.lastClientY = event.clientY;
-    const rect = el.preview.getBoundingClientRect();
-    const engine = state.babylon.engine;
-    const aspect = engine ? Math.max(1, engine.getRenderWidth()) / Math.max(1, engine.getRenderHeight()) : 1;
-    const distance = Vector3.Distance(camera.position, camera.getTarget());
-    const visibleHeight = 2 * distance * Math.tan(camera.fov * 0.5);
-    const worldPerPixelY = visibleHeight / Math.max(1, rect.height);
-    const worldPerPixelX = (visibleHeight * aspect) / Math.max(1, rect.width);
-    const currentTarget = camera.getTarget();
-    camera.setTarget(new Vector3(
-      currentTarget.x - dx * worldPerPixelX,
-      currentTarget.y + dy * worldPerPixelY,
-      currentTarget.z
-    ));
+    handleCameraPointerDelta(dx, dy);
   });
 
   const stopDrag = (event) => {
@@ -1341,6 +1596,33 @@ const bindEvents = () => {
   };
   el.preview.addEventListener('pointerup', stopDrag);
   el.preview.addEventListener('pointercancel', stopDrag);
+  document.addEventListener('pointerlockchange', () => {
+    state.babylon.cameraControl.pointerLocked = document.pointerLockElement === el.preview;
+    el.preview.style.cursor = state.babylon.cameraControl.pointerLocked ? 'none' : 'grab';
+    updateCameraStatus();
+  });
+  document.addEventListener('mousemove', (event) => {
+    if (document.pointerLockElement !== el.preview) return;
+    handleCameraPointerDelta(event.movementX || 0, event.movementY || 0);
+  });
+  window.addEventListener('keydown', (event) => {
+    if (isTypingTarget(event.target)) return;
+    if (!['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE'].includes(event.code)) return;
+    state.babylon.cameraControl.keys.add(event.code);
+    event.preventDefault();
+  });
+  window.addEventListener('keyup', (event) => {
+    state.babylon.cameraControl.keys.delete(event.code);
+  });
+  el.preview.addEventListener('wheel', (event) => {
+    const control = state.babylon.cameraControl;
+    if (control.mode !== 'orbit') return;
+    event.preventDefault();
+    control.orbitRadius = clamp(control.orbitRadius + Math.sign(event.deltaY) * 2, 1, 300);
+    syncCameraControlInputs();
+    applyCameraControlPose();
+    updateCameraStatus();
+  }, { passive: false });
 
   window.addEventListener('resize', () => {
     if (!state.babylon.engine) return;
@@ -1379,7 +1661,9 @@ const initBabylon = () => {
   createEnvironment(scene);
 
   scene.onBeforeRenderObservable.add(() => {
-    state.animTimeSec += scene.getEngine().getDeltaTime() / 1000;
+    const dt = scene.getEngine().getDeltaTime() / 1000;
+    state.animTimeSec += dt;
+    updateCameraControl(dt);
     for (const stripeHandle of state.babylon.stripeHandles.values()) {
       stripeHandle.controller.updateTime(state.animTimeSec);
     }
