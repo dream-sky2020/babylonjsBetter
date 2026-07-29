@@ -1,4 +1,18 @@
 import {
+  ArcRotateCamera,
+  Color3,
+  Color4,
+  Engine,
+  HemisphericLight,
+  MeshBuilder,
+  Scene,
+  TransformNode,
+  Vector3
+} from '@babylonjs/core';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
+import { createAtlasSpritePlane } from '/core/sprite/render/createAtlasSpritePlane.ts';
+import { createStripeMaskMaterial } from '/core/sprite/render/createStripeMaskMaterial.ts';
+import {
   getResolvedDevServerPort,
   probeDevServerConnection,
   requestDevServer
@@ -31,6 +45,10 @@ const DEFAULT_ASSETS = {
   bottomBorder: 'Monster/尖锐文件_1_底部边框.png',
   bottomFillMask: 'Monster/尖锐文件_1_底部边框内填色.png'
 };
+const CAMERA_HOME_TARGET = new Vector3(0, -0.15, -18);
+const CAMERA_HOME_ALPHA = Math.PI / 2;
+const CAMERA_HOME_BETA = 1.36;
+const CAMERA_HOME_RADIUS = 42;
 
 const state = {
   presets: {},
@@ -38,30 +56,28 @@ const state = {
   activeMonsterStripePresetKey: DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   monsterConfigs: {},
   activeMonsterConfigId: '',
-  lastTimeSec: performance.now() / 1000,
   animTimeSec: 0,
-  offsetCssPx: { x: 0, y: 0 },
-  drag: {
-    active: false,
-    pointerId: -1,
-    lastClientX: 0,
-    lastClientY: 0
-  },
   layers: {
     line: { path: DEFAULT_ASSETS.line, stripePresetKey: STRIPE_NONE },
     body: { path: DEFAULT_ASSETS.body, stripePresetKey: STRIPE_NONE },
     bottomBorder: { path: DEFAULT_ASSETS.bottomBorder, stripePresetKey: STRIPE_NONE },
     bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask, stripePresetKey: STRIPE_NONE }
   },
-  images: {
-    line: null,
-    body: null,
-    bottomBorder: null,
-    bottomFillMask: null
-  },
-  patternCache: new Map(),
-  maskCanvas: document.createElement('canvas'),
-  resourceImageOptions: []
+  resourceImageOptions: [],
+  babylon: {
+    engine: null,
+    scene: null,
+    camera: null,
+    root: null,
+    layerHandles: new Map(),
+    stripeHandles: new Map(),
+    drag: {
+      active: false,
+      pointerId: -1,
+      lastClientX: 0,
+      lastClientY: 0
+    }
+  }
 };
 
 const el = {
@@ -425,6 +441,7 @@ const applyActiveMonsterStripePresetToDisplay = () => {
     state.layers[layerKey].stripePresetKey = preset.layers[layerKey]?.stripePresetKey || STRIPE_NONE;
   }
   sanitizeLayerPresetKeys();
+  syncStripeMaterialsForAllLayers();
 };
 
 const refreshMonsterStripePresetBindingSelect = () => {
@@ -546,6 +563,7 @@ const applyDisplayFromConfig = (config) => {
   refreshMonsterStripePresetSelect();
   refreshMonsterStripePresetEditor();
   el.sizeInput.value = String(Math.max(1, toNumber(config.scaleSize, 560)));
+  applyMonsterScaleFromInput();
   syncActiveConfigFromCurrentDisplay();
 };
 
@@ -661,7 +679,7 @@ const renderLayerControls = () => {
       if (input) input.value = event.currentTarget.value;
       syncActiveConfigFromCurrentDisplay();
       refreshMonsterConfigSelect();
-      void loadAllLayerImages();
+      void loadAllLayerMeshes();
     });
   });
 
@@ -677,16 +695,181 @@ const renderLayerControls = () => {
         event.preventDefault();
         syncActiveConfigFromCurrentDisplay();
         refreshMonsterConfigSelect();
-        void loadAllLayerImages();
+        void loadAllLayerMeshes();
       }
     });
   });
-
 };
 
-const loadAllLayerImages = async () => {
+const getLayerHandle = (layerKey) => state.babylon.layerHandles.get(layerKey) || null;
+
+const disposeLayerHandle = (layerKey) => {
+  const stripe = state.babylon.stripeHandles.get(layerKey);
+  stripe?.controller?.dispose();
+  state.babylon.stripeHandles.delete(layerKey);
+
+  const handle = state.babylon.layerHandles.get(layerKey);
+  if (!handle) return;
+  handle.controller.dispose();
+  state.babylon.layerHandles.delete(layerKey);
+};
+
+const applyMonsterScaleFromInput = () => {
+  const root = state.babylon.root;
+  if (!root) return;
+  const sizeRatio = Math.max(0.2, toNumber(el.sizeInput.value, 560) / 560);
+  root.scaling.set(sizeRatio, sizeRatio, 1);
+};
+
+const updateCameraProjection = () => {
+  const camera = state.babylon.camera;
+  if (!camera) return;
+  camera.fov = 0.43;
+  camera.minZ = 0.05;
+  camera.maxZ = 1500;
+};
+
+const applyCameraHomePose = () => {
+  const camera = state.babylon.camera;
+  if (!camera) return;
+  camera.alpha = CAMERA_HOME_ALPHA;
+  camera.beta = CAMERA_HOME_BETA;
+  camera.radius = CAMERA_HOME_RADIUS;
+  camera.setTarget(CAMERA_HOME_TARGET.clone());
+  updateCameraProjection();
+};
+
+const createEnvironment = (scene) => {
+  const groundY = -2.25;
+  const roadY = -2.16;
+  const roadDetailY = -2.135;
+  const ground = MeshBuilder.CreateGround('monster_lab_ground', { width: 520, height: 920 }, scene);
+  const groundMat = new StandardMaterial('monster_lab_ground_mat', scene);
+  groundMat.diffuseColor = new Color3(0.36, 0.46, 0.34);
+  groundMat.specularColor = new Color3(0, 0, 0);
+  ground.material = groundMat;
+  ground.position.y = groundY;
+  ground.position.z = -280;
+
+  const road = MeshBuilder.CreateGround('monster_lab_road', { width: 16, height: 760 }, scene);
+  const roadMat = new StandardMaterial('monster_lab_road_mat', scene);
+  roadMat.diffuseColor = new Color3(0.12, 0.13, 0.15);
+  roadMat.specularColor = new Color3(0, 0, 0);
+  road.material = roadMat;
+  road.position.y = roadY;
+  road.position.z = -300;
+
+  const edgeMat = new StandardMaterial('monster_lab_road_edge_mat', scene);
+  edgeMat.diffuseColor = new Color3(0.86, 0.84, 0.68);
+  edgeMat.specularColor = new Color3(0, 0, 0);
+  for (const x of [-7.6, 7.6]) {
+    const edge = MeshBuilder.CreateBox(`monster_lab_road_edge_${x}`, { width: 0.16, height: 0.01, depth: 740 }, scene);
+    edge.material = edgeMat;
+    edge.position.set(x, roadDetailY, -300);
+  }
+
+  for (let i = 0; i < 72; i += 1) {
+    const mark = MeshBuilder.CreateBox(`monster_lab_lane_mark_${i}`, { width: 0.32, height: 0.01, depth: 5.2 }, scene);
+    const markMat = new StandardMaterial(`monster_lab_lane_mark_mat_${i}`, scene);
+    markMat.diffuseColor = new Color3(0.95, 0.9, 0.55);
+    markMat.specularColor = new Color3(0, 0, 0);
+    mark.material = markMat;
+    mark.position.set(0, roadDetailY + 0.006, 24 - i * 10.2);
+  }
+
+  const blockMat = new StandardMaterial('monster_lab_block_mat', scene);
+  blockMat.specularColor = new Color3(0, 0, 0);
+
+  for (let i = 0; i < 150; i += 1) {
+    const base = i * 1.37;
+    const side = i % 2 === 0 ? -1 : 1;
+    const x = side * (18 + (i % 8) * 2.4 + Math.abs(Math.sin(base * 0.73)) * 18);
+    const z = 4 - (i % 25) * 7.5 - Math.floor(i / 25) * 24;
+    const h = 2.2 + (i % 11) * 0.7;
+    const w = 1.5 + (i % 5) * 0.55;
+    const d = 1.5 + (i % 4) * 0.7;
+    const tower = MeshBuilder.CreateBox(`monster_lab_tower_${i}`, { width: w, depth: d, height: h }, scene);
+    tower.position.set(x, groundY + h * 0.5, z);
+    const shade = 0.28 + (i % 7) * 0.035;
+    const tint = new Color3(shade * 0.8, shade * 0.9, shade);
+    tower.material = blockMat.clone(`monster_lab_block_mat_${i}`);
+    tower.material.diffuseColor = tint;
+  }
+
+  const mountainMat = new StandardMaterial('monster_lab_mountain_mat', scene);
+  mountainMat.diffuseColor = new Color3(0.35, 0.42, 0.5);
+  mountainMat.specularColor = new Color3(0, 0, 0);
+
+  for (let i = 0; i < 30; i += 1) {
+    const base = i * 1.91;
+    const x = -230 + i * 16 + Math.sin(base) * 10;
+    const z = -380 - (i % 5) * 24 - Math.cos(base * 0.63) * 18;
+    const height = 32 + (i % 7) * 9;
+    const diameter = 32 + (i % 6) * 8;
+    const mountain = MeshBuilder.CreateCylinder(
+      `monster_lab_mountain_${i}`,
+      {
+        height,
+        diameterTop: 0,
+        diameterBottom: diameter,
+        tessellation: 6
+      },
+      scene
+    );
+    mountain.material = mountainMat.clone(`monster_lab_mountain_mat_${i}`);
+    const shade = 0.85 + (i % 4) * 0.08;
+    mountain.material.diffuseColor = new Color3(0.28 * shade, 0.35 * shade, 0.45 * shade);
+    mountain.position.set(x, groundY + height * 0.5, z);
+  }
+};
+
+const syncStripeMaterialsForAllLayers = () => {
+  for (const layerKey of FIXED_RENDER_ORDER) {
+    const handle = getLayerHandle(layerKey);
+    if (!handle) continue;
+
+    const stripePresetKey = state.layers[layerKey].stripePresetKey;
+    const preset = state.presets[stripePresetKey];
+    const currentStripe = state.babylon.stripeHandles.get(layerKey);
+
+    if (stripePresetKey === STRIPE_NONE || !preset) {
+      if (currentStripe) {
+        currentStripe.controller.dispose();
+        state.babylon.stripeHandles.delete(layerKey);
+      }
+      handle.controller.mesh.material = handle.baseMaterial;
+      continue;
+    }
+
+    if (currentStripe && currentStripe.presetKey === stripePresetKey) {
+      currentStripe.controller.updatePreset(preset);
+      currentStripe.controller.updateRenderSize(handle.renderSizePx.width, handle.renderSizePx.height);
+      continue;
+    }
+
+    currentStripe?.controller.dispose();
+    const shader = createStripeMaskMaterial(
+      state.babylon.scene,
+      `monster_stripe_${layerKey}`,
+      handle.textureUrl,
+      preset,
+      handle.renderSizePx
+    );
+    shader.updateTime(state.animTimeSec);
+    state.babylon.stripeHandles.set(layerKey, {
+      presetKey: stripePresetKey,
+      controller: shader
+    });
+    handle.controller.mesh.material = shader.material;
+  }
+};
+
+const loadAllLayerMeshes = async () => {
+  if (!state.babylon.scene || !state.babylon.root) return;
   setStatus('正在加载分层图片...');
   const errors = [];
+  const loadedLayerKeys = new Set();
+  const loadedLayerImages = new Map();
 
   for (const layerKey of LAYER_KEYS) {
     const layer = state.layers[layerKey];
@@ -696,19 +879,48 @@ const loadAllLayerImages = async () => {
   renderLayerControls();
   buildAssetDatalist();
 
-  const results = await Promise.allSettled(
+  const preloads = await Promise.allSettled(
     LAYER_KEYS.map((layerKey) => loadImage(toResourceUrl(state.layers[layerKey].path)))
   );
 
-  results.forEach((result, idx) => {
+  preloads.forEach((result, idx) => {
     const layerKey = LAYER_KEYS[idx];
-    if (result.status === 'fulfilled') {
-      state.images[layerKey] = result.value;
-    } else {
-      state.images[layerKey] = null;
+    if (result.status === 'rejected') {
       errors.push(`${LAYER_LABELS[layerKey]}: ${String(result.reason)}`);
+      return;
     }
+    loadedLayerKeys.add(layerKey);
+    loadedLayerImages.set(layerKey, result.value);
   });
+
+  for (const layerKey of FIXED_RENDER_ORDER) {
+    disposeLayerHandle(layerKey);
+  }
+
+  for (let index = 0; index < FIXED_RENDER_ORDER.length; index += 1) {
+    const layerKey = FIXED_RENDER_ORDER[index];
+    if (!loadedLayerKeys.has(layerKey)) continue;
+    const path = state.layers[layerKey].path;
+    const textureUrl = toResourceUrl(path);
+    const sourceImage = loadedLayerImages.get(layerKey);
+    const controller = createAtlasSpritePlane(state.babylon.scene, textureUrl, 2.8, { shareTexture: false });
+    controller.mesh.parent = state.babylon.root;
+    controller.mesh.position = new Vector3(0, 0, index * 0.01);
+    controller.mesh.isPickable = false;
+    const baseMaterial = controller.mesh.material;
+    state.babylon.layerHandles.set(layerKey, {
+      controller,
+      textureUrl,
+      baseMaterial,
+      renderSizePx: {
+        width: Math.max(1, sourceImage?.naturalWidth || sourceImage?.width || 1),
+        height: Math.max(1, sourceImage?.naturalHeight || sourceImage?.height || 1)
+      }
+    });
+  }
+
+  syncStripeMaterialsForAllLayers();
+  applyMonsterScaleFromInput();
 
   if (errors.length > 0) {
     setStatus(`部分图片加载失败：${errors.join('；')}`, true);
@@ -725,7 +937,6 @@ const loadMonsterConfigsFromServer = async () => {
     const data = normalizeMonsterConfigLibrary(payload.data);
     state.monsterConfigs = data;
 
-    // 兼容旧 monsterDisplayConfigs：如果历史数据把 stripePresetKey 存在各层里，自动迁移到“怪物条纹预设”。
     for (const [configKey, rawConfig] of Object.entries(rawData)) {
       const normalized = state.monsterConfigs[configKey];
       if (!normalized || !rawConfig || typeof rawConfig !== 'object') continue;
@@ -760,7 +971,7 @@ const loadMonsterConfigsFromServer = async () => {
     if (activeConfig) {
       applyDisplayFromConfig(activeConfig);
       renderLayerControls();
-      await loadAllLayerImages();
+      await loadAllLayerMeshes();
     }
     const valid = payload.valid !== false;
     const port = getResolvedDevServerPort();
@@ -803,7 +1014,6 @@ const loadStripePresets = async () => {
       data = await response.json();
     }
     state.presets = normalizeLibrary(data);
-    state.patternCache.clear();
     sanitizeMonsterStripePresets();
     sanitizeLayerPresetKeys();
     applyActiveMonsterStripePresetToDisplay();
@@ -853,152 +1063,13 @@ const saveMonsterStripePresetsToServer = async () => {
   }
 };
 
-const resizeCanvas = () => {
-  const ratio = Math.max(1, window.devicePixelRatio || 1);
-  const rect = el.preview.getBoundingClientRect();
-  const w = Math.max(1, Math.floor(rect.width * ratio));
-  const h = Math.max(1, Math.floor(rect.height * ratio));
-  if (el.preview.width !== w || el.preview.height !== h) {
-    el.preview.width = w;
-    el.preview.height = h;
-  }
-  if (state.maskCanvas.width !== w || state.maskCanvas.height !== h) {
-    state.maskCanvas.width = w;
-    state.maskCanvas.height = h;
-  }
-};
-
-const getPatternCanvas = (presetKey, preset) => {
-  const cacheKey = `${presetKey}:${JSON.stringify(preset)}`;
-  const hit = state.patternCache.get(cacheKey);
-  if (hit) return hit;
-  const period = Math.max(1, Math.round(preset.segments.reduce((sum, seg) => sum + Math.max(0.01, seg.width), 0)));
-  const off = document.createElement('canvas');
-  off.width = period;
-  off.height = 64;
-  const ctx = off.getContext('2d');
-  let cursor = 0;
-  for (const seg of preset.segments) {
-    const w = Math.max(1, Math.round(seg.width));
-    const opacity = Math.max(0, Math.min(1, toNumber(seg.opacity, 1)));
-    ctx.globalAlpha = opacity;
-    if (seg.fillType === 'gradient') {
-      const grad = ctx.createLinearGradient(cursor, 0, cursor + w, 0);
-      grad.addColorStop(0, seg.fromColor || '#ffffff');
-      grad.addColorStop(1, seg.toColor || '#000000');
-      ctx.fillStyle = grad;
-    } else {
-      ctx.fillStyle = seg.color || '#ffffff';
-    }
-    ctx.fillRect(cursor, 0, w, off.height);
-    cursor += w;
-  }
-  ctx.globalAlpha = 1;
-  const built = { image: off, period: Math.max(1, cursor) };
-  state.patternCache.clear();
-  state.patternCache.set(cacheKey, built);
-  return built;
-};
-
-const calcDrawRect = (img, centerX, centerY, targetMaxSize) => {
-  const srcW = Math.max(1, img.naturalWidth || img.width || 1);
-  const srcH = Math.max(1, img.naturalHeight || img.height || 1);
-  const scale = targetMaxSize / Math.max(srcW, srcH);
-  const drawW = srcW * scale;
-  const drawH = srcH * scale;
-  return {
-    x: centerX - drawW * 0.5,
-    y: centerY - drawH * 0.5,
-    w: drawW,
-    h: drawH
-  };
-};
-
-const renderStripesToContext = (ctx, preset, phasePx, w, h, cacheKey) => {
-  if (preset.mode === 'solid') {
-    ctx.fillStyle = preset.solidColor || '#ffffff';
-    ctx.fillRect(0, 0, w, h);
-    return;
-  }
-  const { image, period } = getPatternCanvas(cacheKey, preset);
-  const shift = ((phasePx % period) + period) % period;
-  const diag = Math.ceil(Math.sqrt(w * w + h * h));
-  ctx.fillStyle = preset.background || '#000000';
-  ctx.fillRect(0, 0, w, h);
-  ctx.save();
-  ctx.translate(w * 0.5, h * 0.5);
-  ctx.rotate((toNumber(preset.angleDeg, 45) * Math.PI) / 180);
-  for (let x = -diag - period * 2; x < diag + period * 2; x += period) {
-    ctx.drawImage(image, x - shift, -diag, period, diag * 2);
-  }
-  ctx.restore();
-};
-
-const drawStripeMaskedLayer = (ctx, layerImg, drawRect, presetKey, preset) => {
-  const maskCtx = state.maskCanvas.getContext('2d');
-  const w = state.maskCanvas.width;
-  const h = state.maskCanvas.height;
-  const phasePx = state.animTimeSec * toNumber(preset.speed, 0);
-  maskCtx.clearRect(0, 0, w, h);
-  renderStripesToContext(maskCtx, preset, phasePx, w, h, presetKey);
-  maskCtx.globalCompositeOperation = 'destination-in';
-  maskCtx.drawImage(layerImg, drawRect.x, drawRect.y, drawRect.w, drawRect.h);
-  maskCtx.globalCompositeOperation = 'source-over';
-  ctx.drawImage(state.maskCanvas, 0, 0);
-};
-
-const drawOneLayer = (ctx, layerKey, drawRect) => {
-  const img = state.images[layerKey];
-  if (!img) return;
-  const stripePresetKey = state.layers[layerKey].stripePresetKey;
-  if (stripePresetKey !== STRIPE_NONE && state.presets[stripePresetKey]) {
-    drawStripeMaskedLayer(ctx, img, drawRect, stripePresetKey, state.presets[stripePresetKey]);
-    return;
-  }
-  ctx.drawImage(img, drawRect.x, drawRect.y, drawRect.w, drawRect.h);
-};
-
-const renderPreview = (dt) => {
-  resizeCanvas();
-  state.animTimeSec += dt;
-  const ctx = el.preview.getContext('2d');
-  const w = el.preview.width;
-  const h = el.preview.height;
-  const ratio = Math.max(1, window.devicePixelRatio || 1);
-  ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#0b0f16';
-  ctx.fillRect(0, 0, w, h);
-
-  const referenceImg =
-    state.images.body || state.images.line || state.images.bottomBorder || state.images.bottomFillMask;
-  if (!referenceImg) return;
-
-  const size = toNumber(el.sizeInput.value, 560) * ratio;
-  const centerX = w * 0.5 + state.offsetCssPx.x * ratio;
-  const centerY = h * 0.5 + state.offsetCssPx.y * ratio;
-  const drawRect = calcDrawRect(referenceImg, centerX, centerY, size);
-
-  for (const layerKey of FIXED_RENDER_ORDER) {
-    drawOneLayer(ctx, layerKey, drawRect);
-  }
-};
-
-const tick = () => {
-  const nowSec = performance.now() / 1000;
-  const dt = Math.max(0, nowSec - state.lastTimeSec);
-  state.lastTimeSec = nowSec;
-  renderPreview(dt);
-  requestAnimationFrame(tick);
-};
-
 const bindEvents = () => {
-  if (el.go2dPageBtn) {
-    el.go2dPageBtn.disabled = true;
+  if (el.go3dPageBtn) {
+    el.go3dPageBtn.disabled = true;
   }
-  el.go3dPageBtn?.addEventListener('click', () => {
-    window.location.href = './scene3d.html';
+  el.go2dPageBtn?.addEventListener('click', () => {
+    window.location.href = './index.html';
   });
-
   el.loadMonsterConfigsBtn.addEventListener('click', () => {
     void loadMonsterConfigsFromServer();
   });
@@ -1147,7 +1218,7 @@ const bindEvents = () => {
     refreshMonsterConfigSelect();
     applyDisplayFromConfig(state.monsterConfigs[id]);
     renderLayerControls();
-    void loadAllLayerImages();
+    void loadAllLayerMeshes();
     setStatus(`已创建怪物配置：${id}`);
   });
   el.duplicateMonsterConfigBtn.addEventListener('click', () => {
@@ -1170,7 +1241,7 @@ const bindEvents = () => {
     refreshMonsterConfigSelect();
     applyDisplayFromConfig(copied);
     renderLayerControls();
-    void loadAllLayerImages();
+    void loadAllLayerMeshes();
     setStatus(`已复制怪物配置：${id}`);
   });
   el.deleteMonsterConfigBtn.addEventListener('click', () => {
@@ -1185,7 +1256,7 @@ const bindEvents = () => {
     if (nextConfig) {
       applyDisplayFromConfig(nextConfig);
       renderLayerControls();
-      void loadAllLayerImages();
+      void loadAllLayerMeshes();
     }
     setStatus('已删除当前怪物配置。');
   });
@@ -1197,7 +1268,7 @@ const bindEvents = () => {
     if (config) {
       applyDisplayFromConfig(config);
       renderLayerControls();
-      void loadAllLayerImages();
+      void loadAllLayerMeshes();
       const nextUrl = new URL(window.location.href);
       nextUrl.searchParams.set('monsterConfig', config.id);
       window.history.replaceState(null, '', nextUrl.toString());
@@ -1219,35 +1290,50 @@ const bindEvents = () => {
   });
   el.reloadImagesBtn.addEventListener('click', () => {
     syncActiveConfigFromCurrentDisplay();
-    void loadAllLayerImages();
+    void loadAllLayerMeshes();
   });
   el.resetPositionBtn.addEventListener('click', () => {
-    state.offsetCssPx.x = 0;
-    state.offsetCssPx.y = 0;
-    setStatus('已恢复到画布中心位置。');
+    applyCameraHomePose();
+    setStatus('已恢复到默认镜头位置。');
   });
+
   el.preview.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;
-    state.drag.active = true;
-    state.drag.pointerId = event.pointerId;
-    state.drag.lastClientX = event.clientX;
-    state.drag.lastClientY = event.clientY;
+    state.babylon.drag.active = true;
+    state.babylon.drag.pointerId = event.pointerId;
+    state.babylon.drag.lastClientX = event.clientX;
+    state.babylon.drag.lastClientY = event.clientY;
     el.preview.style.cursor = 'grabbing';
     el.preview.setPointerCapture(event.pointerId);
   });
+
   el.preview.addEventListener('pointermove', (event) => {
-    if (!state.drag.active || event.pointerId !== state.drag.pointerId) return;
-    const dx = event.clientX - state.drag.lastClientX;
-    const dy = event.clientY - state.drag.lastClientY;
-    state.drag.lastClientX = event.clientX;
-    state.drag.lastClientY = event.clientY;
-    state.offsetCssPx.x += dx;
-    state.offsetCssPx.y += dy;
+    if (!state.babylon.drag.active || event.pointerId !== state.babylon.drag.pointerId) return;
+    const camera = state.babylon.camera;
+    if (!camera) return;
+    const dx = event.clientX - state.babylon.drag.lastClientX;
+    const dy = event.clientY - state.babylon.drag.lastClientY;
+    state.babylon.drag.lastClientX = event.clientX;
+    state.babylon.drag.lastClientY = event.clientY;
+    const rect = el.preview.getBoundingClientRect();
+    const engine = state.babylon.engine;
+    const aspect = engine ? Math.max(1, engine.getRenderWidth()) / Math.max(1, engine.getRenderHeight()) : 1;
+    const distance = Vector3.Distance(camera.position, camera.getTarget());
+    const visibleHeight = 2 * distance * Math.tan(camera.fov * 0.5);
+    const worldPerPixelY = visibleHeight / Math.max(1, rect.height);
+    const worldPerPixelX = (visibleHeight * aspect) / Math.max(1, rect.width);
+    const currentTarget = camera.getTarget();
+    camera.setTarget(new Vector3(
+      currentTarget.x - dx * worldPerPixelX,
+      currentTarget.y + dy * worldPerPixelY,
+      currentTarget.z
+    ));
   });
+
   const stopDrag = (event) => {
-    if (!state.drag.active || event.pointerId !== state.drag.pointerId) return;
-    state.drag.active = false;
-    state.drag.pointerId = -1;
+    if (!state.babylon.drag.active || event.pointerId !== state.babylon.drag.pointerId) return;
+    state.babylon.drag.active = false;
+    state.babylon.drag.pointerId = -1;
     el.preview.style.cursor = 'grab';
     if (el.preview.hasPointerCapture(event.pointerId)) {
       el.preview.releasePointerCapture(event.pointerId);
@@ -1255,10 +1341,59 @@ const bindEvents = () => {
   };
   el.preview.addEventListener('pointerup', stopDrag);
   el.preview.addEventListener('pointercancel', stopDrag);
-  window.addEventListener('resize', resizeCanvas);
+
+  window.addEventListener('resize', () => {
+    if (!state.babylon.engine) return;
+    state.babylon.engine.resize();
+    updateCameraProjection();
+  });
   el.sizeInput.addEventListener('input', () => {
+    applyMonsterScaleFromInput();
     syncActiveConfigFromCurrentDisplay();
   });
+};
+
+const initBabylon = () => {
+  const engine = new Engine(el.preview, true, {
+    preserveDrawingBuffer: true,
+    stencil: true
+  });
+  const scene = new Scene(engine);
+  scene.clearColor = new Color4(0.57, 0.78, 0.98, 1);
+
+  const camera = new ArcRotateCamera(
+    'monsterLabCamera',
+    CAMERA_HOME_ALPHA,
+    CAMERA_HOME_BETA,
+    CAMERA_HOME_RADIUS,
+    CAMERA_HOME_TARGET.clone(),
+    scene
+  );
+  camera.inputs.clear();
+
+  const light = new HemisphericLight('monsterLabLight', new Vector3(0, 1, 0), scene);
+  light.intensity = 0.95;
+  light.groundColor = new Color3(0.32, 0.35, 0.3);
+
+  const root = new TransformNode('monsterRoot', scene);
+  createEnvironment(scene);
+
+  scene.onBeforeRenderObservable.add(() => {
+    state.animTimeSec += scene.getEngine().getDeltaTime() / 1000;
+    for (const stripeHandle of state.babylon.stripeHandles.values()) {
+      stripeHandle.controller.updateTime(state.animTimeSec);
+    }
+  });
+
+  engine.runRenderLoop(() => {
+    scene.render();
+  });
+
+  state.babylon.engine = engine;
+  state.babylon.scene = scene;
+  state.babylon.camera = camera;
+  state.babylon.root = root;
+  applyCameraHomePose();
 };
 
 const boot = async () => {
@@ -1279,6 +1414,7 @@ const boot = async () => {
   refreshMonsterStripePresetEditor();
   renderLayerStripeBindingsControls();
   bindEvents();
+  initBabylon();
 
   const connection = await probeDevServerConnection(MONSTER_CONFIG_API_PATH);
   if (!connection.connected) {
@@ -1290,10 +1426,8 @@ const boot = async () => {
   if (connection.connected) {
     await loadMonsterConfigsFromServer();
   } else {
-    await loadAllLayerImages();
+    await loadAllLayerMeshes();
   }
-  resizeCanvas();
-  requestAnimationFrame(tick);
 };
 
 void boot();

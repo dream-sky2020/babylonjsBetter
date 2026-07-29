@@ -43,6 +43,17 @@ export { DEFAULT_SPRITE_TRANSFORM } from '@/core/sprite/types/sprite-animation.t
 // render
 export { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 export type { CreateAtlasSpritePlaneOptions } from '@/core/sprite/render/createAtlasSpritePlane.ts';
+export type {
+  StripeSegmentLike,
+  StripePresetLike,
+  StripeMaskMaterialController,
+  StripeShaderMaterialController,
+  CreateStripeShaderMaterialOptions
+} from '@/core/sprite/render/createStripeMaskMaterial.ts';
+export {
+  createStripeMaskMaterial,
+  createStripeShaderMaterial
+} from '@/core/sprite/render/createStripeMaskMaterial.ts';
 export {
   acquireSharedAtlasTexture,
   releaseSharedAtlasTexture,

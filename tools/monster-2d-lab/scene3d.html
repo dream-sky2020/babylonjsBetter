@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2D Monster Lab</title>
+  <title>Monster 3D Scene Lab</title>
   <style>
     :root {
       color-scheme: dark;
@@ -110,12 +110,6 @@
       gap: 8px;
     }
 
-    .segment-grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-
     .warn {
       background: #3b1720;
       border-color: #7f1d1d;
@@ -139,14 +133,14 @@
 <body>
   <main class="root">
     <section class="panel">
-      <div class="title">2D 网页预览效果</div>
+      <div class="title">Babylon3D 场景下的 2D 怪物创建</div>
       <div class="hint">
-        当前是 2D Canvas 预览页；左右面板与 3D 页共用。
+        当前是 Babylon.js 3D 场景页；左右面板与 2D 页共用。
       </div>
 
       <div class="row segment-grid">
-        <button id="go2dPageBtn">当前：2D 预览页</button>
-        <button id="go3dPageBtn">切到 Babylon3D 场景页</button>
+        <button id="go2dPageBtn">切到 2D 预览页</button>
+        <button id="go3dPageBtn">当前：Babylon3D 场景页</button>
       </div>
 
       <div class="row">
@@ -250,7 +244,7 @@
       </div>
     </section>
   </main>
-  <script type="module" src="./main.js"></script>
+  <script type="module" src="./main-3d.js"></script>
 </body>
 
 </html>
