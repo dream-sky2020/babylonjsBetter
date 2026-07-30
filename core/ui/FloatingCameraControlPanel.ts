@@ -76,11 +76,11 @@ const applyControlStyles = (panel: HTMLDivElement): void => {
     textarea.style.fontFamily = 'Consolas, "Courier New", monospace';
     textarea.style.resize = 'vertical';
   }
-  const button = panel.querySelector('button');
-  if (button) {
-    button.style.marginTop = '10px';
-    button.style.background = 'rgba(47,111,237,.75)';
-    button.style.cursor = 'pointer';
+  const resetButton = panel.querySelector<HTMLButtonElement>('button[data-role="reset"]');
+  if (resetButton) {
+    resetButton.style.marginTop = '10px';
+    resetButton.style.background = 'rgba(47,111,237,.75)';
+    resetButton.style.cursor = 'pointer';
   }
 };
 
@@ -98,6 +98,60 @@ export const createFloatingCameraControlPanel = (
   panel.innerHTML = html;
   applyControlStyles(panel);
   host.appendChild(panel);
+
+  const toggleButton = document.createElement('button');
+  toggleButton.type = 'button';
+  toggleButton.textContent = '👁';
+  toggleButton.title = '隐藏面板';
+  toggleButton.setAttribute('aria-label', '隐藏面板');
+  toggleButton.style.cssText = `
+    position:absolute;
+    z-index:21;
+    width:24px;
+    height:24px;
+    border:1px solid rgba(148,163,184,.4);
+    border-radius:999px;
+    background:rgba(71,85,105,.48);
+    color:#e8edf2;
+    padding:0;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+    line-height:1;
+    cursor:pointer;
+  `;
+  host.appendChild(toggleButton);
+
+  let isCollapsed = false;
+  const refreshToggleButtonPosition = () => {
+    if (isCollapsed) return;
+    const left = panel.offsetLeft + panel.offsetWidth - 30;
+    const top = panel.offsetTop + 6;
+    toggleButton.style.left = `${Math.max(0, left)}px`;
+    toggleButton.style.top = `${Math.max(0, top)}px`;
+  };
+  const setCollapsed = (collapsed: boolean) => {
+    if (collapsed === isCollapsed) return;
+    isCollapsed = collapsed;
+    if (collapsed) {
+      panel.style.display = 'none';
+      toggleButton.title = '显示面板';
+      toggleButton.setAttribute('aria-label', '显示面板');
+      return;
+    }
+    panel.style.display = '';
+    toggleButton.title = '隐藏面板';
+    toggleButton.setAttribute('aria-label', '隐藏面板');
+    refreshToggleButtonPosition();
+  };
+  toggleButton.addEventListener('pointerdown', (event) => {
+    event.stopPropagation();
+  });
+  toggleButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setCollapsed(!isCollapsed);
+  });
 
   const modeSelect = panel.querySelector<HTMLSelectElement>('select[data-field="mode"]');
   if (modeSelect) {
@@ -181,6 +235,7 @@ export const createFloatingCameraControlPanel = (
     if (!dragging) return;
     panel.style.left = `${Math.max(0, startLeft + event.clientX - startX)}px`;
     panel.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`;
+    refreshToggleButtonPosition();
   };
   const onPointerUp = () => {
     dragging = false;
@@ -199,6 +254,7 @@ export const createFloatingCameraControlPanel = (
 
   syncFromController();
   updateStatus();
+  refreshToggleButtonPosition();
 
   return {
     element: panel,
@@ -206,6 +262,7 @@ export const createFloatingCameraControlPanel = (
     updateStatus,
     dispose: () => {
       panel.remove();
+      toggleButton.remove();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerup', onPointerUp);
     }

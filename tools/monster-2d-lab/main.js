@@ -80,6 +80,7 @@ const el = {
   statusText: document.getElementById('statusText'),
   layersBox: document.getElementById('layersBox'),
   sizeInput: document.getElementById('sizeInput'),
+  previewBgInput: document.getElementById('previewBgInput'),
   resetPositionBtn: document.getElementById('resetPositionBtn'),
   preview: document.getElementById('preview'),
   monsterAssetList: document.getElementById('monsterAssetList'),
@@ -175,9 +176,11 @@ const createDefaultPreset = (key) => ({
   name: key,
   mode: 'stripes',
   solidColor: '#ffffff',
+  solidOpacity: 1,
   angleDeg: 45,
   speed: 90,
   background: '#000000',
+  backgroundOpacity: 1,
   segments: [
     { width: 24, fillType: 'solid', color: '#101218', opacity: 1 },
     { width: 24, fillType: 'solid', color: '#9fd3ff', opacity: 1 }
@@ -233,9 +236,11 @@ const normalizePreset = (key, preset) => {
     name: typeof source.name === 'string' && source.name.trim() ? source.name : key,
     mode: fillMode,
     solidColor: typeof source.solidColor === 'string' ? source.solidColor : '#ffffff',
+    solidOpacity: Math.max(0, Math.min(1, toNumber(source.solidOpacity, 1))),
     angleDeg: Math.max(-360, Math.min(360, toNumber(source.angleDeg, 45))),
     speed: Math.max(-5000, Math.min(5000, toNumber(source.speed, 90))),
     background: typeof source.background === 'string' ? source.background : '#000000',
+    backgroundOpacity: Math.max(0, Math.min(1, toNumber(source.backgroundOpacity, 1))),
     segments: segments.length > 0 ? segments : createDefaultPreset(key).segments
   };
 };
@@ -924,15 +929,19 @@ const calcDrawRect = (img, centerX, centerY, targetMaxSize) => {
 
 const renderStripesToContext = (ctx, preset, phasePx, w, h, cacheKey) => {
   if (preset.mode === 'solid') {
+    ctx.globalAlpha = Math.max(0, Math.min(1, toNumber(preset.solidOpacity, 1)));
     ctx.fillStyle = preset.solidColor || '#ffffff';
     ctx.fillRect(0, 0, w, h);
+    ctx.globalAlpha = 1;
     return;
   }
   const { image, period } = getPatternCanvas(cacheKey, preset);
   const shift = ((phasePx % period) + period) % period;
   const diag = Math.ceil(Math.sqrt(w * w + h * h));
+  ctx.globalAlpha = Math.max(0, Math.min(1, toNumber(preset.backgroundOpacity, 1)));
   ctx.fillStyle = preset.background || '#000000';
   ctx.fillRect(0, 0, w, h);
+  ctx.globalAlpha = 1;
   ctx.save();
   ctx.translate(w * 0.5, h * 0.5);
   ctx.rotate((toNumber(preset.angleDeg, 45) * Math.PI) / 180);
@@ -974,7 +983,7 @@ const renderPreview = (dt) => {
   const h = el.preview.height;
   const ratio = Math.max(1, window.devicePixelRatio || 1);
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = '#0b0f16';
+  ctx.fillStyle = el.previewBgInput?.value || '#0b0f16';
   ctx.fillRect(0, 0, w, h);
 
   const referenceImg =

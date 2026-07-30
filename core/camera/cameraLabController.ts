@@ -75,7 +75,7 @@ const cloneState = (state: CameraLabControllerState): CameraLabControllerState =
 });
 
 const horizontalForwardFromYaw = (yaw: number): Vector3 => new Vector3(Math.sin(yaw), 0, Math.cos(yaw));
-const rightFromYaw = (yaw: number): Vector3 => new Vector3(-Math.cos(yaw), 0, Math.sin(yaw));
+const rightFromYaw = (yaw: number): Vector3 => new Vector3(Math.cos(yaw), 0, -Math.sin(yaw));
 const lookForwardFromYawPitch = (yaw: number, pitch: number): Vector3 => {
   const cosPitch = Math.cos(pitch);
   return new Vector3(Math.sin(yaw) * cosPitch, Math.sin(pitch), Math.cos(yaw) * cosPitch);
@@ -146,10 +146,18 @@ export const createCameraLabController = (
         position.y = state.firstPersonHeight;
       }
     } else if (state.mode === 'lockPan') {
-      if (keys.has('KeyW')) state.lockPosition.z -= moveStep;
-      if (keys.has('KeyS')) state.lockPosition.z += moveStep;
-      if (keys.has('KeyD')) state.lockPosition.x += moveStep;
-      if (keys.has('KeyA')) state.lockPosition.x -= moveStep;
+      const lockForward = state.lockTarget.subtract(state.lockPosition);
+      lockForward.y = 0;
+      if (lockForward.lengthSquared() > 1e-6) {
+        lockForward.normalize();
+      } else {
+        lockForward.set(0, 0, -1);
+      }
+      const lockRight = new Vector3(lockForward.z, 0, -lockForward.x);
+      if (keys.has('KeyW')) state.lockPosition.addInPlace(lockForward.scale(moveStep));
+      if (keys.has('KeyS')) state.lockPosition.addInPlace(lockForward.scale(-moveStep));
+      if (keys.has('KeyD')) state.lockPosition.addInPlace(lockRight.scale(moveStep));
+      if (keys.has('KeyA')) state.lockPosition.addInPlace(lockRight.scale(-moveStep));
       state.lockPosition.y = state.lockPlaneY;
     }
 

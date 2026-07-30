@@ -12,9 +12,11 @@ export type StripeSegmentLike = {
 export type StripePresetLike = {
   mode?: 'solid' | 'stripes';
   solidColor?: string;
+  solidOpacity?: number;
   angleDeg?: number;
   speed?: number;
   background?: string;
+  backgroundOpacity?: number;
   segments?: StripeSegmentLike[];
 };
 
@@ -63,7 +65,9 @@ const ensureShaderRegistered = () => {
       uniform sampler2D uMaskTexture;
       uniform sampler2D uStripeTexture;
       uniform vec3 uSolidColor;
+      uniform float uSolidAlpha;
       uniform vec3 uBackgroundColor;
+      uniform float uBackgroundAlpha;
       uniform float uUseSolid;
       uniform float uUseMask;
       uniform float uAngleRad;
@@ -82,7 +86,7 @@ const ensureShaderRegistered = () => {
         }
 
         vec3 colorOut = uSolidColor;
-        float stripeAlpha = 1.0;
+        float alphaOut = clamp(uSolidAlpha, 0.0, 1.0);
         if (uUseSolid < 0.5) {
           vec2 pixelCoord = vUV * uRenderSizePx;
           vec2 centered = pixelCoord - uRenderSizePx * 0.5;
@@ -91,11 +95,15 @@ const ensureShaderRegistered = () => {
           float localX = centered.x * c + centered.y * s;
           float stripeU = fract((localX + uTime * uSpeed) / max(1.0, uPatternPeriodPx));
           vec4 stripeSample = texture2D(uStripeTexture, vec2(stripeU, 0.5));
-          colorOut = mix(uBackgroundColor, stripeSample.rgb, stripeSample.a);
-          stripeAlpha = 1.0;
+          float stripeAlpha = clamp(stripeSample.a, 0.0, 1.0);
+          float bgAlpha = clamp(uBackgroundAlpha, 0.0, 1.0);
+          float mixedAlpha = stripeAlpha + bgAlpha * (1.0 - stripeAlpha);
+          vec3 mixedPremul = stripeSample.rgb * stripeAlpha + uBackgroundColor * bgAlpha * (1.0 - stripeAlpha);
+          colorOut = mixedAlpha > 0.0001 ? (mixedPremul / mixedAlpha) : vec3(0.0);
+          alphaOut = mixedAlpha;
         }
 
-        gl_FragColor = vec4(colorOut, maskAlpha * stripeAlpha);
+        gl_FragColor = vec4(colorOut, maskAlpha * alphaOut);
       }
     `;
     Effect.ShadersStore[`${FRAGMENT_SHADER_NAME}PixelShader`] = fragmentShader;
@@ -105,6 +113,11 @@ const ensureShaderRegistered = () => {
 };
 
 const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
+
+const toOpacity = (value: unknown, fallback = 1): number => {
+  const num = Number(value);
+  return clamp01(Number.isFinite(num) ? num : fallback);
+};
 
 const toColor3 = (value: string | undefined, fallback: string): Color3 => {
   const source = typeof value === 'string' && value.trim() ? value : fallback;
@@ -128,7 +141,7 @@ const buildStripeTexture = (scene: Scene, preset: StripePresetLike, name: string
   let cursor = 0;
   for (const seg of segments) {
     const segWidth = Math.max(1, Math.round(Math.max(0.01, Number(seg?.width) || 0.01)));
-    const alpha = clamp01(Number(seg?.opacity) || 1);
+    const alpha = toOpacity(seg?.opacity, 1);
     ctx.globalAlpha = alpha;
     if (seg?.fillType === 'gradient') {
       const grad = ctx.createLinearGradient(cursor, 0, cursor + segWidth, 0);
@@ -144,7 +157,7 @@ const buildStripeTexture = (scene: Scene, preset: StripePresetLike, name: string
 
   if (cursor < period) {
     const last = segments[segments.length - 1];
-    ctx.globalAlpha = clamp01(Number(last?.opacity) || 1);
+    ctx.globalAlpha = toOpacity(last?.opacity, 1);
     ctx.fillStyle = last?.fillType === 'gradient' ? (last?.toColor || '#000000') : (last?.color || '#ffffff');
     ctx.fillRect(cursor, 0, period - cursor, height);
   }
@@ -197,7 +210,9 @@ export const createStripeShaderMaterial = (
       uniforms: [
         'worldViewProjection',
         'uSolidColor',
+        'uSolidAlpha',
         'uBackgroundColor',
+        'uBackgroundAlpha',
         'uUseSolid',
         'uUseMask',
         'uAngleRad',
@@ -222,13 +237,17 @@ export const createStripeShaderMaterial = (
     const mode = preset?.mode === 'solid' ? 'solid' : 'stripes';
     const angleDeg = Number(preset?.angleDeg);
     const speed = Number(preset?.speed);
+    const solidOpacity = Number(preset?.solidOpacity);
+    const backgroundOpacity = Number(preset?.backgroundOpacity);
 
     stripeTexture.dispose();
     stripeTexture = buildStripeTexture(scene, preset, `${name}_stripeTexture`);
     material.setTexture('uStripeTexture', stripeTexture);
     material.setFloat('uUseSolid', mode === 'solid' ? 1 : 0);
     material.setColor3('uSolidColor', toColor3(preset?.solidColor, '#ffffff'));
+    material.setFloat('uSolidAlpha', Number.isFinite(solidOpacity) ? clamp01(solidOpacity) : 1);
     material.setColor3('uBackgroundColor', toColor3(preset?.background, '#000000'));
+    material.setFloat('uBackgroundAlpha', Number.isFinite(backgroundOpacity) ? clamp01(backgroundOpacity) : 1);
     material.setFloat('uAngleRad', ((Number.isFinite(angleDeg) ? angleDeg : 45) * Math.PI) / 180);
     material.setFloat('uSpeed', Number.isFinite(speed) ? speed : 80);
     material.setFloat('uPatternPeriodPx', getPatternPeriodPx(preset));
