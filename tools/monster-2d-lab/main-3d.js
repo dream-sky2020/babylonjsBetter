@@ -50,12 +50,6 @@ const CAMERA_HOME_TARGET = new Vector3(0, -0.15, -18);
 const CAMERA_HOME_ALPHA = Math.PI / 2;
 const CAMERA_HOME_BETA = 1.36;
 const CAMERA_HOME_RADIUS = 42;
-const CAMERA_MODE_LABELS = {
-  firstPerson: '第一人称漫游',
-  drone: '无人机视角',
-  orbit: '环绕模式',
-  lockPan: '终点锁定 / 定向平移'
-};
 const CAMERA_DEFAULTS = {
   moveSpeed: 18,
   mouseSensitivity: 0.003,
@@ -181,26 +175,11 @@ const toNumber = (value, fallback) => {
 };
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-const degToRad = (deg) => (deg * Math.PI) / 180;
-const radToDeg = (rad) => (rad * 180) / Math.PI;
-const formatNumber = (value) => (Number.isFinite(value) ? value.toFixed(2) : 'NaN');
 
 const isTypingTarget = (target) => {
   if (!(target instanceof HTMLElement)) return false;
   const tag = target.tagName.toLowerCase();
   return tag === 'input' || tag === 'textarea' || tag === 'select' || target.isContentEditable;
-};
-
-const horizontalForwardFromYaw = (yaw) => new Vector3(Math.sin(yaw), 0, Math.cos(yaw));
-const rightFromYaw = (yaw) => new Vector3(-Math.cos(yaw), 0, Math.sin(yaw));
-
-const lookForwardFromYawPitch = (yaw, pitch) => {
-  const cosPitch = Math.cos(pitch);
-  return new Vector3(
-    Math.sin(yaw) * cosPitch,
-    Math.sin(pitch),
-    Math.cos(yaw) * cosPitch
-  );
 };
 
 const setStatus = (message, isError = false) => {
@@ -277,9 +256,11 @@ const createDefaultPreset = (key) => ({
   name: key,
   mode: 'stripes',
   solidColor: '#ffffff',
+  solidOpacity: 1,
   angleDeg: 45,
   speed: 90,
   background: '#000000',
+  backgroundOpacity: 1,
   segments: [
     { width: 24, fillType: 'solid', color: '#101218', opacity: 1 },
     { width: 24, fillType: 'solid', color: '#9fd3ff', opacity: 1 }
@@ -335,9 +316,11 @@ const normalizePreset = (key, preset) => {
     name: typeof source.name === 'string' && source.name.trim() ? source.name : key,
     mode: fillMode,
     solidColor: typeof source.solidColor === 'string' ? source.solidColor : '#ffffff',
+    solidOpacity: Math.max(0, Math.min(1, toNumber(source.solidOpacity, 1))),
     angleDeg: Math.max(-360, Math.min(360, toNumber(source.angleDeg, 45))),
     speed: Math.max(-5000, Math.min(5000, toNumber(source.speed, 90))),
     background: typeof source.background === 'string' ? source.background : '#000000',
+    backgroundOpacity: Math.max(0, Math.min(1, toNumber(source.backgroundOpacity, 1))),
     segments: segments.length > 0 ? segments : createDefaultPreset(key).segments
   };
 };
@@ -886,105 +869,31 @@ const syncCameraControlInputs = () => {
 };
 
 const applyCameraControlPose = () => {
-  const camera = state.babylon.camera;
-  if (!camera) return;
-  const control = state.babylon.cameraControl;
-  updateCameraProjection();
-
-  if (control.mode === 'orbit') {
-    const pitch = degToRad(control.orbitPitchDeg);
-    const cosPitch = Math.cos(pitch);
-    const offset = new Vector3(
-      Math.sin(control.orbitYaw) * cosPitch * control.orbitRadius,
-      Math.sin(pitch) * control.orbitRadius,
-      Math.cos(control.orbitYaw) * cosPitch * control.orbitRadius
-    );
-    camera.position.copyFrom(control.orbitCenter.add(offset));
-    camera.setTarget(control.orbitCenter);
-    return;
-  }
-
-  if (control.mode === 'lockPan') {
-    control.lockPosition.y = control.lockPlaneY;
-    camera.position.copyFrom(control.lockPosition);
-    camera.setTarget(control.lockTarget);
-    return;
-  }
-
-  const position = control.mode === 'firstPerson' ? control.firstPersonPosition : control.dronePosition;
-  if (control.mode === 'firstPerson') {
-    position.y = control.firstPersonHeight;
-  }
-  const pitch = clamp(control.pitch, degToRad(-85), degToRad(85));
-  control.pitch = pitch;
-  camera.position.copyFrom(position);
-  camera.setTarget(position.add(lookForwardFromYawPitch(control.yaw, pitch)));
+  const controller = state.babylon.cameraController;
+  if (!controller) return;
+  controller.applyPose();
 };
 
 const updateCameraStatus = () => {
-  const camera = state.babylon.camera;
-  const control = state.babylon.cameraControl;
-  if (!camera || !el.cameraStatusText) return;
-  const target = camera.getTarget();
-  el.cameraStatusText.value = [
-    `模式: ${CAMERA_MODE_LABELS[control.mode] || control.mode}`,
-    `position: x=${formatNumber(camera.position.x)}, y=${formatNumber(camera.position.y)}, z=${formatNumber(camera.position.z)}`,
-    `target:   x=${formatNumber(target.x)}, y=${formatNumber(target.y)}, z=${formatNumber(target.z)}`,
-    `yaw/pitch: ${formatNumber(radToDeg(control.yaw))}° / ${formatNumber(radToDeg(control.pitch))}°`,
-    `lookControl: ${control.lookControlMode === 'drag' ? '按住左键拖拽' : '点击画布锁定鼠标'}`,
-    `orbit: center=(${formatNumber(control.orbitCenter.x)}, ${formatNumber(control.orbitCenter.y)}, ${formatNumber(control.orbitCenter.z)}), radius=${formatNumber(control.orbitRadius)}, pitch=${formatNumber(control.orbitPitchDeg)}°`,
-    `firstPersonHeight=${formatNumber(control.firstPersonHeight)}, lockPlaneY=${formatNumber(control.lockPlaneY)}`,
-    `speed=${formatNumber(control.moveSpeed)}, sensitivity=${control.mouseSensitivity}`
-  ].join('\n');
+  const controller = state.babylon.cameraController;
+  if (!controller || !el.cameraStatusText) return;
+  el.cameraStatusText.value = controller.getStatusText();
 };
 
 const updateCameraControl = (dt) => {
-  const camera = state.babylon.camera;
-  if (!camera) return;
-  const control = state.babylon.cameraControl;
-  const moveStep = control.moveSpeed * Math.max(0, dt);
-  const forward = horizontalForwardFromYaw(control.yaw);
-  const right = rightFromYaw(control.yaw);
-
-  if (control.mode === 'firstPerson' || control.mode === 'drone') {
-    const position = control.mode === 'firstPerson' ? control.firstPersonPosition : control.dronePosition;
-    if (control.keys.has('KeyW')) position.addInPlace(forward.scale(moveStep));
-    if (control.keys.has('KeyS')) position.addInPlace(forward.scale(-moveStep));
-    if (control.keys.has('KeyD')) position.addInPlace(right.scale(moveStep));
-    if (control.keys.has('KeyA')) position.addInPlace(right.scale(-moveStep));
-    if (control.mode === 'drone') {
-      if (control.keys.has('KeyE')) position.y += moveStep;
-      if (control.keys.has('KeyQ')) position.y -= moveStep;
-    } else {
-      position.y = control.firstPersonHeight;
-    }
-  } else if (control.mode === 'lockPan') {
-    if (control.keys.has('KeyW')) control.lockPosition.z -= moveStep;
-    if (control.keys.has('KeyS')) control.lockPosition.z += moveStep;
-    if (control.keys.has('KeyD')) control.lockPosition.x += moveStep;
-    if (control.keys.has('KeyA')) control.lockPosition.x -= moveStep;
-    control.lockPosition.y = control.lockPlaneY;
-  }
-
-  applyCameraControlPose();
+  const controller = state.babylon.cameraController;
+  if (!controller) return;
+  controller.update(dt);
   updateCameraStatus();
 };
 
 const handleCameraPointerDelta = (dx, dy) => {
-  const control = state.babylon.cameraControl;
-  const sensitivity = control.mouseSensitivity;
-  if (control.mode === 'orbit') {
-    control.orbitYaw -= dx * sensitivity;
-    control.orbitPitchDeg = clamp(control.orbitPitchDeg + dy * sensitivity * 40, -80, 80);
+  const controller = state.babylon.cameraController;
+  if (!controller) return;
+  controller.handlePointerDelta(dx, dy);
+  if (controller.state.mode === 'orbit') {
     syncCameraControlInputs();
-  } else if (control.mode === 'firstPerson' || control.mode === 'drone') {
-    control.yaw -= dx * sensitivity;
-    control.pitch = clamp(control.pitch - dy * sensitivity, degToRad(-85), degToRad(85));
-  } else if (control.mode === 'lockPan') {
-    control.lockPosition.x -= dx * 0.04;
-    control.lockPosition.z += dy * 0.04;
   }
-  applyCameraControlPose();
   updateCameraStatus();
   state.babylon.cameraPanel?.syncFromController();
   state.babylon.cameraPanel?.updateStatus();
@@ -1490,7 +1399,7 @@ const bindEvents = () => {
     readCameraControlInputs();
     applyCameraControlPose();
     updateCameraStatus();
-    setStatus(`已切换摄像机模式：${CAMERA_MODE_LABELS[state.babylon.cameraControl.mode] || state.babylon.cameraControl.mode}`);
+    setStatus(`已切换摄像机模式：${state.babylon.cameraControl.mode}`);
   });
   cameraParamInputs.forEach((input) => {
     input.addEventListener('input', applyCameraParamsFromPanel);
@@ -1555,12 +1464,11 @@ const bindEvents = () => {
     state.babylon.cameraControl.keys.delete(event.code);
   });
   el.preview.addEventListener('wheel', (event) => {
-    const control = state.babylon.cameraControl;
-    if (control.mode !== 'orbit') return;
+    const controller = state.babylon.cameraController;
+    if (!controller || controller.state.mode !== 'orbit') return;
     event.preventDefault();
-    control.orbitRadius = clamp(control.orbitRadius + Math.sign(event.deltaY) * 2, 1, 300);
+    controller.handleWheel(event.deltaY);
     syncCameraControlInputs();
-    applyCameraControlPose();
     updateCameraStatus();
     state.babylon.cameraPanel?.syncFromController();
     state.babylon.cameraPanel?.updateStatus();

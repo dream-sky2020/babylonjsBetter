@@ -49,9 +49,12 @@ const el = {
   angleInput: document.getElementById('angleInput'),
   speedInput: document.getElementById('speedInput'),
   backgroundInput: document.getElementById('backgroundInput'),
+  backgroundOpacityInput: document.getElementById('backgroundOpacityInput'),
   modeInput: document.getElementById('modeInput'),
   solidColorRow: document.getElementById('solidColorRow'),
   solidColorInput: document.getElementById('solidColorInput'),
+  solidOpacityRow: document.getElementById('solidOpacityRow'),
+  solidOpacityInput: document.getElementById('solidOpacityInput'),
   segmentsBox: document.getElementById('segmentsBox'),
   addSegmentBtn: document.getElementById('addSegmentBtn'),
   saveBtn: document.getElementById('saveBtn'),
@@ -66,9 +69,11 @@ const createDefaultPreset = (key) => ({
   name: key,
   mode: 'stripes',
   solidColor: '#ffffff',
+  solidOpacity: 1,
   angleDeg: 45,
   speed: 90,
   background: '#000000',
+  backgroundOpacity: 1,
   segments: [
     { width: 28, fillType: 'solid', color: '#111827', opacity: 1 },
     { width: 28, fillType: 'solid', color: '#89c2ff', opacity: 1 }
@@ -149,9 +154,11 @@ const normalizePreset = (key, preset) => {
     name: typeof source.name === 'string' && source.name.trim() ? source.name : key,
     mode: source.mode === 'solid' ? 'solid' : 'stripes',
     solidColor: typeof source.solidColor === 'string' ? source.solidColor : '#ffffff',
+    solidOpacity: Math.max(0, Math.min(1, toNumber(source.solidOpacity, 1))),
     angleDeg: Math.max(-360, Math.min(360, toNumber(source.angleDeg, 45))),
     speed: Math.max(-5000, Math.min(5000, toNumber(source.speed, 90))),
     background: typeof source.background === 'string' ? source.background : '#000000',
+    backgroundOpacity: Math.max(0, Math.min(1, toNumber(source.backgroundOpacity, 1))),
     segments
   };
 };
@@ -198,14 +205,23 @@ const refreshForm = () => {
   el.angleInput.value = String(preset.angleDeg);
   el.speedInput.value = String(preset.speed);
   el.backgroundInput.value = preset.background || '#000000';
+  if (el.backgroundOpacityInput) {
+    el.backgroundOpacityInput.value = String(preset.backgroundOpacity ?? 1);
+  }
   if (el.modeInput) {
     el.modeInput.value = preset.mode === 'solid' ? 'solid' : 'stripes';
   }
   if (el.solidColorInput) {
     el.solidColorInput.value = preset.solidColor || '#ffffff';
   }
+  if (el.solidOpacityInput) {
+    el.solidOpacityInput.value = String(preset.solidOpacity ?? 1);
+  }
   if (el.solidColorRow) {
     el.solidColorRow.style.display = preset.mode === 'solid' ? 'block' : 'none';
+  }
+  if (el.solidOpacityRow) {
+    el.solidOpacityRow.style.display = preset.mode === 'solid' ? 'block' : 'none';
   }
   if (el.addSegmentBtn) {
     el.addSegmentBtn.style.display = preset.mode === 'solid' ? 'none' : 'block';
@@ -367,6 +383,12 @@ const bindFormEvents = () => {
     preset.background = el.backgroundInput.value;
     refreshJsonView();
   });
+  el.backgroundOpacityInput?.addEventListener('input', () => {
+    const preset = activePreset();
+    if (!preset) return;
+    preset.backgroundOpacity = Math.max(0, Math.min(1, toNumber(el.backgroundOpacityInput.value, preset.backgroundOpacity ?? 1)));
+    refreshJsonView();
+  });
 
   el.modeInput?.addEventListener('change', () => {
     const preset = activePreset();
@@ -374,6 +396,9 @@ const bindFormEvents = () => {
     preset.mode = el.modeInput.value === 'solid' ? 'solid' : 'stripes';
     if (el.solidColorRow) {
       el.solidColorRow.style.display = preset.mode === 'solid' ? 'block' : 'none';
+    }
+    if (el.solidOpacityRow) {
+      el.solidOpacityRow.style.display = preset.mode === 'solid' ? 'block' : 'none';
     }
     if (el.addSegmentBtn) {
       el.addSegmentBtn.style.display = preset.mode === 'solid' ? 'none' : 'block';
@@ -386,6 +411,12 @@ const bindFormEvents = () => {
     const preset = activePreset();
     if (!preset) return;
     preset.solidColor = el.solidColorInput.value;
+    refreshJsonView();
+  });
+  el.solidOpacityInput?.addEventListener('input', () => {
+    const preset = activePreset();
+    if (!preset) return;
+    preset.solidOpacity = Math.max(0, Math.min(1, toNumber(el.solidOpacityInput.value, preset.solidOpacity ?? 1)));
     refreshJsonView();
   });
 
@@ -680,8 +711,10 @@ const renderPreview = (dt) => {
   }
 
   if (preset.mode === 'solid') {
+    ctx.globalAlpha = Math.max(0, Math.min(1, toNumber(preset.solidOpacity, 1)));
     ctx.fillStyle = preset.solidColor || '#ffffff';
     ctx.fillRect(0, 0, el.preview.width, el.preview.height);
+    ctx.globalAlpha = 1;
     return;
   }
 
@@ -692,8 +725,10 @@ const renderPreview = (dt) => {
   const h = el.preview.height;
   const diag = Math.ceil(Math.sqrt(w * w + h * h));
 
+  ctx.globalAlpha = Math.max(0, Math.min(1, toNumber(preset.backgroundOpacity, 1)));
   ctx.fillStyle = preset.background || '#000000';
   ctx.fillRect(0, 0, w, h);
+  ctx.globalAlpha = 1;
   ctx.save();
   ctx.translate(w / 2, h / 2);
   ctx.rotate((toNumber(preset.angleDeg, 45) * Math.PI) / 180);
