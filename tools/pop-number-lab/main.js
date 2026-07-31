@@ -2,6 +2,9 @@ import {
   getResolvedDevServerPort,
   requestDevServer
 } from '/core/network/devServerPortResolver.ts';
+import {
+  createPopNumberEffect
+} from '/core/effects/pop-number/index.ts';
 
 const POP_NUMBER_PRESET_URL = '/config/popNumberPresets.json';
 const POP_NUMBER_PRESET_API_PATH = '/api/pop-number-presets';
@@ -12,21 +15,23 @@ const state = {
   activePresetKey: DEFAULT_POP_PRESET_KEY,
   presets: {},
   presetDirty: false,
+
   numberMode: 'range',
   popMode: 'float',
+
   minValue: 1000,
   maxValue: 9999,
   fixedValue: 7777,
+
   lifeMs: 800,
   enableGlow: true,
+
   directionMinDeg: -120,
   directionMaxDeg: -60,
+
   speedMin: 260,
   speedMax: 460,
-  gravity: 900,
-  projectiles: [],
-  animFrameId: 0,
-  lastFrameMs: 0
+  gravity: 900
 };
 
 const el = {
@@ -65,9 +70,19 @@ const el = {
   clearBtn: document.getElementById('clearBtn')
 };
 
+if (!el.stage) {
+  throw new Error('Pop Number Lab stage element not found');
+}
+
+const popNumberEffect = createPopNumberEffect(el.stage);
+
 const clampInt = (value, fallback) => {
   const parsed = Number(value);
-  if (!Number.isFinite(parsed)) return fallback;
+
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
   return Math.round(parsed);
 };
 
@@ -249,7 +264,6 @@ const normalizeProjectileRange = () => {
   state.gravity = Number.isFinite(Number(state.gravity)) ? Number(state.gravity) : 900;
 };
 
-const randRange = (min, max) => min + Math.random() * (max - min);
 const toNormDeg = (deg) => ((deg % 360) + 360) % 360;
 
 const pointOnCircle = (cx, cy, r, deg) => {
@@ -329,106 +343,50 @@ const getDisplayNumber = () => {
   if (state.numberMode === 'fixed') {
     return clampInt(state.fixedValue, 0);
   }
+
   normalizeRange();
+
   const span = state.maxValue - state.minValue + 1;
-  return state.minValue + Math.floor(Math.random() * Math.max(1, span));
+
+  return (
+      state.minValue +
+      Math.floor(Math.random() * Math.max(1, span))
+  );
+};
+
+const getCurrentEffectPreset = () => {
+  normalizeProjectileRange();
+
+  return {
+    popMode: state.popMode,
+    lifeMs: state.lifeMs,
+    enableGlow: state.enableGlow,
+
+    directionMinDeg: state.directionMinDeg,
+    directionMaxDeg: state.directionMaxDeg,
+
+    speedMin: state.speedMin,
+    speedMax: state.speedMax,
+
+    gravity: state.gravity
+  };
 };
 
 const spawnAt = (x, y) => {
-  const box = document.createElement('div');
-  const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-  box.className = 'number-box';
-  if (!state.enableGlow) {
-    box.classList.add('no-glow');
-  }
-  box.style.left = `${x}px`;
-  box.style.top = `${y}px`;
-  box.style.setProperty('--num-color', color);
-  box.textContent = String(getDisplayNumber());
-  box.style.setProperty('--life-ms', `${state.lifeMs}ms`);
+  const color =
+      COLORS[Math.floor(Math.random() * COLORS.length)];
 
-  el.stage.appendChild(box);
-  if (state.popMode === 'projectile') {
-    box.classList.add('projectile');
-    normalizeProjectileRange();
-    const deg = randRange(state.directionMinDeg, state.directionMaxDeg);
-    const speed = randRange(state.speedMin, state.speedMax);
-    const rad = (deg * Math.PI) / 180;
-    state.projectiles.push({
-      node: box,
-      x,
-      y,
-      vx: Math.cos(rad) * speed,
-      vy: Math.sin(rad) * speed,
-      ageMs: 0
-    });
-    ensureProjectileLoop();
-    return;
-  }
-
-  window.setTimeout(() => {
-    box.remove();
-  }, state.lifeMs + 50);
+  popNumberEffect.play({
+    value: getDisplayNumber(),
+    x,
+    y,
+    color,
+    preset: getCurrentEffectPreset()
+  });
 };
 
 const clearAll = () => {
-  state.projectiles.length = 0;
-  state.lastFrameMs = 0;
-  if (state.animFrameId) {
-    cancelAnimationFrame(state.animFrameId);
-    state.animFrameId = 0;
-  }
-  const all = el.stage.querySelectorAll('.number-box');
-  all.forEach((node) => node.remove());
-};
-
-const tickProjectiles = (nowMs) => {
-  if (state.projectiles.length === 0) {
-    state.animFrameId = 0;
-    state.lastFrameMs = 0;
-    return;
-  }
-
-  if (state.lastFrameMs <= 0) {
-    state.lastFrameMs = nowMs;
-  }
-  const dtSec = Math.max(0, Math.min(0.05, (nowMs - state.lastFrameMs) / 1000));
-  state.lastFrameMs = nowMs;
-  const width = el.stage.clientWidth;
-  const height = el.stage.clientHeight;
-  const margin = 120;
-
-  for (let i = state.projectiles.length - 1; i >= 0; i--) {
-    const projectile = state.projectiles[i];
-    projectile.ageMs += dtSec * 1000;
-    projectile.vy += state.gravity * dtSec;
-    projectile.x += projectile.vx * dtSec;
-    projectile.y += projectile.vy * dtSec;
-
-    const life = Math.max(0, 1 - projectile.ageMs / Math.max(1, state.lifeMs));
-    projectile.node.style.left = `${projectile.x}px`;
-    projectile.node.style.top = `${projectile.y}px`;
-    projectile.node.style.opacity = life.toFixed(3);
-
-    if (
-      life <= 0 ||
-      projectile.x < -margin ||
-      projectile.x > width + margin ||
-      projectile.y < -margin ||
-      projectile.y > height + margin
-    ) {
-      projectile.node.remove();
-      state.projectiles.splice(i, 1);
-    }
-  }
-
-  state.animFrameId = requestAnimationFrame(tickProjectiles);
-};
-
-const ensureProjectileLoop = () => {
-  if (state.animFrameId) return;
-  state.lastFrameMs = 0;
-  state.animFrameId = requestAnimationFrame(tickProjectiles);
+  popNumberEffect.clear();
 };
 
 const applyActivePresetToState = () => {
@@ -665,16 +623,30 @@ const bindEvents = () => {
 const boot = async () => {
   normalizeRange();
   normalizeProjectileRange();
+
   state.presets = {
-    [DEFAULT_POP_PRESET_KEY]: createDefaultPopPreset(DEFAULT_POP_PRESET_KEY)
+    [DEFAULT_POP_PRESET_KEY]:
+        createDefaultPopPreset(DEFAULT_POP_PRESET_KEY)
   };
+
   state.activePresetKey = DEFAULT_POP_PRESET_KEY;
+
   refreshPresetSelect();
   applyActivePresetToState();
   updateUiFromState();
   bindEvents();
+
   setStatus('就绪：点击右侧区域开始测试。');
+
   await loadPopPresets();
 };
+
+window.addEventListener(
+    'beforeunload',
+    () => {
+      popNumberEffect.dispose();
+    },
+    { once: true }
+);
 
 void boot();

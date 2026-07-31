@@ -13,4 +13,6 @@ export * from './scene/createCameraLabScene';
 export * from './camera/battleCamera.core.ts';
 export * from './camera/cameraLabController.ts';
 export * from './types/battle.types';
+export * from './effects';
 export * from './ui';
+export * from './effects';

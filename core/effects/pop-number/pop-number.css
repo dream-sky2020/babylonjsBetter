@@ -1,0 +1,63 @@
+.pop-number {
+    position: absolute;
+    z-index: 1;
+
+    border: 2px solid var(--pop-number-color, #38bdf8);
+    border-radius: 0;
+    padding: 8px 18px;
+
+    background: rgba(15, 23, 42, 0.88);
+    color: var(--pop-number-color, #38bdf8);
+
+    font-family: "Courier New", Courier, monospace;
+    font-size: 28px;
+    font-weight: 700;
+    white-space: nowrap;
+
+    pointer-events: none;
+    user-select: none;
+    will-change: left, top, opacity, transform;
+
+    transform: translate(-50%, -50%);
+    animation:
+            pop-number-float var(--pop-number-life, 800ms)
+            ease-out forwards;
+
+    box-shadow:
+            0 0 16px
+            color-mix(
+                    in srgb,
+                    var(--pop-number-color, #38bdf8) 25%,
+                    transparent
+            );
+}
+
+.pop-number--no-glow {
+    box-shadow: none;
+}
+
+.pop-number--projectile {
+    animation: none;
+    opacity: 1;
+}
+
+@keyframes pop-number-float {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -30%) scale(0.9);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -70%) scale(0.95);
+    }
+}
