@@ -156,52 +156,6 @@
       font-size: 12px;
       pointer-events: none;
     }
-
-    .number-box {
-      position: absolute;
-      border-radius: 0;
-      border: 2px solid var(--num-color, #38bdf8);
-      background-color: rgba(15, 23, 42, 0.88);
-      color: var(--num-color, #38bdf8);
-      padding: 8px 18px;
-      font-size: 28px;
-      font-weight: 700;
-      font-family: "Courier New", Courier, monospace;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      animation: spawn var(--life-ms, 800ms) ease-out forwards;
-      box-shadow: 0 0 16px color-mix(in srgb, var(--num-color, #38bdf8) 25%, transparent);
-    }
-
-    .number-box.no-glow {
-      box-shadow: none;
-    }
-
-    .number-box.projectile {
-      animation: none;
-      opacity: 1;
-    }
-
-    @keyframes spawn {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -30%) scale(0.9);
-      }
-
-      20% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-
-      80% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -70%) scale(0.95);
-      }
-    }
   </style>
 </head>
 

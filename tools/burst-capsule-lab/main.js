@@ -2,16 +2,20 @@ import {
   getResolvedDevServerPort,
   requestDevServer
 } from '/core/network/devServerPortResolver.ts';
+import {
+  createBurstCapsuleEffect
+} from '/core/effects/burst-capsule/index.ts';
 
 const BURST_PRESET_URL = '/config/burstCapsulePresets.json';
 const BURST_PRESET_API_PATH = '/api/burst-capsule-presets';
 const DEFAULT_BURST_PRESET_KEY = 'burst_capsule_default';
 
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+if (!(canvas instanceof HTMLCanvasElement)) {
+  throw new Error('Burst Capsule Lab canvas not found.');
+}
 
 const state = {
-  capsules: [],
   activePresetKey: DEFAULT_BURST_PRESET_KEY,
   presets: {},
   presetDirty: false,
@@ -34,15 +38,10 @@ const state = {
     colorMode: 'random',
     singleMainColor: '#00f0ff',
     singleStrokeColor: '#ffffff'
-  },
-  colorPairs: [
-    { main: '#00f0ff', stroke: '#ffffff' },
-    { main: '#ff0055', stroke: '#111111' },
-    { main: '#ffea00', stroke: '#111111' },
-    { main: '#00ff66', stroke: '#ffffff' },
-    { main: '#ffffff', stroke: '#ff0055' }
-  ]
+  }
 };
+
+const burstCapsuleEffect = createBurstCapsuleEffect(canvas);
 
 const el = {
   burstPresetSelect: document.getElementById('burstPresetSelect'),
@@ -196,11 +195,6 @@ function activePreset() {
   return state.presets[state.activePresetKey] || null;
 }
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth - 320;
-  canvas.height = window.innerHeight;
-}
-
 function randRange(min, max) {
   return min + Math.random() * (max - min);
 }
@@ -282,107 +276,15 @@ async function saveBurstPresets() {
   }
 }
 
-function createCapsule(x, y, angle, pair) {
-  const c = state.controls;
-  return {
-    x,
-    y,
-    angle,
-    speed: randRange(c.speedMin, c.speedMax),
-    baseSpeed: c.speedMax,
-    friction: c.friction,
-    length: randRange(c.lengthMin, c.lengthMax),
-    thickness: randRange(c.thicknessMin, c.thicknessMax),
-    life: 1,
-    decay: randRange(c.decayMin, c.decayMax),
-    mainColor: pair.main,
-    strokeColor: pair.stroke
-  };
-}
-
-function choosePair() {
-  if (state.controls.colorMode === 'single') {
-    return {
-      main: state.controls.singleMainColor,
-      stroke: state.controls.singleStrokeColor
-    };
-  }
-  return state.colorPairs[Math.floor(Math.random() * state.colorPairs.length)];
-}
-
 function spawnBurst(x, y) {
   normalizeRanges();
-  const c = state.controls;
-  for (let i = 0; i < c.spawnCount; i++) {
-    const base = (Math.PI * 2 / c.spawnCount) * i;
-    const jitter = randRange(-c.spawnJitter * 0.5, c.spawnJitter * 0.5);
-    const angle = base + jitter;
-    const pair = choosePair();
-    state.capsules.push(createCapsule(x, y, angle, pair));
-  }
-}
-
-function updateCapsule(capsule) {
-  capsule.x += Math.cos(capsule.angle) * capsule.speed;
-  capsule.y += Math.sin(capsule.angle) * capsule.speed;
-  capsule.speed *= capsule.friction;
-  capsule.life -= capsule.decay;
-}
-
-function drawCapsule(capsule) {
-  if (capsule.life <= 0) return;
-  const life = Math.max(0, capsule.life);
-  const speedRatio = capsule.speed / Math.max(0.0001, capsule.baseSpeed);
-  const baseLen = capsule.length * (speedRatio + 0.45);
-  const shrinkRatio = Math.pow(life, state.controls.shrinkPower);
-  const len = state.controls.decayVisualMode === 'shrink' ? baseLen * shrinkRatio : baseLen;
-  const alpha = state.controls.decayVisualMode === 'shrink' ? 1 : life;
-
-  ctx.save();
-  ctx.translate(capsule.x, capsule.y);
-  ctx.rotate(capsule.angle);
-  ctx.globalAlpha = alpha;
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(len, 0);
-  ctx.strokeStyle = capsule.strokeColor;
-  ctx.lineWidth = capsule.thickness + state.controls.outlineWidth;
-  ctx.lineCap = 'round';
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(len, 0);
-  ctx.strokeStyle = capsule.mainColor;
-  ctx.lineWidth = capsule.thickness;
-  ctx.lineCap = 'round';
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-function clearFrame() {
-  const alpha = state.controls.trailAlpha;
-  if (alpha >= 1) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    return;
-  }
-  ctx.fillStyle = `rgba(5, 5, 8, ${alpha.toFixed(3)})`;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-function tick() {
-  clearFrame();
-  for (let i = state.capsules.length - 1; i >= 0; i--) {
-    const capsule = state.capsules[i];
-    updateCapsule(capsule);
-    drawCapsule(capsule);
-    if (capsule.life <= 0) {
-      state.capsules.splice(i, 1);
+  burstCapsuleEffect.play({
+    x,
+    y,
+    preset: {
+      controls: state.controls
     }
-  }
-  requestAnimationFrame(tick);
+  });
 }
 
 function updateLabel(key, decimals) {
@@ -483,18 +385,17 @@ function setupUi() {
   });
 
   document.getElementById('clearBtn').addEventListener('click', () => {
-    state.capsules.length = 0;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    burstCapsuleEffect.clear();
   });
 
   document.getElementById('burstCenterBtn').addEventListener('click', () => {
-    spawnBurst(canvas.width * 0.5, canvas.height * 0.5);
+    spawnBurst(canvas.clientWidth * 0.5, canvas.clientHeight * 0.5);
   });
 
   document.getElementById('burstRingBtn').addEventListener('click', () => {
-    const cx = canvas.width * 0.5;
-    const cy = canvas.height * 0.5;
-    const r = Math.min(canvas.width, canvas.height) * 0.24;
+    const cx = canvas.clientWidth * 0.5;
+    const cy = canvas.clientHeight * 0.5;
+    const r = Math.min(canvas.clientWidth, canvas.clientHeight) * 0.24;
     for (let i = 0; i < 6; i++) {
       const a = (Math.PI * 2 / 6) * i;
       spawnBurst(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
@@ -602,10 +503,7 @@ canvas.addEventListener('click', (event) => {
   spawnBurst(event.clientX - rect.left, event.clientY - rect.top);
 });
 
-window.addEventListener('resize', resizeCanvas);
-
 async function boot() {
-  resizeCanvas();
   state.presets = {
     [DEFAULT_BURST_PRESET_KEY]: createDefaultBurstPreset(DEFAULT_BURST_PRESET_KEY)
   };
@@ -615,9 +513,12 @@ async function boot() {
   refreshPresetUi();
   setupUi();
   syncUiFromControls();
-  tick();
   setStatus('就绪：点击画布触发爆发。');
   await loadBurstPresets();
 }
+
+window.addEventListener('beforeunload', () => {
+  burstCapsuleEffect.dispose();
+}, { once: true });
 
 void boot();
