@@ -85,6 +85,31 @@
   <aside class="panel">
     <h3>Burst Capsule Lab</h3>
     <p class="help">点击右侧画布可从中心向外爆发胶囊射线。参数改动后立即生效。</p>
+    <div class="control">
+      <label for="burstPresetSelect">爆炸胶囊预设</label>
+      <select id="burstPresetSelect"></select>
+    </div>
+    <div class="control">
+      <label for="burstPresetKeyInput">预设 Key（唯一）</label>
+      <input id="burstPresetKeyInput" type="text" placeholder="burst_capsule_default">
+    </div>
+    <div class="control">
+      <label for="burstPresetNameInput">预设名称</label>
+      <input id="burstPresetNameInput" type="text" placeholder="默认爆炸胶囊">
+    </div>
+    <div class="row">
+      <button id="loadPresetBtn" type="button">读取预设</button>
+      <button id="savePresetBtn" type="button">保存预设</button>
+    </div>
+    <div class="row">
+      <button id="renamePresetBtn" type="button">修改 Key</button>
+      <button id="newPresetBtn" type="button">新建预设</button>
+    </div>
+    <div class="row">
+      <button id="duplicatePresetBtn" type="button">复制预设</button>
+      <button id="deletePresetBtn" type="button">删除预设</button>
+    </div>
+    <p id="presetStatus" class="help"></p>
 
     <div class="control">
       <label for="spawnCount">发射数量 <span id="spawnCountValue"></span></label>

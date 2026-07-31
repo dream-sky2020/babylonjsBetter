@@ -24,6 +24,31 @@
       }
     ]
   },
+  "monster_blessing_tier_0_1": {
+    "presetKey": "monster_blessing_tier_0_1",
+    "name": "怪物祝福 - 0 - 1阶",
+    "mode": "solid",
+    "solidColor": "#ffffff",
+    "solidOpacity": 1,
+    "angleDeg": 45,
+    "speed": 80,
+    "background": "#000000",
+    "backgroundOpacity": 1,
+    "segments": [
+      {
+        "width": 26,
+        "fillType": "solid",
+        "opacity": 1,
+        "color": "#101218"
+      },
+      {
+        "width": 26,
+        "fillType": "solid",
+        "opacity": 1,
+        "color": "#9fd3ff"
+      }
+    ]
+  },
   "monster_blessing_tier_1": {
     "presetKey": "monster_blessing_tier_1",
     "name": "怪物祝福 - 1阶",
@@ -279,28 +304,29 @@
       }
     ]
   },
-  "monster_blessing_tier_0_1": {
-    "presetKey": "monster_blessing_tier_0_1",
-    "name": "怪物祝福 - 0 - 1阶",
-    "mode": "solid",
+  "monster_blessing_tier_6_2": {
+    "presetKey": "monster_blessing_tier_6_2",
+    "name": "怪物祝福 - 6 - 2阶",
+    "mode": "stripes",
     "solidColor": "#ffffff",
-    "solidOpacity": 0,
-    "angleDeg": 45,
-    "speed": 80,
+    "solidOpacity": 1,
+    "angleDeg": 38,
+    "speed": 120,
     "background": "#000000",
-    "backgroundOpacity": 1,
+    "backgroundOpacity": 0,
     "segments": [
       {
-        "width": 26,
+        "width": 16,
         "fillType": "solid",
-        "opacity": 1,
-        "color": "#101218"
+        "opacity": 0,
+        "color": "#27170a"
       },
       {
-        "width": 26,
-        "fillType": "solid",
+        "width": 22,
+        "fillType": "gradient",
         "opacity": 1,
-        "color": "#9fd3ff"
+        "fromColor": "#ffdf6e",
+        "toColor": "#ff0000"
       }
     ]
   }

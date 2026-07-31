@@ -4,6 +4,7 @@ import {
   Color4,
   Engine,
   HemisphericLight,
+  MeshBuilder,
   Scene,
   TransformNode,
   Vector3
@@ -75,10 +76,10 @@ const state = {
   activeMonsterConfigId: '',
   animTimeSec: 0,
   layers: {
-    line: { path: DEFAULT_ASSETS.line, stripePresetKey: STRIPE_NONE },
-    body: { path: DEFAULT_ASSETS.body, stripePresetKey: STRIPE_NONE },
-    bottomBorder: { path: DEFAULT_ASSETS.bottomBorder, stripePresetKey: STRIPE_NONE },
-    bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask, stripePresetKey: STRIPE_NONE }
+    line: { path: DEFAULT_ASSETS.line, stripePresetKey: STRIPE_NONE, visible: true },
+    body: { path: DEFAULT_ASSETS.body, stripePresetKey: STRIPE_NONE, visible: true },
+    bottomBorder: { path: DEFAULT_ASSETS.bottomBorder, stripePresetKey: STRIPE_NONE, visible: true },
+    bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask, stripePresetKey: STRIPE_NONE, visible: true }
   },
   resourceImageOptions: [],
   babylon: {
@@ -90,6 +91,9 @@ const state = {
     root: null,
     layerHandles: new Map(),
     stripeHandles: new Map(),
+    layerDebugHandles: new Map(),
+    spriteDebugEnabled: false,
+    spriteFacingAxis: '+Z',
     drag: {
       active: false,
       pointerId: -1,
@@ -137,7 +141,10 @@ const el = {
   sizeInput: document.getElementById('sizeInput'),
   scene3dScaleInput: document.getElementById('scene3dScaleInput'),
   scene3dHeightInput: document.getElementById('scene3dHeightInput'),
+  scene3dOffsetXInput: document.getElementById('scene3dOffsetXInput'),
   resetPositionBtn: document.getElementById('resetPositionBtn'),
+  spriteFacingAxisSelect: document.getElementById('spriteFacingAxisSelect'),
+  spriteDebugCheckbox: document.getElementById('spriteDebugCheckbox'),
   preview: document.getElementById('preview'),
   monsterAssetList: document.getElementById('monsterAssetList'),
   cameraModeSelect: document.getElementById('cameraModeSelect'),
@@ -273,6 +280,8 @@ const createDefaultMonsterConfig = (id) => ({
   scaleSize: 560,
   scene3dScale: 1,
   scene3dHeight: 0,
+  scene3dOffsetX: 0,
+  spriteFacingAxis: '+Z',
   renderOrder: [...FIXED_RENDER_ORDER],
   monsterStripePresetKey: DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   layers: {
@@ -287,10 +296,10 @@ const createDefaultMonsterStripePreset = (key) => ({
   id: key,
   name: key,
   layers: {
-    line: { stripePresetKey: STRIPE_NONE },
-    body: { stripePresetKey: STRIPE_NONE },
-    bottomBorder: { stripePresetKey: STRIPE_NONE },
-    bottomFillMask: { stripePresetKey: STRIPE_NONE }
+    line: { stripePresetKey: STRIPE_NONE, visible: true },
+    body: { stripePresetKey: STRIPE_NONE, visible: true },
+    bottomBorder: { stripePresetKey: STRIPE_NONE, visible: true },
+    bottomFillMask: { stripePresetKey: STRIPE_NONE, visible: true }
   }
 });
 
@@ -349,6 +358,8 @@ const normalizeMonsterConfig = (key, config) => {
   const scaleSize = Math.max(1, toNumber(source.scaleSize, fallback.scaleSize));
   const scene3dScale = Math.max(0.01, toNumber(source.scene3dScale, fallback.scene3dScale));
   const scene3dHeight = toNumber(source.scene3dHeight, fallback.scene3dHeight);
+  const scene3dOffsetX = toNumber(source.scene3dOffsetX, fallback.scene3dOffsetX);
+  const spriteFacingAxis = source.spriteFacingAxis === '-Z' ? '-Z' : '+Z';
   const monsterStripePresetKey = typeof source.monsterStripePresetKey === 'string' && source.monsterStripePresetKey.trim()
     ? source.monsterStripePresetKey
     : DEFAULT_MONSTER_STRIPE_PRESET_KEY;
@@ -367,6 +378,8 @@ const normalizeMonsterConfig = (key, config) => {
     scaleSize,
     scene3dScale,
     scene3dHeight,
+    scene3dOffsetX,
+    spriteFacingAxis,
     renderOrder: [...FIXED_RENDER_ORDER],
     monsterStripePresetKey,
     layers
@@ -378,7 +391,8 @@ const normalizeMonsterStripePresetLayer = (layer) => {
   const stripePresetKey = typeof source.stripePresetKey === 'string' && source.stripePresetKey.trim()
     ? source.stripePresetKey
     : STRIPE_NONE;
-  return { stripePresetKey };
+  const visible = source.visible !== false;
+  return { stripePresetKey, visible };
 };
 
 const normalizeMonsterStripePreset = (key, preset) => {
@@ -488,6 +502,7 @@ const sanitizeMonsterStripePresets = () => {
       if (key !== STRIPE_NONE && !state.presets[key]) {
         preset.layers[layerKey].stripePresetKey = STRIPE_NONE;
       }
+      preset.layers[layerKey].visible = preset.layers[layerKey]?.visible !== false;
     }
   }
 };
@@ -509,11 +524,13 @@ const applyActiveMonsterStripePresetToDisplay = () => {
   if (!preset) {
     for (const layerKey of LAYER_KEYS) {
       state.layers[layerKey].stripePresetKey = STRIPE_NONE;
+      state.layers[layerKey].visible = true;
     }
     return;
   }
   for (const layerKey of LAYER_KEYS) {
     state.layers[layerKey].stripePresetKey = preset.layers[layerKey]?.stripePresetKey || STRIPE_NONE;
+    state.layers[layerKey].visible = preset.layers[layerKey]?.visible !== false;
   }
   sanitizeLayerPresetKeys();
   syncStripeMaterialsForAllLayers();
@@ -564,17 +581,27 @@ const renderLayerStripeBindingsControls = () => {
   el.layerStripeBox.innerHTML = LAYER_KEYS.map((layerKey) => `
       <div class="sub-card">
         <div class="label">${LAYER_LABELS[layerKey]}</div>
-        <select data-role="layer-stripe" data-layer="${layerKey}">
-          ${presetOptions}
-        </select>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <label class="label" style="display:flex;align-items:center;gap:6px;margin:0;white-space:nowrap;">
+            <input data-role="layer-visible" data-layer="${layerKey}" type="checkbox" />
+            显示该图层
+          </label>
+          <select data-role="layer-stripe" data-layer="${layerKey}" style="flex:1;min-width:220px;">
+            ${presetOptions}
+          </select>
+        </div>
       </div>
     `).join('');
 
   LAYER_KEYS.forEach((layerKey) => {
     const stripeSelect = el.layerStripeBox.querySelector(`select[data-role="layer-stripe"][data-layer="${layerKey}"]`);
+    const visibleCheckbox = el.layerStripeBox.querySelector(`input[data-role="layer-visible"][data-layer="${layerKey}"]`);
     if (!stripeSelect) return;
     const preset = activeMonsterStripePreset();
     stripeSelect.value = preset?.layers?.[layerKey]?.stripePresetKey || STRIPE_NONE;
+    if (visibleCheckbox) {
+      visibleCheckbox.checked = preset?.layers?.[layerKey]?.visible !== false;
+    }
   });
 
   el.layerStripeBox.querySelectorAll('select[data-role="layer-stripe"]').forEach((select) => {
@@ -587,6 +614,18 @@ const renderLayerStripeBindingsControls = () => {
       syncActiveConfigFromCurrentDisplay();
       refreshMonsterConfigSelect();
       setStatus(`${LAYER_LABELS[layerKey]} 条纹配置已更新（怪物条纹预设）。`);
+    });
+  });
+  el.layerStripeBox.querySelectorAll('input[data-role="layer-visible"]').forEach((checkbox) => {
+    checkbox.addEventListener('change', (event) => {
+      const layerKey = event.currentTarget.getAttribute('data-layer');
+      const preset = activeMonsterStripePreset();
+      if (!layerKey || !preset || !preset.layers[layerKey]) return;
+      preset.layers[layerKey].visible = event.currentTarget.checked;
+      applyActiveMonsterStripePresetToDisplay();
+      syncActiveConfigFromCurrentDisplay();
+      refreshMonsterConfigSelect();
+      setStatus(`${LAYER_LABELS[layerKey]} 显示状态已更新（怪物条纹预设）。`);
     });
   });
 };
@@ -619,6 +658,8 @@ const syncActiveConfigFromCurrentDisplay = () => {
   config.scaleSize = Math.max(1, toNumber(el.sizeInput.value, config.scaleSize || 560));
   config.scene3dScale = Math.max(0.01, toNumber(el.scene3dScaleInput?.value, config.scene3dScale || 1));
   config.scene3dHeight = toNumber(el.scene3dHeightInput?.value, config.scene3dHeight || 0);
+  config.scene3dOffsetX = toNumber(el.scene3dOffsetXInput?.value, config.scene3dOffsetX || 0);
+  config.spriteFacingAxis = el.spriteFacingAxisSelect?.value === '-Z' ? '-Z' : '+Z';
   config.renderOrder = [...FIXED_RENDER_ORDER];
   config.monsterStripePresetKey = state.activeMonsterStripePresetKey || DEFAULT_MONSTER_STRIPE_PRESET_KEY;
   for (const layerKey of LAYER_KEYS) {
@@ -642,6 +683,14 @@ const applyDisplayFromConfig = (config) => {
   el.sizeInput.value = String(Math.max(1, toNumber(config.scaleSize, 560)));
   el.scene3dScaleInput.value = String(Math.max(0.01, toNumber(config.scene3dScale, 1)));
   el.scene3dHeightInput.value = String(toNumber(config.scene3dHeight, 0));
+  if (el.scene3dOffsetXInput) {
+    el.scene3dOffsetXInput.value = String(toNumber(config.scene3dOffsetX, 0));
+  }
+  state.babylon.spriteFacingAxis = config.spriteFacingAxis === '-Z' ? '-Z' : '+Z';
+  if (el.spriteFacingAxisSelect) {
+    el.spriteFacingAxisSelect.value = state.babylon.spriteFacingAxis;
+  }
+  syncAllLayerFacingAxis();
   applyMonsterTransformFromInputs();
   syncActiveConfigFromCurrentDisplay();
 };
@@ -782,7 +831,85 @@ const renderLayerControls = () => {
 
 const getLayerHandle = (layerKey) => state.babylon.layerHandles.get(layerKey) || null;
 
+const applyFacingAxisToMesh = (mesh) => {
+  if (!mesh) return;
+  mesh.rotation.x = 0;
+  mesh.rotation.z = 0;
+  mesh.rotation.y = state.babylon.spriteFacingAxis === '+Z' ? Math.PI : 0;
+};
+
+const syncAllLayerFacingAxis = () => {
+  for (const handle of state.babylon.layerHandles.values()) {
+    applyFacingAxisToMesh(handle.controller.mesh);
+  }
+};
+
+const disposeLayerDebugHandle = (layerKey) => {
+  const debugMeshes = state.babylon.layerDebugHandles.get(layerKey);
+  if (!debugMeshes) return;
+  debugMeshes.forEach((mesh) => mesh.dispose());
+  state.babylon.layerDebugHandles.delete(layerKey);
+};
+
+const syncLayerDebugHandle = (layerKey) => {
+  disposeLayerDebugHandle(layerKey);
+  const handle = getLayerHandle(layerKey);
+  if (!handle) return;
+  const layerVisible = state.layers[layerKey]?.visible !== false;
+  const shouldShowDebug = state.babylon.spriteDebugEnabled && layerVisible;
+  handle.controller.mesh.showBoundingBox = shouldShowDebug;
+  if (!shouldShowDebug) return;
+
+  const z = -0.015;
+  const pTL = new Vector3(-0.5, 0.5, z);
+  const pTR = new Vector3(0.5, 0.5, z);
+  const pBR = new Vector3(0.5, -0.5, z);
+  const pBL = new Vector3(-0.5, -0.5, z);
+  const hL = new Vector3(-0.5, 0, z);
+  const hR = new Vector3(0.5, 0, z);
+  const vT = new Vector3(0, 0.5, z);
+  const vB = new Vector3(0, -0.5, z);
+
+  const edgeColor = new Color3(0.98, 0.78, 0.2);
+  const axisColor = new Color3(0.35, 0.78, 1);
+  const bounds = MeshBuilder.CreateLines(
+    `monster_layer_debug_bounds_${layerKey}`,
+    { points: [pTL, pTR, pBR, pBL, pTL] },
+    state.babylon.scene
+  );
+  bounds.color = edgeColor;
+  bounds.parent = handle.controller.mesh;
+  bounds.isPickable = false;
+
+  const axisH = MeshBuilder.CreateLines(
+    `monster_layer_debug_axis_h_${layerKey}`,
+    { points: [hL, hR] },
+    state.babylon.scene
+  );
+  axisH.color = axisColor;
+  axisH.parent = handle.controller.mesh;
+  axisH.isPickable = false;
+
+  const axisV = MeshBuilder.CreateLines(
+    `monster_layer_debug_axis_v_${layerKey}`,
+    { points: [vT, vB] },
+    state.babylon.scene
+  );
+  axisV.color = axisColor;
+  axisV.parent = handle.controller.mesh;
+  axisV.isPickable = false;
+
+  state.babylon.layerDebugHandles.set(layerKey, [bounds, axisH, axisV]);
+};
+
+const syncAllLayerDebugHandles = () => {
+  for (const layerKey of FIXED_RENDER_ORDER) {
+    syncLayerDebugHandle(layerKey);
+  }
+};
+
 const disposeLayerHandle = (layerKey) => {
+  disposeLayerDebugHandle(layerKey);
   const stripe = state.babylon.stripeHandles.get(layerKey);
   stripe?.controller?.dispose();
   state.babylon.stripeHandles.delete(layerKey);
@@ -800,7 +927,9 @@ const applyMonsterTransformFromInputs = () => {
   const scene3dScale = Math.max(0.01, toNumber(el.scene3dScaleInput?.value, 1));
   const finalScale = sizeRatio * scene3dScale;
   const scene3dHeight = toNumber(el.scene3dHeightInput?.value, 0);
+  const scene3dOffsetX = toNumber(el.scene3dOffsetXInput?.value, 0);
   root.scaling.set(finalScale, finalScale, finalScale);
+  root.position.x = scene3dOffsetX;
   root.position.y = scene3dHeight;
 };
 
@@ -905,8 +1034,22 @@ const syncStripeMaterialsForAllLayers = () => {
     if (!handle) continue;
 
     const stripePresetKey = state.layers[layerKey].stripePresetKey;
+    const layerVisible = state.layers[layerKey].visible !== false;
     const preset = state.presets[stripePresetKey];
     const currentStripe = state.babylon.stripeHandles.get(layerKey);
+
+    if (!layerVisible) {
+      handle.controller.mesh.setEnabled(false);
+      handle.controller.mesh.showBoundingBox = false;
+      if (currentStripe) {
+        currentStripe.controller.dispose();
+        state.babylon.stripeHandles.delete(layerKey);
+      }
+      handle.controller.mesh.material = handle.baseMaterial;
+      continue;
+    }
+    handle.controller.mesh.setEnabled(true);
+    handle.controller.mesh.showBoundingBox = state.babylon.spriteDebugEnabled;
 
     if (stripePresetKey === STRIPE_NONE || !preset) {
       if (currentStripe) {
@@ -938,6 +1081,7 @@ const syncStripeMaterialsForAllLayers = () => {
     });
     handle.controller.mesh.material = shader.material;
   }
+  syncAllLayerDebugHandles();
 };
 
 const loadAllLayerMeshes = async () => {
@@ -981,6 +1125,7 @@ const loadAllLayerMeshes = async () => {
     const sourceImage = loadedLayerImages.get(layerKey);
     const controller = createAtlasSpritePlane(state.babylon.scene, textureUrl, 2.8, { shareTexture: false });
     controller.mesh.parent = state.babylon.root;
+    applyFacingAxisToMesh(controller.mesh);
     controller.mesh.position = new Vector3(0, 0, index * 0.01);
     controller.mesh.isPickable = false;
     const baseMaterial = controller.mesh.material;
@@ -1029,6 +1174,7 @@ const loadMonsterConfigsFromServer = async () => {
         migrated.layers[layerKey].stripePresetKey = typeof legacyKey === 'string' && legacyKey.trim()
           ? legacyKey
           : STRIPE_NONE;
+        migrated.layers[layerKey].visible = rawLayers[layerKey]?.visible !== false;
       }
       state.monsterStripePresets[presetKey] = normalizeMonsterStripePreset(presetKey, migrated);
       normalized.monsterStripePresetKey = presetKey;
@@ -1372,6 +1518,17 @@ const bindEvents = () => {
     applyCameraHomePose();
     setStatus('已恢复到默认镜头位置。');
   });
+  el.spriteFacingAxisSelect?.addEventListener('change', () => {
+    state.babylon.spriteFacingAxis = el.spriteFacingAxisSelect.value === '-Z' ? '-Z' : '+Z';
+    syncAllLayerFacingAxis();
+    syncActiveConfigFromCurrentDisplay();
+    setStatus(`精灵面向轴已切换为 ${state.babylon.spriteFacingAxis}。`);
+  });
+  el.spriteDebugCheckbox?.addEventListener('change', () => {
+    state.babylon.spriteDebugEnabled = el.spriteDebugCheckbox.checked;
+    syncAllLayerDebugHandles();
+    setStatus(`精灵 Debug ${state.babylon.spriteDebugEnabled ? '已开启' : '已关闭'}。`);
+  });
 
   const cameraParamInputs = [
     el.lookControlModeSelect,
@@ -1491,6 +1648,10 @@ const bindEvents = () => {
     applyMonsterTransformFromInputs();
     syncActiveConfigFromCurrentDisplay();
   });
+  el.scene3dOffsetXInput?.addEventListener('input', () => {
+    applyMonsterTransformFromInputs();
+    syncActiveConfigFromCurrentDisplay();
+  });
 };
 
 const initBabylon = () => {
@@ -1545,6 +1706,11 @@ const initBabylon = () => {
   state.babylon.cameraPanel = cameraPanel;
   state.babylon.cameraControl = cameraController.state;
   state.babylon.root = root;
+  state.babylon.spriteFacingAxis = el.spriteFacingAxisSelect?.value === '-Z' ? '-Z' : '+Z';
+  if (el.spriteFacingAxisSelect) {
+    el.spriteFacingAxisSelect.value = state.babylon.spriteFacingAxis;
+  }
+  state.babylon.spriteDebugEnabled = Boolean(el.spriteDebugCheckbox?.checked);
   applyCameraHomePose();
 };
 
