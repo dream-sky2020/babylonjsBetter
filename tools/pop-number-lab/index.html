@@ -211,6 +211,28 @@
     <div class="hint">点击右侧区域触发弹出数字。修改参数后立即生效。</div>
 
     <div class="group">
+      <div class="label">弹出数字预设</div>
+      <div class="row">
+        <div class="col"><button id="loadPopPresetBtn" type="button">读取预设</button></div>
+        <div class="col"><button id="savePopPresetBtn" type="button">保存预设</button></div>
+      </div>
+      <div class="label" style="margin-top:8px">当前预设</div>
+      <select id="popPresetSelect"></select>
+      <div class="label" style="margin-top:8px">预设 Key（唯一）</div>
+      <input id="popPresetKeyInput" type="text" placeholder="pop_default" />
+      <div class="row">
+        <div class="col"><button id="renamePopPresetBtn" type="button">修改 Key</button></div>
+        <div class="col"><button id="newPopPresetBtn" type="button">新建预设</button></div>
+      </div>
+      <div class="row">
+        <div class="col"><button id="duplicatePopPresetBtn" type="button">复制预设</button></div>
+        <div class="col"><button id="deletePopPresetBtn" type="button">删除预设</button></div>
+      </div>
+      <div class="label" style="margin-top:8px">预设名称</div>
+      <input id="popPresetNameInput" type="text" placeholder="默认弹出配置" />
+    </div>
+
+    <div class="group">
       <div class="label">弹出模式</div>
       <select id="popMode">
         <option value="float">原始上浮</option>

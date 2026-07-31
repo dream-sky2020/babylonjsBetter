@@ -205,9 +205,26 @@
         <div class="label">3D 场景高度（Y）</div>
         <input id="scene3dHeightInput" type="number" step="0.1" value="0" />
       </div>
+      <div class="row">
+        <div class="label">3D 场景水平偏移（X）</div>
+        <input id="scene3dOffsetXInput" type="number" step="0.1" value="0" />
+      </div>
 
       <div class="row">
         <button id="resetPositionBtn">恢复原位</button>
+      </div>
+      <div class="row">
+        <div class="label">精灵面向轴</div>
+        <select id="spriteFacingAxisSelect">
+          <option value="+Z">+Z（朝向正 Z）</option>
+          <option value="-Z">-Z（朝向负 Z）</option>
+        </select>
+      </div>
+      <div class="row">
+        <label class="label" style="display:flex;align-items:center;gap:8px;margin:0;">
+          <input id="spriteDebugCheckbox" type="checkbox" style="width:auto;" />
+          开启精灵 Debug（包围盒/边框/中线）
+        </label>
       </div>
 
       <datalist id="monsterAssetList"></datalist>

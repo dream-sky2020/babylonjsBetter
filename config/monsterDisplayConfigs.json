@@ -1,32 +1,61 @@
 {
-  "monster_default_2": {
-    "id": "monster_default_2",
-    "name": "默认怪物展示2",
-    "scaleSize": 446,
-    "scene3dScale": 1,
-    "scene3dHeight": 0,
+  "monster_default_1": {
+    "id": "monster_default_1",
+    "name": "默认怪物展示1",
+    "scaleSize": 900,
+    "scene3dScale": 4,
+    "scene3dHeight": 6.2,
+    "scene3dOffsetX": -0.9,
+    "spriteFacingAxis": "+Z",
     "renderOrder": [
       "bottomFillMask",
       "bottomBorder",
       "body",
       "line"
     ],
+    "monsterStripePresetKey": "monster_default_1_stripe",
     "layers": {
       "line": {
-        "path": "Monster/尖锐文件_2_线条.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_1_线条.png"
       },
       "body": {
-        "path": "Monster/尖锐文件_2_内部填色.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_1_内部填色.png"
       },
       "bottomBorder": {
-        "path": "Monster/尖锐文件_2_底部边框.png",
-        "stripePresetKey": "monster_blessing_tier_2_1"
+        "path": "Monster/尖锐文件_1_底部边框.png"
       },
       "bottomFillMask": {
-        "path": "Monster/尖锐文件_2_底部边框内填色.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_1_底部边框内填色.png"
+      }
+    }
+  },
+  "monster_default_2": {
+    "id": "monster_default_2",
+    "name": "默认怪物展示2",
+    "scaleSize": 446,
+    "scene3dScale": 1,
+    "scene3dHeight": 0,
+    "scene3dOffsetX": 0,
+    "spriteFacingAxis": "+Z",
+    "renderOrder": [
+      "bottomFillMask",
+      "bottomBorder",
+      "body",
+      "line"
+    ],
+    "monsterStripePresetKey": "monster_default_2_stripe",
+    "layers": {
+      "line": {
+        "path": "Monster/尖锐文件_2_线条.png"
+      },
+      "body": {
+        "path": "Monster/尖锐文件_2_内部填色.png"
+      },
+      "bottomBorder": {
+        "path": "Monster/尖锐文件_2_底部边框.png"
+      },
+      "bottomFillMask": {
+        "path": "Monster/尖锐文件_2_底部边框内填色.png"
       }
     }
   },
@@ -36,59 +65,27 @@
     "scaleSize": 388,
     "scene3dScale": 1,
     "scene3dHeight": 0,
+    "scene3dOffsetX": 0,
+    "spriteFacingAxis": "+Z",
     "renderOrder": [
       "bottomFillMask",
       "bottomBorder",
       "body",
       "line"
     ],
+    "monsterStripePresetKey": "monster_default_3_stripe",
     "layers": {
       "line": {
-        "path": "Monster/尖锐文件_3_线条.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_3_线条.png"
       },
       "body": {
-        "path": "Monster/尖锐文件_3_内部填色.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_3_内部填色.png"
       },
       "bottomBorder": {
-        "path": "Monster/尖锐文件_3_底部边框.png",
-        "stripePresetKey": "monster_blessing_tier_2_1"
+        "path": "Monster/尖锐文件_3_底部边框.png"
       },
       "bottomFillMask": {
-        "path": "Monster/尖锐文件_3_底部边框内填色.png",
-        "stripePresetKey": "__none__"
-      }
-    }
-  },
-  "monster_default_1": {
-    "id": "monster_default_1",
-    "name": "默认怪物展示1",
-    "scaleSize": 900,
-    "scene3dScale": 1,
-    "scene3dHeight": 0,
-    "renderOrder": [
-      "bottomFillMask",
-      "bottomBorder",
-      "body",
-      "line"
-    ],
-    "layers": {
-      "line": {
-        "path": "Monster/尖锐文件_1_线条.png",
-        "stripePresetKey": "__none__"
-      },
-      "body": {
-        "path": "Monster/尖锐文件_1_内部填色.png",
-        "stripePresetKey": "__none__"
-      },
-      "bottomBorder": {
-        "path": "Monster/尖锐文件_1_底部边框.png",
-        "stripePresetKey": "monster_blessing_tier_2_1"
-      },
-      "bottomFillMask": {
-        "path": "Monster/尖锐文件_1_底部边框内填色.png",
-        "stripePresetKey": "__none__"
+        "path": "Monster/尖锐文件_3_底部边框内填色.png"
       }
     }
   }

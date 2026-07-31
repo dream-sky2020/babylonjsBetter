@@ -13,7 +13,8 @@ from utils import (
     normalize_slashes, to_resource_path, to_public_path, is_path_inside,
     is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
     validate_sprite_animation_payload, validate_stripe_preset_payload, validate_monster_display_payload,
-    validate_monster_stripe_preset_payload
+    validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
+    validate_burst_capsule_preset_payload
 )
 
 app = Flask(__name__)
@@ -29,6 +30,8 @@ PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePres
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
 MONSTER_STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStripePresets.json")
+POP_NUMBER_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "popNumberPresets.json")
+BURST_CAPSULE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "burstCapsulePresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -327,6 +330,88 @@ def handle_monster_stripe_presets():
                 json.dump(payload, f, ensure_ascii=False, indent=2)
             os.replace(f"{MONSTER_STRIPE_PRESET_CONFIG_PATH}.tmp", MONSTER_STRIPE_PRESET_CONFIG_PATH)
             return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MONSTER_STRIPE_PRESET_CONFIG_PATH)})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+
+@app.route("/api/pop-number-presets", methods=["GET", "PUT"])
+def handle_pop_number_presets():
+    if request.method == "GET":
+        if not os.path.isfile(POP_NUMBER_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(POP_NUMBER_PRESET_CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "配置文件根节点必须是 JSON 对象", "valid": False}), 500
+
+            errors = validate_pop_number_preset_payload(data)
+            return jsonify({
+                "success": True,
+                "count": len(data),
+                "data": data,
+                "valid": len(errors) == 0,
+                "errors": errors[:50]
+            })
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
+
+    elif request.method == "PUT":
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"success": False, "message": "body must be a json object"}), 400
+
+        errors = validate_pop_number_preset_payload(payload)
+        if errors:
+            return jsonify({"success": False, "message": "配置校验失败", "errorCount": len(errors), "errors": errors[:50]}), 400
+
+        try:
+            os.makedirs(os.path.dirname(POP_NUMBER_PRESET_CONFIG_PATH), exist_ok=True)
+            with open(f"{POP_NUMBER_PRESET_CONFIG_PATH}.tmp", "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            os.replace(f"{POP_NUMBER_PRESET_CONFIG_PATH}.tmp", POP_NUMBER_PRESET_CONFIG_PATH)
+            return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(POP_NUMBER_PRESET_CONFIG_PATH)})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+
+@app.route("/api/burst-capsule-presets", methods=["GET", "PUT"])
+def handle_burst_capsule_presets():
+    if request.method == "GET":
+        if not os.path.isfile(BURST_CAPSULE_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(BURST_CAPSULE_PRESET_CONFIG_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "配置文件根节点必须是 JSON 对象", "valid": False}), 500
+
+            errors = validate_burst_capsule_preset_payload(data)
+            return jsonify({
+                "success": True,
+                "count": len(data),
+                "data": data,
+                "valid": len(errors) == 0,
+                "errors": errors[:50]
+            })
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
+
+    elif request.method == "PUT":
+        payload = request.get_json(silent=True)
+        if not isinstance(payload, dict):
+            return jsonify({"success": False, "message": "body must be a json object"}), 400
+
+        errors = validate_burst_capsule_preset_payload(payload)
+        if errors:
+            return jsonify({"success": False, "message": "配置校验失败", "errorCount": len(errors), "errors": errors[:50]}), 400
+
+        try:
+            os.makedirs(os.path.dirname(BURST_CAPSULE_PRESET_CONFIG_PATH), exist_ok=True)
+            with open(f"{BURST_CAPSULE_PRESET_CONFIG_PATH}.tmp", "w", encoding="utf-8") as f:
+                json.dump(payload, f, ensure_ascii=False, indent=2)
+            os.replace(f"{BURST_CAPSULE_PRESET_CONFIG_PATH}.tmp", BURST_CAPSULE_PRESET_CONFIG_PATH)
+            return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(BURST_CAPSULE_PRESET_CONFIG_PATH)})
         except Exception as exc:
             return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
 

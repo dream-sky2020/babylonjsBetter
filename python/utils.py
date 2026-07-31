@@ -415,6 +415,15 @@ def validate_monster_display_payload(payload: dict) -> list[str]:
         scene3d_height = config.get("scene3dHeight")
         if scene3d_height is not None:
             _req_num(config, "scene3dHeight", errors, p_path)
+        scene3d_offset_x = config.get("scene3dOffsetX")
+        if scene3d_offset_x is not None:
+            _req_num(config, "scene3dOffsetX", errors, p_path)
+        sprite_facing_axis = config.get("spriteFacingAxis")
+        if sprite_facing_axis is not None:
+            if not isinstance(sprite_facing_axis, str):
+                errors.append(f"{p_path}.spriteFacingAxis 必须是字符串")
+            elif sprite_facing_axis not in {"+Z", "-Z"}:
+                errors.append(f"{p_path}.spriteFacingAxis 仅支持 +Z / -Z")
         stripe_preset_binding = config.get("monsterStripePresetKey")
         if stripe_preset_binding is not None and not isinstance(stripe_preset_binding, str):
             errors.append(f"{p_path}.monsterStripePresetKey 必须是字符串")
@@ -494,5 +503,120 @@ def validate_monster_stripe_preset_payload(payload: dict) -> list[str]:
         for provided_key in layers.keys():
             if provided_key not in valid_layer_keys:
                 errors.append(f"{p_path}.layers 包含未知图层 key: {provided_key}")
+
+    return errors
+
+def validate_pop_number_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    valid_number_modes = {"range", "fixed"}
+    valid_pop_modes = {"float", "projectile"}
+    for key, preset in payload.items():
+        p_path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("root 的 key 必须是非空字符串")
+            continue
+        if not isinstance(preset, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+
+        preset_key = _req_str(preset, "presetKey", errors, p_path)
+        _req_str(preset, "name", errors, p_path)
+        if preset_key and preset_key != key:
+            errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
+
+        number_mode = _req_str(preset, "numberMode", errors, p_path)
+        pop_mode = _req_str(preset, "popMode", errors, p_path)
+        if number_mode and number_mode not in valid_number_modes:
+            errors.append(f"{p_path}.numberMode 仅支持 range / fixed")
+        if pop_mode and pop_mode not in valid_pop_modes:
+            errors.append(f"{p_path}.popMode 仅支持 float / projectile")
+
+        min_value = _req_num(preset, "minValue", errors, p_path)
+        max_value = _req_num(preset, "maxValue", errors, p_path)
+        _req_num(preset, "fixedValue", errors, p_path)
+        if min_value > max_value:
+            errors.append(f"{p_path}.minValue 不能大于 maxValue")
+
+        _req_num(preset, "lifeMs", errors, p_path, 100)
+        if not isinstance(preset.get("enableGlow"), bool):
+            errors.append(f"{p_path}.enableGlow 必须是布尔值")
+
+        dir_min = _req_num(preset, "directionMinDeg", errors, p_path)
+        dir_max = _req_num(preset, "directionMaxDeg", errors, p_path)
+        if dir_min > dir_max:
+            errors.append(f"{p_path}.directionMinDeg 不能大于 directionMaxDeg")
+
+        speed_min = _req_num(preset, "speedMin", errors, p_path, 0)
+        speed_max = _req_num(preset, "speedMax", errors, p_path, 0)
+        if speed_min > speed_max:
+            errors.append(f"{p_path}.speedMin 不能大于 speedMax")
+
+        _req_num(preset, "gravity", errors, p_path)
+
+    return errors
+
+def validate_burst_capsule_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    valid_decay_modes = {"fade", "shrink"}
+    valid_color_modes = {"single", "random"}
+    for key, preset in payload.items():
+        p_path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("root 的 key 必须是非空字符串")
+            continue
+        if not isinstance(preset, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+
+        preset_key = _req_str(preset, "presetKey", errors, p_path)
+        _req_str(preset, "name", errors, p_path)
+        if preset_key and preset_key != key:
+            errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
+
+        controls = _req_obj(preset, "controls", errors, p_path)
+        if not controls:
+            continue
+
+        _req_num(controls, "spawnCount", errors, f"{p_path}.controls", 1)
+        _req_num(controls, "spawnJitter", errors, f"{p_path}.controls", 0)
+        speed_min = _req_num(controls, "speedMin", errors, f"{p_path}.controls", 0)
+        speed_max = _req_num(controls, "speedMax", errors, f"{p_path}.controls", 0)
+        if speed_min > speed_max:
+            errors.append(f"{p_path}.controls.speedMin 不能大于 speedMax")
+
+        _req_num(controls, "friction", errors, f"{p_path}.controls", 0)
+        decay_min = _req_num(controls, "decayMin", errors, f"{p_path}.controls", 0)
+        decay_max = _req_num(controls, "decayMax", errors, f"{p_path}.controls", 0)
+        if decay_min > decay_max:
+            errors.append(f"{p_path}.controls.decayMin 不能大于 decayMax")
+
+        length_min = _req_num(controls, "lengthMin", errors, f"{p_path}.controls", 0)
+        length_max = _req_num(controls, "lengthMax", errors, f"{p_path}.controls", 0)
+        if length_min > length_max:
+            errors.append(f"{p_path}.controls.lengthMin 不能大于 lengthMax")
+
+        thickness_min = _req_num(controls, "thicknessMin", errors, f"{p_path}.controls", 0)
+        thickness_max = _req_num(controls, "thicknessMax", errors, f"{p_path}.controls", 0)
+        if thickness_min > thickness_max:
+            errors.append(f"{p_path}.controls.thicknessMin 不能大于 thicknessMax")
+
+        _req_num(controls, "outlineWidth", errors, f"{p_path}.controls", 0)
+        _req_num(controls, "trailAlpha", errors, f"{p_path}.controls", 0, 1)
+        _req_num(controls, "shrinkPower", errors, f"{p_path}.controls", 0.0001)
+
+        decay_mode = _req_str(controls, "decayVisualMode", errors, f"{p_path}.controls")
+        if decay_mode and decay_mode not in valid_decay_modes:
+            errors.append(f"{p_path}.controls.decayVisualMode 仅支持 fade / shrink")
+        color_mode = _req_str(controls, "colorMode", errors, f"{p_path}.controls")
+        if color_mode and color_mode not in valid_color_modes:
+            errors.append(f"{p_path}.controls.colorMode 仅支持 single / random")
+        _req_str(controls, "singleMainColor", errors, f"{p_path}.controls")
+        _req_str(controls, "singleStrokeColor", errors, f"{p_path}.controls")
 
     return errors
