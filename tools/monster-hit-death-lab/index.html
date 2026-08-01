@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Hit & Death Lab</title>
+    <style>
+      :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; width: 100vw; height: 100vh; overflow: hidden; background: #090c11; color: #e8edf2; }
+      .root { width: 100%; height: 100%; display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 10px; padding: 10px; }
+      .side-panel {
+        min-height: 0; padding: 14px; overflow: auto; border: 1px solid #2a3344; border-radius: 10px;
+        background: #171b24;
+      }
+      .stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; border-radius: 10px; }
+      #preview { width: 100%; height: 100%; display: block; cursor: grab; }
+      .effect-layer { position: absolute; z-index: 5; inset: 0; overflow: hidden; pointer-events: none; }
+      #burstEffectCanvas, #popNumberEffectLayer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+      h1 { margin: 0; font-size: 17px; }
+      .hint, .status { margin-top: 6px; color: #9cadc1; font-size: 12px; line-height: 1.5; }
+      .status { white-space: pre-line; }
+      .field { margin-top: 12px; }
+      label { display: block; margin-bottom: 5px; color: #b9c5d4; font-size: 12px; }
+      select, button {
+        width: 100%; min-height: 36px; padding: 7px 9px; border: 1px solid #405068; border-radius: 7px;
+        background: #111722; color: #edf3fa; font: inherit;
+      }
+      select { cursor: pointer; }
+      input { width: 100%; accent-color: #ef4444; }
+      input[type="color"] { min-height: 36px; padding: 3px; border: 1px solid #405068; border-radius: 7px; background: #111722; }
+      .field-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 5px; color: #b9c5d4; font-size: 12px; }
+      .field-value { color: #fca5a5; font-variant-numeric: tabular-nums; }
+      .section-title { margin-top: 18px; padding-top: 12px; border-top: 1px solid #334155; color: #f1f5f9; font-size: 13px; font-weight: 700; }
+      .readonly-note { margin-top: 12px; padding: 8px 10px; border-radius: 7px; background: rgba(56, 90, 120, .2); color: #a9c8e8; font-size: 12px; }
+      .top-link {
+        position: absolute; z-index: 20; right: 16px; top: 16px; padding: 8px 10px;
+        border: 1px solid rgba(148, 163, 184, .35); border-radius: 8px; background: rgba(15, 19, 26, .72);
+        color: #e8edf2; text-decoration: none; font-size: 12px; backdrop-filter: blur(8px);
+      }
+      .status.error { color: #ff9e9e; }
+      @media (max-width: 760px) {
+        body { overflow: auto; }
+        .root { min-height: 100vh; height: auto; grid-template-columns: 1fr; }
+        .side-panel { min-height: 300px; }
+        .stage { height: 70vh; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="root">
+      <aside class="side-panel" aria-label="怪物显示选择">
+        <h1>怪物受击 / 死亡效果实验室</h1>
+        <div class="hint">当前阶段用于选择怪物外观。场景与 monster-2d-lab 的 Babylon3D 页面一致。</div>
+        <div class="field">
+          <label for="monsterConfigSelect">怪物显示配置（monsterDisplayConfigs）</label>
+          <select id="monsterConfigSelect" disabled></select>
+        </div>
+        <div class="field">
+          <label for="monsterStripePresetSelect">怪物条纹配置（monsterStripePresets）</label>
+          <select id="monsterStripePresetSelect" disabled></select>
+        </div>
+        <div class="field">
+          <label for="effectModeSelect">点击场景触发</label>
+          <select id="effectModeSelect">
+            <option value="both">弹出数字 + 爆发胶囊</option>
+            <option value="pop">仅弹出数字</option>
+            <option value="burst">仅爆发胶囊</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="popNumberPresetSelect">弹出数字配置（popNumberPresets）</label>
+          <select id="popNumberPresetSelect" disabled></select>
+        </div>
+        <div class="field">
+          <label for="burstCapsulePresetSelect">爆发胶囊配置（burstCapsulePresets）</label>
+          <select id="burstCapsulePresetSelect" disabled></select>
+        </div>
+        <div class="section-title">怪物受击反馈参数</div>
+        <div class="field">
+          <div class="field-head"><label for="hitDurationInput">持续时间</label><span id="hitDurationValue" class="field-value"></span></div>
+          <input id="hitDurationInput" type="range" min="80" max="1200" step="10" value="360" />
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="shakeAmplitudeInput">抖动幅度</label><span id="shakeAmplitudeValue" class="field-value"></span></div>
+          <input id="shakeAmplitudeInput" type="range" min="0" max="2" step="0.02" value="0.5" />
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="shakeFrequencyInput">抖动频率</label><span id="shakeFrequencyValue" class="field-value"></span></div>
+          <input id="shakeFrequencyInput" type="range" min="4" max="60" step="1" value="32" />
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="redStrengthInput">变红强度</label><span id="redStrengthValue" class="field-value"></span></div>
+          <input id="redStrengthInput" type="range" min="0" max="1" step="0.01" value="0.72" />
+        </div>
+        <div class="field">
+          <label for="hitColorInput">受击颜色</label>
+          <input id="hitColorInput" type="color" value="#ff2020" />
+        </div>
+        <div class="readonly-note">这里只允许选择已有配置，不会修改或保存任何配置。</div>
+        <div id="statusText" class="status">正在读取怪物配置…</div>
+      </aside>
+      <section class="stage" id="stage">
+        <canvas id="preview"></canvas>
+        <div class="effect-layer" aria-hidden="true">
+          <canvas id="burstEffectCanvas"></canvas>
+          <div id="popNumberEffectLayer"></div>
+        </div>
+        <a class="top-link" href="/">返回调试入口</a>
+      </section>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>

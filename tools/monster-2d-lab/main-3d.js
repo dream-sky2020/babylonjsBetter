@@ -19,16 +19,29 @@ import {
   probeDevServerConnection,
   requestDevServer
 } from '/core/network/devServerPortResolver.ts';
+import {
+  DEFAULT_MONSTER_STRIPE_PRESET_KEY,
+  MONSTER_LAYER_KEYS,
+  MONSTER_RENDER_ORDER,
+  STRIPE_NONE,
+  collectMonsterResourceImages,
+  createDefaultMonsterConfig as createCoreDefaultMonsterConfig,
+  createDefaultMonsterStripePreset as createCoreDefaultMonsterStripePreset,
+  createDefaultStripePreset as createCoreDefaultStripePreset,
+  normalizeMonsterConfigLibrary as normalizeCoreMonsterConfigLibrary,
+  normalizeMonsterResourcePath,
+  normalizeMonsterStripePresetLibrary as normalizeCoreMonsterStripePresetLibrary,
+  normalizeStripePresetLibrary as normalizeCoreStripePresetLibrary,
+  toMonsterResourceUrl
+} from '/core/monster/index.ts';
 
 const CONFIG_URL = '/config/stripePresets.json';
 const MONSTER_STRIPE_PRESET_URL = '/config/monsterStripePresets.json';
 const MONSTER_CONFIG_API_PATH = '/api/monster-display-configs';
 const STRIPE_CONFIG_API_PATH = '/api/stripe-presets';
 const MONSTER_STRIPE_PRESET_API_PATH = '/api/monster-stripe-presets';
-const STRIPE_NONE = '__none__';
-const LAYER_KEYS = ['bottomFillMask', 'bottomBorder', 'body', 'line'];
-const FIXED_RENDER_ORDER = [...LAYER_KEYS];
-const DEFAULT_MONSTER_STRIPE_PRESET_KEY = 'monster_stripe_default';
+const LAYER_KEYS = MONSTER_LAYER_KEYS;
+const FIXED_RENDER_ORDER = MONSTER_RENDER_ORDER;
 const preferredMonsterConfigFromQuery = (new URLSearchParams(window.location.search).get('monsterConfig') || '').trim();
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
@@ -258,50 +271,11 @@ const requestMonsterStripePresetApi = async (method, body) => {
   return payload;
 };
 
-const createDefaultPreset = (key) => ({
-  presetKey: key,
-  name: key,
-  mode: 'stripes',
-  solidColor: '#ffffff',
-  solidOpacity: 1,
-  angleDeg: 45,
-  speed: 90,
-  background: '#000000',
-  backgroundOpacity: 1,
-  segments: [
-    { width: 24, fillType: 'solid', color: '#101218', opacity: 1 },
-    { width: 24, fillType: 'solid', color: '#9fd3ff', opacity: 1 }
-  ]
-});
+const createDefaultPreset = createCoreDefaultStripePreset;
 
-const createDefaultMonsterConfig = (id) => ({
-  id,
-  name: id,
-  scaleSize: 560,
-  scene3dScale: 1,
-  scene3dHeight: 0,
-  scene3dOffsetX: 0,
-  spriteFacingAxis: '+Z',
-  renderOrder: [...FIXED_RENDER_ORDER],
-  monsterStripePresetKey: DEFAULT_MONSTER_STRIPE_PRESET_KEY,
-  layers: {
-    line: { path: DEFAULT_ASSETS.line },
-    body: { path: DEFAULT_ASSETS.body },
-    bottomBorder: { path: DEFAULT_ASSETS.bottomBorder },
-    bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask }
-  }
-});
+const createDefaultMonsterConfig = createCoreDefaultMonsterConfig;
 
-const createDefaultMonsterStripePreset = (key) => ({
-  id: key,
-  name: key,
-  layers: {
-    line: { stripePresetKey: STRIPE_NONE, visible: true },
-    body: { stripePresetKey: STRIPE_NONE, visible: true },
-    bottomBorder: { stripePresetKey: STRIPE_NONE, visible: true },
-    bottomFillMask: { stripePresetKey: STRIPE_NONE, visible: true }
-  }
-});
+const createDefaultMonsterStripePreset = createCoreDefaultMonsterStripePreset;
 
 const normalizePreset = (key, preset) => {
   const source = preset && typeof preset === 'object' ? preset : {};
@@ -335,13 +309,7 @@ const normalizePreset = (key, preset) => {
 };
 
 const normalizeLibrary = (library) => {
-  if (!library || typeof library !== 'object') return {};
-  const out = {};
-  for (const [key, preset] of Object.entries(library)) {
-    if (!key.trim()) continue;
-    out[key] = normalizePreset(key, preset);
-  }
-  return out;
+  return normalizeCoreStripePresetLibrary(library);
 };
 
 const normalizeMonsterLayer = (layer, fallbackPath) => {
@@ -414,23 +382,11 @@ const normalizeMonsterStripePreset = (key, preset) => {
 };
 
 const normalizeMonsterStripePresetLibrary = (library) => {
-  if (!library || typeof library !== 'object') return {};
-  const out = {};
-  for (const [key, preset] of Object.entries(library)) {
-    if (!key.trim()) continue;
-    out[key] = normalizeMonsterStripePreset(key, preset);
-  }
-  return out;
+  return normalizeCoreMonsterStripePresetLibrary(library);
 };
 
 const normalizeMonsterConfigLibrary = (library) => {
-  if (!library || typeof library !== 'object') return {};
-  const out = {};
-  for (const [key, config] of Object.entries(library)) {
-    if (!key.trim()) continue;
-    out[key] = normalizeMonsterConfig(key, config);
-  }
-  return out;
+  return normalizeCoreMonsterConfigLibrary(library);
 };
 
 const sortedPresetEntries = () =>
@@ -441,30 +397,18 @@ const activeMonsterStripePreset = () => state.monsterStripePresets[state.activeM
 const decodePublicPath = (input) => decodeURI(String(input || '')).replace(/^\/+/, '').replace(/^\.\/+/, '');
 
 const getScannedResourceImages = () => {
-  const fromModules = Object.values(RESOURCE_IMAGE_MODULES)
-    .map((assetUrl) => decodePublicPath(assetUrl))
-    .map((path) => path.replace(/^public\/+/, ''))
-    .filter((path) => path.startsWith('resources/'));
-  const merged = new Set(fromModules);
-  for (const layerKey of LAYER_KEYS) {
-    const raw = normalizeResourcePath(state.layers[layerKey].path);
-    if (raw) merged.add(`resources/${raw}`);
-  }
-  return [...merged].sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  return collectMonsterResourceImages(
+    Object.values(RESOURCE_IMAGE_MODULES),
+    LAYER_KEYS.map((layerKey) => state.layers[layerKey].path)
+  );
 };
 
 const normalizeResourcePath = (pathText) => {
-  const raw = String(pathText || '').trim().replace(/\\/g, '/');
-  if (!raw) return '';
-  if (raw.startsWith('/resources/')) return raw.slice('/resources/'.length);
-  if (raw.startsWith('resources/')) return raw.slice('resources/'.length);
-  return raw;
+  return normalizeMonsterResourcePath(pathText);
 };
 
 const toResourceUrl = (pathText) => {
-  const relative = normalizeResourcePath(pathText);
-  if (!relative) return '';
-  return encodeURI(`/resources/${relative}`);
+  return toMonsterResourceUrl(pathText);
 };
 
 const loadImage = (src) =>
