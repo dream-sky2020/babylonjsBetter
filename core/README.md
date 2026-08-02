@@ -11,6 +11,7 @@
 ## 推荐子目录
 
 - `sprite/`：精灵 feature —— 使用说明见 [sprite/README.md](./sprite/README.md)
+- `model/`：3D 模型 feature —— 使用说明见 [model/README.md](./model/README.md)
 - `particle/`：粒子 feature —— 使用说明见 [particle/README.md](./particle/README.md)
 - `scene/`：场景工厂（编辑器 / 战斗等）
 - `tracking/`：UI 跟踪计算

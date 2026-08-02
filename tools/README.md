@@ -6,6 +6,14 @@
 
 - `sprite-anchor-editor/`
   - `index.html`（原 `sprite-anchor-editor.html`）
+- `number-sprite-lab/`
+  - `index.html`（配置数字字符到单图或 TexturePacker 帧，并在 Babylon 场景预览）
+- `model-lab/`
+  - `index.html`（预览 `public/resources` 中的 GLB 与 FBX 模型）
+- `model-scene-lab/`
+  - `index.html`（布置 GLB 模型并保存 3D 场景预设）
+- `model-shake-lab/`
+  - `index.html`（选择单个 GLB 模型并调试简单抖动动画）
 - `atlas-json-editor/`
   - `index.html`（大图切片并导出 TexturePacker 风格 JSON）
 - `particle-editor/`
@@ -48,6 +56,7 @@
 ## 访问路径示例（开发模式）
 
 - `/tools/sprite-anchor-editor/index.html`
+- `/tools/number-sprite-lab/index.html`
 - `/tools/atlas-json-editor/index.html`
 - `/tools/particle-editor/index.html`
 - `/tools/target-link-lab/index.html`

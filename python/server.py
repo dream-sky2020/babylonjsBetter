@@ -14,7 +14,11 @@ from utils import (
     is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
     validate_sprite_animation_payload, validate_stripe_preset_payload, validate_monster_display_payload,
     validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
-    validate_burst_capsule_preset_payload
+    validate_burst_capsule_preset_payload, validate_model_scene_preset_payload,
+    validate_model_shake_preset_payload, validate_model_display_config_payload,
+    validate_model_swing_config_payload
+    ,validate_model_shoot_config_payload, validate_bullet_config_payload,
+    validate_number_sprite_config_payload
 )
 
 app = Flask(__name__)
@@ -26,12 +30,19 @@ PUBLIC_DIR = os.path.join(PROJECT_ROOT, "public")
 PUBLIC_RESOURCES_DIR = os.path.join(PUBLIC_DIR, "resources")
 SPRITE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnchorPresets.json")
 SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnimationLibrary.json")
+NUMBER_SPRITE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "numberSpriteConfigs.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
 MONSTER_STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStripePresets.json")
 POP_NUMBER_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "popNumberPresets.json")
 BURST_CAPSULE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "burstCapsulePresets.json")
+MODEL_SCENE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelScenePresets.json")
+MODEL_SHAKE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShakePresets.json")
+MODEL_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelDisplayConfigs.json")
+MODEL_SWING_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelSwingConfigs.json")
+MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfigs.json")
+BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -63,6 +74,148 @@ def list_images():
             })
     result.sort(key=lambda item: item["relativePath"])
     return jsonify({"success": True, "count": len(result), "items": result})
+
+@app.route("/api/model-scene-presets", methods=["GET", "PUT"])
+def handle_model_scene_presets():
+    if request.method == "GET":
+        if not os.path.isfile(MODEL_SCENE_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(MODEL_SCENE_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "config root must be an object"}), 500
+            errors = validate_model_scene_preset_payload(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read scene presets: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({"success": False, "message": "body must be a JSON object"}), 400
+    errors = validate_model_scene_preset_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "scene preset validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(MODEL_SCENE_PRESET_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{MODEL_SCENE_PRESET_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, MODEL_SCENE_PRESET_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_SCENE_PRESET_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write scene presets: {exc}"}), 500
+
+@app.route("/api/model-shake-presets", methods=["GET", "PUT"])
+def handle_model_shake_presets():
+    if request.method == "GET":
+        if not os.path.isfile(MODEL_SHAKE_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(MODEL_SHAKE_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "config root must be an object"}), 500
+            errors = validate_model_shake_preset_payload(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read shake presets: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({"success": False, "message": "body must be a JSON object"}), 400
+    errors = validate_model_shake_preset_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "shake preset validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(MODEL_SHAKE_PRESET_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{MODEL_SHAKE_PRESET_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, MODEL_SHAKE_PRESET_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_SHAKE_PRESET_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write shake presets: {exc}"}), 500
+
+@app.route("/api/model-display-configs", methods=["GET", "PUT"])
+def handle_model_display_configs():
+    if request.method == "GET":
+        if not os.path.isfile(MODEL_DISPLAY_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(MODEL_DISPLAY_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            errors = validate_model_display_config_payload(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read model display configs: {exc}"}), 500
+    payload = request.get_json(silent=True)
+    errors = validate_model_display_config_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "model display config validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(MODEL_DISPLAY_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{MODEL_DISPLAY_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, MODEL_DISPLAY_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_DISPLAY_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write model display configs: {exc}"}), 500
+
+@app.route("/api/model-swing-configs", methods=["GET", "PUT"])
+def handle_model_swing_configs():
+    if request.method == "GET":
+        if not os.path.isfile(MODEL_SWING_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(MODEL_SWING_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            errors = validate_model_swing_config_payload(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read model swing configs: {exc}"}), 500
+    payload = request.get_json(silent=True)
+    errors = validate_model_swing_config_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "model swing config validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(MODEL_SWING_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{MODEL_SWING_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, MODEL_SWING_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_SWING_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write model swing configs: {exc}"}), 500
+
+def _handle_json_config(path: str, validator, label: str):
+    if request.method == "GET":
+        if not os.path.isfile(path): return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(path, "r", encoding="utf-8") as file: data = json.load(file)
+            errors = validator(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read {label}: {exc}"}), 500
+    payload = request.get_json(silent=True)
+    errors = validator(payload)
+    if errors: return jsonify({"success": False, "message": f"{label} validation failed", "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(path), exist_ok=True); temp_path = f"{path}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file: json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, path)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(path)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write {label}: {exc}"}), 500
+
+@app.route("/api/model-shoot-configs", methods=["GET", "PUT"])
+def handle_model_shoot_configs():
+    return _handle_json_config(MODEL_SHOOT_CONFIG_PATH, validate_model_shoot_config_payload, "model shoot configs")
+
+@app.route("/api/bullet-configs", methods=["GET", "PUT"])
+def handle_bullet_configs():
+    return _handle_json_config(BULLET_CONFIG_PATH, validate_bullet_config_payload, "bullet configs")
 
 @app.route("/api/find_resource_by_name", methods=["GET"])
 def find_resource_by_name():
@@ -168,6 +321,40 @@ def handle_sprite_animation_library():
             return jsonify({"success": True, "path": normalize_slashes(SPRITE_ANIMATION_CONFIG_PATH)})
         except Exception as exc:
             return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+
+@app.route("/api/number-sprite-configs", methods=["GET", "PUT"])
+def handle_number_sprite_configs():
+    if request.method == "GET":
+        if not os.path.isfile(NUMBER_SPRITE_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(NUMBER_SPRITE_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            errors = validate_number_sprite_config_payload(data)
+            return jsonify({
+                "success": True,
+                "count": len(data) if isinstance(data, dict) else 0,
+                "data": data,
+                "valid": len(errors) == 0,
+                "errors": errors[:50]
+            })
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({"success": False, "message": "body must be a json object"}), 400
+    errors = validate_number_sprite_config_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "配置校验失败", "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(NUMBER_SPRITE_CONFIG_PATH), exist_ok=True)
+        with open(f"{NUMBER_SPRITE_CONFIG_PATH}.tmp", "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(f"{NUMBER_SPRITE_CONFIG_PATH}.tmp", NUMBER_SPRITE_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(NUMBER_SPRITE_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
 
 @app.route("/api/particle-presets", methods=["GET", "PUT"])
 def handle_particle_presets():

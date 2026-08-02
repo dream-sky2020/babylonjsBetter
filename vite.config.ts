@@ -5,6 +5,20 @@ import fsp from 'fs/promises'
 
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
+const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
+
+const collectModelAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
+  if (!fs.existsSync(dir)) return []
+  const entries = await fsp.readdir(dir, { withFileTypes: true })
+  const nested = await Promise.all(entries.map(async (entry) => {
+    const absPath = path.join(dir, entry.name)
+    if (entry.isDirectory()) return collectModelAssets(absPath)
+    if (!/\.(?:glb|fbx)$/i.test(entry.name)) return []
+    const relativePath = path.relative(RESOURCE_DIR, absPath).split(path.sep).map(encodeURIComponent).join('/')
+    return [`/resources/${relativePath}`]
+  }))
+  return nested.flat().sort((left, right) => left.localeCompare(right))
+}
 
 const copyDir = async (srcDir: string, destDir: string): Promise<void> => {
   await fsp.mkdir(destDir, { recursive: true })
@@ -37,6 +51,17 @@ const sharedConfigPlugin = () => ({
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
       const url = req.url ?? ''
+      if (url.split('?')[0] === '/api/model-assets') {
+        void collectModelAssets().then((assets) => {
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          res.end(JSON.stringify({ assets }))
+        }).catch((error: unknown) => {
+          res.statusCode = 500
+          res.end(error instanceof Error ? error.message : String(error))
+        })
+        return
+      }
       if (!url.startsWith(CONFIG_ROUTE)) {
         next()
         return
@@ -59,10 +84,16 @@ const sharedConfigPlugin = () => ({
     })
   },
   async writeBundle(options: any) {
-    if (!fs.existsSync(CONFIG_DIR)) return
     const outDir = options.dir ?? path.resolve(__dirname, 'dist')
-    const outDataDir = path.join(outDir, 'config')
-    await copyDir(CONFIG_DIR, outDataDir)
+    if (fs.existsSync(CONFIG_DIR)) {
+      const outDataDir = path.join(outDir, 'config')
+      await copyDir(CONFIG_DIR, outDataDir)
+    }
+    await fsp.writeFile(
+      path.join(outDir, 'model-assets.json'),
+      JSON.stringify({ assets: await collectModelAssets() }, null, 2),
+      'utf8'
+    )
   }
 })
 
@@ -88,6 +119,7 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
         spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
+        numberSpriteLab: path.resolve(__dirname, 'tools/number-sprite-lab/index.html'),
         stripesConfigLab: path.resolve(__dirname, 'tools/stripes-config-lab/index.html'),
         stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
         monsterHitDeathLab: path.resolve(__dirname, 'tools/monster-hit-death-lab/index.html'),
@@ -97,6 +129,13 @@ export default defineConfig({
         avatarVisualLab: path.resolve(__dirname, 'tools/avatar-visual-lab/index.html'),
         specialStatusVisualLab: path.resolve(__dirname, 'tools/special-status-visual-lab/index.html'),
         atlasJsonEditor: path.resolve(__dirname, 'tools/atlas-json-editor/index.html'),
+        modelLab: path.resolve(__dirname, 'tools/model-lab/index.html'),
+        modelSceneLab: path.resolve(__dirname, 'tools/model-scene-lab/index.html'),
+        modelShakeLab: path.resolve(__dirname, 'tools/model-shake-lab/index.html'),
+        modelDisplayLab: path.resolve(__dirname, 'tools/model-display-lab/index.html'),
+        modelSwingLab: path.resolve(__dirname, 'tools/model-swing-lab/index.html'),
+        modelShootLab: path.resolve(__dirname, 'tools/model-shoot-lab/index.html'),
+        bulletConfigLab: path.resolve(__dirname, 'tools/bullet-config-lab/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }
