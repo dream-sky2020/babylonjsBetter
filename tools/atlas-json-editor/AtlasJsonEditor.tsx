@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 
 type EditorMode = 'manual' | 'grid' | 'irregular';
+type GridSplitMode = 'cell-size' | 'rows-columns';
 
 type Point = { x: number; y: number };
 
@@ -64,6 +65,7 @@ type AtlasEditorDraft = {
   imageHeight: number;
   frameWidth: number;
   frameHeight: number;
+  gridSplitMode?: GridSplitMode;
   startX: number;
   startY: number;
   gapX: number;
@@ -81,6 +83,10 @@ const normalizeResourcePath = (rawPath: string): string => {
 };
 
 const RESOURCE_ATLAS_JSON_OPTIONS = Object.keys(import.meta.glob('/public/**/*.json'))
+  .map((path) => normalizeResourcePath(path).replace(/^public\/+/, ''))
+  .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+
+const RESOURCE_IMAGE_OPTIONS = Object.keys(import.meta.glob('/public/**/*.{png,jpg,jpeg,webp}'))
   .map((path) => normalizeResourcePath(path).replace(/^public\/+/, ''))
   .sort((a, b) => a.localeCompare(b, 'zh-CN'));
 
@@ -194,9 +200,10 @@ const resolveAtlasImagePath = (atlasJsonPath: string, imageName: string): string
 
 export const AtlasJsonEditor: React.FC = () => {
   const [mode, setMode] = useState<EditorMode>('manual');
-  const [atlasJsonPath, setAtlasJsonPath] = useState(() =>
-    getLocalStorageString(LAST_ATLAS_JSON_PATH_KEY) || 'resources/左下小人图集.json'
-  );
+  const [atlasJsonPath, setAtlasJsonPath] = useState(() => {
+    const saved = normalizeResourcePath(getLocalStorageString(LAST_ATLAS_JSON_PATH_KEY));
+    return saved || RESOURCE_ATLAS_JSON_OPTIONS[0] || 'resources/左下小人图集.json';
+  });
   const [atlasMetaApp, setAtlasMetaApp] = useState('https://www.codeandweb.com/texturepacker');
   const [atlasMetaVersion, setAtlasMetaVersion] = useState('1.0');
   const [atlasMetaFormat, setAtlasMetaFormat] = useState('RGBA8888');
@@ -212,6 +219,7 @@ export const AtlasJsonEditor: React.FC = () => {
 
   const [frameWidth, setFrameWidth] = useState(333);
   const [frameHeight, setFrameHeight] = useState(246);
+  const [gridSplitMode, setGridSplitMode] = useState<GridSplitMode>('cell-size');
   const [autoAlphaThreshold, setAutoAlphaThreshold] = useState(8);
   const [autoMinPixelArea, setAutoMinPixelArea] = useState(64);
   const [startX, setStartX] = useState(0);
@@ -231,6 +239,8 @@ export const AtlasJsonEditor: React.FC = () => {
   const [polygonDraft, setPolygonDraft] = useState<Point[]>([]);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('请先上传大图，或直接加载已有 Atlas JSON。');
+  const [draftHydrated, setDraftHydrated] = useState(false);
+  const autoRestoreAttemptedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -250,6 +260,7 @@ export const AtlasJsonEditor: React.FC = () => {
     }
   }, [imageResourcePath]);
 
+  /* eslint-disable react-hooks/set-state-in-effect -- one-time local draft hydration */
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(ATLAS_EDITOR_DRAFT_KEY);
@@ -258,7 +269,9 @@ export const AtlasJsonEditor: React.FC = () => {
       if (draft.mode === 'manual' || draft.mode === 'grid' || draft.mode === 'irregular') {
         setMode(draft.mode);
       }
-      if (typeof draft.atlasJsonPath === 'string') setAtlasJsonPath(draft.atlasJsonPath);
+      if (typeof draft.atlasJsonPath === 'string' && draft.atlasJsonPath.trim()) {
+        setAtlasJsonPath(normalizeResourcePath(draft.atlasJsonPath));
+      }
       if (typeof draft.atlasMetaApp === 'string') setAtlasMetaApp(draft.atlasMetaApp);
       if (typeof draft.atlasMetaVersion === 'string') setAtlasMetaVersion(draft.atlasMetaVersion);
       if (typeof draft.atlasMetaFormat === 'string') setAtlasMetaFormat(draft.atlasMetaFormat);
@@ -267,6 +280,9 @@ export const AtlasJsonEditor: React.FC = () => {
       if (typeof draft.imageResourcePath === 'string') setImageResourcePath(draft.imageResourcePath);
       if (typeof draft.frameWidth === 'number') setFrameWidth(draft.frameWidth);
       if (typeof draft.frameHeight === 'number') setFrameHeight(draft.frameHeight);
+      if (draft.gridSplitMode === 'cell-size' || draft.gridSplitMode === 'rows-columns') {
+        setGridSplitMode(draft.gridSplitMode);
+      }
       if (typeof draft.startX === 'number') setStartX(draft.startX);
       if (typeof draft.startY === 'number') setStartY(draft.startY);
       if (typeof draft.gapX === 'number') setGapX(draft.gapX);
@@ -289,13 +305,17 @@ export const AtlasJsonEditor: React.FC = () => {
         setImageWidth(draft.imageWidth);
         setImageHeight(draft.imageHeight);
       }
-      setMessage('已恢复上次编辑草稿。若要恢复图片，请点击“从 public 路径加载图集图片”。');
+      setMessage('已恢复上次编辑草稿，正在尝试恢复 public 图集图片。');
     } catch {
       // ignore draft parse error
+    } finally {
+      setDraftHydrated(true);
     }
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
+    if (!draftHydrated) return;
     const draft: AtlasEditorDraft = {
       mode,
       atlasJsonPath,
@@ -309,6 +329,7 @@ export const AtlasJsonEditor: React.FC = () => {
       imageHeight,
       frameWidth,
       frameHeight,
+      gridSplitMode,
       startX,
       startY,
       gapX,
@@ -338,6 +359,7 @@ export const AtlasJsonEditor: React.FC = () => {
     imageHeight,
     frameWidth,
     frameHeight,
+    gridSplitMode,
     startX,
     startY,
     gapX,
@@ -347,7 +369,8 @@ export const AtlasJsonEditor: React.FC = () => {
     maxCount,
     namePrefix,
     nameLinesText,
-    frames
+    frames,
+    draftHydrated
   ]);
 
   useEffect(() => {
@@ -365,6 +388,58 @@ export const AtlasJsonEditor: React.FC = () => {
   }, [imageWidth, imageHeight]);
 
   const customNames = useMemo(() => parseNamesText(nameLinesText), [nameLinesText]);
+  const gridEstimate = useMemo(() => {
+    if (!imageWidth || !imageHeight) {
+      return { valid: false, message: '请先加载图集图片。', sx: 0, sy: 0, gx: 0, gy: 0, fw: 0, fh: 0, cols: 0, rows: 0, count: 0 };
+    }
+    const sx = Math.max(0, Math.floor(startX));
+    const sy = Math.max(0, Math.floor(startY));
+    const gx = Math.max(0, Math.floor(gapX));
+    const gy = Math.max(0, Math.floor(gapY));
+    if (gridSplitMode === 'rows-columns') {
+      const cols = Math.max(0, Math.floor(columnCount));
+      const rows = Math.max(0, Math.floor(rowCount));
+      if (cols <= 0 || rows <= 0) {
+        return { valid: false, message: '智能均分模式只需要填写大于 0 的列数和行数。', sx: 0, sy: 0, gx: 0, gy: 0, fw: 0, fh: 0, cols, rows, count: 0 };
+      }
+      const fw = Math.floor(imageWidth / cols);
+      const fh = Math.floor(imageHeight / rows);
+      if (fw <= 0 || fh <= 0) {
+        return { valid: false, message: '行数或列数超过了图片像素尺寸。', sx: 0, sy: 0, gx: 0, gy: 0, fw, fh, cols, rows, count: 0 };
+      }
+      return {
+        valid: true,
+        message: `将图片均分为 ${cols} 列 × ${rows} 行，扫描最多 ${cols * rows} 格；透明空格会自动跳过。`,
+        sx: 0, sy: 0, gx: 0, gy: 0, fw, fh, cols, rows, count: cols * rows
+      };
+    }
+    if (sx >= imageWidth || sy >= imageHeight) {
+      return { valid: false, message: '起点必须位于图像范围内。', sx, sy, gx, gy, fw: 0, fh: 0, cols: 0, rows: 0, count: 0 };
+    }
+    const manualFw = Math.max(0, Math.floor(frameWidth));
+    const manualFh = Math.max(0, Math.floor(frameHeight));
+    const estimatedFw = columnCount > 0
+      ? Math.floor((imageWidth - sx - Math.max(0, columnCount - 1) * gx) / columnCount)
+      : 0;
+    const estimatedFh = rowCount > 0
+      ? Math.floor((imageHeight - sy - Math.max(0, rowCount - 1) * gy) / rowCount)
+      : 0;
+    const fw = manualFw > 0 ? manualFw : estimatedFw;
+    const fh = manualFh > 0 ? manualFh : estimatedFh;
+    if (fw <= 0 || fh <= 0) {
+      return { valid: false, message: '帧宽高为 0 时，必须填写对应的列数和行数。', sx, sy, gx, gy, fw, fh, cols: 0, rows: 0, count: 0 };
+    }
+    const fitCols = Math.max(0, Math.floor((imageWidth - sx + gx) / (fw + gx)));
+    const fitRows = Math.max(0, Math.floor((imageHeight - sy + gy) / (fh + gy)));
+    const cols = columnCount > 0 ? Math.min(Math.floor(columnCount), fitCols) : fitCols;
+    const rows = rowCount > 0 ? Math.min(Math.floor(rowCount), fitRows) : fitRows;
+    const unlimitedCount = cols * rows;
+    const count = maxCount > 0 ? Math.min(Math.floor(maxCount), unlimitedCount) : unlimitedCount;
+    if (count <= 0) {
+      return { valid: false, message: '当前帧尺寸、起点或间隔无法在图片内放下任何切片。', sx, sy, gx, gy, fw, fh, cols, rows, count: 0 };
+    }
+    return { valid: true, message: `预计 ${cols} 列 × ${rows} 行，共 ${count} 个切片；帧尺寸 ${fw} × ${fh}px。`, sx, sy, gx, gy, fw, fh, cols, rows, count };
+  }, [imageWidth, imageHeight, startX, startY, gapX, gapY, frameWidth, frameHeight, columnCount, rowCount, maxCount, gridSplitMode]);
   const selectedFrame = useMemo(
     () => frames.find((entry) => entry.id === selectedFrameId) ?? null,
     [frames, selectedFrameId]
@@ -503,7 +578,7 @@ export const AtlasJsonEditor: React.FC = () => {
     setMessage(`已加载 ${sourceLabel}，共 ${dedupeResult.frames.length} 个切片。`);
   };
 
-  const loadImageByUrl = (url: string): Promise<void> => {
+  const loadImageByUrl = useCallback((url: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => {
@@ -518,10 +593,24 @@ export const AtlasJsonEditor: React.FC = () => {
       image.onerror = reject;
       image.src = url;
     });
-  };
+  }, [imageSrc]);
 
-  const loadAtlasFromPath = async (): Promise<void> => {
-    const normalized = normalizeResourcePath(atlasJsonPath);
+  useEffect(() => {
+    if (!draftHydrated || autoRestoreAttemptedRef.current || imageSrc) return;
+    const normalized = normalizeResourcePath(imageResourcePath);
+    if (!normalized) return;
+    autoRestoreAttemptedRef.current = true;
+    void loadImageByUrl(`/${normalized}`).then(() => {
+      const baseName = normalized.slice(normalized.lastIndexOf('/') + 1);
+      if (baseName) setImageFileName(baseName);
+      setMessage(`已自动恢复图集图片：${normalized}`);
+    }).catch(() => {
+      setMessage(`草稿已恢复，但图片无法自动加载：/${normalized}`);
+    });
+  }, [draftHydrated, imageResourcePath, imageSrc, loadImageByUrl]);
+
+  const loadAtlasFromPath = async (pathOverride?: string): Promise<void> => {
+    const normalized = normalizeResourcePath(pathOverride ?? atlasJsonPath);
     if (!normalized) {
       setMessage('请输入 atlas JSON 路径。');
       return;
@@ -534,6 +623,7 @@ export const AtlasJsonEditor: React.FC = () => {
         return;
       }
       const data = (await response.json()) as AtlasJson;
+      setAtlasJsonPath(normalized);
       applyAtlasData(data, normalized);
       const imageUrl = resolveAtlasImagePath(normalized, data.meta?.image ?? imageFileName);
       setImageResourcePath(imageUrl.startsWith('/') ? imageUrl.slice(1) : imageUrl);
@@ -597,8 +687,8 @@ export const AtlasJsonEditor: React.FC = () => {
     image.src = objectUrl;
   };
 
-  const loadImageFromResourcePath = async (): Promise<void> => {
-    const normalized = normalizeResourcePath(imageResourcePath);
+  const loadImageFromResourcePath = async (pathOverride?: string): Promise<void> => {
+    const normalized = normalizeResourcePath(pathOverride ?? imageResourcePath);
     if (!normalized) {
       setMessage('请输入 public 下的图片路径，例如 resources/xxx.png');
       return;
@@ -614,56 +704,87 @@ export const AtlasJsonEditor: React.FC = () => {
     }
   };
 
-  const generateFrames = (): void => {
-    if (!imageWidth || !imageHeight) {
-      setMessage('请先加载图片。');
+  const generateFrames = async (): Promise<void> => {
+    if (!gridEstimate.valid) {
+      setMessage(`无法生成网格切片：${gridEstimate.message}`);
       return;
     }
-    const sx = Math.max(0, Math.floor(startX));
-    const sy = Math.max(0, Math.floor(startY));
-    const gx = Math.max(0, Math.floor(gapX));
-    const gy = Math.max(0, Math.floor(gapY));
+    if (gridSplitMode === 'rows-columns') {
+      if (!imageSrc) {
+        setMessage('无法扫描空格：请先加载图集图片。');
+        return;
+      }
+      setMessage('正在扫描网格内容…');
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = imageWidth;
+        canvas.height = imageHeight;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        if (!ctx) throw new Error('无法创建 2D 画布');
+        const image = new Image();
+        image.src = imageSrc;
+        if (!image.complete) {
+          await new Promise<void>((resolve, reject) => {
+            image.onload = () => resolve();
+            image.onerror = () => reject(new Error('图片解码失败'));
+          });
+        }
+        ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+        const pixels = ctx.getImageData(0, 0, imageWidth, imageHeight).data;
+        const threshold = clamp(Math.floor(autoAlphaThreshold), 1, 255);
+        const nextFrames: FrameEntry[] = [];
+        let skippedEmpty = 0;
+
+        for (let row = 0; row < gridEstimate.rows; row += 1) {
+          const y0 = Math.floor((row * imageHeight) / gridEstimate.rows);
+          const y1 = Math.floor(((row + 1) * imageHeight) / gridEstimate.rows);
+          for (let col = 0; col < gridEstimate.cols; col += 1) {
+            const x0 = Math.floor((col * imageWidth) / gridEstimate.cols);
+            const x1 = Math.floor(((col + 1) * imageWidth) / gridEstimate.cols);
+            let hasVisiblePixel = false;
+            for (let y = y0; y < y1 && !hasVisiblePixel; y += 1) {
+              for (let x = x0; x < x1; x += 1) {
+                if (pixels[(y * imageWidth + x) * 4 + 3] >= threshold) {
+                  hasVisiblePixel = true;
+                  break;
+                }
+              }
+            }
+            if (!hasVisiblePixel) {
+              skippedEmpty += 1;
+              continue;
+            }
+            const index = nextFrames.length;
+            const mappedName = customNames[index] || buildDefaultFrameName(namePrefix, index);
+            nextFrames.push(createFrameEntry(index, mappedName, x0, y0, x1 - x0, y1 - y0));
+          }
+        }
+
+        const dedupeResult = dedupeNames(nextFrames);
+        setFrames(dedupeResult.frames);
+        setSelectedFrameId(dedupeResult.frames.length > 0 ? 0 : null);
+        setMessage(`智能网格切分完成：生成 ${dedupeResult.frames.length} 个切片，跳过 ${skippedEmpty} 个透明空格。`);
+      } catch (error) {
+        setMessage(`智能网格切分失败：${error instanceof Error ? error.message : String(error)}`);
+      }
+      return;
+    }
+    const { sx, sy, gx, gy, fw, fh, cols, rows } = gridEstimate;
     const manualFw = Math.max(0, Math.floor(frameWidth));
     const manualFh = Math.max(0, Math.floor(frameHeight));
-
-    const estimatedFwFromCols = columnCount > 0
-      ? Math.floor((imageWidth - sx - Math.max(0, columnCount - 1) * gx) / Math.max(1, columnCount))
-      : 0;
-    const estimatedFhFromRows = rowCount > 0
-      ? Math.floor((imageHeight - sy - Math.max(0, rowCount - 1) * gy) / Math.max(1, rowCount))
-      : 0;
-    const fw = manualFw > 0 ? manualFw : Math.max(1, estimatedFwFromCols);
-    const fh = manualFh > 0 ? manualFh : Math.max(1, estimatedFhFromRows);
-
-    const autoColumns = Math.max(0, Math.floor((imageWidth - sx + gx) / (fw + gx)));
-    const autoRows = Math.max(0, Math.floor((imageHeight - sy + gy) / (fh + gy)));
-    const cols = columnCount > 0 ? Math.floor(columnCount) : autoColumns;
-    const rows = rowCount > 0 ? Math.floor(rowCount) : autoRows;
-    if (cols <= 0 || rows <= 0) {
-      setFrames([]);
-      setSelectedFrameId(null);
-      setMessage('无法生成切片：请检查网格参数。');
-      return;
-    }
-    if (fw <= 0 || fh <= 0) {
-      setFrames([]);
-      setSelectedFrameId(null);
-      setMessage('无法生成切片：请填写有效行列，或设置帧宽高。');
-      return;
-    }
 
     const nextFrames: FrameEntry[] = [];
     const limitedCount = maxCount > 0 ? Math.floor(maxCount) : Number.POSITIVE_INFINITY;
     for (let row = 0; row < rows; row += 1) {
       for (let col = 0; col < cols; col += 1) {
+        if (nextFrames.length >= limitedCount) break;
         const x = sx + col * (fw + gx);
         const y = sy + row * (fh + gy);
-        if (x + fw > imageWidth || y + fh > imageHeight) continue;
         const index = nextFrames.length;
-        if (index >= limitedCount) continue;
         const mappedName = customNames[index] || buildDefaultFrameName(namePrefix, index);
         nextFrames.push(createFrameEntry(index, mappedName, x, y, fw, fh));
       }
+      if (nextFrames.length >= limitedCount) break;
     }
 
     const dedupeResult = dedupeNames(nextFrames);
@@ -987,9 +1108,14 @@ export const AtlasJsonEditor: React.FC = () => {
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>加载已有 Atlas JSON（public 相对路径）</label>
         <select
           value={atlasJsonPath}
-          onChange={(event) => setAtlasJsonPath(event.target.value)}
+          onChange={(event) => {
+            const nextPath = event.target.value;
+            setAtlasJsonPath(nextPath);
+            void loadAtlasFromPath(nextPath);
+          }}
           style={{ width: '100%', marginBottom: 8 }}
         >
+          <option value="" disabled>-- 请选择 Atlas JSON --</option>
           {RESOURCE_ATLAS_JSON_OPTIONS.map((path) => (
             <option key={path} value={path}>
               {path}
@@ -1009,6 +1135,18 @@ export const AtlasJsonEditor: React.FC = () => {
         <input type="file" accept="image/png,image/jpeg,image/webp" onChange={handleImageUpload} style={{ marginBottom: 10 }} />
 
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>从 public 路径加载图集图片</label>
+        <select
+          value={imageResourcePath}
+          onChange={(event) => {
+            const nextPath = event.target.value;
+            setImageResourcePath(nextPath);
+            void loadImageFromResourcePath(nextPath);
+          }}
+          style={{ width: '100%', marginBottom: 8 }}
+        >
+          <option value="">-- 请选择图片（选择后自动加载）--</option>
+          {RESOURCE_IMAGE_OPTIONS.map((path) => <option key={path} value={path}>{path}</option>)}
+        </select>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 86px', gap: 8, marginBottom: 10 }}>
           <input
             value={imageResourcePath}
@@ -1027,6 +1165,15 @@ export const AtlasJsonEditor: React.FC = () => {
         {mode === 'grid' ? (
           <>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
+              <button onClick={() => setGridSplitMode('cell-size')} style={{ background: gridSplitMode === 'cell-size' ? '#334765' : undefined }}>
+                尺寸 / 间隔
+              </button>
+              <button onClick={() => setGridSplitMode('rows-columns')} style={{ background: gridSplitMode === 'rows-columns' ? '#334765' : undefined }}>
+                仅行列（跳过空格）
+              </button>
+            </div>
+            {gridSplitMode === 'cell-size' ? <>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
               <label style={{ fontSize: 13 }}>
                 帧宽（0=自动）
                 <input type="number" value={frameWidth} min={0} onChange={(event) => setFrameWidth(toInt(event.target.value))} style={{ width: '100%' }} />
@@ -1059,11 +1206,29 @@ export const AtlasJsonEditor: React.FC = () => {
                 行数（0=自动）
                 <input type="number" value={rowCount} min={0} onChange={(event) => setRowCount(toInt(event.target.value))} style={{ width: '100%' }} />
               </label>
+              </div>
+              <label style={{ display: 'block', marginBottom: 8, fontSize: 13 }}>
+                最大数量（0=不限）
+                <input type="number" value={maxCount} min={0} onChange={(event) => setMaxCount(toInt(event.target.value))} style={{ width: '100%' }} />
+              </label>
+            </> : <>
+              <div style={{ padding: '8px 10px', marginBottom: 8, borderRadius: 7, background: '#121923', color: '#9eb0c7', fontSize: 12 }}>
+                整张图片会按行列均分。每格使用下方 Alpha 阈值扫描，完全没有可见像素的格子不会生成帧。
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
+                <label style={{ fontSize: 13 }}>
+                  列数
+                  <input type="number" value={columnCount} min={1} onChange={(event) => setColumnCount(toInt(event.target.value))} style={{ width: '100%' }} />
+                </label>
+                <label style={{ fontSize: 13 }}>
+                  行数
+                  <input type="number" value={rowCount} min={1} onChange={(event) => setRowCount(toInt(event.target.value))} style={{ width: '100%' }} />
+                </label>
+              </div>
+            </>}
+            <div style={{ marginBottom: 10, padding: '8px 10px', borderRadius: 7, background: gridEstimate.valid ? '#173527' : '#3a2428', color: gridEstimate.valid ? '#9be0b3' : '#f0a9aa', fontSize: 12 }}>
+              {gridEstimate.message}
             </div>
-            <label style={{ display: 'block', marginBottom: 8, fontSize: 13 }}>
-              最大数量（0=不限）
-              <input type="number" value={maxCount} min={0} onChange={(event) => setMaxCount(toInt(event.target.value))} style={{ width: '100%' }} />
-            </label>
           </>
         ) : null}
 
@@ -1118,7 +1283,13 @@ export const AtlasJsonEditor: React.FC = () => {
         />
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
-          <button onClick={generateFrames} disabled={mode !== 'grid'}>生成网格切片</button>
+          <button onClick={() => void generateFrames()} disabled={mode !== 'grid'}>
+            {mode === 'grid' && gridEstimate.valid
+              ? gridSplitMode === 'rows-columns'
+                ? `扫描并生成最多 ${gridEstimate.count} 个切片`
+                : `生成 ${gridEstimate.count} 个网格切片`
+              : '生成网格切片'}
+          </button>
           <button onClick={() => void saveJsonToProject()} disabled={saving}>
             {saving ? '保存中…' : '保存到项目'}
           </button>

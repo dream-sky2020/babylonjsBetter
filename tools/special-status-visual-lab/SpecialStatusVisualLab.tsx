@@ -1,4 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, Sprite, SpriteManager, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { SpecialStatusBadge } from '@/core/ui';
 
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
@@ -13,6 +14,7 @@ const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
 const TEXT_COLOR_PRESETS = ['#e2e8f0', '#ffffff', '#f8fafc', '#fde68a', '#fca5a5', '#93c5fd'];
 
 type DragMode = 'move' | 'resize';
+type PreviewMode = 'ui2d' | 'babylon3d';
 type DragState = {
   mode: DragMode;
   startX: number;
@@ -35,6 +37,7 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const [showBottomLeftValue, setShowBottomLeftValue] = useState(true);
   const [showBottomRightValue, setShowBottomRightValue] = useState(true);
   const [iconSrc, setIconSrc] = useState('');
+  const [previewMode, setPreviewMode] = useState<PreviewMode>('ui2d');
 
   const [badgeSize, setBadgeSize] = useState(96);
   const [iconScale, setIconScale] = useState(1);
@@ -101,6 +104,25 @@ export const SpecialStatusVisualLab: React.FC = () => {
     setTextColorInput(nextColor);
   };
 
+  const badgePreview = (
+    <SpecialStatusBadge
+      iconSrc={iconSrc || undefined}
+      topLeftValue={topLeftValue}
+      topRightValue={topRightValue}
+      bottomLeftValue={bottomLeftValue}
+      bottomRightValue={bottomRightValue}
+      showTopLeftValue={showTopLeftValue}
+      showTopRightValue={showTopRightValue}
+      showBottomLeftValue={showBottomLeftValue}
+      showBottomRightValue={showBottomRightValue}
+      size={badgeSize}
+      iconScale={iconScale}
+      textColor={textColor}
+      valueFontSize={valueFontSize}
+      cornerInset={cornerInset}
+    />
+  );
+
   return (
     <div
       style={{
@@ -129,6 +151,19 @@ export const SpecialStatusVisualLab: React.FC = () => {
         <div style={{ fontSize: 12, color: '#cbd5e1' }}>
           纯视觉实验页：组件只根据参数显示样式，不包含业务逻辑。
         </div>
+
+        <label>
+          预览场景
+          <select
+            aria-label="预览场景"
+            value={previewMode}
+            onChange={(event) => setPreviewMode(event.target.value as PreviewMode)}
+            style={{ width: '100%', marginTop: 4 }}
+          >
+            <option value="ui2d">UI 2D</option>
+            <option value="babylon3d">Babylon3d</option>
+          </select>
+        </label>
 
         <label>
           图标资源（自动扫描 public/resources）
@@ -400,16 +435,16 @@ export const SpecialStatusVisualLab: React.FC = () => {
         <div
           style={{
             position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: `translate(calc(-50% + ${frameOffsetX}px), calc(-50% + ${frameOffsetY}px))`,
-            width: frameWidth,
-            height: frameHeight,
-            border: '1px solid rgba(148, 163, 184, 0.45)',
-            borderRadius: 12,
+            left: previewMode === 'babylon3d' ? 0 : '50%',
+            top: previewMode === 'babylon3d' ? 0 : '50%',
+            transform: previewMode === 'babylon3d' ? 'none' : `translate(calc(-50% + ${frameOffsetX}px), calc(-50% + ${frameOffsetY}px))`,
+            width: previewMode === 'babylon3d' ? '100%' : frameWidth,
+            height: previewMode === 'babylon3d' ? '100%' : frameHeight,
+            border: previewMode === 'babylon3d' ? 'none' : '1px solid rgba(148, 163, 184, 0.45)',
+            borderRadius: previewMode === 'babylon3d' ? 0 : 12,
             background: '#111827',
             display: 'grid',
-            gridTemplateRows: '34px 1fr'
+            gridTemplateRows: previewMode === 'babylon3d' ? '1fr' : '34px 1fr'
           }}
         >
           <div
@@ -418,11 +453,11 @@ export const SpecialStatusVisualLab: React.FC = () => {
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
             style={{
+              display: previewMode === 'babylon3d' ? 'none' : 'flex',
               cursor: 'grab',
               borderBottom: '1px solid rgba(148, 163, 184, 0.35)',
               color: '#e2e8f0',
               fontSize: 12,
-              display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               padding: '0 10px',
@@ -433,23 +468,19 @@ export const SpecialStatusVisualLab: React.FC = () => {
             <span>{Math.round(frameWidth)} x {Math.round(frameHeight)}</span>
           </div>
 
-          <div style={{ display: 'grid', placeItems: 'center', overflow: 'hidden', padding: 16 }}>
-            <SpecialStatusBadge
-              iconSrc={iconSrc || undefined}
-              topLeftValue={topLeftValue}
-              topRightValue={topRightValue}
-              bottomLeftValue={bottomLeftValue}
-              bottomRightValue={bottomRightValue}
-              showTopLeftValue={showTopLeftValue}
-              showTopRightValue={showTopRightValue}
-              showBottomLeftValue={showBottomLeftValue}
-              showBottomRightValue={showBottomRightValue}
-              size={badgeSize}
-              iconScale={iconScale}
-              textColor={textColor}
-              valueFontSize={valueFontSize}
-              cornerInset={cornerInset}
-            />
+          <div style={{ display: 'grid', placeItems: 'center', overflow: 'hidden', padding: previewMode === 'babylon3d' ? 0 : 16 }}>
+            {previewMode === 'babylon3d' ? (
+              <Babylon3dStatusPreview
+                iconSrc={iconSrc}
+                values={[topLeftValue, topRightValue, bottomLeftValue, bottomRightValue]}
+                visible={[showTopLeftValue, showTopRightValue, showBottomLeftValue, showBottomRightValue]}
+                spriteSize={badgeSize}
+                iconScale={iconScale}
+                valueFontSize={valueFontSize}
+                textColor={textColor}
+                cornerInset={cornerInset}
+              />
+            ) : badgePreview}
           </div>
 
           <div
@@ -458,6 +489,7 @@ export const SpecialStatusVisualLab: React.FC = () => {
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
             style={{
+              display: previewMode === 'babylon3d' ? 'none' : 'block',
               position: 'absolute',
               right: 0,
               bottom: 0,
@@ -469,6 +501,76 @@ export const SpecialStatusVisualLab: React.FC = () => {
           />
         </div>
       </main>
+    </div>
+  );
+};
+
+type Babylon3dStatusPreviewProps = {
+  iconSrc: string;
+  values: Array<number | string>;
+  visible: boolean[];
+  spriteSize: number;
+  iconScale: number;
+  valueFontSize: number;
+  textColor: string;
+  cornerInset: number;
+};
+
+const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, spriteSize, iconScale, valueFontSize, textColor, cornerInset }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const engine = new Engine(canvas, true, { stencil: true });
+    const scene = new Scene(engine);
+    scene.clearColor = new Color4(0.035, 0.055, 0.09, 1);
+    const camera = new ArcRotateCamera('special_status_3d_camera', -Math.PI / 2, 1.18, 9, new Vector3(0, 1, 0), scene);
+    camera.attachControl(canvas, true);
+    camera.wheelPrecision = 35;
+    const light = new HemisphericLight('special_status_3d_light', new Vector3(0.4, 1, 0.2), scene);
+    light.intensity = 1.35;
+    const ground = MeshBuilder.CreateGround('special_status_3d_ground', { width: 18, height: 18 }, scene);
+    const groundMaterial = new StandardMaterial('special_status_3d_ground_material', scene);
+    groundMaterial.diffuseColor = new Color3(0.06, 0.1, 0.16);
+    ground.material = groundMaterial;
+    const pedestal = MeshBuilder.CreateCylinder('special_status_3d_pedestal', { height: 0.8, diameter: 3.2, tessellation: 48 }, scene);
+    pedestal.position.y = 0.4;
+    const pedestalMaterial = new StandardMaterial('special_status_3d_pedestal_material', scene);
+    pedestalMaterial.diffuseColor = new Color3(0.16, 0.27, 0.42);
+    pedestal.material = pedestalMaterial;
+    const spriteManager = new SpriteManager('special_status_sprite_manager', iconSrc || '/resources/favicon.svg', 1, { width: 512, height: 512 }, scene);
+    const sprite = new Sprite('special_status_sprite', spriteManager);
+    sprite.position = new Vector3(0, 2.25, 0);
+    sprite.width = 2.4 * iconScale;
+    sprite.height = 2.4 * iconScale;
+    engine.runRenderLoop(() => scene.render());
+    const resize = () => engine.resize();
+    window.addEventListener('resize', resize);
+    return () => {
+      window.removeEventListener('resize', resize);
+      scene.dispose();
+      engine.dispose();
+    };
+  }, [iconSrc, iconScale]);
+
+  const displaySize = Math.max(48, spriteSize);
+  const inset = Math.max(-24, Math.min(24, cornerInset));
+
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
+      <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%', outline: 'none' }} />
+      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', pointerEvents: 'none' }}>
+        <div style={{ width: displaySize, height: displaySize, display: 'grid', gridTemplate: '1fr 1fr / 1fr 1fr', placeItems: 'center', padding: inset, color: textColor, fontSize: valueFontSize, fontWeight: 700, lineHeight: 1, textShadow: '0 1px 3px #000, 0 0 5px #000' }}>
+          {visible[0] ? <span>{values[0]}</span> : <span />}
+          {visible[1] ? <span>{values[1]}</span> : <span />}
+          {visible[2] ? <span>{values[2]}</span> : <span />}
+          {visible[3] ? <span>{values[3]}</span> : <span />}
+        </div>
+      </div>
+      <div style={{ position: 'absolute', left: 8, bottom: 6, color: '#94a3b8', fontSize: 10, pointerEvents: 'none' }}>
+        Babylon3d 场景 · 左键旋转 · 滚轮缩放
+      </div>
     </div>
   );
 };

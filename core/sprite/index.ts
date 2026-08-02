@@ -224,3 +224,19 @@ export {
   samplePoseFromKeyframe,
   upsertPoseChannel
 } from '@/core/sprite/editor/spriteAnimationEditorHelpers.ts';
+
+// number sprite
+export type {
+  NumberSprite,
+  NumberSpriteAlignment,
+  NumberSpriteGlyphSource,
+  NumberSpritePreset,
+  NumberSpritePresetMap
+} from '@/core/sprite/number/numberSprite.types.ts';
+export { createNumberSprite } from '@/core/sprite/number/createNumberSprite.ts';
+export {
+  NUMBER_SPRITE_CONFIG_URL,
+  getNumberSpritePreset,
+  getNumberSpritePresets,
+  loadNumberSpritePresets
+} from '@/core/sprite/number/numberSpriteRepository.ts';
