@@ -1,5 +1,9 @@
 import { Vector3 } from '@babylonjs/core';
-import type { CameraLabController, CameraLabMode } from '@/core/camera/cameraLabController.ts';
+import type {
+  CameraLabController,
+  CameraLabMode,
+  CameraLockPlaneAxis
+} from '@/core/camera/cameraLabController.ts';
 import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
 
 export interface FloatingCameraControlPanel {
@@ -41,7 +45,15 @@ const html = `
       <div><label>移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
       <div><label>鼠标灵敏度</label><input data-field="mouseSensitivity" type="number" min="0.0005" max="0.02" step="0.0005" /></div>
       <div><label>第一人称高度</label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
-      <div><label>锁定平面 Y</label><input data-field="lockPlaneY" type="number" step="0.1" /></div>
+      <div>
+        <label>锁定平面</label>
+        <select data-field="lockPlaneAxis">
+          <option value="x">X（YZ 平面）</option>
+          <option value="y">Y（XZ 平面）</option>
+          <option value="z">Z（XY 平面）</option>
+        </select>
+      </div>
+      <div><label>锁定平面坐标</label><input data-field="lockPlaneValue" type="number" step="0.1" /></div>
       <div><label>环绕半径</label><input data-field="orbitRadius" type="number" min="1" max="300" step="0.5" /></div>
       <div><label>环绕俯仰角</label><input data-field="orbitPitchDeg" type="number" min="-80" max="80" step="1" /></div>
     </div>
@@ -171,7 +183,8 @@ export const createFloatingCameraControlPanel = (
       else if (field === 'moveSpeed') input.value = String(state.moveSpeed);
       else if (field === 'mouseSensitivity') input.value = String(state.mouseSensitivity);
       else if (field === 'firstPersonHeight') input.value = String(state.firstPersonHeight);
-      else if (field === 'lockPlaneY') input.value = String(state.lockPlaneY);
+      else if (field === 'lockPlaneAxis') input.value = state.lockPlaneAxis;
+      else if (field === 'lockPlaneValue') input.value = String(state.lockPlaneValue);
       else if (field === 'orbitRadius') input.value = String(state.orbitRadius);
       else if (field === 'orbitPitchDeg') input.value = String(state.orbitPitchDeg);
       else if (field === 'orbitCenter.x') input.value = String(state.orbitCenter.x);
@@ -195,7 +208,16 @@ export const createFloatingCameraControlPanel = (
     else if (field === 'moveSpeed') state.moveSpeed = readNumber(input as HTMLInputElement, state.moveSpeed);
     else if (field === 'mouseSensitivity') state.mouseSensitivity = readNumber(input as HTMLInputElement, state.mouseSensitivity);
     else if (field === 'firstPersonHeight') state.firstPersonHeight = readNumber(input as HTMLInputElement, state.firstPersonHeight);
-    else if (field === 'lockPlaneY') state.lockPlaneY = readNumber(input as HTMLInputElement, state.lockPlaneY);
+    else if (field === 'lockPlaneAxis') {
+      const axis = (input.value === 'x' || input.value === 'z' ? input.value : 'y') as CameraLockPlaneAxis;
+      state.lockPlaneAxis = axis;
+      state.lockPlaneValue = state.lockPosition[axis];
+      const valueInput = panel.querySelector<HTMLInputElement>('input[data-field="lockPlaneValue"]');
+      if (valueInput) valueInput.value = String(state.lockPlaneValue);
+    }
+    else if (field === 'lockPlaneValue') {
+      state.lockPlaneValue = readNumber(input as HTMLInputElement, state.lockPlaneValue);
+    }
     else if (field === 'orbitRadius') state.orbitRadius = readNumber(input as HTMLInputElement, state.orbitRadius);
     else if (field === 'orbitPitchDeg') state.orbitPitchDeg = readNumber(input as HTMLInputElement, state.orbitPitchDeg);
     else if (field.startsWith('orbitCenter.')) state.orbitCenter = new Vector3(

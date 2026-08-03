@@ -1,14 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, Sprite, SpriteManager, StandardMaterial, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, Mesh, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { SpecialStatusBadge } from '@/core/ui';
+import {
+  createAtlasSpritePlane,
+  createNumberSprite,
+  getPublicResourceImagePaths,
+  loadNumberSpritePresets,
+  type NumberSprite,
+  type NumberSpritePreset,
+  type NumberSpritePresetMap
+} from '@/core/sprite';
 
-const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
-
-const decodePublicPath = (input: string): string => String(input || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '');
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
 const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
 const TEXT_COLOR_PRESETS = ['#e2e8f0', '#ffffff', '#f8fafc', '#fde68a', '#fca5a5', '#93c5fd'];
@@ -38,6 +40,32 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const [showBottomRightValue, setShowBottomRightValue] = useState(true);
   const [iconSrc, setIconSrc] = useState('');
   const [previewMode, setPreviewMode] = useState<PreviewMode>('ui2d');
+  const [numberPresets, setNumberPresets] = useState<NumberSpritePresetMap>({});
+  const [numberPresetKey, setNumberPresetKey] = useState('number_default');
+  const [billboard3d, setBillboard3d] = useState(true);
+  const [debug3d, setDebug3d] = useState(false);
+  const [statusHeight3d, setStatusHeight3d] = useState(2.4);
+  const [statusScale3d, setStatusScale3d] = useState(1);
+  const [numberScale3d, setNumberScale3d] = useState(1);
+  const [cornerInset3d, setCornerInset3d] = useState(0);
+  const [positionX3d, setPositionX3d] = useState(0);
+  const [positionY3d, setPositionY3d] = useState(2.25);
+  const [positionZ3d, setPositionZ3d] = useState(0);
+  const [numberOffsets3d, setNumberOffsets3d] = useState<Array<[number, number, number]>>([
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ]);
+
+  const updateNumberOffset3d = (index: number, axis: 0 | 1 | 2, value: number) => {
+    setNumberOffsets3d((current) => current.map((offset, offsetIndex) => {
+      if (offsetIndex !== index) return offset;
+      const next: [number, number, number] = [...offset];
+      next[axis] = value;
+      return next;
+    }));
+  };
 
   const [badgeSize, setBadgeSize] = useState(96);
   const [iconScale, setIconScale] = useState(1);
@@ -51,13 +79,19 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const [frameWidth, setFrameWidth] = useState(420);
   const [frameHeight, setFrameHeight] = useState(300);
 
-  const resourceImageOptions = useMemo(() => {
-    return Object.values(RESOURCE_IMAGE_MODULES)
-      .map((assetUrl) => decodePublicPath(assetUrl as string))
-      .map((path) => path.replace(/^public\/+/, ''))
-      .filter((path) => path.startsWith('resources/'))
-      .map((path) => `/${path}`)
-      .sort((a, b) => a.localeCompare(b, 'zh-CN'));
+  const resourceImageOptions = useMemo(() => getPublicResourceImagePaths(true), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    void loadNumberSpritePresets(true).then((loaded) => {
+      if (cancelled) return;
+      setNumberPresets(loaded);
+      const keys = Object.keys(loaded);
+      setNumberPresetKey((current) => loaded[current] ? current : (keys[0] ?? ''));
+    }).catch((error) => {
+      console.error('数字精灵配置加载失败', error);
+    });
+    return () => { cancelled = true; };
   }, []);
 
   const beginDrag = (event: React.PointerEvent, mode: DragMode) => {
@@ -189,6 +223,31 @@ export const SpecialStatusVisualLab: React.FC = () => {
           />
         </label>
 
+        {previewMode === 'babylon3d' ? <div style={{ display: 'grid', gap: 10 }}><label>
+          3D 数字精灵配置
+          <select
+            value={numberPresetKey}
+            onChange={(event) => setNumberPresetKey(event.target.value)}
+            style={{ width: '100%', marginTop: 4 }}
+          >
+            {Object.entries(numberPresets).map(([key, item]) => (
+              <option key={key} value={key}>{key} · {item.name}</option>
+            ))}
+          </select>
+        </label>
+        <label style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 12 }}>
+          <input
+            type="checkbox"
+            checked={billboard3d}
+            onChange={(event) => setBillboard3d(event.target.checked)}
+          />
+          3D 始终朝向相机
+        </label>
+        <button type="button" onClick={() => setDebug3d((current) => !current)}>
+          {debug3d ? '关闭精灵 Debug 边界' : '开启精灵 Debug 边界'}
+        </button>
+        </div> : null}
+
         <label>
           左上数值
           <input
@@ -261,7 +320,7 @@ export const SpecialStatusVisualLab: React.FC = () => {
           </label>
         </div>
 
-        <label>
+        {previewMode === 'ui2d' ? <><label>
           组件尺寸（正方形） {badgeSize}px
           <input
             type="range"
@@ -421,6 +480,61 @@ export const SpecialStatusVisualLab: React.FC = () => {
         >
           回到中心
         </button>
+        </> : <div style={{ display: 'grid', gap: 10 }}>
+          <label>
+            状态图高度
+            <input type="number" min={0.1} step="0.1" value={statusHeight3d} onChange={(event) => setStatusHeight3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            状态精灵缩放
+            <input type="number" min={0.1} step="0.1" value={statusScale3d} onChange={(event) => setStatusScale3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            数字精灵缩放
+            <input type="number" min={0.1} step="0.1" value={numberScale3d} onChange={(event) => setNumberScale3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            数字整体内边距
+            <input type="number" step="0.1" value={cornerInset3d} onChange={(event) => setCornerInset3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            状态图位置 X
+            <input type="number" step="0.1" value={positionX3d} onChange={(event) => setPositionX3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            状态图位置 Y
+            <input type="number" step="0.1" value={positionY3d} onChange={(event) => setPositionY3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <label>
+            状态图位置 Z
+            <input type="number" step="0.1" value={positionZ3d} onChange={(event) => setPositionZ3d(Number(event.target.value))} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          {(['左上数字', '右上数字', '左下数字', '右下数字'] as const).map((label, index) => (
+            <fieldset key={label} style={{ margin: 0, padding: 8, border: '1px solid rgba(148, 163, 184, 0.35)', borderRadius: 6 }}>
+              <legend style={{ padding: '0 4px', fontSize: 12 }}>{label}偏移</legend>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6 }}>
+                {(['X', 'Y', 'Z'] as const).map((axisLabel, axis) => (
+                  <label key={axisLabel} style={{ fontSize: 11 }}>
+                    {axisLabel}
+                    <input type="number" step="0.1" value={numberOffsets3d[index]?.[axis] ?? 0} onChange={(event) => updateNumberOffset3d(index, axis as 0 | 1 | 2, Number(event.target.value))} style={{ width: '100%', marginTop: 3 }} />
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+          <button type="button" onClick={() => {
+            setStatusHeight3d(2.4);
+            setStatusScale3d(1);
+            setNumberScale3d(1);
+            setCornerInset3d(0);
+            setPositionX3d(0);
+            setPositionY3d(2.25);
+            setPositionZ3d(0);
+            setNumberOffsets3d([[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]);
+          }}>
+            重置 3D 参数
+          </button>
+        </div>}
       </aside>
 
       <main
@@ -474,11 +588,15 @@ export const SpecialStatusVisualLab: React.FC = () => {
                 iconSrc={iconSrc}
                 values={[topLeftValue, topRightValue, bottomLeftValue, bottomRightValue]}
                 visible={[showTopLeftValue, showTopRightValue, showBottomLeftValue, showBottomRightValue]}
-                spriteSize={badgeSize}
-                iconScale={iconScale}
-                valueFontSize={valueFontSize}
-                textColor={textColor}
-                cornerInset={cornerInset}
+                statusHeight={statusHeight3d}
+                statusScale={statusScale3d}
+                numberScale={numberScale3d}
+                cornerInset={cornerInset3d}
+                position={[positionX3d, positionY3d, positionZ3d]}
+                numberOffsets={numberOffsets3d}
+                debug={debug3d}
+                numberPreset={numberPresets[numberPresetKey]}
+                billboard={billboard3d}
               />
             ) : badgePreview}
           </div>
@@ -509,21 +627,52 @@ type Babylon3dStatusPreviewProps = {
   iconSrc: string;
   values: Array<number | string>;
   visible: boolean[];
-  spriteSize: number;
-  iconScale: number;
-  valueFontSize: number;
-  textColor: string;
+  statusHeight: number;
+  statusScale: number;
+  numberScale: number;
   cornerInset: number;
+  position: [number, number, number];
+  numberOffsets: Array<[number, number, number]>;
+  debug: boolean;
+  numberPreset?: NumberSpritePreset;
+  billboard: boolean;
 };
 
-const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, spriteSize, iconScale, valueFontSize, textColor, cornerInset }) => {
+const createPlaneDebugOverlay = (mesh: Mesh, scene: Scene, color: Color3): Mesh[] => {
+  const border = MeshBuilder.CreateLines(`${mesh.name}_debug_border`, {
+    points: [
+      new Vector3(-0.5, 0.5, -0.02),
+      new Vector3(0.5, 0.5, -0.02),
+      new Vector3(0.5, -0.5, -0.02),
+      new Vector3(-0.5, -0.5, -0.02),
+      new Vector3(-0.5, 0.5, -0.02)
+    ]
+  }, scene);
+  const centerLines = MeshBuilder.CreateLineSystem(`${mesh.name}_debug_center_lines`, {
+    lines: [
+      [new Vector3(-0.5, 0, -0.02), new Vector3(0.5, 0, -0.02)],
+      [new Vector3(0, -0.5, -0.02), new Vector3(0, 0.5, -0.02)]
+    ]
+  }, scene);
+  for (const debugMesh of [border, centerLines]) {
+    debugMesh.color = color;
+    debugMesh.parent = mesh;
+    debugMesh.isPickable = false;
+    debugMesh.renderingGroupId = 3;
+  }
+  return [border, centerLines];
+};
+
+const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, statusHeight, statusScale, numberScale, cornerInset, position, numberOffsets, numberPreset, billboard, debug }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sceneRef = useRef<Scene | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const engine = new Engine(canvas, true, { stencil: true });
     const scene = new Scene(engine);
+    sceneRef.current = scene;
     scene.clearColor = new Color4(0.035, 0.055, 0.09, 1);
     const camera = new ArcRotateCamera('special_status_3d_camera', -Math.PI / 2, 1.18, 9, new Vector3(0, 1, 0), scene);
     camera.attachControl(canvas, true);
@@ -534,16 +683,6 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
     const groundMaterial = new StandardMaterial('special_status_3d_ground_material', scene);
     groundMaterial.diffuseColor = new Color3(0.06, 0.1, 0.16);
     ground.material = groundMaterial;
-    const pedestal = MeshBuilder.CreateCylinder('special_status_3d_pedestal', { height: 0.8, diameter: 3.2, tessellation: 48 }, scene);
-    pedestal.position.y = 0.4;
-    const pedestalMaterial = new StandardMaterial('special_status_3d_pedestal_material', scene);
-    pedestalMaterial.diffuseColor = new Color3(0.16, 0.27, 0.42);
-    pedestal.material = pedestalMaterial;
-    const spriteManager = new SpriteManager('special_status_sprite_manager', iconSrc || '/resources/favicon.svg', 1, { width: 512, height: 512 }, scene);
-    const sprite = new Sprite('special_status_sprite', spriteManager);
-    sprite.position = new Vector3(0, 2.25, 0);
-    sprite.width = 2.4 * iconScale;
-    sprite.height = 2.4 * iconScale;
     engine.runRenderLoop(() => scene.render());
     const resize = () => engine.resize();
     window.addEventListener('resize', resize);
@@ -551,23 +690,81 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
       window.removeEventListener('resize', resize);
       scene.dispose();
       engine.dispose();
+      sceneRef.current = null;
     };
-  }, [iconSrc, iconScale]);
+  }, []);
 
-  const displaySize = Math.max(48, spriteSize);
-  const inset = Math.max(-24, Math.min(24, cornerInset));
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene) return;
+    const icon = createAtlasSpritePlane(
+      scene,
+      encodeURI(iconSrc || '/resources/favicon.svg'),
+      statusHeight * statusScale
+    );
+    icon.mesh.name = 'special_status_core_sprite';
+    icon.mesh.position = new Vector3(position[0], position[1], position[2]);
+    icon.mesh.billboardMode = billboard ? Mesh.BILLBOARDMODE_Y : 0;
+    icon.mesh.renderingGroupId = 1;
+    if (icon.mesh.material) icon.mesh.material.disableDepthWrite = true;
+    icon.mesh.showBoundingBox = debug;
+    icon.mesh.isPickable = false;
+    const debugMeshes = debug ? createPlaneDebugOverlay(icon.mesh, scene, new Color3(0.2, 0.85, 1)) : [];
+    return () => {
+      for (const debugMesh of debugMeshes) debugMesh.dispose();
+      icon.dispose();
+    };
+  }, [iconSrc, statusHeight, statusScale, position[0], position[1], position[2], billboard, debug]);
+
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!scene || !numberPreset) return;
+    let cancelled = false;
+    const created: NumberSprite[] = [];
+    const iconHeight = statusHeight * statusScale;
+    const offset = Math.max(0.02, iconHeight * 0.5 - cornerInset);
+    const positions = [
+      new Vector3(position[0] - offset, position[1] + offset, position[2] - 0.04),
+      new Vector3(position[0] + offset, position[1] + offset, position[2] - 0.04),
+      new Vector3(position[0] - offset, position[1] - offset, position[2] - 0.04),
+      new Vector3(position[0] + offset, position[1] - offset, position[2] - 0.04)
+    ];
+    const runtimePreset: NumberSpritePreset = {
+      ...numberPreset,
+      height: numberPreset.height * numberScale,
+      billboard: false
+    };
+
+    void Promise.all(values.map(async (value, index) => {
+      if (!visible[index]) return;
+      const numberSprite = await createNumberSprite(scene, String(value), runtimePreset);
+      if (cancelled) {
+        numberSprite.dispose();
+        return;
+      }
+      const basePosition = positions[index] ?? Vector3.Zero();
+      const digitOffset = numberOffsets[index] ?? [0, 0, 0];
+      numberSprite.root.position.copyFrom(basePosition).addInPlaceFromFloats(digitOffset[0], digitOffset[1], digitOffset[2]);
+      numberSprite.root.billboardMode = billboard ? Mesh.BILLBOARDMODE_Y : 0;
+      numberSprite.setDebugVisible(debug);
+      for (const digitMesh of numberSprite.root.getChildMeshes()) {
+        digitMesh.renderingGroupId = 2;
+        if (digitMesh.material) digitMesh.material.disableDepthWrite = true;
+      }
+      created.push(numberSprite);
+    })).catch((error) => {
+      console.error('Special Status 3D 数字精灵创建失败', error);
+    });
+
+    return () => {
+      cancelled = true;
+      for (const numberSprite of created) numberSprite.dispose();
+    };
+  }, [numberPreset, values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3], statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard, debug]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%', outline: 'none' }} />
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', pointerEvents: 'none' }}>
-        <div style={{ width: displaySize, height: displaySize, display: 'grid', gridTemplate: '1fr 1fr / 1fr 1fr', placeItems: 'center', padding: inset, color: textColor, fontSize: valueFontSize, fontWeight: 700, lineHeight: 1, textShadow: '0 1px 3px #000, 0 0 5px #000' }}>
-          {visible[0] ? <span>{values[0]}</span> : <span />}
-          {visible[1] ? <span>{values[1]}</span> : <span />}
-          {visible[2] ? <span>{values[2]}</span> : <span />}
-          {visible[3] ? <span>{values[3]}</span> : <span />}
-        </div>
-      </div>
       <div style={{ position: 'absolute', left: 8, bottom: 6, color: '#94a3b8', fontSize: 10, pointerEvents: 'none' }}>
         Babylon3d 场景 · 左键旋转 · 滚轮缩放
       </div>

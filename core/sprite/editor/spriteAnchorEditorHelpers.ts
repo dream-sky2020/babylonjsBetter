@@ -48,7 +48,20 @@ export const BOUNDS_MIN = 0;
 export const BOUNDS_MAX = 1;
 
 export const normalizePublicPath = (input: string): string => {
-  return decodeURI(input).replace(/^\/+/, '').replace(/^\.\/+/, '');
+  const withoutOrigin = String(input || '').replace(/^https?:\/\/[^/]+/i, '');
+  try {
+    return decodeURI(withoutOrigin).replace(/^\/+/, '').replace(/^\.\/+/, '');
+  } catch {
+    return withoutOrigin.replace(/^\/+/, '').replace(/^\.\/+/, '');
+  }
+};
+
+export const getPublicResourceImagePaths = (resourceOnly = true): string[] => {
+  const paths = Object.values(RESOURCE_IMAGE_MODULES)
+    .map((assetUrl) => normalizePublicPath(assetUrl).replace(/^public\/+/, ''))
+    .filter((path) => !resourceOnly || path.startsWith('resources/'))
+    .map((path) => `/${path}`);
+  return [...new Set(paths)].sort((a, b) => a.localeCompare(b, 'zh-CN'));
 };
 
 export const DEFAULT_SCANNED_ATLAS_OPTIONS = RESOURCE_ATLAS_PATHS

@@ -1,4 +1,4 @@
-import { Mesh, TransformNode, type Scene } from '@babylonjs/core';
+import { Color3, Mesh, MeshBuilder, TransformNode, Vector3, type Scene } from '@babylonjs/core';
 import { loadTexturePackerAtlas } from '@/core/sprite/atlas/normalizeTexturePackerAtlas.ts';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 import { joinPublicPath, toFrameRegion } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
@@ -63,10 +63,47 @@ export const createNumberSprite = async (
   root.billboardMode = preset.billboard ? Mesh.BILLBOARDMODE_ALL : 0;
   let currentText = text;
   let parts: IconPlaneController[] = [];
+  let debugMeshes: Mesh[] = [];
   let generation = 0;
   let debugVisible = false;
 
+  const clearDebugMeshes = () => {
+    for (const mesh of debugMeshes) mesh.dispose();
+    debugMeshes = [];
+  };
+
+  const refreshDebugMeshes = () => {
+    clearDebugMeshes();
+    for (const part of parts) {
+      part.mesh.showBoundingBox = debugVisible;
+      if (!debugVisible) continue;
+      const border = MeshBuilder.CreateLines(`${part.mesh.name}_debug_border`, {
+        points: [
+          new Vector3(-0.5, 0.5, -0.02),
+          new Vector3(0.5, 0.5, -0.02),
+          new Vector3(0.5, -0.5, -0.02),
+          new Vector3(-0.5, -0.5, -0.02),
+          new Vector3(-0.5, 0.5, -0.02)
+        ]
+      }, scene);
+      const centerLines = MeshBuilder.CreateLineSystem(`${part.mesh.name}_debug_center_lines`, {
+        lines: [
+          [new Vector3(-0.5, 0, -0.02), new Vector3(0.5, 0, -0.02)],
+          [new Vector3(0, -0.5, -0.02), new Vector3(0, 0.5, -0.02)]
+        ]
+      }, scene);
+      for (const debugMesh of [border, centerLines]) {
+        debugMesh.color = new Color3(1, 0.82, 0.2);
+        debugMesh.parent = part.mesh;
+        debugMesh.isPickable = false;
+        debugMesh.renderingGroupId = 3;
+        debugMeshes.push(debugMesh);
+      }
+    }
+  };
+
   const clearParts = () => {
+    clearDebugMeshes();
     for (const part of parts) part.dispose?.();
     parts = [];
   };
@@ -115,6 +152,7 @@ export const createNumberSprite = async (
     }
 
     parts = created.map((item) => item.controller);
+    refreshDebugMeshes();
     const groupGapCount = created.slice(0, -1)
       .filter((item) => groupingBoundaries.has(item.sourceIndex)).length;
     const totalWidth = created.reduce((sum, item) => sum + item.width, 0)
@@ -138,7 +176,7 @@ export const createNumberSprite = async (
     isDebugVisible: () => debugVisible,
     setDebugVisible: (visible) => {
       debugVisible = visible;
-      for (const part of parts) part.mesh.showBoundingBox = visible;
+      refreshDebugMeshes();
     },
     dispose: () => {
       generation += 1;

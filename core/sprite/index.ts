@@ -187,6 +187,7 @@ export {
   BOUNDS_MIN,
   BOUNDS_MAX,
   normalizePublicPath,
+  getPublicResourceImagePaths,
   DEFAULT_SCANNED_ATLAS_OPTIONS,
   clamp01,
   clamp,
@@ -238,5 +239,6 @@ export {
   NUMBER_SPRITE_CONFIG_URL,
   getNumberSpritePreset,
   getNumberSpritePresets,
-  loadNumberSpritePresets
+  loadNumberSpritePresets,
+  normalizeNumberSpritePresets
 } from '@/core/sprite/number/numberSpriteRepository.ts';

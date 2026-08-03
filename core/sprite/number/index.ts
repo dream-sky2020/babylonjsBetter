@@ -10,5 +10,6 @@ export {
   NUMBER_SPRITE_CONFIG_URL,
   getNumberSpritePreset,
   getNumberSpritePresets,
-  loadNumberSpritePresets
+  loadNumberSpritePresets,
+  normalizeNumberSpritePresets
 } from './numberSpriteRepository.ts';
