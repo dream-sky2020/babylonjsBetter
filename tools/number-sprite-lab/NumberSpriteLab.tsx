@@ -15,6 +15,7 @@ import {
   DEFAULT_SCANNED_ATLAS_OPTIONS,
   joinPublicPath,
   normalizePublicPath,
+  normalizeNumberSpritePresets,
   RESOURCE_IMAGE_MODULES,
   type NumberSprite,
   type NumberSpriteGlyphSource,
@@ -31,18 +32,6 @@ const DEFAULT_PRESET: NumberSpritePreset = {
   groupingEnabled: false, groupingExtraSpacing: 0.2,
   alignment: 'center', billboard: true, glyphs: {}
 };
-
-const normalizePresets = (input: NumberSpritePresetMap): NumberSpritePresetMap =>
-  Object.fromEntries(Object.entries(input).map(([key, preset]) => [key, {
-    ...DEFAULT_PRESET,
-    ...preset,
-    presetKey: key,
-    groupingEnabled: preset.groupingEnabled === true,
-    groupingExtraSpacing: Number.isFinite(preset.groupingExtraSpacing)
-      ? Math.max(0, preset.groupingExtraSpacing)
-      : DEFAULT_PRESET.groupingExtraSpacing,
-    glyphs: preset.glyphs ?? {}
-  }]));
 
 const inputStyle: React.CSSProperties = { width: '100%' };
 const sectionStyle: React.CSSProperties = { padding: 12, border: '1px solid #273348', borderRadius: 10, background: '#151d29' };
@@ -129,7 +118,7 @@ export const NumberSpriteLab: React.FC = () => {
       try {
         const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const loaded = normalizePresets(await response.json() as NumberSpritePresetMap);
+        const loaded = normalizeNumberSpritePresets(await response.json());
         const keys = Object.keys(loaded);
         setPresets(keys.length ? loaded : { number_default: DEFAULT_PRESET });
         setActiveKey(keys[0] ?? 'number_default');
@@ -193,12 +182,14 @@ export const NumberSpriteLab: React.FC = () => {
     const port = serverPort ?? await scanServer();
     if (!port) { setMessage('未找到 python/server.py（端口 4550–4600）。'); return; }
     try {
+      const normalizedPresets = normalizeNumberSpritePresets(presets);
       const response = await fetch(`http://127.0.0.1:${port}${API_PATH}`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(presets)
+        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(normalizedPresets)
       });
       const payload = await response.json();
       if (!response.ok || !payload.success) throw new Error(payload.errors?.join('；') || payload.message || `HTTP ${response.status}`);
       setServerPort(port);
+      setPresets(normalizedPresets);
       setMessage(`已保存到 config/numberSpriteConfigs.json（${Object.keys(presets).length} 个配置）。`);
     } catch (error) { setMessage(`保存失败：${String(error)}`); }
   };
@@ -292,7 +283,7 @@ export const NumberSpriteLab: React.FC = () => {
         <input style={inputStyle} value={previewText} onChange={(e) => setPreviewText(e.target.value)} placeholder="输入数字，例如 -1284" />
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, margin: 0, whiteSpace: 'nowrap' }}>
           <input style={{ width: 'auto' }} type="checkbox" checked={debugVisible} onChange={(e) => setDebugVisible(e.target.checked)} />
-          Debug 包围框
+          Sprite Debug（包围盒 / 边框 / 中线）
         </label>
         <span style={{ color: '#8291a8', fontSize: 12 }}>拖拽旋转 · 滚轮缩放</span>
       </div>

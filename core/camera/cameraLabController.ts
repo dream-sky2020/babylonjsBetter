@@ -2,6 +2,7 @@ import { ArcRotateCamera, Vector3 } from '@babylonjs/core';
 
 export type CameraLabMode = 'firstPerson' | 'drone' | 'orbit' | 'lockPan';
 export type CameraLookControlMode = 'pointerLock' | 'drag';
+export type CameraLockPlaneAxis = 'x' | 'y' | 'z';
 
 export interface CameraLabControllerState {
   mode: CameraLabMode;
@@ -17,7 +18,10 @@ export interface CameraLabControllerState {
   orbitYaw: number;
   orbitPitchDeg: number;
   orbitRadius: number;
-  lockPlaneY: number;
+  /** 锁定的坐标轴；x/y/z 分别代表 YZ/XZ/XY 平面。 */
+  lockPlaneAxis: CameraLockPlaneAxis;
+  /** 相机在锁定轴上的固定坐标。 */
+  lockPlaneValue: number;
   lockPosition: Vector3;
   lockTarget: Vector3;
 }
@@ -55,7 +59,8 @@ export const CAMERA_LAB_DEFAULT_STATE: CameraLabControllerState = {
   orbitYaw: 0,
   orbitPitchDeg: 12,
   orbitRadius: 42,
-  lockPlaneY: 6,
+  lockPlaneAxis: 'y',
+  lockPlaneValue: 6,
   lockPosition: new Vector3(0, 6, 20),
   lockTarget: new Vector3(0, -0.15, -520)
 };
@@ -81,6 +86,19 @@ const lookForwardFromYawPitch = (yaw: number, pitch: number): Vector3 => {
   return new Vector3(Math.sin(yaw) * cosPitch, Math.sin(pitch), Math.cos(yaw) * cosPitch);
 };
 
+const setAxisValue = (vector: Vector3, axis: CameraLockPlaneAxis, value: number): void => {
+  vector[axis] = value;
+};
+
+const projectOntoLockPlane = (
+  direction: Vector3,
+  axis: CameraLockPlaneAxis
+): Vector3 => {
+  const projected = direction.clone();
+  setAxisValue(projected, axis, 0);
+  return projected;
+};
+
 export const createCameraLabController = (
   camera: ArcRotateCamera,
   initialState: Partial<CameraLabControllerState> = {}
@@ -90,6 +108,44 @@ export const createCameraLabController = (
     ...initialState
   });
   const keys = new Set<string>();
+
+  /**
+   * 生成相对于当前画面的平面移动基准：A/D 始终对应屏幕左/右。
+   * W/S 优先采用相机 Forward 在平面上的投影；当相机接近平面法线方向时，
+   * Forward 投影会退化，此时自动采用相机 Up 的投影。
+   */
+  const getLockPlaneBasis = (): { forward: Vector3; right: Vector3 } => {
+    const axis = state.lockPlaneAxis;
+    const cameraRight = projectOntoLockPlane(
+      camera.getDirection(new Vector3(1, 0, 0)),
+      axis
+    );
+    const cameraForward = projectOntoLockPlane(
+      camera.getDirection(new Vector3(0, 0, 1)),
+      axis
+    );
+    const cameraUp = projectOntoLockPlane(
+      camera.getDirection(new Vector3(0, 1, 0)),
+      axis
+    );
+
+    const right = cameraRight.lengthSquared() > 1e-6
+      ? cameraRight.normalize()
+      : axis === 'x'
+        ? new Vector3(0, 1, 0)
+        : new Vector3(1, 0, 0);
+    const primaryForward = cameraForward.lengthSquared() >= cameraUp.lengthSquared()
+      ? cameraForward
+      : cameraUp;
+    // Gram-Schmidt：去掉屏幕 Right 分量，保证对角移动不会发生斜切。
+    primaryForward.subtractInPlace(right.scale(Vector3.Dot(primaryForward, right)));
+    const forward = primaryForward.lengthSquared() > 1e-6
+      ? primaryForward.normalize()
+      : axis === 'z'
+        ? new Vector3(0, 1, 0)
+        : new Vector3(0, 0, -1);
+    return { forward, right };
+  };
 
   const applyPose = (): void => {
     camera.fov = 0.43;
@@ -111,7 +167,7 @@ export const createCameraLabController = (
     }
 
     if (state.mode === 'lockPan') {
-      state.lockPosition.y = state.lockPlaneY;
+      setAxisValue(state.lockPosition, state.lockPlaneAxis, state.lockPlaneValue);
       camera.position.copyFrom(state.lockPosition);
       camera.setTarget(state.lockTarget);
       camera.rebuildAnglesAndRadius();
@@ -146,19 +202,12 @@ export const createCameraLabController = (
         position.y = state.firstPersonHeight;
       }
     } else if (state.mode === 'lockPan') {
-      const lockForward = state.lockTarget.subtract(state.lockPosition);
-      lockForward.y = 0;
-      if (lockForward.lengthSquared() > 1e-6) {
-        lockForward.normalize();
-      } else {
-        lockForward.set(0, 0, -1);
-      }
-      const lockRight = new Vector3(lockForward.z, 0, -lockForward.x);
+      const { forward: lockForward, right: lockRight } = getLockPlaneBasis();
       if (keys.has('KeyW')) state.lockPosition.addInPlace(lockForward.scale(moveStep));
       if (keys.has('KeyS')) state.lockPosition.addInPlace(lockForward.scale(-moveStep));
       if (keys.has('KeyD')) state.lockPosition.addInPlace(lockRight.scale(moveStep));
       if (keys.has('KeyA')) state.lockPosition.addInPlace(lockRight.scale(-moveStep));
-      state.lockPosition.y = state.lockPlaneY;
+      setAxisValue(state.lockPosition, state.lockPlaneAxis, state.lockPlaneValue);
     }
 
     applyPose();
@@ -173,8 +222,9 @@ export const createCameraLabController = (
       state.yaw -= dx * sensitivity;
       state.pitch = clamp(state.pitch - dy * sensitivity, degToRad(-85), degToRad(85));
     } else if (state.mode === 'lockPan') {
-      state.lockPosition.x -= dx * 0.04;
-      state.lockPosition.z += dy * 0.04;
+      const { forward, right } = getLockPlaneBasis();
+      state.lockPosition.addInPlace(right.scale(dx * 0.04));
+      state.lockPosition.addInPlace(forward.scale(-dy * 0.04));
     }
     applyPose();
   };
@@ -201,7 +251,7 @@ export const createCameraLabController = (
       `yaw/pitch: ${formatNumber(radToDeg(state.yaw))}° / ${formatNumber(radToDeg(state.pitch))}°`,
       `lookControl: ${state.lookControlMode === 'drag' ? '按住左键拖拽' : '点击画布锁定鼠标'}`,
       `orbit: center=(${formatNumber(state.orbitCenter.x)}, ${formatNumber(state.orbitCenter.y)}, ${formatNumber(state.orbitCenter.z)}), radius=${formatNumber(state.orbitRadius)}, pitch=${formatNumber(state.orbitPitchDeg)}°`,
-      `firstPersonHeight=${formatNumber(state.firstPersonHeight)}, lockPlaneY=${formatNumber(state.lockPlaneY)}`,
+      `firstPersonHeight=${formatNumber(state.firstPersonHeight)}, lockPlane=${state.lockPlaneAxis.toUpperCase()}@${formatNumber(state.lockPlaneValue)}`,
       `speed=${formatNumber(state.moveSpeed)}, sensitivity=${state.mouseSensitivity}`
     ].join('\n');
   };
