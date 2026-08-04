@@ -18,7 +18,8 @@ from utils import (
     validate_model_shake_preset_payload, validate_model_display_config_payload,
     validate_model_swing_config_payload
     ,validate_model_shoot_config_payload, validate_bullet_config_payload,
-    validate_number_sprite_config_payload
+    validate_number_sprite_config_payload, validate_exclamation_mark_preset_payload,
+    validate_monster_exclamation_position_payload
 )
 
 app = Flask(__name__)
@@ -31,6 +32,8 @@ PUBLIC_RESOURCES_DIR = os.path.join(PUBLIC_DIR, "resources")
 SPRITE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnchorPresets.json")
 SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnimationLibrary.json")
 NUMBER_SPRITE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "numberSpriteConfigs.json")
+EXCLAMATION_MARK_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "exclamationMarkPresets.json")
+MONSTER_EXCLAMATION_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterExclamationPositions.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
@@ -216,6 +219,14 @@ def handle_model_shoot_configs():
 @app.route("/api/bullet-configs", methods=["GET", "PUT"])
 def handle_bullet_configs():
     return _handle_json_config(BULLET_CONFIG_PATH, validate_bullet_config_payload, "bullet configs")
+
+@app.route("/api/exclamation-mark-presets", methods=["GET", "PUT"])
+def handle_exclamation_mark_presets():
+    return _handle_json_config(EXCLAMATION_MARK_PRESET_CONFIG_PATH, validate_exclamation_mark_preset_payload, "exclamation mark presets")
+
+@app.route("/api/monster-exclamation-positions", methods=["GET", "PUT"])
+def handle_monster_exclamation_positions():
+    return _handle_json_config(MONSTER_EXCLAMATION_POSITION_CONFIG_PATH, validate_monster_exclamation_position_payload, "monster exclamation positions")
 
 @app.route("/api/find_resource_by_name", methods=["GET"])
 def find_resource_by_name():

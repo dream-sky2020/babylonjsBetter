@@ -888,3 +888,76 @@ def validate_bullet_config_payload(payload: dict) -> list[str]:
         for field, minimum, maximum in (("scale", 0.01, 100), ("speed", 0.01, 1000), ("trailLength", 0, 100), ("trailWidth", 0.001, 100)):
             if not is_finite_number(config.get(field)) or config[field] < minimum or config[field] > maximum: errors.append(f"{path}.{field} out of range")
     return errors
+
+def validate_exclamation_mark_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    allowed_extensions = (".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".svg")
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("preset key must be a non-empty string")
+            continue
+        if not isinstance(preset, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if preset.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        image_path = preset.get("imagePath")
+        if not isinstance(image_path, str) or not image_path.startswith("resources/") or not image_path.lower().split("?", 1)[0].endswith(allowed_extensions):
+            errors.append(f"{path}.imagePath must be a resources image path")
+        for field in ("height", "scale"):
+            value = preset.get(field)
+            if not is_finite_number(value) or value <= 0 or value > 1000:
+                errors.append(f"{path}.{field} must be greater than 0 and no more than 1000")
+        position = preset.get("position")
+        if not isinstance(position, list) or len(position) != 3 or any(not is_finite_number(value) for value in position):
+            errors.append(f"{path}.position must contain three finite numbers")
+        if not isinstance(preset.get("faceCamera"), bool):
+            errors.append(f"{path}.faceCamera must be a boolean")
+        fill_percent = preset.get("fillPercent")
+        if not is_finite_number(fill_percent) or fill_percent < 0 or fill_percent > 1:
+            errors.append(f"{path}.fillPercent must be between 0 and 1")
+        if preset.get("fillDirection") not in ("bottom-to-top", "top-to-bottom", "left-to-right", "right-to-left"):
+            errors.append(f"{path}.fillDirection is invalid")
+        if preset.get("fillMode") not in ("color", "texture"):
+            errors.append(f"{path}.fillMode must be color or texture")
+        if preset.get("backgroundMode") not in ("color", "texture"):
+            errors.append(f"{path}.backgroundMode must be color or texture")
+        for field in ("fillColor", "backgroundColor"):
+            color = preset.get(field)
+            if not isinstance(color, str) or len(color) != 7 or not color.startswith("#"):
+                errors.append(f"{path}.{field} must be a #RRGGBB color")
+            else:
+                try:
+                    int(color[1:], 16)
+                except ValueError:
+                    errors.append(f"{path}.{field} must be a #RRGGBB color")
+        for field in ("fillOpacity", "backgroundOpacity"):
+            opacity = preset.get(field)
+            if not is_finite_number(opacity) or opacity < 0 or opacity > 1:
+                errors.append(f"{path}.{field} must be between 0 and 1")
+    return errors
+
+def validate_monster_exclamation_position_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("monster config key must be a non-empty string")
+            continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if config.get("monsterConfigKey") != key:
+            errors.append(f"{path}.monsterConfigKey must match its object key")
+        for field in ("monsterPositionOffset", "exclamationOffset"):
+            vector = config.get(field)
+            if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector):
+                errors.append(f"{path}.{field} must contain three finite numbers")
+    return errors
