@@ -242,3 +242,21 @@ export {
   loadNumberSpritePresets,
   normalizeNumberSpritePresets
 } from '@/core/sprite/number/numberSpriteRepository.ts';
+
+// exclamation mark sprite
+export type {
+  ExclamationMarkPreset,
+  ExclamationMarkPresetMap
+} from '@/core/sprite/exclamation/exclamationMark.types.ts';
+export {
+  EXCLAMATION_MARK_CONFIG_URL,
+  createDefaultExclamationMarkPreset,
+  normalizeExclamationMarkPresets,
+  loadExclamationMarkPresets
+} from '@/core/sprite/exclamation/exclamationMarkRepository.ts';
+export {
+  createExclamationMarkProgressMaterial,
+  applyExclamationMarkProgressPreset
+} from '@/core/sprite/exclamation/createExclamationMarkProgressMaterial.ts';
+export type { ExclamationMarkSpriteController } from '@/core/sprite/exclamation/createExclamationMarkSprite.ts';
+export { createExclamationMarkSprite } from '@/core/sprite/exclamation/createExclamationMarkSprite.ts';
