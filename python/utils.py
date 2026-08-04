@@ -961,3 +961,80 @@ def validate_monster_exclamation_position_payload(payload: dict) -> list[str]:
             if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector):
                 errors.append(f"{path}.{field} must contain three finite numbers")
     return errors
+
+def validate_special_status_visual_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("preset key must be a non-empty string"); continue
+        if not isinstance(preset, dict):
+            errors.append(f"{path} must be an object"); continue
+        if preset.get("presetKey") != key: errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        ui2d = preset.get("ui2d")
+        if not isinstance(ui2d, dict):
+            errors.append(f"{path}.ui2d must be an object")
+        else:
+            for field in ("badgeSize", "iconScale", "valueFontSize", "cornerInset", "frameOffsetX", "frameOffsetY", "frameWidth", "frameHeight"):
+                if not is_finite_number(ui2d.get(field)): errors.append(f"{path}.ui2d.{field} must be a finite number")
+            color = ui2d.get("textColor")
+            if not isinstance(color, str) or len(color) != 7 or not color.startswith("#"): errors.append(f"{path}.ui2d.textColor must be a #RRGGBB color")
+        config3d = preset.get("babylon3d")
+        if not isinstance(config3d, dict):
+            errors.append(f"{path}.babylon3d must be an object"); continue
+        if not isinstance(config3d.get("numberPresetKey"), str) or not config3d.get("numberPresetKey", "").strip(): errors.append(f"{path}.babylon3d.numberPresetKey must be a non-empty string")
+        for field in ("statusHeight", "statusScale", "numberScale", "cornerInset"):
+            if not is_finite_number(config3d.get(field)): errors.append(f"{path}.babylon3d.{field} must be a finite number")
+        position = config3d.get("position")
+        if not isinstance(position, list) or len(position) != 3 or any(not is_finite_number(value) for value in position): errors.append(f"{path}.babylon3d.position must contain three finite numbers")
+        offsets = config3d.get("numberOffsets")
+        if not isinstance(offsets, list) or len(offsets) != 4:
+            errors.append(f"{path}.babylon3d.numberOffsets must contain four vectors")
+        else:
+            for index, vector in enumerate(offsets):
+                if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector): errors.append(f"{path}.babylon3d.numberOffsets[{index}] must contain three finite numbers")
+        if not isinstance(config3d.get("billboard"), bool): errors.append(f"{path}.babylon3d.billboard must be a boolean")
+    return errors
+
+def validate_monster_special_status_position_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    global_config = payload.get("global")
+    if not isinstance(global_config, dict):
+        errors.append("root.global must be an object")
+    else:
+        if global_config.get("spriteFacingAxis") not in ("+Z", "-Z"):
+            errors.append("root.global.spriteFacingAxis must be +Z or -Z")
+        scale = global_config.get("statusGroupScale")
+        if not is_finite_number(scale) or scale <= 0:
+            errors.append("root.global.statusGroupScale must be a positive finite number")
+        spacing = global_config.get("statusSpacing")
+        if not isinstance(spacing, list) or len(spacing) != 3 or any(not is_finite_number(value) for value in spacing):
+            errors.append("root.global.statusSpacing must contain three finite numbers")
+        if not isinstance(global_config.get("visualPresetKey"), str):
+            errors.append("root.global.visualPresetKey must be a string")
+    monsters = payload.get("monsters")
+    if not isinstance(monsters, dict):
+        errors.append("root.monsters must be an object")
+        return errors
+    for key, config in monsters.items():
+        path = f"root.monsters[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("monster config key must be a non-empty string")
+            continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if config.get("monsterConfigKey") != key:
+            errors.append(f"{path}.monsterConfigKey must match its object key")
+        wrap_count = config.get("statusWrapCount")
+        if not is_finite_number(wrap_count) or wrap_count < 1 or int(wrap_count) != wrap_count:
+            errors.append(f"{path}.statusWrapCount must be a positive integer")
+        offset = config.get("statusGroupOffset")
+        if not isinstance(offset, list) or len(offset) != 3 or any(not is_finite_number(value) for value in offset):
+            errors.append(f"{path}.statusGroupOffset must contain three finite numbers")
+    return errors

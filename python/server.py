@@ -19,7 +19,8 @@ from utils import (
     validate_model_swing_config_payload
     ,validate_model_shoot_config_payload, validate_bullet_config_payload,
     validate_number_sprite_config_payload, validate_exclamation_mark_preset_payload,
-    validate_monster_exclamation_position_payload
+    validate_monster_exclamation_position_payload, validate_special_status_visual_preset_payload,
+    validate_monster_special_status_position_payload
 )
 
 app = Flask(__name__)
@@ -34,6 +35,8 @@ SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnima
 NUMBER_SPRITE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "numberSpriteConfigs.json")
 EXCLAMATION_MARK_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "exclamationMarkPresets.json")
 MONSTER_EXCLAMATION_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterExclamationPositions.json")
+SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "specialStatusVisualPresets.json")
+MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterSpecialStatusPositions.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
@@ -227,6 +230,14 @@ def handle_exclamation_mark_presets():
 @app.route("/api/monster-exclamation-positions", methods=["GET", "PUT"])
 def handle_monster_exclamation_positions():
     return _handle_json_config(MONSTER_EXCLAMATION_POSITION_CONFIG_PATH, validate_monster_exclamation_position_payload, "monster exclamation positions")
+
+@app.route("/api/special-status-visual-presets", methods=["GET", "PUT"])
+def handle_special_status_visual_presets():
+    return _handle_json_config(SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH, validate_special_status_visual_preset_payload, "special status visual presets")
+
+@app.route("/api/monster-special-status-positions", methods=["GET", "PUT"])
+def handle_monster_special_status_positions():
+    return _handle_json_config(MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH, validate_monster_special_status_position_payload, "monster special status positions")
 
 @app.route("/api/find_resource_by_name", methods=["GET"])
 def find_resource_by_name():

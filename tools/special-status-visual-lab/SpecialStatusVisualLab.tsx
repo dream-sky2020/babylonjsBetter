@@ -1,15 +1,26 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, Mesh, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { SpecialStatusBadge } from '@/core/ui';
 import {
-  createAtlasSpritePlane,
-  createNumberSprite,
   getPublicResourceImagePaths,
   loadNumberSpritePresets,
-  type NumberSprite,
   type NumberSpritePreset,
   type NumberSpritePresetMap
 } from '@/core/sprite';
+import {
+  SPECIAL_STATUS_VISUAL_PRESET_API_PATH,
+  SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL,
+  createDefaultSpecialStatusVisualPreset,
+  createSpecialStatus3d,
+  normalizeSpecialStatusVisualPresets,
+  type SpecialStatus3dConfig,
+  type SpecialStatus3dController,
+  type SpecialStatus3dValues,
+  type SpecialStatus3dVisibility,
+  type SpecialStatusVisualPreset,
+  type SpecialStatusVisualPresetMap
+} from '@/core/special-status';
+import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
 const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
@@ -29,6 +40,10 @@ type DragState = {
 
 export const SpecialStatusVisualLab: React.FC = () => {
   const dragStateRef = useRef<DragState | null>(null);
+  const [visualPresets, setVisualPresets] = useState<SpecialStatusVisualPresetMap>({});
+  const [visualPresetKey, setVisualPresetKey] = useState('special_status_default');
+  const [visualPresetName, setVisualPresetName] = useState('默认特殊状态');
+  const [presetMessage, setPresetMessage] = useState('正在读取特殊状态配置…');
 
   const [topLeftValue, setTopLeftValue] = useState(89);
   const [topRightValue, setTopRightValue] = useState(42);
@@ -79,7 +94,100 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const [frameWidth, setFrameWidth] = useState(420);
   const [frameHeight, setFrameHeight] = useState(300);
 
+  const applyVisualPreset = (preset: SpecialStatusVisualPreset) => {
+    setVisualPresetKey(preset.presetKey);
+    setVisualPresetName(preset.name);
+    setBadgeSize(preset.ui2d.badgeSize); setIconScale(preset.ui2d.iconScale);
+    setValueFontSize(preset.ui2d.valueFontSize); setCornerInset(preset.ui2d.cornerInset);
+    applyTextColor(preset.ui2d.textColor);
+    setFrameOffsetX(preset.ui2d.frameOffsetX); setFrameOffsetY(preset.ui2d.frameOffsetY);
+    setFrameWidth(preset.ui2d.frameWidth); setFrameHeight(preset.ui2d.frameHeight);
+    setNumberPresetKey(preset.babylon3d.numberPresetKey);
+    setStatusHeight3d(preset.babylon3d.statusHeight); setStatusScale3d(preset.babylon3d.statusScale);
+    setNumberScale3d(preset.babylon3d.numberScale); setCornerInset3d(preset.babylon3d.cornerInset);
+    setPositionX3d(preset.babylon3d.position[0]); setPositionY3d(preset.babylon3d.position[1]); setPositionZ3d(preset.babylon3d.position[2]);
+    setNumberOffsets3d(preset.babylon3d.numberOffsets.map((item) => [...item]) as Array<[number, number, number]>);
+    setBillboard3d(preset.babylon3d.billboard);
+  };
+
+  const captureVisualPreset = (): SpecialStatusVisualPreset => ({
+    presetKey: visualPresetKey,
+    name: visualPresetName.trim() || visualPresetKey,
+    ui2d: { badgeSize, iconScale, valueFontSize, cornerInset, textColor, frameOffsetX, frameOffsetY, frameWidth, frameHeight },
+    babylon3d: {
+      numberPresetKey, statusHeight: statusHeight3d, statusScale: statusScale3d,
+      numberScale: numberScale3d, cornerInset: cornerInset3d,
+      position: [positionX3d, positionY3d, positionZ3d],
+      numberOffsets: numberOffsets3d.map((item) => [...item]) as SpecialStatusVisualPreset['babylon3d']['numberOffsets'],
+      billboard: billboard3d
+    }
+  });
+
+  const writeVisualPresets = async (next: SpecialStatusVisualPresetMap, message: string) => {
+    const response = await requestDevServer(SPECIAL_STATUS_VISUAL_PRESET_API_PATH, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next)
+    });
+    const payload = await response.json();
+    if (!response.ok || payload.success === false) throw new Error(payload.errors?.[0] || payload.message || `HTTP ${response.status}`);
+    setVisualPresets(next); setPresetMessage(message);
+  };
+
+  const saveVisualPreset = async () => {
+    if (!visualPresetKey) return;
+    const preset = captureVisualPreset();
+    try { await writeVisualPresets({ ...visualPresets, [visualPresetKey]: preset }, `已保存预设：${preset.name}`); }
+    catch (error) { setPresetMessage(`保存失败：${String(error)}`); }
+  };
+
+  const createVisualPreset = () => {
+    const rawKey = window.prompt('新预设 Key（英文、数字或下划线）', `special_status_${Object.keys(visualPresets).length + 1}`)?.trim();
+    if (!rawKey) return;
+    if (visualPresets[rawKey]) { setPresetMessage(`预设 ${rawKey} 已存在`); return; }
+    const name = window.prompt('预设名称', rawKey)?.trim() || rawKey;
+    const preset = { ...captureVisualPreset(), presetKey: rawKey, name };
+    setVisualPresets((current) => ({ ...current, [rawKey]: preset }));
+    applyVisualPreset(preset);
+    setPresetMessage('新预设已创建，请点击“保存预设”写入 config。');
+  };
+
+  const deleteVisualPreset = async () => {
+    if (!visualPresetKey || !window.confirm(`删除预设 ${visualPresetKey}？`)) return;
+    const next = { ...visualPresets }; delete next[visualPresetKey];
+    try {
+      await writeVisualPresets(next, `已删除预设：${visualPresetKey}`);
+      const fallback = Object.values(next)[0] ?? createDefaultSpecialStatusVisualPreset();
+      applyVisualPreset(fallback);
+    } catch (error) { setPresetMessage(`删除失败：${String(error)}`); }
+  };
+
   const resourceImageOptions = useMemo(() => getPublicResourceImagePaths(true), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        let raw: unknown;
+        try {
+          const response = await requestDevServer(`${SPECIAL_STATUS_VISUAL_PRESET_API_PATH}?t=${Date.now()}`, { method: 'GET' });
+          const payload = await response.json();
+          if (!response.ok || payload.success === false) throw new Error(payload.message || `HTTP ${response.status}`);
+          raw = payload.data;
+        } catch {
+          const response = await fetch(`${SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          raw = await response.json();
+        }
+        if (cancelled) return;
+        const loaded = normalizeSpecialStatusVisualPresets(raw);
+        const presets = Object.keys(loaded).length ? loaded : { special_status_default: createDefaultSpecialStatusVisualPreset() };
+        const first = Object.values(presets)[0];
+        setVisualPresets(presets); applyVisualPreset(first);
+        setPresetMessage(`已读取 ${Object.keys(presets).length} 个特殊状态预设。`);
+      } catch (error) { if (!cancelled) setPresetMessage(`读取预设失败：${String(error)}`); }
+    };
+    void load();
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -185,6 +293,30 @@ export const SpecialStatusVisualLab: React.FC = () => {
         <div style={{ fontSize: 12, color: '#cbd5e1' }}>
           纯视觉实验页：组件只根据参数显示样式，不包含业务逻辑。
         </div>
+
+        <fieldset style={{ margin: 0, padding: 10, border: '1px solid rgba(96,165,250,.45)', borderRadius: 8 }}>
+          <legend style={{ padding: '0 5px' }}>特殊状态配置预设</legend>
+          <label>
+            当前预设
+            <select value={visualPresetKey} onChange={(event) => {
+              const preset = visualPresets[event.target.value];
+              if (preset) applyVisualPreset(preset);
+            }} style={{ width: '100%', marginTop: 4 }}>
+              {Object.entries(visualPresets).map(([key, preset]) => <option key={key} value={key}>{key} · {preset.name}</option>)}
+            </select>
+          </label>
+          <label style={{ display: 'block', marginTop: 8 }}>
+            预设名称
+            <input value={visualPresetName} onChange={(event) => setVisualPresetName(event.target.value)} style={{ width: '100%', marginTop: 4 }} />
+          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 8 }}>
+            <button type="button" onClick={createVisualPreset}>新建预设</button>
+            <button type="button" onClick={() => void saveVisualPreset()}>保存预设</button>
+            <button type="button" onClick={() => void deleteVisualPreset()} style={{ gridColumn: '1 / -1' }}>删除预设</button>
+          </div>
+          <div style={{ marginTop: 7, color: '#93c5fd', fontSize: 11, lineHeight: 1.4 }}>{presetMessage}</div>
+          <div style={{ marginTop: 5, color: '#94a3b8', fontSize: 10 }}>图标、四个数字值及其显示开关属于运行时参数，不会保存。</div>
+        </fieldset>
 
         <label>
           预览场景
@@ -638,34 +770,10 @@ type Babylon3dStatusPreviewProps = {
   billboard: boolean;
 };
 
-const createPlaneDebugOverlay = (mesh: Mesh, scene: Scene, color: Color3): Mesh[] => {
-  const border = MeshBuilder.CreateLines(`${mesh.name}_debug_border`, {
-    points: [
-      new Vector3(-0.5, 0.5, -0.02),
-      new Vector3(0.5, 0.5, -0.02),
-      new Vector3(0.5, -0.5, -0.02),
-      new Vector3(-0.5, -0.5, -0.02),
-      new Vector3(-0.5, 0.5, -0.02)
-    ]
-  }, scene);
-  const centerLines = MeshBuilder.CreateLineSystem(`${mesh.name}_debug_center_lines`, {
-    lines: [
-      [new Vector3(-0.5, 0, -0.02), new Vector3(0.5, 0, -0.02)],
-      [new Vector3(0, -0.5, -0.02), new Vector3(0, 0.5, -0.02)]
-    ]
-  }, scene);
-  for (const debugMesh of [border, centerLines]) {
-    debugMesh.color = color;
-    debugMesh.parent = mesh;
-    debugMesh.isPickable = false;
-    debugMesh.renderingGroupId = 3;
-  }
-  return [border, centerLines];
-};
-
 const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, statusHeight, statusScale, numberScale, cornerInset, position, numberOffsets, numberPreset, billboard, debug }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<Scene | null>(null);
+  const statusRef = useRef<SpecialStatus3dController | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -688,6 +796,8 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
     window.addEventListener('resize', resize);
     return () => {
       window.removeEventListener('resize', resize);
+      statusRef.current?.dispose();
+      statusRef.current = null;
       scene.dispose();
       engine.dispose();
       sceneRef.current = null;
@@ -696,71 +806,46 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
 
   useEffect(() => {
     const scene = sceneRef.current;
-    if (!scene) return;
-    const icon = createAtlasSpritePlane(
-      scene,
-      encodeURI(iconSrc || '/resources/favicon.svg'),
-      statusHeight * statusScale
-    );
-    icon.mesh.name = 'special_status_core_sprite';
-    icon.mesh.position = new Vector3(position[0], position[1], position[2]);
-    icon.mesh.billboardMode = billboard ? Mesh.BILLBOARDMODE_Y : 0;
-    icon.mesh.renderingGroupId = 1;
-    if (icon.mesh.material) icon.mesh.material.disableDepthWrite = true;
-    icon.mesh.showBoundingBox = debug;
-    icon.mesh.isPickable = false;
-    const debugMeshes = debug ? createPlaneDebugOverlay(icon.mesh, scene, new Color3(0.2, 0.85, 1)) : [];
-    return () => {
-      for (const debugMesh of debugMeshes) debugMesh.dispose();
-      icon.dispose();
-    };
-  }, [iconSrc, statusHeight, statusScale, position[0], position[1], position[2], billboard, debug]);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
     if (!scene || !numberPreset) return;
     let cancelled = false;
-    const created: NumberSprite[] = [];
-    const iconHeight = statusHeight * statusScale;
-    const offset = Math.max(0.02, iconHeight * 0.5 - cornerInset);
-    const positions = [
-      new Vector3(position[0] - offset, position[1] + offset, position[2] - 0.04),
-      new Vector3(position[0] + offset, position[1] + offset, position[2] - 0.04),
-      new Vector3(position[0] - offset, position[1] - offset, position[2] - 0.04),
-      new Vector3(position[0] + offset, position[1] - offset, position[2] - 0.04)
-    ];
-    const runtimePreset: NumberSpritePreset = {
-      ...numberPreset,
-      height: numberPreset.height * numberScale,
-      billboard: false
+    const config: SpecialStatus3dConfig = {
+      iconPath: iconSrc || '/resources/favicon.svg',
+      numberPreset,
+      statusHeight,
+      statusScale,
+      numberScale,
+      cornerInset,
+      position: [...position],
+      numberOffsets: [0, 1, 2, 3].map((index) => [...(numberOffsets[index] ?? [0, 0, 0])]) as SpecialStatus3dConfig['numberOffsets'],
+      billboard
     };
-
-    void Promise.all(values.map(async (value, index) => {
-      if (!visible[index]) return;
-      const numberSprite = await createNumberSprite(scene, String(value), runtimePreset);
-      if (cancelled) {
-        numberSprite.dispose();
-        return;
+    const apply = async () => {
+      if (statusRef.current) await statusRef.current.setConfig(config);
+      else {
+        const controller = await createSpecialStatus3d(scene, config, {
+          values: [...values] as SpecialStatus3dValues,
+          visible: [...visible] as SpecialStatus3dVisibility,
+          debug
+        }, 'specialStatusVisualLab');
+        if (cancelled) { controller.dispose(); return; }
+        statusRef.current = controller;
       }
-      const basePosition = positions[index] ?? Vector3.Zero();
-      const digitOffset = numberOffsets[index] ?? [0, 0, 0];
-      numberSprite.root.position.copyFrom(basePosition).addInPlaceFromFloats(digitOffset[0], digitOffset[1], digitOffset[2]);
-      numberSprite.root.billboardMode = billboard ? Mesh.BILLBOARDMODE_Y : 0;
-      numberSprite.setDebugVisible(debug);
-      for (const digitMesh of numberSprite.root.getChildMeshes()) {
-        digitMesh.renderingGroupId = 2;
-        if (digitMesh.material) digitMesh.material.disableDepthWrite = true;
-      }
-      created.push(numberSprite);
-    })).catch((error) => {
-      console.error('Special Status 3D 数字精灵创建失败', error);
-    });
-
-    return () => {
-      cancelled = true;
-      for (const numberSprite of created) numberSprite.dispose();
+      statusRef.current.setDebugVisible(debug);
     };
-  }, [numberPreset, values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3], statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard, debug]);
+    void apply().catch((error) => console.error('Special Status 3D core 模块更新失败', error));
+    return () => { cancelled = true; };
+  }, [numberPreset, iconSrc, statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard]);
+
+  useEffect(() => {
+    statusRef.current?.setDebugVisible(debug);
+  }, [debug]);
+
+  useEffect(() => {
+    void statusRef.current?.setValues(
+      [...values] as SpecialStatus3dValues,
+      [...visible] as SpecialStatus3dVisibility
+    ).catch((error) => console.error('Special Status 3D core 数值更新失败', error));
+  }, [values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3]]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>

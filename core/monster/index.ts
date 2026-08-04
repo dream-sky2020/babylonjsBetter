@@ -5,3 +5,5 @@ export * from './api/monsterApi.ts';
 export * from './render/createLayeredMonster.ts';
 export * from './exclamation/monsterExclamationPosition.types.ts';
 export * from './exclamation/monsterExclamationPositionRepository.ts';
+export * from './special-status/monsterSpecialStatusPosition.types.ts';
+export * from './special-status/monsterSpecialStatusPositionRepository.ts';
