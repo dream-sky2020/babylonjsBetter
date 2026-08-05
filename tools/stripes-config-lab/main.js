@@ -25,6 +25,26 @@ const state = {
   phase: 0,
   presetKeyDraft: '',
   previewMode: 'canvas2d',
+  progress: {
+    mode: 'none',
+    value: 0.6,
+    startAngleDeg: 0,
+    filled: { source: 'texture', color: '#ffffff', opacity: 1 },
+    unfilled: { source: 'color', color: '#101827', opacity: 0.25 }
+  },
+  progressScope: 'composite',
+  layerProgress: {
+    stripe: {
+      mode: 'left-to-right', value: 0.7, startAngleDeg: 0,
+      filled: { source: 'texture', color: '#ffffff', opacity: 1 },
+      unfilled: { source: 'texture', color: '#5b6472', opacity: 0.2 }
+    },
+    background: {
+      mode: 'sector-clockwise', value: 0.4, startAngleDeg: 0,
+      filled: { source: 'texture', color: '#18253a', opacity: 1 },
+      unfilled: { source: 'texture', color: '#05070b', opacity: 0.15 }
+    }
+  },
   babylon: {
     engine: null,
     scene: null,
@@ -57,6 +77,42 @@ const el = {
   solidOpacityInput: document.getElementById('solidOpacityInput'),
   segmentsBox: document.getElementById('segmentsBox'),
   addSegmentBtn: document.getElementById('addSegmentBtn'),
+  progressScopeInput: document.getElementById('progressScopeInput'),
+  compositeProgressControls: document.getElementById('compositeProgressControls'),
+  layerProgressControls: document.getElementById('layerProgressControls'),
+  progressModeInput: document.getElementById('progressModeInput'),
+  progressValueInput: document.getElementById('progressValueInput'),
+  progressValueLabel: document.getElementById('progressValueLabel'),
+  progressStartAngleRow: document.getElementById('progressStartAngleRow'),
+  progressStartAngleInput: document.getElementById('progressStartAngleInput'),
+  progressFilledSourceInput: document.getElementById('progressFilledSourceInput'),
+  progressFilledColorInput: document.getElementById('progressFilledColorInput'),
+  progressFilledOpacityInput: document.getElementById('progressFilledOpacityInput'),
+  progressUnfilledSourceInput: document.getElementById('progressUnfilledSourceInput'),
+  progressUnfilledColorInput: document.getElementById('progressUnfilledColorInput'),
+  progressUnfilledOpacityInput: document.getElementById('progressUnfilledOpacityInput'),
+  stripeProgressModeInput: document.getElementById('stripeProgressModeInput'),
+  stripeProgressValueInput: document.getElementById('stripeProgressValueInput'),
+  stripeProgressValueLabel: document.getElementById('stripeProgressValueLabel'),
+  stripeProgressStartAngleRow: document.getElementById('stripeProgressStartAngleRow'),
+  stripeProgressStartAngleInput: document.getElementById('stripeProgressStartAngleInput'),
+  stripeProgressFilledSourceInput: document.getElementById('stripeProgressFilledSourceInput'),
+  stripeProgressFilledColorInput: document.getElementById('stripeProgressFilledColorInput'),
+  stripeProgressFilledOpacityInput: document.getElementById('stripeProgressFilledOpacityInput'),
+  stripeProgressUnfilledSourceInput: document.getElementById('stripeProgressUnfilledSourceInput'),
+  stripeProgressUnfilledColorInput: document.getElementById('stripeProgressUnfilledColorInput'),
+  stripeProgressUnfilledOpacityInput: document.getElementById('stripeProgressUnfilledOpacityInput'),
+  backgroundProgressModeInput: document.getElementById('backgroundProgressModeInput'),
+  backgroundProgressValueInput: document.getElementById('backgroundProgressValueInput'),
+  backgroundProgressValueLabel: document.getElementById('backgroundProgressValueLabel'),
+  backgroundProgressStartAngleRow: document.getElementById('backgroundProgressStartAngleRow'),
+  backgroundProgressStartAngleInput: document.getElementById('backgroundProgressStartAngleInput'),
+  backgroundProgressFilledSourceInput: document.getElementById('backgroundProgressFilledSourceInput'),
+  backgroundProgressFilledColorInput: document.getElementById('backgroundProgressFilledColorInput'),
+  backgroundProgressFilledOpacityInput: document.getElementById('backgroundProgressFilledOpacityInput'),
+  backgroundProgressUnfilledSourceInput: document.getElementById('backgroundProgressUnfilledSourceInput'),
+  backgroundProgressUnfilledColorInput: document.getElementById('backgroundProgressUnfilledColorInput'),
+  backgroundProgressUnfilledOpacityInput: document.getElementById('backgroundProgressUnfilledOpacityInput'),
   saveBtn: document.getElementById('saveBtn'),
   statusText: document.getElementById('statusText'),
   jsonView: document.getElementById('jsonView'),
@@ -320,6 +376,82 @@ const renderSegmentsEditor = () => {
 };
 
 const bindFormEvents = () => {
+  const progressModeOptions = el.progressModeInput?.innerHTML || '';
+  if (el.stripeProgressModeInput) {
+    el.stripeProgressModeInput.innerHTML = progressModeOptions;
+    el.stripeProgressModeInput.value = state.layerProgress.stripe.mode;
+  }
+  if (el.backgroundProgressModeInput) {
+    el.backgroundProgressModeInput.innerHTML = progressModeOptions;
+    el.backgroundProgressModeInput.value = state.layerProgress.background.mode;
+  }
+
+  const updateLayerProgressPart = (prefix, progress) => {
+    const modeInput = el[`${prefix}ProgressModeInput`];
+    const valueInput = el[`${prefix}ProgressValueInput`];
+    const startAngleInput = el[`${prefix}ProgressStartAngleInput`];
+    const valueLabel = el[`${prefix}ProgressValueLabel`];
+    const startAngleRow = el[`${prefix}ProgressStartAngleRow`];
+    progress.mode = modeInput?.value || 'none';
+    progress.value = Math.max(0, Math.min(1, toNumber(valueInput?.value, progress.value)));
+    progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(startAngleInput?.value, progress.startAngleDeg)));
+    progress.filled.source = el[`${prefix}ProgressFilledSourceInput`]?.value === 'color' ? 'color' : 'texture';
+    progress.filled.color = el[`${prefix}ProgressFilledColorInput`]?.value || '#ffffff';
+    progress.filled.opacity = Math.max(0, Math.min(1, toNumber(el[`${prefix}ProgressFilledOpacityInput`]?.value, progress.filled.opacity)));
+    progress.unfilled.source = el[`${prefix}ProgressUnfilledSourceInput`]?.value === 'color' ? 'color' : 'texture';
+    progress.unfilled.color = el[`${prefix}ProgressUnfilledColorInput`]?.value || '#000000';
+    progress.unfilled.opacity = Math.max(0, Math.min(1, toNumber(el[`${prefix}ProgressUnfilledOpacityInput`]?.value, progress.unfilled.opacity)));
+    if (valueLabel) valueLabel.textContent = `${Math.round(progress.value * 100)}%`;
+    if (startAngleRow) startAngleRow.style.display = progress.mode.startsWith('sector-') ? 'block' : 'none';
+  };
+
+  const updateLayerProgressForm = () => {
+    state.progressScope = el.progressScopeInput?.value === 'layers' ? 'layers' : 'composite';
+    if (el.compositeProgressControls) el.compositeProgressControls.style.display = state.progressScope === 'composite' ? 'block' : 'none';
+    if (el.layerProgressControls) el.layerProgressControls.style.display = state.progressScope === 'layers' ? 'block' : 'none';
+    updateLayerProgressPart('stripe', state.layerProgress.stripe);
+    updateLayerProgressPart('background', state.layerProgress.background);
+  };
+
+  const layerProgressInputs = [
+    el.progressScopeInput,
+    ...['stripe', 'background'].flatMap((prefix) => [
+      el[`${prefix}ProgressModeInput`], el[`${prefix}ProgressValueInput`], el[`${prefix}ProgressStartAngleInput`],
+      el[`${prefix}ProgressFilledSourceInput`], el[`${prefix}ProgressFilledColorInput`], el[`${prefix}ProgressFilledOpacityInput`],
+      el[`${prefix}ProgressUnfilledSourceInput`], el[`${prefix}ProgressUnfilledColorInput`], el[`${prefix}ProgressUnfilledOpacityInput`]
+    ])
+  ];
+  layerProgressInputs.forEach((input) => input?.addEventListener('input', updateLayerProgressForm));
+  updateLayerProgressForm();
+
+  const updateProgressForm = () => {
+    const progress = state.progress;
+    progress.mode = el.progressModeInput?.value || 'none';
+    progress.value = Math.max(0, Math.min(1, toNumber(el.progressValueInput?.value, progress.value)));
+    progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(el.progressStartAngleInput?.value, progress.startAngleDeg)));
+    progress.filled.source = el.progressFilledSourceInput?.value === 'color' ? 'color' : 'texture';
+    progress.filled.color = el.progressFilledColorInput?.value || '#ffffff';
+    progress.filled.opacity = Math.max(0, Math.min(1, toNumber(el.progressFilledOpacityInput?.value, progress.filled.opacity)));
+    progress.unfilled.source = el.progressUnfilledSourceInput?.value === 'color' ? 'color' : 'texture';
+    progress.unfilled.color = el.progressUnfilledColorInput?.value || '#101827';
+    progress.unfilled.opacity = Math.max(0, Math.min(1, toNumber(el.progressUnfilledOpacityInput?.value, progress.unfilled.opacity)));
+    if (el.progressValueLabel) el.progressValueLabel.textContent = `${Math.round(progress.value * 100)}%`;
+    if (el.progressStartAngleRow) el.progressStartAngleRow.style.display = progress.mode.startsWith('sector-') ? 'block' : 'none';
+  };
+
+  [
+    el.progressModeInput,
+    el.progressValueInput,
+    el.progressStartAngleInput,
+    el.progressFilledSourceInput,
+    el.progressFilledColorInput,
+    el.progressFilledOpacityInput,
+    el.progressUnfilledSourceInput,
+    el.progressUnfilledColorInput,
+    el.progressUnfilledOpacityInput
+  ].forEach((input) => input?.addEventListener('input', updateProgressForm));
+  updateProgressForm();
+
   el.previewModeSelect?.addEventListener('change', () => {
     state.previewMode = el.previewModeSelect.value === 'babylon' ? 'babylon' : 'canvas2d';
     updatePreviewVisibility();
@@ -655,6 +787,15 @@ const renderBabylonPreview = (dt) => {
   resizeBabylonPreview();
   state.babylon.timeSec += dt;
   stripeController.updatePreset(preset);
+  stripeController.updateProgress({
+    enabled: state.progressScope === 'composite' && state.progress.mode !== 'none',
+    ...state.progress
+  });
+  stripeController.updateLayerProgress({
+    enabled: state.progressScope === 'layers',
+    stripe: { enabled: state.layerProgress.stripe.mode !== 'none', ...state.layerProgress.stripe },
+    background: { enabled: state.layerProgress.background.mode !== 'none', ...state.layerProgress.background }
+  });
   stripeController.updateTime(state.babylon.timeSec);
   scene.render();
 };

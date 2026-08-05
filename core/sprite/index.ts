@@ -46,6 +46,10 @@ export type { CreateAtlasSpritePlaneOptions } from '@/core/sprite/render/createA
 export type {
   StripeSegmentLike,
   StripePresetLike,
+  StripeProgressMode,
+  StripeProgressRegionStyle,
+  StripeProgressMaskOptions,
+  StripeLayerProgressOptions,
   StripeMaskMaterialController,
   StripeShaderMaterialController,
   CreateStripeShaderMaterialOptions

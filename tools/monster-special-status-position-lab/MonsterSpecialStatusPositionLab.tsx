@@ -39,7 +39,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
     const [statusGroupOffset, setStatusGroupOffset] = useState<Vec3>([0, 0, 0]);
     const [statusGroupScale, setStatusGroupScale] = useState(1);
     const [statusWrapCount, setStatusWrapCount] = useState(4);
-    const [faceCamera, setFaceCamera] = useState(true);
+    const [faceCamera, setFaceCamera] = useState(false);
     const [spriteFacingAxis, setSpriteFacingAxis] = useState<'+Z' | '-Z'>('+Z');
     const [savedConfig, setSavedConfig] = useState<MonsterSpecialStatusPositionConfig>(createDefaultMonsterSpecialStatusPositions);
     const savedConfigRef = useRef(savedConfig), previousMonsterKeyRef = useRef('');

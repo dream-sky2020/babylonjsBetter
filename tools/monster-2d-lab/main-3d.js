@@ -42,6 +42,32 @@ const STRIPE_CONFIG_API_PATH = '/api/stripe-presets';
 const MONSTER_STRIPE_PRESET_API_PATH = '/api/monster-stripe-presets';
 const LAYER_KEYS = MONSTER_LAYER_KEYS;
 const FIXED_RENDER_ORDER = MONSTER_RENDER_ORDER;
+const PROGRESS_MODE_OPTIONS = [
+  ['none', '关闭'],
+  ['left-to-right', '线性：左 → 右'],
+  ['right-to-left', '线性：右 → 左'],
+  ['bottom-to-top', '线性：下 → 上'],
+  ['top-to-bottom', '线性：上 → 下'],
+  ['radial-outward', '圆形：中心 → 外侧'],
+  ['radial-inward', '圆形：外侧 → 中心'],
+  ['sector-clockwise', '扇形：顺时针'],
+  ['sector-counterclockwise', '扇形：逆时针']
+];
+
+const createProgressParams = (mode = 'left-to-right', value = 0.6) => ({
+  mode,
+  value,
+  startAngleDeg: 0,
+  filled: { source: 'texture', color: '#ffffff', opacity: 1 },
+  unfilled: { source: 'texture', color: '#202838', opacity: 0.25 }
+});
+
+const createLayerShaderParams = () => ({
+  scope: 'none',
+  composite: createProgressParams('left-to-right', 0.6),
+  stripe: createProgressParams('left-to-right', 0.7),
+  background: createProgressParams('sector-clockwise', 0.4)
+});
 const preferredMonsterConfigFromQuery = (new URLSearchParams(window.location.search).get('monsterConfig') || '').trim();
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
@@ -94,6 +120,7 @@ const state = {
     bottomBorder: { path: DEFAULT_ASSETS.bottomBorder, stripePresetKey: STRIPE_NONE, visible: true },
     bottomFillMask: { path: DEFAULT_ASSETS.bottomFillMask, stripePresetKey: STRIPE_NONE, visible: true }
   },
+  layerShaderParams: Object.fromEntries(LAYER_KEYS.map((layerKey) => [layerKey, createLayerShaderParams()])),
   resourceImageOptions: [],
   babylon: {
     engine: null,
@@ -517,6 +544,68 @@ const refreshMonsterStripePresetEditor = () => {
   refreshMonsterStripePresetBindingSelect();
 };
 
+const progressModeOptionsHtml = (selected) => PROGRESS_MODE_OPTIONS
+  .map(([value, label]) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${label}</option>`)
+  .join('');
+
+const progressParamsEditorHtml = (layerKey, target, title, params) => `
+  <details class="shader-details">
+    <summary>${title}</summary>
+    <div class="shader-details-body">
+      <div class="row"><div class="label">遮罩模式</div><select data-shader-target="${target}" data-shader-field="mode" data-layer="${layerKey}">${progressModeOptionsHtml(params.mode)}</select></div>
+      <div class="row"><div class="label">进度（0~1）</div><input data-shader-target="${target}" data-shader-field="value" data-layer="${layerKey}" type="number" min="0" max="1" step="0.01" value="${params.value}" /></div>
+      <div class="row"><div class="label">扇形起始角（0° 朝上）</div><input data-shader-target="${target}" data-shader-field="startAngleDeg" data-layer="${layerKey}" type="number" min="-360" max="360" step="1" value="${params.startAngleDeg}" /></div>
+      <div class="segment-grid" style="margin-top:8px">
+        <div><div class="label">已填充来源</div><select data-shader-target="${target}" data-shader-field="filled.source" data-layer="${layerKey}"><option value="texture" ${params.filled.source === 'texture' ? 'selected' : ''}>原纹理</option><option value="color" ${params.filled.source === 'color' ? 'selected' : ''}>指定颜色</option></select></div>
+        <div><div class="label">已填充颜色</div><input data-shader-target="${target}" data-shader-field="filled.color" data-layer="${layerKey}" type="color" value="${params.filled.color}" /></div>
+      </div>
+      <div class="row"><div class="label">已填充透明度</div><input data-shader-target="${target}" data-shader-field="filled.opacity" data-layer="${layerKey}" type="number" min="0" max="1" step="0.05" value="${params.filled.opacity}" /></div>
+      <div class="segment-grid" style="margin-top:8px">
+        <div><div class="label">未填充来源</div><select data-shader-target="${target}" data-shader-field="unfilled.source" data-layer="${layerKey}"><option value="texture" ${params.unfilled.source === 'texture' ? 'selected' : ''}>原纹理</option><option value="color" ${params.unfilled.source === 'color' ? 'selected' : ''}>指定颜色</option></select></div>
+        <div><div class="label">未填充颜色</div><input data-shader-target="${target}" data-shader-field="unfilled.color" data-layer="${layerKey}" type="color" value="${params.unfilled.color}" /></div>
+      </div>
+      <div class="row"><div class="label">未填充透明度</div><input data-shader-target="${target}" data-shader-field="unfilled.opacity" data-layer="${layerKey}" type="number" min="0" max="1" step="0.05" value="${params.unfilled.opacity}" /></div>
+    </div>
+  </details>
+`;
+
+const layerShaderEditorHtml = (layerKey) => {
+  const params = state.layerShaderParams[layerKey] || createLayerShaderParams();
+  state.layerShaderParams[layerKey] = params;
+  return `
+    <details class="shader-details">
+      <summary>Shader 进度遮罩参数（仅测试）</summary>
+      <div class="shader-details-body">
+        <div class="row"><div class="label">作用方式</div><select data-role="shader-scope" data-layer="${layerKey}">
+          <option value="none" ${params.scope === 'none' ? 'selected' : ''}>关闭</option>
+          <option value="composite" ${params.scope === 'composite' ? 'selected' : ''}>整体精灵</option>
+          <option value="layers" ${params.scope === 'layers' ? 'selected' : ''}>条纹层 / 背景层分别设置</option>
+        </select></div>
+        <div data-shader-group="composite" style="display:${params.scope === 'composite' ? 'block' : 'none'}">${progressParamsEditorHtml(layerKey, 'composite', '整体遮罩参数', params.composite)}</div>
+        <div data-shader-group="layers" style="display:${params.scope === 'layers' ? 'block' : 'none'}">
+          ${progressParamsEditorHtml(layerKey, 'stripe', '条纹层参数', params.stripe)}
+          ${progressParamsEditorHtml(layerKey, 'background', '背景层参数', params.background)}
+        </div>
+      </div>
+    </details>
+  `;
+};
+
+const applyLayerShaderParams = (layerKey) => {
+  const stripeHandle = state.babylon.stripeHandles.get(layerKey);
+  const params = state.layerShaderParams[layerKey];
+  if (!stripeHandle?.controller || !params) return;
+  stripeHandle.controller.updateProgress({
+    enabled: params.scope === 'composite' && params.composite.mode !== 'none',
+    ...params.composite
+  });
+  stripeHandle.controller.updateLayerProgress({
+    enabled: params.scope === 'layers',
+    stripe: { enabled: params.stripe.mode !== 'none', ...params.stripe },
+    background: { enabled: params.background.mode !== 'none', ...params.background }
+  });
+};
+
 const renderLayerStripeBindingsControls = () => {
   const presetOptions = [
     `<option value="${STRIPE_NONE}">不使用条纹（原图）</option>`,
@@ -534,8 +623,23 @@ const renderLayerStripeBindingsControls = () => {
             ${presetOptions}
           </select>
         </div>
+        ${layerShaderEditorHtml(layerKey)}
       </div>
     `).join('');
+
+  // 为进度和透明度保留精确数值输入，同时提供可拖动的范围滑块。
+  el.layerStripeBox.querySelectorAll('input[type="number"][data-shader-field="value"], input[type="number"][data-shader-field$=".opacity"]').forEach((numberInput) => {
+    const rangeInput = document.createElement('input');
+    rangeInput.type = 'range';
+    rangeInput.min = numberInput.min;
+    rangeInput.max = numberInput.max;
+    rangeInput.step = '0.01';
+    rangeInput.value = numberInput.value;
+    rangeInput.dataset.shaderTarget = numberInput.dataset.shaderTarget;
+    rangeInput.dataset.shaderField = numberInput.dataset.shaderField;
+    rangeInput.dataset.layer = numberInput.dataset.layer;
+    numberInput.parentElement.insertBefore(rangeInput, numberInput);
+  });
 
   LAYER_KEYS.forEach((layerKey) => {
     const stripeSelect = el.layerStripeBox.querySelector(`select[data-role="layer-stripe"][data-layer="${layerKey}"]`);
@@ -570,6 +674,44 @@ const renderLayerStripeBindingsControls = () => {
       syncActiveConfigFromCurrentDisplay();
       refreshMonsterConfigSelect();
       setStatus(`${LAYER_LABELS[layerKey]} 显示状态已更新（怪物条纹预设）。`);
+    });
+  });
+
+  el.layerStripeBox.querySelectorAll('select[data-role="shader-scope"]').forEach((select) => {
+    select.addEventListener('change', (event) => {
+      const layerKey = event.currentTarget.getAttribute('data-layer');
+      const params = state.layerShaderParams[layerKey];
+      if (!layerKey || !params) return;
+      params.scope = ['composite', 'layers'].includes(event.currentTarget.value) ? event.currentTarget.value : 'none';
+      const card = event.currentTarget.closest('.sub-card');
+      const compositeGroup = card?.querySelector('[data-shader-group="composite"]');
+      const layersGroup = card?.querySelector('[data-shader-group="layers"]');
+      if (compositeGroup) compositeGroup.style.display = params.scope === 'composite' ? 'block' : 'none';
+      if (layersGroup) layersGroup.style.display = params.scope === 'layers' ? 'block' : 'none';
+      applyLayerShaderParams(layerKey);
+    });
+  });
+
+  el.layerStripeBox.querySelectorAll('[data-shader-target][data-shader-field]').forEach((input) => {
+    input.addEventListener('input', (event) => {
+      const layerKey = event.currentTarget.getAttribute('data-layer');
+      const target = event.currentTarget.getAttribute('data-shader-target');
+      const field = event.currentTarget.getAttribute('data-shader-field');
+      const params = state.layerShaderParams[layerKey]?.[target];
+      if (!layerKey || !params || !field) return;
+      if (field === 'mode') params.mode = event.currentTarget.value;
+      else if (field === 'value') params.value = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.value)));
+      else if (field === 'startAngleDeg') params.startAngleDeg = Math.max(-360, Math.min(360, toNumber(event.currentTarget.value, params.startAngleDeg)));
+      else if (field === 'filled.source') params.filled.source = event.currentTarget.value === 'color' ? 'color' : 'texture';
+      else if (field === 'filled.color') params.filled.color = event.currentTarget.value;
+      else if (field === 'filled.opacity') params.filled.opacity = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.filled.opacity)));
+      else if (field === 'unfilled.source') params.unfilled.source = event.currentTarget.value === 'color' ? 'color' : 'texture';
+      else if (field === 'unfilled.color') params.unfilled.color = event.currentTarget.value;
+      else if (field === 'unfilled.opacity') params.unfilled.opacity = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.unfilled.opacity)));
+      el.layerStripeBox.querySelectorAll(`[data-shader-target="${target}"][data-shader-field="${field}"][data-layer="${layerKey}"]`).forEach((peer) => {
+        if (peer !== event.currentTarget) peer.value = event.currentTarget.value;
+      });
+      applyLayerShaderParams(layerKey);
     });
   });
 };
@@ -1007,6 +1149,7 @@ const syncStripeMaterialsForAllLayers = () => {
     if (currentStripe && currentStripe.presetKey === stripePresetKey) {
       currentStripe.controller.updatePreset(preset);
       currentStripe.controller.updateRenderSize(handle.renderSizePx.width, handle.renderSizePx.height);
+      applyLayerShaderParams(layerKey);
       continue;
     }
 
@@ -1024,6 +1167,7 @@ const syncStripeMaterialsForAllLayers = () => {
       controller: shader
     });
     handle.controller.mesh.material = shader.material;
+    applyLayerShaderParams(layerKey);
   }
   syncAllLayerDebugHandles();
 };
