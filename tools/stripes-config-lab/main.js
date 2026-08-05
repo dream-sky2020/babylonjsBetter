@@ -29,6 +29,8 @@ const state = {
     mode: 'none',
     value: 0.6,
     startAngleDeg: 0,
+    centerOffsetPx: { x: 0, y: 0 },
+    axisScale: { x: 1, y: 1 },
     filled: { source: 'texture', color: '#ffffff', opacity: 1 },
     unfilled: { source: 'color', color: '#101827', opacity: 0.25 }
   },
@@ -36,11 +38,15 @@ const state = {
   layerProgress: {
     stripe: {
       mode: 'left-to-right', value: 0.7, startAngleDeg: 0,
+      centerOffsetPx: { x: 0, y: 0 },
+      axisScale: { x: 1, y: 1 },
       filled: { source: 'texture', color: '#ffffff', opacity: 1 },
       unfilled: { source: 'texture', color: '#5b6472', opacity: 0.2 }
     },
     background: {
       mode: 'sector-clockwise', value: 0.4, startAngleDeg: 0,
+      centerOffsetPx: { x: 0, y: 0 },
+      axisScale: { x: 1, y: 1 },
       filled: { source: 'texture', color: '#18253a', opacity: 1 },
       unfilled: { source: 'texture', color: '#05070b', opacity: 0.15 }
     }
@@ -85,6 +91,10 @@ const el = {
   progressValueLabel: document.getElementById('progressValueLabel'),
   progressStartAngleRow: document.getElementById('progressStartAngleRow'),
   progressStartAngleInput: document.getElementById('progressStartAngleInput'),
+  progressCenterOffsetXInput: document.getElementById('progressCenterOffsetXInput'),
+  progressCenterOffsetYInput: document.getElementById('progressCenterOffsetYInput'),
+  progressAxisScaleXInput: document.getElementById('progressAxisScaleXInput'),
+  progressAxisScaleYInput: document.getElementById('progressAxisScaleYInput'),
   progressFilledSourceInput: document.getElementById('progressFilledSourceInput'),
   progressFilledColorInput: document.getElementById('progressFilledColorInput'),
   progressFilledOpacityInput: document.getElementById('progressFilledOpacityInput'),
@@ -96,6 +106,10 @@ const el = {
   stripeProgressValueLabel: document.getElementById('stripeProgressValueLabel'),
   stripeProgressStartAngleRow: document.getElementById('stripeProgressStartAngleRow'),
   stripeProgressStartAngleInput: document.getElementById('stripeProgressStartAngleInput'),
+  stripeProgressCenterOffsetXInput: document.getElementById('stripeProgressCenterOffsetXInput'),
+  stripeProgressCenterOffsetYInput: document.getElementById('stripeProgressCenterOffsetYInput'),
+  stripeProgressAxisScaleXInput: document.getElementById('stripeProgressAxisScaleXInput'),
+  stripeProgressAxisScaleYInput: document.getElementById('stripeProgressAxisScaleYInput'),
   stripeProgressFilledSourceInput: document.getElementById('stripeProgressFilledSourceInput'),
   stripeProgressFilledColorInput: document.getElementById('stripeProgressFilledColorInput'),
   stripeProgressFilledOpacityInput: document.getElementById('stripeProgressFilledOpacityInput'),
@@ -107,6 +121,10 @@ const el = {
   backgroundProgressValueLabel: document.getElementById('backgroundProgressValueLabel'),
   backgroundProgressStartAngleRow: document.getElementById('backgroundProgressStartAngleRow'),
   backgroundProgressStartAngleInput: document.getElementById('backgroundProgressStartAngleInput'),
+  backgroundProgressCenterOffsetXInput: document.getElementById('backgroundProgressCenterOffsetXInput'),
+  backgroundProgressCenterOffsetYInput: document.getElementById('backgroundProgressCenterOffsetYInput'),
+  backgroundProgressAxisScaleXInput: document.getElementById('backgroundProgressAxisScaleXInput'),
+  backgroundProgressAxisScaleYInput: document.getElementById('backgroundProgressAxisScaleYInput'),
   backgroundProgressFilledSourceInput: document.getElementById('backgroundProgressFilledSourceInput'),
   backgroundProgressFilledColorInput: document.getElementById('backgroundProgressFilledColorInput'),
   backgroundProgressFilledOpacityInput: document.getElementById('backgroundProgressFilledOpacityInput'),
@@ -390,11 +408,19 @@ const bindFormEvents = () => {
     const modeInput = el[`${prefix}ProgressModeInput`];
     const valueInput = el[`${prefix}ProgressValueInput`];
     const startAngleInput = el[`${prefix}ProgressStartAngleInput`];
+    const centerOffsetXInput = el[`${prefix}ProgressCenterOffsetXInput`];
+    const centerOffsetYInput = el[`${prefix}ProgressCenterOffsetYInput`];
+    const axisScaleXInput = el[`${prefix}ProgressAxisScaleXInput`];
+    const axisScaleYInput = el[`${prefix}ProgressAxisScaleYInput`];
     const valueLabel = el[`${prefix}ProgressValueLabel`];
     const startAngleRow = el[`${prefix}ProgressStartAngleRow`];
     progress.mode = modeInput?.value || 'none';
     progress.value = Math.max(0, Math.min(1, toNumber(valueInput?.value, progress.value)));
     progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(startAngleInput?.value, progress.startAngleDeg)));
+    progress.centerOffsetPx.x = toNumber(centerOffsetXInput?.value, progress.centerOffsetPx.x);
+    progress.centerOffsetPx.y = toNumber(centerOffsetYInput?.value, progress.centerOffsetPx.y);
+    progress.axisScale.x = Math.max(0.001, Math.abs(toNumber(axisScaleXInput?.value, progress.axisScale.x)));
+    progress.axisScale.y = Math.max(0.001, Math.abs(toNumber(axisScaleYInput?.value, progress.axisScale.y)));
     progress.filled.source = el[`${prefix}ProgressFilledSourceInput`]?.value === 'color' ? 'color' : 'texture';
     progress.filled.color = el[`${prefix}ProgressFilledColorInput`]?.value || '#ffffff';
     progress.filled.opacity = Math.max(0, Math.min(1, toNumber(el[`${prefix}ProgressFilledOpacityInput`]?.value, progress.filled.opacity)));
@@ -417,6 +443,8 @@ const bindFormEvents = () => {
     el.progressScopeInput,
     ...['stripe', 'background'].flatMap((prefix) => [
       el[`${prefix}ProgressModeInput`], el[`${prefix}ProgressValueInput`], el[`${prefix}ProgressStartAngleInput`],
+      el[`${prefix}ProgressCenterOffsetXInput`], el[`${prefix}ProgressCenterOffsetYInput`],
+      el[`${prefix}ProgressAxisScaleXInput`], el[`${prefix}ProgressAxisScaleYInput`],
       el[`${prefix}ProgressFilledSourceInput`], el[`${prefix}ProgressFilledColorInput`], el[`${prefix}ProgressFilledOpacityInput`],
       el[`${prefix}ProgressUnfilledSourceInput`], el[`${prefix}ProgressUnfilledColorInput`], el[`${prefix}ProgressUnfilledOpacityInput`]
     ])
@@ -429,6 +457,10 @@ const bindFormEvents = () => {
     progress.mode = el.progressModeInput?.value || 'none';
     progress.value = Math.max(0, Math.min(1, toNumber(el.progressValueInput?.value, progress.value)));
     progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(el.progressStartAngleInput?.value, progress.startAngleDeg)));
+    progress.centerOffsetPx.x = toNumber(el.progressCenterOffsetXInput?.value, progress.centerOffsetPx.x);
+    progress.centerOffsetPx.y = toNumber(el.progressCenterOffsetYInput?.value, progress.centerOffsetPx.y);
+    progress.axisScale.x = Math.max(0.001, Math.abs(toNumber(el.progressAxisScaleXInput?.value, progress.axisScale.x)));
+    progress.axisScale.y = Math.max(0.001, Math.abs(toNumber(el.progressAxisScaleYInput?.value, progress.axisScale.y)));
     progress.filled.source = el.progressFilledSourceInput?.value === 'color' ? 'color' : 'texture';
     progress.filled.color = el.progressFilledColorInput?.value || '#ffffff';
     progress.filled.opacity = Math.max(0, Math.min(1, toNumber(el.progressFilledOpacityInput?.value, progress.filled.opacity)));
@@ -443,6 +475,10 @@ const bindFormEvents = () => {
     el.progressModeInput,
     el.progressValueInput,
     el.progressStartAngleInput,
+    el.progressCenterOffsetXInput,
+    el.progressCenterOffsetYInput,
+    el.progressAxisScaleXInput,
+    el.progressAxisScaleYInput,
     el.progressFilledSourceInput,
     el.progressFilledColorInput,
     el.progressFilledOpacityInput,
