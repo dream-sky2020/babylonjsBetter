@@ -58,6 +58,8 @@ const createProgressParams = (mode = 'left-to-right', value = 0.6) => ({
   mode,
   value,
   startAngleDeg: 0,
+  centerOffsetPx: { x: 0, y: 0 },
+  axisScale: { x: 1, y: 1 },
   filled: { source: 'texture', color: '#ffffff', opacity: 1 },
   unfilled: { source: 'texture', color: '#202838', opacity: 0.25 }
 });
@@ -556,6 +558,14 @@ const progressParamsEditorHtml = (layerKey, target, title, params) => `
       <div class="row"><div class="label">进度（0~1）</div><input data-shader-target="${target}" data-shader-field="value" data-layer="${layerKey}" type="number" min="0" max="1" step="0.01" value="${params.value}" /></div>
       <div class="row"><div class="label">扇形起始角（0° 朝上）</div><input data-shader-target="${target}" data-shader-field="startAngleDeg" data-layer="${layerKey}" type="number" min="-360" max="360" step="1" value="${params.startAngleDeg}" /></div>
       <div class="segment-grid" style="margin-top:8px">
+        <div><div class="label">遮罩中心偏移 X（px）</div><input data-shader-target="${target}" data-shader-field="centerOffsetPx.x" data-layer="${layerKey}" type="number" step="1" value="${params.centerOffsetPx.x}" /></div>
+        <div><div class="label">遮罩中心偏移 Y（px）</div><input data-shader-target="${target}" data-shader-field="centerOffsetPx.y" data-layer="${layerKey}" type="number" step="1" value="${params.centerOffsetPx.y}" /></div>
+      </div>
+      <div class="segment-grid" style="margin-top:8px">
+        <div><div class="label">遮罩 X 轴缩放</div><input data-shader-target="${target}" data-shader-field="axisScale.x" data-layer="${layerKey}" type="number" min="0.001" step="0.05" value="${params.axisScale.x}" /></div>
+        <div><div class="label">遮罩 Y 轴缩放</div><input data-shader-target="${target}" data-shader-field="axisScale.y" data-layer="${layerKey}" type="number" min="0.001" step="0.05" value="${params.axisScale.y}" /></div>
+      </div>
+      <div class="segment-grid" style="margin-top:8px">
         <div><div class="label">已填充来源</div><select data-shader-target="${target}" data-shader-field="filled.source" data-layer="${layerKey}"><option value="texture" ${params.filled.source === 'texture' ? 'selected' : ''}>原纹理</option><option value="color" ${params.filled.source === 'color' ? 'selected' : ''}>指定颜色</option></select></div>
         <div><div class="label">已填充颜色</div><input data-shader-target="${target}" data-shader-field="filled.color" data-layer="${layerKey}" type="color" value="${params.filled.color}" /></div>
       </div>
@@ -702,6 +712,10 @@ const renderLayerStripeBindingsControls = () => {
       if (field === 'mode') params.mode = event.currentTarget.value;
       else if (field === 'value') params.value = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.value)));
       else if (field === 'startAngleDeg') params.startAngleDeg = Math.max(-360, Math.min(360, toNumber(event.currentTarget.value, params.startAngleDeg)));
+      else if (field === 'centerOffsetPx.x') params.centerOffsetPx.x = toNumber(event.currentTarget.value, params.centerOffsetPx.x);
+      else if (field === 'centerOffsetPx.y') params.centerOffsetPx.y = toNumber(event.currentTarget.value, params.centerOffsetPx.y);
+      else if (field === 'axisScale.x') params.axisScale.x = Math.max(0.001, Math.abs(toNumber(event.currentTarget.value, params.axisScale.x)));
+      else if (field === 'axisScale.y') params.axisScale.y = Math.max(0.001, Math.abs(toNumber(event.currentTarget.value, params.axisScale.y)));
       else if (field === 'filled.source') params.filled.source = event.currentTarget.value === 'color' ? 'color' : 'texture';
       else if (field === 'filled.color') params.filled.color = event.currentTarget.value;
       else if (field === 'filled.opacity') params.filled.opacity = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.filled.opacity)));

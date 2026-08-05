@@ -243,6 +243,11 @@
             <input id="progressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" />
           </div>
           <div class="segment-grid" style="margin-top:10px">
+            <div><div class="label">遮罩中心偏移 X（px）</div><input id="progressCenterOffsetXInput" type="number" step="1" value="0" /></div>
+            <div><div class="label">遮罩中心偏移 Y（px）</div><input id="progressCenterOffsetYInput" type="number" step="1" value="0" /></div>
+          </div>
+          <div class="segment-grid" style="margin-top:10px"><div><div class="label">遮罩 X 轴缩放</div><input id="progressAxisScaleXInput" type="number" min="0.001" step="0.05" value="1" /></div><div><div class="label">遮罩 Y 轴缩放</div><input id="progressAxisScaleYInput" type="number" min="0.001" step="0.05" value="1" /></div></div>
+          <div class="segment-grid" style="margin-top:10px">
             <div><div class="label">已填充区域</div><select id="progressFilledSourceInput"><option value="texture">原图纹理</option><option value="color">指定颜色</option></select></div>
             <div><div class="label">已填充颜色</div><input id="progressFilledColorInput" type="color" value="#ffffff" /></div>
           </div>
@@ -259,6 +264,8 @@
               <div class="row"><div class="label">模式</div><select id="stripeProgressModeInput"></select></div>
               <div class="row"><div class="label">进度 <span id="stripeProgressValueLabel">70%</span></div><input id="stripeProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.7" /></div>
               <div class="row" id="stripeProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="stripeProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid" style="margin-top:10px"><div><div class="label">中心偏移 X（px）</div><input id="stripeProgressCenterOffsetXInput" type="number" step="1" value="0" /></div><div><div class="label">中心偏移 Y（px）</div><input id="stripeProgressCenterOffsetYInput" type="number" step="1" value="0" /></div></div>
+              <div class="segment-grid" style="margin-top:10px"><div><div class="label">X 轴缩放</div><input id="stripeProgressAxisScaleXInput" type="number" min="0.001" step="0.05" value="1" /></div><div><div class="label">Y 轴缩放</div><input id="stripeProgressAxisScaleYInput" type="number" min="0.001" step="0.05" value="1" /></div></div>
               <div class="segment-grid" style="margin-top:10px">
                 <div><div class="label">已填充区域</div><select id="stripeProgressFilledSourceInput"><option value="texture">原条纹</option><option value="color">指定颜色</option></select></div>
                 <div><div class="label">已填充颜色</div><input id="stripeProgressFilledColorInput" type="color" value="#ffffff" /></div>
@@ -275,6 +282,8 @@
               <div class="row"><div class="label">模式</div><select id="backgroundProgressModeInput"></select></div>
               <div class="row"><div class="label">进度 <span id="backgroundProgressValueLabel">40%</span></div><input id="backgroundProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.4" /></div>
               <div class="row" id="backgroundProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="backgroundProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid" style="margin-top:10px"><div><div class="label">中心偏移 X（px）</div><input id="backgroundProgressCenterOffsetXInput" type="number" step="1" value="0" /></div><div><div class="label">中心偏移 Y（px）</div><input id="backgroundProgressCenterOffsetYInput" type="number" step="1" value="0" /></div></div>
+              <div class="segment-grid" style="margin-top:10px"><div><div class="label">X 轴缩放</div><input id="backgroundProgressAxisScaleXInput" type="number" min="0.001" step="0.05" value="1" /></div><div><div class="label">Y 轴缩放</div><input id="backgroundProgressAxisScaleYInput" type="number" min="0.001" step="0.05" value="1" /></div></div>
               <div class="segment-grid" style="margin-top:10px">
                 <div><div class="label">已填充区域</div><select id="backgroundProgressFilledSourceInput"><option value="texture">原背景</option><option value="color">指定颜色</option></select></div>
                 <div><div class="label">已填充颜色</div><input id="backgroundProgressFilledColorInput" type="color" value="#18253a" /></div>
