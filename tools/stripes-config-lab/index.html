@@ -209,6 +209,86 @@
           <button id="addSegmentBtn" style="margin-top:8px">新增条纹段</button>
         </div>
 
+        <div class="segment" style="margin-top:14px">
+          <div class="title">进度遮罩测试参数</div>
+          <div class="hint">仅作用于 Babylon.js Shader 预览，不会保存到条纹配置。</div>
+          <div class="row">
+            <div class="label">遮罩作用方式</div>
+            <select id="progressScopeInput">
+              <option value="composite">整体精灵（条纹与背景合成后）</option>
+              <option value="layers">条纹层 / 背景层分别设置</option>
+            </select>
+          </div>
+          <div id="compositeProgressControls">
+          <div class="row">
+            <div class="label">遮罩模式</div>
+            <select id="progressModeInput">
+              <option value="none">关闭</option>
+              <option value="left-to-right">线性：左 → 右</option>
+              <option value="right-to-left">线性：右 → 左</option>
+              <option value="bottom-to-top">线性：下 → 上</option>
+              <option value="top-to-bottom">线性：上 → 下</option>
+              <option value="radial-outward">圆形：中心 → 外侧</option>
+              <option value="radial-inward">圆形：外侧 → 中心</option>
+              <option value="sector-clockwise">扇形：顺时针</option>
+              <option value="sector-counterclockwise">扇形：逆时针</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="label">进度 <span id="progressValueLabel">60%</span></div>
+            <input id="progressValueInput" type="range" min="0" max="1" step="0.01" value="0.6" />
+          </div>
+          <div class="row" id="progressStartAngleRow">
+            <div class="label">扇形起始角（0° 朝上）</div>
+            <input id="progressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" />
+          </div>
+          <div class="segment-grid" style="margin-top:10px">
+            <div><div class="label">已填充区域</div><select id="progressFilledSourceInput"><option value="texture">原图纹理</option><option value="color">指定颜色</option></select></div>
+            <div><div class="label">已填充颜色</div><input id="progressFilledColorInput" type="color" value="#ffffff" /></div>
+          </div>
+          <div class="row"><div class="label">已填充透明度</div><input id="progressFilledOpacityInput" type="number" min="0" max="1" step="0.05" value="1" /></div>
+          <div class="segment-grid" style="margin-top:10px">
+            <div><div class="label">未填充区域</div><select id="progressUnfilledSourceInput"><option value="texture">原图纹理</option><option value="color" selected>指定颜色</option></select></div>
+            <div><div class="label">未填充颜色</div><input id="progressUnfilledColorInput" type="color" value="#101827" /></div>
+          </div>
+          <div class="row"><div class="label">未填充透明度</div><input id="progressUnfilledOpacityInput" type="number" min="0" max="1" step="0.05" value="0.25" /></div>
+          </div>
+          <div id="layerProgressControls" style="display:none">
+            <div class="segment" style="margin-top:10px">
+              <div class="title">条纹层遮罩</div>
+              <div class="row"><div class="label">模式</div><select id="stripeProgressModeInput"></select></div>
+              <div class="row"><div class="label">进度 <span id="stripeProgressValueLabel">70%</span></div><input id="stripeProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.7" /></div>
+              <div class="row" id="stripeProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="stripeProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid" style="margin-top:10px">
+                <div><div class="label">已填充区域</div><select id="stripeProgressFilledSourceInput"><option value="texture">原条纹</option><option value="color">指定颜色</option></select></div>
+                <div><div class="label">已填充颜色</div><input id="stripeProgressFilledColorInput" type="color" value="#ffffff" /></div>
+              </div>
+              <div class="row"><div class="label">已填充透明度</div><input id="stripeProgressFilledOpacityInput" type="number" min="0" max="1" step="0.05" value="1" /></div>
+              <div class="segment-grid" style="margin-top:10px">
+                <div><div class="label">未填充区域</div><select id="stripeProgressUnfilledSourceInput"><option value="texture">原条纹</option><option value="color">指定颜色</option></select></div>
+                <div><div class="label">未填充颜色</div><input id="stripeProgressUnfilledColorInput" type="color" value="#5b6472" /></div>
+              </div>
+              <div class="row"><div class="label">未填充透明度</div><input id="stripeProgressUnfilledOpacityInput" type="number" min="0" max="1" step="0.05" value="0.2" /></div>
+            </div>
+            <div class="segment" style="margin-top:10px">
+              <div class="title">背景层遮罩</div>
+              <div class="row"><div class="label">模式</div><select id="backgroundProgressModeInput"></select></div>
+              <div class="row"><div class="label">进度 <span id="backgroundProgressValueLabel">40%</span></div><input id="backgroundProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.4" /></div>
+              <div class="row" id="backgroundProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="backgroundProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid" style="margin-top:10px">
+                <div><div class="label">已填充区域</div><select id="backgroundProgressFilledSourceInput"><option value="texture">原背景</option><option value="color">指定颜色</option></select></div>
+                <div><div class="label">已填充颜色</div><input id="backgroundProgressFilledColorInput" type="color" value="#18253a" /></div>
+              </div>
+              <div class="row"><div class="label">已填充透明度</div><input id="backgroundProgressFilledOpacityInput" type="number" min="0" max="1" step="0.05" value="1" /></div>
+              <div class="segment-grid" style="margin-top:10px">
+                <div><div class="label">未填充区域</div><select id="backgroundProgressUnfilledSourceInput"><option value="texture">原背景</option><option value="color">指定颜色</option></select></div>
+                <div><div class="label">未填充颜色</div><input id="backgroundProgressUnfilledColorInput" type="color" value="#05070b" /></div>
+              </div>
+              <div class="row"><div class="label">未填充透明度</div><input id="backgroundProgressUnfilledOpacityInput" type="number" min="0" max="1" step="0.05" value="0.15" /></div>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           <button id="saveBtn" class="primary">保存到服务器（config/stripePresets.json）</button>
           <div class="status" id="statusText"></div>
