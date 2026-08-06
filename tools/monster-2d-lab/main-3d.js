@@ -10,7 +10,7 @@ import {
   Vector3
 } from '@babylonjs/core';
 import { createAtlasSpritePlane } from '/core/sprite/render/createAtlasSpritePlane.ts';
-import { createStripeMaskMaterial } from '/core/sprite/render/createStripeMaskMaterial.ts';
+import { createSpriteMaskMaterial } from '/core/sprite/render/createSpriteEffectMaterial.ts';
 import { createCameraLabController } from '/core/camera/cameraLabController.ts';
 import { createRoadSceneEnvironment } from '/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '/core/ui/FloatingCameraControlPanel.ts';
@@ -42,22 +42,19 @@ const STRIPE_CONFIG_API_PATH = '/api/stripe-presets';
 const MONSTER_STRIPE_PRESET_API_PATH = '/api/monster-stripe-presets';
 const LAYER_KEYS = MONSTER_LAYER_KEYS;
 const FIXED_RENDER_ORDER = MONSTER_RENDER_ORDER;
-const PROGRESS_MODE_OPTIONS = [
-  ['none', '关闭'],
-  ['left-to-right', '线性：左 → 右'],
-  ['right-to-left', '线性：右 → 左'],
-  ['bottom-to-top', '线性：下 → 上'],
-  ['top-to-bottom', '线性：上 → 下'],
-  ['radial-outward', '圆形：中心 → 外侧'],
-  ['radial-inward', '圆形：外侧 → 中心'],
-  ['sector-clockwise', '扇形：顺时针'],
-  ['sector-counterclockwise', '扇形：逆时针']
-];
+const PROGRESS_SHAPE_OPTIONS = ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'];
+const PROGRESS_DIRECTION_OPTIONS = ['forward', 'reverse', 'center-out', 'edges-in'];
 
-const createProgressParams = (mode = 'left-to-right', value = 0.6) => ({
-  mode,
+const createProgressParams = (shape = 'linear', value = 0.6) => ({
+  shape,
+  direction: 'forward',
   value,
+  angleDeg: 0,
   startAngleDeg: 0,
+  sweepAngleDeg: 360,
+  innerRadius: 0.65,
+  outerRadius: 1,
+  softness: 0,
   centerOffsetPx: { x: 0, y: 0 },
   axisScale: { x: 1, y: 1 },
   filled: { source: 'texture', color: '#ffffff', opacity: 1 },
@@ -66,9 +63,9 @@ const createProgressParams = (mode = 'left-to-right', value = 0.6) => ({
 
 const createLayerShaderParams = () => ({
   scope: 'none',
-  composite: createProgressParams('left-to-right', 0.6),
-  stripe: createProgressParams('left-to-right', 0.7),
-  background: createProgressParams('sector-clockwise', 0.4)
+  composite: createProgressParams('linear', 0.6),
+  stripe: createProgressParams('linear', 0.7),
+  background: createProgressParams('sector', 0.4)
 });
 const preferredMonsterConfigFromQuery = (new URLSearchParams(window.location.search).get('monsterConfig') || '').trim();
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
@@ -546,17 +543,20 @@ const refreshMonsterStripePresetEditor = () => {
   refreshMonsterStripePresetBindingSelect();
 };
 
-const progressModeOptionsHtml = (selected) => PROGRESS_MODE_OPTIONS
-  .map(([value, label]) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${label}</option>`)
+const progressOptionsHtml = (options, selected) => options
+  .map((value) => `<option value="${value}" ${value === selected ? 'selected' : ''}>${value}</option>`)
   .join('');
 
 const progressParamsEditorHtml = (layerKey, target, title, params) => `
   <details class="shader-details">
     <summary>${title}</summary>
     <div class="shader-details-body">
-      <div class="row"><div class="label">遮罩模式</div><select data-shader-target="${target}" data-shader-field="mode" data-layer="${layerKey}">${progressModeOptionsHtml(params.mode)}</select></div>
+      <div class="segment-grid"><div><div class="label">形状 shape</div><select data-shader-target="${target}" data-shader-field="shape" data-layer="${layerKey}">${progressOptionsHtml(PROGRESS_SHAPE_OPTIONS, params.shape)}</select></div><div><div class="label">方向 direction</div><select data-shader-target="${target}" data-shader-field="direction" data-layer="${layerKey}">${progressOptionsHtml(PROGRESS_DIRECTION_OPTIONS, params.direction)}</select></div></div>
       <div class="row"><div class="label">进度（0~1）</div><input data-shader-target="${target}" data-shader-field="value" data-layer="${layerKey}" type="number" min="0" max="1" step="0.01" value="${params.value}" /></div>
+      <div class="row"><div class="label">线性角度（°）</div><input data-shader-target="${target}" data-shader-field="angleDeg" data-layer="${layerKey}" type="number" step="1" value="${params.angleDeg}" /></div>
       <div class="row"><div class="label">扇形起始角（0° 朝上）</div><input data-shader-target="${target}" data-shader-field="startAngleDeg" data-layer="${layerKey}" type="number" min="-360" max="360" step="1" value="${params.startAngleDeg}" /></div>
+      <div class="segment-grid"><div><div class="label">覆盖角度（°）</div><input data-shader-target="${target}" data-shader-field="sweepAngleDeg" data-layer="${layerKey}" type="number" min="0.001" max="360" step="1" value="${params.sweepAngleDeg}" /></div><div><div class="label">柔边</div><input data-shader-target="${target}" data-shader-field="softness" data-layer="${layerKey}" type="number" min="0" max="0.5" step="0.005" value="${params.softness}" /></div></div>
+      <div class="segment-grid"><div><div class="label">内半径</div><input data-shader-target="${target}" data-shader-field="innerRadius" data-layer="${layerKey}" type="number" min="0" max="1" step="0.01" value="${params.innerRadius}" /></div><div><div class="label">外半径</div><input data-shader-target="${target}" data-shader-field="outerRadius" data-layer="${layerKey}" type="number" min="0" max="1" step="0.01" value="${params.outerRadius}" /></div></div>
       <div class="segment-grid" style="margin-top:8px">
         <div><div class="label">遮罩中心偏移 X（px）</div><input data-shader-target="${target}" data-shader-field="centerOffsetPx.x" data-layer="${layerKey}" type="number" step="1" value="${params.centerOffsetPx.x}" /></div>
         <div><div class="label">遮罩中心偏移 Y（px）</div><input data-shader-target="${target}" data-shader-field="centerOffsetPx.y" data-layer="${layerKey}" type="number" step="1" value="${params.centerOffsetPx.y}" /></div>
@@ -578,6 +578,21 @@ const progressParamsEditorHtml = (layerKey, target, title, params) => `
     </div>
   </details>
 `;
+
+const refreshProgressEditorVisibility = (root, layerKey, target, shape) => {
+  const show = (field, visible) => {
+    const input = root.querySelector(`[data-layer="${layerKey}"][data-shader-target="${target}"][data-shader-field="${field}"]`);
+    if (input?.parentElement) input.parentElement.style.display = visible ? '' : 'none';
+  };
+  const radialLike = ['radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'].includes(shape);
+  show('angleDeg', shape === 'linear');
+  show('startAngleDeg', ['sector', 'ring', 'rect-perimeter'].includes(shape));
+  show('sweepAngleDeg', ['sector', 'ring'].includes(shape));
+  show('innerRadius', ['ring', 'rect-perimeter'].includes(shape));
+  show('outerRadius', ['ring', 'rect-perimeter'].includes(shape));
+  show('centerOffsetPx.x', radialLike); show('centerOffsetPx.y', radialLike);
+  show('axisScale.x', radialLike); show('axisScale.y', radialLike);
+};
 
 const layerShaderEditorHtml = (layerKey) => {
   const params = state.layerShaderParams[layerKey] || createLayerShaderParams();
@@ -606,13 +621,13 @@ const applyLayerShaderParams = (layerKey) => {
   const params = state.layerShaderParams[layerKey];
   if (!stripeHandle?.controller || !params) return;
   stripeHandle.controller.updateProgress({
-    enabled: params.scope === 'composite' && params.composite.mode !== 'none',
+    enabled: params.scope === 'composite' && params.composite.shape !== 'none',
     ...params.composite
   });
   stripeHandle.controller.updateLayerProgress({
     enabled: params.scope === 'layers',
-    stripe: { enabled: params.stripe.mode !== 'none', ...params.stripe },
-    background: { enabled: params.background.mode !== 'none', ...params.background }
+    stripe: { enabled: params.stripe.shape !== 'none', ...params.stripe },
+    background: { enabled: params.background.shape !== 'none', ...params.background }
   });
 };
 
@@ -709,9 +724,15 @@ const renderLayerStripeBindingsControls = () => {
       const field = event.currentTarget.getAttribute('data-shader-field');
       const params = state.layerShaderParams[layerKey]?.[target];
       if (!layerKey || !params || !field) return;
-      if (field === 'mode') params.mode = event.currentTarget.value;
+      if (field === 'shape') params.shape = event.currentTarget.value;
+      else if (field === 'direction') params.direction = event.currentTarget.value;
       else if (field === 'value') params.value = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.value)));
+      else if (field === 'angleDeg') params.angleDeg = toNumber(event.currentTarget.value, params.angleDeg);
       else if (field === 'startAngleDeg') params.startAngleDeg = Math.max(-360, Math.min(360, toNumber(event.currentTarget.value, params.startAngleDeg)));
+      else if (field === 'sweepAngleDeg') params.sweepAngleDeg = Math.max(0.001, Math.min(360, toNumber(event.currentTarget.value, params.sweepAngleDeg)));
+      else if (field === 'innerRadius') params.innerRadius = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.innerRadius)));
+      else if (field === 'outerRadius') params.outerRadius = Math.max(0, Math.min(1, toNumber(event.currentTarget.value, params.outerRadius)));
+      else if (field === 'softness') params.softness = Math.max(0, Math.min(0.5, toNumber(event.currentTarget.value, params.softness)));
       else if (field === 'centerOffsetPx.x') params.centerOffsetPx.x = toNumber(event.currentTarget.value, params.centerOffsetPx.x);
       else if (field === 'centerOffsetPx.y') params.centerOffsetPx.y = toNumber(event.currentTarget.value, params.centerOffsetPx.y);
       else if (field === 'axisScale.x') params.axisScale.x = Math.max(0.001, Math.abs(toNumber(event.currentTarget.value, params.axisScale.x)));
@@ -726,8 +747,12 @@ const renderLayerStripeBindingsControls = () => {
         if (peer !== event.currentTarget) peer.value = event.currentTarget.value;
       });
       applyLayerShaderParams(layerKey);
+      if (field === 'shape') refreshProgressEditorVisibility(el.layerStripeBox, layerKey, target, params.shape);
     });
   });
+  LAYER_KEYS.forEach((layerKey) => ['composite', 'stripe', 'background'].forEach((target) => {
+    refreshProgressEditorVisibility(el.layerStripeBox, layerKey, target, state.layerShaderParams[layerKey][target].shape);
+  }));
 };
 
 const activeMonsterConfig = () => state.monsterConfigs[state.activeMonsterConfigId] || null;
@@ -1151,28 +1176,23 @@ const syncStripeMaterialsForAllLayers = () => {
     handle.controller.mesh.setEnabled(true);
     handle.controller.mesh.showBoundingBox = state.babylon.spriteDebugEnabled;
 
-    if (stripePresetKey === STRIPE_NONE || !preset) {
-      if (currentStripe) {
-        currentStripe.controller.dispose();
-        state.babylon.stripeHandles.delete(layerKey);
-      }
-      handle.controller.mesh.material = handle.baseMaterial;
-      continue;
-    }
+    const contentPreset = stripePresetKey === STRIPE_NONE || !preset
+      ? { mode: 'texture' }
+      : preset;
 
     if (currentStripe && currentStripe.presetKey === stripePresetKey) {
-      currentStripe.controller.updatePreset(preset);
+      currentStripe.controller.updatePreset(contentPreset);
       currentStripe.controller.updateRenderSize(handle.renderSizePx.width, handle.renderSizePx.height);
       applyLayerShaderParams(layerKey);
       continue;
     }
 
     currentStripe?.controller.dispose();
-    const shader = createStripeMaskMaterial(
+    const shader = createSpriteMaskMaterial(
       state.babylon.scene,
       `monster_stripe_${layerKey}`,
       handle.textureUrl,
-      preset,
+      contentPreset,
       handle.renderSizePx
     );
     shader.updateTime(state.animTimeSec);

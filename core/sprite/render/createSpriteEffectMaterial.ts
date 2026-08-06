@@ -1,4 +1,11 @@
-import { Color3, DynamicTexture, Effect, Scene, ShaderMaterial, Texture, Vector2 } from '@babylonjs/core';
+import { Color3, DynamicTexture, Effect, Scene, ShaderMaterial, Texture, Vector2, type BaseTexture } from '@babylonjs/core';
+import {
+  progressDirectionValue,
+  progressShapeValue,
+  resolveProgressOptions,
+  type SpriteProgressOptions
+} from '@/core/sprite/progress/spriteProgress.ts';
+import { SPRITE_PROGRESS_GLSL } from '@/core/sprite/progress/spriteProgress.glsl.ts';
 
 export type StripeSegmentLike = {
   width?: number;
@@ -10,7 +17,7 @@ export type StripeSegmentLike = {
 };
 
 export type StripePresetLike = {
-  mode?: 'solid' | 'stripes';
+  mode?: 'texture' | 'solid' | 'stripes';
   solidColor?: string;
   solidOpacity?: number;
   angleDeg?: number;
@@ -20,16 +27,8 @@ export type StripePresetLike = {
   segments?: StripeSegmentLike[];
 };
 
-export type StripeProgressMode =
-  | 'none'
-  | 'left-to-right'
-  | 'right-to-left'
-  | 'bottom-to-top'
-  | 'top-to-bottom'
-  | 'radial-outward'
-  | 'radial-inward'
-  | 'sector-clockwise'
-  | 'sector-counterclockwise';
+export type StripeProgressShape = 'none' | 'linear' | 'radial' | 'sector' | 'ring' | 'diamond' | 'box' | 'rect-perimeter';
+export type StripeProgressDirection = 'forward' | 'reverse' | 'center-out' | 'edges-in';
 
 export type StripeProgressRegionStyle = {
   source?: 'texture' | 'color';
@@ -40,9 +39,18 @@ export type StripeProgressRegionStyle = {
 export type StripeProgressMaskOptions = {
   enabled?: boolean;
   value?: number;
-  mode?: StripeProgressMode;
+  shape?: StripeProgressShape;
+  direction?: StripeProgressDirection;
+  /** 线性遮罩方向：0° 从左向右，90° 从下向上。 */
+  angleDeg?: number;
   /** 扇形模式的起始角。0 度朝上，正方向为顺时针。 */
   startAngleDeg?: number;
+  /** 扇形/环形覆盖角度。 */
+  sweepAngleDeg?: number;
+  innerRadius?: number;
+  outerRadius?: number;
+  /** 进度边缘柔化宽度，使用 0..1 的进度坐标。 */
+  softness?: number;
   /** 圆形/扇形遮罩中心相对精灵中心的像素偏移；X 向右、Y 向上为正。 */
   centerOffsetPx?: { x?: number; y?: number };
   /** 圆形/扇形遮罩的轴向缩放；大于 1 会沿对应轴拉伸。 */
@@ -71,6 +79,7 @@ export type StripeShaderMaterialController = StripeMaskMaterialController;
 
 export type CreateStripeShaderMaterialOptions = {
   maskTexturePath?: string;
+  sourceTexture?: BaseTexture;
   progress?: StripeProgressMaskOptions;
   layerProgress?: StripeLayerProgressOptions;
   renderSizePx?: {
@@ -118,8 +127,14 @@ const ensureShaderRegistered = () => {
       uniform vec2 uRenderSizePx;
       uniform float uProgressEnabled;
       uniform float uProgress;
-      uniform float uProgressMode;
+      uniform float uProgressShape;
+      uniform float uProgressDirection;
+      uniform float uProgressAngleRad;
       uniform float uProgressStartAngleRad;
+      uniform float uProgressSweepAngleRad;
+      uniform float uProgressInnerRadius;
+      uniform float uProgressOuterRadius;
+      uniform float uProgressSoftness;
       uniform vec2 uProgressCenterOffsetPx;
       uniform vec2 uProgressAxisScale;
       uniform float uFilledUseTexture;
@@ -131,8 +146,14 @@ const ensureShaderRegistered = () => {
       uniform float uLayerProgressEnabled;
       uniform float uStripeProgressEnabled;
       uniform float uStripeProgress;
-      uniform float uStripeProgressMode;
+      uniform float uStripeProgressShape;
+      uniform float uStripeProgressDirection;
+      uniform float uStripeProgressAngleRad;
       uniform float uStripeProgressStartAngleRad;
+      uniform float uStripeProgressSweepAngleRad;
+      uniform float uStripeProgressInnerRadius;
+      uniform float uStripeProgressOuterRadius;
+      uniform float uStripeProgressSoftness;
       uniform vec2 uStripeProgressCenterOffsetPx;
       uniform vec2 uStripeProgressAxisScale;
       uniform float uStripeFilledUseTexture;
@@ -143,8 +164,14 @@ const ensureShaderRegistered = () => {
       uniform float uStripeUnfilledOpacity;
       uniform float uBackgroundProgressEnabled;
       uniform float uBackgroundProgress;
-      uniform float uBackgroundProgressMode;
+      uniform float uBackgroundProgressShape;
+      uniform float uBackgroundProgressDirection;
+      uniform float uBackgroundProgressAngleRad;
       uniform float uBackgroundProgressStartAngleRad;
+      uniform float uBackgroundProgressSweepAngleRad;
+      uniform float uBackgroundProgressInnerRadius;
+      uniform float uBackgroundProgressOuterRadius;
+      uniform float uBackgroundProgressSoftness;
       uniform vec2 uBackgroundProgressCenterOffsetPx;
       uniform vec2 uBackgroundProgressAxisScale;
       uniform float uBackgroundFilledUseTexture;
@@ -154,36 +181,62 @@ const ensureShaderRegistered = () => {
       uniform vec3 uBackgroundUnfilledColor;
       uniform float uBackgroundUnfilledOpacity;
 
+      ${SPRITE_PROGRESS_GLSL}
+
       const float PI = 3.14159265358979323846;
 
-      float progressCoordinate(vec2 uv, float mode, float startAngle, vec2 centerOffsetPx, vec2 axisScale) {
-        if (mode < 1.5) return uv.x;
-        if (mode < 2.5) return 1.0 - uv.x;
-        if (mode < 3.5) return uv.y;
-        if (mode < 4.5) return 1.0 - uv.y;
-
+      float progressCoordinate(vec2 uv, float shape, float direction, float angle, float startAngle, float sweepAngle, float innerRadius, float outerRadius, vec2 centerOffsetPx, vec2 axisScale) {
         vec2 safeRenderSize = max(uRenderSizePx, vec2(1.0));
         float referenceSize = max(1.0, min(safeRenderSize.x, safeRenderSize.y));
         vec2 safeAxisScale = max(abs(axisScale), vec2(0.001));
         vec2 centeredUv = ((uv - vec2(0.5)) * safeRenderSize - centerOffsetPx) / referenceSize / safeAxisScale;
-        float normalizedRadius = clamp(length(centeredUv) * 2.0, 0.0, 1.0);
-        if (mode < 5.5) return normalizedRadius;
-        if (mode < 6.5) return 1.0 - normalizedRadius;
-
-        // atan(x, y) makes zero point upward. Normalize to a clockwise 0..1 turn.
-        float clockwiseAngle = atan(centeredUv.x, centeredUv.y);
-        float start = startAngle;
-        float clockwiseTurn = mod(clockwiseAngle - start + 2.0 * PI, 2.0 * PI) / (2.0 * PI);
-        if (mode < 7.5) return clockwiseTurn;
-        return mod(start - clockwiseAngle + 2.0 * PI, 2.0 * PI) / (2.0 * PI);
+        float coordinate = 0.0;
+        if (shape < 1.5) {
+          vec2 linearUv = uv - vec2(0.5);
+          vec2 axis = vec2(cos(angle), sin(angle));
+          float extent = max(0.0001, 0.5 * (abs(axis.x) + abs(axis.y)));
+          coordinate = dot(linearUv, axis) / (2.0 * extent) + 0.5;
+        } else if (shape < 2.5) {
+          coordinate = clamp(length(centeredUv) * 2.0, 0.0, 1.0);
+        } else if (shape < 4.5) {
+          float clockwiseAngle = atan(centeredUv.x, centeredUv.y);
+          float sweep = clamp(abs(sweepAngle), 0.0001, 2.0 * PI);
+          float turn = abs(direction - 2.0) > 0.25
+            ? mod(clockwiseAngle - startAngle + 2.0 * PI, 2.0 * PI)
+            : mod(startAngle - clockwiseAngle + 2.0 * PI, 2.0 * PI);
+          float radius = length(centeredUv) * 2.0;
+          if (turn > sweep || (shape > 3.5 && (radius < innerRadius || radius > outerRadius))) return 2.0;
+          coordinate = turn / sweep;
+          direction = 1.0;
+        } else if (shape < 5.5) {
+          coordinate = clamp((abs(centeredUv.x) + abs(centeredUv.y)) * 2.0, 0.0, 1.0);
+        } else if (shape < 6.5) {
+          coordinate = clamp(max(abs(centeredUv.x), abs(centeredUv.y)) * 2.0, 0.0, 1.0);
+        } else {
+          vec2 p = centeredUv * 2.0;
+          float edgeDistance = max(abs(p.x), abs(p.y));
+          if (edgeDistance < innerRadius || edgeDistance > outerRadius) return 2.0;
+          float a = atan(p.y, p.x);
+          coordinate = mod(a - startAngle + 2.0 * PI, 2.0 * PI) / (2.0 * PI);
+        }
+        if (direction > 2.5 && direction < 3.5) return clamp(abs(coordinate - 0.5) * 2.0, 0.0, 1.0);
+        if (direction > 3.5) return clamp(1.0 - abs(coordinate - 0.5) * 2.0, 0.0, 1.0);
+        if (direction > 1.5) return 1.0 - coordinate;
+        return coordinate;
       }
 
       vec4 applyLayerProgress(
         vec4 layer,
         float enabled,
         float progress,
-        float mode,
+        float shape,
+        float direction,
+        float angle,
         float startAngle,
+        float sweepAngle,
+        float innerRadius,
+        float outerRadius,
+        float softness,
         vec2 centerOffsetPx,
         vec2 axisScale,
         float filledUseTexture,
@@ -194,8 +247,9 @@ const ensureShaderRegistered = () => {
         float unfilledOpacity
       ) {
         if (enabled < 0.5 || layer.a <= 0.0001) return layer;
-        float coordinate = progressCoordinate(vUV, mode, startAngle, centerOffsetPx, axisScale);
-        float filled = step(coordinate, clamp(progress, 0.0, 1.0));
+        float coordinate = progressCoordinate(vUV, shape, direction, angle, startAngle, sweepAngle, innerRadius, outerRadius, centerOffsetPx, axisScale);
+        float edge = clamp(softness, 0.0, 0.5);
+        float filled = edge <= 0.0001 ? step(coordinate, clamp(progress, 0.0, 1.0)) : 1.0 - smoothstep(progress - edge, progress + edge, coordinate);
         float useTexture = mix(unfilledUseTexture, filledUseTexture, filled);
         vec3 regionColor = mix(unfilledColor, filledColor, filled);
         float regionOpacity = mix(unfilledOpacity, filledOpacity, filled);
@@ -203,9 +257,10 @@ const ensureShaderRegistered = () => {
       }
 
       void main(void) {
+        vec4 sourceSample = texture2D(uMaskTexture, vUV);
         float maskAlpha = 1.0;
         if (uUseMask > 0.5) {
-          maskAlpha = texture2D(uMaskTexture, vUV).a;
+          maskAlpha = sourceSample.a;
         }
         if (maskAlpha <= 0.001) {
           discard;
@@ -213,6 +268,12 @@ const ensureShaderRegistered = () => {
 
         vec4 stripeLayer = vec4(uSolidColor, clamp(uSolidAlpha, 0.0, 1.0));
         vec4 backgroundLayer = vec4(0.0);
+        if (uUseSolid > 1.5) {
+          // Keep source alpha as the immutable silhouette mask. The content layer
+          // stays opaque so texture styling does not square semi-transparent edges.
+          stripeLayer = vec4(sourceSample.rgb, 1.0);
+          maskAlpha = sourceSample.a;
+        }
         if (uUseSolid < 0.5) {
           vec2 pixelCoord = vUV * uRenderSizePx;
           vec2 centered = pixelCoord - uRenderSizePx * 0.5;
@@ -227,8 +288,8 @@ const ensureShaderRegistered = () => {
         }
 
         if (uLayerProgressEnabled > 0.5) {
-          stripeLayer = applyLayerProgress(stripeLayer, uStripeProgressEnabled, uStripeProgress, uStripeProgressMode, uStripeProgressStartAngleRad, uStripeProgressCenterOffsetPx, uStripeProgressAxisScale, uStripeFilledUseTexture, uStripeFilledColor, uStripeFilledOpacity, uStripeUnfilledUseTexture, uStripeUnfilledColor, uStripeUnfilledOpacity);
-          backgroundLayer = applyLayerProgress(backgroundLayer, uBackgroundProgressEnabled, uBackgroundProgress, uBackgroundProgressMode, uBackgroundProgressStartAngleRad, uBackgroundProgressCenterOffsetPx, uBackgroundProgressAxisScale, uBackgroundFilledUseTexture, uBackgroundFilledColor, uBackgroundFilledOpacity, uBackgroundUnfilledUseTexture, uBackgroundUnfilledColor, uBackgroundUnfilledOpacity);
+          stripeLayer = applySpriteLayerProgress(stripeLayer, uStripeProgressEnabled, uStripeProgress, uStripeProgressShape, uStripeProgressDirection, uStripeProgressAngleRad, uStripeProgressStartAngleRad, uStripeProgressSweepAngleRad, uStripeProgressInnerRadius, uStripeProgressOuterRadius, uStripeProgressSoftness, uStripeProgressCenterOffsetPx, uStripeProgressAxisScale, uStripeFilledUseTexture, uStripeFilledColor, uStripeFilledOpacity, uStripeUnfilledUseTexture, uStripeUnfilledColor, uStripeUnfilledOpacity);
+          backgroundLayer = applySpriteLayerProgress(backgroundLayer, uBackgroundProgressEnabled, uBackgroundProgress, uBackgroundProgressShape, uBackgroundProgressDirection, uBackgroundProgressAngleRad, uBackgroundProgressStartAngleRad, uBackgroundProgressSweepAngleRad, uBackgroundProgressInnerRadius, uBackgroundProgressOuterRadius, uBackgroundProgressSoftness, uBackgroundProgressCenterOffsetPx, uBackgroundProgressAxisScale, uBackgroundFilledUseTexture, uBackgroundFilledColor, uBackgroundFilledOpacity, uBackgroundUnfilledUseTexture, uBackgroundUnfilledColor, uBackgroundUnfilledOpacity);
         }
 
         float backgroundVisibleAlpha = backgroundLayer.a * (1.0 - stripeLayer.a);
@@ -237,8 +298,9 @@ const ensureShaderRegistered = () => {
         vec3 colorOut = alphaOut > 0.0001 ? mixedPremul / alphaOut : vec3(0.0);
 
         if (uProgressEnabled > 0.5) {
-          float coordinate = progressCoordinate(vUV, uProgressMode, uProgressStartAngleRad, uProgressCenterOffsetPx, uProgressAxisScale);
-          float filled = step(coordinate, clamp(uProgress, 0.0, 1.0));
+          float coordinate = spriteProgressCoordinate(vUV, uProgressShape, uProgressDirection, uProgressAngleRad, uProgressStartAngleRad, uProgressSweepAngleRad, uProgressInnerRadius, uProgressOuterRadius, uProgressCenterOffsetPx, uProgressAxisScale);
+          float edge = clamp(uProgressSoftness, 0.0, 0.5);
+          float filled = edge <= 0.0001 ? step(coordinate, clamp(uProgress, 0.0, 1.0)) : 1.0 - smoothstep(uProgress - edge, uProgress + edge, coordinate);
           float useTexture = mix(uUnfilledUseTexture, uFilledUseTexture, filled);
           vec3 regionColor = mix(uUnfilledColor, uFilledColor, filled);
           float regionOpacity = mix(uUnfilledOpacity, uFilledOpacity, filled);
@@ -265,18 +327,6 @@ const toOpacity = (value: unknown, fallback = 1): number => {
 const toColor3 = (value: string | undefined, fallback: string): Color3 => {
   const source = typeof value === 'string' && value.trim() ? value : fallback;
   return Color3.FromHexString(source);
-};
-
-const progressModeValue = (mode: StripeProgressMode | undefined): number => {
-  if (mode === 'left-to-right') return 1;
-  if (mode === 'right-to-left') return 2;
-  if (mode === 'bottom-to-top') return 3;
-  if (mode === 'top-to-bottom') return 4;
-  if (mode === 'radial-outward') return 5;
-  if (mode === 'radial-inward') return 6;
-  if (mode === 'sector-clockwise') return 7;
-  if (mode === 'sector-counterclockwise') return 8;
-  return 0;
 };
 
 const buildStripeTexture = (scene: Scene, preset: StripePresetLike, name: string): DynamicTexture => {
@@ -338,7 +388,7 @@ const createSolidWhiteTexture = (scene: Scene, name: string): DynamicTexture => 
   return texture;
 };
 
-export const createStripeShaderMaterial = (
+export const createSpriteEffectMaterial = (
   scene: Scene,
   name: string,
   initialPreset: StripePresetLike,
@@ -346,9 +396,10 @@ export const createStripeShaderMaterial = (
 ): StripeShaderMaterialController => {
   ensureShaderRegistered();
 
-  const maskTexture = options.maskTexturePath
+  const ownsMaskTexture = !options.sourceTexture;
+  const maskTexture = options.sourceTexture ?? (options.maskTexturePath
     ? new Texture(options.maskTexturePath, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE)
-    : createSolidWhiteTexture(scene, `${name}_whiteMaskTexture`);
+    : createSolidWhiteTexture(scene, `${name}_whiteMaskTexture`));
   maskTexture.hasAlpha = true;
   maskTexture.wrapU = Texture.CLAMP_ADDRESSMODE;
   maskTexture.wrapV = Texture.CLAMP_ADDRESSMODE;
@@ -377,8 +428,14 @@ export const createStripeShaderMaterial = (
         'uRenderSizePx',
         'uProgressEnabled',
         'uProgress',
-        'uProgressMode',
+        'uProgressShape',
+        'uProgressDirection',
+        'uProgressAngleRad',
         'uProgressStartAngleRad',
+        'uProgressSweepAngleRad',
+        'uProgressInnerRadius',
+        'uProgressOuterRadius',
+        'uProgressSoftness',
         'uProgressCenterOffsetPx',
         'uProgressAxisScale',
         'uFilledUseTexture',
@@ -390,8 +447,14 @@ export const createStripeShaderMaterial = (
         'uLayerProgressEnabled',
         'uStripeProgressEnabled',
         'uStripeProgress',
-        'uStripeProgressMode',
+        'uStripeProgressShape',
+        'uStripeProgressDirection',
+        'uStripeProgressAngleRad',
         'uStripeProgressStartAngleRad',
+        'uStripeProgressSweepAngleRad',
+        'uStripeProgressInnerRadius',
+        'uStripeProgressOuterRadius',
+        'uStripeProgressSoftness',
         'uStripeProgressCenterOffsetPx',
         'uStripeProgressAxisScale',
         'uStripeFilledUseTexture',
@@ -402,8 +465,14 @@ export const createStripeShaderMaterial = (
         'uStripeUnfilledOpacity',
         'uBackgroundProgressEnabled',
         'uBackgroundProgress',
-        'uBackgroundProgressMode',
+        'uBackgroundProgressShape',
+        'uBackgroundProgressDirection',
+        'uBackgroundProgressAngleRad',
         'uBackgroundProgressStartAngleRad',
+        'uBackgroundProgressSweepAngleRad',
+        'uBackgroundProgressInnerRadius',
+        'uBackgroundProgressOuterRadius',
+        'uBackgroundProgressSoftness',
         'uBackgroundProgressCenterOffsetPx',
         'uBackgroundProgressAxisScale',
         'uBackgroundFilledUseTexture',
@@ -426,7 +495,7 @@ export const createStripeShaderMaterial = (
   material.setFloat('uUseMask', options.maskTexturePath ? 1 : 0);
 
   const applyPreset = (preset: StripePresetLike) => {
-    const mode = preset?.mode === 'solid' ? 'solid' : 'stripes';
+    const mode = preset?.mode === 'texture' ? 'texture' : preset?.mode === 'solid' ? 'solid' : 'stripes';
     const angleDeg = Number(preset?.angleDeg);
     const speed = Number(preset?.speed);
     const solidOpacity = Number(preset?.solidOpacity);
@@ -435,7 +504,7 @@ export const createStripeShaderMaterial = (
     stripeTexture.dispose();
     stripeTexture = buildStripeTexture(scene, preset, `${name}_stripeTexture`);
     material.setTexture('uStripeTexture', stripeTexture);
-    material.setFloat('uUseSolid', mode === 'solid' ? 1 : 0);
+    material.setFloat('uUseSolid', mode === 'solid' ? 1 : mode === 'texture' ? 2 : 0);
     material.setColor3('uSolidColor', toColor3(preset?.solidColor, '#ffffff'));
     material.setFloat('uSolidAlpha', Number.isFinite(solidOpacity) ? clamp01(solidOpacity) : 1);
     material.setColor3('uBackgroundColor', toColor3(preset?.background, '#000000'));
@@ -451,24 +520,39 @@ export const createStripeShaderMaterial = (
     material.setVector2('uRenderSizePx', new Vector2(width, height));
   };
 
-  const applyProgress = (progress: StripeProgressMaskOptions = {}) => {
-    const mode = progressModeValue(progress.mode);
-    const value = Number(progress.value);
+  const applyProgressGeometry = (prefix: '' | 'Stripe' | 'Background', progress: StripeProgressMaskOptions) => {
+    const resolved = resolveProgressOptions(progress);
     const startAngleDeg = Number(progress.startAngleDeg);
-    const filled = progress.filled ?? {};
-    const unfilled = progress.unfilled ?? {};
-    material.setFloat('uProgressEnabled', progress.enabled !== false && mode > 0 ? 1 : 0);
-    material.setFloat('uProgress', Number.isFinite(value) ? clamp01(value) : 1);
-    material.setFloat('uProgressMode', mode);
-    material.setFloat('uProgressStartAngleRad', ((Number.isFinite(startAngleDeg) ? startAngleDeg : 0) * Math.PI) / 180);
-    material.setVector2('uProgressCenterOffsetPx', new Vector2(
+    const sweepAngleDeg = Number(progress.sweepAngleDeg);
+    const innerRadius = Number(progress.innerRadius);
+    const outerRadius = Number(progress.outerRadius);
+    const softness = Number(progress.softness);
+    material.setFloat(`u${prefix}ProgressShape`, progressShapeValue(resolved.shape));
+    material.setFloat(`u${prefix}ProgressDirection`, progressDirectionValue(resolved.direction));
+    material.setFloat(`u${prefix}ProgressAngleRad`, resolved.angleDeg * Math.PI / 180);
+    material.setFloat(`u${prefix}ProgressStartAngleRad`, (Number.isFinite(startAngleDeg) ? startAngleDeg : 0) * Math.PI / 180);
+    material.setFloat(`u${prefix}ProgressSweepAngleRad`, Math.max(0.001, Math.min(360, Math.abs(Number.isFinite(sweepAngleDeg) ? sweepAngleDeg : 360))) * Math.PI / 180);
+    material.setFloat(`u${prefix}ProgressInnerRadius`, clamp01(Number.isFinite(innerRadius) ? innerRadius : 0.65));
+    material.setFloat(`u${prefix}ProgressOuterRadius`, clamp01(Number.isFinite(outerRadius) ? outerRadius : 1));
+    material.setFloat(`u${prefix}ProgressSoftness`, Math.max(0, Math.min(0.5, Number.isFinite(softness) ? softness : 0)));
+    material.setVector2(`u${prefix}ProgressCenterOffsetPx`, new Vector2(
       Number.isFinite(Number(progress.centerOffsetPx?.x)) ? Number(progress.centerOffsetPx?.x) : 0,
       Number.isFinite(Number(progress.centerOffsetPx?.y)) ? Number(progress.centerOffsetPx?.y) : 0
     ));
-    material.setVector2('uProgressAxisScale', new Vector2(
+    material.setVector2(`u${prefix}ProgressAxisScale`, new Vector2(
       Number.isFinite(Number(progress.axisScale?.x)) ? Math.max(0.001, Math.abs(Number(progress.axisScale?.x))) : 1,
       Number.isFinite(Number(progress.axisScale?.y)) ? Math.max(0.001, Math.abs(Number(progress.axisScale?.y))) : 1
     ));
+    return resolved;
+  };
+
+  const applyProgress = (progress: StripeProgressMaskOptions = {}) => {
+    const resolved = applyProgressGeometry('', progress);
+    const value = Number(progress.progress ?? progress.value);
+    const filled = progress.filled ?? {};
+    const unfilled = progress.unfilled ?? {};
+    material.setFloat('uProgressEnabled', progress.enabled !== false && resolved.shape !== 'none' ? 1 : 0);
+    material.setFloat('uProgress', Number.isFinite(value) ? clamp01(value) : 1);
     material.setFloat('uFilledUseTexture', filled.source === 'color' ? 0 : 1);
     material.setColor3('uFilledColor', toColor3(filled.color, '#ffffff'));
     material.setFloat('uFilledOpacity', toOpacity(filled.opacity, 1));
@@ -478,23 +562,12 @@ export const createStripeShaderMaterial = (
   };
 
   const applyLayerProgressPart = (prefix: 'Stripe' | 'Background', progress: StripeProgressMaskOptions = {}) => {
-    const mode = progressModeValue(progress.mode);
-    const value = Number(progress.value);
-    const startAngleDeg = Number(progress.startAngleDeg);
+    const resolved = applyProgressGeometry(prefix, progress);
+    const value = Number(progress.progress ?? progress.value);
     const filled = progress.filled ?? {};
     const unfilled = progress.unfilled ?? {};
-    material.setFloat(`u${prefix}ProgressEnabled`, progress.enabled !== false && mode > 0 ? 1 : 0);
+    material.setFloat(`u${prefix}ProgressEnabled`, progress.enabled !== false && resolved.shape !== 'none' ? 1 : 0);
     material.setFloat(`u${prefix}Progress`, Number.isFinite(value) ? clamp01(value) : 1);
-    material.setFloat(`u${prefix}ProgressMode`, mode);
-    material.setFloat(`u${prefix}ProgressStartAngleRad`, ((Number.isFinite(startAngleDeg) ? startAngleDeg : 0) * Math.PI) / 180);
-    material.setVector2(`u${prefix}ProgressCenterOffsetPx`, new Vector2(
-      Number.isFinite(Number(progress.centerOffsetPx?.x)) ? Number(progress.centerOffsetPx?.x) : 0,
-      Number.isFinite(Number(progress.centerOffsetPx?.y)) ? Number(progress.centerOffsetPx?.y) : 0
-    ));
-    material.setVector2(`u${prefix}ProgressAxisScale`, new Vector2(
-      Number.isFinite(Number(progress.axisScale?.x)) ? Math.max(0.001, Math.abs(Number(progress.axisScale?.x))) : 1,
-      Number.isFinite(Number(progress.axisScale?.y)) ? Math.max(0.001, Math.abs(Number(progress.axisScale?.y))) : 1
-    ));
     material.setFloat(`u${prefix}FilledUseTexture`, filled.source === 'color' ? 0 : 1);
     material.setColor3(`u${prefix}FilledColor`, toColor3(filled.color, '#ffffff'));
     material.setFloat(`u${prefix}FilledOpacity`, toOpacity(filled.opacity, 1));
@@ -527,19 +600,19 @@ export const createStripeShaderMaterial = (
     updateRenderSize: applyRenderSize,
     dispose: () => {
       stripeTexture.dispose();
-      maskTexture.dispose();
+      if (ownsMaskTexture) maskTexture.dispose();
       material.dispose();
     }
   };
 };
 
-export const createStripeMaskMaterial = (
+export const createSpriteMaskMaterial = (
   scene: Scene,
   name: string,
   maskTexturePath: string,
   initialPreset: StripePresetLike,
   renderSizePx?: CreateStripeShaderMaterialOptions['renderSizePx']
-): StripeMaskMaterialController => createStripeShaderMaterial(scene, name, initialPreset, {
+): StripeMaskMaterialController => createSpriteEffectMaterial(scene, name, initialPreset, {
   maskTexturePath,
   renderSizePx
 });

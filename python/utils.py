@@ -960,6 +960,9 @@ def validate_monster_exclamation_position_payload(payload: dict) -> list[str]:
             vector = config.get(field)
             if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector):
                 errors.append(f"{path}.{field} must contain three finite numbers")
+        scale = config.get("exclamationScale")
+        if not is_finite_number(scale) or scale <= 0:
+            errors.append(f"{path}.exclamationScale must be a finite number greater than zero")
     return errors
 
 def validate_special_status_visual_preset_payload(payload: dict) -> list[str]:

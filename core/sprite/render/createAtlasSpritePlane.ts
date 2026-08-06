@@ -27,6 +27,7 @@ export const createAtlasSpritePlane = (
   const plane = MeshBuilder.CreatePlane('plane', { size: 1 }, scene);
   const planeMaterial = new StandardMaterial('planeMat', scene);
   let currentRegion: SpriteFrameRegion | null = null;
+  let displayScale = 1;
 
   const iconTexture = shareTexture
     ? acquireSharedAtlasTexture(scene, texturePath)
@@ -68,13 +69,13 @@ export const createAtlasSpritePlane = (
       textureSize.height
     );
     if (typeof worldUnitsPerPixel === 'number' && Number.isFinite(worldUnitsPerPixel) && worldUnitsPerPixel > 0) {
-      plane.scaling.x = displayWidth * worldUnitsPerPixel;
-      plane.scaling.y = displayHeight * worldUnitsPerPixel;
+      plane.scaling.x = displayWidth * worldUnitsPerPixel * displayScale;
+      plane.scaling.y = displayHeight * worldUnitsPerPixel * displayScale;
       return;
     }
     const aspectRatio = Math.max(0.0001, displayWidth / Math.max(1, displayHeight));
-    plane.scaling.x = baseSize * aspectRatio;
-    plane.scaling.y = baseSize;
+    plane.scaling.x = baseSize * aspectRatio * displayScale;
+    plane.scaling.y = baseSize * displayScale;
   };
 
   const applyTextureRegion = (region: SpriteFrameRegion | null) => {
@@ -122,6 +123,11 @@ export const createAtlasSpritePlane = (
   return {
     mesh: plane,
     texture: iconTexture,
+    getDisplayScale: () => displayScale,
+    setDisplayScale: (scale: number) => {
+      displayScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
+      applyPlaneScale(currentRegion);
+    },
     getFrameRegion: () => currentRegion,
     setFrameRegion: (region: SpriteFrameRegion | null) => {
       currentRegion = region;

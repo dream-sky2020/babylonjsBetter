@@ -2,7 +2,8 @@ import { Vector3 } from '@babylonjs/core';
 import type {
   CameraLabController,
   CameraLabMode,
-  CameraLockPlaneAxis
+  CameraLockPlaneAxis,
+  CameraPositionAxis
 } from '@/core/camera/cameraLabController.ts';
 import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
 
@@ -41,11 +42,19 @@ const html = `
       <option value="pointerLock">点击画布锁定鼠标</option>
       <option value="drag">按住左键拖拽调整视野</option>
     </select>
+    <div data-role="camera-position">
+      <label>摄像机位置</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+        <div data-position-axis="x"><label>X</label><input data-field="position.x" type="number" step="0.1" /></div>
+        <div data-position-axis="y"><label>Y</label><input data-field="position.y" type="number" step="0.1" /></div>
+        <div data-position-axis="z"><label>Z</label><input data-field="position.z" type="number" step="0.1" /></div>
+      </div>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
       <div><label>移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
       <div><label>鼠标灵敏度</label><input data-field="mouseSensitivity" type="number" min="0.0005" max="0.02" step="0.0005" /></div>
-      <div><label>第一人称高度</label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
-      <div>
+      <div data-first-person-only><label>第一人称高度</label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
+      <div data-lock-only>
         <label>锁定平面</label>
         <select data-field="lockPlaneAxis">
           <option value="x">X（YZ 平面）</option>
@@ -53,21 +62,26 @@ const html = `
           <option value="z">Z（XY 平面）</option>
         </select>
       </div>
-      <div><label>锁定平面坐标</label><input data-field="lockPlaneValue" type="number" step="0.1" /></div>
-      <div><label>环绕半径</label><input data-field="orbitRadius" type="number" min="1" max="300" step="0.5" /></div>
-      <div><label>环绕俯仰角</label><input data-field="orbitPitchDeg" type="number" min="-80" max="80" step="1" /></div>
+      <div data-lock-only><label>锁定平面坐标</label><input data-field="lockPlaneValue" type="number" step="0.1" /></div>
+      <div data-orbit-only><label>环绕半径</label><input data-field="orbitRadius" type="number" min="1" max="300" step="0.5" /></div>
+      <div data-orbit-only><label>环绕方位角（°）</label><input data-field="orbitYawDeg" type="number" step="1" /></div>
+      <div data-orbit-only><label>环绕俯仰角（°）</label><input data-field="orbitPitchDeg" type="number" min="-80" max="80" step="1" /></div>
     </div>
-    <label>环绕中心 XYZ</label>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <input data-field="orbitCenter.x" type="number" step="0.1" />
-      <input data-field="orbitCenter.y" type="number" step="0.1" />
-      <input data-field="orbitCenter.z" type="number" step="0.1" />
+    <div data-orbit-only>
+      <label>环绕中心 XYZ</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <input data-field="orbitCenter.x" type="number" step="0.1" />
+        <input data-field="orbitCenter.y" type="number" step="0.1" />
+        <input data-field="orbitCenter.z" type="number" step="0.1" />
+      </div>
     </div>
-    <label>终点锁定目标 XYZ</label>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-      <input data-field="lockTarget.x" type="number" step="0.1" />
-      <input data-field="lockTarget.y" type="number" step="0.1" />
-      <input data-field="lockTarget.z" type="number" step="0.1" />
+    <div data-lock-only>
+      <label>终点锁定目标 XYZ</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <input data-field="lockTarget.x" type="number" step="0.1" />
+        <input data-field="lockTarget.y" type="number" step="0.1" />
+        <input data-field="lockTarget.z" type="number" step="0.1" />
+      </div>
     </div>
     <button data-role="reset" type="button">恢复默认摄像机</button>
     <textarea data-role="status" readonly></textarea>
@@ -100,6 +114,9 @@ const readNumber = (input: HTMLInputElement, fallback: number): number => {
   const value = Number(input.value);
   return Number.isFinite(value) ? value : fallback;
 };
+
+const radiansToDegrees = (value: number): number => value * 180 / Math.PI;
+const degreesToRadians = (value: number): number => value * Math.PI / 180;
 
 export const createFloatingCameraControlPanel = (
   host: HTMLElement,
@@ -174,7 +191,26 @@ export const createFloatingCameraControlPanel = (
 
   const status = panel.querySelector<HTMLTextAreaElement>('textarea[data-role="status"]');
 
+  const syncPositionVisibility = () => {
+    const editableAxes = new Set(controller.getEditablePositionAxes());
+    const positionGroup = panel.querySelector<HTMLElement>('[data-role="camera-position"]');
+    if (positionGroup) positionGroup.style.display = editableAxes.size ? '' : 'none';
+    panel.querySelectorAll<HTMLElement>('[data-position-axis]').forEach((element) => {
+      element.style.display = editableAxes.has(element.dataset.positionAxis as CameraPositionAxis) ? '' : 'none';
+    });
+    panel.querySelectorAll<HTMLElement>('[data-orbit-only]').forEach((element) => {
+      element.style.display = controller.state.mode === 'orbit' ? '' : 'none';
+    });
+    panel.querySelectorAll<HTMLElement>('[data-first-person-only]').forEach((element) => {
+      element.style.display = controller.state.mode === 'firstPerson' ? '' : 'none';
+    });
+    panel.querySelectorAll<HTMLElement>('[data-lock-only]').forEach((element) => {
+      element.style.display = controller.state.mode === 'lockPan' ? '' : 'none';
+    });
+  };
+
   const syncFromController = () => {
+    const position = controller.getPosition();
     panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-field]').forEach((input) => {
       const field = input.dataset.field || '';
       const state = controller.state;
@@ -183,9 +219,13 @@ export const createFloatingCameraControlPanel = (
       else if (field === 'moveSpeed') input.value = String(state.moveSpeed);
       else if (field === 'mouseSensitivity') input.value = String(state.mouseSensitivity);
       else if (field === 'firstPersonHeight') input.value = String(state.firstPersonHeight);
+      else if (field === 'position.x') input.value = String(position.x);
+      else if (field === 'position.y') input.value = String(position.y);
+      else if (field === 'position.z') input.value = String(position.z);
       else if (field === 'lockPlaneAxis') input.value = state.lockPlaneAxis;
       else if (field === 'lockPlaneValue') input.value = String(state.lockPlaneValue);
       else if (field === 'orbitRadius') input.value = String(state.orbitRadius);
+      else if (field === 'orbitYawDeg') input.value = String(radiansToDegrees(state.orbitYaw));
       else if (field === 'orbitPitchDeg') input.value = String(state.orbitPitchDeg);
       else if (field === 'orbitCenter.x') input.value = String(state.orbitCenter.x);
       else if (field === 'orbitCenter.y') input.value = String(state.orbitCenter.y);
@@ -194,6 +234,7 @@ export const createFloatingCameraControlPanel = (
       else if (field === 'lockTarget.y') input.value = String(state.lockTarget.y);
       else if (field === 'lockTarget.z') input.value = String(state.lockTarget.z);
     });
+    syncPositionVisibility();
   };
 
   const updateStatus = () => {
@@ -203,11 +244,15 @@ export const createFloatingCameraControlPanel = (
   const applyField = (input: HTMLInputElement | HTMLSelectElement) => {
     const field = input.dataset.field || '';
     const state = controller.state;
-    if (field === 'mode') state.mode = input.value as CameraLabMode;
+    if (field === 'mode') controller.setMode(input.value as CameraLabMode);
     else if (field === 'lookControlMode') state.lookControlMode = input.value === 'drag' ? 'drag' : 'pointerLock';
     else if (field === 'moveSpeed') state.moveSpeed = readNumber(input as HTMLInputElement, state.moveSpeed);
     else if (field === 'mouseSensitivity') state.mouseSensitivity = readNumber(input as HTMLInputElement, state.mouseSensitivity);
     else if (field === 'firstPersonHeight') state.firstPersonHeight = readNumber(input as HTMLInputElement, state.firstPersonHeight);
+    else if (field.startsWith('position.')) {
+      const axis = field.slice(-1) as CameraPositionAxis;
+      controller.setPositionAxis(axis, readNumber(input as HTMLInputElement, controller.getPosition()[axis]));
+    }
     else if (field === 'lockPlaneAxis') {
       const axis = (input.value === 'x' || input.value === 'z' ? input.value : 'y') as CameraLockPlaneAxis;
       state.lockPlaneAxis = axis;
@@ -219,6 +264,7 @@ export const createFloatingCameraControlPanel = (
       state.lockPlaneValue = readNumber(input as HTMLInputElement, state.lockPlaneValue);
     }
     else if (field === 'orbitRadius') state.orbitRadius = readNumber(input as HTMLInputElement, state.orbitRadius);
+    else if (field === 'orbitYawDeg') state.orbitYaw = degreesToRadians(readNumber(input as HTMLInputElement, radiansToDegrees(state.orbitYaw)));
     else if (field === 'orbitPitchDeg') state.orbitPitchDeg = readNumber(input as HTMLInputElement, state.orbitPitchDeg);
     else if (field.startsWith('orbitCenter.')) state.orbitCenter = new Vector3(
       field.endsWith('.x') ? readNumber(input as HTMLInputElement, state.orbitCenter.x) : state.orbitCenter.x,
@@ -231,6 +277,7 @@ export const createFloatingCameraControlPanel = (
       field.endsWith('.z') ? readNumber(input as HTMLInputElement, state.lockTarget.z) : state.lockTarget.z
     );
     controller.applyPose();
+    if (field === 'mode' || field === 'lockPlaneAxis') syncFromController();
     updateStatus();
   };
 

@@ -22,6 +22,7 @@ import {
   type ExclamationMarkPresetMap
 } from '@/core/sprite';
 import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { ExclamationProgressControls } from '@/tools/shared/ExclamationProgressControls.tsx';
 
 const API_PATH = '/api/exclamation-mark-presets';
 const sectionStyle: React.CSSProperties = { padding: 12, border: '1px solid #273348', borderRadius: 10, background: '#151d29' };
@@ -115,14 +116,14 @@ export const ExclamationMarkLab: React.FC = () => {
     if (!scene || !preset?.imagePath) return;
     const sprite = createAtlasSpritePlane(scene, encodeURI(`/${preset.imagePath.replace(/^\/+/, '')}`), 1);
     const progressMaterial = createExclamationMarkProgressMaterial(scene, sprite.texture, preset);
-    sprite.mesh.material = progressMaterial;
+    sprite.mesh.material = progressMaterial.material;
     sprite.mesh.isPickable = false;
     spriteRef.current = sprite;
     progressMaterialRef.current = progressMaterial;
     const applyCurrentSize = () => {
       const textureSize = sprite.texture.getSize();
       const aspect = textureSize.width > 0 && textureSize.height > 0 ? textureSize.width / textureSize.height : 1;
-      sprite.mesh.scaling.x = desiredHeightRef.current * aspect;
+      sprite.mesh.scaling.x = preset.sizeMode === 'fixed' ? preset.width * preset.scale : desiredHeightRef.current * aspect;
       sprite.mesh.scaling.y = desiredHeightRef.current;
     };
     sprite.texture.onLoadObservable.add(applyCurrentSize);
@@ -130,7 +131,7 @@ export const ExclamationMarkLab: React.FC = () => {
     return () => {
       if (spriteRef.current === sprite) spriteRef.current = null;
       if (progressMaterialRef.current === progressMaterial) progressMaterialRef.current = null;
-      progressMaterial.dispose(false, false);
+      progressMaterial.dispose();
       sprite.dispose();
     };
   }, [preset?.imagePath]);
@@ -142,9 +143,9 @@ export const ExclamationMarkLab: React.FC = () => {
     if (!sprite) return;
     const textureSize = sprite.texture.getSize();
     const aspect = textureSize.width > 0 && textureSize.height > 0 ? textureSize.width / textureSize.height : 1;
-    sprite.mesh.scaling.x = desiredHeightRef.current * aspect;
+    sprite.mesh.scaling.x = preset.sizeMode === 'fixed' ? preset.width * preset.scale : desiredHeightRef.current * aspect;
     sprite.mesh.scaling.y = desiredHeightRef.current;
-  }, [preset?.height, preset?.scale]);
+  }, [preset?.height, preset?.width, preset?.scale, preset?.sizeMode]);
 
   useEffect(() => {
     if (!preset) return;
@@ -247,36 +248,14 @@ export const ExclamationMarkLab: React.FC = () => {
           {imageOptions.map((path) => <option key={path} value={path}>{path}</option>)}
         </select>
         <label>图片路径（保存到配置）</label><input value={preset.imagePath} onChange={(event) => patchPreset({ imagePath: event.target.value.replace(/^\/+/, '') })} />
-        <div style={{ marginTop: 12, padding: 10, border: '1px solid #2d3b51', borderRadius: 8, background: '#101722' }}>
-          <strong style={{ fontSize: 13 }}>进度填充 Shader</strong>
-          <label>铺满百分比：{Math.round(preset.fillPercent * 100)}%</label>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px', gap: 8 }}>
-            <input type="range" min="0" max="100" step="1" value={Math.round(preset.fillPercent * 100)} onChange={(event) => patchPreset({ fillPercent: Number(event.target.value) / 100 })} />
-            <input type="number" min="0" max="100" step="1" value={Math.round(preset.fillPercent * 100)} onChange={(event) => patchPreset({ fillPercent: Math.max(0, Math.min(100, Number(event.target.value))) / 100 })} />
-          </div>
-          <label>填充方向</label>
-          <select value={preset.fillDirection} onChange={(event) => patchPreset({ fillDirection: event.target.value as ExclamationMarkPreset['fillDirection'] })}>
-            <option value="bottom-to-top">从下到上</option>
-            <option value="top-to-bottom">从上到下</option>
-            <option value="left-to-right">从左到右</option>
-            <option value="right-to-left">从右到左</option>
-          </select>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-            <div>
-              <label>已填充区域</label>
-              <select value={preset.fillMode} onChange={(event) => patchPreset({ fillMode: event.target.value as ExclamationMarkPreset['fillMode'] })}><option value="color">指定颜色</option><option value="texture">原图纹理</option></select>
-              {preset.fillMode === 'color' ? <><label>填充颜色</label><input type="color" value={preset.fillColor} onChange={(event) => patchPreset({ fillColor: event.target.value })} /></> : null}
-              <label>填充透明度</label><input type="number" min="0" max="1" step="0.1" value={preset.fillOpacity} onChange={(event) => patchPreset({ fillOpacity: Number(event.target.value) })} />
-            </div>
-            <div>
-              <label>未填充背景</label>
-              <select value={preset.backgroundMode} onChange={(event) => patchPreset({ backgroundMode: event.target.value as ExclamationMarkPreset['backgroundMode'] })}><option value="color">指定颜色</option><option value="texture">原图纹理</option></select>
-              {preset.backgroundMode === 'color' ? <><label>背景颜色</label><input type="color" value={preset.backgroundColor} onChange={(event) => patchPreset({ backgroundColor: event.target.value })} /></> : null}
-              <label>背景透明度</label><input type="number" min="0" max="1" step="0.1" value={preset.backgroundOpacity} onChange={(event) => patchPreset({ backgroundOpacity: Number(event.target.value) })} />
-            </div>
-          </div>
-        </div>
+        <ExclamationProgressControls value={preset.progress} onChange={(progress) => patchPreset({ progress })} />
+        <label>图片尺寸模式</label>
+        <select value={preset.sizeMode} onChange={(event) => patchPreset({ sizeMode: event.target.value as ExclamationMarkPreset['sizeMode'] })}>
+          <option value="fixed">固定宽高（切换图片不改变平面尺寸）</option>
+          <option value="preserve-aspect">保持图片原始比例</option>
+        </select>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          <div><label>基础宽度</label><input style={numericInputStyle} type="number" min="0.01" step="0.1" value={preset.width} disabled={preset.sizeMode !== 'fixed'} onChange={(event) => patchPreset({ width: Number(event.target.value) })} /></div>
           <div><label>基础高度</label><input style={numericInputStyle} type="number" min="0.01" step="0.1" value={preset.height} onChange={(event) => patchPreset({ height: Number(event.target.value) })} /></div>
           <div><label>缩放</label><input style={numericInputStyle} type="number" min="0.01" step="0.1" value={preset.scale} onChange={(event) => patchPreset({ scale: Number(event.target.value) })} /></div>
         </div>

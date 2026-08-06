@@ -3,7 +3,7 @@ import type { Scene } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, createLayeredMonster, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type LayeredMonsterController, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
+import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, createLayeredMonster, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type LayeredMonsterController, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterSpecialStatusRowAnchorMode, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
 import { getPublicResourceImagePaths, loadNumberSpritePresets, type NumberSpritePresetMap } from '@/core/sprite';
 import { SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL, createSpecialStatus3d, normalizeSpecialStatusVisualPresets, type SpecialStatus3dConfig, type SpecialStatus3dController, type SpecialStatus3dValues, type SpecialStatus3dVisibility, type SpecialStatusVisualPresetMap } from '@/core/special-status';
 import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
@@ -39,7 +39,9 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
     const [statusGroupOffset, setStatusGroupOffset] = useState<Vec3>([0, 0, 0]);
     const [statusGroupScale, setStatusGroupScale] = useState(1);
     const [statusWrapCount, setStatusWrapCount] = useState(4);
+    const [statusRowAnchorMode, setStatusRowAnchorMode] = useState<MonsterSpecialStatusRowAnchorMode>('center');
     const [faceCamera, setFaceCamera] = useState(false);
+    const [spriteDebugVisible, setSpriteDebugVisible] = useState(false);
     const [spriteFacingAxis, setSpriteFacingAxis] = useState<'+Z' | '-Z'>('+Z');
     const [savedConfig, setSavedConfig] = useState<MonsterSpecialStatusPositionConfig>(createDefaultMonsterSpecialStatusPositions);
     const savedConfigRef = useRef(savedConfig), previousMonsterKeyRef = useRef('');
@@ -100,6 +102,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                     const entry = loaded.monsters[key] ?? createDefaultMonsterSpecialStatusEntry(key);
                     setStatusWrapCount(entry.statusWrapCount);
                     setStatusGroupOffset(vec(entry.statusGroupOffset));
+                    setStatusRowAnchorMode(entry.statusRowAnchorMode);
                 }
             }
             catch (error) {
@@ -113,7 +116,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         const previousKey = previousMonsterKeyRef.current;
         if (previousKey && previousKey !== monsterKey) {
             const next = { ...savedConfigRef.current, monsters: { ...savedConfigRef.current.monsters,
-                    [previousKey]: { monsterConfigKey: previousKey, statusWrapCount, statusGroupOffset: vec(statusGroupOffset) }
+                    [previousKey]: { monsterConfigKey: previousKey, statusWrapCount, statusGroupOffset: vec(statusGroupOffset), statusRowAnchorMode }
                 } };
             savedConfigRef.current = next;
             setSavedConfig(next);
@@ -122,6 +125,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
             const entry = savedConfigRef.current.monsters[monsterKey] ?? createDefaultMonsterSpecialStatusEntry(monsterKey);
             setStatusWrapCount(entry.statusWrapCount);
             setStatusGroupOffset(vec(entry.statusGroupOffset));
+            setStatusRowAnchorMode(entry.statusRowAnchorMode);
             previousMonsterKeyRef.current = monsterKey;
         }
     }, [monsterKey]);
@@ -178,13 +182,15 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         const preset = visuals[item.presetKey], number = preset && numbers[preset.babylon3d.numberPresetKey];
         if (!preset || !number)
             continue;
-        const p = preset.babylon3d, row = Math.floor(itemIndex / columns), column = itemIndex % columns, itemsInRow = Math.min(columns, items.length - row * columns), centeredColumn = column - (itemsInRow - 1) / 2, centeredRow = row - (rowCount - 1) / 2, position: Vec3 = [monster.root.position.x + p.position[0] + statusGroupOffset[0] + statusSpacing[0] * centeredColumn, monster.root.position.y + p.position[1] + statusGroupOffset[1] + statusSpacing[1] * centeredRow, monster.root.position.z + p.position[2] + statusGroupOffset[2] + statusSpacing[2] * centeredRow];
+        const p = preset.babylon3d, row = Math.floor(itemIndex / columns), column = itemIndex % columns, itemsInRow = Math.min(columns, items.length - row * columns), centeredColumn = column - (itemsInRow - 1) / 2;
+        const rowOffset = statusRowAnchorMode === 'first-row-up' ? row : statusRowAnchorMode === 'first-row-down' ? -row : row - (rowCount - 1) / 2;
+        const position: Vec3 = [monster.root.position.x + p.position[0] + statusGroupOffset[0] + statusSpacing[0] * centeredColumn, monster.root.position.y + p.position[1] + statusGroupOffset[1] + statusSpacing[1] * rowOffset, monster.root.position.z + p.position[2] + statusGroupOffset[2] + statusSpacing[2] * rowOffset];
         const config: SpecialStatus3dConfig = { iconPath: item.iconSrc || '/resources/favicon.svg', numberPreset: number, statusHeight: p.statusHeight, statusScale: p.statusScale, numberScale: p.numberScale, cornerInset: p.cornerInset, position, numberOffsets: p.numberOffsets.map(vec) as SpecialStatus3dConfig['numberOffsets'], billboard: faceCamera };
         const configSignature = JSON.stringify([config, statusGroupScale]), stateSignature = JSON.stringify([item.values, item.visible]);
         let controller = controllersRef.current.get(item.id);
         const previous = snapshotsRef.current.get(item.id);
         if (!controller) {
-            controller = await createSpecialStatus3d(scene, config, { values: item.values, visible: item.visible }, `monsterStatus_${item.id}`);
+            controller = await createSpecialStatus3d(scene, config, { values: item.values, visible: item.visible, debug: spriteDebugVisible }, `monsterStatus_${item.id}`);
             if (generation !== generationRef.current) {
                 controller.dispose();
                 return;
@@ -198,8 +204,9 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 await controller.setValues(item.values, item.visible);
         }
         controller.root.scaling.setAll(Math.max(0.01, statusGroupScale));
+        controller.setDebugVisible(spriteDebugVisible);
         snapshotsRef.current.set(item.id, { config: configSignature, state: stateSignature });
-    } })().catch(error => setMessage(`更新失败：${String(error)}`)); }, [items, visuals, numbers, monsterKey, stripeKey, monsterOffset, statusSpacing, statusGroupOffset, statusGroupScale, statusWrapCount, faceCamera, monsters]);
+    } })().catch(error => setMessage(`更新失败：${String(error)}`)); }, [items, visuals, numbers, monsterKey, stripeKey, monsterOffset, statusSpacing, statusGroupOffset, statusGroupScale, statusWrapCount, statusRowAnchorMode, faceCamera, spriteDebugVisible, monsters]);
     useEffect(() => {
         const scene = sceneRef.current;
         if (!scene)
@@ -231,7 +238,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
             },
             monsters: {
                 ...savedConfigRef.current.monsters,
-                [monsterKey]: { monsterConfigKey: monsterKey, statusWrapCount, statusGroupOffset: vec(statusGroupOffset) }
+                [monsterKey]: { monsterConfigKey: monsterKey, statusWrapCount, statusGroupOffset: vec(statusGroupOffset), statusRowAnchorMode }
             }
         });
         try {
@@ -284,6 +291,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 <label>视觉预设（整体）</label>
                 <select value={selected?.presetKey ?? savedConfig.global.visualPresetKey} onChange={e => { const presetKey = e.target.value; setItems(current => current.map(item => ({ ...item, presetKey }))); }}>{Object.entries(visuals).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
                 <label style={{ display: 'flex', gap: 7, alignItems: 'center' }}><input style={{ width: 'auto' }} type="checkbox" checked={faceCamera} onChange={e => setFaceCamera(e.target.checked)}/>面向摄像机（仅测试，不保存）</label>
+                <label style={{ display: 'flex', gap: 7, alignItems: 'center' }}><input aria-label="core sprite debug" style={{ width: 'auto' }} type="checkbox" checked={spriteDebugVisible} onChange={e => setSpriteDebugVisible(e.target.checked)}/>Core Sprite Debug（仅测试，不保存）</label>
             </section>
 
             <section style={{ ...section, borderColor: '#785d38', background: '#211d18' }}>
@@ -291,6 +299,8 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 <small style={{ color: '#c2a77f' }}>{monsterKey || '未选择怪物'}</small>
                 <label>每行特殊状态数量（超过后换行）</label>
                 <input type="number" min="1" step="1" value={statusWrapCount} onChange={e => setStatusWrapCount(Math.max(1, Math.floor(Number(e.target.value) || 1)))}/>
+                <label>换行锚定方式</label>
+                <select value={statusRowAnchorMode} onChange={e => setStatusRowAnchorMode(e.target.value as MonsterSpecialStatusRowAnchorMode)}><option value="center">整体居中（现有）</option><option value="first-row-up">固定第一行，向上扩展</option><option value="first-row-down">固定第一行，向下扩展</option></select>
                 <label>整体特殊状态相对怪物附加偏移 XYZ</label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 6 }}>{['X', 'Y', 'Z'].map((a, i) => <input key={a} aria-label={`状态整体偏移${a}`} type="number" step="0.1" value={statusGroupOffset[i]} onChange={e => setStatusGroupOffset(axis(statusGroupOffset, i, Number(e.target.value)))}/>)}</div>
             </section>
