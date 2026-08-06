@@ -8,8 +8,8 @@ import {
   Vector3
 } from '@babylonjs/core';
 import {
-  createStripeShaderMaterial
-} from '/core/sprite/render/createStripeMaskMaterial.ts';
+  createSpriteEffectMaterial
+} from '/core/sprite/render/createSpriteEffectMaterial.ts';
 import {
   getResolvedDevServerPort,
   probeDevServerConnection,
@@ -26,9 +26,9 @@ const state = {
   presetKeyDraft: '',
   previewMode: 'canvas2d',
   progress: {
-    mode: 'none',
+    shape: 'none', direction: 'forward', angleDeg: 0,
     value: 0.6,
-    startAngleDeg: 0,
+    startAngleDeg: 0, sweepAngleDeg: 360, innerRadius: 0.65, outerRadius: 1, softness: 0,
     centerOffsetPx: { x: 0, y: 0 },
     axisScale: { x: 1, y: 1 },
     filled: { source: 'texture', color: '#ffffff', opacity: 1 },
@@ -37,14 +37,14 @@ const state = {
   progressScope: 'composite',
   layerProgress: {
     stripe: {
-      mode: 'left-to-right', value: 0.7, startAngleDeg: 0,
+      shape: 'linear', direction: 'forward', angleDeg: 0, value: 0.7, startAngleDeg: 0, sweepAngleDeg: 360, innerRadius: 0.65, outerRadius: 1, softness: 0,
       centerOffsetPx: { x: 0, y: 0 },
       axisScale: { x: 1, y: 1 },
       filled: { source: 'texture', color: '#ffffff', opacity: 1 },
       unfilled: { source: 'texture', color: '#5b6472', opacity: 0.2 }
     },
     background: {
-      mode: 'sector-clockwise', value: 0.4, startAngleDeg: 0,
+      shape: 'sector', direction: 'forward', angleDeg: 0, value: 0.4, startAngleDeg: 0, sweepAngleDeg: 360, innerRadius: 0.65, outerRadius: 1, softness: 0,
       centerOffsetPx: { x: 0, y: 0 },
       axisScale: { x: 1, y: 1 },
       filled: { source: 'texture', color: '#18253a', opacity: 1 },
@@ -87,6 +87,12 @@ const el = {
   compositeProgressControls: document.getElementById('compositeProgressControls'),
   layerProgressControls: document.getElementById('layerProgressControls'),
   progressModeInput: document.getElementById('progressModeInput'),
+  progressDirectionInput: document.getElementById('progressDirectionInput'),
+  progressAngleInput: document.getElementById('progressAngleInput'),
+  progressSweepAngleInput: document.getElementById('progressSweepAngleInput'),
+  progressInnerRadiusInput: document.getElementById('progressInnerRadiusInput'),
+  progressOuterRadiusInput: document.getElementById('progressOuterRadiusInput'),
+  progressSoftnessInput: document.getElementById('progressSoftnessInput'),
   progressValueInput: document.getElementById('progressValueInput'),
   progressValueLabel: document.getElementById('progressValueLabel'),
   progressStartAngleRow: document.getElementById('progressStartAngleRow'),
@@ -102,6 +108,8 @@ const el = {
   progressUnfilledColorInput: document.getElementById('progressUnfilledColorInput'),
   progressUnfilledOpacityInput: document.getElementById('progressUnfilledOpacityInput'),
   stripeProgressModeInput: document.getElementById('stripeProgressModeInput'),
+  stripeProgressDirectionInput: document.getElementById('stripeProgressDirectionInput'),
+  stripeProgressAngleInput: document.getElementById('stripeProgressAngleInput'), stripeProgressSweepAngleInput: document.getElementById('stripeProgressSweepAngleInput'), stripeProgressInnerRadiusInput: document.getElementById('stripeProgressInnerRadiusInput'), stripeProgressOuterRadiusInput: document.getElementById('stripeProgressOuterRadiusInput'), stripeProgressSoftnessInput: document.getElementById('stripeProgressSoftnessInput'),
   stripeProgressValueInput: document.getElementById('stripeProgressValueInput'),
   stripeProgressValueLabel: document.getElementById('stripeProgressValueLabel'),
   stripeProgressStartAngleRow: document.getElementById('stripeProgressStartAngleRow'),
@@ -117,6 +125,8 @@ const el = {
   stripeProgressUnfilledColorInput: document.getElementById('stripeProgressUnfilledColorInput'),
   stripeProgressUnfilledOpacityInput: document.getElementById('stripeProgressUnfilledOpacityInput'),
   backgroundProgressModeInput: document.getElementById('backgroundProgressModeInput'),
+  backgroundProgressDirectionInput: document.getElementById('backgroundProgressDirectionInput'),
+  backgroundProgressAngleInput: document.getElementById('backgroundProgressAngleInput'), backgroundProgressSweepAngleInput: document.getElementById('backgroundProgressSweepAngleInput'), backgroundProgressInnerRadiusInput: document.getElementById('backgroundProgressInnerRadiusInput'), backgroundProgressOuterRadiusInput: document.getElementById('backgroundProgressOuterRadiusInput'), backgroundProgressSoftnessInput: document.getElementById('backgroundProgressSoftnessInput'),
   backgroundProgressValueInput: document.getElementById('backgroundProgressValueInput'),
   backgroundProgressValueLabel: document.getElementById('backgroundProgressValueLabel'),
   backgroundProgressStartAngleRow: document.getElementById('backgroundProgressStartAngleRow'),
@@ -395,17 +405,43 @@ const renderSegmentsEditor = () => {
 
 const bindFormEvents = () => {
   const progressModeOptions = el.progressModeInput?.innerHTML || '';
+  const progressDirectionOptions = el.progressDirectionInput?.innerHTML || '';
+  const updateGeometryVisibility = (prefix, progress) => {
+    const showInputCell = (suffix, visible) => {
+      const input = prefix ? el[`${prefix}Progress${suffix}Input`] : el[`progress${suffix}Input`];
+      if (input?.parentElement) input.parentElement.style.display = visible ? '' : 'none';
+    };
+    const radialLike = ['radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'].includes(progress.shape);
+    showInputCell('Angle', progress.shape === 'linear');
+    showInputCell('SweepAngle', ['sector', 'ring'].includes(progress.shape));
+    showInputCell('InnerRadius', ['ring', 'rect-perimeter'].includes(progress.shape));
+    showInputCell('OuterRadius', ['ring', 'rect-perimeter'].includes(progress.shape));
+    showInputCell('CenterOffsetX', radialLike);
+    showInputCell('CenterOffsetY', radialLike);
+    showInputCell('AxisScaleX', radialLike);
+    showInputCell('AxisScaleY', radialLike);
+  };
   if (el.stripeProgressModeInput) {
     el.stripeProgressModeInput.innerHTML = progressModeOptions;
-    el.stripeProgressModeInput.value = state.layerProgress.stripe.mode;
+    el.stripeProgressModeInput.value = state.layerProgress.stripe.shape;
+    el.stripeProgressDirectionInput.innerHTML = progressDirectionOptions;
+    el.stripeProgressDirectionInput.value = state.layerProgress.stripe.direction;
   }
   if (el.backgroundProgressModeInput) {
     el.backgroundProgressModeInput.innerHTML = progressModeOptions;
-    el.backgroundProgressModeInput.value = state.layerProgress.background.mode;
+    el.backgroundProgressModeInput.value = state.layerProgress.background.shape;
+    el.backgroundProgressDirectionInput.innerHTML = progressDirectionOptions;
+    el.backgroundProgressDirectionInput.value = state.layerProgress.background.direction;
   }
 
   const updateLayerProgressPart = (prefix, progress) => {
     const modeInput = el[`${prefix}ProgressModeInput`];
+    const directionInput = el[`${prefix}ProgressDirectionInput`];
+    const angleInput = el[`${prefix}ProgressAngleInput`];
+    const sweepInput = el[`${prefix}ProgressSweepAngleInput`];
+    const innerInput = el[`${prefix}ProgressInnerRadiusInput`];
+    const outerInput = el[`${prefix}ProgressOuterRadiusInput`];
+    const softnessInput = el[`${prefix}ProgressSoftnessInput`];
     const valueInput = el[`${prefix}ProgressValueInput`];
     const startAngleInput = el[`${prefix}ProgressStartAngleInput`];
     const centerOffsetXInput = el[`${prefix}ProgressCenterOffsetXInput`];
@@ -414,7 +450,13 @@ const bindFormEvents = () => {
     const axisScaleYInput = el[`${prefix}ProgressAxisScaleYInput`];
     const valueLabel = el[`${prefix}ProgressValueLabel`];
     const startAngleRow = el[`${prefix}ProgressStartAngleRow`];
-    progress.mode = modeInput?.value || 'none';
+    progress.shape = modeInput?.value || 'none';
+    progress.direction = directionInput?.value || 'forward';
+    progress.angleDeg = toNumber(angleInput?.value, progress.angleDeg);
+    progress.sweepAngleDeg = Math.max(0.001, Math.min(360, toNumber(sweepInput?.value, progress.sweepAngleDeg)));
+    progress.innerRadius = Math.max(0, Math.min(1, toNumber(innerInput?.value, progress.innerRadius)));
+    progress.outerRadius = Math.max(0, Math.min(1, toNumber(outerInput?.value, progress.outerRadius)));
+    progress.softness = Math.max(0, Math.min(0.5, toNumber(softnessInput?.value, progress.softness)));
     progress.value = Math.max(0, Math.min(1, toNumber(valueInput?.value, progress.value)));
     progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(startAngleInput?.value, progress.startAngleDeg)));
     progress.centerOffsetPx.x = toNumber(centerOffsetXInput?.value, progress.centerOffsetPx.x);
@@ -428,7 +470,8 @@ const bindFormEvents = () => {
     progress.unfilled.color = el[`${prefix}ProgressUnfilledColorInput`]?.value || '#000000';
     progress.unfilled.opacity = Math.max(0, Math.min(1, toNumber(el[`${prefix}ProgressUnfilledOpacityInput`]?.value, progress.unfilled.opacity)));
     if (valueLabel) valueLabel.textContent = `${Math.round(progress.value * 100)}%`;
-    if (startAngleRow) startAngleRow.style.display = progress.mode.startsWith('sector-') ? 'block' : 'none';
+    if (startAngleRow) startAngleRow.style.display = ['sector', 'ring', 'rect-perimeter'].includes(progress.shape) ? 'block' : 'none';
+    updateGeometryVisibility(prefix, progress);
   };
 
   const updateLayerProgressForm = () => {
@@ -442,7 +485,7 @@ const bindFormEvents = () => {
   const layerProgressInputs = [
     el.progressScopeInput,
     ...['stripe', 'background'].flatMap((prefix) => [
-      el[`${prefix}ProgressModeInput`], el[`${prefix}ProgressValueInput`], el[`${prefix}ProgressStartAngleInput`],
+      el[`${prefix}ProgressModeInput`], el[`${prefix}ProgressDirectionInput`], el[`${prefix}ProgressAngleInput`], el[`${prefix}ProgressSweepAngleInput`], el[`${prefix}ProgressInnerRadiusInput`], el[`${prefix}ProgressOuterRadiusInput`], el[`${prefix}ProgressSoftnessInput`], el[`${prefix}ProgressValueInput`], el[`${prefix}ProgressStartAngleInput`],
       el[`${prefix}ProgressCenterOffsetXInput`], el[`${prefix}ProgressCenterOffsetYInput`],
       el[`${prefix}ProgressAxisScaleXInput`], el[`${prefix}ProgressAxisScaleYInput`],
       el[`${prefix}ProgressFilledSourceInput`], el[`${prefix}ProgressFilledColorInput`], el[`${prefix}ProgressFilledOpacityInput`],
@@ -454,7 +497,13 @@ const bindFormEvents = () => {
 
   const updateProgressForm = () => {
     const progress = state.progress;
-    progress.mode = el.progressModeInput?.value || 'none';
+    progress.shape = el.progressModeInput?.value || 'none';
+    progress.direction = el.progressDirectionInput?.value || 'forward';
+    progress.angleDeg = toNumber(el.progressAngleInput?.value, progress.angleDeg);
+    progress.sweepAngleDeg = Math.max(0.001, Math.min(360, toNumber(el.progressSweepAngleInput?.value, progress.sweepAngleDeg)));
+    progress.innerRadius = Math.max(0, Math.min(1, toNumber(el.progressInnerRadiusInput?.value, progress.innerRadius)));
+    progress.outerRadius = Math.max(0, Math.min(1, toNumber(el.progressOuterRadiusInput?.value, progress.outerRadius)));
+    progress.softness = Math.max(0, Math.min(0.5, toNumber(el.progressSoftnessInput?.value, progress.softness)));
     progress.value = Math.max(0, Math.min(1, toNumber(el.progressValueInput?.value, progress.value)));
     progress.startAngleDeg = Math.max(-360, Math.min(360, toNumber(el.progressStartAngleInput?.value, progress.startAngleDeg)));
     progress.centerOffsetPx.x = toNumber(el.progressCenterOffsetXInput?.value, progress.centerOffsetPx.x);
@@ -468,11 +517,13 @@ const bindFormEvents = () => {
     progress.unfilled.color = el.progressUnfilledColorInput?.value || '#101827';
     progress.unfilled.opacity = Math.max(0, Math.min(1, toNumber(el.progressUnfilledOpacityInput?.value, progress.unfilled.opacity)));
     if (el.progressValueLabel) el.progressValueLabel.textContent = `${Math.round(progress.value * 100)}%`;
-    if (el.progressStartAngleRow) el.progressStartAngleRow.style.display = progress.mode.startsWith('sector-') ? 'block' : 'none';
+    if (el.progressStartAngleRow) el.progressStartAngleRow.style.display = ['sector', 'ring', 'rect-perimeter'].includes(progress.shape) ? 'block' : 'none';
+    updateGeometryVisibility('', progress);
   };
 
   [
     el.progressModeInput,
+    el.progressDirectionInput, el.progressAngleInput, el.progressSweepAngleInput, el.progressInnerRadiusInput, el.progressOuterRadiusInput, el.progressSoftnessInput,
     el.progressValueInput,
     el.progressStartAngleInput,
     el.progressCenterOffsetXInput,
@@ -793,7 +844,7 @@ const initBabylonPreview = () => {
   light.intensity = 1;
 
   const plane = MeshBuilder.CreatePlane('stripesLabShaderPlane', { size: 1 }, scene);
-  const stripeController = createStripeShaderMaterial(
+  const stripeController = createSpriteEffectMaterial(
     scene,
     'stripes_lab_shader_material',
     activePreset() || createDefaultPreset('preview'),
@@ -824,13 +875,13 @@ const renderBabylonPreview = (dt) => {
   state.babylon.timeSec += dt;
   stripeController.updatePreset(preset);
   stripeController.updateProgress({
-    enabled: state.progressScope === 'composite' && state.progress.mode !== 'none',
+    enabled: state.progressScope === 'composite' && state.progress.shape !== 'none',
     ...state.progress
   });
   stripeController.updateLayerProgress({
     enabled: state.progressScope === 'layers',
-    stripe: { enabled: state.layerProgress.stripe.mode !== 'none', ...state.layerProgress.stripe },
-    background: { enabled: state.layerProgress.background.mode !== 'none', ...state.layerProgress.background }
+    stripe: { enabled: state.layerProgress.stripe.shape !== 'none', ...state.layerProgress.stripe },
+    background: { enabled: state.layerProgress.background.shape !== 'none', ...state.layerProgress.background }
   });
   stripeController.updateTime(state.babylon.timeSec);
   scene.render();

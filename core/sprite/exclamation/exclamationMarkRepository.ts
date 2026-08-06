@@ -20,18 +20,19 @@ export const createDefaultExclamationMarkPreset = (presetKey: string, imagePath 
   presetKey,
   name: presetKey,
   imagePath: normalizePath(imagePath),
+  sizeMode: 'fixed',
+  width: 2.4,
   height: 2.4,
   scale: 1,
   position: [0, 2.25, 0],
   faceCamera: true,
-  fillPercent: 1,
-  fillDirection: 'bottom-to-top',
-  fillMode: 'color',
-  fillColor: '#ffd84d',
-  fillOpacity: 1,
-  backgroundMode: 'texture',
-  backgroundColor: '#263449',
-  backgroundOpacity: 1
+  progress: {
+    enabled: true, progress: 1, shape: 'linear', direction: 'forward', angleDeg: 90,
+    startAngleDeg: 0, sweepAngleDeg: 360, innerRadius: 0.65, outerRadius: 1,
+    softness: 0, centerOffsetPx: { x: 0, y: 0 }, axisScale: { x: 1, y: 1 },
+    filled: { source: 'color', color: '#ffd84d', opacity: 1 },
+    unfilled: { source: 'texture', color: '#263449', opacity: 1 }
+  }
 });
 
 export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMarkPresetMap => {
@@ -39,12 +40,33 @@ export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMark
   const result: ExclamationMarkPresetMap = {};
   for (const [key, raw] of Object.entries(value)) {
     if (!key.trim() || !raw || typeof raw !== 'object' || Array.isArray(raw)) continue;
-    const source = raw as Partial<ExclamationMarkPreset>;
+    const source = raw as Partial<ExclamationMarkPreset> & Record<string, unknown>;
     const rawPosition = Array.isArray(source.position) ? source.position : [];
+    const rawProgress = source.progress && typeof source.progress === 'object' ? source.progress : {};
+    const legacyDirection = source.fillDirection;
+    const legacyVertical = legacyDirection === 'bottom-to-top' || legacyDirection === 'top-to-bottom';
+    const legacyReverse = legacyDirection === 'top-to-bottom' || legacyDirection === 'right-to-left';
+    const shape = ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'].includes(String(rawProgress.shape))
+      ? rawProgress.shape as ExclamationMarkPreset['progress']['shape'] : 'linear';
+    const direction = ['forward', 'reverse', 'center-out', 'edges-in'].includes(String(rawProgress.direction))
+      ? rawProgress.direction as ExclamationMarkPreset['progress']['direction'] : legacyReverse ? 'reverse' : 'forward';
+    const normalizeStyle = (style: unknown, legacyPrefix: 'fill' | 'background') => {
+      const item = style && typeof style === 'object' ? style as Record<string, unknown> : {};
+      const legacyMode = source[`${legacyPrefix}Mode`];
+      const legacyColor = source[`${legacyPrefix}Color`];
+      const legacyOpacity = source[`${legacyPrefix}Opacity`];
+      return {
+        source: item.source === 'color' || item.source === 'texture' ? item.source : legacyMode === 'color' ? 'color' : 'texture',
+        color: typeof item.color === 'string' ? item.color : typeof legacyColor === 'string' ? legacyColor : legacyPrefix === 'fill' ? '#ffd84d' : '#263449',
+        opacity: Math.max(0, Math.min(1, finite(item.opacity, finite(legacyOpacity, 1))))
+      } as const;
+    };
     result[key] = {
       presetKey: key,
       name: typeof source.name === 'string' && source.name.trim() ? source.name : key,
       imagePath: normalizePath(source.imagePath),
+      sizeMode: source.sizeMode === 'preserve-aspect' ? 'preserve-aspect' : 'fixed',
+      width: Math.max(0.01, finite(source.width, finite(source.height, 2.4))),
       height: Math.max(0.01, finite(source.height, 2.4)),
       scale: Math.max(0.01, finite(source.scale, 1)),
       position: [
@@ -53,18 +75,21 @@ export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMark
         finite(rawPosition[2], 0)
       ],
       faceCamera: source.faceCamera !== false,
-      fillPercent: Math.max(0, Math.min(1, finite(source.fillPercent, 1))),
-      fillDirection: source.fillDirection === 'top-to-bottom'
-        || source.fillDirection === 'left-to-right'
-        || source.fillDirection === 'right-to-left'
-        ? source.fillDirection
-        : 'bottom-to-top',
-      fillMode: source.fillMode === 'texture' ? 'texture' : 'color',
-      fillColor: typeof source.fillColor === 'string' ? source.fillColor : '#ffd84d',
-      fillOpacity: Math.max(0, Math.min(1, finite(source.fillOpacity, 1))),
-      backgroundMode: source.backgroundMode === 'color' ? 'color' : 'texture',
-      backgroundColor: typeof source.backgroundColor === 'string' ? source.backgroundColor : '#263449',
-      backgroundOpacity: Math.max(0, Math.min(1, finite(source.backgroundOpacity, 1)))
+      progress: {
+        enabled: rawProgress.enabled !== false,
+        progress: Math.max(0, Math.min(1, finite(rawProgress.progress, finite(source.fillPercent, 1)))),
+        shape, direction,
+        angleDeg: finite(rawProgress.angleDeg, legacyVertical ? 90 : 0),
+        startAngleDeg: finite(rawProgress.startAngleDeg, 0),
+        sweepAngleDeg: Math.max(0.001, Math.min(360, Math.abs(finite(rawProgress.sweepAngleDeg, 360)))),
+        innerRadius: Math.max(0, Math.min(1, finite(rawProgress.innerRadius, 0.65))),
+        outerRadius: Math.max(0, Math.min(1, finite(rawProgress.outerRadius, 1))),
+        softness: Math.max(0, Math.min(0.5, finite(rawProgress.softness, 0))),
+        centerOffsetPx: { x: finite(rawProgress.centerOffsetPx?.x, 0), y: finite(rawProgress.centerOffsetPx?.y, 0) },
+        axisScale: { x: Math.max(0.001, Math.abs(finite(rawProgress.axisScale?.x, 1))), y: Math.max(0.001, Math.abs(finite(rawProgress.axisScale?.y, 1))) },
+        filled: normalizeStyle(rawProgress.filled, 'fill'),
+        unfilled: normalizeStyle(rawProgress.unfilled, 'background')
+      }
     };
   }
   return result;

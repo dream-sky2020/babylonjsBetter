@@ -15,7 +15,8 @@ const vector3 = (value: unknown, fallback: [number, number, number]): [number, n
 export const createDefaultMonsterSpecialStatusEntry = (monsterConfigKey: string): MonsterSpecialStatusEntryConfig => ({
   monsterConfigKey,
   statusWrapCount: 4,
-  statusGroupOffset: [0, 0, 0]
+  statusGroupOffset: [0, 0, 0],
+  statusRowAnchorMode: 'center'
 });
 
 export const createDefaultMonsterSpecialStatusPositions = (): MonsterSpecialStatusPositionConfig => ({
@@ -46,7 +47,10 @@ export const normalizeMonsterSpecialStatusPositions = (value: unknown): MonsterS
     result.monsters[key] = {
       monsterConfigKey: key,
       statusWrapCount: Math.max(1, Math.floor(finite(entry.statusWrapCount, 4))),
-      statusGroupOffset: vector3(entry.statusGroupOffset, [0, 0, 0])
+      statusGroupOffset: vector3(entry.statusGroupOffset, [0, 0, 0]),
+      statusRowAnchorMode: entry.statusRowAnchorMode === 'first-row-up' || entry.statusRowAnchorMode === 'first-row-down'
+        ? entry.statusRowAnchorMode
+        : 'center'
     };
   }
   return result;

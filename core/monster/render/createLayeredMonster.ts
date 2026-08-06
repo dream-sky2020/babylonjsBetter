@@ -1,6 +1,6 @@
 import { Color3, TransformNode, Vector3, type Material, type Scene } from '@babylonjs/core';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
-import { createStripeMaskMaterial, type StripeMaskMaterialController } from '@/core/sprite/render/createStripeMaskMaterial.ts';
+import { createSpriteMaskMaterial, type StripeMaskMaterialController } from '@/core/sprite/render/createSpriteEffectMaterial.ts';
 import { MONSTER_RENDER_ORDER, STRIPE_NONE } from '@/core/monster/config/monsterConfig.ts';
 import { toMonsterResourceUrl } from '@/core/monster/resource/monsterResources.ts';
 import type { MonsterDisplayConfig, MonsterFacingAxis, MonsterLayerKey, MonsterStripePreset, StripePresetLibrary } from '@/core/monster/types/monster.types.ts';
@@ -60,13 +60,13 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
       sprite.mesh.setEnabled(layerStyle?.visible !== false);
       const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
       const stripePreset = stripePresets[stripeKey];
-      if (stripeKey !== STRIPE_NONE && stripePreset) {
+      {
         const textureSize = sprite.texture.getSize();
-        const stripe = createStripeMaskMaterial(
+        const stripe = createSpriteMaskMaterial(
           scene,
           `${name}_${layerKey}_stripe`,
           textureUrl,
-          stripePreset,
+          stripeKey === STRIPE_NONE || !stripePreset ? { mode: 'texture' } : stripePreset,
           {
             width: Math.max(1, textureSize.width),
             height: Math.max(1, textureSize.height)

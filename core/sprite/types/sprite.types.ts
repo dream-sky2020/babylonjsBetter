@@ -13,6 +13,8 @@ export type SpriteFrameRegion = {
 export type IconPlaneController = {
   mesh: Mesh;
   texture: Texture;
+  getDisplayScale: () => number;
+  setDisplayScale: (scale: number) => void;
   getFrameRegion: () => SpriteFrameRegion | null;
   setFrameRegion: (region: SpriteFrameRegion | null) => void;
   dispose?: () => void;

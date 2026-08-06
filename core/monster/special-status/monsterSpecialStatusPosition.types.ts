@@ -5,10 +5,13 @@ export type MonsterSpecialStatusGlobalConfig = {
   visualPresetKey: string;
 };
 
+export type MonsterSpecialStatusRowAnchorMode = 'center' | 'first-row-up' | 'first-row-down';
+
 export type MonsterSpecialStatusEntryConfig = {
   monsterConfigKey: string;
   statusWrapCount: number;
   statusGroupOffset: [number, number, number];
+  statusRowAnchorMode: MonsterSpecialStatusRowAnchorMode;
 };
 
 export type MonsterSpecialStatusPositionConfig = {

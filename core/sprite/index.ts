@@ -46,18 +46,20 @@ export type { CreateAtlasSpritePlaneOptions } from '@/core/sprite/render/createA
 export type {
   StripeSegmentLike,
   StripePresetLike,
-  StripeProgressMode,
+  StripeProgressShape,
+  StripeProgressDirection,
   StripeProgressRegionStyle,
   StripeProgressMaskOptions,
   StripeLayerProgressOptions,
   StripeMaskMaterialController,
   StripeShaderMaterialController,
   CreateStripeShaderMaterialOptions
-} from '@/core/sprite/render/createStripeMaskMaterial.ts';
+} from '@/core/sprite/render/createSpriteEffectMaterial.ts';
 export {
-  createStripeMaskMaterial,
-  createStripeShaderMaterial
-} from '@/core/sprite/render/createStripeMaskMaterial.ts';
+  createSpriteMaskMaterial,
+  createSpriteEffectMaterial
+} from '@/core/sprite/render/createSpriteEffectMaterial.ts';
+export type { ProgressShape, ProgressDirection, SpriteProgressOptions, SpriteProgressRegionStyle } from '@/core/sprite/progress/spriteProgress.ts';
 export {
   acquireSharedAtlasTexture,
   releaseSharedAtlasTexture,

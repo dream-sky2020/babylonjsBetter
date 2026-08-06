@@ -3,6 +3,7 @@ import { ArcRotateCamera, Vector3 } from '@babylonjs/core';
 export type CameraLabMode = 'firstPerson' | 'drone' | 'orbit' | 'lockPan';
 export type CameraLookControlMode = 'pointerLock' | 'drag';
 export type CameraLockPlaneAxis = 'x' | 'y' | 'z';
+export type CameraPositionAxis = 'x' | 'y' | 'z';
 
 export interface CameraLabControllerState {
   mode: CameraLabMode;
@@ -35,6 +36,9 @@ export interface CameraLabController {
   handlePointerDelta: (dx: number, dy: number) => void;
   handleWheel: (deltaY: number) => void;
   setMode: (mode: CameraLabMode) => void;
+  getEditablePositionAxes: () => CameraPositionAxis[];
+  getPosition: () => Vector3;
+  setPositionAxis: (axis: CameraPositionAxis, value: number) => boolean;
   getStatusText: () => string;
 }
 
@@ -242,6 +246,28 @@ export const createCameraLabController = (
     applyPose();
   };
 
+  const getEditablePositionAxes = (): CameraPositionAxis[] => {
+    if (state.mode === 'drone') return ['x', 'y', 'z'];
+    if (state.mode === 'firstPerson') return ['x', 'z'];
+    if (state.mode === 'lockPan') return (['x', 'y', 'z'] as CameraPositionAxis[])
+      .filter((axis) => axis !== state.lockPlaneAxis);
+    return [];
+  };
+
+  const getPosition = (): Vector3 => {
+    if (state.mode === 'firstPerson') return state.firstPersonPosition;
+    if (state.mode === 'drone') return state.dronePosition;
+    if (state.mode === 'lockPan') return state.lockPosition;
+    return camera.position;
+  };
+
+  const setPositionAxis = (axis: CameraPositionAxis, value: number): boolean => {
+    if (!Number.isFinite(value) || !getEditablePositionAxes().includes(axis)) return false;
+    getPosition()[axis] = value;
+    applyPose();
+    return true;
+  };
+
   const getStatusText = (): string => {
     const target = camera.getTarget();
     return [
@@ -264,6 +290,9 @@ export const createCameraLabController = (
     update,
     handlePointerDelta,
     handleWheel,
+    getEditablePositionAxes,
+    getPosition,
+    setPositionAxis,
     setMode: (mode) => {
       state.mode = mode;
       applyPose();

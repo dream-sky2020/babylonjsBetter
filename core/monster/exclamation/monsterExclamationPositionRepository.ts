@@ -18,7 +18,8 @@ const vector3 = (value: unknown): [number, number, number] => {
 export const createDefaultMonsterExclamationPosition = (monsterConfigKey: string): MonsterExclamationPositionConfig => ({
   monsterConfigKey,
   monsterPositionOffset: [0, 0, 0],
-  exclamationOffset: [0, 3.2, 0]
+  exclamationOffset: [0, 3.2, 0],
+  exclamationScale: 1
 });
 
 export const normalizeMonsterExclamationPositions = (value: unknown): MonsterExclamationPositionLibrary => {
@@ -30,7 +31,8 @@ export const normalizeMonsterExclamationPositions = (value: unknown): MonsterExc
     result[key] = {
       monsterConfigKey: key,
       monsterPositionOffset: vector3(source.monsterPositionOffset),
-      exclamationOffset: vector3(source.exclamationOffset)
+      exclamationOffset: vector3(source.exclamationOffset),
+      exclamationScale: Math.max(0.01, finite(source.exclamationScale, 1))
     };
   }
   return result;

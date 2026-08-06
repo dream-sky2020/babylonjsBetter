@@ -221,19 +221,13 @@
           </div>
           <div id="compositeProgressControls">
           <div class="row">
-            <div class="label">遮罩模式</div>
+            <div class="label">形状 shape</div>
             <select id="progressModeInput">
               <option value="none">关闭</option>
-              <option value="left-to-right">线性：左 → 右</option>
-              <option value="right-to-left">线性：右 → 左</option>
-              <option value="bottom-to-top">线性：下 → 上</option>
-              <option value="top-to-bottom">线性：上 → 下</option>
-              <option value="radial-outward">圆形：中心 → 外侧</option>
-              <option value="radial-inward">圆形：外侧 → 中心</option>
-              <option value="sector-clockwise">扇形：顺时针</option>
-              <option value="sector-counterclockwise">扇形：逆时针</option>
+              <option value="linear">linear</option><option value="radial">radial</option><option value="sector">sector</option><option value="ring">ring</option><option value="diamond">diamond</option><option value="box">box</option><option value="rect-perimeter">rect-perimeter</option>
             </select>
           </div>
+          <div class="row"><div class="label">方向 direction</div><select id="progressDirectionInput"><option value="forward">forward</option><option value="reverse">reverse</option><option value="center-out">center-out</option><option value="edges-in">edges-in</option></select></div>
           <div class="row">
             <div class="label">进度 <span id="progressValueLabel">60%</span></div>
             <input id="progressValueInput" type="range" min="0" max="1" step="0.01" value="0.6" />
@@ -242,6 +236,9 @@
             <div class="label">扇形起始角（0° 朝上）</div>
             <input id="progressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" />
           </div>
+          <div class="segment-grid"><div><div class="label">线性角度（°）</div><input id="progressAngleInput" type="number" step="1" value="0" /></div><div><div class="label">覆盖角度（°）</div><input id="progressSweepAngleInput" type="number" min="0.001" max="360" step="1" value="360" /></div></div>
+          <div class="segment-grid"><div><div class="label">内半径</div><input id="progressInnerRadiusInput" type="number" min="0" max="1" step="0.01" value="0.65" /></div><div><div class="label">外半径</div><input id="progressOuterRadiusInput" type="number" min="0" max="1" step="0.01" value="1" /></div></div>
+          <div class="row"><div class="label">柔边 softness</div><input id="progressSoftnessInput" type="number" min="0" max="0.5" step="0.005" value="0" /></div>
           <div class="segment-grid" style="margin-top:10px">
             <div><div class="label">遮罩中心偏移 X（px）</div><input id="progressCenterOffsetXInput" type="number" step="1" value="0" /></div>
             <div><div class="label">遮罩中心偏移 Y（px）</div><input id="progressCenterOffsetYInput" type="number" step="1" value="0" /></div>
@@ -261,9 +258,10 @@
           <div id="layerProgressControls" style="display:none">
             <div class="segment" style="margin-top:10px">
               <div class="title">条纹层遮罩</div>
-              <div class="row"><div class="label">模式</div><select id="stripeProgressModeInput"></select></div>
+              <div class="row"><div class="label">形状</div><select id="stripeProgressModeInput"></select></div><div class="row"><div class="label">方向</div><select id="stripeProgressDirectionInput"></select></div>
               <div class="row"><div class="label">进度 <span id="stripeProgressValueLabel">70%</span></div><input id="stripeProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.7" /></div>
               <div class="row" id="stripeProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="stripeProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid"><div><div class="label">线性角度（°）</div><input id="stripeProgressAngleInput" type="number" step="1" value="0" /></div><div><div class="label">覆盖角度（°）</div><input id="stripeProgressSweepAngleInput" type="number" min="0.001" max="360" step="1" value="360" /></div></div><div class="segment-grid"><div><div class="label">内半径</div><input id="stripeProgressInnerRadiusInput" type="number" min="0" max="1" step="0.01" value="0.65" /></div><div><div class="label">外半径</div><input id="stripeProgressOuterRadiusInput" type="number" min="0" max="1" step="0.01" value="1" /></div></div><div class="row"><div class="label">柔边</div><input id="stripeProgressSoftnessInput" type="number" min="0" max="0.5" step="0.005" value="0" /></div>
               <div class="segment-grid" style="margin-top:10px"><div><div class="label">中心偏移 X（px）</div><input id="stripeProgressCenterOffsetXInput" type="number" step="1" value="0" /></div><div><div class="label">中心偏移 Y（px）</div><input id="stripeProgressCenterOffsetYInput" type="number" step="1" value="0" /></div></div>
               <div class="segment-grid" style="margin-top:10px"><div><div class="label">X 轴缩放</div><input id="stripeProgressAxisScaleXInput" type="number" min="0.001" step="0.05" value="1" /></div><div><div class="label">Y 轴缩放</div><input id="stripeProgressAxisScaleYInput" type="number" min="0.001" step="0.05" value="1" /></div></div>
               <div class="segment-grid" style="margin-top:10px">
@@ -279,9 +277,10 @@
             </div>
             <div class="segment" style="margin-top:10px">
               <div class="title">背景层遮罩</div>
-              <div class="row"><div class="label">模式</div><select id="backgroundProgressModeInput"></select></div>
+              <div class="row"><div class="label">形状</div><select id="backgroundProgressModeInput"></select></div><div class="row"><div class="label">方向</div><select id="backgroundProgressDirectionInput"></select></div>
               <div class="row"><div class="label">进度 <span id="backgroundProgressValueLabel">40%</span></div><input id="backgroundProgressValueInput" type="range" min="0" max="1" step="0.01" value="0.4" /></div>
               <div class="row" id="backgroundProgressStartAngleRow"><div class="label">扇形起始角（0° 朝上）</div><input id="backgroundProgressStartAngleInput" type="number" min="-360" max="360" step="1" value="0" /></div>
+              <div class="segment-grid"><div><div class="label">线性角度（°）</div><input id="backgroundProgressAngleInput" type="number" step="1" value="0" /></div><div><div class="label">覆盖角度（°）</div><input id="backgroundProgressSweepAngleInput" type="number" min="0.001" max="360" step="1" value="360" /></div></div><div class="segment-grid"><div><div class="label">内半径</div><input id="backgroundProgressInnerRadiusInput" type="number" min="0" max="1" step="0.01" value="0.65" /></div><div><div class="label">外半径</div><input id="backgroundProgressOuterRadiusInput" type="number" min="0" max="1" step="0.01" value="1" /></div></div><div class="row"><div class="label">柔边</div><input id="backgroundProgressSoftnessInput" type="number" min="0" max="0.5" step="0.005" value="0" /></div>
               <div class="segment-grid" style="margin-top:10px"><div><div class="label">中心偏移 X（px）</div><input id="backgroundProgressCenterOffsetXInput" type="number" step="1" value="0" /></div><div><div class="label">中心偏移 Y（px）</div><input id="backgroundProgressCenterOffsetYInput" type="number" step="1" value="0" /></div></div>
               <div class="segment-grid" style="margin-top:10px"><div><div class="label">X 轴缩放</div><input id="backgroundProgressAxisScaleXInput" type="number" min="0.001" step="0.05" value="1" /></div><div><div class="label">Y 轴缩放</div><input id="backgroundProgressAxisScaleYInput" type="number" min="0.001" step="0.05" value="1" /></div></div>
               <div class="segment-grid" style="margin-top:10px">

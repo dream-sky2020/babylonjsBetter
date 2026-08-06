@@ -1,4 +1,4 @@
-import type { StripePresetLike } from '@/core/sprite/render/createStripeMaskMaterial.ts';
+import type { StripePresetLike } from '@/core/sprite/render/createSpriteEffectMaterial.ts';
 
 export type MonsterLayerKey = 'bottomFillMask' | 'bottomBorder' | 'body' | 'line';
 export type MonsterFacingAxis = '+Z' | '-Z';
