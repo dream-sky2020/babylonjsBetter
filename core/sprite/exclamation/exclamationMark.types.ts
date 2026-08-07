@@ -1,5 +1,18 @@
 import type { SpriteProgressOptions } from '@/core/sprite/progress/spriteProgress.ts';
 
+export type ExclamationMarkBasePreset = {
+  enabled: boolean;
+  imagePath: string;
+  sizeMode: 'fixed' | 'preserve-aspect';
+  width: number;
+  height: number;
+  scale: number;
+  scaleX: number;
+  scaleY: number;
+  offset: [number, number, number];
+  progress: SpriteProgressOptions;
+};
+
 export type ExclamationMarkPreset = {
   presetKey: string;
   name: string;
@@ -8,9 +21,12 @@ export type ExclamationMarkPreset = {
   width: number;
   height: number;
   scale: number;
+  scaleX: number;
+  scaleY: number;
   position: [number, number, number];
   faceCamera: boolean;
   progress: SpriteProgressOptions;
+  base: ExclamationMarkBasePreset;
   /** Legacy fields accepted only while old editors/configs are being migrated. */
   fillPercent?: number;
   fillDirection?: 'bottom-to-top' | 'top-to-bottom' | 'left-to-right' | 'right-to-left';

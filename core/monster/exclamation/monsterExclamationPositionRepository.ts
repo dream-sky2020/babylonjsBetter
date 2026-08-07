@@ -15,11 +15,19 @@ const vector3 = (value: unknown): [number, number, number] => {
   return [finite(source[0]), finite(source[1]), finite(source[2])];
 };
 
+const configKey = (value: unknown): string => typeof value === 'string' ? value.trim() : '';
+const progress = (value: unknown, fallback = 1): number => Math.max(0, Math.min(1, finite(value, fallback)));
+
 export const createDefaultMonsterExclamationPosition = (monsterConfigKey: string): MonsterExclamationPositionConfig => ({
   monsterConfigKey,
+  exclamationPresetKey: '',
+  basePresetKey: '',
+  exclamationProgress: 1,
+  baseProgress: 1,
   monsterPositionOffset: [0, 0, 0],
   exclamationOffset: [0, 3.2, 0],
-  exclamationScale: 1
+  exclamationScale: 1,
+  baseScale: 1
 });
 
 export const normalizeMonsterExclamationPositions = (value: unknown): MonsterExclamationPositionLibrary => {
@@ -30,9 +38,14 @@ export const normalizeMonsterExclamationPositions = (value: unknown): MonsterExc
     const source = raw as Partial<MonsterExclamationPositionConfig>;
     result[key] = {
       monsterConfigKey: key,
+      exclamationPresetKey: configKey(source.exclamationPresetKey),
+      basePresetKey: configKey(source.basePresetKey),
+      exclamationProgress: progress(source.exclamationProgress),
+      baseProgress: progress(source.baseProgress),
       monsterPositionOffset: vector3(source.monsterPositionOffset),
       exclamationOffset: vector3(source.exclamationOffset),
-      exclamationScale: Math.max(0.01, finite(source.exclamationScale, 1))
+      exclamationScale: Math.max(0.01, finite(source.exclamationScale, 1)),
+      baseScale: Math.max(0.01, finite(source.baseScale, 1))
     };
   }
   return result;

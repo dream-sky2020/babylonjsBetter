@@ -9,10 +9,13 @@ import type { SpriteProgressOptions } from '@/core/sprite/progress/spriteProgres
 
 export type ExclamationMarkSpriteController = {
   mesh: ReturnType<typeof createAtlasSpritePlane>['mesh'];
+  baseMesh: ReturnType<typeof createAtlasSpritePlane>['mesh'] | null;
   preset: ExclamationMarkPreset;
   setFillPercent: (percent: number) => void;
   setProgress: (progress: SpriteProgressOptions) => void;
+  setBaseProgress: (progress: SpriteProgressOptions) => void;
   setScale: (scale: number) => void;
+  setBaseScale: (scale: number) => void;
   setDebugVisible: (visible: boolean) => void;
   dispose: () => void;
 };
@@ -29,15 +32,29 @@ export const createExclamationMarkSprite = (
     preset.height * preset.scale
   );
   const progressMaterial = createExclamationMarkProgressMaterial(scene, sprite.texture, runtimePreset);
+  const baseSprite = preset.base.enabled && preset.base.imagePath
+    ? createAtlasSpritePlane(scene, encodeURI(`/${preset.base.imagePath.replace(/^\/+/, '')}`), 1)
+    : null;
+  const baseRuntimePreset = { ...runtimePreset, presetKey: `${preset.presetKey}_base`, progress: { ...preset.base.progress } };
+  const baseMaterial = baseSprite ? createExclamationMarkProgressMaterial(scene, baseSprite.texture, baseRuntimePreset) : null;
   let runtimeScale = 1;
+  let runtimeBaseScale = 1;
   const applyDisplaySize = () => {
-    const displayHeight = preset.height * preset.scale * runtimeScale;
+    const displayHeight = preset.height * preset.scale * preset.scaleY * runtimeScale;
     const textureSize = sprite.texture.getSize();
     const aspect = textureSize.width > 0 && textureSize.height > 0 ? textureSize.width / textureSize.height : 1;
     sprite.mesh.scaling.x = preset.sizeMode === 'fixed'
-      ? preset.width * preset.scale * runtimeScale
-      : displayHeight * aspect;
+      ? preset.width * preset.scale * preset.scaleX * runtimeScale
+      : displayHeight * aspect * (preset.scaleX / preset.scaleY);
     sprite.mesh.scaling.y = displayHeight;
+    if (baseSprite) {
+      const baseSize = baseSprite.texture.getSize();
+      const baseAspect = baseSize.width > 0 && baseSize.height > 0 ? baseSize.width / baseSize.height : 1;
+      const baseHeight = preset.base.height * preset.base.scale * preset.base.scaleY * runtimeBaseScale;
+      const baseWidth = (preset.base.sizeMode === 'fixed' ? preset.base.width * preset.base.scale * preset.base.scaleX : preset.base.height * preset.base.scale * preset.base.scaleY * baseAspect * (preset.base.scaleX / preset.base.scaleY)) * runtimeBaseScale;
+      baseSprite.mesh.scaling.x = baseWidth / Math.max(0.0001, sprite.mesh.scaling.x);
+      baseSprite.mesh.scaling.y = baseHeight / Math.max(0.0001, sprite.mesh.scaling.y);
+    }
   };
   sprite.texture.onLoadObservable.add(applyDisplaySize);
   applyDisplaySize();
@@ -46,9 +63,22 @@ export const createExclamationMarkSprite = (
   sprite.mesh.position.copyFromFloats(preset.position[0], preset.position[1], preset.position[2]);
   sprite.mesh.billboardMode = preset.faceCamera ? Mesh.BILLBOARDMODE_Y : 0;
   sprite.mesh.isPickable = false;
+  sprite.mesh.renderingGroupId = 1;
+  sprite.mesh.alphaIndex = 1;
+  if (baseSprite && baseMaterial) {
+    baseSprite.mesh.name = `exclamation_mark_base_${preset.presetKey}`;
+    baseSprite.mesh.material = baseMaterial.material;
+    baseSprite.mesh.parent = sprite.mesh;
+    baseSprite.mesh.position.copyFromFloats(preset.base.offset[0], preset.base.offset[1], preset.base.offset[2]);
+    baseSprite.mesh.isPickable = false;
+    baseSprite.mesh.renderingGroupId = 1;
+    baseSprite.mesh.alphaIndex = 0;
+    baseSprite.texture.onLoadObservable.add(applyDisplaySize);
+  }
 
   return {
     mesh: sprite.mesh,
+    baseMesh: baseSprite?.mesh ?? null,
     preset,
     setFillPercent: (percent) => {
       runtimePreset.progress.progress = Math.max(0, Math.min(1, Number.isFinite(percent) ? percent : 0));
@@ -58,13 +88,24 @@ export const createExclamationMarkSprite = (
       runtimePreset.progress = { ...runtimePreset.progress, ...progress };
       applyExclamationMarkProgressPreset(progressMaterial, runtimePreset);
     },
+    setBaseProgress: (progress) => {
+      if (!baseMaterial) return;
+      baseRuntimePreset.progress = { ...baseRuntimePreset.progress, ...progress };
+      applyExclamationMarkProgressPreset(baseMaterial, baseRuntimePreset);
+    },
     setScale: (scale) => {
       runtimeScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
       applyDisplaySize();
     },
-    setDebugVisible: (visible) => { sprite.mesh.showBoundingBox = visible; },
+    setBaseScale: (scale) => {
+      runtimeBaseScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
+      applyDisplaySize();
+    },
+    setDebugVisible: (visible) => { sprite.mesh.showBoundingBox = visible; if (baseSprite) baseSprite.mesh.showBoundingBox = visible; },
     dispose: () => {
       progressMaterial.dispose();
+      baseMaterial?.dispose();
+      baseSprite?.dispose();
       sprite.dispose();
     }
   };

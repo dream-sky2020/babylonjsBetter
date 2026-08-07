@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 
 # 导入抽离出去的工具和计算逻辑
 from utils import (
-    normalize_slashes, to_resource_path, to_public_path, is_path_inside,
+    normalize_slashes, to_resource_path, to_public_path, is_path_inside, is_finite_number,
     is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
     validate_sprite_animation_payload, validate_stripe_preset_payload, validate_monster_display_payload,
     validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
@@ -34,6 +34,7 @@ SPRITE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnchorPr
 SPRITE_ANIMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAnimationLibrary.json")
 NUMBER_SPRITE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "numberSpriteConfigs.json")
 EXCLAMATION_MARK_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "exclamationMarkPresets.json")
+EXCLAMATION_BASE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "exclamationBasePresets.json")
 MONSTER_EXCLAMATION_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterExclamationPositions.json")
 SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "specialStatusVisualPresets.json")
 MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterSpecialStatusPositions.json")
@@ -215,6 +216,66 @@ def _handle_json_config(path: str, validator, label: str):
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to write {label}: {exc}"}), 500
 
+def _validate_exclamation_progress(progress, path: str, errors: list[str]):
+    if not isinstance(progress, dict):
+        errors.append(f"{path} must be an object")
+        return
+    if not isinstance(progress.get("enabled"), bool): errors.append(f"{path}.enabled must be a boolean")
+    value = progress.get("progress")
+    if not is_finite_number(value) or not 0 <= value <= 1: errors.append(f"{path}.progress must be between 0 and 1")
+    if progress.get("shape") not in ("none", "linear", "radial", "sector", "ring", "diamond", "box", "rect-perimeter"): errors.append(f"{path}.shape is invalid")
+    if progress.get("direction") not in ("forward", "reverse", "center-out", "edges-in"): errors.append(f"{path}.direction is invalid")
+    for field in ("angleDeg", "startAngleDeg", "sweepAngleDeg", "innerRadius", "outerRadius", "softness"):
+        if field in progress and not is_finite_number(progress.get(field)): errors.append(f"{path}.{field} must be a finite number")
+    for field in ("centerOffsetPx", "axisScale"):
+        if field not in progress: continue
+        vector = progress.get(field)
+        if not isinstance(vector, dict) or not is_finite_number(vector.get("x")) or not is_finite_number(vector.get("y")): errors.append(f"{path}.{field} must contain finite x and y numbers")
+    for field in ("filled", "unfilled"):
+        style = progress.get(field)
+        if not isinstance(style, dict): errors.append(f"{path}.{field} must be an object"); continue
+        if style.get("source") not in ("color", "texture"): errors.append(f"{path}.{field}.source must be color or texture")
+        if not isinstance(style.get("color"), str): errors.append(f"{path}.{field}.color must be a string")
+        opacity = style.get("opacity")
+        if not is_finite_number(opacity) or not 0 <= opacity <= 1: errors.append(f"{path}.{field}.opacity must be between 0 and 1")
+
+def _validate_current_exclamation_marks(payload) -> list[str]:
+    if not isinstance(payload, dict): return ["body must be a JSON object"]
+    errors: list[str] = []
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(preset, dict): errors.append(f"{path} must be an object"); continue
+        if preset.get("presetKey") != key: errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        if not isinstance(preset.get("imagePath"), str): errors.append(f"{path}.imagePath must be a string")
+        if preset.get("sizeMode", "preserve-aspect") not in ("fixed", "preserve-aspect"): errors.append(f"{path}.sizeMode is invalid")
+        for field in ("width", "height", "scale", "scaleX", "scaleY"):
+            if field in preset and (not is_finite_number(preset.get(field)) or preset[field] <= 0): errors.append(f"{path}.{field} must be greater than 0")
+        position = preset.get("position")
+        if not isinstance(position, list) or len(position) != 3 or any(not is_finite_number(item) for item in position): errors.append(f"{path}.position must contain three finite numbers")
+        if not isinstance(preset.get("faceCamera"), bool): errors.append(f"{path}.faceCamera must be a boolean")
+        if "progress" in preset: _validate_exclamation_progress(preset.get("progress"), f"{path}.progress", errors)
+        else: errors.extend(validate_exclamation_mark_preset_payload({key: preset}))
+    return errors
+
+def _validate_current_exclamation_bases(payload) -> list[str]:
+    if not isinstance(payload, dict): return ["body must be a JSON object"]
+    errors: list[str] = []
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(preset, dict): errors.append(f"{path} must be an object"); continue
+        if preset.get("presetKey") != key: errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        if not isinstance(preset.get("enabled"), bool): errors.append(f"{path}.enabled must be a boolean")
+        if not isinstance(preset.get("imagePath"), str): errors.append(f"{path}.imagePath must be a string")
+        if preset.get("sizeMode") not in ("fixed", "preserve-aspect"): errors.append(f"{path}.sizeMode is invalid")
+        for field in ("width", "height", "scale", "scaleX", "scaleY"):
+            if not is_finite_number(preset.get(field)) or preset[field] <= 0: errors.append(f"{path}.{field} must be greater than 0")
+        offset = preset.get("offset")
+        if not isinstance(offset, list) or len(offset) != 3 or any(not is_finite_number(item) for item in offset): errors.append(f"{path}.offset must contain three finite numbers")
+        _validate_exclamation_progress(preset.get("progress"), f"{path}.progress", errors)
+    return errors
+
 @app.route("/api/model-shoot-configs", methods=["GET", "PUT"])
 def handle_model_shoot_configs():
     return _handle_json_config(MODEL_SHOOT_CONFIG_PATH, validate_model_shoot_config_payload, "model shoot configs")
@@ -225,7 +286,11 @@ def handle_bullet_configs():
 
 @app.route("/api/exclamation-mark-presets", methods=["GET", "PUT"])
 def handle_exclamation_mark_presets():
-    return _handle_json_config(EXCLAMATION_MARK_PRESET_CONFIG_PATH, validate_exclamation_mark_preset_payload, "exclamation mark presets")
+    return _handle_json_config(EXCLAMATION_MARK_PRESET_CONFIG_PATH, _validate_current_exclamation_marks, "exclamation mark presets")
+
+@app.route("/api/exclamation-base-presets", methods=["GET", "PUT"])
+def handle_exclamation_base_presets():
+    return _handle_json_config(EXCLAMATION_BASE_PRESET_CONFIG_PATH, _validate_current_exclamation_bases, "exclamation base presets")
 
 @app.route("/api/monster-exclamation-positions", methods=["GET", "PUT"])
 def handle_monster_exclamation_positions():
