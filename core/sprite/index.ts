@@ -264,5 +264,7 @@ export {
   createExclamationMarkProgressMaterial,
   applyExclamationMarkProgressPreset
 } from '@/core/sprite/exclamation/createExclamationMarkProgressMaterial.ts';
+export { EXCLAMATION_BASE_CONFIG_URL, createDefaultExclamationBasePreset, normalizeExclamationBasePresets } from '@/core/sprite/exclamation/exclamationBaseRepository.ts';
+export type { ExclamationBasePreset, ExclamationBasePresetMap } from '@/core/sprite/exclamation/exclamationBaseRepository.ts';
 export type { ExclamationMarkSpriteController } from '@/core/sprite/exclamation/createExclamationMarkSprite.ts';
 export { createExclamationMarkSprite } from '@/core/sprite/exclamation/createExclamationMarkSprite.ts';

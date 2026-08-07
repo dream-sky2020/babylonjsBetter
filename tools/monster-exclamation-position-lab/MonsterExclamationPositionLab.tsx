@@ -15,21 +15,21 @@ import {
   normalizeStripePresetLibrary,
   type LayeredMonsterController,
   type MonsterDisplayConfigLibrary,
-  type MonsterExclamationPositionConfig,
   type MonsterExclamationPositionLibrary,
   type MonsterStripePresetLibrary,
   type StripePresetLibrary
 } from '@/core/monster';
 import {
   EXCLAMATION_MARK_CONFIG_URL,
+  EXCLAMATION_BASE_CONFIG_URL,
   createExclamationMarkSprite,
   normalizeExclamationMarkPresets,
+  normalizeExclamationBasePresets,
+  type ExclamationBasePresetMap,
   type ExclamationMarkPresetMap,
-  type ExclamationMarkSpriteController,
-  type SpriteProgressOptions
+  type ExclamationMarkSpriteController
 } from '@/core/sprite';
 import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
-import { ExclamationProgressControls } from '@/tools/shared/ExclamationProgressControls.tsx';
 
 const API_PATH = '/api/monster-exclamation-positions';
 const sectionStyle: React.CSSProperties = { padding: 12, border: '1px solid #273348', borderRadius: 10, background: '#151d29' };
@@ -50,17 +50,14 @@ export const MonsterExclamationPositionLab: React.FC = () => {
   const [monsterStripePresets, setMonsterStripePresets] = useState<MonsterStripePresetLibrary>({});
   const [stripePresets, setStripePresets] = useState<StripePresetLibrary>({});
   const [exclamationPresets, setExclamationPresets] = useState<ExclamationMarkPresetMap>({});
+  const [basePresets, setBasePresets] = useState<ExclamationBasePresetMap>({});
   const [positions, setPositions] = useState<MonsterExclamationPositionLibrary>({});
   const [monsterKey, setMonsterKey] = useState('');
   const [monsterStripeKey, setMonsterStripeKey] = useState('');
   const [exclamationKey, setExclamationKey] = useState('');
-  const [fillPercent, setFillPercent] = useState(1);
-  const [previewProgress, setPreviewProgress] = useState<SpriteProgressOptions | null>(null);
-  const selectedExclamationPreset = exclamationPresets[exclamationKey];
-
-  useEffect(() => {
-    setPreviewProgress(exclamationPresets[exclamationKey]?.progress ?? null);
-  }, [exclamationKey]);
+  const [baseKey, setBaseKey] = useState('');
+  const selectedMarkPreset = exclamationPresets[exclamationKey];
+  const selectedBasePreset = basePresets[baseKey];
   const [serverPort, setServerPort] = useState<number | null>(null);
   const [message, setMessage] = useState('正在加载只读视觉配置…');
 
@@ -68,13 +65,14 @@ export const MonsterExclamationPositionLab: React.FC = () => {
 
   const loadAll = useCallback(async () => {
     try {
-      const [rawMonsters, rawMonsterStripes, rawStripes, rawExclamations] = await Promise.all([
-        fetchJson(MONSTER_CONFIG_URL), fetchJson(MONSTER_STRIPE_PRESET_URL), fetchJson(STRIPE_PRESET_URL), fetchJson(EXCLAMATION_MARK_CONFIG_URL)
+      const [rawMonsters, rawMonsterStripes, rawStripes, rawExclamations, rawBases] = await Promise.all([
+        fetchJson(MONSTER_CONFIG_URL), fetchJson(MONSTER_STRIPE_PRESET_URL), fetchJson(STRIPE_PRESET_URL), fetchJson(EXCLAMATION_MARK_CONFIG_URL), fetchJson(EXCLAMATION_BASE_CONFIG_URL)
       ]);
       const monsters = normalizeMonsterConfigLibrary(rawMonsters);
       const monsterStripes = normalizeMonsterStripePresetLibrary(rawMonsterStripes);
       const stripes = normalizeStripePresetLibrary(rawStripes);
       const exclamations = normalizeExclamationMarkPresets(rawExclamations);
+      const bases = normalizeExclamationBasePresets(rawBases);
       let savedPositions: MonsterExclamationPositionLibrary = {};
       try {
         const response = await requestDevServer(`${API_PATH}?t=${Date.now()}`, { method: 'GET' });
@@ -85,11 +83,14 @@ export const MonsterExclamationPositionLab: React.FC = () => {
         savedPositions = normalizeMonsterExclamationPositions(await fetchJson('/config/monsterExclamationPositions.json'));
         setServerPort(null);
       }
-      setMonsterConfigs(monsters); setMonsterStripePresets(monsterStripes); setStripePresets(stripes); setExclamationPresets(exclamations); setPositions(savedPositions);
+      setMonsterConfigs(monsters); setMonsterStripePresets(monsterStripes); setStripePresets(stripes); setExclamationPresets(exclamations); setBasePresets(bases); setPositions(savedPositions);
       const firstMonster = Object.keys(monsters)[0] ?? '';
       const firstExclamation = Object.keys(exclamations)[0] ?? '';
+      const firstBase = Object.keys(bases)[0] ?? '';
       setMonsterKey((current) => monsters[current] ? current : firstMonster);
-      setExclamationKey((current) => exclamations[current] ? current : firstExclamation);
+      const savedForMonster = savedPositions[firstMonster];
+      setExclamationKey((current) => exclamations[savedForMonster?.exclamationPresetKey] ? savedForMonster.exclamationPresetKey : (exclamations[current] ? current : firstExclamation));
+      setBaseKey((current) => bases[savedForMonster?.basePresetKey] ? savedForMonster.basePresetKey : (bases[current] ? current : firstBase));
       const defaultStripe = monsters[firstMonster]?.monsterStripePresetKey;
       setMonsterStripeKey((current) => monsterStripes[current] ? current : (monsterStripes[defaultStripe] ? defaultStripe : Object.keys(monsterStripes)[0] ?? ''));
       setMessage(`已加载 ${Object.keys(monsters).length} 个怪物、${Object.keys(exclamations).length} 个感叹号预设。视觉预设为只读。`);
@@ -197,12 +198,23 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     const scene = sceneRef.current;
     const preset = exclamationPresets[exclamationKey];
     if (!scene || !preset) return;
+    const previewPreset = {
+      ...preset,
+      progress: { ...preset.progress, progress: positionConfig.exclamationProgress },
+      base: {
+        ...(basePresets[baseKey] ?? preset.base),
+        progress: { ...(basePresets[baseKey]?.progress ?? preset.base.progress), progress: positionConfig.baseProgress }
+      }
+    };
     exclamationRef.current?.dispose();
-    exclamationRef.current = createExclamationMarkSprite(scene, preset, preset.progress.progress ?? fillPercent);
+    exclamationRef.current = createExclamationMarkSprite(scene, previewPreset, positionConfig.exclamationProgress);
     return () => { exclamationRef.current?.dispose(); exclamationRef.current = null; };
-  }, [exclamationPresets, exclamationKey]);
+  }, [exclamationPresets, basePresets, exclamationKey, baseKey]);
 
-  useEffect(() => { exclamationRef.current?.setFillPercent(fillPercent); }, [fillPercent]);
+  useEffect(() => {
+    exclamationRef.current?.setFillPercent(positionConfig.exclamationProgress);
+    if (selectedBasePreset) exclamationRef.current?.setBaseProgress({ ...selectedBasePreset.progress, progress: positionConfig.baseProgress });
+  }, [positionConfig.exclamationProgress, positionConfig.baseProgress, selectedBasePreset]);
 
   useEffect(() => {
     const monster = monsterRef.current;
@@ -210,14 +222,15 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     if (!monster || !exclamation) return;
     exclamation.mesh.position.copyFrom(monster.root.position).addInPlaceFromFloats(positionConfig.exclamationOffset[0], positionConfig.exclamationOffset[1], positionConfig.exclamationOffset[2]);
     exclamation.setScale(positionConfig.exclamationScale);
+    exclamation.setBaseScale(positionConfig.baseScale);
   }, [positionConfig, monsterKey, monsterStripeKey, exclamationKey, monsterConfigs, exclamationPresets]);
 
-  const patchExclamationPreview = (patch: Partial<NonNullable<typeof selectedExclamationPreset>>) => {
-    if (!selectedExclamationPreset) return;
-    setExclamationPresets((current) => ({
-      ...current,
-      [exclamationKey]: { ...current[exclamationKey], ...patch }
-    }));
+  const patchPositionConfig = (patch: Partial<ReturnType<typeof createDefaultMonsterExclamationPosition>>) => {
+    if (!monsterKey) return;
+    setPositions((current) => {
+      const base = current[monsterKey] ?? createDefaultMonsterExclamationPosition(monsterKey);
+      return { ...current, [monsterKey]: { ...base, ...patch, monsterConfigKey: monsterKey } };
+    });
   };
 
   const updateVector = (field: 'monsterPositionOffset' | 'exclamationOffset', axis: 0 | 1 | 2, value: number) => {
@@ -238,13 +251,19 @@ export const MonsterExclamationPositionLab: React.FC = () => {
     });
   };
 
+  const updateBaseScale = (value: number) => {
+    if (!monsterKey || !Number.isFinite(value)) return;
+    patchPositionConfig({ baseScale: Math.max(0.01, value) });
+  };
+
   const save = async () => {
     try {
-      const complete = { ...positions, [monsterKey]: positionConfig };
+      const completeConfig = { ...positionConfig, exclamationPresetKey: exclamationKey, basePresetKey: baseKey };
+      const complete = { ...positions, [monsterKey]: completeConfig };
       const response = await requestDevServer(API_PATH, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(normalizeMonsterExclamationPositions(complete)) });
       const payload = await response.json();
       if (!response.ok || payload.success === false) throw new Error(payload.errors?.[0] || payload.message || `HTTP ${response.status}`);
-      setPositions(normalizeMonsterExclamationPositions(complete)); setServerPort(getResolvedDevServerPort()); setMessage('已保存每个怪物通用的感叹号相对位置。');
+      setPositions(normalizeMonsterExclamationPositions(complete)); setServerPort(getResolvedDevServerPort()); setMessage('已保存每个怪物应用的配置、进度、整体缩放和相对位置。');
     } catch (error) { setMessage(`保存失败：${String(error)}`); }
   };
 
@@ -252,39 +271,22 @@ export const MonsterExclamationPositionLab: React.FC = () => {
 
   return <div style={{ height: '100vh', padding: 14, display: 'grid', gridTemplateColumns: '430px minmax(0, 1fr)', gap: 14 }}>
     <aside style={{ overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div><h2 style={{ margin: '0 0 5px' }}>怪物 × 感叹号位置 Lab</h2><div style={{ color: '#8291a8', fontSize: 12 }}>只读组合怪物、条纹与感叹号预设；仅编辑位置映射。</div></div>
+      <div><h2 style={{ margin: '0 0 5px' }}>怪物 × 感叹号应用 Lab</h2><div style={{ color: '#8291a8', fontSize: 12 }}>视觉配置只读；这里只选择应用配置，并调整进度、整体缩放和相对位置。</div></div>
       <section style={sectionStyle}>
-        <label>怪物显示配置（只读）</label><select value={monsterKey} onChange={(event) => { const key = event.target.value; setMonsterKey(key); const stripe = monsterConfigs[key]?.monsterStripePresetKey; if (monsterStripePresets[stripe]) setMonsterStripeKey(stripe); }}>{Object.entries(monsterConfigs).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
+        <label>怪物显示配置（只读）</label><select value={monsterKey} onChange={(event) => { const key = event.target.value; const saved = positions[key]; setMonsterKey(key); const stripe = monsterConfigs[key]?.monsterStripePresetKey; if (monsterStripePresets[stripe]) setMonsterStripeKey(stripe); setExclamationKey(exclamationPresets[saved?.exclamationPresetKey] ? saved.exclamationPresetKey : Object.keys(exclamationPresets)[0] ?? ''); setBaseKey(basePresets[saved?.basePresetKey] ? saved.basePresetKey : Object.keys(basePresets)[0] ?? ''); }}>{Object.entries(monsterConfigs).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
         <label>怪物条纹配置（只读）</label><select value={monsterStripeKey} onChange={(event) => setMonsterStripeKey(event.target.value)}>{Object.entries(monsterStripePresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        <label>感叹号精灵配置（可随时更换，不与怪物绑定）</label><select value={exclamationKey} onChange={(event) => setExclamationKey(event.target.value)}>{Object.entries(exclamationPresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        {selectedExclamationPreset ? <details open style={{ marginTop: 10, padding: 10, border: '1px solid #2d3b51', borderRadius: 8, background: '#101722' }}>
-          <summary style={{ cursor: 'pointer', fontWeight: 700 }}>感叹号图片尺寸（仅当前预览）</summary>
-          <label>图片尺寸模式</label>
-          <select value={selectedExclamationPreset.sizeMode} onChange={(event) => patchExclamationPreview({ sizeMode: event.target.value as 'fixed' | 'preserve-aspect' })}>
-            <option value="fixed">固定宽高（切换图片不改变尺寸）</option>
-            <option value="preserve-aspect">保持图片原始比例</option>
-          </select>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-            <div><label>基础宽度</label><input type="number" min="0.01" step="0.1" disabled={selectedExclamationPreset.sizeMode !== 'fixed'} value={selectedExclamationPreset.width} onChange={(event) => patchExclamationPreview({ width: Math.max(0.01, Number(event.target.value) || 0.01) })} /></div>
-            <div><label>基础高度</label><input type="number" min="0.01" step="0.1" value={selectedExclamationPreset.height} onChange={(event) => patchExclamationPreview({ height: Math.max(0.01, Number(event.target.value) || 0.01) })} /></div>
-          </div>
-          <label>感叹号预设缩放</label><input type="number" min="0.01" step="0.05" value={selectedExclamationPreset.scale} onChange={(event) => patchExclamationPreview({ scale: Math.max(0.01, Number(event.target.value) || 0.01) })} />
-        </details> : null}
-        {selectedExclamationPreset ? <ExclamationProgressControls
-          title="感叹号进度遮罩（仅当前预览）"
-          value={previewProgress ?? selectedExclamationPreset.progress}
-          onChange={(progress) => {
-            setFillPercent(progress.progress ?? 1);
-            setPreviewProgress(progress);
-            exclamationRef.current?.setProgress(progress);
-          }}
-        /> : null}
+        <label>应用感叹号配置（只读）</label><select value={exclamationKey} onChange={(event) => { const value = event.target.value; setExclamationKey(value); patchPositionConfig({ exclamationPresetKey: value }); }}>{Object.entries(exclamationPresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
+        <label>应用底座配置（只读）</label><select value={baseKey} onChange={(event) => { const value = event.target.value; setBaseKey(value); patchPositionConfig({ basePresetKey: value }); }}>{Object.entries(basePresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
+        <label>感叹号进度：{Math.round(positionConfig.exclamationProgress * 100)}%</label><input type="range" min="0" max="100" step="1" value={positionConfig.exclamationProgress * 100} onChange={(event) => patchPositionConfig({ exclamationProgress: Number(event.target.value) / 100 })} />
+        <label>底座进度：{Math.round(positionConfig.baseProgress * 100)}%</label><input type="range" min="0" max="100" step="1" value={positionConfig.baseProgress * 100} onChange={(event) => patchPositionConfig({ baseProgress: Number(event.target.value) / 100 })} />
+        <div style={{ marginTop: 8, color: '#8291a8', fontSize: 12, lineHeight: 1.5 }}>图片、尺寸、局部缩放及 Shader 参数由 Exclamation Mark Lab 管理，此处不可修改。</div>
       </section>
       <section style={sectionStyle}>
-        {renderVectorInputs('怪物场景位置偏移', 'monsterPositionOffset', positionConfig.monsterPositionOffset)}
-        {renderVectorInputs('感叹号相对怪物位置（对所有感叹号通用）', 'exclamationOffset', positionConfig.exclamationOffset)}
-        <label>感叹号缩放（对所有感叹号通用）</label>
+        {renderVectorInputs('感叹号相对怪物位置', 'exclamationOffset', positionConfig.exclamationOffset)}
+        <label>感叹号整体缩放</label>
         <input type="number" min="0.01" step="0.05" value={positionConfig.exclamationScale} onChange={(event) => updateExclamationScale(Number(event.target.value))} />
+        <label>底座整体缩放</label>
+        <input type="number" min="0.01" step="0.05" value={positionConfig.baseScale} onChange={(event) => updateBaseScale(Number(event.target.value))} />
         <button style={{ width: '100%', marginTop: 12 }} onClick={() => void save()}>保存全部怪物位置配置</button>
       </section>
       <section style={sectionStyle}><div style={{ color: serverPort ? '#8bd8a4' : '#e8ad83', fontSize: 12 }}>Python 服务：{serverPort ? `已连接 ${serverPort}` : '未连接'}</div><div style={{ marginTop: 7, color: '#9dacbf', fontSize: 12, lineHeight: 1.5 }}>{message}</div></section>

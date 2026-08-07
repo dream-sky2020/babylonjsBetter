@@ -1,0 +1,49 @@
+{
+  "interrupt_base_default": {
+    "presetKey": "interrupt_base_default",
+    "name": "默认打断伤害底座",
+    "enabled": true,
+    "imagePath": "resources/Circle.png",
+    "sizeMode": "preserve-aspect",
+    "width": 2.8,
+    "height": 0.45,
+    "scale": 9,
+    "scaleX": 1,
+    "scaleY": 1,
+    "offset": [
+      0,
+      0,
+      0.01
+    ],
+    "progress": {
+      "enabled": true,
+      "progress": 0.77,
+      "shape": "sector",
+      "direction": "forward",
+      "angleDeg": 0,
+      "startAngleDeg": 0,
+      "sweepAngleDeg": 360,
+      "innerRadius": 0.65,
+      "outerRadius": 1,
+      "softness": 0,
+      "centerOffsetPx": {
+        "x": 0,
+        "y": 0
+      },
+      "axisScale": {
+        "x": 1,
+        "y": 1
+      },
+      "filled": {
+        "source": "color",
+        "color": "#ffd84d",
+        "opacity": 1
+      },
+      "unfilled": {
+        "source": "texture",
+        "color": "#263449",
+        "opacity": 0.35
+      }
+    }
+  }
+}
