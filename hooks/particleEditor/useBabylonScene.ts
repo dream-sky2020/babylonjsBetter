@@ -14,8 +14,8 @@ const DEFAULT_3D_CAMERA_TARGET = Vector3.Zero();
 
 const applyDefault3dCameraPose = (camera: ArcRotateCamera): void => {
   camera.mode = Camera.PERSPECTIVE_CAMERA;
-  camera.lowerAlphaLimit = undefined;
-  camera.upperAlphaLimit = undefined;
+  camera.lowerAlphaLimit = null;
+  camera.upperAlphaLimit = null;
   camera.lowerBetaLimit = 0.1;
   camera.upperBetaLimit = Math.PI / 2.1;
   camera.lowerRadiusLimit = 2;

@@ -223,6 +223,80 @@ def validate_particle_effect_payload(payload: dict) -> list[str]:
                     if not is_finite_number(behavior.get(field)): errors.append(f"{path}.behavior.{field} must be a finite number")
     return errors
 
+
+def validate_particle_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body 必须是 JSON 对象"]
+
+    for key, preset in payload.items():
+        p_path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("root 的 key 必须是非空字符串")
+            continue
+        if not isinstance(preset, dict):
+            errors.append(f"{p_path} 必须是对象")
+            continue
+
+        preset_key = _req_str(preset, "presetKey", errors, p_path)
+        _req_str(preset, "name", errors, p_path)
+        _req_str(preset, "texturePath", errors, p_path)
+        if preset_key and key != preset_key:
+            errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
+
+        for bool_field in ("isOneShot", "autoDispose"):
+            if not isinstance(preset.get(bool_field), bool):
+                errors.append(f"{p_path}.{bool_field} 必须是布尔值")
+
+        _req_num(preset, "capacity", errors, p_path, 1)
+        min_life = _req_num(preset, "minLifeTime", errors, p_path, 0.01)
+        max_life = _req_num(preset, "maxLifeTime", errors, p_path, 0.01)
+        if min_life > max_life:
+            errors.append(f"{p_path}.minLifeTime 不能大于 maxLifeTime")
+
+        _req_num(preset, "emitDuration", errors, p_path, 0.01)
+        _req_num(preset, "emitRate", errors, p_path, 1)
+        min_power = _req_num(preset, "minEmitPower", errors, p_path, 0.01)
+        max_power = _req_num(preset, "maxEmitPower", errors, p_path, 0.01)
+        if min_power > max_power:
+            errors.append(f"{p_path}.minEmitPower 不能大于 maxEmitPower")
+
+        _req_num(preset, "updateSpeed", errors, p_path, 0.0001)
+        _req_num(preset, "gravityY", errors, p_path)
+
+        for vector_name in ("minEmitBox", "maxEmitBox", "direction1", "direction2"):
+            vector = _req_obj(preset, vector_name, errors, p_path)
+            for axis in ("x", "y", "z"):
+                _req_num(vector, axis, errors, f"{p_path}.{vector_name}")
+
+        colors = preset.get("colorGradients")
+        if not isinstance(colors, list):
+            errors.append(f"{p_path}.colorGradients 必须是数组")
+        else:
+            for index, entry in enumerate(colors):
+                color_path = f"{p_path}.colorGradients[{index}]"
+                if not isinstance(entry, dict):
+                    errors.append(f"{color_path} 必须是对象")
+                    continue
+                _req_num(entry, "offset", errors, color_path, 0, 1)
+                color = _req_obj(entry, "color", errors, color_path)
+                for channel in ("r", "g", "b", "a"):
+                    _req_num(color, channel, errors, f"{color_path}.color", COLOR_MIN, COLOR_MAX)
+
+        sizes = preset.get("sizeGradients")
+        if not isinstance(sizes, list):
+            errors.append(f"{p_path}.sizeGradients 必须是数组")
+        else:
+            for index, entry in enumerate(sizes):
+                size_path = f"{p_path}.sizeGradients[{index}]"
+                if not isinstance(entry, dict):
+                    errors.append(f"{size_path} 必须是对象")
+                    continue
+                _req_num(entry, "offset", errors, size_path, 0, 1)
+                _req_num(entry, "size", errors, size_path, 0.0001)
+
+    return errors
+
 def validate_stripe_preset_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict):
