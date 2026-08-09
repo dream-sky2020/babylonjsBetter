@@ -1,5 +1,10 @@
-import React from 'react';
-import { CharacterAvatarCard, OscilloscopeWrapper } from '@/core/ui';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ConfigurableAvatar, OscilloscopeWrapper, type AvatarExpressionConfig } from '@/core/ui';
+import { joinPublicPath, normalizePublicPath, type TexturePackerAtlas } from '@/core/sprite';
+import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+
+type AvatarCharacterConfig = { id: string; name: string; expressions: AvatarExpressionConfig[] };
+type AvatarConfigMap = Record<string, AvatarCharacterConfig>;
 
 // ⚠️ 保持完全不动
 const rightPanelConfig = {
@@ -74,6 +79,55 @@ const StatBar: React.FC<{ label: string; value: string; ratio: number; color: st
 
 export const DbGameSelfstatusLab: React.FC = () => {
   const WAVE_EXPAND = 80;
+  const [avatarConfigs, setAvatarConfigs] = useState<AvatarConfigMap>({});
+  const [characterId, setCharacterId] = useState('');
+  const [expressionId, setExpressionId] = useState('');
+  const [atlas, setAtlas] = useState<TexturePackerAtlas | null>(null);
+  const [avatarMessage, setAvatarMessage] = useState('正在读取头像配置…');
+  const character = avatarConfigs[characterId];
+  const expression = character?.expressions.find((item) => item.id === expressionId) ?? character?.expressions[0];
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        let response = await fetch(`/config/avatarConfigs.json?t=${Date.now()}`, { cache: 'no-store' });
+        let payload: AvatarConfigMap;
+        if (response.ok) payload = await response.json() as AvatarConfigMap;
+        else {
+          response = await requestDevServer(`/api/avatar-configs?t=${Date.now()}`, { method: 'GET' });
+          const serverPayload = await response.json();
+          if (!response.ok || serverPayload.success === false) throw new Error(serverPayload.message || `HTTP ${response.status}`);
+          payload = serverPayload.data as AvatarConfigMap;
+        }
+        const ids = Object.keys(payload);
+        if (!ids.length) throw new Error('尚未保存任何头像配置');
+        const firstId = ids[0];
+        setAvatarConfigs(payload);
+        setCharacterId(firstId);
+        setExpressionId(payload[firstId].expressions[0]?.id ?? '');
+        setAvatarMessage(`已读取 ${ids.length} 个角色`);
+      } catch (error) { setAvatarMessage(`头像配置读取失败：${String(error)}`); }
+    })();
+  }, []);
+
+  useEffect(() => {
+    void (async () => {
+      if (!expression?.atlas?.jsonPath) { setAtlas(null); return; }
+      try {
+        const response = await fetch(encodeURI(`/${normalizePublicPath(expression.atlas.jsonPath)}`));
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        setAtlas(await response.json() as TexturePackerAtlas);
+      } catch (error) { setAtlas(null); setAvatarMessage(`头像图集读取失败：${String(error)}`); }
+    })();
+  }, [expression]);
+
+  const resolvedExpression = useMemo<AvatarExpressionConfig | undefined>(() => {
+    if (!expression || !expression.atlas || !atlas) return expression;
+    return { ...expression, imagePath: joinPublicPath(expression.atlas.jsonPath, atlas.meta.image) };
+  }, [atlas, expression]);
+  const resolvedAtlasFrame = expression?.atlas && atlas?.frames[expression.atlas.frameName]
+    ? { frame: atlas.frames[expression.atlas.frameName].frame, atlasSize: atlas.meta.size }
+    : undefined;
 
   return (
     <div
@@ -101,7 +155,7 @@ export const DbGameSelfstatusLab: React.FC = () => {
         <div
           style={{
             position: 'absolute', // 改为 absolute 或保持 relative 配套 flex/margin-left: auto
-            right: 0,             // 👈 关键点：将 left: 0 改为 right: 0
+            right: 0,
             top: 0,
             width: 360,
             height: '100%',
@@ -119,18 +173,12 @@ export const DbGameSelfstatusLab: React.FC = () => {
             contentPointerEvents="auto"
             style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', alignSelf: 'start' }}
           >
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                display: 'grid',
-                placeItems: 'center',
-                padding: 20,
-                boxSizing: 'border-box'
-              }}
-            >
-              <CharacterAvatarCard displayName="晨曦" />
-            </div>
+            <ConfigurableAvatar
+              expression={resolvedExpression}
+              atlasFrame={resolvedAtlasFrame}
+              fallbackText={character?.name.slice(0, 2) || '晨曦'}
+              aria-label={`${character?.name || '晨曦'}头像`}
+            />
           </OscilloscopeWrapper>
 
           <OscilloscopeWrapper
@@ -179,6 +227,49 @@ export const DbGameSelfstatusLab: React.FC = () => {
             </div>
           </OscilloscopeWrapper>
         </div>
+
+        <aside
+          style={{
+            position: 'absolute', left: 0, top: 0, width: 290, boxSizing: 'border-box', padding: 16,
+            border: '1px solid rgba(134, 239, 172, 0.42)', borderRadius: 12,
+            background: 'rgba(8, 20, 15, 0.96)',
+            display: 'grid', gap: 12, zIndex: 2
+          }}
+        >
+          <div style={{ fontSize: 16, fontWeight: 700, color: '#86efac' }}>头像预览控制</div>
+          <div style={{ fontSize: 12, color: '#94a3b8' }}>{avatarMessage}</div>
+          <label style={{ display: 'grid', gap: 6, fontSize: 13 }}>
+            角色
+            <select
+              value={characterId}
+              disabled={!Object.keys(avatarConfigs).length}
+              onChange={(event) => {
+                const nextId = event.target.value;
+                setCharacterId(nextId);
+                setExpressionId(avatarConfigs[nextId]?.expressions[0]?.id ?? '');
+              }}
+              style={{ padding: '8px 10px', borderRadius: 6, border: '1px solid #365247', background: '#07110d', color: '#e2e8f0' }}
+            >
+              {!Object.keys(avatarConfigs).length ? <option value="">无可用角色</option> : null}
+              {Object.values(avatarConfigs).map((item) => <option key={item.id} value={item.id}>{item.name} · {item.id}</option>)}
+            </select>
+          </label>
+          <label style={{ display: 'grid', gap: 6, fontSize: 13 }}>
+            表情
+            <select
+              value={expression?.id ?? ''}
+              disabled={!character?.expressions.length}
+              onChange={(event) => setExpressionId(event.target.value)}
+              style={{ padding: '8px 10px', borderRadius: 6, border: '1px solid #365247', background: '#07110d', color: '#e2e8f0' }}
+            >
+              {!character?.expressions.length ? <option value="">无可用表情</option> : null}
+              {character?.expressions.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.id}</option>)}
+            </select>
+          </label>
+          <div style={{ paddingTop: 10, borderTop: '1px solid rgba(134, 239, 172, 0.2)', color: '#789386', fontSize: 11, lineHeight: 1.6 }}>
+            此处只能切换预览。角色、表情、图片及偏移请在 Avatar Visual Lab 中修改。
+          </div>
+        </aside>
       </div>
     </div>
   );

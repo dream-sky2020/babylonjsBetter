@@ -23,7 +23,7 @@
 
 ```ts
 import { createSpriteEntity } from '@/core/sprite';
-import { createBurstParticleEffect } from '@/core/particle';
+import { createParticleEffect } from '@/core/particle';
 ```
 
 ### 场景创建（仍在 `core/scene`）

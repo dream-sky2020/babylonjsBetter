@@ -20,9 +20,10 @@
 
 ## Particle 粒子配置
 
-- 主配置文件：`/config/particlePresets.json`
-- 运行时读取 JSON，开发态可通过 `python/server.py` 的 `/api/particle-presets` 写回项目配置。
-- 生产构建后会复制到 `dist/config/particlePresets.json`，作为只读静态数据使用。
+- 主配置文件：`/config/particleEffects.json`
+- 每条记录由通用 `particles` 外观参数和按 `effectType` 区分的 `behavior` 专属参数组成。
+- 运行时读取 JSON，开发态可通过 `python/server.py` 的 `/api/particle-effects` 写回项目配置。
+- 生产构建后会复制到 `dist/config/particleEffects.json`，作为只读静态数据使用。
 
 ## 重要说明
 

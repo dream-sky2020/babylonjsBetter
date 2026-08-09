@@ -1,367 +1,160 @@
-import React, { useMemo, useRef, useState } from 'react';
-import { CharacterAvatarCard } from '@/core/ui';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { DEFAULT_SCANNED_ATLAS_OPTIONS, getPublicResourceImagePaths, joinPublicPath, normalizePublicPath, type TexturePackerAtlas } from '@/core/sprite';
+import {
+  ConfigurableAvatar,
+  createDefaultAvatarContainer,
+  type AvatarContainerConfig,
+  type AvatarContainerShape,
+  type AvatarExpressionConfig
+} from '@/core/ui';
 
-const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/resources/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
+const API_PATH = '/api/avatar-configs';
+const panel: React.CSSProperties = { border: '1px solid #334155', borderRadius: 10, padding: 10, background: '#111827' };
+const input: React.CSSProperties = { width: '100%', boxSizing: 'border-box', padding: '7px 8px', color: '#e2e8f0', background: '#0f172a', border: '1px solid #475569', borderRadius: 6 };
 
-const decodePublicPath = (input: string): string => String(input || '').replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '');
-const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
+type AtlasSelection = { jsonPath: string; frameName: string };
+type Expression = AvatarExpressionConfig & { atlas?: AtlasSelection };
+type AvatarConfig = { id: string; name: string; container: AvatarContainerConfig; expressions: Expression[] };
+type AvatarConfigMap = Record<string, AvatarConfig>;
 
-type DragMode = 'move' | 'resize';
-type DragState = {
-  mode: DragMode;
-  startX: number;
-  startY: number;
-  startOffsetX: number;
-  startOffsetY: number;
-  startWidth: number;
-  startHeight: number;
+const defaultContainer = createDefaultAvatarContainer;
+const makeExpression = (imagePath = ''): Expression => ({ id: 'default', name: '默认', imagePath, offsetX: 0, offsetY: 0, scale: 1 });
+const makeConfig = (imagePath = ''): AvatarConfigMap => ({ character_default: { id: 'character_default', name: '当前人物', container: defaultContainer(), expressions: [makeExpression(imagePath)] } });
+const normalizeConfigs = (value: AvatarConfigMap): AvatarConfigMap => Object.fromEntries(Object.entries(value).map(([key, item]) => [key, { ...item, container: { ...defaultContainer(), ...item.container } }]));
+const uniqueId = (base: string, used: string[]): string => {
+  const root = base.trim().replace(/\s+/g, '_') || 'item';
+  if (!used.includes(root)) return root;
+  let index = 2;
+  while (used.includes(`${root}_${index}`)) index += 1;
+  return `${root}_${index}`;
 };
 
 export const AvatarVisualLab: React.FC = () => {
-  const dragStateRef = useRef<DragState | null>(null);
-  const [displayName, setDisplayName] = useState('晨曦执行者');
-  const [imageUrl, setImageUrl] = useState('');
-  const [cardSize, setCardSize] = useState(176);
-  const [borderRadius, setBorderRadius] = useState(12);
-  const [fontSize, setFontSize] = useState(40);
-  const [borderColor, setBorderColor] = useState('rgba(134, 239, 172, 0.75)');
-  const [textColor, setTextColor] = useState('#ecfdf5');
-  const [background, setBackground] = useState('linear-gradient(145deg, rgba(52, 211, 153, 0.95) 0%, rgba(22, 101, 52, 0.9) 62%, rgba(4, 30, 18, 0.96) 100%)');
+  const images = useMemo(() => getPublicResourceImagePaths(false).map((path) => path.replace(/^\/+/, '')), []);
+  const atlases = useMemo(() => DEFAULT_SCANNED_ATLAS_OPTIONS, []);
+  const [configs, setConfigs] = useState<AvatarConfigMap>(() => makeConfig(images[0] ?? ''));
+  const [activeCharacterId, setActiveCharacterId] = useState('character_default');
+  const [activeExpressionId, setActiveExpressionId] = useState('default');
+  const [mode, setMode] = useState<'single' | 'atlas'>('single');
+  const [atlasPath, setAtlasPath] = useState(atlases[0] ?? '');
+  const [atlas, setAtlas] = useState<TexturePackerAtlas | null>(null);
+  const [frameNames, setFrameNames] = useState<string[]>([]);
+  const [message, setMessage] = useState('正在连接配置服务…');
+  const dragRef = useRef<{ x: number; y: number; offsetX: number; offsetY: number } | null>(null);
 
-  const [frameOffsetX, setFrameOffsetX] = useState(0);
-  const [frameOffsetY, setFrameOffsetY] = useState(0);
-  const [frameWidth, setFrameWidth] = useState(360);
-  const [frameHeight, setFrameHeight] = useState(320);
+  const character = configs[activeCharacterId];
+  const expression = character?.expressions.find((item) => item.id === activeExpressionId) ?? character?.expressions[0];
 
-  const resourceImageOptions = useMemo(() => {
-    return Object.values(RESOURCE_IMAGE_MODULES)
-      .map((assetUrl) => decodePublicPath(assetUrl as string))
-      .map((path) => path.replace(/^public\/+/, ''))
-      .filter((path) => path.startsWith('resources/'))
-      .map((path) => `/${path}`)
-      .sort((a, b) => a.localeCompare(b, 'zh-CN'));
-  }, []);
+  const loadAtlas = useCallback(async (path: string, preferredFrame?: string) => {
+    if (!path) return;
+    try {
+      const response = await fetch(encodeURI(`/${normalizePublicPath(path)}`));
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json() as TexturePackerAtlas;
+      const names = Object.keys(data.frames ?? {}).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+      if (!names.length) throw new Error('图集中没有可用帧');
+      setAtlasPath(normalizePublicPath(path)); setAtlas(data); setFrameNames(names);
+      const frameName = preferredFrame && data.frames[preferredFrame] ? preferredFrame : names[0];
+      const imagePath = joinPublicPath(path, data.meta.image);
+      setConfigs((current) => {
+        const currentCharacter = current[activeCharacterId];
+        if (!currentCharacter) return current;
+        return { ...current, [activeCharacterId]: { ...currentCharacter, expressions: currentCharacter.expressions.map((item) => item.id === activeExpressionId ? { ...item, imagePath, atlas: { jsonPath: normalizePublicPath(path), frameName } } : item) } };
+      });
+      setMessage(`已加载图集：${path}`);
+    } catch (error) { setMessage(`图集加载失败：${String(error)}`); }
+  }, [activeCharacterId, activeExpressionId]);
 
-  const beginDrag = (event: React.PointerEvent, mode: DragMode) => {
-    const target = event.currentTarget as HTMLElement;
-    target.setPointerCapture(event.pointerId);
-    dragStateRef.current = {
-      mode,
-      startX: event.clientX,
-      startY: event.clientY,
-      startOffsetX: frameOffsetX,
-      startOffsetY: frameOffsetY,
-      startWidth: frameWidth,
-      startHeight: frameHeight
-    };
+  useEffect(() => {
+    void (async () => {
+      try {
+        const response = await requestDevServer(`${API_PATH}?t=${Date.now()}`, { method: 'GET' });
+        const payload = await response.json();
+        if (!response.ok || payload.success === false) throw new Error(payload.message || `HTTP ${response.status}`);
+        const loaded = normalizeConfigs(payload.data && Object.keys(payload.data).length ? payload.data as AvatarConfigMap : makeConfig(images[0] ?? ''));
+        const first = Object.keys(loaded)[0];
+        setConfigs(loaded); setActiveCharacterId(first); setActiveExpressionId(loaded[first].expressions[0]?.id ?? '');
+        setMessage(`已读取 ${Object.keys(loaded).length} 个人物配置（端口 ${getResolvedDevServerPort() ?? '-'}）`);
+      } catch (error) { setMessage(`配置服务未连接，当前可继续编辑：${String(error)}`); }
+    })();
+  }, [images]);
+
+  useEffect(() => {
+    void Promise.resolve().then(() => {
+      if (expression?.atlas) { setMode('atlas'); void loadAtlas(expression.atlas.jsonPath, expression.atlas.frameName); }
+      else setMode('single');
+    });
+  // Switching the selection is the only trigger; loadAtlas also updates the selected expression.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCharacterId, activeExpressionId]);
+
+  const patchCharacter = (patch: Partial<AvatarConfig>) => {
+    if (!character) return;
+    setConfigs((current) => ({ ...current, [activeCharacterId]: { ...character, ...patch, id: activeCharacterId } }));
+  };
+  const patchExpression = (patch: Partial<Expression>) => {
+    if (!character || !expression) return;
+    patchCharacter({ expressions: character.expressions.map((item) => item.id === expression.id ? { ...item, ...patch, id: expression.id } : item) });
+  };
+  const patchContainer = (patch: Partial<AvatarContainerConfig>) => {
+    if (!character) return;
+    patchCharacter({ container: { ...defaultContainer(), ...character.container, ...patch } });
+  };
+  const renameCharacterId = (nextId: string) => {
+    const id = nextId.trim(); if (!character || !id || (id !== activeCharacterId && configs[id])) return;
+    setConfigs((current) => { const next = { ...current }; delete next[activeCharacterId]; next[id] = { ...character, id }; return next; }); setActiveCharacterId(id);
+  };
+  const renameExpressionId = (nextId: string) => {
+    const id = nextId.trim(); if (!character || !expression || !id || character.expressions.some((item) => item.id === id && item !== expression)) return;
+    patchCharacter({ expressions: character.expressions.map((item) => item === expression ? { ...item, id } : item) }); setActiveExpressionId(id);
+  };
+  const save = async () => {
+    try {
+      const response = await requestDevServer(API_PATH, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configs) });
+      const payload = await response.json(); if (!response.ok || payload.success === false) throw new Error((payload.errors ?? [payload.message]).join('；'));
+      setMessage(`保存成功：config/avatarConfigs.json（${payload.count} 个人物）`);
+    } catch (error) { setMessage(`保存失败：${String(error)}`); }
   };
 
-  const handlePointerMove = (event: React.PointerEvent) => {
-    const state = dragStateRef.current;
-    if (!state) return;
+  const atlasFrame = expression?.atlas && atlas ? atlas.frames[expression.atlas.frameName] : undefined;
+  const container = { ...defaultContainer(), ...character?.container };
+  const containerRadius = container.shape === 'circle' || container.shape === 'ellipse'
+    ? '50%'
+    : container.shape === 'square' ? 0 : container.borderRadius;
+  const resolvedAtlasFrame = atlasFrame && atlas ? { frame: atlasFrame.frame, atlasSize: atlas.meta.size } : undefined;
 
-    const deltaX = event.clientX - state.startX;
-    const deltaY = event.clientY - state.startY;
-
-    if (state.mode === 'move') {
-      setFrameOffsetX(clamp(state.startOffsetX + deltaX, -1200, 1200));
-      setFrameOffsetY(clamp(state.startOffsetY + deltaY, -900, 900));
-      return;
-    }
-
-    setFrameWidth(clamp(state.startWidth + deltaX, 180, 960));
-    setFrameHeight(clamp(state.startHeight + deltaY, 180, 820));
-  };
-
-  const endDrag = (event: React.PointerEvent) => {
-    const target = event.currentTarget as HTMLElement;
-    if (target.hasPointerCapture(event.pointerId)) {
-      target.releasePointerCapture(event.pointerId);
-    }
-    dragStateRef.current = null;
-  };
-
-  return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        background: '#0b1015',
-        color: '#e2e8f0',
-        fontFamily: '"Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
-        display: 'grid',
-        gridTemplateColumns: '340px minmax(0, 1fr)',
-        overflow: 'hidden'
-      }}
-    >
-      <aside
-        style={{
-          borderRight: '1px solid rgba(148, 163, 184, 0.24)',
-          background: '#111827',
-          padding: 14,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 10,
-          overflowY: 'auto'
-        }}
-      >
-        <h3 style={{ margin: 0, color: '#e2e8f0' }}>Avatar Visual Lab</h3>
-        <div style={{ fontSize: 12, color: '#cbd5e1' }}>
-          默认自动居中。右侧容器可拖拽移动、右下角可缩放。
-        </div>
-
-        <label>
-          名称文本
-          <input
-            value={displayName}
-            onChange={(event) => setDisplayName(event.target.value)}
-            style={{ width: '100%', marginTop: 4 }}
-          />
-        </label>
-
-        <label>
-          头像资源（自动扫描 public/resources）
-          <select
-            value={resourceImageOptions.includes(imageUrl) ? imageUrl : ''}
-            onChange={(event) => setImageUrl(event.target.value)}
-            style={{ width: '100%', marginTop: 4 }}
-          >
-            <option value="">不使用图片（显示文字头像）</option>
-            {resourceImageOptions.map((url) => (
-              <option key={url} value={url}>{url}</option>
-            ))}
-          </select>
-        </label>
-
-        <label>
-          图片 URL（可手填覆盖）
-          <input
-            value={imageUrl}
-            placeholder="/resources/xxx.png"
-            onChange={(event) => setImageUrl(event.target.value)}
-            style={{ width: '100%', marginTop: 4 }}
-          />
-        </label>
-
-        <label>
-          头像尺寸 {cardSize}px
-          <input
-            type="range"
-            min={64}
-            max={320}
-            step={1}
-            value={cardSize}
-            onChange={(event) => setCardSize(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          圆角 {borderRadius}px
-          <input
-            type="range"
-            min={0}
-            max={64}
-            step={1}
-            value={borderRadius}
-            onChange={(event) => setBorderRadius(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          字体大小 {fontSize}px
-          <input
-            type="range"
-            min={14}
-            max={72}
-            step={1}
-            value={fontSize}
-            onChange={(event) => setFontSize(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          边框色
-          <input
-            value={borderColor}
-            onChange={(event) => setBorderColor(event.target.value)}
-            style={{ width: '100%', marginTop: 4 }}
-          />
-        </label>
-
-        <label>
-          文本色
-          <input
-            value={textColor}
-            onChange={(event) => setTextColor(event.target.value)}
-            style={{ width: '100%', marginTop: 4 }}
-          />
-        </label>
-
-        <label>
-          背景（支持渐变）
-          <textarea
-            value={background}
-            onChange={(event) => setBackground(event.target.value)}
-            rows={3}
-            style={{ width: '100%', marginTop: 4, resize: 'vertical' }}
-          />
-        </label>
-
-        <label>
-          容器偏移 X {Math.round(frameOffsetX)}px
-          <input
-            type="range"
-            min={-1200}
-            max={1200}
-            step={1}
-            value={frameOffsetX}
-            onChange={(event) => setFrameOffsetX(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          容器偏移 Y {Math.round(frameOffsetY)}px
-          <input
-            type="range"
-            min={-900}
-            max={900}
-            step={1}
-            value={frameOffsetY}
-            onChange={(event) => setFrameOffsetY(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          容器宽 {Math.round(frameWidth)}px
-          <input
-            type="range"
-            min={180}
-            max={960}
-            step={1}
-            value={frameWidth}
-            onChange={(event) => setFrameWidth(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <label>
-          容器高 {Math.round(frameHeight)}px
-          <input
-            type="range"
-            min={180}
-            max={820}
-            step={1}
-            value={frameHeight}
-            onChange={(event) => setFrameHeight(Number(event.target.value))}
-            style={{ width: '100%' }}
-          />
-        </label>
-
-        <button
-          type="button"
-          onClick={() => {
-            setFrameOffsetX(0);
-            setFrameOffsetY(0);
-          }}
-          style={{
-            marginTop: 4,
-            borderRadius: 8,
-            border: '1px solid rgba(148, 163, 184, 0.45)',
-            background: '#1f2937',
-            color: '#e2e8f0',
-            padding: '8px 10px',
-            cursor: 'pointer'
-          }}
-        >
-          回到中心
-        </button>
-      </aside>
-
-      <main
-        style={{
-          position: 'relative',
-          overflow: 'hidden',
-          background: '#0f172a',
-          display: 'grid',
-          placeItems: 'center'
-        }}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: `translate(calc(-50% + ${frameOffsetX}px), calc(-50% + ${frameOffsetY}px))`,
-            width: frameWidth,
-            height: frameHeight,
-            border: '1px solid rgba(148, 163, 184, 0.45)',
-            borderRadius: 12,
-            background: '#111827',
-            display: 'grid',
-            gridTemplateRows: '34px 1fr'
-          }}
-        >
-          <div
-            onPointerDown={(event) => beginDrag(event, 'move')}
-            onPointerMove={handlePointerMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            style={{
-              cursor: 'grab',
-              borderBottom: '1px solid rgba(148, 163, 184, 0.35)',
-              color: '#e2e8f0',
-              fontSize: 12,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '0 10px',
-              userSelect: 'none'
-            }}
-          >
-            <span>Avatar Frame</span>
-            <span>{Math.round(frameWidth)} x {Math.round(frameHeight)}</span>
-          </div>
-
-          <div style={{ display: 'grid', placeItems: 'center', overflow: 'hidden', padding: 16 }}>
-            <CharacterAvatarCard
-              displayName={displayName}
-              imageSrc={imageUrl || undefined}
-              size={cardSize}
-              borderRadius={borderRadius}
-              borderColor={borderColor}
-              glowColor="transparent"
-              textColor={textColor}
-              fontSize={fontSize}
-              background={background}
-            />
-          </div>
-
-          <div
-            onPointerDown={(event) => beginDrag(event, 'resize')}
-            onPointerMove={handlePointerMove}
-            onPointerUp={endDrag}
-            onPointerCancel={endDrag}
-            style={{
-              position: 'absolute',
-              right: 0,
-              bottom: 0,
-              width: 18,
-              height: 18,
-              cursor: 'nwse-resize',
-              background: 'linear-gradient(135deg, transparent 0%, transparent 45%, rgba(148,163,184,0.8) 45%, rgba(148,163,184,0.8) 100%)'
-            }}
-          />
-        </div>
-      </main>
-    </div>
-  );
+  return <div style={{ width: '100vw', height: '100vh', display: 'grid', gridTemplateColumns: '390px 1fr', overflow: 'hidden', background: '#020617', color: '#e2e8f0', fontFamily: 'Segoe UI, PingFang SC, Microsoft YaHei, sans-serif' }}>
+    <aside style={{ padding: 14, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 10, borderRight: '1px solid #334155' }}>
+      <h2 style={{ margin: 0 }}>头像配置编辑器</h2><div style={{ fontSize: 12, color: '#94a3b8' }}>{message}</div>
+      <section style={panel}><strong>人物</strong>
+        <select style={{ ...input, marginTop: 8 }} value={activeCharacterId} onChange={(e) => { const id = e.target.value; setActiveCharacterId(id); setActiveExpressionId(configs[id].expressions[0]?.id ?? ''); }}>{Object.values(configs).map((item) => <option key={item.id} value={item.id}>{item.name} · {item.id}</option>)}</select>
+        <label>人物 ID<input style={input} value={activeCharacterId} onChange={(e) => renameCharacterId(e.target.value)} /></label>
+        <label>人物名称<input style={input} value={character?.name ?? ''} onChange={(e) => patchCharacter({ name: e.target.value })} /></label>
+        <button onClick={() => { const id = uniqueId('character', Object.keys(configs)); setConfigs((c) => ({ ...c, [id]: { id, name: '新人物', container: defaultContainer(), expressions: [makeExpression(images[0] ?? '')] } })); setActiveCharacterId(id); setActiveExpressionId('default'); }}>新增人物</button>
+        <button disabled={Object.keys(configs).length <= 1} onClick={() => { const next = { ...configs }; delete next[activeCharacterId]; const id = Object.keys(next)[0]; setConfigs(next); setActiveCharacterId(id); setActiveExpressionId(next[id].expressions[0]?.id ?? ''); }}>删除人物</button>
+      </section>
+      <section style={panel}><strong>表情</strong>
+        <select style={{ ...input, marginTop: 8 }} value={expression?.id ?? ''} onChange={(e) => setActiveExpressionId(e.target.value)}>{character?.expressions.map((item) => <option key={item.id} value={item.id}>{item.name} · {item.id}</option>)}</select>
+        <label>表情 ID<input style={input} value={expression?.id ?? ''} onChange={(e) => renameExpressionId(e.target.value)} /></label>
+        <label>表情名称<input style={input} value={expression?.name ?? ''} onChange={(e) => patchExpression({ name: e.target.value })} /></label>
+        <button onClick={() => { if (!character) return; const id = uniqueId('expression', character.expressions.map((item) => item.id)); patchCharacter({ expressions: [...character.expressions, { ...makeExpression(images[0] ?? ''), id, name: '新表情' }] }); setActiveExpressionId(id); }}>新增表情</button>
+        <button disabled={!character || character.expressions.length <= 1} onClick={() => { if (!character || !expression) return; const next = character.expressions.filter((item) => item.id !== expression.id); patchCharacter({ expressions: next }); setActiveExpressionId(next[0]?.id ?? ''); }}>删除表情</button>
+      </section>
+      <section style={panel}><strong>图片来源</strong><div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginTop: 8 }}><button onClick={() => { setMode('single'); patchExpression({ atlas: undefined }); }}>单图</button><button onClick={() => { setMode('atlas'); if (atlasPath) void loadAtlas(atlasPath); }}>图集帧</button></div>
+        {mode === 'single' ? <><label>扫描 public 下图片<select style={input} value={expression?.imagePath ?? ''} onChange={(e) => patchExpression({ imagePath: e.target.value, atlas: undefined })}><option value="">无图片</option>{images.map((path) => <option key={path} value={path}>{path}</option>)}</select></label><label>图片路径<input style={input} value={expression?.imagePath ?? ''} onChange={(e) => patchExpression({ imagePath: normalizePublicPath(e.target.value), atlas: undefined })} /></label></> : <><label>扫描 public 下图集<select style={input} value={atlasPath} onChange={(e) => void loadAtlas(e.target.value)}>{atlases.map((path) => <option key={path} value={path}>{path}</option>)}</select></label><label>图集帧<select style={input} value={expression?.atlas?.frameName ?? ''} onChange={(e) => patchExpression({ atlas: { jsonPath: atlasPath, frameName: e.target.value } })}>{frameNames.map((name) => <option key={name}>{name}</option>)}</select></label></>}
+      </section>
+      <section style={panel}><strong>图标位置</strong>{(['offsetX', 'offsetY'] as const).map((field) => <label key={field}>{field}：{expression?.[field] ?? 0}px<input type="range" min={-500} max={500} value={expression?.[field] ?? 0} onChange={(e) => patchExpression({ [field]: Number(e.target.value) })} style={{ width: '100%' }} /></label>)}<label>缩放：{expression?.scale ?? 1}<input type="range" min={0.1} max={5} step={0.01} value={expression?.scale ?? 1} onChange={(e) => patchExpression({ scale: Number(e.target.value) })} style={{ width: '100%' }} /></label><button onClick={() => patchExpression({ offsetX: 0, offsetY: 0, scale: 1 })}>重置位置</button></section>
+      <section style={panel}><strong>容器尺寸与形状</strong>
+        <label>形状<select style={input} value={container.shape} onChange={(e) => patchContainer({ shape: e.target.value as AvatarContainerShape })}><option value="square">方形 / 矩形</option><option value="rounded">圆角矩形</option><option value="circle">圆形</option><option value="ellipse">椭圆</option></select></label>
+        {(['width', 'height'] as const).map((field) => <label key={field}>{field === 'width' ? '宽度' : '高度'}：{container[field]}px<div style={{ display: 'grid', gridTemplateColumns: '1fr 76px', gap: 8 }}><input type="range" min={48} max={800} value={container[field]} onChange={(e) => patchContainer({ [field]: Number(e.target.value) })} /><input style={input} type="number" min={48} max={1600} value={container[field]} onChange={(e) => patchContainer({ [field]: Math.max(48, Number(e.target.value) || 48) })} /></div></label>)}
+        {container.shape === 'rounded' ? <label>圆角：{container.borderRadius}px<input type="range" min={0} max={Math.min(container.width, container.height) / 2} value={container.borderRadius} onChange={(e) => patchContainer({ borderRadius: Number(e.target.value) })} style={{ width: '100%' }} /></label> : null}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 6, marginTop: 8 }}><button onClick={() => patchContainer({ width: 128, height: 128 })}>128²</button><button onClick={() => patchContainer({ width: 256, height: 256 })}>256²</button><button onClick={() => patchContainer({ width: 320, height: 180 })}>16:9</button></div>
+      </section>
+      <button onClick={() => void save()} style={{ padding: 10, background: '#16a34a', color: 'white', border: 0, borderRadius: 8 }}>保存头像配置</button>
+    </aside>
+    <main style={{ minWidth: 0, minHeight: 0, padding: 28, overflow: 'auto', display: 'grid', placeItems: 'center', backgroundImage: 'linear-gradient(45deg,#0f172a 25%,transparent 25%),linear-gradient(-45deg,#0f172a 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#0f172a 75%),linear-gradient(-45deg,transparent 75%,#0f172a 75%)', backgroundSize: '32px 32px', backgroundPosition: '0 0,0 16px,16px -16px,-16px 0' }}>
+      <div><div style={{ marginBottom: 8, textAlign: 'center', color: '#94a3b8', fontSize: 12 }}>{container.width} × {container.height}px · {container.shape}</div><div onPointerDown={(e) => { if (!expression) return; e.currentTarget.setPointerCapture(e.pointerId); dragRef.current = { x: e.clientX, y: e.clientY, offsetX: expression.offsetX, offsetY: expression.offsetY }; }} onPointerMove={(e) => { const drag = dragRef.current; if (drag) patchExpression({ offsetX: drag.offsetX + e.clientX - drag.x, offsetY: drag.offsetY + e.clientY - drag.y }); }} onPointerUp={() => { dragRef.current = null; }} style={{ width: container.width, height: container.height, position: 'relative', overflow: 'hidden', borderRadius: containerRadius, border: '2px solid #4ade80', background: '#172033', cursor: 'move', boxShadow: '0 0 50px rgba(74,222,128,.18)' }}><ConfigurableAvatar expression={expression} atlasFrame={resolvedAtlasFrame} fallbackText={character?.name.slice(0, 2) || '?'}><div style={{ position: 'absolute', left: 12, bottom: 10, padding: '4px 8px', background: 'rgba(2,6,23,.72)', borderRadius: 6, pointerEvents: 'none' }}>{character?.name} / {expression?.name}</div></ConfigurableAvatar></div></div>
+    </main>
+  </div>;
 };

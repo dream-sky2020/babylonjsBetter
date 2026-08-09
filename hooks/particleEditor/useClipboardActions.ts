@@ -1,11 +1,11 @@
 import { useCallback } from 'react';
-import type { ParticleEditorPreset } from '@/core/particle';
+import { sanitizeParticleEffectDefinition, type ParticleEffectDefinition } from '@/core/particle';
 
 interface UseClipboardActionsParams {
-  preset: ParticleEditorPreset;
+  preset: ParticleEffectDefinition;
   activePresetKey: string;
-  fallbackPreset: () => ParticleEditorPreset;
-  refreshPresetState: (nextPreset: ParticleEditorPreset, sourceLabel: string) => void;
+  fallbackPreset: () => ParticleEffectDefinition;
+  refreshPresetState: (nextPreset: ParticleEffectDefinition, sourceLabel: string) => void;
   setMessage: (message: string) => void;
 }
 
@@ -37,8 +37,8 @@ export const useClipboardActions = ({
         setMessage('粘贴失败: 剪贴板为空');
         return;
       }
-      const parsed = JSON.parse(raw) as ParticleEditorPreset;
-      const merged = { ...fallbackPreset(), ...parsed, presetKey: activePresetKey };
+      const parsed = JSON.parse(raw) as ParticleEffectDefinition;
+      const merged = sanitizeParticleEffectDefinition({ ...fallbackPreset(), ...parsed, effectKey: activePresetKey }, activePresetKey);
       refreshPresetState(merged, '当前配置来源：从剪贴板粘贴（未保存）');
       setMessage('已粘贴配置，请确认后保存');
     } catch (error) {
