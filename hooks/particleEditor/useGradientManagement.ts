@@ -1,14 +1,14 @@
 import { useCallback, useMemo, useState } from 'react';
 import {
   createGradientNodeId,
-  type ParticleEditorPreset
+  type ParticleEffectDefinition
 } from '@/core/particle';
 import type { ColorGradientNode, SetPresetState, SizeGradientNode } from './types.ts';
 import { hexToRgb } from '@/core/utils/color.ts';
 import { clamp, lerp, toFixedNumber } from '@/core/utils/math.ts';
 
 interface UseGradientManagementParams {
-  initialPreset: ParticleEditorPreset;
+  initialPreset: ParticleEffectDefinition;
   setPreset: SetPresetState;
 }
 
@@ -17,7 +17,7 @@ interface UseGradientManagementResult {
   sizeGradientNodes: SizeGradientNode[];
   colorPreviewGradientCss: string;
   sizePreviewSamples: number[];
-  refreshGradientNodes: (nextPreset: ParticleEditorPreset) => void;
+  refreshGradientNodes: (nextPreset: ParticleEffectDefinition) => void;
   updateColorGradient: (nodeId: string, key: 'offset' | 'colorHex' | 'alpha', value: string) => void;
   addColorGradient: () => void;
   removeColorGradient: (nodeId: string) => void;
@@ -32,15 +32,15 @@ export const useGradientManagement = ({
   initialPreset,
   setPreset
 }: UseGradientManagementParams): UseGradientManagementResult => {
-  const toColorGradientNodes = useCallback((gradients: ParticleEditorPreset['colorGradients']): ColorGradientNode[] => {
+  const toColorGradientNodes = useCallback((gradients: ParticleEffectDefinition['particles']['colorGradients']): ColorGradientNode[] => {
     return gradients.map((item) => ({ ...item, id: createGradientNodeId('cg') }));
   }, []);
 
-  const toSizeGradientNodes = useCallback((gradients: ParticleEditorPreset['sizeGradients']): SizeGradientNode[] => {
+  const toSizeGradientNodes = useCallback((gradients: ParticleEffectDefinition['particles']['sizeGradients']): SizeGradientNode[] => {
     return gradients.map((item) => ({ ...item, id: createGradientNodeId('sg') }));
   }, []);
 
-  const fromColorGradientNodes = useCallback((nodes: ColorGradientNode[]): ParticleEditorPreset['colorGradients'] => {
+  const fromColorGradientNodes = useCallback((nodes: ColorGradientNode[]): ParticleEffectDefinition['particles']['colorGradients'] => {
     return nodes.map((node) => ({
       offset: node.offset,
       color: {
@@ -52,7 +52,7 @@ export const useGradientManagement = ({
     }));
   }, []);
 
-  const fromSizeGradientNodes = useCallback((nodes: SizeGradientNode[]): ParticleEditorPreset['sizeGradients'] => {
+  const fromSizeGradientNodes = useCallback((nodes: SizeGradientNode[]): ParticleEffectDefinition['particles']['sizeGradients'] => {
     return nodes.map((node) => ({
       offset: node.offset,
       size: node.size
@@ -60,10 +60,10 @@ export const useGradientManagement = ({
   }, []);
 
   const [colorGradientNodes, setColorGradientNodes] = useState<ColorGradientNode[]>(
-    () => initialPreset.colorGradients.map((item, index) => ({ ...item, id: `cg-init-${index}` }))
+    () => initialPreset.particles.colorGradients.map((item, index) => ({ ...item, id: `cg-init-${index}` }))
   );
   const [sizeGradientNodes, setSizeGradientNodes] = useState<SizeGradientNode[]>(
-    () => initialPreset.sizeGradients.map((item, index) => ({ ...item, id: `sg-init-${index}` }))
+    () => initialPreset.particles.sizeGradients.map((item, index) => ({ ...item, id: `sg-init-${index}` }))
   );
 
   const colorPreviewGradientCss = useMemo(() => {
@@ -111,9 +111,9 @@ export const useGradientManagement = ({
     return values.map((value) => (value - minValue) / range);
   }, [sizeGradientNodes]);
 
-  const refreshGradientNodes = useCallback((nextPreset: ParticleEditorPreset) => {
-    setColorGradientNodes(toColorGradientNodes(nextPreset.colorGradients));
-    setSizeGradientNodes(toSizeGradientNodes(nextPreset.sizeGradients));
+  const refreshGradientNodes = useCallback((nextPreset: ParticleEffectDefinition) => {
+    setColorGradientNodes(toColorGradientNodes(nextPreset.particles.colorGradients));
+    setSizeGradientNodes(toSizeGradientNodes(nextPreset.particles.sizeGradients));
   }, [toColorGradientNodes, toSizeGradientNodes]);
 
   const updateColorGradient = useCallback((nodeId: string, key: 'offset' | 'colorHex' | 'alpha', value: string) => {
@@ -129,7 +129,7 @@ export const useGradientManagement = ({
         }
         return { ...node, offset: toFixedNumber(clamp(Number(value) || 0, 0, 1)) };
       });
-      setPreset((presetPrev) => ({ ...presetPrev, colorGradients: fromColorGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, colorGradients: fromColorGradientNodes(next) } }));
       return next;
     });
   }, [fromColorGradientNodes, setPreset]);
@@ -140,7 +140,7 @@ export const useGradientManagement = ({
         ...prev,
         { id: createGradientNodeId('cg'), offset: 1, color: { r: 1, g: 1, b: 1, a: 1 } }
       ];
-      setPreset((presetPrev) => ({ ...presetPrev, colorGradients: fromColorGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, colorGradients: fromColorGradientNodes(next) } }));
       return next;
     });
   }, [fromColorGradientNodes, setPreset]);
@@ -148,7 +148,7 @@ export const useGradientManagement = ({
   const removeColorGradient = useCallback((nodeId: string) => {
     setColorGradientNodes((prev) => {
       const next = prev.filter((node) => node.id !== nodeId);
-      setPreset((presetPrev) => ({ ...presetPrev, colorGradients: fromColorGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, colorGradients: fromColorGradientNodes(next) } }));
       return next;
     });
   }, [fromColorGradientNodes, setPreset]);
@@ -159,7 +159,7 @@ export const useGradientManagement = ({
         ? toFixedNumber(clamp(value, 0, 1))
         : toFixedNumber(Math.max(0.0001, value));
       const next = prev.map((node) => node.id === nodeId ? { ...node, [key]: safeValue } : node);
-      setPreset((presetPrev) => ({ ...presetPrev, sizeGradients: fromSizeGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, sizeGradients: fromSizeGradientNodes(next) } }));
       return next;
     });
   }, [fromSizeGradientNodes, setPreset]);
@@ -167,7 +167,7 @@ export const useGradientManagement = ({
   const addSizeGradient = useCallback(() => {
     setSizeGradientNodes((prev) => {
       const next = [...prev, { id: createGradientNodeId('sg'), offset: 1, size: 1 }];
-      setPreset((presetPrev) => ({ ...presetPrev, sizeGradients: fromSizeGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, sizeGradients: fromSizeGradientNodes(next) } }));
       return next;
     });
   }, [fromSizeGradientNodes, setPreset]);
@@ -175,7 +175,7 @@ export const useGradientManagement = ({
   const removeSizeGradient = useCallback((nodeId: string) => {
     setSizeGradientNodes((prev) => {
       const next = prev.filter((node) => node.id !== nodeId);
-      setPreset((presetPrev) => ({ ...presetPrev, sizeGradients: fromSizeGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, sizeGradients: fromSizeGradientNodes(next) } }));
       return next;
     });
   }, [fromSizeGradientNodes, setPreset]);
@@ -183,7 +183,7 @@ export const useGradientManagement = ({
   const sortColorGradientsByOffset = useCallback(() => {
     setColorGradientNodes((prev) => {
       const next = [...prev].sort((a, b) => a.offset - b.offset);
-      setPreset((presetPrev) => ({ ...presetPrev, colorGradients: fromColorGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, colorGradients: fromColorGradientNodes(next) } }));
       return next;
     });
   }, [fromColorGradientNodes, setPreset]);
@@ -191,7 +191,7 @@ export const useGradientManagement = ({
   const sortSizeGradientsByOffset = useCallback(() => {
     setSizeGradientNodes((prev) => {
       const next = [...prev].sort((a, b) => a.offset - b.offset);
-      setPreset((presetPrev) => ({ ...presetPrev, sizeGradients: fromSizeGradientNodes(next) }));
+      setPreset((presetPrev) => ({ ...presetPrev, particles: { ...presetPrev.particles, sizeGradients: fromSizeGradientNodes(next) } }));
       return next;
     });
   }, [fromSizeGradientNodes, setPreset]);

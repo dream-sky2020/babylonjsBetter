@@ -11,16 +11,16 @@ from werkzeug.utils import secure_filename
 # 导入抽离出去的工具和计算逻辑
 from utils import (
     normalize_slashes, to_resource_path, to_public_path, is_path_inside, is_finite_number,
-    is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_preset_payload,
+    is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_effect_payload,
     validate_sprite_animation_payload, validate_stripe_preset_payload, validate_monster_display_payload,
     validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
     validate_burst_capsule_preset_payload, validate_model_scene_preset_payload,
     validate_model_shake_preset_payload, validate_model_display_config_payload,
-    validate_model_swing_config_payload
-    ,validate_model_shoot_config_payload, validate_bullet_config_payload,
+    validate_model_swing_config_payload, validate_model_shoot_config_payload,
+    validate_bullet_config_payload,
     validate_number_sprite_config_payload, validate_exclamation_mark_preset_payload,
     validate_monster_exclamation_position_payload, validate_special_status_visual_preset_payload,
-    validate_monster_special_status_position_payload
+    validate_monster_special_status_position_payload, validate_avatar_config_payload
 )
 
 app = Flask(__name__)
@@ -38,7 +38,7 @@ EXCLAMATION_BASE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "excl
 MONSTER_EXCLAMATION_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterExclamationPositions.json")
 SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "specialStatusVisualPresets.json")
 MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterSpecialStatusPositions.json")
-PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
+PARTICLE_EFFECT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleEffects.json")
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
 MONSTER_STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStripePresets.json")
@@ -50,6 +50,7 @@ MODEL_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelDisplayCo
 MODEL_SWING_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelSwingConfigs.json")
 MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfigs.json")
 BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
+AVATAR_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "avatarConfigs.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -284,6 +285,10 @@ def handle_model_shoot_configs():
 def handle_bullet_configs():
     return _handle_json_config(BULLET_CONFIG_PATH, validate_bullet_config_payload, "bullet configs")
 
+@app.route("/api/avatar-configs", methods=["GET", "PUT"])
+def handle_avatar_configs():
+    return _handle_json_config(AVATAR_CONFIG_PATH, validate_avatar_config_payload, "avatar configs")
+
 @app.route("/api/exclamation-mark-presets", methods=["GET", "PUT"])
 def handle_exclamation_mark_presets():
     return _handle_json_config(EXCLAMATION_MARK_PRESET_CONFIG_PATH, _validate_current_exclamation_marks, "exclamation mark presets")
@@ -443,46 +448,9 @@ def handle_number_sprite_configs():
     except Exception as exc:
         return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
 
-@app.route("/api/particle-presets", methods=["GET", "PUT"])
-def handle_particle_presets():
-    if request.method == "GET":
-        if not os.path.isfile(PARTICLE_PRESET_CONFIG_PATH):
-            return jsonify({"success": True, "count": 0, "data": {}})
-        try:
-            with open(PARTICLE_PRESET_CONFIG_PATH, "r", encoding="utf-8") as f:
-                data = json.load(f)
-
-            if not isinstance(data, dict):
-                return jsonify({"success": False, "message": "配置文件根节点必须是 JSON 对象", "valid": False}), 500
-
-            errors = validate_particle_preset_payload(data)
-            return jsonify({
-                "success": True,
-                "count": len(data),
-                "data": data,
-                "valid": len(errors) == 0,
-                "errors": errors[:50]
-            })
-        except Exception as exc:
-            return jsonify({"success": False, "message": f"读取配置失败: {exc}"}), 500
-
-    elif request.method == "PUT":
-        payload = request.get_json(silent=True)
-        if not isinstance(payload, dict):
-            return jsonify({"success": False, "message": "body must be a json object"}), 400
-
-        errors = validate_particle_preset_payload(payload)
-        if errors:
-            return jsonify({"success": False, "message": "配置校验失败", "errorCount": len(errors), "errors": errors[:50]}), 400
-
-        try:
-            os.makedirs(os.path.dirname(PARTICLE_PRESET_CONFIG_PATH), exist_ok=True)
-            with open(f"{PARTICLE_PRESET_CONFIG_PATH}.tmp", "w", encoding="utf-8") as f:
-                json.dump(payload, f, ensure_ascii=False, indent=2)
-            os.replace(f"{PARTICLE_PRESET_CONFIG_PATH}.tmp", PARTICLE_PRESET_CONFIG_PATH)
-            return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(PARTICLE_PRESET_CONFIG_PATH)})
-        except Exception as exc:
-            return jsonify({"success": False, "message": f"写入配置失败: {exc}"}), 500
+@app.route("/api/particle-effects", methods=["GET", "PUT"])
+def handle_particle_effects():
+    return _handle_json_config(PARTICLE_EFFECT_CONFIG_PATH, validate_particle_effect_payload, "particle effects")
 
 @app.route("/api/stripe-presets", methods=["GET", "PUT"])
 def handle_stripe_presets():

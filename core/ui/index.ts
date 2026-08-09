@@ -3,5 +3,7 @@ export * from './OscilloscopeWrapper';
 export * from './GameDisplaySettingsPanel';
 export * from './BattleSkillSlotsPanel';
 export * from './CharacterAvatarCard';
+export * from './ConfigurableAvatar';
+export * from './ConfigurableAvatar.types';
 export * from './SpecialStatusBadge';
 export * from './FloatingCameraControlPanel';

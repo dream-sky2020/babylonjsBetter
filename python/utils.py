@@ -183,78 +183,44 @@ def validate_sprite_anchor_payload(payload: dict) -> list[str]:
 
     return errors
 
-def validate_particle_preset_payload(payload: dict) -> list[str]:
+def validate_particle_effect_payload(payload: dict) -> list[str]:
     errors: list[str] = []
-    if not isinstance(payload, dict):
-        return ["body 必须是 JSON 对象"]
-
-    for key, preset in payload.items():
-        p_path = f"root[{key}]"
-        if not isinstance(key, str) or not key.strip():
-            errors.append("root 的 key 必须是非空字符串")
-            continue
-        if not isinstance(preset, dict):
-            errors.append(f"{p_path} 必须是对象")
-            continue
-
-        p_key = _req_str(preset, "presetKey", errors, p_path)
-        _req_str(preset, "name", errors, p_path)
-        _req_str(preset, "texturePath", errors, p_path)
-
-        if p_key and key != p_key:
-            errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
-
-        for bool_field in ("isOneShot", "autoDispose"):
-            if not isinstance(preset.get(bool_field), bool):
-                errors.append(f"{p_path}.{bool_field} 必须是布尔值")
-
-        _req_num(preset, "capacity", errors, p_path, 1)
-        min_life = _req_num(preset, "minLifeTime", errors, p_path, 0.01)
-        max_life = _req_num(preset, "maxLifeTime", errors, p_path, 0.01)
-        if min_life > max_life:
-            errors.append(f"{p_path}.minLifeTime 不能大于 maxLifeTime")
-
-        _req_num(preset, "emitDuration", errors, p_path, 0.01)
-        _req_num(preset, "emitRate", errors, p_path, 1)
-        min_power = _req_num(preset, "minEmitPower", errors, p_path, 0.01)
-        max_power = _req_num(preset, "maxEmitPower", errors, p_path, 0.01)
-        if min_power > max_power:
-            errors.append(f"{p_path}.minEmitPower 不能大于 maxEmitPower")
-
-        _req_num(preset, "updateSpeed", errors, p_path, 0.0001)
-        _req_num(preset, "gravityY", errors, p_path)
-
-        for vec_name in ("minEmitBox", "maxEmitBox", "direction1", "direction2"):
-            vec = _req_obj(preset, vec_name, errors, p_path)
-            for axis in ("x", "y", "z"):
-                _req_num(vec, axis, errors, f"{p_path}.{vec_name}")
-
-        colors = preset.get("colorGradients")
-        if not isinstance(colors, list):
-            errors.append(f"{p_path}.colorGradients 必须是数组")
-        else:
-            for idx, entry in enumerate(colors):
-                c_path = f"{p_path}.colorGradients[{idx}]"
-                if not isinstance(entry, dict):
-                    errors.append(f"{c_path} 必须是对象")
-                    continue
-                _req_num(entry, "offset", errors, c_path, 0, 1)
-                color = _req_obj(entry, "color", errors, c_path)
-                for channel in ("r", "g", "b", "a"):
-                    _req_num(color, channel, errors, f"{c_path}.color", COLOR_MIN, COLOR_MAX)
-
-        sizes = preset.get("sizeGradients")
-        if not isinstance(sizes, list):
-            errors.append(f"{p_path}.sizeGradients 必须是数组")
-        else:
-            for idx, entry in enumerate(sizes):
-                s_path = f"{p_path}.sizeGradients[{idx}]"
-                if not isinstance(entry, dict):
-                    errors.append(f"{s_path} 必须是对象")
-                    continue
-                _req_num(entry, "offset", errors, s_path, 0, 1)
-                _req_num(entry, "size", errors, s_path, 0.0001)
-
+    if not isinstance(payload, dict): return ["body must be a JSON object"]
+    for key, effect in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(effect, dict): errors.append(f"{path} must be an object"); continue
+        if effect.get("effectKey") != key: errors.append(f"{path}.effectKey must match its object key")
+        if not isinstance(effect.get("name"), str) or not effect.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        effect_type = effect.get("effectType")
+        if effect_type not in ("burst", "orbit", "spiral", "vortex"): errors.append(f"{path}.effectType is invalid")
+        if not isinstance(effect.get("enabled"), bool): errors.append(f"{path}.enabled must be a boolean")
+        particles = effect.get("particles")
+        if not isinstance(particles, dict): errors.append(f"{path}.particles must be an object"); continue
+        for field in ("texturePath",):
+            if not isinstance(particles.get(field), str) or not particles.get(field, "").strip(): errors.append(f"{path}.particles.{field} must be a non-empty string")
+        for field in ("isOneShot", "autoDispose"):
+            if not isinstance(particles.get(field), bool): errors.append(f"{path}.particles.{field} must be a boolean")
+        for field in ("capacity", "minLifeTime", "maxLifeTime", "emitDuration", "emitRate", "minEmitPower", "maxEmitPower", "updateSpeed"):
+            if not is_finite_number(particles.get(field)): errors.append(f"{path}.particles.{field} must be a finite number")
+        for field in ("colorGradients", "sizeGradients"):
+            if not isinstance(particles.get(field), list): errors.append(f"{path}.particles.{field} must be an array")
+        behavior = effect.get("behavior")
+        if not isinstance(behavior, dict): errors.append(f"{path}.behavior must be an object"); continue
+        if effect_type == "burst":
+            for field in ("minEmitBox", "maxEmitBox", "direction1", "direction2", "gravity"):
+                value = behavior.get(field)
+                if not isinstance(value, dict) or any(not is_finite_number(value.get(axis)) for axis in ("x", "y", "z")): errors.append(f"{path}.behavior.{field} must contain finite x/y/z")
+        elif effect_type in ("orbit", "spiral", "vortex"):
+            for field in ("radius", "radiusRandomness", "angularSpeed", "angularSpeedRandomness", "height", "heightRandomness", "radialSpeed", "phaseRandomness"):
+                if not is_finite_number(behavior.get(field)): errors.append(f"{path}.behavior.{field} must be a finite number")
+            axis = behavior.get("rotationAxis")
+            if not isinstance(axis, dict) or any(not is_finite_number(axis.get(item)) for item in ("x", "y", "z")): errors.append(f"{path}.behavior.rotationAxis must contain finite x/y/z")
+            for field in ("clockwise", "followEmitter"):
+                if not isinstance(behavior.get(field), bool): errors.append(f"{path}.behavior.{field} must be a boolean")
+            if effect_type == "spiral" and not is_finite_number(behavior.get("verticalSpeed")): errors.append(f"{path}.behavior.verticalSpeed must be a finite number")
+            if effect_type == "vortex":
+                for field in ("inwardSpeed", "endRadius"):
+                    if not is_finite_number(behavior.get(field)): errors.append(f"{path}.behavior.{field} must be a finite number")
     return errors
 
 def validate_stripe_preset_payload(payload: dict) -> list[str]:
@@ -860,10 +826,6 @@ def validate_model_swing_config_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.phaseDeg must be between -360 and 360")
     return errors
 
-def _validate_particle_ref(config: dict, path: str, errors: list[str], field: str) -> None:
-    value = config.get(field)
-    if not isinstance(value, str) or not value.strip(): errors.append(f"{path}.{field} must be a non-empty particle preset key")
-
 def validate_model_shoot_config_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict): return ["body must be a JSON object"]
@@ -871,8 +833,7 @@ def validate_model_shoot_config_payload(payload: dict) -> list[str]:
         path = f"root[{key}]"
         if not isinstance(config, dict): errors.append(f"{path} must be an object"); continue
         if config.get("modelPath") != key: errors.append(f"{path}.modelPath must match its object key")
-        _validate_particle_ref(config, path, errors, "fireParticlePresetKey")
-        for field, minimum, maximum in (("fireIntervalMs", 1, 60000), ("recoilAngleDeg", -180, 180), ("particleOffsetX", -100, 100), ("particleOffsetY", -100, 100), ("particleOffsetZ", -100, 100)):
+        for field, minimum, maximum in (("fireIntervalMs", 1, 60000), ("recoilAngleDeg", -180, 180)):
             if not is_finite_number(config.get(field)) or config[field] < minimum or config[field] > maximum: errors.append(f"{path}.{field} out of range")
     return errors
 
@@ -884,9 +845,50 @@ def validate_bullet_config_payload(payload: dict) -> list[str]:
         if not isinstance(config, dict): errors.append(f"{path} must be an object"); continue
         if config.get("bulletKey") != key: errors.append(f"{path}.bulletKey must match its object key")
         if config.get("shape") not in ("sphere", "box", "cylinder"): errors.append(f"{path}.shape must be sphere, box or cylinder")
-        _validate_particle_ref(config, path, errors, "trailParticlePresetKey")
-        for field, minimum, maximum in (("scale", 0.01, 100), ("speed", 0.01, 1000), ("trailLength", 0, 100), ("trailWidth", 0.001, 100)):
+        for field, minimum, maximum in (("scale", 0.01, 100), ("speed", 0.01, 1000)):
             if not is_finite_number(config.get(field)) or config[field] < minimum or config[field] > maximum: errors.append(f"{path}.{field} out of range")
+    return errors
+
+def validate_avatar_config_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, character in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("character key must be a non-empty string"); continue
+        if not isinstance(character, dict):
+            errors.append(f"{path} must be an object"); continue
+        if character.get("id") != key: errors.append(f"{path}.id must match its object key")
+        if not isinstance(character.get("name"), str) or not character.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        container = character.get("container")
+        if not isinstance(container, dict):
+            errors.append(f"{path}.container must be an object")
+        else:
+            if container.get("shape") not in ("square", "rounded", "circle", "ellipse"): errors.append(f"{path}.container.shape is invalid")
+            for field in ("width", "height"):
+                if not is_finite_number(container.get(field)) or container[field] < 48 or container[field] > 1600: errors.append(f"{path}.container.{field} must be between 48 and 1600")
+            if not is_finite_number(container.get("borderRadius")) or container["borderRadius"] < 0: errors.append(f"{path}.container.borderRadius must be zero or greater")
+        expressions = character.get("expressions")
+        if not isinstance(expressions, list):
+            errors.append(f"{path}.expressions must be an array"); continue
+        seen = set()
+        for index, expression in enumerate(expressions):
+            expression_path = f"{path}.expressions[{index}]"
+            if not isinstance(expression, dict): errors.append(f"{expression_path} must be an object"); continue
+            expression_id = expression.get("id")
+            if not isinstance(expression_id, str) or not expression_id.strip(): errors.append(f"{expression_path}.id must be a non-empty string")
+            elif expression_id in seen: errors.append(f"{expression_path}.id must be unique")
+            else: seen.add(expression_id)
+            if not isinstance(expression.get("name"), str) or not expression.get("name", "").strip(): errors.append(f"{expression_path}.name must be a non-empty string")
+            if not isinstance(expression.get("imagePath"), str): errors.append(f"{expression_path}.imagePath must be a string")
+            for field in ("offsetX", "offsetY", "scale"):
+                if not is_finite_number(expression.get(field)): errors.append(f"{expression_path}.{field} must be a finite number")
+            if is_finite_number(expression.get("scale")) and expression["scale"] <= 0: errors.append(f"{expression_path}.scale must be greater than zero")
+            atlas = expression.get("atlas")
+            if atlas is not None:
+                if not isinstance(atlas, dict): errors.append(f"{expression_path}.atlas must be an object")
+                elif not all(isinstance(atlas.get(field), str) and atlas.get(field).strip() for field in ("jsonPath", "frameName")): errors.append(f"{expression_path}.atlas paths must be non-empty strings")
     return errors
 
 def validate_exclamation_mark_preset_payload(payload: dict) -> list[str]:
