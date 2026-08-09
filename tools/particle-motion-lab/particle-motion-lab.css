@@ -1,0 +1,27 @@
+:root { font-family: Inter, "Segoe UI", sans-serif; color: #e8f2ff; background: #07101d; }
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; }
+button, input, select { font: inherit; }
+.motion-lab { display: grid; grid-template: 72px 1fr / 290px 1fr; width: 100vw; height: 100vh; }
+header { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 12px 22px; border-bottom: 1px solid #1c3650; background: #091522; }
+h1 { margin: 0; font-size: 20px; } header p { margin: 4px 0 0; color: #7e9bb8; font-size: 12px; }
+.metrics { display: flex; gap: 18px; align-items: center; color: #89a7c5; }.metrics strong { color: #5ee6ba; }
+aside { padding: 16px; overflow: auto; border-right: 1px solid #1c3650; background: #0b1827; }
+.panel-section { width: auto; height: auto; margin: 0 0 14px; padding: 14px; border: 1px solid #1d354c; border-radius: 8px; background: #0a1522; }
+.panel-section h2 { margin: 0 0 14px; color: #dcecff; font-size: 13px; letter-spacing: .04em; }
+.mode-description { margin: -4px 0 8px; color: #89a5be; font-size: 12px; line-height: 1.55; }
+.mode-version { color: #52718d; font-family: Consolas, monospace; font-size: 11px; }
+label { display: grid; gap: 7px; margin-bottom: 18px; color: #a9bfd4; font-size: 13px; }
+label:last-child { margin-bottom: 0; }
+label small { color: #66839d; line-height: 1.4; }
+output { justify-self: end; margin-top: -24px; color: #5ee6ba; }
+input[type="number"], select { width: 100%; padding: 9px; color: #e8f2ff; border: 1px solid #29445e; border-radius: 6px; background: #07111d; }
+input[type="range"] { width: 100%; accent-color: #35cba1; }
+button { width: 100%; margin: 0 0 18px; padding: 10px; color: #04110e; font-weight: 700; border: 0; border-radius: 6px; background: #50dfb6; cursor: pointer; }
+button.secondary { color: #bcd1e5; border: 1px solid #31506c; background: transparent; }
+.checkbox-field { display: flex; align-items: center; gap: 8px; }
+.vector-field { margin: 0 0 14px; padding: 10px; border: 1px solid #29445e; border-radius: 6px; }
+.vector-field legend { color: #a9bfd4; font-size: 12px; }
+.vector-field label { grid-template-columns: 20px 1fr; align-items: center; margin-bottom: 6px; }
+.note { color: #7894ae; font-size: 12px; line-height: 1.6; }
+.viewport, canvas { min-width: 0; width: 100%; height: 100%; } canvas { display: block; outline: none; }

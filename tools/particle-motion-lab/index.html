@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>粒子运动接管 Lab</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    if (location.protocol === 'file:') {
+      document.getElementById('root').innerHTML = '<main style="max-width:680px;margin:15vh auto;padding:32px;font-family:Segoe UI,sans-serif;color:#e8f2ff;background:#0b1827;border:1px solid #29445e;border-radius:12px"><h1>需要通过项目开发服务打开</h1><p style="line-height:1.7;color:#a9bfd4">这个 Lab 使用 TSX 和 Babylon.js 模块，浏览器不能通过 file:// 直接运行。</p><p><code style="color:#5ee6ba">npm run dev</code></p><p><a style="color:#64d8ff" href="http://localhost:1184/tools/particle-motion-lab/index.html">打开正确地址</a></p></main>';
+    } else {
+      const script = document.createElement('script');
+      script.type = 'module';
+      script.src = '/tools/particle-motion-lab/particleMotionLabMain.tsx';
+      document.body.appendChild(script);
+    }
+  </script>
+</body>
+</html>

@@ -128,6 +128,7 @@ export default defineConfig({
         monsterHitDeathLab: path.resolve(__dirname, 'tools/monster-hit-death-lab/index.html'),
         cameraSceneLab: path.resolve(__dirname, 'tools/camera-scene-lab/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
+        particleMotionLab: path.resolve(__dirname, 'tools/particle-motion-lab/index.html'),
         oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
         avatarVisualLab: path.resolve(__dirname, 'tools/avatar-visual-lab/index.html'),
         specialStatusVisualLab: path.resolve(__dirname, 'tools/special-status-visual-lab/index.html'),
