@@ -9,8 +9,16 @@ import {
   Scene,
   SolidParticleSystem,
   StandardMaterial,
+  Texture,
   Vector3
 } from '@babylonjs/core';
+import {
+  getAllParticleVisualPresets,
+  getParticleVisualPreset,
+  hydrateParticleVisualPresetStorage,
+  normalizePublicPath,
+  type ParticleVisualPreset
+} from '@/core/particle';
 import {
   createDefaultMotionParameters,
   getParticleMotionDefinition,
@@ -51,6 +59,42 @@ const groupParameters = (definition: ParticleMotionDefinition) => {
   return [...groups.entries()];
 };
 
+const sampleSize = (preset: ParticleVisualPreset, time: number) => {
+  const gradients = [...preset.sizeGradients].sort((left, right) => left.offset - right.offset);
+  if (gradients.length === 0) return 0.1;
+  const rightIndex = gradients.findIndex((entry) => entry.offset >= time);
+  if (rightIndex === -1) return gradients[gradients.length - 1].size;
+  if (rightIndex <= 0) return gradients[Math.max(0, rightIndex)].size;
+  const left = gradients[rightIndex - 1];
+  const right = gradients[rightIndex];
+  const local = (time - left.offset) / Math.max(0.0001, right.offset - left.offset);
+  return left.size + (right.size - left.size) * local;
+};
+
+const sampleColor = (preset: ParticleVisualPreset, time: number) => {
+  if (preset.colorMode === 'texture' || preset.colorGradients.length === 0) return new Color4(1, 1, 1, 1);
+  const gradients = [...preset.colorGradients].sort((left, right) => left.offset - right.offset);
+  const rightIndex = gradients.findIndex((entry) => entry.offset >= time);
+  if (rightIndex === -1) {
+    const color = gradients[gradients.length - 1].color;
+    return new Color4(color.r, color.g, color.b, color.a);
+  }
+  const selectedIndex = Math.max(0, rightIndex);
+  if (rightIndex <= 0) {
+    const color = gradients[selectedIndex].color;
+    return new Color4(color.r, color.g, color.b, color.a);
+  }
+  const left = gradients[rightIndex - 1];
+  const right = gradients[rightIndex];
+  const local = (time - left.offset) / Math.max(0.0001, right.offset - left.offset);
+  return new Color4(
+    left.color.r + (right.color.r - left.color.r) * local,
+    left.color.g + (right.color.g - left.color.g) * local,
+    left.color.b + (right.color.b - left.color.b) * local,
+    left.color.a + (right.color.a - left.color.a) * local
+  );
+};
+
 export const ParticleMotionLab: React.FC = () => {
   const initialDefinition = getParticleMotionDefinition(DEFAULT_MODE_ID);
   const initialRuntime = createRuntime();
@@ -59,6 +103,8 @@ export const ParticleMotionLab: React.FC = () => {
   const runtimeRef = useRef(initialRuntime);
   const definitionRef = useRef(initialDefinition);
   const parametersRef = useRef(initialParameters);
+  const initialVisualPreset = getParticleVisualPreset('spark-visual');
+  const visualPresetRef = useRef(initialVisualPreset);
   const rebuildRef = useRef<() => void>(() => undefined);
   const pausedRef = useRef(false);
 
@@ -67,6 +113,8 @@ export const ParticleMotionLab: React.FC = () => {
   const [parameters, setParameters] = useState(initialParameters);
   const [fps, setFps] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [visualPresetKeys, setVisualPresetKeys] = useState<string[]>(() => Object.keys(getAllParticleVisualPresets()).sort());
+  const [visualPreset, setVisualPreset] = useState(initialVisualPreset);
 
   const definition = getParticleMotionDefinition(modeId);
   const parameterGroups = useMemo(() => groupParameters(definition), [definition]);
@@ -97,6 +145,29 @@ export const ParticleMotionLab: React.FC = () => {
     window.requestAnimationFrame(() => rebuildRef.current());
   };
 
+  const selectVisualPreset = (visualPresetKey: string) => {
+    const next = getParticleVisualPreset(visualPresetKey);
+    visualPresetRef.current = next;
+    setVisualPreset(next);
+    window.requestAnimationFrame(() => rebuildRef.current());
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      await hydrateParticleVisualPresetStorage();
+      if (cancelled) return;
+      const all = getAllParticleVisualPresets();
+      const keys = Object.keys(all).sort();
+      setVisualPresetKeys(keys);
+      const next = getParticleVisualPreset(keys.includes(visualPresetRef.current.presetKey) ? visualPresetRef.current.presetKey : keys[0]);
+      visualPresetRef.current = next;
+      setVisualPreset(next);
+      rebuildRef.current();
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -125,17 +196,32 @@ export const ParticleMotionLab: React.FC = () => {
       sps?.dispose();
       const currentRuntime = runtimeRef.current;
       const currentDefinition = definitionRef.current;
+      const currentVisual = visualPresetRef.current;
       random = createSeededRandom(currentRuntime.seed);
       elapsedSeconds = 0;
 
-      const shape = MeshBuilder.CreatePolyhedron('particle-shape', { type: 1, size: 0.055 }, scene);
+      const shape = MeshBuilder.CreatePlane('particle-shape', { size: 1 }, scene);
       const next = new SolidParticleSystem('controlled-particles', scene, { updatable: true });
+      next.billboard = true;
       next.addShape(shape, currentRuntime.capacity);
       shape.dispose();
 
       const material = new StandardMaterial('controlled-particle-material', scene);
-      material.emissiveColor = new Color3(0.2, 0.8, 1);
+      const texturePath = encodeURI(`/${normalizePublicPath(currentVisual.texturePath).replace(/^public\//, '')}`);
+      const texture = new Texture(texturePath, scene);
+      texture.hasAlpha = true;
+      material.diffuseTexture = texture;
+      material.emissiveTexture = texture;
+      material.useAlphaFromDiffuseTexture = true;
+      material.emissiveColor = Color3.White();
+      material.diffuseColor = Color3.White();
       material.disableLighting = true;
+      material.backFaceCulling = false;
+      material.alphaMode = currentVisual.blendMode === 'add'
+        ? Engine.ALPHA_ADD
+        : currentVisual.blendMode === 'multiply'
+          ? Engine.ALPHA_MULTIPLY
+          : Engine.ALPHA_COMBINE;
       next.buildMesh().material = material;
 
       const createContext = { random, runtime: currentRuntime };
@@ -151,12 +237,10 @@ export const ParticleMotionLab: React.FC = () => {
             createContext,
             parametersRef.current
           );
-          particle.color = new Color4(
-            0.15 + random() * 0.25,
-            0.65 + random() * 0.3,
-            1,
-            index < currentRuntime.activeCount ? 0.9 : 0
-          );
+          const visualTime = (index * 0.013) % 1;
+          particle.color = sampleColor(currentVisual, visualTime);
+          particle.scaling.setAll(sampleSize(currentVisual, visualTime));
+          if (index >= currentRuntime.activeCount) particle.color.a = 0;
         });
       };
       next.initParticles();
@@ -187,7 +271,9 @@ export const ParticleMotionLab: React.FC = () => {
               updateContext,
               parametersRef.current
             );
-            if (particle.color) particle.color.a = 0.9;
+            const visualTime = (elapsedSeconds * 0.5 + particle.idx * 0.013) % 1;
+            particle.color = sampleColor(visualPresetRef.current, visualTime);
+            particle.scaling.setAll(sampleSize(visualPresetRef.current, visualTime));
           } else if (particle.color) particle.color.a = 0;
           return particle;
         };
@@ -226,9 +312,9 @@ export const ParticleMotionLab: React.FC = () => {
     return <fieldset className="vector-field" key={key}><legend>{parameter.label}</legend>{(['x', 'y', 'z'] as const).map((axis) => <label key={axis}>{axis.toUpperCase()}<input type="number" value={vector[axis]} min={parameter.min} max={parameter.max} step={parameter.step ?? 0.1} onChange={(event) => updateParameter(key, { ...vector, [axis]: Number(event.target.value) })} /></label>)}</fieldset>;
   };
 
-  const togglePaused = () => {
-    pausedRef.current = !pausedRef.current;
-    setPaused(pausedRef.current);
+  const setSimulationPaused = (nextPaused: boolean) => {
+    pausedRef.current = nextPaused;
+    setPaused(nextPaused);
   };
 
   return (
@@ -238,6 +324,24 @@ export const ParticleMotionLab: React.FC = () => {
         <div className="metrics"><strong>{fps} FPS</strong><span>{runtime.activeCount.toLocaleString()} / {runtime.capacity.toLocaleString()} 粒子</span></div>
       </header>
       <aside>
+        <section className="panel-section">
+          <h2>播放控制</h2>
+          <div className="playback-controls">
+            <button onClick={() => setSimulationPaused(false)} disabled={!paused}>播放</button>
+            <button className="secondary" onClick={() => setSimulationPaused(true)} disabled={paused}>暂停</button>
+          </div>
+        </section>
+        <section className="panel-section">
+          <h2>共享视觉预设</h2>
+          <label>视觉
+            <select value={visualPreset.presetKey} onChange={(event) => selectVisualPreset(event.target.value)}>
+              {visualPresetKeys.map((key) => <option value={key} key={key}>{key}</option>)}
+            </select>
+          </label>
+          <p className="mode-description">{visualPreset.name}</p>
+          <span className="mode-version">{visualPreset.colorMode} · {visualPreset.blendMode}</span>
+          <a className="editor-link" href="/tools/particle-editor/index.html">在 Particle Editor 中编辑视觉</a>
+        </section>
         <section className="panel-section">
           <h2>运动模式</h2>
           <label>模式<select value={modeId} onChange={(event) => selectMode(event.target.value)}>{particleMotionDefinitions.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label>
@@ -257,7 +361,6 @@ export const ParticleMotionLab: React.FC = () => {
 
         {parameterGroups.map(([group, entries]) => <section className="panel-section" key={group}><h2>{group}</h2>{entries.map(([key, parameter]) => renderParameter(key, parameter))}</section>)}
 
-        <button className="secondary" onClick={togglePaused}>{paused ? '继续模拟' : '暂停模拟'}</button>
         <p className="note">新增模式只需在 core/particle-motion/modes 下创建目录并默认导出定义，Lab 会自动发现。</p>
       </aside>
       <section className="viewport"><canvas ref={canvasRef} /></section>

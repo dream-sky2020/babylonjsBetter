@@ -24,14 +24,17 @@ export const ParticleEditor: React.FC = () => {
   const particleControllerRef = useRef<ParticleController | null>(null);
   const {
     presetKeys,
+    visualPresetKeys,
     activePresetKey,
     presetSourceLabel,
     message,
     viewMode,
     preset,
+    visualPreset,
     setMessage,
     setViewMode,
     setPreset,
+    setVisualPreset,
     fallbackPreset,
     loadedPresetVersion,
     serverConnected,
@@ -39,6 +42,7 @@ export const ParticleEditor: React.FC = () => {
     retryServerConnection,
     refreshPresetState,
     handlePresetSelectionChange,
+    handleVisualPresetSelectionChange,
     saveCurrentPreset,
     importCurrentLocalPreset,
     clearCurrentPreset
@@ -58,21 +62,21 @@ export const ParticleEditor: React.FC = () => {
     sortColorGradientsByOffset,
     sortSizeGradientsByOffset
   } = useGradientManagement({
-    initialPreset: preset,
-    setPreset
+    initialPreset: visualPreset,
+    setPreset: setVisualPreset
   });
 
   useEffect(() => {
     if (loadedPresetVersion > 0) {
-      refreshGradientNodes(preset);
+      refreshGradientNodes(visualPreset);
     }
-  }, [loadedPresetVersion, preset, refreshGradientNodes]);
+  }, [loadedPresetVersion, visualPreset, refreshGradientNodes]);
 
   const textureOptions = useMemo(() => {
     const scanned = Object.values(RESOURCE_IMAGE_MODULES).map((assetUrl) => normalizePublicPath(assetUrl));
-    const merged = new Set<string>([...scanned, preset.texturePath]);
+    const merged = new Set<string>([...scanned, visualPreset.texturePath]);
     return [...merged].sort((a, b) => a.localeCompare(b, 'zh-CN'));
-  }, [preset.texturePath]);
+  }, [visualPreset.texturePath]);
 
   const updatePresetNumber = useCallback((key: keyof ParticleEditorPreset, rawValue: string, min?: number, max?: number) => {
     const parsed = Number(rawValue);
@@ -100,10 +104,11 @@ export const ParticleEditor: React.FC = () => {
     particleControllerRef
   });
 
-  const { playParticle, stopParticle } = useParticleController({
+  const { playParticle, pauseParticle, resumeParticle, stopParticle, playbackState } = useParticleController({
     sceneRef,
     particleControllerRef,
     preset,
+    visualPreset,
     setMessage
   });
 
@@ -212,17 +217,56 @@ export const ParticleEditor: React.FC = () => {
           style={{ width: '100%', marginBottom: 8 }}
         />
 
+        <div style={{ margin: '12px 0 8px', paddingTop: 12, borderTop: '1px solid #354052', color: '#90b6ff', fontWeight: 700 }}>共享视觉预设</div>
+        <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>当前效果引用的视觉</label>
+        <select
+          value={preset.visualPresetKey}
+          onChange={(event) => handleVisualPresetSelectionChange(event.target.value)}
+          style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
+        >
+          {visualPresetKeys.map((key) => <option key={key} value={key}>{key}</option>)}
+        </select>
+        <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>视觉 Key</label>
+        <input
+          value={visualPreset.presetKey}
+          onChange={(event) => {
+            const visualPresetKey = event.target.value;
+            setVisualPreset((prev) => ({ ...prev, presetKey: visualPresetKey }));
+            setPreset((prev) => ({ ...prev, visualPresetKey }));
+          }}
+          style={{ width: '100%', marginBottom: 8 }}
+        />
+        <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>视觉名称</label>
+        <input value={visualPreset.name} onChange={(event) => setVisualPreset((prev) => ({ ...prev, name: event.target.value }))} style={{ width: '100%', marginBottom: 8 }} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
+          <label style={{ display: 'grid', gap: 6, fontSize: 13 }}>颜色模式
+            <select value={visualPreset.colorMode} onChange={(event) => setVisualPreset((prev) => ({ ...prev, colorMode: event.target.value as 'texture' | 'gradient' }))}>
+              <option value="texture">贴图原色</option>
+              <option value="gradient">颜色渐变</option>
+            </select>
+          </label>
+          <label style={{ display: 'grid', gap: 6, fontSize: 13 }}>混合模式
+            <select value={visualPreset.blendMode} onChange={(event) => setVisualPreset((prev) => ({ ...prev, blendMode: event.target.value as 'alpha' | 'add' | 'multiply' }))}>
+              <option value="alpha">Alpha 透明</option>
+              <option value="add">Add 加色</option>
+              <option value="multiply">Multiply 正片叠底</option>
+            </select>
+          </label>
+        </div>
+        {visualPreset.colorMode === 'texture' ? <div style={{ marginBottom: 10, color: '#8fa3b8', fontSize: 11 }}>贴图原色模式不会应用下方颜色渐变。</div> : null}
+
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>纹理路径（public 相对路径）</label>
         <input
-          value={preset.texturePath}
-          onChange={(event) => setPreset((prev) => ({ ...prev, texturePath: normalizePublicPath(event.target.value) }))}
+          value={visualPreset.texturePath}
+          onChange={(event) => setVisualPreset((prev) => ({ ...prev, texturePath: normalizePublicPath(event.target.value) }))}
           style={{ width: '100%', marginBottom: 8 }}
         />
 
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>纹理资源列表（自动扫描）</label>
         <select
-          value={preset.texturePath}
-          onChange={(event) => setPreset((prev) => ({ ...prev, texturePath: event.target.value }))}
+          value={visualPreset.texturePath}
+          onChange={(event) => setVisualPreset((prev) => ({ ...prev, texturePath: event.target.value }))}
           style={{ width: '100%', marginBottom: 12, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
         >
           {textureOptions.map((path) => (
@@ -239,9 +283,10 @@ export const ParticleEditor: React.FC = () => {
           <button onClick={pastePreset}>粘贴配置</button>
         </div>
 
-        <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
-          <button onClick={playParticle} style={{ flex: 1 }}>播放粒子</button>
-          <button onClick={stopParticle} style={{ flex: 1 }}>停止粒子</button>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 10 }}>
+          <button onClick={playbackState === 'paused' ? resumeParticle : playParticle} disabled={playbackState === 'playing'}>播放</button>
+          <button onClick={pauseParticle} disabled={playbackState !== 'playing'}>暂停</button>
+          <button onClick={stopParticle} disabled={playbackState === 'stopped'}>停止</button>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>

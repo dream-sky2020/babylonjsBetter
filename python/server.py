@@ -12,7 +12,7 @@ from werkzeug.utils import secure_filename
 from utils import (
     normalize_slashes, to_resource_path, to_public_path, is_path_inside, is_finite_number,
     is_allowed_image_file, validate_sprite_anchor_payload, validate_particle_effect_payload,
-    validate_particle_preset_payload,
+    validate_particle_preset_payload, validate_particle_visual_preset_payload,
     validate_sprite_animation_payload, validate_stripe_preset_payload, validate_monster_display_payload,
     validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
     validate_burst_capsule_preset_payload, validate_model_scene_preset_payload,
@@ -41,6 +41,7 @@ SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", 
 MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterSpecialStatusPositions.json")
 PARTICLE_EFFECT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleEffects.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
+PARTICLE_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleVisualPresets.json")
 STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "stripePresets.json")
 MONSTER_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDisplayConfigs.json")
 MONSTER_STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStripePresets.json")
@@ -457,6 +458,10 @@ def handle_particle_effects():
 @app.route("/api/particle-presets", methods=["GET", "PUT"])
 def handle_particle_presets():
     return _handle_json_config(PARTICLE_PRESET_CONFIG_PATH, validate_particle_preset_payload, "particle presets")
+
+@app.route("/api/particle-visual-presets", methods=["GET", "PUT"])
+def handle_particle_visual_presets():
+    return _handle_json_config(PARTICLE_VISUAL_PRESET_CONFIG_PATH, validate_particle_visual_preset_payload, "particle visual presets")
 
 @app.route("/api/stripe-presets", methods=["GET", "PUT"])
 def handle_stripe_presets():

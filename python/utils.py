@@ -240,7 +240,7 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
 
         preset_key = _req_str(preset, "presetKey", errors, p_path)
         _req_str(preset, "name", errors, p_path)
-        _req_str(preset, "texturePath", errors, p_path)
+        _req_str(preset, "visualPresetKey", errors, p_path)
         if preset_key and key != preset_key:
             errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
 
@@ -269,7 +269,7 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
             for axis in ("x", "y", "z"):
                 _req_num(vector, axis, errors, f"{p_path}.{vector_name}")
 
-        colors = preset.get("colorGradients")
+        colors = preset.get("colorGradients", [])
         if not isinstance(colors, list):
             errors.append(f"{p_path}.colorGradients 必须是数组")
         else:
@@ -283,7 +283,7 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
                 for channel in ("r", "g", "b", "a"):
                     _req_num(color, channel, errors, f"{color_path}.color", COLOR_MIN, COLOR_MAX)
 
-        sizes = preset.get("sizeGradients")
+        sizes = preset.get("sizeGradients", [])
         if not isinstance(sizes, list):
             errors.append(f"{p_path}.sizeGradients 必须是数组")
         else:
@@ -296,6 +296,51 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
                 _req_num(entry, "size", errors, size_path, 0.0001)
 
     return errors
+
+def validate_particle_visual_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(preset, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        preset_key = _req_str(preset, "presetKey", errors, path)
+        _req_str(preset, "name", errors, path)
+        _req_str(preset, "texturePath", errors, path)
+        if preset.get("colorMode") not in ("texture", "gradient"):
+            errors.append(f"{path}.colorMode must be texture or gradient")
+        if preset.get("blendMode") not in ("alpha", "add", "multiply"):
+            errors.append(f"{path}.blendMode must be alpha, add or multiply")
+        if preset_key and preset_key != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        colors = preset.get("colorGradients")
+        if not isinstance(colors, list):
+            errors.append(f"{path}.colorGradients must be an array")
+        else:
+            for index, entry in enumerate(colors):
+                entry_path = f"{path}.colorGradients[{index}]"
+                if not isinstance(entry, dict):
+                    errors.append(f"{entry_path} must be an object")
+                    continue
+                _req_num(entry, "offset", errors, entry_path, 0, 1)
+                color = _req_obj(entry, "color", errors, entry_path)
+                for channel in ("r", "g", "b", "a"):
+                    _req_num(color, channel, errors, f"{entry_path}.color", COLOR_MIN, COLOR_MAX)
+        sizes = preset.get("sizeGradients")
+        if not isinstance(sizes, list):
+            errors.append(f"{path}.sizeGradients must be an array")
+        else:
+            for index, entry in enumerate(sizes):
+                entry_path = f"{path}.sizeGradients[{index}]"
+                if not isinstance(entry, dict):
+                    errors.append(f"{entry_path} must be an object")
+                    continue
+                _req_num(entry, "offset", errors, entry_path, 0, 1)
+                _req_num(entry, "size", errors, entry_path, 0.0001)
+    return errors
+
 
 def validate_stripe_preset_payload(payload: dict) -> list[str]:
     errors: list[str] = []

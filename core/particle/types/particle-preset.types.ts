@@ -3,7 +3,7 @@ import type { ParticleFactoryEditableConfig } from '@/core/particle/types/partic
 export type ParticleEditorPreset = {
   presetKey: string;
   name: string;
-  texturePath: string;
+  visualPresetKey: string;
   capacity: number;
   isOneShot: boolean;
   autoDispose: boolean;
@@ -19,11 +19,21 @@ export type ParticleEditorPreset = {
   maxEmitBox: { x: number; y: number; z: number };
   direction1: { x: number; y: number; z: number };
   direction2: { x: number; y: number; z: number };
+};
+
+export type ParticleEditorPresetMap = Record<string, ParticleEditorPreset>;
+
+export type ParticleVisualPreset = {
+  presetKey: string;
+  name: string;
+  texturePath: string;
+  colorMode: 'texture' | 'gradient';
+  blendMode: 'alpha' | 'add' | 'multiply';
   colorGradients: Array<{ offset: number; color: { r: number; g: number; b: number; a: number } }>;
   sizeGradients: Array<{ offset: number; size: number }>;
 };
 
-export type ParticleEditorPresetMap = Record<string, ParticleEditorPreset>;
+export type ParticleVisualPresetMap = Record<string, ParticleVisualPreset>;
 
 export type ParticlePresetSource = 'merged' | 'config' | 'local';
 

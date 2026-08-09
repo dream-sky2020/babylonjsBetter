@@ -8,7 +8,6 @@ const isObject = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null;
 };
 
-const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(max, value));
 const toFinite = (value: unknown, fallback: number): number => {
   return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
 };
@@ -27,7 +26,7 @@ export const sanitizePreset = (raw: ParticleEditorPreset, keyFallback?: string):
   return {
     presetKey,
     name: String(raw.name || presetKey),
-    texturePath: String(raw.texturePath || 'particle_white.svg').replace(/^\/+/, ''),
+    visualPresetKey: String(raw.visualPresetKey || `${presetKey}-visual`),
     capacity: Math.max(1, Math.round(toFinite(raw.capacity, 100))),
     isOneShot: Boolean(raw.isOneShot),
     autoDispose: Boolean(raw.autoDispose),
@@ -42,28 +41,7 @@ export const sanitizePreset = (raw: ParticleEditorPreset, keyFallback?: string):
     minEmitBox: sanitizeVec3(raw.minEmitBox, { x: -0.2, y: 0, z: -0.2 }),
     maxEmitBox: sanitizeVec3(raw.maxEmitBox, { x: 0.2, y: 0, z: 0.2 }),
     direction1: sanitizeVec3(raw.direction1, { x: -2, y: 2, z: -2 }),
-    direction2: sanitizeVec3(raw.direction2, { x: 2, y: 5, z: 2 }),
-    colorGradients: Array.isArray(raw.colorGradients)
-      ? raw.colorGradients
-          .map((entry) => ({
-            offset: clamp(toFinite(entry.offset, 0), 0, 1),
-            color: {
-              r: clamp(toFinite(entry.color?.r, 1), 0, 1),
-              g: clamp(toFinite(entry.color?.g, 1), 0, 1),
-              b: clamp(toFinite(entry.color?.b, 1), 0, 1),
-              a: clamp(toFinite(entry.color?.a, 1), 0, 1)
-            }
-          }))
-          .sort((a, b) => a.offset - b.offset)
-      : [],
-    sizeGradients: Array.isArray(raw.sizeGradients)
-      ? raw.sizeGradients
-          .map((entry) => ({
-            offset: clamp(toFinite(entry.offset, 0), 0, 1),
-            size: Math.max(0.0001, toFinite(entry.size, 0.1))
-          }))
-          .sort((a, b) => a.offset - b.offset)
-      : []
+    direction2: sanitizeVec3(raw.direction2, { x: 2, y: 5, z: 2 })
   };
 };
 
@@ -73,7 +51,7 @@ export const createDefaultParticlePreset = (
   return sanitizePreset({
     presetKey,
     name: presetKey === DEFAULT_PARTICLE_PRESET_KEY ? 'Spark' : presetKey,
-    texturePath: 'particle_white.svg',
+    visualPresetKey: `${presetKey}-visual`,
     capacity: 100,
     isOneShot: true,
     autoDispose: true,
@@ -88,17 +66,7 @@ export const createDefaultParticlePreset = (
     minEmitBox: { x: -0.2, y: 0, z: -0.2 },
     maxEmitBox: { x: 0.2, y: 0, z: 0.2 },
     direction1: { x: -2, y: 2, z: -2 },
-    direction2: { x: 2, y: 5, z: 2 },
-    colorGradients: [
-      { offset: 0, color: { r: 1, g: 0.95, b: 0.55, a: 1 } },
-      { offset: 0.6, color: { r: 1, g: 0.45, b: 0.2, a: 0.65 } },
-      { offset: 1, color: { r: 1, g: 0.25, b: 0.1, a: 0 } }
-    ],
-    sizeGradients: [
-      { offset: 0, size: 0.22 },
-      { offset: 0.5, size: 0.16 },
-      { offset: 1, size: 0.05 }
-    ]
+    direction2: { x: 2, y: 5, z: 2 }
   });
 };
 
