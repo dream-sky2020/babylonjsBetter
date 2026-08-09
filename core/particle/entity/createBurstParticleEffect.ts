@@ -39,6 +39,7 @@ export const createBurstParticleEffect = (
   const minLifeTime = Math.max(0.01, config.minLifeTime ?? 0.3);
   const maxLifeTime = Math.max(minLifeTime, config.maxLifeTime ?? 0.8);
   const emitDuration = Math.max(0.01, config.emitDuration ?? 0.12);
+  const configuredUpdateSpeed = Math.max(0.0001, config.updateSpeed ?? 0.01);
   let delayTimer: number | null = null;
 
   particleSystem.particleTexture = new Texture(config.texturePath, scene);
@@ -49,15 +50,16 @@ export const createBurstParticleEffect = (
   particleSystem.minLifeTime = minLifeTime;
   particleSystem.maxLifeTime = maxLifeTime;
 
-  if (config.colorGradients && config.colorGradients.length > 0) {
+  if (config.colorMode === 'gradient' && config.colorGradients && config.colorGradients.length > 0) {
     const sortedColorGradients = [...config.colorGradients].sort((a, b) => a.offset - b.offset);
     sortedColorGradients.forEach((grad) => {
       particleSystem.addColorGradient(clamp01(grad.offset), grad.color);
     });
   } else {
-    particleSystem.color1 = new Color4(1, 0.8, 0.1, 1.0);
-    particleSystem.color2 = new Color4(1, 0.3, 0.1, 1.0);
-    particleSystem.colorDead = new Color4(0, 0, 0, 0.0);
+    // 白色乘色会完整保留贴图 RGB；仅在死亡时淡出 Alpha。
+    particleSystem.color1 = new Color4(1, 1, 1, 1);
+    particleSystem.color2 = new Color4(1, 1, 1, 1);
+    particleSystem.colorDead = new Color4(1, 1, 1, 0);
   }
 
   if (config.sizeGradients && config.sizeGradients.length > 0) {
@@ -95,9 +97,13 @@ export const createBurstParticleEffect = (
   particleSystem.direction2 = config.direction2 ?? new Vector3(2, 5, 2);
   particleSystem.minEmitPower = Math.max(0.01, config.minEmitPower ?? 2);
   particleSystem.maxEmitPower = Math.max(particleSystem.minEmitPower, config.maxEmitPower ?? 5);
-  particleSystem.updateSpeed = Math.max(0.0001, config.updateSpeed ?? 0.01);
+  particleSystem.updateSpeed = configuredUpdateSpeed;
   particleSystem.gravity = config.gravity ?? new Vector3(0, -9.81, 0);
-  particleSystem.blendMode = ParticleSystem.BLENDMODE_ONEONE;
+  particleSystem.blendMode = config.blendMode === 'add'
+    ? ParticleSystem.BLENDMODE_ONEONE
+    : config.blendMode === 'multiply'
+      ? ParticleSystem.BLENDMODE_MULTIPLY
+      : ParticleSystem.BLENDMODE_STANDARD;
 
   if (autoDispose && isOneShot) {
     particleSystem.disposeOnStop = true;
@@ -118,6 +124,12 @@ export const createBurstParticleEffect = (
         delayTimer = null;
         startNow();
       }, delayMs);
+    },
+    pause: () => {
+      particleSystem.updateSpeed = 0;
+    },
+    resume: () => {
+      particleSystem.updateSpeed = configuredUpdateSpeed;
     },
     stop: () => particleSystem.stop(),
     setEmitter: (newEmitter: Vector3 | AbstractMesh) => {

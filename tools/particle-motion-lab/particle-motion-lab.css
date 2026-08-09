@@ -11,6 +11,8 @@ aside { padding: 16px; overflow: auto; border-right: 1px solid #1c3650; backgrou
 .panel-section h2 { margin: 0 0 14px; color: #dcecff; font-size: 13px; letter-spacing: .04em; }
 .mode-description { margin: -4px 0 8px; color: #89a5be; font-size: 12px; line-height: 1.55; }
 .mode-version { color: #52718d; font-family: Consolas, monospace; font-size: 11px; }
+.editor-link { display: block; margin-top: 10px; color: #64d8ff; font-size: 12px; text-decoration: none; }
+.editor-link:hover { text-decoration: underline; }
 label { display: grid; gap: 7px; margin-bottom: 18px; color: #a9bfd4; font-size: 13px; }
 label:last-child { margin-bottom: 0; }
 label small { color: #66839d; line-height: 1.4; }
@@ -19,6 +21,9 @@ input[type="number"], select { width: 100%; padding: 9px; color: #e8f2ff; border
 input[type="range"] { width: 100%; accent-color: #35cba1; }
 button { width: 100%; margin: 0 0 18px; padding: 10px; color: #04110e; font-weight: 700; border: 0; border-radius: 6px; background: #50dfb6; cursor: pointer; }
 button.secondary { color: #bcd1e5; border: 1px solid #31506c; background: transparent; }
+.playback-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.playback-controls button { margin: 0; }
+button:disabled { cursor: not-allowed; opacity: .45; }
 .checkbox-field { display: flex; align-items: center; gap: 8px; }
 .vector-field { margin: 0 0 14px; padding: 10px; border: 1px solid #29445e; border-radius: 6px; }
 .vector-field legend { color: #a9bfd4; font-size: 12px; }

@@ -34,5 +34,13 @@
 
 ## 运行时可写数据建议
 
+### Particle preset split
+
+- `particlePresets.json`: emission, lifetime and native motion settings. References visual data with `visualPresetKey`.
+- `particleVisualPresets.json`: shared texture, color gradients and size gradients.
+- `/api/particle-presets`: reads and writes native effect presets.
+- `/api/particle-visual-presets`: reads and writes shared visual presets.
+- Removing an effect preset does not remove its visual preset because visuals may be shared.
+
 - Web: `localStorage` / `IndexedDB`
 - Electron: `app.getPath("userData")`（通过主进程读写）

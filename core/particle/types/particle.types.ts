@@ -6,6 +6,10 @@ export type SizeGradient = { offset: number; size: number };
 
 export interface ParticleEffectConfig {
   texturePath: string;
+  /** texture 保持贴图原色；gradient 使用颜色渐变乘色。 */
+  colorMode?: 'texture' | 'gradient';
+  /** alpha 为标准透明混合；add 为加色；multiply 为正片叠底。 */
+  blendMode?: 'alpha' | 'add' | 'multiply';
   /** 粒子的最大容量，容量越大占用内存越多，但粒子越密集 */
   capacity?: number;
   /** 发射源：可以是一个具体的 3D 坐标，也可以是绑定的网格模型 */
@@ -58,6 +62,8 @@ export interface ParticleEffectConfig {
 export type ParticleController = {
   system: IParticleSystem;
   start: (delayMs?: number) => void;
+  pause: () => void;
+  resume: () => void;
   stop: () => void;
   setEmitter: (newEmitter: Vector3 | AbstractMesh) => void;
   dispose: () => void;

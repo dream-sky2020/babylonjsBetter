@@ -1,14 +1,14 @@
 import { useCallback, useMemo, useState } from 'react';
 import {
   createGradientNodeId,
-  type ParticleEditorPreset
+  type ParticleVisualPreset
 } from '@/core/particle';
 import type { ColorGradientNode, SetPresetState, SizeGradientNode } from './types.ts';
 import { hexToRgb } from '@/core/utils/color.ts';
 import { clamp, lerp, toFixedNumber } from '@/core/utils/math.ts';
 
 interface UseGradientManagementParams {
-  initialPreset: ParticleEditorPreset;
+  initialPreset: ParticleVisualPreset;
   setPreset: SetPresetState;
 }
 
@@ -17,7 +17,7 @@ interface UseGradientManagementResult {
   sizeGradientNodes: SizeGradientNode[];
   colorPreviewGradientCss: string;
   sizePreviewSamples: number[];
-  refreshGradientNodes: (nextPreset: ParticleEditorPreset) => void;
+  refreshGradientNodes: (nextPreset: ParticleVisualPreset) => void;
   updateColorGradient: (nodeId: string, key: 'offset' | 'colorHex' | 'alpha', value: string) => void;
   addColorGradient: () => void;
   removeColorGradient: (nodeId: string) => void;
@@ -32,15 +32,15 @@ export const useGradientManagement = ({
   initialPreset,
   setPreset
 }: UseGradientManagementParams): UseGradientManagementResult => {
-  const toColorGradientNodes = useCallback((gradients: ParticleEditorPreset['colorGradients']): ColorGradientNode[] => {
+  const toColorGradientNodes = useCallback((gradients: ParticleVisualPreset['colorGradients']): ColorGradientNode[] => {
     return gradients.map((item) => ({ ...item, id: createGradientNodeId('cg') }));
   }, []);
 
-  const toSizeGradientNodes = useCallback((gradients: ParticleEditorPreset['sizeGradients']): SizeGradientNode[] => {
+  const toSizeGradientNodes = useCallback((gradients: ParticleVisualPreset['sizeGradients']): SizeGradientNode[] => {
     return gradients.map((item) => ({ ...item, id: createGradientNodeId('sg') }));
   }, []);
 
-  const fromColorGradientNodes = useCallback((nodes: ColorGradientNode[]): ParticleEditorPreset['colorGradients'] => {
+  const fromColorGradientNodes = useCallback((nodes: ColorGradientNode[]): ParticleVisualPreset['colorGradients'] => {
     return nodes.map((node) => ({
       offset: node.offset,
       color: {
@@ -52,7 +52,7 @@ export const useGradientManagement = ({
     }));
   }, []);
 
-  const fromSizeGradientNodes = useCallback((nodes: SizeGradientNode[]): ParticleEditorPreset['sizeGradients'] => {
+  const fromSizeGradientNodes = useCallback((nodes: SizeGradientNode[]): ParticleVisualPreset['sizeGradients'] => {
     return nodes.map((node) => ({
       offset: node.offset,
       size: node.size
@@ -111,7 +111,7 @@ export const useGradientManagement = ({
     return values.map((value) => (value - minValue) / range);
   }, [sizeGradientNodes]);
 
-  const refreshGradientNodes = useCallback((nextPreset: ParticleEditorPreset) => {
+  const refreshGradientNodes = useCallback((nextPreset: ParticleVisualPreset) => {
     setColorGradientNodes(toColorGradientNodes(nextPreset.colorGradients));
     setSizeGradientNodes(toSizeGradientNodes(nextPreset.sizeGradients));
   }, [toColorGradientNodes, toSizeGradientNodes]);

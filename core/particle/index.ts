@@ -14,8 +14,20 @@ export type {
 export type {
   ParticleEditorPreset,
   ParticleEditorPresetMap,
+  ParticleVisualPreset,
+  ParticleVisualPresetMap,
   ParticlePresetSource
 } from '@/core/particle/types/particle-preset.types.ts';
+
+export {
+  hydrateParticleVisualPresetStorage,
+  reloadParticleVisualPresetStorage,
+  getAllParticleVisualPresets,
+  getParticleVisualPreset,
+  saveParticleVisualPreset,
+  removeParticleVisualPreset,
+  fetchParticleVisualPresetServerConnection
+} from '@/core/particle/visual/particleVisualPresetRepository.ts';
 
 // entity
 export {
