@@ -25,7 +25,7 @@ export const createExclamationMarkSprite = (
   preset: ExclamationMarkPreset,
   fillPercent = preset.progress.progress ?? 1
 ): ExclamationMarkSpriteController => {
-  const runtimePreset = { ...preset, progress: { ...preset.progress, progress: Math.max(0, Math.min(1, fillPercent)) } };
+  const runtimePreset = { ...preset, progress: { ...preset.progress, progress: Number.isFinite(fillPercent) ? fillPercent : 1 } };
   const sprite = createAtlasSpritePlane(
     scene,
     encodeURI(`/${preset.imagePath.replace(/^\/+/, '')}`),
@@ -81,7 +81,7 @@ export const createExclamationMarkSprite = (
     baseMesh: baseSprite?.mesh ?? null,
     preset,
     setFillPercent: (percent) => {
-      runtimePreset.progress.progress = Math.max(0, Math.min(1, Number.isFinite(percent) ? percent : 0));
+      runtimePreset.progress.progress = Number.isFinite(percent) ? percent : 0;
       applyExclamationMarkProgressPreset(progressMaterial, runtimePreset);
     },
     setProgress: (progress) => {

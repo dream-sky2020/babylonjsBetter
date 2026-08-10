@@ -34,7 +34,7 @@ vec4 applySpriteLayerProgress(vec4 layer, float enabled, float progress, float s
   if (enabled < 0.5 || layer.a <= 0.0001) return layer;
   float coordinate = spriteProgressCoordinate(vUV, shape, direction, angle, startAngle, sweepAngle, innerRadius, outerRadius, centerOffsetPx, axisScale);
   float edge = clamp(softness, 0.0, 0.5);
-  float filled = edge <= 0.0001 ? step(coordinate, clamp(progress, 0.0, 1.0)) : 1.0 - smoothstep(progress - edge, progress + edge, coordinate);
+  float filled = edge <= 0.0001 ? step(coordinate, progress) : 1.0 - smoothstep(progress - edge, progress + edge, coordinate);
   float useTexture = mix(unfilledUseTexture, filledUseTexture, filled);
   vec3 regionColor = mix(unfilledColor, filledColor, filled);
   float regionOpacity = mix(unfilledOpacity, filledOpacity, filled);
