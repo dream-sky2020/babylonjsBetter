@@ -1,296 +1,43 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { Scene } from '@babylonjs/core';
-import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
-import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
-import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import {
-  MONSTER_CONFIG_URL,
-  MONSTER_STRIPE_PRESET_URL,
-  STRIPE_PRESET_URL,
-  createDefaultMonsterExclamationPosition,
-  createLayeredMonster,
-  normalizeMonsterConfigLibrary,
-  normalizeMonsterExclamationPositions,
-  normalizeMonsterStripePresetLibrary,
-  normalizeStripePresetLibrary,
-  type LayeredMonsterController,
-  type MonsterDisplayConfigLibrary,
-  type MonsterExclamationPositionLibrary,
-  type MonsterStripePresetLibrary,
-  type StripePresetLibrary
-} from '@/core/monster';
-import {
-  EXCLAMATION_MARK_CONFIG_URL,
-  EXCLAMATION_BASE_CONFIG_URL,
-  createExclamationMarkSprite,
-  normalizeExclamationMarkPresets,
-  normalizeExclamationBasePresets,
-  type ExclamationBasePresetMap,
-  type ExclamationMarkPresetMap,
-  type ExclamationMarkSpriteController
-} from '@/core/sprite';
-import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import React,{useCallback,useEffect,useMemo,useRef,useState}from'react';
+import type{Scene}from'@babylonjs/core';
+import{createCameraLabController}from'@/core/camera/cameraLabController.ts';
+import{createCameraLabScene}from'@/core/scene/createCameraLabScene.ts';
+import{createFloatingCameraControlPanel}from'@/core/ui/FloatingCameraControlPanel.ts';
+import{MONSTER_CONFIG_URL,MONSTER_STRIPE_PRESET_URL,STRIPE_PRESET_URL,createDefaultMonsterExclamationIndicator,createDefaultMonsterExclamationPosition,createLayeredMonster,normalizeMonsterConfigLibrary,normalizeMonsterExclamationPositions,normalizeMonsterStripePresetLibrary,normalizeStripePresetLibrary,type LayeredMonsterController,type MonsterDisplayConfigLibrary,type MonsterExclamationIndicatorConfig,type MonsterExclamationPositionLibrary,type MonsterStripePresetLibrary,type StripePresetLibrary}from'@/core/monster';
+import{EXCLAMATION_MARK_CONFIG_URL,EXCLAMATION_BASE_CONFIG_URL,createExclamationMarkSprite,normalizeExclamationMarkPresets,normalizeExclamationBasePresets,type ExclamationBasePresetMap,type ExclamationMarkPresetMap,type ExclamationMarkSpriteController}from'@/core/sprite';
+import{getResolvedDevServerPort,requestDevServer}from'@/core/network/devServerPortResolver.ts';
+const API_PATH='/api/monster-exclamation-positions';
+const section:React.CSSProperties={padding:12,border:'1px solid #273348',borderRadius:10,background:'#151d29'};
+const fetchJson=async(url:string):Promise<unknown>=>{const response=await fetch(`${url}?t=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`${url}: HTTP ${response.status}`);return response.json()};
+const uid=()=>`indicator_${Date.now().toString(36)}_${Math.random().toString(36).slice(2,6)}`;
+const vectorInputStyle:React.CSSProperties={display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:7};
+type CommitNumberInputProps=Omit<React.InputHTMLAttributes<HTMLInputElement>,'value'|'defaultValue'|'onChange'> & {value:number;onCommit:(value:number)=>void};
+const CommitNumberInput:React.FC<CommitNumberInputProps>=({value,onCommit,...props})=>{const[draft,setDraft]=useState(String(value));useEffect(()=>setDraft(String(value)),[value]);const commit=()=>{const next=Number(draft);if(Number.isFinite(next)){onCommit(next);setDraft(String(next))}else setDraft(String(value))};return <input {...props} type="number" value={draft} onChange={event=>setDraft(event.target.value)} onBlur={commit} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur();if(event.key==='Escape'){setDraft(String(value));event.currentTarget.blur()}}}/>};
 
-const API_PATH = '/api/monster-exclamation-positions';
-const sectionStyle: React.CSSProperties = { padding: 12, border: '1px solid #273348', borderRadius: 10, background: '#151d29' };
-
-const fetchJson = async (url: string): Promise<unknown> => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
-};
-
-export const MonsterExclamationPositionLab: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const stageRef = useRef<HTMLElement>(null);
-  const sceneRef = useRef<Scene | null>(null);
-  const monsterRef = useRef<LayeredMonsterController | null>(null);
-  const exclamationRef = useRef<ExclamationMarkSpriteController | null>(null);
-  const [monsterConfigs, setMonsterConfigs] = useState<MonsterDisplayConfigLibrary>({});
-  const [monsterStripePresets, setMonsterStripePresets] = useState<MonsterStripePresetLibrary>({});
-  const [stripePresets, setStripePresets] = useState<StripePresetLibrary>({});
-  const [exclamationPresets, setExclamationPresets] = useState<ExclamationMarkPresetMap>({});
-  const [basePresets, setBasePresets] = useState<ExclamationBasePresetMap>({});
-  const [positions, setPositions] = useState<MonsterExclamationPositionLibrary>({});
-  const [monsterKey, setMonsterKey] = useState('');
-  const [monsterStripeKey, setMonsterStripeKey] = useState('');
-  const [exclamationKey, setExclamationKey] = useState('');
-  const [baseKey, setBaseKey] = useState('');
-  const selectedMarkPreset = exclamationPresets[exclamationKey];
-  const selectedBasePreset = basePresets[baseKey];
-  const [serverPort, setServerPort] = useState<number | null>(null);
-  const [message, setMessage] = useState('正在加载只读视觉配置…');
-
-  const positionConfig = useMemo(() => positions[monsterKey] ?? createDefaultMonsterExclamationPosition(monsterKey), [positions, monsterKey]);
-
-  const loadAll = useCallback(async () => {
-    try {
-      const [rawMonsters, rawMonsterStripes, rawStripes, rawExclamations, rawBases] = await Promise.all([
-        fetchJson(MONSTER_CONFIG_URL), fetchJson(MONSTER_STRIPE_PRESET_URL), fetchJson(STRIPE_PRESET_URL), fetchJson(EXCLAMATION_MARK_CONFIG_URL), fetchJson(EXCLAMATION_BASE_CONFIG_URL)
-      ]);
-      const monsters = normalizeMonsterConfigLibrary(rawMonsters);
-      const monsterStripes = normalizeMonsterStripePresetLibrary(rawMonsterStripes);
-      const stripes = normalizeStripePresetLibrary(rawStripes);
-      const exclamations = normalizeExclamationMarkPresets(rawExclamations);
-      const bases = normalizeExclamationBasePresets(rawBases);
-      let savedPositions: MonsterExclamationPositionLibrary = {};
-      try {
-        const response = await requestDevServer(`${API_PATH}?t=${Date.now()}`, { method: 'GET' });
-        const payload = await response.json();
-        if (response.ok && payload.success !== false) savedPositions = normalizeMonsterExclamationPositions(payload.data);
-        setServerPort(getResolvedDevServerPort());
-      } catch {
-        savedPositions = normalizeMonsterExclamationPositions(await fetchJson('/config/monsterExclamationPositions.json'));
-        setServerPort(null);
-      }
-      setMonsterConfigs(monsters); setMonsterStripePresets(monsterStripes); setStripePresets(stripes); setExclamationPresets(exclamations); setBasePresets(bases); setPositions(savedPositions);
-      const firstMonster = Object.keys(monsters)[0] ?? '';
-      const firstExclamation = Object.keys(exclamations)[0] ?? '';
-      const firstBase = Object.keys(bases)[0] ?? '';
-      setMonsterKey((current) => monsters[current] ? current : firstMonster);
-      const savedForMonster = savedPositions[firstMonster];
-      setExclamationKey((current) => exclamations[savedForMonster?.exclamationPresetKey] ? savedForMonster.exclamationPresetKey : (exclamations[current] ? current : firstExclamation));
-      setBaseKey((current) => bases[savedForMonster?.basePresetKey] ? savedForMonster.basePresetKey : (bases[current] ? current : firstBase));
-      const defaultStripe = monsters[firstMonster]?.monsterStripePresetKey;
-      setMonsterStripeKey((current) => monsterStripes[current] ? current : (monsterStripes[defaultStripe] ? defaultStripe : Object.keys(monsterStripes)[0] ?? ''));
-      setMessage(`已加载 ${Object.keys(monsters).length} 个怪物、${Object.keys(exclamations).length} 个感叹号预设。视觉预设为只读。`);
-    } catch (error) { setMessage(`加载失败：${String(error)}`); }
-  }, []);
-
-  useEffect(() => { void loadAll(); }, [loadAll]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const stage = stageRef.current;
-    if (!canvas || !stage) return;
-    const context = createCameraLabScene(canvas);
-    const cameraController = createCameraLabController(context.camera);
-    const cameraPanel = createFloatingCameraControlPanel(stage, cameraController);
-    sceneRef.current = context.scene;
-    monsterRef.current = createLayeredMonster(context.scene, 'monsterExclamationLabMonster');
-
-    const drag = { active: false, pointerId: -1, x: 0, y: 0 };
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.button !== 0) return;
-      if (cameraController.state.lookControlMode === 'pointerLock') {
-        void canvas.requestPointerLock?.();
-        return;
-      }
-      drag.active = true; drag.pointerId = event.pointerId; drag.x = event.clientX; drag.y = event.clientY;
-      canvas.style.cursor = 'grabbing';
-      canvas.setPointerCapture(event.pointerId);
-    };
-    const onPointerMove = (event: PointerEvent) => {
-      if (!drag.active || event.pointerId !== drag.pointerId) return;
-      cameraController.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y);
-      drag.x = event.clientX; drag.y = event.clientY;
-      cameraPanel.syncFromController();
-    };
-    const endDrag = (event: PointerEvent) => {
-      if (!drag.active || event.pointerId !== drag.pointerId) return;
-      drag.active = false; drag.pointerId = -1; canvas.style.cursor = 'grab';
-      if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
-    };
-    const onDocumentMouseMove = (event: MouseEvent) => {
-      if (document.pointerLockElement === canvas) cameraController.handlePointerDelta(event.movementX || 0, event.movementY || 0);
-    };
-    const onPointerLockChange = () => { canvas.style.cursor = document.pointerLockElement === canvas ? 'none' : 'grab'; };
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target;
-      if (target instanceof HTMLInputElement || target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement) return;
-      if (!['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE'].includes(event.code)) return;
-      cameraController.keys.add(event.code);
-      event.preventDefault();
-    };
-    const onKeyUp = (event: KeyboardEvent) => cameraController.keys.delete(event.code);
-    const onWheel = (event: WheelEvent) => {
-      if (cameraController.state.mode !== 'orbit') return;
-      event.preventDefault();
-      cameraController.handleWheel(event.deltaY);
-      cameraPanel.syncFromController();
-    };
-    const resize = () => context.engine.resize();
-    canvas.style.cursor = 'grab';
-    canvas.addEventListener('pointerdown', onPointerDown);
-    canvas.addEventListener('pointermove', onPointerMove);
-    canvas.addEventListener('pointerup', endDrag);
-    canvas.addEventListener('pointercancel', endDrag);
-    canvas.addEventListener('wheel', onWheel, { passive: false });
-    document.addEventListener('mousemove', onDocumentMouseMove);
-    document.addEventListener('pointerlockchange', onPointerLockChange);
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('keyup', onKeyUp);
-    window.addEventListener('resize', resize);
-
-    let elapsed = 0;
-    context.engine.runRenderLoop(() => {
-      const dt = context.engine.getDeltaTime() / 1000;
-      elapsed += dt;
-      cameraController.update(dt);
-      cameraPanel.updateStatus();
-      monsterRef.current?.updateTime(elapsed);
-      context.scene.render();
-    });
-    return () => {
-      canvas.removeEventListener('pointerdown', onPointerDown);
-      canvas.removeEventListener('pointermove', onPointerMove);
-      canvas.removeEventListener('pointerup', endDrag);
-      canvas.removeEventListener('pointercancel', endDrag);
-      canvas.removeEventListener('wheel', onWheel);
-      document.removeEventListener('mousemove', onDocumentMouseMove);
-      document.removeEventListener('pointerlockchange', onPointerLockChange);
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('keyup', onKeyUp);
-      window.removeEventListener('resize', resize);
-      exclamationRef.current?.dispose(); monsterRef.current?.dispose(); cameraPanel.dispose(); context.dispose(); sceneRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    const monster = monsterRef.current;
-    const config = monsterConfigs[monsterKey];
-    if (!monster || !config) return;
-    monster.load(config, monsterStripePresets[monsterStripeKey] ?? null, stripePresets);
-    monster.root.position.addInPlaceFromFloats(positionConfig.monsterPositionOffset[0], positionConfig.monsterPositionOffset[1], positionConfig.monsterPositionOffset[2]);
-  }, [monsterConfigs, monsterStripePresets, stripePresets, monsterKey, monsterStripeKey, positionConfig.monsterPositionOffset]);
-
-  useEffect(() => {
-    const scene = sceneRef.current;
-    const preset = exclamationPresets[exclamationKey];
-    if (!scene || !preset) return;
-    const previewPreset = {
-      ...preset,
-      progress: { ...preset.progress, progress: positionConfig.exclamationProgress },
-      base: {
-        ...(basePresets[baseKey] ?? preset.base),
-        progress: { ...(basePresets[baseKey]?.progress ?? preset.base.progress), progress: positionConfig.baseProgress }
-      }
-    };
-    exclamationRef.current?.dispose();
-    exclamationRef.current = createExclamationMarkSprite(scene, previewPreset, positionConfig.exclamationProgress);
-    return () => { exclamationRef.current?.dispose(); exclamationRef.current = null; };
-  }, [exclamationPresets, basePresets, exclamationKey, baseKey]);
-
-  useEffect(() => {
-    exclamationRef.current?.setFillPercent(positionConfig.exclamationProgress);
-    if (selectedBasePreset) exclamationRef.current?.setBaseProgress({ ...selectedBasePreset.progress, progress: positionConfig.baseProgress });
-  }, [positionConfig.exclamationProgress, positionConfig.baseProgress, selectedBasePreset]);
-
-  useEffect(() => {
-    const monster = monsterRef.current;
-    const exclamation = exclamationRef.current;
-    if (!monster || !exclamation) return;
-    exclamation.mesh.position.copyFrom(monster.root.position).addInPlaceFromFloats(positionConfig.exclamationOffset[0], positionConfig.exclamationOffset[1], positionConfig.exclamationOffset[2]);
-    exclamation.setScale(positionConfig.exclamationScale);
-    exclamation.setBaseScale(positionConfig.baseScale);
-  }, [positionConfig, monsterKey, monsterStripeKey, exclamationKey, monsterConfigs, exclamationPresets]);
-
-  const patchPositionConfig = (patch: Partial<ReturnType<typeof createDefaultMonsterExclamationPosition>>) => {
-    if (!monsterKey) return;
-    setPositions((current) => {
-      const base = current[monsterKey] ?? createDefaultMonsterExclamationPosition(monsterKey);
-      return { ...current, [monsterKey]: { ...base, ...patch, monsterConfigKey: monsterKey } };
-    });
-  };
-
-  const updateVector = (field: 'monsterPositionOffset' | 'exclamationOffset', axis: 0 | 1 | 2, value: number) => {
-    if (!monsterKey) return;
-    setPositions((current) => {
-      const base = current[monsterKey] ?? createDefaultMonsterExclamationPosition(monsterKey);
-      const vector: [number, number, number] = [...base[field]];
-      vector[axis] = value;
-      return { ...current, [monsterKey]: { ...base, monsterConfigKey: monsterKey, [field]: vector } };
-    });
-  };
-
-  const updateExclamationScale = (value: number) => {
-    if (!monsterKey || !Number.isFinite(value)) return;
-    setPositions((current) => {
-      const base = current[monsterKey] ?? createDefaultMonsterExclamationPosition(monsterKey);
-      return { ...current, [monsterKey]: { ...base, monsterConfigKey: monsterKey, exclamationScale: Math.max(0.01, value) } };
-    });
-  };
-
-  const updateBaseScale = (value: number) => {
-    if (!monsterKey || !Number.isFinite(value)) return;
-    patchPositionConfig({ baseScale: Math.max(0.01, value) });
-  };
-
-  const save = async () => {
-    try {
-      const completeConfig = { ...positionConfig, exclamationPresetKey: exclamationKey, basePresetKey: baseKey };
-      const complete = { ...positions, [monsterKey]: completeConfig };
-      const response = await requestDevServer(API_PATH, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(normalizeMonsterExclamationPositions(complete)) });
-      const payload = await response.json();
-      if (!response.ok || payload.success === false) throw new Error(payload.errors?.[0] || payload.message || `HTTP ${response.status}`);
-      setPositions(normalizeMonsterExclamationPositions(complete)); setServerPort(getResolvedDevServerPort()); setMessage('已保存每个怪物应用的配置、进度、整体缩放和相对位置。');
-    } catch (error) { setMessage(`保存失败：${String(error)}`); }
-  };
-
-  const renderVectorInputs = (label: string, field: 'monsterPositionOffset' | 'exclamationOffset', value: [number, number, number]) => <div><label>{label}</label><div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 7 }}>{(['X', 'Y', 'Z'] as const).map((axis, index) => <div key={axis}><label>{axis}</label><input type="number" step="0.1" value={value[index]} onChange={(event) => updateVector(field, index as 0 | 1 | 2, Number(event.target.value))} /></div>)}</div></div>;
-
-  return <div style={{ height: '100vh', padding: 14, display: 'grid', gridTemplateColumns: '430px minmax(0, 1fr)', gap: 14 }}>
-    <aside style={{ overflow: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <div><h2 style={{ margin: '0 0 5px' }}>怪物 × 感叹号应用 Lab</h2><div style={{ color: '#8291a8', fontSize: 12 }}>视觉配置只读；这里只选择应用配置，并调整进度、整体缩放和相对位置。</div></div>
-      <section style={sectionStyle}>
-        <label>怪物显示配置（只读）</label><select value={monsterKey} onChange={(event) => { const key = event.target.value; const saved = positions[key]; setMonsterKey(key); const stripe = monsterConfigs[key]?.monsterStripePresetKey; if (monsterStripePresets[stripe]) setMonsterStripeKey(stripe); setExclamationKey(exclamationPresets[saved?.exclamationPresetKey] ? saved.exclamationPresetKey : Object.keys(exclamationPresets)[0] ?? ''); setBaseKey(basePresets[saved?.basePresetKey] ? saved.basePresetKey : Object.keys(basePresets)[0] ?? ''); }}>{Object.entries(monsterConfigs).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        <label>怪物条纹配置（只读）</label><select value={monsterStripeKey} onChange={(event) => setMonsterStripeKey(event.target.value)}>{Object.entries(monsterStripePresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        <label>应用感叹号配置（只读）</label><select value={exclamationKey} onChange={(event) => { const value = event.target.value; setExclamationKey(value); patchPositionConfig({ exclamationPresetKey: value }); }}>{Object.entries(exclamationPresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        <label>应用底座配置（只读）</label><select value={baseKey} onChange={(event) => { const value = event.target.value; setBaseKey(value); patchPositionConfig({ basePresetKey: value }); }}>{Object.entries(basePresets).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
-        <label>感叹号进度：{Math.round(positionConfig.exclamationProgress * 100)}%</label><input type="range" min="0" max="100" step="1" value={positionConfig.exclamationProgress * 100} onChange={(event) => patchPositionConfig({ exclamationProgress: Number(event.target.value) / 100 })} />
-        <label>底座进度：{Math.round(positionConfig.baseProgress * 100)}%</label><input type="range" min="0" max="100" step="1" value={positionConfig.baseProgress * 100} onChange={(event) => patchPositionConfig({ baseProgress: Number(event.target.value) / 100 })} />
-        <div style={{ marginTop: 8, color: '#8291a8', fontSize: 12, lineHeight: 1.5 }}>图片、尺寸、局部缩放及 Shader 参数由 Exclamation Mark Lab 管理，此处不可修改。</div>
-      </section>
-      <section style={sectionStyle}>
-        {renderVectorInputs('感叹号相对怪物位置', 'exclamationOffset', positionConfig.exclamationOffset)}
-        <label>感叹号整体缩放</label>
-        <input type="number" min="0.01" step="0.05" value={positionConfig.exclamationScale} onChange={(event) => updateExclamationScale(Number(event.target.value))} />
-        <label>底座整体缩放</label>
-        <input type="number" min="0.01" step="0.05" value={positionConfig.baseScale} onChange={(event) => updateBaseScale(Number(event.target.value))} />
-        <button style={{ width: '100%', marginTop: 12 }} onClick={() => void save()}>保存全部怪物位置配置</button>
-      </section>
-      <section style={sectionStyle}><div style={{ color: serverPort ? '#8bd8a4' : '#e8ad83', fontSize: 12 }}>Python 服务：{serverPort ? `已连接 ${serverPort}` : '未连接'}</div><div style={{ marginTop: 7, color: '#9dacbf', fontSize: 12, lineHeight: 1.5 }}>{message}</div></section>
-    </aside>
-    <main ref={stageRef} style={{ minWidth: 0, position: 'relative', border: '1px solid #273348', borderRadius: 12, overflow: 'hidden', background: '#080d14' }}><canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} /><div style={{ position: 'absolute', left: 10, bottom: 8, color: '#8291a8', fontSize: 11, pointerEvents: 'none' }}>左键旋转 · 滚轮缩放 · WASD/QE 移动 · 感叹号始终垂直地面</div></main>
-  </div>;
+export const MonsterExclamationPositionLab:React.FC=()=>{
+ const canvasRef=useRef<HTMLCanvasElement>(null),stageRef=useRef<HTMLElement>(null),sceneRef=useRef<Scene|null>(null),monsterRef=useRef<LayeredMonsterController|null>(null),indicatorRefs=useRef<Map<string,ExclamationMarkSpriteController>>(new Map());
+ const[monsterConfigs,setMonsterConfigs]=useState<MonsterDisplayConfigLibrary>({}),[monsterStripes,setMonsterStripes]=useState<MonsterStripePresetLibrary>({}),[stripes,setStripes]=useState<StripePresetLibrary>({}),[markPresets,setMarkPresets]=useState<ExclamationMarkPresetMap>({}),[basePresets,setBasePresets]=useState<ExclamationBasePresetMap>({}),[positions,setPositions]=useState<MonsterExclamationPositionLibrary>({});
+ const[monsterKey,setMonsterKey]=useState(''),[monsterStripeKey,setMonsterStripeKey]=useState(''),[selectedIndicatorId,setSelectedIndicatorId]=useState(''),[serverPort,setServerPort]=useState<number|null>(null),[message,setMessage]=useState('正在加载配置…');
+ const config=useMemo(()=>positions[monsterKey]??createDefaultMonsterExclamationPosition(monsterKey),[positions,monsterKey]);
+ const selected=config.indicators.find(item=>item.id===selectedIndicatorId)??config.indicators[0];
+ const indicatorStructureKey=useMemo(()=>JSON.stringify({groupOffset:config.groupOffset,groupScale:config.groupScale,spacing:config.spacing,indicators:config.indicators.map(({exclamationProgress:_,baseProgress:__,...item})=>item)}),[config]);
+ const patchConfig=(patch:Partial<typeof config>)=>{if(!monsterKey)return;setPositions(current=>{const base=current[monsterKey]??createDefaultMonsterExclamationPosition(monsterKey);return{...current,[monsterKey]:{...base,...patch,monsterConfigKey:monsterKey}}})};
+ const patchIndicator=(id:string,patch:Partial<MonsterExclamationIndicatorConfig>)=>patchConfig({indicators:config.indicators.map(item=>item.id===id?{...item,...patch}:item)});
+ const updateVector=(field:'monsterPositionOffset'|'groupOffset',axis:number,value:number)=>{const next=[...config[field]]as[number,number,number];next[axis]=value;patchConfig({[field]:next})};
+ const updateIndicatorOffset=(axis:number,value:number)=>{if(!selected)return;const next=[...selected.offset]as[number,number,number];next[axis]=value;patchIndicator(selected.id,{offset:next})};
+ const loadAll=useCallback(async()=>{try{const[rawMonsters,rawMonsterStripes,rawStripes,rawMarks,rawBases]=await Promise.all([fetchJson(MONSTER_CONFIG_URL),fetchJson(MONSTER_STRIPE_PRESET_URL),fetchJson(STRIPE_PRESET_URL),fetchJson(EXCLAMATION_MARK_CONFIG_URL),fetchJson(EXCLAMATION_BASE_CONFIG_URL)]);const monsters=normalizeMonsterConfigLibrary(rawMonsters),monsterStripeLibrary=normalizeMonsterStripePresetLibrary(rawMonsterStripes),stripeLibrary=normalizeStripePresetLibrary(rawStripes),marks=normalizeExclamationMarkPresets(rawMarks),bases=normalizeExclamationBasePresets(rawBases);let saved:MonsterExclamationPositionLibrary={};try{const response=await requestDevServer(`${API_PATH}?t=${Date.now()}`,{method:'GET'}),payload=await response.json();if(response.ok&&payload.success!==false)saved=normalizeMonsterExclamationPositions(payload.data);setServerPort(getResolvedDevServerPort())}catch{saved=normalizeMonsterExclamationPositions(await fetchJson('/config/monsterExclamationPositions.json'));setServerPort(null)}setMonsterConfigs(monsters);setMonsterStripes(monsterStripeLibrary);setStripes(stripeLibrary);setMarkPresets(marks);setBasePresets(bases);setPositions(saved);const first=Object.keys(monsters)[0]??'';setMonsterKey(first);setMonsterStripeKey(monsters[first]?.monsterStripePresetKey??Object.keys(monsterStripeLibrary)[0]??'');setSelectedIndicatorId((saved[first]??createDefaultMonsterExclamationPosition(first)).indicators[0]?.id??'');setMessage(`已加载 ${Object.keys(monsters).length} 个怪物和 ${Object.keys(marks).length} 个提示标记预设。`)}catch(error){setMessage(`加载失败：${String(error)}`)}},[]);
+ useEffect(()=>{void loadAll()},[loadAll]);
+ useEffect(()=>{const canvas=canvasRef.current,stage=stageRef.current;if(!canvas||!stage)return;const context=createCameraLabScene(canvas),camera=createCameraLabController(context.camera),panel=createFloatingCameraControlPanel(stage,camera);sceneRef.current=context.scene;monsterRef.current=createLayeredMonster(context.scene,'monsterIndicatorGroupMonster');const drag={active:false,id:-1,x:0,y:0};const down=(event:PointerEvent)=>{if(event.button!==0)return;if(camera.state.lookControlMode==='pointerLock'){canvas.requestPointerLock?.().catch?.(()=>{});return}drag.active=true;drag.id=event.pointerId;drag.x=event.clientX;drag.y=event.clientY;canvas.setPointerCapture(event.pointerId)};const move=(event:PointerEvent)=>{if(!drag.active||event.pointerId!==drag.id)return;camera.handlePointerDelta(event.clientX-drag.x,event.clientY-drag.y);drag.x=event.clientX;drag.y=event.clientY;panel.syncFromController()};const up=(event:PointerEvent)=>{if(!drag.active||event.pointerId!==drag.id)return;drag.active=false;if(canvas.hasPointerCapture(event.pointerId))canvas.releasePointerCapture(event.pointerId)};const locked=(event:MouseEvent)=>{if(document.pointerLockElement===canvas)camera.handlePointerDelta(event.movementX,event.movementY)};const keyDown=(event:KeyboardEvent)=>{if(event.target instanceof HTMLInputElement||event.target instanceof HTMLSelectElement||event.target instanceof HTMLTextAreaElement)return;if(['KeyW','KeyA','KeyS','KeyD','KeyQ','KeyE'].includes(event.code)){camera.keys.add(event.code);event.preventDefault()}};const keyUp=(event:KeyboardEvent)=>camera.keys.delete(event.code);const wheel=(event:WheelEvent)=>{if(camera.state.mode==='orbit'){event.preventDefault();camera.handleWheel(event.deltaY);panel.syncFromController()}};const resize=()=>context.engine.resize();canvas.addEventListener('pointerdown',down);canvas.addEventListener('pointermove',move);canvas.addEventListener('pointerup',up);canvas.addEventListener('pointercancel',up);canvas.addEventListener('wheel',wheel,{passive:false});document.addEventListener('mousemove',locked);window.addEventListener('keydown',keyDown);window.addEventListener('keyup',keyUp);window.addEventListener('resize',resize);let elapsed=0;context.engine.runRenderLoop(()=>{const dt=context.engine.getDeltaTime()/1000;elapsed+=dt;camera.update(dt);panel.updateStatus();monsterRef.current?.updateTime(elapsed);context.scene.render()});return()=>{canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('wheel',wheel);document.removeEventListener('mousemove',locked);window.removeEventListener('keydown',keyDown);window.removeEventListener('keyup',keyUp);window.removeEventListener('resize',resize);indicatorRefs.current.forEach(item=>item.dispose());indicatorRefs.current.clear();monsterRef.current?.dispose();panel.dispose();context.dispose();sceneRef.current=null}},[]);
+ useEffect(()=>{const monster=monsterRef.current,monsterConfig=monsterConfigs[monsterKey];if(!monster||!monsterConfig)return;monster.load(monsterConfig,monsterStripes[monsterStripeKey]??null,stripes);monster.root.position.addInPlaceFromFloats(...config.monsterPositionOffset)},[monsterConfigs,monsterStripes,stripes,monsterKey,monsterStripeKey,config.monsterPositionOffset]);
+ useEffect(()=>{if(!monsterKey)return;const fallbackMark=Object.keys(markPresets)[0]??'',fallbackBase=Object.keys(basePresets)[0]??'';if(!fallbackMark)return;const needsRepair=config.indicators.some(item=>!markPresets[item.exclamationPresetKey]||(fallbackBase&&!basePresets[item.basePresetKey]));if(!needsRepair)return;patchConfig({indicators:config.indicators.map(item=>({...item,exclamationPresetKey:markPresets[item.exclamationPresetKey]?item.exclamationPresetKey:fallbackMark,basePresetKey:basePresets[item.basePresetKey]?item.basePresetKey:fallbackBase}))})},[monsterKey,config.indicators,markPresets,basePresets]);
+ useEffect(()=>{const scene=sceneRef.current,monster=monsterRef.current;if(!scene||!monster)return;indicatorRefs.current.forEach(item=>item.dispose());indicatorRefs.current.clear();const fallbackMark=Object.keys(markPresets)[0]??'',fallbackBase=Object.keys(basePresets)[0]??'';const visible=config.indicators.filter(item=>item.visible&&(markPresets[item.exclamationPresetKey]||markPresets[fallbackMark])).sort((a,b)=>a.order-b.order);visible.forEach((item,index)=>{const preset=markPresets[item.exclamationPresetKey]??markPresets[fallbackMark];if(!preset)return;const base=basePresets[item.basePresetKey]??basePresets[fallbackBase]??preset.base,preview={...preset,progress:{...preset.progress,progress:item.exclamationProgress},base:{...base,progress:{...base.progress,progress:item.baseProgress}}};const controller=createExclamationMarkSprite(scene,preview,item.exclamationProgress);const centered=(index-(visible.length-1)/2)*config.spacing*config.groupScale;controller.mesh.position.copyFrom(monster.root.position).addInPlaceFromFloats(config.groupOffset[0]+centered+item.offset[0],config.groupOffset[1]+item.offset[1],config.groupOffset[2]+item.offset[2]);controller.setScale(item.scale*config.groupScale);controller.setBaseScale(item.baseScale*config.groupScale);controller.setBaseProgress({...base.progress,progress:item.baseProgress});indicatorRefs.current.set(item.id,controller)});return()=>{indicatorRefs.current.forEach(item=>item.dispose());indicatorRefs.current.clear()}},[indicatorStructureKey,markPresets,basePresets,monsterKey,monsterStripeKey,monsterConfigs]);
+ useEffect(()=>{config.indicators.forEach(item=>{const controller=indicatorRefs.current.get(item.id);if(!controller)return;controller.setFillPercent(item.exclamationProgress);const preset=markPresets[item.exclamationPresetKey]??markPresets[Object.keys(markPresets)[0]??''],base=basePresets[item.basePresetKey]??basePresets[Object.keys(basePresets)[0]??'']??preset?.base;if(base)controller.setBaseProgress({...base.progress,progress:item.baseProgress})})},[config.indicators,markPresets,basePresets]);
+ const addIndicator=()=>{const id=uid(),firstMark=Object.keys(markPresets)[0]??'',firstBase=Object.keys(basePresets)[0]??'',item={...createDefaultMonsterExclamationIndicator(id),name:'新提示标记',exclamationPresetKey:firstMark,basePresetKey:firstBase,order:config.indicators.length};patchConfig({indicators:[...config.indicators,item]});setSelectedIndicatorId(id)};
+ const duplicateIndicator=()=>{if(!selected)return;const id=uid(),copy={...selected,id,name:`${selected.name} 副本`,offset:[...selected.offset]as[number,number,number],order:config.indicators.length};patchConfig({indicators:[...config.indicators,copy]});setSelectedIndicatorId(id)};
+ const deleteIndicator=()=>{if(!selected)return;const next=config.indicators.filter(item=>item.id!==selected.id);patchConfig({indicators:next});setSelectedIndicatorId(next[0]?.id??'')};
+ const renameIndicator=(id:string)=>{if(!selected)return;const next=id.trim();if(!next||next===selected.id)return;if(config.indicators.some(item=>item.id===next)){setMessage(`标记 ID ${next} 已存在。`);return}patchConfig({indicators:config.indicators.map(item=>item.id===selected.id?{...item,id:next}:item)});setSelectedIndicatorId(next)};
+ const moveIndicator=(delta:number)=>{if(!selected)return;const sorted=[...config.indicators].sort((a,b)=>a.order-b.order),index=sorted.findIndex(item=>item.id===selected.id),target=Math.max(0,Math.min(sorted.length-1,index+delta));sorted.splice(target,0,sorted.splice(index,1)[0]);patchConfig({indicators:sorted.map((item,order)=>({...item,order}))})};
+ const save=async()=>{try{const complete={...positions,[monsterKey]:config},normalized=normalizeMonsterExclamationPositions(complete),response=await requestDevServer(API_PATH,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(normalized)}),payload=await response.json();if(!response.ok||payload.success===false)throw new Error(payload.errors?.[0]||payload.message||`HTTP ${response.status}`);setPositions(normalized);setServerPort(getResolvedDevServerPort());setMessage('已保存全部怪物提示标记组配置。')}catch(error){setMessage(`保存失败：${String(error)}`)}};
+ const renderVector=(label:string,value:[number,number,number],update:(axis:number,value:number)=>void)=><div><label>{label}</label><div style={vectorInputStyle}>{['X','Y','Z'].map((axis,index)=><div key={axis}><label>{axis}</label><CommitNumberInput step="0.1" value={value[index]} onCommit={next=>update(index,next)}/></div>)}</div></div>;
+ return <div style={{height:'100vh',padding:14,display:'grid',gridTemplateColumns:'460px minmax(0,1fr)',gap:14}}><aside style={{overflow:'auto',display:'flex',flexDirection:'column',gap:12}}><div><h2 style={{margin:'0 0 5px'}}>怪物提示标记组 Lab</h2><div style={{color:'#8291a8',fontSize:12}}>为每种怪物配置多个提示标记，并按当前可见标记动态横向居中排列。</div></div><section style={section}><label>怪物视觉配置</label><select value={monsterKey} onChange={event=>{const key=event.target.value,next=positions[key]??createDefaultMonsterExclamationPosition(key);setMonsterKey(key);setMonsterStripeKey(monsterConfigs[key]?.monsterStripePresetKey??'');setSelectedIndicatorId(next.indicators[0]?.id??'')}}>{Object.entries(monsterConfigs).map(([key,item])=><option key={key} value={key}>{item.name} · {key}</option>)}</select><label>怪物条纹配置（预览）</label><select value={monsterStripeKey} onChange={event=>setMonsterStripeKey(event.target.value)}>{Object.entries(monsterStripes).map(([key,item])=><option key={key} value={key}>{item.name} · {key}</option>)}</select>{renderVector('整组相对怪物位置',config.groupOffset,(axis,value)=>updateVector('groupOffset',axis,value))}<label>感叹号间距</label><CommitNumberInput min="0" step="0.1" value={config.spacing} onCommit={value=>patchConfig({spacing:Math.max(0,value)})}/><label>整组缩放</label><CommitNumberInput min="0.01" step="0.05" value={config.groupScale} onCommit={value=>patchConfig({groupScale:Math.max(.01,value)})}/></section><section style={section}><div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}><strong>提示标记列表</strong><button onClick={addIndicator}>＋ 添加</button></div><div style={{display:'flex',flexDirection:'column',gap:6,marginTop:8}}>{[...config.indicators].sort((a,b)=>a.order-b.order).map(item=><button key={item.id} onClick={()=>setSelectedIndicatorId(item.id)} style={{textAlign:'left',borderColor:item.id===selected?.id?'#65a8ff':'#3a4961',background:item.id===selected?.id?'#183b61':'#202b3d'}}>{item.visible?'●':'○'} {item.name} · {item.id}</button>)}</div></section>{selected&&<section style={section}><label>名称</label><input value={selected.name} onChange={event=>patchIndicator(selected.id,{name:event.target.value})}/><label>ID（失去焦点或 Enter 应用）</label><input key={selected.id} defaultValue={selected.id} onBlur={event=>renameIndicator(event.target.value)} onKeyDown={event=>{if(event.key==='Enter')event.currentTarget.blur()}}/><label style={{display:'flex',gap:8,alignItems:'center'}}><input type="checkbox" style={{width:'auto'}} checked={selected.visible} onChange={event=>patchIndicator(selected.id,{visible:event.target.checked})}/>预览中显示</label><label>感叹号视觉预设</label><select value={selected.exclamationPresetKey} onChange={event=>patchIndicator(selected.id,{exclamationPresetKey:event.target.value})}>{Object.entries(markPresets).map(([key,item])=><option key={key} value={key}>{item.name} · {key}</option>)}</select><label>底座预设</label><select value={selected.basePresetKey} onChange={event=>patchIndicator(selected.id,{basePresetKey:event.target.value})}>{Object.entries(basePresets).map(([key,item])=><option key={key} value={key}>{item.name} · {key}</option>)}</select><label>感叹号进度：{Math.round(selected.exclamationProgress*100)}%</label><input type="range" min="-10" max="110" value={selected.exclamationProgress*100} onChange={event=>patchIndicator(selected.id,{exclamationProgress:Number(event.target.value)/100})}/><label>底座进度：{Math.round(selected.baseProgress*100)}%</label><input type="range" min="-10" max="110" value={selected.baseProgress*100} onChange={event=>patchIndicator(selected.id,{baseProgress:Number(event.target.value)/100})}/>{renderVector('标记局部偏移',selected.offset,updateIndicatorOffset)}<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:7}}><div><label>标记缩放</label><CommitNumberInput min="0.01" step="0.05" value={selected.scale} onCommit={value=>patchIndicator(selected.id,{scale:Math.max(.01,value)})}/></div><div><label>底座缩放</label><CommitNumberInput min="0.01" step="0.05" value={selected.baseScale} onCommit={value=>patchIndicator(selected.id,{baseScale:Math.max(.01,value)})}/></div></div><div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:7,marginTop:10}}><button onClick={()=>moveIndicator(-1)}>左移</button><button onClick={()=>moveIndicator(1)}>右移</button><button onClick={duplicateIndicator}>复制</button><button onClick={deleteIndicator}>删除</button></div></section>}<section style={section}><button style={{width:'100%'}} onClick={()=>void save()}>保存全部怪物提示标记组</button><div style={{marginTop:8,color:serverPort?'#8bd8a4':'#e8ad83',fontSize:12}}>Python 服务：{serverPort?`已连接 ${serverPort}`:'未连接'}</div><div style={{marginTop:7,color:'#9dacbf',fontSize:12}}>{message}</div></section></aside><main ref={stageRef} style={{minWidth:0,position:'relative',border:'1px solid #273348',borderRadius:12,overflow:'hidden',background:'#080d14'}}><canvas ref={canvasRef} style={{width:'100%',height:'100%',display:'block'}}/><div style={{position:'absolute',left:10,bottom:8,color:'#8291a8',fontSize:11,pointerEvents:'none'}}>仅显示开启的标记；隐藏任一标记后，其余标记会重新居中排列</div></main></div>;
 };

@@ -249,7 +249,7 @@ const ensureShaderRegistered = () => {
         if (enabled < 0.5 || layer.a <= 0.0001) return layer;
         float coordinate = progressCoordinate(vUV, shape, direction, angle, startAngle, sweepAngle, innerRadius, outerRadius, centerOffsetPx, axisScale);
         float edge = clamp(softness, 0.0, 0.5);
-        float filled = edge <= 0.0001 ? step(coordinate, clamp(progress, 0.0, 1.0)) : 1.0 - smoothstep(progress - edge, progress + edge, coordinate);
+        float filled = edge <= 0.0001 ? step(coordinate, progress) : 1.0 - smoothstep(progress - edge, progress + edge, coordinate);
         float useTexture = mix(unfilledUseTexture, filledUseTexture, filled);
         vec3 regionColor = mix(unfilledColor, filledColor, filled);
         float regionOpacity = mix(unfilledOpacity, filledOpacity, filled);
@@ -300,7 +300,7 @@ const ensureShaderRegistered = () => {
         if (uProgressEnabled > 0.5) {
           float coordinate = spriteProgressCoordinate(vUV, uProgressShape, uProgressDirection, uProgressAngleRad, uProgressStartAngleRad, uProgressSweepAngleRad, uProgressInnerRadius, uProgressOuterRadius, uProgressCenterOffsetPx, uProgressAxisScale);
           float edge = clamp(uProgressSoftness, 0.0, 0.5);
-          float filled = edge <= 0.0001 ? step(coordinate, clamp(uProgress, 0.0, 1.0)) : 1.0 - smoothstep(uProgress - edge, uProgress + edge, coordinate);
+          float filled = edge <= 0.0001 ? step(coordinate, uProgress) : 1.0 - smoothstep(uProgress - edge, uProgress + edge, coordinate);
           float useTexture = mix(uUnfilledUseTexture, uFilledUseTexture, filled);
           vec3 regionColor = mix(uUnfilledColor, uFilledColor, filled);
           float regionOpacity = mix(uUnfilledOpacity, uFilledOpacity, filled);
@@ -552,7 +552,7 @@ export const createSpriteEffectMaterial = (
     const filled = progress.filled ?? {};
     const unfilled = progress.unfilled ?? {};
     material.setFloat('uProgressEnabled', progress.enabled !== false && resolved.shape !== 'none' ? 1 : 0);
-    material.setFloat('uProgress', Number.isFinite(value) ? clamp01(value) : 1);
+    material.setFloat('uProgress', Number.isFinite(value) ? value : 1);
     material.setFloat('uFilledUseTexture', filled.source === 'color' ? 0 : 1);
     material.setColor3('uFilledColor', toColor3(filled.color, '#ffffff'));
     material.setFloat('uFilledOpacity', toOpacity(filled.opacity, 1));
@@ -567,7 +567,7 @@ export const createSpriteEffectMaterial = (
     const filled = progress.filled ?? {};
     const unfilled = progress.unfilled ?? {};
     material.setFloat(`u${prefix}ProgressEnabled`, progress.enabled !== false && resolved.shape !== 'none' ? 1 : 0);
-    material.setFloat(`u${prefix}Progress`, Number.isFinite(value) ? clamp01(value) : 1);
+    material.setFloat(`u${prefix}Progress`, Number.isFinite(value) ? value : 1);
     material.setFloat(`u${prefix}FilledUseTexture`, filled.source === 'color' ? 0 : 1);
     material.setColor3(`u${prefix}FilledColor`, toColor3(filled.color, '#ffffff'));
     material.setFloat(`u${prefix}FilledOpacity`, toOpacity(filled.opacity, 1));

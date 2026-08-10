@@ -1065,27 +1065,43 @@ def validate_exclamation_mark_preset_payload(payload: dict) -> list[str]:
 
 def validate_monster_exclamation_position_payload(payload: dict) -> list[str]:
     errors: list[str] = []
-    if not isinstance(payload, dict):
-        return ["body must be a JSON object"]
+    if not isinstance(payload, dict): return ["body must be a JSON object"]
     for key, config in payload.items():
         path = f"root[{key}]"
-        if not isinstance(key, str) or not key.strip():
-            errors.append("monster config key must be a non-empty string")
-            continue
-        if not isinstance(config, dict):
-            errors.append(f"{path} must be an object")
-            continue
-        if config.get("monsterConfigKey") != key:
-            errors.append(f"{path}.monsterConfigKey must match its object key")
-        for field in ("monsterPositionOffset", "exclamationOffset"):
+        if not isinstance(key, str) or not key.strip(): errors.append("monster config key must be a non-empty string"); continue
+        if not isinstance(config, dict): errors.append(f"{path} must be an object"); continue
+        if config.get("monsterConfigKey") != key: errors.append(f"{path}.monsterConfigKey must match its object key")
+        for field in ("monsterPositionOffset", "groupOffset"):
             vector = config.get(field)
-            if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector):
-                errors.append(f"{path}.{field} must contain three finite numbers")
-        scale = config.get("exclamationScale")
-        if not is_finite_number(scale) or scale <= 0:
-            errors.append(f"{path}.exclamationScale must be a finite number greater than zero")
+            if not isinstance(vector, list) or len(vector) != 3 or any(not is_finite_number(value) for value in vector): errors.append(f"{path}.{field} must contain three finite numbers")
+        scale = config.get("groupScale")
+        if not is_finite_number(scale) or scale <= 0: errors.append(f"{path}.groupScale must be greater than zero")
+        spacing = config.get("spacing")
+        if not is_finite_number(spacing) or spacing < 0: errors.append(f"{path}.spacing must be zero or greater")
+        indicators = config.get("indicators")
+        if not isinstance(indicators, list): errors.append(f"{path}.indicators must be an array"); continue
+        seen = set()
+        for index, indicator in enumerate(indicators):
+            indicator_path = f"{path}.indicators[{index}]"
+            if not isinstance(indicator, dict): errors.append(f"{indicator_path} must be an object"); continue
+            indicator_id = indicator.get("id")
+            if not isinstance(indicator_id, str) or not indicator_id.strip(): errors.append(f"{indicator_path}.id must be a non-empty string")
+            elif indicator_id in seen: errors.append(f"{indicator_path}.id must be unique")
+            else: seen.add(indicator_id)
+            if not isinstance(indicator.get("name"), str) or not indicator.get("name", "").strip(): errors.append(f"{indicator_path}.name must be a non-empty string")
+            for field in ("exclamationPresetKey", "basePresetKey"):
+                if not isinstance(indicator.get(field), str): errors.append(f"{indicator_path}.{field} must be a string")
+            if not isinstance(indicator.get("visible"), bool): errors.append(f"{indicator_path}.visible must be a boolean")
+            if not is_finite_number(indicator.get("order")): errors.append(f"{indicator_path}.order must be finite")
+            for field in ("exclamationProgress", "baseProgress"):
+                value = indicator.get(field)
+                if not is_finite_number(value) or value < -0.1 or value > 1.1: errors.append(f"{indicator_path}.{field} must be between -0.1 and 1.1")
+            offset = indicator.get("offset")
+            if not isinstance(offset, list) or len(offset) != 3 or any(not is_finite_number(value) for value in offset): errors.append(f"{indicator_path}.offset must contain three finite numbers")
+            for field in ("scale", "baseScale"):
+                value = indicator.get(field)
+                if not is_finite_number(value) or value <= 0: errors.append(f"{indicator_path}.{field} must be greater than zero")
     return errors
-
 def validate_special_status_visual_preset_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict):
