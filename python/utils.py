@@ -1162,3 +1162,40 @@ def validate_monster_special_status_position_payload(payload: dict) -> list[str]
         if not isinstance(offset, list) or len(offset) != 3 or any(not is_finite_number(value) for value in offset):
             errors.append(f"{path}.statusGroupOffset must contain three finite numbers")
     return errors
+def validate_monster_battlefield_formation_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, battlefield in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("battlefield key must be a non-empty string"); continue
+        if not isinstance(battlefield, dict):
+            errors.append(f"{path} must be an object"); continue
+        if battlefield.get("id") != key: errors.append(f"{path}.id must match its object key")
+        if not isinstance(battlefield.get("name"), str) or not battlefield.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        width = battlefield.get("width")
+        if not is_finite_number(width) or width < 1 or int(width) != width: errors.append(f"{path}.width must be a positive integer")
+        for field in ("cellSize", "rowSpacing"):
+            value = battlefield.get(field)
+            if not is_finite_number(value) or value <= 0: errors.append(f"{path}.{field} must be greater than zero")
+        monsters = battlefield.get("monsters")
+        if not isinstance(monsters, list):
+            errors.append(f"{path}.monsters must be an array"); continue
+        seen_ids = set()
+        for index, monster in enumerate(monsters):
+            monster_path = f"{path}.monsters[{index}]"
+            if not isinstance(monster, dict): errors.append(f"{monster_path} must be an object"); continue
+            monster_id = monster.get("id")
+            if not isinstance(monster_id, str) or not monster_id.strip(): errors.append(f"{monster_path}.id must be a non-empty string")
+            elif monster_id in seen_ids: errors.append(f"{monster_path}.id must be unique within the battlefield")
+            else: seen_ids.add(monster_id)
+            if not isinstance(monster.get("monsterConfigKey"), str) or not monster.get("monsterConfigKey", "").strip(): errors.append(f"{monster_path}.monsterConfigKey must be a non-empty string")
+            if not isinstance(monster.get("monsterStripePresetKey"), str) or not monster.get("monsterStripePresetKey", "").strip(): errors.append(f"{monster_path}.monsterStripePresetKey must be a non-empty string")
+            if monster.get("positionMode") not in ("grid", "center"): errors.append(f"{monster_path}.positionMode must be grid or center")
+            for field in ("row", "column"):
+                value = monster.get(field)
+                if not is_finite_number(value) or value < 0 or int(value) != value: errors.append(f"{monster_path}.{field} must be a non-negative integer")
+            slots = monster.get("slots")
+            if not is_finite_number(slots) or slots < 1 or int(slots) != slots: errors.append(f"{monster_path}.slots must be a positive integer")
+    return errors
