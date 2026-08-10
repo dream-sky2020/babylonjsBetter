@@ -9,7 +9,13 @@ export interface ParticleEffectConfig {
   /** texture 保持贴图原色；gradient 使用颜色渐变乘色。 */
   colorMode?: 'texture' | 'gradient';
   /** alpha 为标准透明混合；add 为加色；multiply 为正片叠底。 */
-  blendMode?: 'alpha' | 'add' | 'multiply';
+  blendMode?: 'alpha' | 'add' | 'multiply' | 'overwrite';
+  /** Constant particle size used when size gradients are disabled. */
+  baseSize?: number;
+  minSize?: number;
+  maxSize?: number;
+  /** Base color/tint used when color gradients are disabled. */
+  baseColor?: Color4;
   /** 粒子的最大容量，容量越大占用内存越多，但粒子越密集 */
   capacity?: number;
   /** 发射源：可以是一个具体的 3D 坐标，也可以是绑定的网格模型 */
@@ -39,6 +45,27 @@ export interface ParticleEffectConfig {
   updateSpeed?: number;
   /** 重力向量，默认 (0, -9.81, 0) */
   gravity?: Vector3;
+  minInitialRotation?: number;
+  maxInitialRotation?: number;
+  minAngularSpeed?: number;
+  maxAngularSpeed?: number;
+  minScaleX?: number;
+  maxScaleX?: number;
+  minScaleY?: number;
+  maxScaleY?: number;
+  startDelayMs?: number;
+  preWarmCycles?: number;
+  preWarmStepOffset?: number;
+  forceDepthWrite?: boolean;
+  applyFog?: boolean;
+  renderingGroupId?: number;
+  billboardMode?: 'all' | 'y' | 'stretched';
+  emitterType?: 'box' | 'point' | 'sphere' | 'hemisphere' | 'cylinder' | 'cone';
+  emitterRadius?: number;
+  emitterRadiusRange?: number;
+  emitterHeight?: number;
+  emitterDirectionRandomizer?: number;
+  emitterAngle?: number;
   /**
    * 颜色与透明度渐变过程。
    * 示例: [{offset: 0, color: 新生颜色}, {offset: 0.8, color: 衰退颜色}, {offset: 1, color: 完全透明}]
@@ -56,6 +83,8 @@ export interface ParticleEffectConfig {
     startCellID: number;
     endCellID: number;
     spriteCellChangeSpeed: number;
+    randomStartCell?: boolean;
+    loop?: boolean;
   };
 }
 

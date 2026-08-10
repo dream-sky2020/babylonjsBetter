@@ -23,6 +23,13 @@ const sanitizeVec3 = (
 
 export const sanitizePreset = (raw: ParticleEditorPreset, keyFallback?: string): ParticleEditorPreset => {
   const presetKey = String(raw.presetKey || keyFallback || 'unnamed');
+  const legacy = raw as ParticleEditorPreset & { gravityY?: number };
+  const emitterType = ['box', 'point', 'sphere', 'hemisphere', 'cylinder', 'cone'].includes(raw.emitterType)
+    ? raw.emitterType
+    : 'box';
+  const billboardMode = raw.billboardMode === 'y' || raw.billboardMode === 'stretched'
+    ? raw.billboardMode
+    : 'all';
   return {
     presetKey,
     name: String(raw.name || presetKey),
@@ -37,7 +44,28 @@ export const sanitizePreset = (raw: ParticleEditorPreset, keyFallback?: string):
     minEmitPower: Math.max(0.01, toFinite(raw.minEmitPower, 2)),
     maxEmitPower: Math.max(Math.max(0.01, toFinite(raw.minEmitPower, 2)), toFinite(raw.maxEmitPower, 5)),
     updateSpeed: Math.max(0.0001, toFinite(raw.updateSpeed, 0.01)),
-    gravityY: toFinite(raw.gravityY, -9.81),
+    gravity: sanitizeVec3(raw.gravity, { x: 0, y: toFinite(legacy.gravityY, -9.81), z: 0 }),
+    minInitialRotationDeg: toFinite(raw.minInitialRotationDeg, 0),
+    maxInitialRotationDeg: Math.max(toFinite(raw.minInitialRotationDeg, 0), toFinite(raw.maxInitialRotationDeg, 0)),
+    minAngularSpeedDeg: toFinite(raw.minAngularSpeedDeg, 0),
+    maxAngularSpeedDeg: Math.max(toFinite(raw.minAngularSpeedDeg, 0), toFinite(raw.maxAngularSpeedDeg, 0)),
+    minScaleX: Math.max(0.0001, toFinite(raw.minScaleX, 1)),
+    maxScaleX: Math.max(Math.max(0.0001, toFinite(raw.minScaleX, 1)), toFinite(raw.maxScaleX, 1)),
+    minScaleY: Math.max(0.0001, toFinite(raw.minScaleY, 1)),
+    maxScaleY: Math.max(Math.max(0.0001, toFinite(raw.minScaleY, 1)), toFinite(raw.maxScaleY, 1)),
+    startDelayMs: Math.max(0, Math.round(toFinite(raw.startDelayMs, 0))),
+    preWarmCycles: Math.max(0, Math.round(toFinite(raw.preWarmCycles, 0))),
+    preWarmStepOffset: Math.max(0, toFinite(raw.preWarmStepOffset, 1)),
+    forceDepthWrite: Boolean(raw.forceDepthWrite),
+    applyFog: Boolean(raw.applyFog),
+    renderingGroupId: Math.max(0, Math.min(3, Math.round(toFinite(raw.renderingGroupId, 0)))),
+    billboardMode,
+    emitterType: emitterType as ParticleEditorPreset['emitterType'],
+    emitterRadius: Math.max(0.0001, toFinite(raw.emitterRadius, 1)),
+    emitterRadiusRange: Math.max(0, Math.min(1, toFinite(raw.emitterRadiusRange, 1))),
+    emitterHeight: Math.max(0.0001, toFinite(raw.emitterHeight, 1)),
+    emitterDirectionRandomizer: Math.max(0, Math.min(1, toFinite(raw.emitterDirectionRandomizer, 0))),
+    emitterAngleDeg: Math.max(0.1, Math.min(179, toFinite(raw.emitterAngleDeg, 45))),
     minEmitBox: sanitizeVec3(raw.minEmitBox, { x: -0.2, y: 0, z: -0.2 }),
     maxEmitBox: sanitizeVec3(raw.maxEmitBox, { x: 0.2, y: 0, z: 0.2 }),
     direction1: sanitizeVec3(raw.direction1, { x: -2, y: 2, z: -2 }),
@@ -62,7 +90,28 @@ export const createDefaultParticlePreset = (
     minEmitPower: 2,
     maxEmitPower: 5,
     updateSpeed: 0.01,
-    gravityY: -9.81,
+    gravity: { x: 0, y: -9.81, z: 0 },
+    minInitialRotationDeg: 0,
+    maxInitialRotationDeg: 0,
+    minAngularSpeedDeg: 0,
+    maxAngularSpeedDeg: 0,
+    minScaleX: 1,
+    maxScaleX: 1,
+    minScaleY: 1,
+    maxScaleY: 1,
+    startDelayMs: 0,
+    preWarmCycles: 0,
+    preWarmStepOffset: 1,
+    forceDepthWrite: false,
+    applyFog: false,
+    renderingGroupId: 0,
+    billboardMode: 'all',
+    emitterType: 'box',
+    emitterRadius: 1,
+    emitterRadiusRange: 1,
+    emitterHeight: 1,
+    emitterDirectionRandomizer: 0,
+    emitterAngleDeg: 45,
     minEmitBox: { x: -0.2, y: 0, z: -0.2 },
     maxEmitBox: { x: 0.2, y: 0, z: 0.2 },
     direction1: { x: -2, y: 2, z: -2 },

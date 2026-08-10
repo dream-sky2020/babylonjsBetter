@@ -244,7 +244,7 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
         if preset_key and key != preset_key:
             errors.append(f"{p_path}.presetKey 必须与对象 key 一致")
 
-        for bool_field in ("isOneShot", "autoDispose"):
+        for bool_field in ("isOneShot", "autoDispose", "forceDepthWrite", "applyFog"):
             if not isinstance(preset.get(bool_field), bool):
                 errors.append(f"{p_path}.{bool_field} 必须是布尔值")
 
@@ -262,38 +262,33 @@ def validate_particle_preset_payload(payload: dict) -> list[str]:
             errors.append(f"{p_path}.minEmitPower 不能大于 maxEmitPower")
 
         _req_num(preset, "updateSpeed", errors, p_path, 0.0001)
-        _req_num(preset, "gravityY", errors, p_path)
+        _req_num(preset, "minInitialRotationDeg", errors, p_path)
+        _req_num(preset, "maxInitialRotationDeg", errors, p_path)
+        _req_num(preset, "minAngularSpeedDeg", errors, p_path)
+        _req_num(preset, "maxAngularSpeedDeg", errors, p_path)
+        _req_num(preset, "minScaleX", errors, p_path, 0.0001)
+        _req_num(preset, "maxScaleX", errors, p_path, 0.0001)
+        _req_num(preset, "minScaleY", errors, p_path, 0.0001)
+        _req_num(preset, "maxScaleY", errors, p_path, 0.0001)
+        _req_num(preset, "startDelayMs", errors, p_path, 0)
+        _req_num(preset, "preWarmCycles", errors, p_path, 0)
+        _req_num(preset, "preWarmStepOffset", errors, p_path, 0)
+        _req_num(preset, "renderingGroupId", errors, p_path, 0, 3)
+        _req_num(preset, "emitterRadius", errors, p_path, 0.0001)
+        _req_num(preset, "emitterRadiusRange", errors, p_path, 0, 1)
+        _req_num(preset, "emitterHeight", errors, p_path, 0.0001)
+        _req_num(preset, "emitterDirectionRandomizer", errors, p_path, 0, 1)
+        _req_num(preset, "emitterAngleDeg", errors, p_path, 0.1, 179)
 
-        for vector_name in ("minEmitBox", "maxEmitBox", "direction1", "direction2"):
+        if preset.get("billboardMode") not in ("all", "y", "stretched"):
+            errors.append(f"{p_path}.billboardMode 必须是 all、y 或 stretched")
+        if preset.get("emitterType") not in ("box", "point", "sphere", "hemisphere", "cylinder", "cone"):
+            errors.append(f"{p_path}.emitterType 无效")
+
+        for vector_name in ("gravity", "minEmitBox", "maxEmitBox", "direction1", "direction2"):
             vector = _req_obj(preset, vector_name, errors, p_path)
             for axis in ("x", "y", "z"):
                 _req_num(vector, axis, errors, f"{p_path}.{vector_name}")
-
-        colors = preset.get("colorGradients", [])
-        if not isinstance(colors, list):
-            errors.append(f"{p_path}.colorGradients 必须是数组")
-        else:
-            for index, entry in enumerate(colors):
-                color_path = f"{p_path}.colorGradients[{index}]"
-                if not isinstance(entry, dict):
-                    errors.append(f"{color_path} 必须是对象")
-                    continue
-                _req_num(entry, "offset", errors, color_path, 0, 1)
-                color = _req_obj(entry, "color", errors, color_path)
-                for channel in ("r", "g", "b", "a"):
-                    _req_num(color, channel, errors, f"{color_path}.color", COLOR_MIN, COLOR_MAX)
-
-        sizes = preset.get("sizeGradients", [])
-        if not isinstance(sizes, list):
-            errors.append(f"{p_path}.sizeGradients 必须是数组")
-        else:
-            for index, entry in enumerate(sizes):
-                size_path = f"{p_path}.sizeGradients[{index}]"
-                if not isinstance(entry, dict):
-                    errors.append(f"{size_path} 必须是对象")
-                    continue
-                _req_num(entry, "offset", errors, size_path, 0, 1)
-                _req_num(entry, "size", errors, size_path, 0.0001)
 
     return errors
 
@@ -311,10 +306,39 @@ def validate_particle_visual_preset_payload(payload: dict) -> list[str]:
         _req_str(preset, "texturePath", errors, path)
         if preset.get("colorMode") not in ("texture", "gradient"):
             errors.append(f"{path}.colorMode must be texture or gradient")
-        if preset.get("blendMode") not in ("alpha", "add", "multiply"):
-            errors.append(f"{path}.blendMode must be alpha, add or multiply")
+        if preset.get("blendMode") not in ("alpha", "add", "multiply", "overwrite"):
+            errors.append(f"{path}.blendMode must be alpha, add, multiply or overwrite")
         if preset_key and preset_key != key:
             errors.append(f"{path}.presetKey must match its object key")
+        base_size = _req_num(preset, "baseSize", errors, path, 0.0001)
+        min_size = _req_num(preset, "minSize", errors, path, 0.0001)
+        max_size = _req_num(preset, "maxSize", errors, path, 0.0001)
+        if min_size > max_size:
+            errors.append(f"{path}.minSize must not exceed maxSize")
+        if base_size <= 0:
+            errors.append(f"{path}.baseSize must be positive")
+        base_color = _req_obj(preset, "baseColor", errors, path)
+        for channel in ("r", "g", "b", "a"):
+            _req_num(base_color, channel, errors, f"{path}.baseColor", COLOR_MIN, COLOR_MAX)
+        for bool_field in ("colorGradientsEnabled", "sizeGradientsEnabled"):
+            if not isinstance(preset.get(bool_field), bool):
+                errors.append(f"{path}.{bool_field} must be a boolean")
+        sprite_sheet = preset.get("spriteSheet")
+        if sprite_sheet is not None:
+            if not isinstance(sprite_sheet, dict):
+                errors.append(f"{path}.spriteSheet must be an object")
+            else:
+                _req_num(sprite_sheet, "cellWidth", errors, f"{path}.spriteSheet", 1)
+                _req_num(sprite_sheet, "cellHeight", errors, f"{path}.spriteSheet", 1)
+                start_cell = _req_num(sprite_sheet, "startCellID", errors, f"{path}.spriteSheet", 0)
+                end_cell = _req_num(sprite_sheet, "endCellID", errors, f"{path}.spriteSheet", 0)
+                if start_cell > end_cell:
+                    errors.append(f"{path}.spriteSheet.startCellID must not exceed endCellID")
+                if not isinstance(sprite_sheet.get("randomStartCell"), bool):
+                    errors.append(f"{path}.spriteSheet.randomStartCell must be a boolean")
+                if sprite_sheet.get("playbackMode") not in ("random-static", "loop"):
+                    errors.append(f"{path}.spriteSheet.playbackMode is invalid")
+                _req_num(sprite_sheet, "framesPerSecond", errors, f"{path}.spriteSheet", 0.1)
         colors = preset.get("colorGradients")
         if not isinstance(colors, list):
             errors.append(f"{path}.colorGradients must be an array")
