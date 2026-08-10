@@ -12,7 +12,7 @@
           "r": 1,
           "g": 0.95,
           "b": 0.55,
-          "a": 1
+          "a": 0.3
         }
       },
       {
@@ -21,7 +21,7 @@
           "r": 1,
           "g": 0.45,
           "b": 0.2,
-          "a": 0.65
+          "a": 0.24
         }
       },
       {
@@ -96,6 +96,69 @@
       {
         "offset": 1,
         "size": 0.62
+      }
+    ]
+  },
+  "carnivorous-spirit-fog-visual": {
+    "presetKey": "carnivorous-spirit-fog-visual",
+    "name": "食肉精灵雾气",
+    "texturePath": "public/resources/食肉精灵雾气.png",
+    "colorMode": "texture",
+    "blendMode": "alpha",
+    "colorGradients": [
+      {
+        "offset": 0,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 0
+        }
+      },
+      {
+        "offset": 0.12,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 0.7
+        }
+      },
+      {
+        "offset": 0.72,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 0.55
+        }
+      },
+      {
+        "offset": 1,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 0
+        }
+      }
+    ],
+    "sizeGradients": [
+      {
+        "offset": 0,
+        "size": 0.65
+      },
+      {
+        "offset": 0.15,
+        "size": 0.9
+      },
+      {
+        "offset": 0.7,
+        "size": 1.2
+      },
+      {
+        "offset": 1,
+        "size": 1.35
       }
     ]
   }

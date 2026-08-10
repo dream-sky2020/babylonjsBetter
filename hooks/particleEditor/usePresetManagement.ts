@@ -11,6 +11,7 @@ import {
   hydrateParticleVisualPresetStorage,
   reloadParticlePresetStorage,
   reloadParticleVisualPresetStorage,
+  removeParticleVisualPreset,
   removeParticlePreset,
   saveLastParticlePresetKey,
   saveLastViewMode,
@@ -19,6 +20,8 @@ import {
   type ParticleEditorPreset,
   type ParticleVisualPreset
 } from '@/core/particle';
+import { createDefaultParticlePreset } from '@/core/particle/preset/particlePresetValidation.ts';
+import { createDefaultParticleVisualPreset } from '@/core/particle/visual/particleVisualPresetValidation.ts';
 import type { ViewMode } from './types.ts';
 
 export const usePresetManagement = () => {
@@ -34,6 +37,7 @@ export const usePresetManagement = () => {
   const [serverConnected, setServerConnected] = useState(false);
   const [serverPort, setServerPort] = useState<number | null>(null);
   const probeInFlight = useRef(false);
+  const skipActiveReloadRef = useRef(false);
 
   const refreshServerConnection = useCallback(async () => {
     if (probeInFlight.current) return;
@@ -96,7 +100,79 @@ export const usePresetManagement = () => {
     })();
   }, [activePresetKey, handlePresetSelectionChange]);
 
+  const hasKey = (key: string, keys: string[]) => keys.includes(key);
+  const askUniqueKey = (label: string, suggested: string, keys: string[]) => {
+    const key = (window.prompt(label, suggested) || '').trim();
+    if (!key) return '';
+    if (hasKey(key, keys)) { setMessage(`Key 已存在：${key}`); return ''; }
+    return key;
+  };
+
+  const createEffectPreset = useCallback(() => {
+    const key = askUniqueKey('输入新的粒子效果 Key（唯一）', 'particle_new', presetKeys);
+    if (!key) return;
+    const next = { ...createDefaultParticlePreset(key), visualPresetKey: visualPreset.presetKey };
+    skipActiveReloadRef.current = true; setActivePresetKey(key); setPreset(next); setPresetKeys((keys) => [...keys, key].sort());
+    setMessage(`已新建粒子效果 ${key}（未保存）`);
+  }, [presetKeys, visualPreset.presetKey]);
+
+  const duplicateEffectPreset = useCallback(() => {
+    const key = askUniqueKey('输入复制后的粒子效果 Key（唯一）', `${preset.presetKey}_copy`, presetKeys);
+    if (!key) return;
+    const next = { ...preset, presetKey: key, name: `${preset.name} 副本` };
+    skipActiveReloadRef.current = true; setActivePresetKey(key); setPreset(next); setPresetKeys((keys) => [...keys, key].sort());
+    setMessage(`已复制粒子效果 ${key}（未保存）`);
+  }, [preset, presetKeys]);
+
+  const renameEffectPreset = useCallback(() => {
+    void (async () => {
+      const oldKey = preset.presetKey;
+      const key = askUniqueKey('输入新的粒子效果 Key（唯一）', oldKey, presetKeys.filter((item) => item !== oldKey));
+      if (!key || key === oldKey) return;
+      const next = { ...preset, presetKey: key };
+      try { await saveParticlePreset(next); if (hasKey(oldKey, presetKeys)) await removeParticlePreset(oldKey); await reloadParticlePresetStorage(); setActivePresetKey(key); setPreset(next); setPresetKeys(Object.keys(getAllParticlePresets()).sort()); setMessage(`已重命名粒子效果：${oldKey} → ${key}`); }
+      catch (error) { setMessage(`重命名失败：${String(error)}`); }
+    })();
+  }, [preset, presetKeys]);
+
+  const createVisualPreset = useCallback(() => {
+    const key = askUniqueKey('输入新的视觉预设 Key（唯一）', 'particle_visual_new', visualPresetKeys);
+    if (!key) return;
+    const next = createDefaultParticleVisualPreset(key);
+    setVisualPreset(next); setPreset((current) => ({ ...current, visualPresetKey: key })); setVisualPresetKeys((keys) => [...keys, key].sort()); setLoadedPresetVersion((value) => value + 1);
+    setMessage(`已新建视觉预设 ${key}（未保存）`);
+  }, [visualPresetKeys]);
+
+  const duplicateVisualPreset = useCallback(() => {
+    const key = askUniqueKey('输入复制后的视觉预设 Key（唯一）', `${visualPreset.presetKey}_copy`, visualPresetKeys);
+    if (!key) return;
+    const next = { ...visualPreset, presetKey: key, name: `${visualPreset.name} 副本`, colorGradients: visualPreset.colorGradients.map((item) => ({ ...item, color: { ...item.color } })), sizeGradients: visualPreset.sizeGradients.map((item) => ({ ...item })) };
+    setVisualPreset(next); setPreset((current) => ({ ...current, visualPresetKey: key })); setVisualPresetKeys((keys) => [...keys, key].sort()); setLoadedPresetVersion((value) => value + 1);
+    setMessage(`已复制视觉预设 ${key}（未保存）`);
+  }, [visualPreset, visualPresetKeys]);
+
+  const renameVisualPreset = useCallback(() => {
+    void (async () => {
+      const oldKey = visualPreset.presetKey;
+      const key = askUniqueKey('输入新的视觉预设 Key（唯一）', oldKey, visualPresetKeys.filter((item) => item !== oldKey));
+      if (!key || key === oldKey) return;
+      try { const nextVisual = { ...visualPreset, presetKey: key }; await saveParticleVisualPreset(nextVisual); const affected = Object.values(getAllParticlePresets()).filter((item) => item.visualPresetKey === oldKey); await Promise.all(affected.map((item) => saveParticlePreset({ ...item, visualPresetKey: key }))); if (hasKey(oldKey, visualPresetKeys)) await removeParticleVisualPreset(oldKey); await Promise.all([reloadParticlePresetStorage(), reloadParticleVisualPresetStorage()]); const nextPreset = preset.visualPresetKey === oldKey ? { ...preset, visualPresetKey: key } : preset; setPreset(nextPreset); setVisualPreset(nextVisual); setVisualPresetKeys(Object.keys(getAllParticleVisualPresets()).sort()); setMessage(`已重命名视觉预设并更新 ${affected.length} 个引用：${oldKey} → ${key}`); }
+      catch (error) { setMessage(`视觉重命名失败：${String(error)}`); }
+    })();
+  }, [preset, visualPreset, visualPresetKeys]);
+
+  const deleteVisualPreset = useCallback(() => {
+    void (async () => {
+      const oldKey = visualPreset.presetKey, fallbackKey = visualPresetKeys.find((key) => key !== oldKey);
+      if (!fallbackKey) { setMessage('至少需要保留一个视觉预设'); return; }
+      if (!window.confirm(`确认删除视觉预设 ${oldKey}？引用它的粒子效果将改用 ${fallbackKey}`)) return;
+      try { const affected = Object.values(getAllParticlePresets()).filter((item) => item.visualPresetKey === oldKey); await Promise.all(affected.map((item) => saveParticlePreset({ ...item, visualPresetKey: fallbackKey }))); await removeParticleVisualPreset(oldKey); await Promise.all([reloadParticlePresetStorage(), reloadParticleVisualPresetStorage()]); setVisualPresetKeys(Object.keys(getAllParticleVisualPresets()).sort()); setPreset((current) => ({ ...current, visualPresetKey: fallbackKey })); setVisualPreset(getParticleVisualPreset(fallbackKey)); setLoadedPresetVersion((value) => value + 1); setMessage(`已删除视觉预设 ${oldKey}，并迁移 ${affected.length} 个引用`); }
+      catch (error) { setMessage(`删除视觉预设失败：${String(error)}`); }
+    })();
+  }, [visualPreset.presetKey, visualPresetKeys]);
+
   useEffect(() => {
+    if (skipActiveReloadRef.current) { skipActiveReloadRef.current = false; return; }
     let cancelled = false;
     void (async () => {
       await Promise.all([hydrateParticlePresetStorage(), hydrateParticleVisualPresetStorage()]);
@@ -146,5 +222,7 @@ export const usePresetManagement = () => {
     saveCurrentPreset,
     importCurrentLocalPreset: () => refreshPresetState(getParticlePreset(activePresetKey)),
     clearCurrentPreset
+    ,createEffectPreset, duplicateEffectPreset, renameEffectPreset
+    ,createVisualPreset, duplicateVisualPreset, renameVisualPreset, deleteVisualPreset
   };
 };

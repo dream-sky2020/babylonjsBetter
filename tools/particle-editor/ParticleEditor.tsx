@@ -13,6 +13,7 @@ import { useParticleController } from '@/hooks/particleEditor/useParticleControl
 import { usePresetManagement } from '@/hooks/particleEditor/usePresetManagement.ts';
 import { rgbToHex } from '@/core/utils/color.ts';
 import { clamp, toFixedNumber } from '@/core/utils/math.ts';
+import { CommitNumberInput } from '@/core/ui/CommitNumberInput.tsx';
 
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
@@ -45,7 +46,14 @@ export const ParticleEditor: React.FC = () => {
     handleVisualPresetSelectionChange,
     saveCurrentPreset,
     importCurrentLocalPreset,
-    clearCurrentPreset
+    clearCurrentPreset,
+    createEffectPreset,
+    duplicateEffectPreset,
+    renameEffectPreset,
+    createVisualPreset,
+    duplicateVisualPreset,
+    renameVisualPreset,
+    deleteVisualPreset
   } = usePresetManagement();
   const {
     colorGradientNodes,
@@ -115,9 +123,11 @@ export const ParticleEditor: React.FC = () => {
   const { exportJson } = useExportActions({ setMessage });
   const { copyCurrentPreset, pastePreset } = useClipboardActions({
     preset,
+    visualPreset,
     activePresetKey,
     fallbackPreset,
     refreshPresetState,
+    setVisualPreset,
     setMessage
   });
 
@@ -144,13 +154,12 @@ export const ParticleEditor: React.FC = () => {
           value={value}
           onChange={(event) => updatePresetNumber(path, event.target.value, min, max)}
         />
-        <input
-          type="number"
+        <CommitNumberInput
           step={INPUT_STEP}
           min={min}
           max={max}
           value={value}
-          onChange={(event) => updatePresetNumber(path, event.target.value, min, max)}
+          onCommit={(value) => updatePresetNumber(path, String(value), min, max)}
         />
       </div>
     </div>
@@ -164,12 +173,11 @@ export const ParticleEditor: React.FC = () => {
       <div style={{ color: '#9fb0c5', fontSize: 12, marginBottom: 6 }}>{label}</div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8 }}>
         {(['x', 'y', 'z'] as const).map((axis) => (
-          <input
+          <CommitNumberInput
             key={`${vectorKey}.${axis}`}
-            type="number"
             step={INPUT_STEP}
             value={preset[vectorKey][axis]}
-            onChange={(event) => updatePresetVectorField(vectorKey, axis, event.target.value)}
+            onCommit={(value) => updatePresetVectorField(vectorKey, axis, String(value))}
             placeholder={axis}
           />
         ))}
@@ -202,6 +210,12 @@ export const ParticleEditor: React.FC = () => {
             <option key={key} value={key}>{key}</option>
           ))}
         </select>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8, marginBottom: 10 }}>
+          <button onClick={createEffectPreset}>新建效果预设</button>
+          <button onClick={duplicateEffectPreset}>复制效果预设</button>
+          <button onClick={renameEffectPreset}>重命名效果 Key</button>
+          <button onClick={clearCurrentPreset}>删除效果预设</button>
+        </div>
 
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>预设 Key</label>
         <input
@@ -238,6 +252,12 @@ export const ParticleEditor: React.FC = () => {
         />
         <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>视觉名称</label>
         <input value={visualPreset.name} onChange={(event) => setVisualPreset((prev) => ({ ...prev, name: event.target.value }))} style={{ width: '100%', marginBottom: 8 }} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 8, marginBottom: 12 }}>
+          <button onClick={createVisualPreset}>新建视觉预设</button>
+          <button onClick={duplicateVisualPreset}>复制视觉预设</button>
+          <button onClick={renameVisualPreset}>重命名视觉 Key</button>
+          <button onClick={deleteVisualPreset}>删除视觉预设</button>
+        </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
           <label style={{ display: 'grid', gap: 6, fontSize: 13 }}>颜色模式
@@ -277,10 +297,9 @@ export const ParticleEditor: React.FC = () => {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 10 }}>
           <button onClick={importCurrentLocalPreset}>导入配置文件</button>
           <button onClick={saveCurrentPreset}>保存到配置文件</button>
-          <button onClick={clearCurrentPreset}>从配置文件删除</button>
           <button onClick={exportJson}>导出 JSON</button>
-          <button onClick={copyCurrentPreset}>复制配置</button>
-          <button onClick={pastePreset}>粘贴配置</button>
+          <button onClick={copyCurrentPreset}>复制当前组合配置</button>
+          <button onClick={pastePreset}>从剪贴板一键导入</button>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginBottom: 10 }}>
@@ -363,14 +382,12 @@ export const ParticleEditor: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: 10, color: '#6f8098', marginBottom: 4 }}>Offset 数值</span>
-                  <input
-                    type="number"
+                  <CommitNumberInput
                     step={INPUT_STEP}
                     min={0}
                     max={1}
                     value={grad.offset}
-                    onChange={(e) => updateColorGradient(grad.id, 'offset', e.target.value)}
-                    onBlur={sortColorGradientsByOffset}
+                    onCommit={(value) => { updateColorGradient(grad.id, 'offset', String(value)); window.requestAnimationFrame(sortColorGradientsByOffset); }}
                   />
                 </div>
               </div>
@@ -445,14 +462,12 @@ export const ParticleEditor: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: 10, color: '#6f8098', marginBottom: 4 }}>Offset 数值</span>
-                  <input
-                    type="number"
+                  <CommitNumberInput
                     step={INPUT_STEP}
                     min={0}
                     max={1}
                     value={grad.offset}
-                    onChange={(e) => updateSizeGradient(grad.id, 'offset', Number(e.target.value))}
-                    onBlur={sortSizeGradientsByOffset}
+                    onCommit={(value) => { updateSizeGradient(grad.id, 'offset', value); window.requestAnimationFrame(sortSizeGradientsByOffset); }}
                   />
                 </div>
               </div>
@@ -470,12 +485,11 @@ export const ParticleEditor: React.FC = () => {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ fontSize: 10, color: '#6f8098', marginBottom: 4 }}>Size 数值</span>
-                  <input
-                    type="number"
+                  <CommitNumberInput
                     step={INPUT_STEP}
                     min={0.0001}
                     value={grad.size}
-                    onChange={(e) => updateSizeGradient(grad.id, 'size', Number(e.target.value))}
+                    onCommit={(value) => updateSizeGradient(grad.id, 'size', value)}
                   />
                 </div>
                 <button

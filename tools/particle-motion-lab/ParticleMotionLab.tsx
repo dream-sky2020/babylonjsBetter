@@ -28,6 +28,7 @@ import {
   type ParticleMotionDefinition,
   type ParticleMotionRuntimeConfig
 } from '@/core/particle-motion';
+import { CommitNumberInput } from '@/core/ui/CommitNumberInput.tsx';
 
 const DEFAULT_MODE_ID = particleMotionDefinitions[0]?.id ?? 'vortex';
 
@@ -113,6 +114,7 @@ export const ParticleMotionLab: React.FC = () => {
   const [parameters, setParameters] = useState(initialParameters);
   const [fps, setFps] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [clipboardMessage, setClipboardMessage] = useState('');
   const [visualPresetKeys, setVisualPresetKeys] = useState<string[]>(() => Object.keys(getAllParticleVisualPresets()).sort());
   const [visualPreset, setVisualPreset] = useState(initialVisualPreset);
 
@@ -150,6 +152,40 @@ export const ParticleMotionLab: React.FC = () => {
     visualPresetRef.current = next;
     setVisualPreset(next);
     window.requestAnimationFrame(() => rebuildRef.current());
+  };
+
+  const importFromClipboard = async () => {
+    try {
+      const raw = await navigator.clipboard.readText();
+      if (!raw.trim()) throw new Error('剪贴板为空');
+      const bundle = JSON.parse(raw) as { visual?: Partial<ParticleVisualPreset>; motion?: { modeId?: string; runtime?: Partial<ParticleMotionRuntimeConfig>; parameters?: MotionParameterValues } };
+      if (!bundle.visual && !bundle.motion) throw new Error('不是 particle-lab-preset 组合配置');
+      if (bundle.visual) {
+        const nextVisual = { ...visualPresetRef.current, ...bundle.visual, presetKey: bundle.visual.presetKey || visualPresetRef.current.presetKey } as ParticleVisualPreset;
+        visualPresetRef.current = nextVisual;
+        setVisualPreset(nextVisual);
+      }
+      if (bundle.motion) {
+        const nextDefinition = getParticleMotionDefinition(bundle.motion.modeId || modeId);
+        const defaults = createDefaultMotionParameters(nextDefinition.parameters);
+        const importedParameters = bundle.motion.parameters ?? {};
+        const nextParameters = Object.fromEntries(Object.keys(defaults).map((key) => [key, importedParameters[key] ?? defaults[key]]));
+        const requestedRuntime = { ...runtimeRef.current, ...bundle.motion.runtime };
+        const nextRuntime = { capacity: Math.max(100, Math.min(50000, Math.round(Number(requestedRuntime.capacity) || 100))), activeCount: 0, timeScale: Math.max(0.1, Math.min(3, Number(requestedRuntime.timeScale) || 1)), fieldRadius: Math.max(2, Math.min(12, Number(requestedRuntime.fieldRadius) || 6)), seed: Math.trunc(Number(requestedRuntime.seed) || 0) };
+        nextRuntime.activeCount = Math.max(0, Math.min(nextRuntime.capacity, Math.round(Number(requestedRuntime.activeCount) || 0)));
+        definitionRef.current = nextDefinition; parametersRef.current = nextParameters; runtimeRef.current = nextRuntime;
+        setModeId(nextDefinition.id); setParameters(nextParameters); setRuntime(nextRuntime);
+      }
+      window.requestAnimationFrame(() => rebuildRef.current());
+      setClipboardMessage('已从剪贴板导入视觉和运动配置。');
+    } catch (error) { setClipboardMessage(`导入失败：${String(error)}`); }
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(JSON.stringify({ format: 'particle-lab-preset', version: 1, visual: visualPreset, motion: { modeId, runtime, parameters } }, null, 2));
+      setClipboardMessage('已复制视觉和运动配置。');
+    } catch (error) { setClipboardMessage(`复制失败：${String(error)}`); }
   };
 
   useEffect(() => {
@@ -309,7 +345,7 @@ export const ParticleMotionLab: React.FC = () => {
       return <label key={key}>{parameter.label}<select value={String(value)} onChange={(event) => updateParameter(key, event.target.value)}>{parameter.options.map((option) => <option value={option.value} key={option.value}>{option.label}</option>)}</select></label>;
     }
     const vector = value as { x: number; y: number; z: number };
-    return <fieldset className="vector-field" key={key}><legend>{parameter.label}</legend>{(['x', 'y', 'z'] as const).map((axis) => <label key={axis}>{axis.toUpperCase()}<input type="number" value={vector[axis]} min={parameter.min} max={parameter.max} step={parameter.step ?? 0.1} onChange={(event) => updateParameter(key, { ...vector, [axis]: Number(event.target.value) })} /></label>)}</fieldset>;
+    return <fieldset className="vector-field" key={key}><legend>{parameter.label}</legend>{(['x', 'y', 'z'] as const).map((axis) => <label key={axis}>{axis.toUpperCase()}<CommitNumberInput value={vector[axis]} min={parameter.min} max={parameter.max} step={parameter.step ?? 0.1} onCommit={(value) => updateParameter(key, { ...vector, [axis]: value })} /></label>)}</fieldset>;
   };
 
   const setSimulationPaused = (nextPaused: boolean) => {
@@ -324,6 +360,12 @@ export const ParticleMotionLab: React.FC = () => {
         <div className="metrics"><strong>{fps} FPS</strong><span>{runtime.activeCount.toLocaleString()} / {runtime.capacity.toLocaleString()} 粒子</span></div>
       </header>
       <aside>
+        <section className="panel-section">
+          <h2>剪贴板配置</h2>
+          <button onClick={() => void importFromClipboard()}>从剪贴板一键导入</button>
+          <button className="secondary" onClick={() => void copyToClipboard()}>复制当前组合配置</button>
+          {clipboardMessage ? <p className="note">{clipboardMessage}</p> : null}
+        </section>
         <section className="panel-section">
           <h2>播放控制</h2>
           <div className="playback-controls">
@@ -351,11 +393,11 @@ export const ParticleMotionLab: React.FC = () => {
 
         <section className="panel-section">
           <h2>运行参数</h2>
-          <label>容量<input type="number" min="100" max="50000" step="100" value={runtime.capacity} onChange={(event) => { const capacity = Math.max(100, Math.min(50000, Number(event.target.value) || 100)); updateRuntime({ capacity, activeCount: Math.min(runtime.activeCount, capacity) }); }} /></label>
-          <label>活跃数量<input type="number" min="0" max={runtime.capacity} step="100" value={runtime.activeCount} onChange={(event) => updateRuntime({ activeCount: Math.max(0, Math.min(runtime.capacity, Number(event.target.value) || 0)) })} /></label>
+          <label>容量<CommitNumberInput min="100" max="50000" step="100" value={runtime.capacity} onCommit={(value) => { const capacity = Math.max(100, Math.min(50000, Math.round(value))); updateRuntime({ capacity, activeCount: Math.min(runtime.activeCount, capacity) }); }} /></label>
+          <label>活跃数量<CommitNumberInput min="0" max={runtime.capacity} step="100" value={runtime.activeCount} onCommit={(value) => updateRuntime({ activeCount: Math.max(0, Math.min(runtime.capacity, Math.round(value))) })} /></label>
           <label>时间速度 <output>{runtime.timeScale.toFixed(2)}</output><input type="range" min="0.1" max="3" step="0.05" value={runtime.timeScale} onChange={(event) => updateRuntime({ timeScale: Number(event.target.value) })} /></label>
           <label>场半径 <output>{runtime.fieldRadius.toFixed(1)}</output><input type="range" min="2" max="12" step="0.5" value={runtime.fieldRadius} onChange={(event) => updateRuntime({ fieldRadius: Number(event.target.value) })} /></label>
-          <label>随机种子<input type="number" value={runtime.seed} onChange={(event) => updateRuntime({ seed: Math.trunc(Number(event.target.value) || 0) })} /></label>
+          <label>随机种子<CommitNumberInput value={runtime.seed} onCommit={(value) => updateRuntime({ seed: Math.trunc(value) })} /></label>
           <button onClick={() => rebuildRef.current()}>重新生成粒子</button>
         </section>
 
