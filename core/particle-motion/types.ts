@@ -42,6 +42,7 @@ export interface ParticleMotionRuntimeConfig {
   capacity: number;
   activeCount: number;
   timeScale: number;
+  sizeScale: number;
   fieldRadius: number;
   seed: number;
 }

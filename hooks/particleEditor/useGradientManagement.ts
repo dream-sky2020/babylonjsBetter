@@ -107,7 +107,8 @@ export const useGradientManagement = ({
     });
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
-    const range = Math.max(maxValue - minValue, 0.0001);
+    if (Math.abs(maxValue - minValue) < 0.0001) return values.map(() => 0.5);
+    const range = maxValue - minValue;
     return values.map((value) => (value - minValue) / range);
   }, [sizeGradientNodes]);
 

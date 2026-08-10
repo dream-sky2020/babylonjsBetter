@@ -44,6 +44,27 @@ export const useParticleController = ({
         texturePath,
         colorMode: visualPreset.colorMode,
         blendMode: visualPreset.blendMode,
+        baseSize: visualPreset.baseSize,
+        minSize: visualPreset.minSize,
+        maxSize: visualPreset.maxSize,
+        baseColor: new Color4(
+          visualPreset.baseColor.r,
+          visualPreset.baseColor.g,
+          visualPreset.baseColor.b,
+          visualPreset.baseColor.a
+        ),
+        spriteSheet: visualPreset.spriteSheet ? (() => {
+          const sheet = visualPreset.spriteSheet;
+          const cellCount = Math.max(1, sheet.endCellID - sheet.startCellID + 1);
+          const averageLifeTime = (preset.minLifeTime + preset.maxLifeTime) / 2;
+          return {
+            ...sheet,
+            spriteCellChangeSpeed: sheet.playbackMode === 'loop'
+              ? sheet.framesPerSecond * averageLifeTime / cellCount
+              : 0,
+            loop: sheet.playbackMode === 'loop'
+          };
+        })() : undefined,
         capacity: preset.capacity,
         emitter: Vector3.Zero(),
         isOneShot: preset.isOneShot,
@@ -55,19 +76,40 @@ export const useParticleController = ({
         minEmitPower: preset.minEmitPower,
         maxEmitPower: preset.maxEmitPower,
         updateSpeed: preset.updateSpeed,
-        gravity: new Vector3(0, preset.gravityY, 0),
+        gravity: new Vector3(preset.gravity.x, preset.gravity.y, preset.gravity.z),
+        minInitialRotation: preset.minInitialRotationDeg * Math.PI / 180,
+        maxInitialRotation: preset.maxInitialRotationDeg * Math.PI / 180,
+        minAngularSpeed: preset.minAngularSpeedDeg * Math.PI / 180,
+        maxAngularSpeed: preset.maxAngularSpeedDeg * Math.PI / 180,
+        minScaleX: preset.minScaleX,
+        maxScaleX: preset.maxScaleX,
+        minScaleY: preset.minScaleY,
+        maxScaleY: preset.maxScaleY,
+        startDelayMs: preset.startDelayMs,
+        preWarmCycles: preset.preWarmCycles,
+        preWarmStepOffset: preset.preWarmStepOffset,
+        forceDepthWrite: preset.forceDepthWrite,
+        applyFog: preset.applyFog,
+        renderingGroupId: preset.renderingGroupId,
+        billboardMode: preset.billboardMode,
+        emitterType: preset.emitterType,
+        emitterRadius: preset.emitterRadius,
+        emitterRadiusRange: preset.emitterRadiusRange,
+        emitterHeight: preset.emitterHeight,
+        emitterDirectionRandomizer: preset.emitterDirectionRandomizer,
+        emitterAngle: preset.emitterAngleDeg * Math.PI / 180,
         minEmitBox: new Vector3(preset.minEmitBox.x, preset.minEmitBox.y, preset.minEmitBox.z),
         maxEmitBox: new Vector3(preset.maxEmitBox.x, preset.maxEmitBox.y, preset.maxEmitBox.z),
         direction1: new Vector3(preset.direction1.x, preset.direction1.y, preset.direction1.z),
         direction2: new Vector3(preset.direction2.x, preset.direction2.y, preset.direction2.z),
-        colorGradients: visualPreset.colorGradients.map((item) => ({
+        colorGradients: visualPreset.colorGradientsEnabled ? visualPreset.colorGradients.map((item) => ({
           offset: item.offset,
           color: new Color4(item.color.r, item.color.g, item.color.b, item.color.a)
-        })),
-        sizeGradients: visualPreset.sizeGradients.map((item) => ({
+        })) : undefined,
+        sizeGradients: visualPreset.sizeGradientsEnabled ? visualPreset.sizeGradients.map((item) => ({
           offset: item.offset,
           size: item.size
-        }))
+        })) : undefined
       });
       particleControllerRef.current = controller;
       controller.start();

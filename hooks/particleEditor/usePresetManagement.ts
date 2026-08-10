@@ -111,18 +111,41 @@ export const usePresetManagement = () => {
   const createEffectPreset = useCallback(() => {
     const key = askUniqueKey('输入新的粒子效果 Key（唯一）', 'particle_new', presetKeys);
     if (!key) return;
-    const next = { ...createDefaultParticlePreset(key), visualPresetKey: visualPreset.presetKey };
-    skipActiveReloadRef.current = true; setActivePresetKey(key); setPreset(next); setPresetKeys((keys) => [...keys, key].sort());
-    setMessage(`已新建粒子效果 ${key}（未保存）`);
-  }, [presetKeys, visualPreset.presetKey]);
+    const visualKey = `${key}-visual`;
+    const nextVisual = createDefaultParticleVisualPreset(visualKey);
+    const next = { ...createDefaultParticlePreset(key), visualPresetKey: visualKey };
+    skipActiveReloadRef.current = true;
+    setActivePresetKey(key);
+    setPreset(next);
+    setVisualPreset(nextVisual);
+    setPresetKeys((keys) => [...keys, key].sort());
+    setVisualPresetKeys((keys) => [...new Set([...keys, visualKey])].sort());
+    setLoadedPresetVersion((value) => value + 1);
+    setMessage(`已新建完整粒子预设 ${key}（包含独立视觉，未保存）`);
+  }, [presetKeys]);
 
   const duplicateEffectPreset = useCallback(() => {
     const key = askUniqueKey('输入复制后的粒子效果 Key（唯一）', `${preset.presetKey}_copy`, presetKeys);
     if (!key) return;
-    const next = { ...preset, presetKey: key, name: `${preset.name} 副本` };
-    skipActiveReloadRef.current = true; setActivePresetKey(key); setPreset(next); setPresetKeys((keys) => [...keys, key].sort());
-    setMessage(`已复制粒子效果 ${key}（未保存）`);
-  }, [preset, presetKeys]);
+    const visualKey = `${key}-visual`;
+    const nextVisual = {
+      ...visualPreset,
+      presetKey: visualKey,
+      name: `${visualPreset.name} 副本`,
+      colorGradients: visualPreset.colorGradients.map((item) => ({ ...item, color: { ...item.color } })),
+      sizeGradients: visualPreset.sizeGradients.map((item) => ({ ...item })),
+      spriteSheet: visualPreset.spriteSheet ? { ...visualPreset.spriteSheet } : undefined
+    };
+    const next = { ...preset, presetKey: key, name: `${preset.name} 副本`, visualPresetKey: visualKey };
+    skipActiveReloadRef.current = true;
+    setActivePresetKey(key);
+    setPreset(next);
+    setVisualPreset(nextVisual);
+    setPresetKeys((keys) => [...keys, key].sort());
+    setVisualPresetKeys((keys) => [...new Set([...keys, visualKey])].sort());
+    setLoadedPresetVersion((value) => value + 1);
+    setMessage(`已复制完整粒子预设 ${key}（包含独立视觉，未保存）`);
+  }, [preset, presetKeys, visualPreset]);
 
   const renameEffectPreset = useCallback(() => {
     void (async () => {

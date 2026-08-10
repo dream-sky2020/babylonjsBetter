@@ -5,6 +5,7 @@ import {
   Color4,
   Engine,
   HemisphericLight,
+  Material,
   MeshBuilder,
   Scene,
   SolidParticleSystem,
@@ -13,9 +14,13 @@ import {
   Vector3
 } from '@babylonjs/core';
 import {
-  getAllParticleVisualPresets,
+  getAllParticlePresets,
+  getParticlePreset,
   getParticleVisualPreset,
+  hydrateParticlePresetStorage,
   hydrateParticleVisualPresetStorage,
+  reloadParticlePresetStorage,
+  reloadParticleVisualPresetStorage,
   normalizePublicPath,
   type ParticleVisualPreset
 } from '@/core/particle';
@@ -36,6 +41,7 @@ const createRuntime = (): ParticleMotionRuntimeConfig => ({
   capacity: 5000,
   activeCount: 5000,
   timeScale: 1,
+  sizeScale: 1,
   fieldRadius: 6,
   seed: 12345
 });
@@ -60,9 +66,41 @@ const groupParameters = (definition: ParticleMotionDefinition) => {
   return [...groups.entries()];
 };
 
+type RangeNumberControlProps = {
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (value: number) => void;
+};
+
+const RangeNumberControl: React.FC<RangeNumberControlProps> = ({ value, min, max, step, onChange }) => {
+  const updateValue = (nextValue: number) => onChange(Math.max(min, Math.min(max, nextValue)));
+  return (
+    <div className="range-number-control">
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => updateValue(Number(event.target.value))}
+      />
+      <CommitNumberInput
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onCommit={updateValue}
+      />
+    </div>
+  );
+};
+
 const sampleSize = (preset: ParticleVisualPreset, time: number) => {
+  if (!preset.sizeGradientsEnabled) return preset.baseSize;
   const gradients = [...preset.sizeGradients].sort((left, right) => left.offset - right.offset);
-  if (gradients.length === 0) return 0.1;
+  if (gradients.length === 0) return preset.baseSize;
   const rightIndex = gradients.findIndex((entry) => entry.offset >= time);
   if (rightIndex === -1) return gradients[gradients.length - 1].size;
   if (rightIndex <= 0) return gradients[Math.max(0, rightIndex)].size;
@@ -73,7 +111,10 @@ const sampleSize = (preset: ParticleVisualPreset, time: number) => {
 };
 
 const sampleColor = (preset: ParticleVisualPreset, time: number) => {
-  if (preset.colorMode === 'texture' || preset.colorGradients.length === 0) return new Color4(1, 1, 1, 1);
+  const base = preset.baseColor;
+  if (!preset.colorGradientsEnabled || preset.colorMode === 'texture' || preset.colorGradients.length === 0) {
+    return new Color4(base.r, base.g, base.b, base.a);
+  }
   const gradients = [...preset.colorGradients].sort((left, right) => left.offset - right.offset);
   const rightIndex = gradients.findIndex((entry) => entry.offset >= time);
   if (rightIndex === -1) {
@@ -115,7 +156,8 @@ export const ParticleMotionLab: React.FC = () => {
   const [fps, setFps] = useState(0);
   const [paused, setPaused] = useState(false);
   const [clipboardMessage, setClipboardMessage] = useState('');
-  const [visualPresetKeys, setVisualPresetKeys] = useState<string[]>(() => Object.keys(getAllParticleVisualPresets()).sort());
+  const [particlePresetKeys, setParticlePresetKeys] = useState<string[]>(() => Object.keys(getAllParticlePresets()).sort());
+  const [selectedParticlePresetKey, setSelectedParticlePresetKey] = useState('spark');
   const [visualPreset, setVisualPreset] = useState(initialVisualPreset);
 
   const definition = getParticleMotionDefinition(modeId);
@@ -144,14 +186,35 @@ export const ParticleMotionLab: React.FC = () => {
     parametersRef.current = nextParameters;
     setModeId(nextModeId);
     setParameters(nextParameters);
-    window.requestAnimationFrame(() => rebuildRef.current());
+    rebuildRef.current();
   };
 
-  const selectVisualPreset = (visualPresetKey: string) => {
-    const next = getParticleVisualPreset(visualPresetKey);
+  const selectParticlePreset = (particlePresetKey: string) => {
+    const particlePreset = getParticlePreset(particlePresetKey);
+    const next = getParticleVisualPreset(particlePreset.visualPresetKey);
+    setSelectedParticlePresetKey(particlePreset.presetKey);
     visualPresetRef.current = next;
     setVisualPreset(next);
-    window.requestAnimationFrame(() => rebuildRef.current());
+    rebuildRef.current();
+  };
+
+  const refreshVisualPresets = async () => {
+    try {
+      await Promise.all([reloadParticlePresetStorage(), reloadParticleVisualPresetStorage()]);
+      const all = getAllParticlePresets();
+      const keys = Object.keys(all).sort();
+      const nextParticleKey = keys.includes(selectedParticlePresetKey) ? selectedParticlePresetKey : keys[0];
+      const nextParticle = getParticlePreset(nextParticleKey);
+      const next = getParticleVisualPreset(nextParticle.visualPresetKey);
+      setParticlePresetKeys(keys);
+      setSelectedParticlePresetKey(nextParticle.presetKey);
+      visualPresetRef.current = next;
+      setVisualPreset(next);
+      rebuildRef.current();
+      setClipboardMessage(`已刷新完整粒子预设：${nextParticle.presetKey}`);
+    } catch (error) {
+      setClipboardMessage(`刷新视觉配置失败：${String(error)}`);
+    }
   };
 
   const importFromClipboard = async () => {
@@ -171,12 +234,12 @@ export const ParticleMotionLab: React.FC = () => {
         const importedParameters = bundle.motion.parameters ?? {};
         const nextParameters = Object.fromEntries(Object.keys(defaults).map((key) => [key, importedParameters[key] ?? defaults[key]]));
         const requestedRuntime = { ...runtimeRef.current, ...bundle.motion.runtime };
-        const nextRuntime = { capacity: Math.max(100, Math.min(50000, Math.round(Number(requestedRuntime.capacity) || 100))), activeCount: 0, timeScale: Math.max(0.1, Math.min(3, Number(requestedRuntime.timeScale) || 1)), fieldRadius: Math.max(2, Math.min(12, Number(requestedRuntime.fieldRadius) || 6)), seed: Math.trunc(Number(requestedRuntime.seed) || 0) };
+        const nextRuntime = { capacity: Math.max(100, Math.min(50000, Math.round(Number(requestedRuntime.capacity) || 100))), activeCount: 0, timeScale: Math.max(0.1, Math.min(3, Number(requestedRuntime.timeScale) || 1)), sizeScale: Math.max(0.01, Math.min(20, Number(requestedRuntime.sizeScale) || 1)), fieldRadius: Math.max(2, Math.min(12, Number(requestedRuntime.fieldRadius) || 6)), seed: Math.trunc(Number(requestedRuntime.seed) || 0) };
         nextRuntime.activeCount = Math.max(0, Math.min(nextRuntime.capacity, Math.round(Number(requestedRuntime.activeCount) || 0)));
         definitionRef.current = nextDefinition; parametersRef.current = nextParameters; runtimeRef.current = nextRuntime;
         setModeId(nextDefinition.id); setParameters(nextParameters); setRuntime(nextRuntime);
       }
-      window.requestAnimationFrame(() => rebuildRef.current());
+      rebuildRef.current();
       setClipboardMessage('已从剪贴板导入视觉和运动配置。');
     } catch (error) { setClipboardMessage(`导入失败：${String(error)}`); }
   };
@@ -191,12 +254,15 @@ export const ParticleMotionLab: React.FC = () => {
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      await hydrateParticleVisualPresetStorage();
+      await Promise.all([hydrateParticlePresetStorage(), hydrateParticleVisualPresetStorage()]);
       if (cancelled) return;
-      const all = getAllParticleVisualPresets();
+      const all = getAllParticlePresets();
       const keys = Object.keys(all).sort();
-      setVisualPresetKeys(keys);
-      const next = getParticleVisualPreset(keys.includes(visualPresetRef.current.presetKey) ? visualPresetRef.current.presetKey : keys[0]);
+      setParticlePresetKeys(keys);
+      const selectedKey = keys.includes(selectedParticlePresetKey) ? selectedParticlePresetKey : keys[0];
+      const particlePreset = getParticlePreset(selectedKey);
+      const next = getParticleVisualPreset(particlePreset.visualPresetKey);
+      setSelectedParticlePresetKey(particlePreset.presetKey);
       visualPresetRef.current = next;
       setVisualPreset(next);
       rebuildRef.current();
@@ -225,14 +291,20 @@ export const ParticleMotionLab: React.FC = () => {
 
     let sps: SolidParticleSystem | null = null;
     let particleStates: unknown[] = [];
+    let particleSizeFactors: number[] = [];
     let elapsedSeconds = 0;
     let random = createSeededRandom(runtimeRef.current.seed);
+    let updateAtlasUvs: (() => void) | null = null;
+    let activeDefinition = definitionRef.current;
 
     const rebuild = () => {
       sps?.dispose();
+      updateAtlasUvs = null;
       const currentRuntime = runtimeRef.current;
       const currentDefinition = definitionRef.current;
+      const currentParameters = parametersRef.current;
       const currentVisual = visualPresetRef.current;
+      activeDefinition = currentDefinition;
       random = createSeededRandom(currentRuntime.seed);
       elapsedSeconds = 0;
 
@@ -253,34 +325,80 @@ export const ParticleMotionLab: React.FC = () => {
       material.diffuseColor = Color3.White();
       material.disableLighting = true;
       material.backFaceCulling = false;
-      material.alphaMode = currentVisual.blendMode === 'add'
-        ? Engine.ALPHA_ADD
-        : currentVisual.blendMode === 'multiply'
-          ? Engine.ALPHA_MULTIPLY
-          : Engine.ALPHA_COMBINE;
+      material.alphaMode = currentVisual.blendMode === 'overwrite'
+        ? Engine.ALPHA_DISABLE
+        : currentVisual.blendMode === 'add'
+          ? Engine.ALPHA_ADD
+          : currentVisual.blendMode === 'multiply'
+            ? Engine.ALPHA_MULTIPLY
+            : Engine.ALPHA_COMBINE;
+      if (currentVisual.blendMode === 'overwrite') {
+        material.useAlphaFromDiffuseTexture = false;
+        material.transparencyMode = Material.MATERIAL_OPAQUE;
+      }
       next.buildMesh().material = material;
 
       const createContext = { random, runtime: currentRuntime };
       particleStates = Array.from(
         { length: currentRuntime.capacity },
-        () => currentDefinition.createState(createContext, parametersRef.current)
+        () => currentDefinition.createState(createContext, currentParameters)
       );
+      const sizeRandom = createSeededRandom(currentRuntime.seed ^ 0x73697a65);
+      const baseSize = Math.max(0.0001, currentVisual.baseSize);
+      particleSizeFactors = Array.from({ length: currentRuntime.capacity }, () => {
+        const randomSize = currentVisual.minSize + sizeRandom() * (currentVisual.maxSize - currentVisual.minSize);
+        return randomSize / baseSize;
+      });
+      const atlasRandom = createSeededRandom(currentRuntime.seed ^ 0x51f15e);
+      const atlasCellIds = Array.from({ length: currentRuntime.capacity }, () => {
+        const sheet = currentVisual.spriteSheet;
+        if (!sheet) return 0;
+        const count = Math.max(1, sheet.endCellID - sheet.startCellID + 1);
+        return sheet.randomStartCell
+          ? sheet.startCellID + Math.floor(atlasRandom() * count)
+          : sheet.startCellID;
+      });
+      const applyAtlasUvs = () => {
+        const sheet = currentVisual.spriteSheet;
+        if (!sheet) return;
+        const textureSize = texture.getSize();
+        const columns = Math.max(1, Math.floor(textureSize.width / sheet.cellWidth));
+        const rows = Math.max(1, Math.floor(textureSize.height / sheet.cellHeight));
+        const lastCell = columns * rows - 1;
+        const configuredCellCount = Math.max(1, sheet.endCellID - sheet.startCellID + 1);
+        const animationFrame = sheet.playbackMode === 'loop'
+          ? Math.floor(elapsedSeconds * sheet.framesPerSecond)
+          : 0;
+        next.particles.forEach((particle, index) => {
+          const initialOffset = atlasCellIds[index] - sheet.startCellID;
+          const configuredCell = sheet.startCellID + (initialOffset + animationFrame) % configuredCellCount;
+          const cell = Math.min(lastCell, Math.max(0, configuredCell));
+          const column = cell % columns;
+          const row = Math.floor(cell / columns);
+          particle.uvs.set(column / columns, row / rows, (column + 1) / columns, (row + 1) / rows);
+        });
+      };
       next.initParticles = () => {
         next.particles.forEach((particle, index) => {
           currentDefinition.initialize(
             particle,
             particleStates[index],
             createContext,
-            parametersRef.current
+            currentParameters
           );
           const visualTime = (index * 0.013) % 1;
           particle.color = sampleColor(currentVisual, visualTime);
-          particle.scaling.setAll(sampleSize(currentVisual, visualTime));
+          particle.scaling.setAll(sampleSize(currentVisual, visualTime) * particleSizeFactors[index] * currentRuntime.sizeScale);
           if (index >= currentRuntime.activeCount) particle.color.a = 0;
         });
       };
       next.initParticles();
       next.setParticles();
+      if (currentVisual.spriteSheet) {
+        if (currentVisual.spriteSheet.playbackMode === 'loop') updateAtlasUvs = applyAtlasUvs;
+        if (texture.isReady()) { applyAtlasUvs(); next.setParticles(); }
+        else texture.onLoadObservable.addOnce(() => { applyAtlasUvs(); next.setParticles(); });
+      }
       sps = next;
     };
 
@@ -292,7 +410,6 @@ export const ParticleMotionLab: React.FC = () => {
       const deltaSeconds = Math.min(engine.getDeltaTime() / 1000, 0.05) * runtimeRef.current.timeScale;
       if (!pausedRef.current && sps) {
         elapsedSeconds += deltaSeconds;
-        const currentDefinition = definitionRef.current;
         const updateContext = {
           random,
           runtime: runtimeRef.current,
@@ -301,7 +418,7 @@ export const ParticleMotionLab: React.FC = () => {
         };
         sps.updateParticle = (particle) => {
           if (particle.idx < runtimeRef.current.activeCount) {
-            currentDefinition.update(
+            activeDefinition.update(
               particle,
               particleStates[particle.idx],
               updateContext,
@@ -309,10 +426,11 @@ export const ParticleMotionLab: React.FC = () => {
             );
             const visualTime = (elapsedSeconds * 0.5 + particle.idx * 0.013) % 1;
             particle.color = sampleColor(visualPresetRef.current, visualTime);
-            particle.scaling.setAll(sampleSize(visualPresetRef.current, visualTime));
+            particle.scaling.setAll(sampleSize(visualPresetRef.current, visualTime) * particleSizeFactors[particle.idx] * runtimeRef.current.sizeScale);
           } else if (particle.color) particle.color.a = 0;
           return particle;
         };
+        updateAtlasUvs?.();
         sps.setParticles();
       }
       scene.render();
@@ -336,7 +454,7 @@ export const ParticleMotionLab: React.FC = () => {
   const renderParameter = (key: string, parameter: MotionParameterDefinition) => {
     const value = parameters[key];
     if (parameter.type === 'number') {
-      return <label key={key}>{parameter.label}<output>{Number(value).toFixed(2)}</output><input type="range" min={parameter.min} max={parameter.max} step={parameter.step} value={Number(value)} onChange={(event) => updateParameter(key, Number(event.target.value))} />{parameter.description && <small>{parameter.description}</small>}</label>;
+      return <label key={key}>{parameter.label}<RangeNumberControl min={parameter.min} max={parameter.max} step={parameter.step} value={Number(value)} onChange={(nextValue) => updateParameter(key, nextValue)} />{parameter.description && <small>{parameter.description}</small>}</label>;
     }
     if (parameter.type === 'boolean') {
       return <label className="checkbox-field" key={key}><input type="checkbox" checked={Boolean(value)} onChange={(event) => updateParameter(key, event.target.checked)} />{parameter.label}</label>;
@@ -369,19 +487,23 @@ export const ParticleMotionLab: React.FC = () => {
         <section className="panel-section">
           <h2>播放控制</h2>
           <div className="playback-controls">
-            <button onClick={() => setSimulationPaused(false)} disabled={!paused}>播放</button>
-            <button className="secondary" onClick={() => setSimulationPaused(true)} disabled={paused}>暂停</button>
+            <button onClick={() => setSimulationPaused(!paused)}>
+              {paused ? '播放' : '暂停'}
+            </button>
           </div>
         </section>
         <section className="panel-section">
-          <h2>共享视觉预设</h2>
-          <label>视觉
-            <select value={visualPreset.presetKey} onChange={(event) => selectVisualPreset(event.target.value)}>
-              {visualPresetKeys.map((key) => <option value={key} key={key}>{key}</option>)}
+          <h2>完整粒子预设</h2>
+          <label>预设
+            <select value={selectedParticlePresetKey} onChange={(event) => selectParticlePreset(event.target.value)}>
+              {particlePresetKeys.map((key) => <option value={key} key={key}>{key}</option>)}
             </select>
           </label>
           <p className="mode-description">{visualPreset.name}</p>
           <span className="mode-version">{visualPreset.colorMode} · {visualPreset.blendMode}</span>
+          <span className="mode-version"> · 随机尺寸 {visualPreset.minSize.toFixed(3)}–{visualPreset.maxSize.toFixed(3)}</span>
+          {visualPreset.spriteSheet ? <span className="mode-version">图集 {visualPreset.spriteSheet.cellWidth}×{visualPreset.spriteSheet.cellHeight}px · 格 {visualPreset.spriteSheet.startCellID}–{visualPreset.spriteSheet.endCellID} · {visualPreset.spriteSheet.playbackMode === 'loop' ? `${visualPreset.spriteSheet.framesPerSecond} FPS 循环` : '静态帧'} · {visualPreset.spriteSheet.randomStartCell ? '随机起始' : '统一起始'}</span> : null}
+          <button className="secondary refresh-visual-button" onClick={() => void refreshVisualPresets()}>刷新视觉配置</button>
           <a className="editor-link" href="/tools/particle-editor/index.html">在 Particle Editor 中编辑视觉</a>
         </section>
         <section className="panel-section">
@@ -395,8 +517,9 @@ export const ParticleMotionLab: React.FC = () => {
           <h2>运行参数</h2>
           <label>容量<CommitNumberInput min="100" max="50000" step="100" value={runtime.capacity} onCommit={(value) => { const capacity = Math.max(100, Math.min(50000, Math.round(value))); updateRuntime({ capacity, activeCount: Math.min(runtime.activeCount, capacity) }); }} /></label>
           <label>活跃数量<CommitNumberInput min="0" max={runtime.capacity} step="100" value={runtime.activeCount} onCommit={(value) => updateRuntime({ activeCount: Math.max(0, Math.min(runtime.capacity, Math.round(value))) })} /></label>
-          <label>时间速度 <output>{runtime.timeScale.toFixed(2)}</output><input type="range" min="0.1" max="3" step="0.05" value={runtime.timeScale} onChange={(event) => updateRuntime({ timeScale: Number(event.target.value) })} /></label>
-          <label>场半径 <output>{runtime.fieldRadius.toFixed(1)}</output><input type="range" min="2" max="12" step="0.5" value={runtime.fieldRadius} onChange={(event) => updateRuntime({ fieldRadius: Number(event.target.value) })} /></label>
+          <label>时间速度<RangeNumberControl min={0.1} max={3} step={0.05} value={runtime.timeScale} onChange={(timeScale) => updateRuntime({ timeScale })} /></label>
+          <label>尺寸倍率<RangeNumberControl min={0.05} max={10} step={0.05} value={runtime.sizeScale} onChange={(sizeScale) => updateRuntime({ sizeScale })} /></label>
+          <label>场半径<RangeNumberControl min={2} max={12} step={0.5} value={runtime.fieldRadius} onChange={(fieldRadius) => updateRuntime({ fieldRadius })} /></label>
           <label>随机种子<CommitNumberInput value={runtime.seed} onCommit={(value) => updateRuntime({ seed: Math.trunc(value) })} /></label>
           <button onClick={() => rebuildRef.current()}>重新生成粒子</button>
         </section>
