@@ -1239,3 +1239,73 @@ def validate_monster_battlefield_formation_payload(payload: dict) -> list[str]:
             slots = monster.get("slots")
             if not is_finite_number(slots) or slots < 1 or int(slots) != slots: errors.append(f"{monster_path}.slots must be a positive integer")
     return errors
+
+def validate_monster_battlefield_stripe_rule_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("battlefield key must be a non-empty string"); continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object"); continue
+        if config.get("battlefieldId") != key:
+            errors.append(f"{path}.battlefieldId must match its object key")
+        if not isinstance(config.get("name"), str) or not config.get("name", "").strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        rules = config.get("rules")
+        if not isinstance(rules, list):
+            errors.append(f"{path}.rules must be an array"); continue
+        seen_ids = set()
+        seen_rows = set()
+        for index, rule in enumerate(rules):
+            rule_path = f"{path}.rules[{index}]"
+            if not isinstance(rule, dict):
+                errors.append(f"{rule_path} must be an object"); continue
+            rule_id = rule.get("id")
+            if not isinstance(rule_id, str) or not rule_id.strip():
+                errors.append(f"{rule_path}.id must be a non-empty string")
+            elif rule_id in seen_ids:
+                errors.append(f"{rule_path}.id must be unique within the battlefield")
+            else:
+                seen_ids.add(rule_id)
+            start_row = rule.get("startRow")
+            if not is_finite_number(start_row) or start_row < 1 or int(start_row) != start_row:
+                errors.append(f"{rule_path}.startRow must be a positive integer")
+            elif int(start_row) in seen_rows:
+                errors.append(f"{rule_path}.startRow must be unique within the battlefield")
+            else:
+                seen_rows.add(int(start_row))
+            if not isinstance(rule.get("monsterStripePresetKey"), str) or not rule.get("monsterStripePresetKey", "").strip():
+                errors.append(f"{rule_path}.monsterStripePresetKey must be a non-empty string")
+    return errors
+
+def validate_monster_movement_config_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("monster config key must be a non-empty string"); continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object"); continue
+        if config.get("monsterConfigKey") != key:
+            errors.append(f"{path}.monsterConfigKey must match its object key")
+        if config.get("mode") not in ("ghost", "bigJump", "hopping"):
+            errors.append(f"{path}.mode must be ghost, bigJump, or hopping")
+        if config.get("easing") not in ("linear", "easeInOut", "easeOutBack"):
+            errors.append(f"{path}.easing is invalid")
+        duration = config.get("duration")
+        if not is_finite_number(duration) or duration <= 0:
+            errors.append(f"{path}.duration must be greater than zero")
+        for field in ("jumpHeight", "floatAmplitude"):
+            value = config.get(field)
+            if not is_finite_number(value) or value < 0:
+                errors.append(f"{path}.{field} must be zero or greater")
+        for field in ("hopCount", "floatCycles"):
+            value = config.get(field)
+            if not is_finite_number(value) or value < 1 or int(value) != value:
+                errors.append(f"{path}.{field} must be a positive integer")
+    return errors
