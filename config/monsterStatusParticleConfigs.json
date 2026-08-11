@@ -1,0 +1,79 @@
+{
+  "poison_vortex": {
+    "presetKey": "poison_vortex",
+    "name": "毒雾缠身",
+    "particlePresetKey": "carnivorous-spirit-fog",
+    "motionModeId": "vortex",
+    "motionParameters": {
+      "angularSpeed": 1.1,
+      "radialDrift": 0,
+      "verticalWave": 0.25,
+      "waveFrequency": 3
+    },
+    "anchor": "body",
+    "offset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "followMonster": true,
+    "capacity": 36,
+    "activeCount": 18,
+    "timeScale": 1,
+    "sizeScale": 0.75,
+    "fieldRadius": 1.35,
+    "seed": 12031,
+    "durationSec": 0
+  },
+  "burning_aura": {
+    "presetKey": "burning_aura",
+    "name": "燃烧环绕",
+    "particlePresetKey": "spark",
+    "motionModeId": "repulsor",
+    "motionParameters": {
+      "strength": 2.4,
+      "damping": 0.985,
+      "spawnRadius": 0.45,
+      "initialSpeed": 0.2
+    },
+    "anchor": "body",
+    "offset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "followMonster": true,
+    "capacity": 80,
+    "activeCount": 32,
+    "timeScale": 1,
+    "sizeScale": 2,
+    "fieldRadius": 1.5,
+    "seed": 4567,
+    "durationSec": 8
+  },
+  "cursed_halo": {
+    "presetKey": "cursed_halo",
+    "name": "诅咒光环",
+    "particlePresetKey": "halo",
+    "motionModeId": "attractor",
+    "motionParameters": {
+      "strength": 2.4,
+      "damping": 0.985,
+      "respawnRadius": 0.45
+    },
+    "anchor": "head",
+    "offset": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "followMonster": true,
+    "capacity": 64,
+    "activeCount": 24,
+    "timeScale": 0.7,
+    "sizeScale": 1.4,
+    "fieldRadius": 1.1,
+    "seed": 8912,
+    "durationSec": 12
+  }
+}

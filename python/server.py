@@ -23,6 +23,7 @@ from utils import (
     validate_monster_exclamation_position_payload, validate_special_status_visual_preset_payload,
     validate_monster_special_status_position_payload, validate_monster_battlefield_formation_payload,
     validate_monster_battlefield_stripe_rule_payload, validate_monster_movement_config_payload,
+    validate_monster_attack_config_payload, validate_monster_status_particle_config_payload,
     validate_avatar_config_payload
 )
 
@@ -44,6 +45,8 @@ MONSTER_SPECIAL_STATUS_POSITION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config
 MONSTER_BATTLEFIELD_FORMATION_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterBattlefieldFormations.json")
 MONSTER_BATTLEFIELD_STRIPE_RULE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterBattlefieldStripeRules.json")
 MONSTER_MOVEMENT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterMovementConfigs.json")
+MONSTER_ATTACK_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterAttackConfigs.json")
+MONSTER_STATUS_PARTICLE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStatusParticleConfigs.json")
 PARTICLE_EFFECT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleEffects.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
 PARTICLE_VISUAL_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleVisualPresets.json")
@@ -320,6 +323,13 @@ def handle_monster_battlefield_stripe_rules():
 @app.route("/api/monster-movement-configs", methods=["GET", "PUT"])
 def handle_monster_movement_configs():
     return _handle_json_config(MONSTER_MOVEMENT_CONFIG_PATH, validate_monster_movement_config_payload, "monster movement configs")
+
+@app.route("/api/monster-attack-configs", methods=["GET", "PUT"])
+def handle_monster_attack_configs():
+    return _handle_json_config(MONSTER_ATTACK_CONFIG_PATH, validate_monster_attack_config_payload, "monster attack configs")
+@app.route("/api/monster-status-particle-configs", methods=["GET", "PUT"])
+def handle_monster_status_particle_configs():
+    return _handle_json_config(MONSTER_STATUS_PARTICLE_CONFIG_PATH, validate_monster_status_particle_config_payload, "monster status particle configs")
 @app.route("/api/special-status-visual-presets", methods=["GET", "PUT"])
 def handle_special_status_visual_presets():
     return _handle_json_config(SPECIAL_STATUS_VISUAL_PRESET_CONFIG_PATH, validate_special_status_visual_preset_payload, "special status visual presets")

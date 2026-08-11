@@ -1,0 +1,58 @@
+{
+  "forward_lunge": {
+    "presetKey": "forward_lunge",
+    "name": "前冲扑击",
+    "modeId": "forward-lunge",
+    "parameters": {
+      "duration": 0.7,
+      "windupRatio": 0.22,
+      "strikeRatio": 0.62,
+      "distance": 3.2,
+      "windupDistance": 0.45,
+      "stretch": 0.16,
+      "squash": 0.12
+    }
+  },
+  "charged_ram": {
+    "presetKey": "charged_ram",
+    "name": "蓄力撞击",
+    "modeId": "charged-ram",
+    "parameters": {
+      "duration": 1.05,
+      "chargeRatio": 0.42,
+      "impactRatio": 0.7,
+      "distance": 2.7,
+      "shake": 0.16,
+      "shakeCycles": 6,
+      "squash": 0.2,
+      "impactStretch": 0.18
+    }
+  },
+  "jump_slam": {
+    "presetKey": "jump_slam",
+    "name": "跃起砸击",
+    "modeId": "jump-slam",
+    "parameters": {
+      "duration": 1.1,
+      "impactRatio": 0.62,
+      "height": 3.6,
+      "distance": 2.4,
+      "tiltDeg": 12,
+      "landingSquash": 0.24,
+      "reboundHeight": 0.45
+    }
+  },
+  "spin_strike": {
+    "presetKey": "spin_strike",
+    "name": "旋转攻击",
+    "modeId": "spin-strike",
+    "parameters": {
+      "duration": 0.9,
+      "spinTurns": 2,
+      "radius": 0.7,
+      "distance": 1.8,
+      "pulse": 0.12,
+      "pulseCycles": 3
+    }
+  }
+}
