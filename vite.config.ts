@@ -129,6 +129,8 @@ export default defineConfig({
         monsterFormationLab: path.resolve(__dirname, 'tools/monster-formation-lab/index.html'),
         monsterBattlefieldStripeRulesLab: path.resolve(__dirname, 'tools/monster-battlefield-stripe-rules-lab/index.html'),
         monsterMovementLab: path.resolve(__dirname, 'tools/monster-movement-lab/index.html'),
+        monsterAttackLab: path.resolve(__dirname, 'tools/monster-attack-lab/index.html'),
+        monsterStatusParticleLab: path.resolve(__dirname, 'tools/monster-status-particle-lab/index.html'),
         cameraSceneLab: path.resolve(__dirname, 'tools/camera-scene-lab/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         particleMotionLab: path.resolve(__dirname, 'tools/particle-motion-lab/index.html'),

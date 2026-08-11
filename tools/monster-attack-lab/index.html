@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="/" />
+    <title>怪物攻击动画 Lab</title>
+    <style>
+      :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; background: #080d14; color: #e8edf5; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      button, input, select { font: inherit; }
+      button { border: 1px solid #3a4961; border-radius: 7px; padding: 8px 10px; color: #e8edf5; background: #24324a; cursor: pointer; }
+      button:hover { border-color: #65a8ff; }
+      button:disabled { opacity: .45; cursor: default; }
+      input, select { width: 100%; border: 1px solid #344157; border-radius: 7px; padding: 8px 9px; color: #e8edf5; background: #101722; }
+      label { display: block; margin: 9px 0 5px; color: #aab7ca; font-size: 12px; }
+      @media (max-width: 900px) {
+        .attack-lab { grid-template-columns: 1fr !important; grid-template-rows: minmax(320px, 52vh) minmax(420px, 1fr); height: auto !important; min-height: 100vh; }
+        .attack-lab > aside { grid-row: 2; }
+        .attack-lab > main { grid-row: 1; min-height: 320px; }
+      }
+    </style>
+  </head>
+  <body><div id="root"></div><script type="module" src="/tools/monster-attack-lab/main.tsx"></script></body>
+</html>

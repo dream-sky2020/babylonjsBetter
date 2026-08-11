@@ -1285,27 +1285,124 @@ def validate_monster_movement_config_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict):
         return ["body must be a JSON object"]
+    if not payload:
+        return ["at least one movement preset is required"]
     for key, config in payload.items():
         path = f"root[{key}]"
         if not isinstance(key, str) or not key.strip():
-            errors.append("monster config key must be a non-empty string"); continue
+            errors.append("movement preset key must be a non-empty string"); continue
         if not isinstance(config, dict):
             errors.append(f"{path} must be an object"); continue
-        if config.get("monsterConfigKey") != key:
-            errors.append(f"{path}.monsterConfigKey must match its object key")
-        if config.get("mode") not in ("ghost", "bigJump", "hopping"):
-            errors.append(f"{path}.mode must be ghost, bigJump, or hopping")
-        if config.get("easing") not in ("linear", "easeInOut", "easeOutBack"):
-            errors.append(f"{path}.easing is invalid")
-        duration = config.get("duration")
+        if config.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(config.get("name"), str) or not config["name"].strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        if not isinstance(config.get("modeId"), str) or not config["modeId"].strip():
+            errors.append(f"{path}.modeId must be a non-empty string")
+        parameters = config.get("parameters")
+        if not isinstance(parameters, dict):
+            errors.append(f"{path}.parameters must be an object"); continue
+        for parameter_key, value in parameters.items():
+            parameter_path = f"{path}.parameters[{parameter_key}]"
+            if not isinstance(parameter_key, str) or not parameter_key.strip():
+                errors.append(f"{path}.parameters keys must be non-empty strings")
+            elif not isinstance(value, (str, int, float, bool)) or not (
+                isinstance(value, bool) or isinstance(value, str) or is_finite_number(value)
+            ):
+                errors.append(f"{parameter_path} must be a finite number, string, or boolean")
+        duration = parameters.get("duration")
         if not is_finite_number(duration) or duration <= 0:
-            errors.append(f"{path}.duration must be greater than zero")
-        for field in ("jumpHeight", "floatAmplitude"):
+            errors.append(f"{path}.parameters.duration must be greater than zero")
+    return errors
+def validate_monster_attack_config_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    if not payload:
+        return ["at least one attack preset is required"]
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("attack preset key must be a non-empty string"); continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object"); continue
+        if config.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(config.get("name"), str) or not config["name"].strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        if not isinstance(config.get("modeId"), str) or not config["modeId"].strip():
+            errors.append(f"{path}.modeId must be a non-empty string")
+        parameters = config.get("parameters")
+        if not isinstance(parameters, dict):
+            errors.append(f"{path}.parameters must be an object"); continue
+        for parameter_key, value in parameters.items():
+            parameter_path = f"{path}.parameters[{parameter_key}]"
+            if not isinstance(parameter_key, str) or not parameter_key.strip():
+                errors.append(f"{path}.parameters keys must be non-empty strings")
+            elif not isinstance(value, (str, int, float, bool)) or not (
+                isinstance(value, bool) or isinstance(value, str) or is_finite_number(value)
+            ):
+                errors.append(f"{parameter_path} must be a finite number, string, or boolean")
+        duration = parameters.get("duration")
+        if not is_finite_number(duration) or duration <= 0:
+            errors.append(f"{path}.parameters.duration must be greater than zero")
+    return errors
+
+
+def validate_monster_status_particle_config_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    if not payload:
+        return ["at least one monster status particle preset is required"]
+
+    def is_vector3(value):
+        return isinstance(value, dict) and all(is_finite_number(value.get(axis)) for axis in ("x", "y", "z"))
+
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("status particle preset key must be a non-empty string")
+            continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if config.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        for field in ("name", "particlePresetKey", "motionModeId"):
+            if not isinstance(config.get(field), str) or not config[field].strip():
+                errors.append(f"{path}.{field} must be a non-empty string")
+        if config.get("anchor") not in ("feet", "body", "head", "world"):
+            errors.append(f"{path}.anchor must be feet, body, head, or world")
+        if not isinstance(config.get("followMonster"), bool):
+            errors.append(f"{path}.followMonster must be a boolean")
+        if not is_vector3(config.get("offset")):
+            errors.append(f"{path}.offset must be a finite vector3")
+
+        parameters = config.get("motionParameters")
+        if not isinstance(parameters, dict):
+            errors.append(f"{path}.motionParameters must be an object")
+        else:
+            for parameter_key, value in parameters.items():
+                if not isinstance(parameter_key, str) or not parameter_key.strip():
+                    errors.append(f"{path}.motionParameters keys must be non-empty strings")
+                elif not (isinstance(value, (str, bool)) or is_finite_number(value) or is_vector3(value)):
+                    errors.append(f"{path}.motionParameters[{parameter_key}] must be a finite number, string, boolean, or vector3")
+
+        for field in ("capacity", "activeCount"):
             value = config.get(field)
-            if not is_finite_number(value) or value < 0:
-                errors.append(f"{path}.{field} must be zero or greater")
-        for field in ("hopCount", "floatCycles"):
+            minimum = 1 if field == "capacity" else 0
+            if not isinstance(value, int) or isinstance(value, bool) or value < minimum:
+                qualifier = "positive" if field == "capacity" else "non-negative"
+                errors.append(f"{path}.{field} must be a {qualifier} integer")
+        for field in ("timeScale", "sizeScale", "fieldRadius"):
             value = config.get(field)
-            if not is_finite_number(value) or value < 1 or int(value) != value:
-                errors.append(f"{path}.{field} must be a positive integer")
+            if not is_finite_number(value) or value <= 0:
+                errors.append(f"{path}.{field} must be greater than zero")
+        seed = config.get("seed")
+        if not isinstance(seed, int) or isinstance(seed, bool):
+            errors.append(f"{path}.seed must be an integer")
+        duration = config.get("durationSec")
+        if not is_finite_number(duration) or duration < 0:
+            errors.append(f"{path}.durationSec must be zero or greater")
     return errors
