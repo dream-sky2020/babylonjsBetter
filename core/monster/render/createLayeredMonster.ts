@@ -11,6 +11,7 @@ type LayerHandle = { sprite: IconPlaneController; baseMaterial: Material | null;
 export type LayeredMonsterController = {
   root: TransformNode;
   load: (config: MonsterDisplayConfig, monsterStripePreset: MonsterStripePreset | null, stripePresets: StripePresetLibrary) => void;
+  setStripePreset: (monsterStripePreset: MonsterStripePreset | null, stripePresets: StripePresetLibrary) => void;
   setFacingAxis: (axis: MonsterFacingAxis) => void;
   setTransform: (scale: number, height?: number, offsetX?: number) => void;
   setEffectOffset: (offsetX: number, offsetY?: number) => void;
@@ -93,6 +94,19 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
   return {
     root,
     load,
+    setStripePreset: (monsterStripePreset, stripePresets) => {
+      for (const [layerKey, handle] of layers) {
+        const layerStyle = monsterStripePreset?.layers[layerKey];
+        handle.sprite.mesh.setEnabled(layerStyle?.visible !== false);
+        const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
+        const stripePreset = stripePresets[stripeKey];
+        handle.stripe?.updatePreset(
+          stripeKey === STRIPE_NONE || !stripePreset
+            ? { mode: 'texture' }
+            : stripePreset
+        );
+      }
+    },
     setFacingAxis: (axis) => {
       facingAxis = axis;
       for (const handle of layers.values()) applyFacing(handle);
