@@ -6,9 +6,8 @@ import { createBurstCapsuleEffect } from '/core/effects/burst-capsule/index.ts';
 import { Color3 } from '@babylonjs/core';
 import {
   MONSTER_STRIPE_PRESET_URL,
-  MONSTER_RENDER_ORDER,
   STRIPE_PRESET_URL,
-  createLayeredMonster,
+  MonsterVisualManager,
   normalizeMonsterConfigLibrary,
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary
@@ -18,12 +17,7 @@ const MONSTER_DISPLAY_CONFIG_URL = '/config/monsterDisplayConfigs.json';
 const POP_NUMBER_PRESET_URL = '/config/popNumberPresets.json';
 const BURST_CAPSULE_PRESET_URL = '/config/burstCapsulePresets.json';
 const EFFECT_COLORS = ['#38bdf8', '#4ade80', '#f43f5e', '#a855f7', '#f59e0b'];
-const LAYER_SHAKE_PROFILES = {
-  bottomFillMask: { amplitude: 0.42, phase: 0.15, vertical: 0.1 },
-  bottomBorder: { amplitude: 0.68, phase: 1.35, vertical: 0.14 },
-  body: { amplitude: 1, phase: 2.6, vertical: 0.18 },
-  line: { amplitude: 1.28, phase: 4.05, vertical: 0.22 }
-};
+const PREVIEW_MONSTER_ID = 'hitMonster';
 
 const stage = document.getElementById('stage');
 const canvas = document.getElementById('preview');
@@ -59,13 +53,14 @@ if (!(stage instanceof HTMLElement) || !(canvas instanceof HTMLCanvasElement)
   || !(redStrengthInput instanceof HTMLInputElement)
   || !(hitColorInput instanceof HTMLInputElement)
   || !(statusText instanceof HTMLElement)) {
-  throw new Error('Monster Hit & Death Lab 初始化失败：页面元素不完整');
+  throw new Error('Monster Hit Lab 初始化失败：页面元素不完整');
 }
 
 const context = createCameraLabScene(canvas);
 const cameraController = createCameraLabController(context.camera);
 const cameraPanel = createFloatingCameraControlPanel(stage, cameraController);
-const monster = createLayeredMonster(context.scene, 'hitDeathMonster');
+const monsterVisualManager = new MonsterVisualManager(context.scene);
+monsterVisualManager.setHelpersVisible(false);
 const popNumberEffect = createPopNumberEffect(popNumberEffectLayer);
 const burstCapsuleEffect = createBurstCapsuleEffect(burstEffectCanvas);
 
@@ -78,9 +73,7 @@ const state = {
   activeMonsterConfigId: '',
   activeMonsterStripePresetId: '',
   activePopNumberPresetId: '',
-  activeBurstCapsulePresetId: '',
-  elapsedSec: 0,
-  hitStartedAtMs: -1
+  activeBurstCapsulePresetId: ''
 };
 
 const setStatus = (message, isError = false) => {
@@ -121,38 +114,15 @@ const refreshHitParameterLabels = () => {
   if (redStrengthValue) redStrengthValue.textContent = `${Math.round(Number(redStrengthInput.value) * 100)}%`;
 };
 
-const clearMonsterHitFeedback = () => {
-  state.hitStartedAtMs = -1;
-  monster.setEffectOffset(0, 0);
-  monster.clearLayerEffectOffsets();
-  monster.setColorOverlay(Color3.Red(), 0);
-};
-
 const startMonsterHitFeedback = () => {
-  state.hitStartedAtMs = performance.now();
-};
-
-const updateMonsterHitFeedback = (nowMs) => {
-  if (state.hitStartedAtMs < 0) return;
   const params = readHitParameters();
-  const progress = Math.max(0, Math.min(1, (nowMs - state.hitStartedAtMs) / params.durationMs));
-  if (progress >= 1) {
-    clearMonsterHitFeedback();
-    return;
-  }
-  const envelope = Math.pow(1 - progress, 1.35);
-  const phase = progress * params.durationMs / 1000 * params.shakeFrequency * Math.PI * 2;
-  const flashEnvelope = progress < 0.18 ? 1 : Math.pow(1 - (progress - 0.18) / 0.82, 1.6);
-  for (const layerKey of MONSTER_RENDER_ORDER) {
-    const profile = LAYER_SHAKE_PROFILES[layerKey];
-    const layerPhase = phase + profile.phase;
-    monster.setLayerEffectOffset(
-      layerKey,
-      Math.sin(layerPhase) * params.shakeAmplitude * profile.amplitude * envelope,
-      Math.sin(layerPhase * 1.73 + 0.8) * params.shakeAmplitude * profile.vertical * envelope
-    );
-  }
-  monster.setColorOverlay(params.color, params.redStrength * flashEnvelope);
+  monsterVisualManager.playMonsterHit(PREVIEW_MONSTER_ID, {
+    durationMs: params.durationMs,
+    shakeAmplitude: params.shakeAmplitude,
+    shakeFrequency: params.shakeFrequency,
+    overlayStrength: params.redStrength,
+    color: params.color
+  });
 };
 
 const playEffectsAt = (x, y) => {
@@ -180,11 +150,28 @@ const playEffectsAt = (x, y) => {
 };
 
 const renderSelectedMonster = () => {
-  clearMonsterHitFeedback();
+  monsterVisualManager.stopMonsterHit(PREVIEW_MONSTER_ID);
   const config = state.monsterConfigs[state.activeMonsterConfigId];
   const stripePreset = state.monsterStripePresets[state.activeMonsterStripePresetId] || null;
   if (!config) return;
-  monster.load(config, stripePreset, state.stripePresets);
+  monsterVisualManager.sync({
+    id: 'hitPreview',
+    name: '受击预览',
+    width: 1,
+    cellSize: 2.5,
+    rowSpacing: 4,
+    monsters: [{
+      id: PREVIEW_MONSTER_ID,
+      monsterConfigKey: state.activeMonsterConfigId,
+      monsterStripePresetKey: state.activeMonsterStripePresetId,
+      chaos: { value: 0, threshold: 100, duration: 0 },
+      position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: true }
+    }]
+  }, {
+    configs: state.monsterConfigs,
+    monsterStripes: state.monsterStripePresets,
+    stripes: state.stripePresets
+  }, '');
   const url = new URL(window.location.href);
   url.searchParams.set('monsterConfig', state.activeMonsterConfigId);
   if (state.activeMonsterStripePresetId) url.searchParams.set('monsterStripePreset', state.activeMonsterStripePresetId);
@@ -291,11 +278,9 @@ window.addEventListener('resize', () => context.engine.resize());
 
 context.engine.runRenderLoop(() => {
   const dt = context.engine.getDeltaTime() / 1000;
-  state.elapsedSec += dt;
   cameraController.update(dt);
   cameraPanel.updateStatus();
-  monster.updateTime(state.elapsedSec);
-  updateMonsterHitFeedback(performance.now());
+  monsterVisualManager.update(dt);
   context.scene.render();
 });
 
@@ -345,7 +330,7 @@ const boot = async () => {
 window.addEventListener('beforeunload', () => {
   popNumberEffect.dispose();
   burstCapsuleEffect.dispose();
-  monster.dispose();
+  monsterVisualManager.dispose();
   cameraPanel.dispose();
   context.dispose();
 });

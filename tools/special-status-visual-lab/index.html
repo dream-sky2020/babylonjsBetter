@@ -16,9 +16,20 @@
       padding: 0;
     }
 
-    body {
-      background: #0b1015;
-    }
+    :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+    body { background: #080d16; }
+    button, input, select { font: inherit; }
+    button { border: 1px solid #3b5575; border-radius: 9px; padding: 8px 11px; color: #eaf2ff; background: linear-gradient(180deg,#294260,#20344d); cursor: pointer; transition: .16s ease; }
+    button:hover { border-color: #67c5ef; transform: translateY(-1px); }
+    input, select { border: 1px solid #31445e; border-radius: 8px; padding: 8px 9px; color: #edf5ff; background: #0b1422; outline: none; }
+    input:focus, select:focus { border-color: #50b9e8; box-shadow: 0 0 0 3px rgba(56,189,248,.12); }
+    label { color: #aec0d7; font-size: 12px; line-height: 1.45; }
+    fieldset { margin: 0; padding: 12px; border: 1px solid rgba(102,160,205,.32); border-radius: 12px; background: rgba(18,31,49,.72); }
+    legend { padding: 0 7px; color: #dcecff; font-size: 12px; font-weight: 700; }
+    .lab-kicker { color: #55c7f4; font-size: 10px; font-weight: 800; letter-spacing: .18em; }
+    .control-card { border-color: rgba(82,196,240,.38); background: linear-gradient(145deg,rgba(22,44,69,.9),rgba(12,24,40,.9)); }
+    input[type="checkbox"] { width: auto !important; accent-color: #38bdf8; }
+    input[type="range"] { padding: 0; accent-color: #38bdf8; }
   </style>
 </head>
 <body>

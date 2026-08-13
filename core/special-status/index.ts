@@ -16,6 +16,8 @@ export { createSpecialStatus3d } from './render/createSpecialStatus3d.ts';
 export type {
   SpecialStatusVisual2dConfig,
   SpecialStatusVisual3dConfig,
+  SpecialStatusDefinition,
+  SpecialStatusDefinitionMap,
   SpecialStatusVisualPreset,
   SpecialStatusVisualPresetMap
 } from './preset/specialStatusVisualPreset.types.ts';

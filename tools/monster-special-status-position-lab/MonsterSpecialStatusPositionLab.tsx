@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import type { Scene } from '@babylonjs/core';
+import { Vector3, type Scene } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
-import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, createLayeredMonster, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type LayeredMonsterController, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterSpecialStatusRowAnchorMode, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
-import { getPublicResourceImagePaths, loadNumberSpritePresets, type NumberSpritePresetMap } from '@/core/sprite';
+import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, createDefaultMonsterSpecialStatusEntry, createDefaultMonsterSpecialStatusPositions, MonsterVisualManager, normalizeMonsterConfigLibrary, normalizeMonsterSpecialStatusPositions, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterSpecialStatusPositionConfig, type MonsterSpecialStatusRowAnchorMode, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
+import { loadNumberSpritePresets, type NumberSpritePresetMap } from '@/core/sprite';
 import { SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL, createSpecialStatus3d, normalizeSpecialStatusVisualPresets, type SpecialStatus3dConfig, type SpecialStatus3dController, type SpecialStatus3dValues, type SpecialStatus3dVisibility, type SpecialStatusVisualPresetMap } from '@/core/special-status';
 import { getResolvedDevServerPort, requestDevServer } from '@/core/network/devServerPortResolver.ts';
 type Vec3 = [
@@ -15,7 +15,7 @@ type Vec3 = [
 type StatusItem = {
     id: string;
     presetKey: string;
-    iconSrc: string;
+    statusId: string;
     values: SpecialStatus3dValues;
     visible: SpecialStatus3dVisibility;
 };
@@ -24,9 +24,11 @@ const fetchJson = async (url: string) => { const response = await fetch(`${url}?
     throw new Error(`${url}: HTTP ${response.status}`); return response.json(); };
 const vec = (value: Vec3): Vec3 => [...value];
 const POSITION_API_PATH = '/api/monster-special-status-positions';
+const PREVIEW_MONSTER_ID = 'monster-special-status-position-preview';
+const PREVIEW_BATTLEFIELD_ID = 'monster-special-status-position-preview-field';
 export const MonsterSpecialStatusPositionLab: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null), stageRef = useRef<HTMLElement>(null);
-    const sceneRef = useRef<Scene | null>(null), monsterRef = useRef<LayeredMonsterController | null>(null);
+    const sceneRef = useRef<Scene | null>(null), visualManagerRef = useRef<MonsterVisualManager | null>(null);
     const controllersRef = useRef(new Map<string, SpecialStatus3dController>()), generationRef = useRef(0);
     const snapshotsRef = useRef(new Map<string, {
         config: string;
@@ -47,7 +49,8 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
     const savedConfigRef = useRef(savedConfig), previousMonsterKeyRef = useRef('');
     const [serverPort, setServerPort] = useState<number | null>(null);
     const [items, setItems] = useState<StatusItem[]>([]), [selectedId, setSelectedId] = useState(''), [message, setMessage] = useState('正在加载配置…');
-    const images = useMemo(() => getPublicResourceImagePaths(true), []), selected = items.find((item) => item.id === selectedId) ?? null;
+    const selected = items.find((item) => item.id === selectedId) ?? null;
+    const statusDefinitions = useMemo(() => Object.values(visuals).flatMap(preset => Object.values(preset.statuses).map(status => ({ ...status, presetKey: preset.presetKey }))), [visuals]);
     useEffect(() => {
         void (async () => {
             try {
@@ -63,7 +66,8 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 const preferred = ml[mk]?.monsterStripePresetKey;
                 setStripeKey(ms[preferred] ? preferred : Object.keys(ms)[0] ?? '');
                 if (vk) {
-                    const first: StatusItem = { id: 'status_1', presetKey: vk, iconSrc: images[0] ?? '', values: [89, 42, 17, 64], visible: [true, true, true, true] };
+                    const firstDefinition = Object.values(vl[vk]?.statuses ?? {})[0];
+                    const first: StatusItem = { id: 'status_1', presetKey: vk, statusId: firstDefinition?.id ?? '', values: [89, 42, 17, 64], visible: [true, true, true, true] };
                     setItems([first]);
                     setSelectedId(first.id);
                 }
@@ -73,7 +77,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 setMessage(`加载失败：${String(error)}`);
             }
         })();
-    }, [images]);
+    }, []);
     useEffect(() => {
         void (async () => {
             try {
@@ -95,8 +99,6 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 setSpriteFacingAxis(loaded.global.spriteFacingAxis);
                 setStatusGroupScale(loaded.global.statusGroupScale);
                 setStatusSpacing(vec(loaded.global.statusSpacing));
-                if (loaded.global.visualPresetKey)
-                    setItems(current => current.map(item => ({ ...item, presetKey: loaded.global.visualPresetKey })));
                 const key = previousMonsterKeyRef.current || monsterKey;
                 if (key) {
                     const entry = loaded.monsters[key] ?? createDefaultMonsterSpecialStatusEntry(key);
@@ -110,6 +112,18 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
             }
         })();
     }, []);
+    useEffect(() => {
+        const presetKey = savedConfig.global.visualPresetKey;
+        const preset = visuals[presetKey];
+        if (!preset)
+            return;
+        const firstStatusId = Object.keys(preset.statuses)[0] ?? '';
+        setItems(current => current.map(item => ({
+            ...item,
+            presetKey,
+            statusId: preset.statuses[item.statusId] ? item.statusId : firstStatusId
+        })));
+    }, [visuals, savedConfig.global.visualPresetKey]);
     useEffect(() => {
         if (!monsterKey)
             return;
@@ -135,7 +149,9 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
             return;
         const context = createCameraLabScene(canvas), camera = createCameraLabController(context.camera), cameraPanel = createFloatingCameraControlPanel(stage, camera);
         sceneRef.current = context.scene;
-        monsterRef.current = createLayeredMonster(context.scene, 'monsterSpecialStatusLabMonster');
+        const visualManager = new MonsterVisualManager(context.scene);
+        visualManager.setHelpersVisible(false);
+        visualManagerRef.current = visualManager;
         const drag = { active: false, id: -1, x: 0, y: 0 };
         const down = (e: PointerEvent) => { if (e.button !== 0)
             return; if (camera.state.lookControlMode === 'pointerLock') {
@@ -165,27 +181,26 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         window.addEventListener('keydown', kd);
         window.addEventListener('keyup', ku);
         window.addEventListener('resize', resize);
-        let time = 0;
-        context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; time += dt; camera.update(dt); cameraPanel.updateStatus(); monsterRef.current?.updateTime(time); context.scene.render(); });
+        context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; camera.update(dt); cameraPanel.updateStatus(); visualManager.update(dt); context.scene.render(); });
         return () => { canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', up); canvas.removeEventListener('wheel', wheel); document.removeEventListener('mousemove', docMove); document.removeEventListener('pointerlockchange', lock); window.removeEventListener('keydown', kd); window.removeEventListener('keyup', ku); window.removeEventListener('resize', resize); for (const controller of controllersRef.current.values())
-            controller.dispose(); controllersRef.current.clear(); snapshotsRef.current.clear(); monsterRef.current?.dispose(); cameraPanel.dispose(); context.dispose(); sceneRef.current = null; };
+            controller.dispose(); controllersRef.current.clear(); snapshotsRef.current.clear(); visualManager.dispose(); visualManagerRef.current = null; cameraPanel.dispose(); context.dispose(); sceneRef.current = null; };
     }, []);
-    useEffect(() => { const monster = monsterRef.current, config = monsters[monsterKey]; if (!monster || !config)
-        return; monster.load(config, monsterStripes[stripeKey] ?? null, stripes); monster.root.position.addInPlaceFromFloats(...monsterOffset); }, [monsters, monsterStripes, stripes, monsterKey, stripeKey, monsterOffset]);
-    useEffect(() => { const scene = sceneRef.current, monster = monsterRef.current; if (!scene || !monster)
+    useEffect(() => { const manager = visualManagerRef.current, config = monsters[monsterKey]; if (!manager || !config)
+        return; manager.sync({ id: PREVIEW_BATTLEFIELD_ID, name: 'Special Status Position Preview', width: 1, cellSize: 1, rowSpacing: 1, monsters: [{ id: PREVIEW_MONSTER_ID, typeId: monsterKey, monsterConfigKey: monsterKey, monsterStripePresetKey: stripeKey, position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: true }, chaos: { value: 0, threshold: 100, duration: 0 } }] }, { configs: monsters, monsterStripes, stripes }, PREVIEW_MONSTER_ID); manager.setMonsterInstanceOffset(PREVIEW_MONSTER_ID, new Vector3(...monsterOffset)); }, [monsters, monsterStripes, stripes, monsterKey, stripeKey, monsterOffset]);
+    useEffect(() => { const scene = sceneRef.current, manager = visualManagerRef.current, monsterOrigin = manager?.getMonsterVisualWorldPosition(PREVIEW_MONSTER_ID); if (!scene || !manager || !monsterOrigin)
         return; const generation = ++generationRef.current, ids = new Set(items.map(i => i.id)); for (const [id, c] of controllersRef.current)
         if (!ids.has(id)) {
             c.dispose();
             controllersRef.current.delete(id);
             snapshotsRef.current.delete(id);
         } void (async () => { const columns = Math.max(1, Math.floor(statusWrapCount)), rowCount = Math.max(1, Math.ceil(items.length / columns)); for (const [itemIndex, item] of items.entries()) {
-        const preset = visuals[item.presetKey], number = preset && numbers[preset.babylon3d.numberPresetKey];
+        const preset = visuals[item.presetKey], statusDefinition = preset?.statuses[item.statusId], number = preset && numbers[preset.babylon3d.numberPresetKey];
         if (!preset || !number)
             continue;
         const p = preset.babylon3d, row = Math.floor(itemIndex / columns), column = itemIndex % columns, itemsInRow = Math.min(columns, items.length - row * columns), centeredColumn = column - (itemsInRow - 1) / 2;
         const rowOffset = statusRowAnchorMode === 'first-row-up' ? row : statusRowAnchorMode === 'first-row-down' ? -row : row - (rowCount - 1) / 2;
-        const position: Vec3 = [monster.root.position.x + p.position[0] + statusGroupOffset[0] + statusSpacing[0] * centeredColumn, monster.root.position.y + p.position[1] + statusGroupOffset[1] + statusSpacing[1] * rowOffset, monster.root.position.z + p.position[2] + statusGroupOffset[2] + statusSpacing[2] * rowOffset];
-        const config: SpecialStatus3dConfig = { iconPath: item.iconSrc || '/resources/favicon.svg', numberPreset: number, statusHeight: p.statusHeight, statusScale: p.statusScale, numberScale: p.numberScale, cornerInset: p.cornerInset, position, numberOffsets: p.numberOffsets.map(vec) as SpecialStatus3dConfig['numberOffsets'], billboard: faceCamera };
+        const position: Vec3 = [monsterOrigin.x + p.position[0] + statusGroupOffset[0] + statusSpacing[0] * centeredColumn, monsterOrigin.y + p.position[1] + statusGroupOffset[1] + statusSpacing[1] * rowOffset, monsterOrigin.z + p.position[2] + statusGroupOffset[2] + statusSpacing[2] * rowOffset];
+        const config: SpecialStatus3dConfig = { iconPath: statusDefinition?.imagePath || '/resources/favicon.svg', numberPreset: number, statusHeight: p.statusHeight, statusScale: p.statusScale, numberScale: p.numberScale, cornerInset: p.cornerInset, position, numberOffsets: p.numberOffsets.map(vec) as SpecialStatus3dConfig['numberOffsets'], billboard: faceCamera };
         const configSignature = JSON.stringify([config, statusGroupScale]), stateSignature = JSON.stringify([item.values, item.visible]);
         let controller = controllersRef.current.get(item.id);
         const previous = snapshotsRef.current.get(item.id);
@@ -256,10 +271,9 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
         }
     };
     const update = (fn: (item: StatusItem) => StatusItem) => setItems(current => { const selectedItem = current.find(item => item.id === selectedId); if (!selectedItem)
-        return current; const next = fn(selectedItem); if (next.presetKey !== selectedItem.presetKey)
-        return current.map(item => ({ ...item, presetKey: next.presetKey })); return current.map(item => item.id === selectedId ? next : item); });
-    const add = () => { const presetKey = Object.keys(visuals)[0] ?? ''; if (!presetKey)
-        return; const id = `status_${Date.now().toString(36)}`, item: StatusItem = { id, presetKey, iconSrc: images[0] ?? '', values: [0, 0, 0, 0], visible: [true, true, true, true] }; setItems(current => [...current, item]); setSelectedId(id); };
+        return current; const next = fn(selectedItem); return current.map(item => item.id === selectedId ? next : item); });
+    const add = () => { const definition = statusDefinitions[0]; if (!definition)
+        return; const id = `status_${Date.now().toString(36)}`, item: StatusItem = { id, presetKey: definition.presetKey, statusId: definition.id, values: [0, 0, 0, 0], visible: [true, true, true, true] }; setItems(current => [...current, item]); setSelectedId(id); };
     const copySelected = () => { if (!selected)
         return; const id = `status_${Date.now().toString(36)}`, copy: StatusItem = { ...selected, id, values: [...selected.values] as SpecialStatus3dValues, visible: [...selected.visible] as SpecialStatus3dVisibility }; setItems(current => [...current, copy]); setSelectedId(id); };
     const remove = () => { if (!selected)
@@ -289,7 +303,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
                 <label>特殊状态排列间距 XYZ</label>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 6 }}>{['X', 'Y', 'Z'].map((a, i) => <input key={a} aria-label={`状态间距${a}`} type="number" step="0.1" value={statusSpacing[i]} onChange={e => setStatusSpacing(axis(statusSpacing, i, Number(e.target.value)))}/>)}</div>
                 <label>视觉预设（整体）</label>
-                <select value={selected?.presetKey ?? savedConfig.global.visualPresetKey} onChange={e => { const presetKey = e.target.value; setItems(current => current.map(item => ({ ...item, presetKey }))); }}>{Object.entries(visuals).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
+                <select value={selected?.presetKey ?? savedConfig.global.visualPresetKey} onChange={e => { const presetKey = e.target.value, firstStatusId = Object.keys(visuals[presetKey]?.statuses ?? {})[0] ?? ''; setItems(current => current.map(item => ({ ...item, presetKey, statusId: visuals[presetKey]?.statuses[item.statusId] ? item.statusId : firstStatusId }))); }}>{Object.entries(visuals).map(([key, item]) => <option key={key} value={key}>{key} · {item.name}</option>)}</select>
                 <label style={{ display: 'flex', gap: 7, alignItems: 'center' }}><input style={{ width: 'auto' }} type="checkbox" checked={faceCamera} onChange={e => setFaceCamera(e.target.checked)}/>面向摄像机（仅测试，不保存）</label>
                 <label style={{ display: 'flex', gap: 7, alignItems: 'center' }}><input aria-label="core sprite debug" style={{ width: 'auto' }} type="checkbox" checked={spriteDebugVisible} onChange={e => setSpriteDebugVisible(e.target.checked)}/>Core Sprite Debug（仅测试，不保存）</label>
             </section>
@@ -308,7 +322,7 @@ export const MonsterSpecialStatusPositionLab: React.FC = () => {
             <section style={section}>
                 <h3 style={{ margin: '0 0 9px' }}>单个特殊状态测试参数（不保存）</h3>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 6 }}><select value={selectedId} onChange={e => setSelectedId(e.target.value)}>{items.map((item, i) => <option key={item.id} value={item.id}>特殊状态 {i + 1}</option>)}</select><button onClick={add}>添加</button><button onClick={copySelected}>复制</button><button onClick={remove}>删除</button></div>
-                {selected ? <><label>当前图标</label><select value={images.includes(selected.iconSrc) ? selected.iconSrc : ''} onChange={e => update(item => ({ ...item, iconSrc: e.target.value }))}><option value="">占位图标</option>{images.map(path => <option key={path} value={path}>{path}</option>)}</select><label>图标路径</label><input value={selected.iconSrc} onChange={e => update(item => ({ ...item, iconSrc: e.target.value }))}/>{labels.map((label, i) => <div key={label} style={{ display: 'grid', gridTemplateColumns: '60px 1fr 62px', gap: 6, alignItems: 'end' }}><label>{label}</label><input type="number" value={selected.values[i]} onChange={e => update(item => { const values = [...item.values] as SpecialStatus3dValues; values[i] = Number(e.target.value); return { ...item, values }; })}/><label style={{ display: 'flex', alignItems: 'center', gap: 4 }}><input style={{ width: 'auto' }} type="checkbox" checked={selected.visible[i]} onChange={e => update(item => { const visible = [...item.visible] as SpecialStatus3dVisibility; visible[i] = e.target.checked; return { ...item, visible }; })}/>显示</label></div>)}</> : <div>请添加特殊状态</div>}
+                {selected ? <><label>特殊状态视觉配置</label><select value={`${selected.presetKey}:${selected.statusId}`} onChange={e => { const [presetKey, statusId] = e.target.value.split(':'); update(item => ({ ...item, presetKey, statusId })); }}>{statusDefinitions.map(status => <option key={`${status.presetKey}:${status.id}`} value={`${status.presetKey}:${status.id}`}>{status.id} · {status.name}</option>)}</select><small style={{ color: '#8190a6' }}>{visuals[selected.presetKey]?.statuses[selected.statusId]?.imagePath || '未配置图片'}</small>{labels.map((label, i) => <div key={label} style={{ display: 'grid', gridTemplateColumns: '60px 1fr 62px', gap: 6, alignItems: 'end' }}><label>{label}</label><input type="number" value={selected.values[i]} onChange={e => update(item => { const values = [...item.values] as SpecialStatus3dValues; values[i] = Number(e.target.value); return { ...item, values }; })}/><label style={{ display: 'flex', alignItems: 'center', gap: 4 }}><input style={{ width: 'auto' }} type="checkbox" checked={selected.visible[i]} onChange={e => update(item => { const visible = [...item.visible] as SpecialStatus3dVisibility; visible[i] = e.target.checked; return { ...item, visible }; })}/>显示</label></div>)}</> : <div>请添加特殊状态</div>}
             </section>
 
             <section style={section}>

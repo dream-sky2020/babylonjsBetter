@@ -1,6 +1,11 @@
 import { Color3, TransformNode, Vector3, type Material, type Scene } from '@babylonjs/core';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
-import { createSpriteMaskMaterial, type StripeMaskMaterialController } from '@/core/sprite/render/createSpriteEffectMaterial.ts';
+import {
+  createSpriteMaskMaterial,
+  type StripeLayerProgressOptions,
+  type StripeMaskMaterialController,
+  type StripeProgressMaskOptions
+} from '@/core/sprite/render/createSpriteEffectMaterial.ts';
 import { MONSTER_RENDER_ORDER, STRIPE_NONE } from '@/core/monster/config/monsterConfig.ts';
 import { toMonsterResourceUrl } from '@/core/monster/resource/monsterResources.ts';
 import type { MonsterDisplayConfig, MonsterFacingAxis, MonsterLayerKey, MonsterStripePreset, StripePresetLibrary } from '@/core/monster/types/monster.types.ts';
@@ -18,6 +23,11 @@ export type LayeredMonsterController = {
   setLayerEffectOffset: (key: MonsterLayerKey, offsetX: number, offsetY?: number) => void;
   clearLayerEffectOffsets: () => void;
   setColorOverlay: (color: Color3, alpha: number) => void;
+  setLayerProgress: (
+    key: MonsterLayerKey,
+    progress: StripeProgressMaskOptions,
+    layerProgress: StripeLayerProgressOptions
+  ) => void;
   updateTime: (timeSec: number) => void;
   getLayerMesh: (key: MonsterLayerKey) => IconPlaneController['mesh'] | null;
   dispose: () => void;
@@ -140,6 +150,12 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
         handle.sprite.mesh.overlayAlpha = normalizedAlpha;
         handle.sprite.mesh.renderOverlay = normalizedAlpha > 0.001;
       }
+    },
+    setLayerProgress: (key, progress, layerProgress) => {
+      const stripe = layers.get(key)?.stripe;
+      if (!stripe) return;
+      stripe.updateProgress(progress);
+      stripe.updateLayerProgress(layerProgress);
     },
     updateTime: (timeSec) => {
       for (const handle of layers.values()) handle.stripe?.updateTime(timeSec);
