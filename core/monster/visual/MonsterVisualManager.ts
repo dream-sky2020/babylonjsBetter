@@ -14,6 +14,16 @@ import {
 import type { Monster } from '@/core/monster/data';
 import { getMonsterMotionDefinition, type MonsterMotionParameterValues, type MonsterMotionPreset } from '@/core/monster-motion';
 import { getMonsterAttackDefinition, type MonsterAttackParameterValues, type MonsterAttackPreset } from '@/core/monster-attack-motion';
+import {
+  createSpecialStatus3d,
+  type SpecialStatus3dConfig,
+  type SpecialStatus3dController,
+  type SpecialStatus3dValues,
+  type SpecialStatus3dVisibility,
+  type SpecialStatusVisualPresetMap
+} from '@/core/special-status';
+import type { NumberSpritePresetMap } from '@/core/sprite';
+import type { MonsterSpecialStatusRowAnchorMode } from '@/core/monster/special-status/monsterSpecialStatusPosition.types.ts';
 
 export type VisualMonster = Monster & {
   monsterConfigKey: string;
@@ -35,6 +45,30 @@ export type MonsterVisualResources = {
   stripes: StripePresetLibrary;
 };
 
+export type MonsterSpecialStatusVisualItem = {
+  id: string;
+  presetKey: string;
+  statusId: string;
+  values: SpecialStatus3dValues;
+  visible: SpecialStatus3dVisibility;
+};
+
+export type MonsterSpecialStatusVisualResources = {
+  visualPresets: SpecialStatusVisualPresetMap;
+  numberPresets: NumberSpritePresetMap;
+};
+
+export type MonsterSpecialStatusVisualLayout = {
+  spacing: [number, number, number];
+  groupOffset: [number, number, number];
+  groupScale: number;
+  wrapCount: number;
+  rowAnchorMode: MonsterSpecialStatusRowAnchorMode;
+  billboard: boolean;
+  debugVisible: boolean;
+  facingAxis: '+Z' | '-Z';
+};
+
 type MonsterVisualEntry = {
   controller: LayeredMonsterController;
   anchor: TransformNode;
@@ -47,6 +81,16 @@ type MonsterVisualEntry = {
   stripePreset: MonsterStripePresetLibrary[string] | null;
   stripeLibrary: StripePresetLibrary;
   markerWidth: number;
+};
+
+type MonsterSpecialStatusVisualEntry = {
+  controller: SpecialStatus3dController;
+  configSignature: string;
+  stateSignature: string;
+};
+
+type SpecialStatusPreviewEntry = MonsterSpecialStatusVisualEntry & {
+  generation: number;
 };
 
 type ActiveMonsterMotion = {
@@ -144,10 +188,15 @@ export const calculateMonsterWorldPosition = (
 
 /** 只负责把编队数据同步为 Babylon 视觉对象，不修改战场数据。 */
 export class MonsterVisualManager {
+  private readonly scene: Scene;
   private readonly monsters = new Map<string, MonsterVisualEntry>();
   private readonly motions = new Map<string, ActiveMonsterMotion>();
   private readonly attacks = new Map<string, ActiveMonsterAttack>();
   private readonly hits = new Map<string, ActiveMonsterHit>();
+  private readonly specialStatuses = new Map<string, Map<string, MonsterSpecialStatusVisualEntry>>();
+  private readonly specialStatusGenerations = new Map<string, number>();
+  private readonly specialStatusPreviews = new Map<string, SpecialStatusPreviewEntry>();
+  private readonly specialStatusPreviewGenerations = new Map<string, number>();
   private readonly distanceStripeRules = new Map<string, BattlefieldDistanceStripeRuleConfig>();
   private readonly root: TransformNode;
   private readonly gridRoot: TransformNode;
@@ -156,7 +205,8 @@ export class MonsterVisualManager {
   private helpersVisible = true;
   private time = 0;
 
-  constructor(private readonly scene: Scene) {
+  constructor(scene: Scene) {
+    this.scene = scene;
     this.root = new TransformNode('monsterFormationVisuals', scene);
     this.gridRoot = new TransformNode('monsterFormationGrid', scene);
   }
@@ -217,6 +267,7 @@ export class MonsterVisualManager {
       this.motions.delete(monsterId);
       this.attacks.delete(monsterId);
       this.hits.delete(monsterId);
+      this.clearMonsterSpecialStatuses(monsterId);
     }
 
     for (const item of battlefield.monsters) {
@@ -229,6 +280,7 @@ export class MonsterVisualManager {
           this.motions.delete(item.id);
           this.attacks.delete(item.id);
           this.hits.delete(item.id);
+          this.clearMonsterSpecialStatuses(item.id);
         }
         continue;
       }
@@ -497,6 +549,173 @@ export class MonsterVisualManager {
     entry.marker.position.addInPlace(offset);
   }
 
+  /**
+   * 将某个怪物当前的特殊状态数据同步为视觉对象。
+   * 状态节点挂在怪物视觉根节点下，因此会自动跟随移动、攻击和受击动画。
+   */
+  async syncMonsterSpecialStatuses(
+    monsterId: string,
+    items: readonly MonsterSpecialStatusVisualItem[],
+    resources: MonsterSpecialStatusVisualResources,
+    layout: MonsterSpecialStatusVisualLayout
+  ): Promise<void> {
+    const monster = this.monsters.get(monsterId);
+    if (!monster) {
+      this.clearMonsterSpecialStatuses(monsterId);
+      return;
+    }
+
+    const generation = (this.specialStatusGenerations.get(monsterId) ?? 0) + 1;
+    this.specialStatusGenerations.set(monsterId, generation);
+    const entries = this.specialStatuses.get(monsterId) ?? new Map<string, MonsterSpecialStatusVisualEntry>();
+    this.specialStatuses.set(monsterId, entries);
+    const nextIds = new Set(items.map((item) => item.id));
+    for (const [statusVisualId, entry] of entries) {
+      if (nextIds.has(statusVisualId)) continue;
+      entry.controller.dispose();
+      entries.delete(statusVisualId);
+    }
+
+    const columns = Math.max(1, Math.floor(layout.wrapCount));
+    const rowCount = Math.max(1, Math.ceil(items.length / columns));
+    for (const [itemIndex, item] of items.entries()) {
+      if (this.specialStatusGenerations.get(monsterId) !== generation) return;
+      const preset = resources.visualPresets[item.presetKey];
+      const statusDefinition = preset?.statuses[item.statusId];
+      const numberPreset = preset && resources.numberPresets[preset.babylon3d.numberPresetKey];
+      if (!preset || !statusDefinition || !numberPreset) {
+        const invalidEntry = entries.get(item.id);
+        invalidEntry?.controller.dispose();
+        entries.delete(item.id);
+        continue;
+      }
+
+      const row = Math.floor(itemIndex / columns);
+      const column = itemIndex % columns;
+      const itemsInRow = Math.min(columns, items.length - row * columns);
+      const centeredColumn = column - (itemsInRow - 1) / 2;
+      const rowOffset = layout.rowAnchorMode === 'first-row-up'
+        ? row
+        : layout.rowAnchorMode === 'first-row-down'
+          ? -row
+          : row - (rowCount - 1) / 2;
+      const visual = preset.babylon3d;
+      const position: [number, number, number] = [
+        visual.position[0] + layout.groupOffset[0] + layout.spacing[0] * centeredColumn,
+        visual.position[1] + layout.groupOffset[1] + layout.spacing[1] * rowOffset,
+        visual.position[2] + layout.groupOffset[2] + layout.spacing[2] * rowOffset
+      ];
+      const config: SpecialStatus3dConfig = {
+        iconPath: statusDefinition.imagePath || '/resources/favicon.svg',
+        numberPreset,
+        statusHeight: visual.statusHeight,
+        statusScale: visual.statusScale,
+        numberScale: visual.numberScale,
+        cornerInset: visual.cornerInset,
+        position,
+        numberOffsets: visual.numberOffsets.map((offset) => [...offset]) as SpecialStatus3dConfig['numberOffsets'],
+        billboard: layout.billboard,
+        facingAxis: layout.facingAxis
+      };
+      const configSignature = JSON.stringify([config, layout.groupScale, layout.debugVisible]);
+      const stateSignature = JSON.stringify([item.values, item.visible]);
+      let entry = entries.get(item.id);
+      if (!entry) {
+        const controller = await createSpecialStatus3d(this.scene, config, {
+          values: item.values,
+          visible: item.visible,
+          debug: layout.debugVisible
+        }, `monsterStatus_${monsterId}_${item.id}`);
+        if (this.specialStatusGenerations.get(monsterId) !== generation || !this.monsters.has(monsterId)) {
+          controller.dispose();
+          return;
+        }
+        controller.root.parent = monster.controller.root;
+        controller.root.scaling.setAll(Math.max(0.01, layout.groupScale));
+        entry = { controller, configSignature, stateSignature };
+        entries.set(item.id, entry);
+        continue;
+      }
+      if (entry.configSignature !== configSignature) {
+        await entry.controller.setConfig(config);
+        if (this.specialStatusGenerations.get(monsterId) !== generation) return;
+        entry.controller.root.scaling.setAll(Math.max(0.01, layout.groupScale));
+        entry.controller.setDebugVisible(layout.debugVisible);
+        entry.configSignature = configSignature;
+      }
+      if (entry.stateSignature !== stateSignature) {
+        await entry.controller.setValues(item.values, item.visible);
+        if (this.specialStatusGenerations.get(monsterId) !== generation) return;
+        entry.stateSignature = stateSignature;
+      }
+    }
+  }
+
+  clearMonsterSpecialStatuses(monsterId: string): void {
+    this.specialStatusGenerations.set(monsterId, (this.specialStatusGenerations.get(monsterId) ?? 0) + 1);
+    const entries = this.specialStatuses.get(monsterId);
+    entries?.forEach(({ controller }) => controller.dispose());
+    this.specialStatuses.delete(monsterId);
+  }
+
+  clearAllMonsterSpecialStatuses(): void {
+    for (const monsterId of [...this.specialStatuses.keys()]) this.clearMonsterSpecialStatuses(monsterId);
+    this.specialStatusGenerations.clear();
+  }
+
+  /** 管理不依附怪物的单个特殊状态预览，供视觉配置场景复用正式渲染逻辑。 */
+  async syncSpecialStatusPreview(
+    previewId: string,
+    config: SpecialStatus3dConfig,
+    values: SpecialStatus3dValues,
+    visible: SpecialStatus3dVisibility,
+    debugVisible: boolean
+  ): Promise<void> {
+    const generation = (this.specialStatusPreviewGenerations.get(previewId) ?? 0) + 1;
+    this.specialStatusPreviewGenerations.set(previewId, generation);
+    const configSignature = JSON.stringify([config, debugVisible]);
+    const stateSignature = JSON.stringify([values, visible]);
+    let entry = this.specialStatusPreviews.get(previewId);
+    if (!entry) {
+      const controller = await createSpecialStatus3d(this.scene, config, {
+        values,
+        visible,
+        debug: debugVisible
+      }, `specialStatusPreview_${previewId}`);
+      if (this.specialStatusPreviewGenerations.get(previewId) !== generation) {
+        controller.dispose();
+        return;
+      }
+      controller.root.parent = this.root;
+      entry = { controller, configSignature, stateSignature, generation };
+      this.specialStatusPreviews.set(previewId, entry);
+      return;
+    }
+    entry.generation = generation;
+    if (entry.configSignature !== configSignature) {
+      await entry.controller.setConfig(config);
+      if (this.specialStatusPreviewGenerations.get(previewId) !== generation) return;
+      entry.controller.setDebugVisible(debugVisible);
+      entry.configSignature = configSignature;
+    }
+    if (entry.stateSignature !== stateSignature) {
+      await entry.controller.setValues(values, visible);
+      if (this.specialStatusPreviewGenerations.get(previewId) !== generation) return;
+      entry.stateSignature = stateSignature;
+    }
+  }
+
+  clearSpecialStatusPreview(previewId: string): void {
+    this.specialStatusPreviewGenerations.set(previewId, (this.specialStatusPreviewGenerations.get(previewId) ?? 0) + 1);
+    this.specialStatusPreviews.get(previewId)?.controller.dispose();
+    this.specialStatusPreviews.delete(previewId);
+  }
+
+  clearAllSpecialStatusPreviews(): void {
+    for (const previewId of [...this.specialStatusPreviews.keys()]) this.clearSpecialStatusPreview(previewId);
+    this.specialStatusPreviewGenerations.clear();
+  }
+
   /** 为配置编辑器提供只读的图层网格，不转移怪物视觉对象的生命周期。 */
   getMonsterLayerMesh(monsterId: string, layerKey: (typeof MONSTER_RENDER_ORDER)[number]): Mesh | null {
     return this.monsters.get(monsterId)?.controller.getLayerMesh(layerKey) ?? null;
@@ -630,6 +849,8 @@ export class MonsterVisualManager {
     this.motions.clear();
     this.attacks.clear();
     this.hits.clear();
+    this.clearAllMonsterSpecialStatuses();
+    this.clearAllSpecialStatusPreviews();
     this.monsters.forEach((entry) => this.disposeMonsterEntry(entry));
     this.monsters.clear();
     this.gridRoot.getChildMeshes().forEach((mesh) => {
