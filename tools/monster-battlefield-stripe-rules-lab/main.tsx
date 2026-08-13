@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Color3, MeshBuilder, StandardMaterial, TransformNode, type Scene } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
@@ -9,20 +8,23 @@ import {
   MONSTER_CONFIG_URL,
   MONSTER_STRIPE_PRESET_URL,
   STRIPE_PRESET_URL,
-  createLayeredMonster,
   normalizeMonsterConfigLibrary,
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary,
-  type LayeredMonsterController,
   type MonsterDisplayConfigLibrary,
   type MonsterStripePresetLibrary,
   type StripePresetLibrary
 } from '@/core/monster';
+import {
+  MonsterVisualManager,
+  normalizeDistanceStripeRuleConfig,
+  resolveDistanceStripePresetKey,
+  type BattlefieldDistanceStripeRuleConfig as BattlefieldStripeRuleConfig,
+  type VisualBattlefield as Battlefield,
+  type VisualMonster as MonsterPlacement,
+  type MonsterDistanceStripeRule as StripeRule
+} from '@/core/monster';
 
-type MonsterPlacement = { id: string; monsterConfigKey: string; monsterStripePresetKey: string; positionMode: 'grid' | 'center'; slots: number; row: number; column: number };
-type Battlefield = { id: string; name: string; width: number; cellSize: number; rowSpacing: number; monsters: MonsterPlacement[] };
-type StripeRule = { id: string; startRow: number; monsterStripePresetKey: string };
-type BattlefieldStripeRuleConfig = { battlefieldId: string; name: string; rules: StripeRule[] };
 
 const FORMATION_CONFIG_URL = '/config/monsterBattlefieldFormations.json';
 const RULE_CONFIG_URL = '/config/monsterBattlefieldStripeRules.json';
@@ -44,29 +46,14 @@ const normalizeBattlefield = (value: Partial<Battlefield>, fallbackId: string): 
     id: typeof monster.id === 'string' && monster.id ? monster.id : `${fallbackId}_${index}`,
     monsterConfigKey: typeof monster.monsterConfigKey === 'string' ? monster.monsterConfigKey : '',
     monsterStripePresetKey: typeof monster.monsterStripePresetKey === 'string' ? monster.monsterStripePresetKey : '',
-    positionMode: monster.positionMode === 'center' ? 'center' : 'grid',
-    slots: positiveInt(monster.slots),
-    row: indexInt(monster.row),
-    column: indexInt(monster.column, index)
+    chaos: monster.chaos ?? { value: 0, threshold: 100, duration: 0 },
+    position: {
+      row: indexInt(monster.position?.row ?? monster.row),
+      column: indexInt(monster.position?.column ?? monster.column, index),
+      size: positiveInt(monster.position?.size ?? monster.slots),
+      isOccupyingFullRowCentered: Boolean(monster.position?.isOccupyingFullRowCentered ?? monster.positionMode === 'center')
+    }
   })) : []
-});
-
-const normalizeRuleConfig = (battlefieldId: string, value?: Partial<BattlefieldStripeRuleConfig>): BattlefieldStripeRuleConfig => ({
-  battlefieldId,
-  name: typeof value?.name === 'string' && value.name.trim() ? value.name : `${battlefieldId} 条纹距离规则`,
-  rules: Array.isArray(value?.rules) ? value.rules.map((rule, index) => ({
-    id: typeof rule.id === 'string' && rule.id.trim() ? rule.id : `rule_${index + 1}`,
-    startRow: positiveInt(rule.startRow, index + 1),
-    monsterStripePresetKey: typeof rule.monsterStripePresetKey === 'string' ? rule.monsterStripePresetKey : ''
-  })).sort((a, b) => a.startRow - b.startRow) : []
-});
-
-const calculatePlacement = (battlefield: Battlefield, monster: MonsterPlacement) => ({
-  row: monster.row,
-  column: monster.column,
-  slots: monster.slots,
-  x: monster.positionMode === 'center' ? 0 : (monster.column + monster.slots / 2 - battlefield.width / 2) * battlefield.cellSize,
-  z: -monster.row * battlefield.rowSpacing
 });
 
 const fetchJson = async (url: string) => {
@@ -81,20 +68,11 @@ const loadRules = async (): Promise<Record<string, BattlefieldStripeRuleConfig>>
     const payload = await response.json();
     if (!response.ok || payload.success === false) throw new Error(payload.message || `HTTP ${response.status}`);
     const data = payload.data && typeof payload.data === 'object' ? payload.data : {};
-    return Object.fromEntries(Object.entries(data).map(([key, value]) => [key, normalizeRuleConfig(key, value as Partial<BattlefieldStripeRuleConfig>)]));
+    return Object.fromEntries(Object.entries(data).map(([key, value]) => [key, normalizeDistanceStripeRuleConfig(key, value as Partial<BattlefieldStripeRuleConfig>)]));
   } catch {
     const data = await fetchJson(RULE_CONFIG_URL);
-    return Object.fromEntries(Object.entries(data && typeof data === 'object' ? data : {}).map(([key, value]) => [key, normalizeRuleConfig(key, value as Partial<BattlefieldStripeRuleConfig>)]));
+    return Object.fromEntries(Object.entries(data && typeof data === 'object' ? data : {}).map(([key, value]) => [key, normalizeDistanceStripeRuleConfig(key, value as Partial<BattlefieldStripeRuleConfig>)]));
   }
-};
-
-const stripeForRow = (rules: StripeRule[], row: number, fallback: string) => {
-  const rowNumber = row + 1;
-  let match = fallback;
-  for (const rule of [...rules].sort((a, b) => a.startRow - b.startRow)) {
-    if (rowNumber >= rule.startRow && rule.monsterStripePresetKey) match = rule.monsterStripePresetKey;
-  }
-  return match;
 };
 
 type CommitNumberInputProps = { value: number; onCommit: (value: number) => void; min?: number; step?: number; disabled?: boolean };
@@ -114,9 +92,7 @@ const CommitNumberInput: React.FC<CommitNumberInputProps> = ({ value, onCommit, 
 const App: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLElement>(null);
-  const sceneRef = useRef<Scene | null>(null);
-  const gridRef = useRef<TransformNode | null>(null);
-  const renderedRef = useRef<Map<string, LayeredMonsterController>>(new Map());
+  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
   const [configs, setConfigs] = useState<MonsterDisplayConfigLibrary>({});
   const [monsterStripes, setMonsterStripes] = useState<MonsterStripePresetLibrary>({});
   const [stripes, setStripes] = useState<StripePresetLibrary>({});
@@ -129,9 +105,8 @@ const App: React.FC = () => {
 
   const sourceBattlefield = battlefields[activeId];
   const battlefield = useMemo(() => sourceBattlefield ? { ...sourceBattlefield, monsters: placements[activeId] || sourceBattlefield.monsters } : null, [sourceBattlefield, placements, activeId]);
-  const activeRules = rulesByBattlefield[activeId] || (activeId ? normalizeRuleConfig(activeId) : null);
+  const activeRules = rulesByBattlefield[activeId] || (activeId ? normalizeDistanceStripeRuleConfig(activeId) : null);
   const selected = battlefield?.monsters.find(monster => monster.id === selectedId);
-  const positions = useMemo(() => battlefield ? battlefield.monsters.map(monster => calculatePlacement(battlefield, monster)) : [], [battlefield]);
 
   useEffect(() => {
     Promise.all([fetchJson(MONSTER_CONFIG_URL), fetchJson(MONSTER_STRIPE_PRESET_URL), fetchJson(STRIPE_PRESET_URL), fetchJson(FORMATION_CONFIG_URL), loadRules()]).then(([rawConfigs, rawMonsterStripes, rawStripes, rawBattlefields, savedRules]) => {
@@ -145,7 +120,7 @@ const App: React.FC = () => {
         let draft: Record<string, BattlefieldStripeRuleConfig> = {};
         try { draft = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { draft = {}; }
         const next: Record<string, BattlefieldStripeRuleConfig> = {};
-        Object.keys(normalizedBattlefields).forEach(id => { next[id] = normalizeRuleConfig(id, draft[id] || savedRules[id]); });
+        Object.keys(normalizedBattlefields).forEach(id => { next[id] = normalizeDistanceStripeRuleConfig(id, draft[id] || savedRules[id]); });
         return next;
       });
       setPlacements(Object.fromEntries(Object.entries(normalizedBattlefields).map(([id, field]) => [id, field.monsters.map(monster => ({ ...monster, monsterStripePresetKey: monster.monsterStripePresetKey || library[monster.monsterConfigKey]?.monsterStripePresetKey || '' }))])));
@@ -167,12 +142,11 @@ const App: React.FC = () => {
     const stage = stageRef.current;
     if (!canvas || !stage) return;
     const context = createCameraLabScene(canvas);
-    sceneRef.current = context.scene;
     context.camera.target.set(0, -1, -8);
     context.camera.radius = 34;
     const camera = createCameraLabController(context.camera);
     const panel = createFloatingCameraControlPanel(stage, camera);
-    gridRef.current = new TransformNode('stripeRuleGrid', context.scene);
+    visualManagerRef.current = new MonsterVisualManager(context.scene);
     const drag = { active: false, pointerId: -1, x: 0, y: 0 };
     const pointerDown = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { canvas.requestPointerLock?.().catch?.(() => {}); return; } drag.active = true; drag.pointerId = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.style.cursor = 'grabbing'; canvas.setPointerCapture(event.pointerId); };
     const pointerMove = (event: PointerEvent) => { if (!drag.active || event.pointerId !== drag.pointerId) return; camera.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y); drag.x = event.clientX; drag.y = event.clientY; panel.syncFromController(); };
@@ -194,8 +168,7 @@ const App: React.FC = () => {
     window.addEventListener('keydown', keyDown);
     window.addEventListener('keyup', keyUp);
     window.addEventListener('resize', resize);
-    let time = 0;
-    context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; time += dt; camera.update(dt); panel.updateStatus(); renderedRef.current.forEach(monster => monster.updateTime(time)); context.scene.render(); });
+    context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; camera.update(dt); panel.updateStatus(); visualManagerRef.current?.update(dt); context.scene.render(); });
     return () => {
       canvas.removeEventListener('pointerdown', pointerDown);
       canvas.removeEventListener('pointermove', pointerMove);
@@ -207,51 +180,17 @@ const App: React.FC = () => {
       window.removeEventListener('keydown', keyDown);
       window.removeEventListener('keyup', keyUp);
       window.removeEventListener('resize', resize);
-      renderedRef.current.forEach(monster => monster.dispose());
-      renderedRef.current.clear();
+      visualManagerRef.current?.dispose();
+      visualManagerRef.current = null;
       panel.dispose();
       context.dispose();
-      sceneRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene || !battlefield || !activeRules) return;
-    renderedRef.current.forEach(monster => monster.dispose());
-    renderedRef.current.clear();
-    gridRef.current?.getChildMeshes().forEach(mesh => mesh.dispose());
-    const gridMaterial = new StandardMaterial(`placementGrid_${Date.now()}`, scene);
-    gridMaterial.diffuseColor = new Color3(0.12, 0.45, 0.68);
-    gridMaterial.emissiveColor = new Color3(0.03, 0.15, 0.24);
-    gridMaterial.alpha = 0.34;
-    const rowCount = Math.max(1, ...battlefield.monsters.map(monster => monster.row + 1), ...activeRules.rules.map(rule => rule.startRow));
-    for (let row = 0; row < rowCount; row++) for (let column = 0; column < battlefield.width; column++) {
-      const cell = MeshBuilder.CreateBox(`cell_${row}_${column}`, { width: battlefield.cellSize - 0.08, depth: Math.min(battlefield.cellSize, battlefield.rowSpacing) - 0.08, height: 0.035 }, scene);
-      cell.position.set((column + 0.5 - battlefield.width / 2) * battlefield.cellSize, -2.105, -row * battlefield.rowSpacing);
-      cell.material = gridMaterial;
-      cell.parent = gridRef.current;
-      cell.isPickable = false;
-    }
-    battlefield.monsters.forEach((item, index) => {
-      const config = configs[item.monsterConfigKey];
-      const position = positions[index];
-      if (!config || !position) return;
-      const effectiveStripeKey = stripeForRow(activeRules.rules, item.row, item.monsterStripePresetKey || config.monsterStripePresetKey || '');
-      const monster = createLayeredMonster(scene, `placement_${item.id}`);
-      monster.load(config, monsterStripes[effectiveStripeKey] ?? null, stripes);
-      monster.root.position.addInPlaceFromFloats(position.x, 0, position.z);
-      renderedRef.current.set(item.id, monster);
-      const marker = MeshBuilder.CreateBox(`marker_${item.id}`, { width: item.positionMode === 'center' ? Math.max(0.2, battlefield.cellSize - 0.12) : Math.max(0.2, item.slots * battlefield.cellSize - 0.12), depth: 0.14, height: 0.08 }, scene);
-      marker.position.set(position.x, -2.03, position.z);
-      const material = new StandardMaterial(`markerMaterial_${item.id}`, scene);
-      material.diffuseColor = item.id === selectedId ? new Color3(0.2, 1, 0.65) : new Color3(0.2, 0.65, 1);
-      material.emissiveColor = material.diffuseColor.scale(0.5);
-      material.alpha = 0.72;
-      marker.material = material;
-      marker.parent = gridRef.current;
-    });
-  }, [battlefield, positions, configs, monsterStripes, stripes, selectedId, activeRules]);
+    if (!battlefield || !activeRules) return;
+    visualManagerRef.current?.sync(battlefield, { configs, monsterStripes, stripes }, selectedId, activeRules);
+  }, [battlefield, configs, monsterStripes, stripes, selectedId, activeRules]);
 
   const patchPlacements = (next: MonsterPlacement[]) => activeId && setPlacements(all => ({ ...all, [activeId]: next }));
   const patchMonster = (patch: Partial<MonsterPlacement>) => selected && battlefield && patchPlacements(battlefield.monsters.map(monster => monster.id === selected.id ? { ...monster, ...patch } : monster));
@@ -260,7 +199,7 @@ const App: React.FC = () => {
   const addMonster = () => {
     const key = Object.keys(configs)[0];
     if (!battlefield || !key) return;
-    const monster: MonsterPlacement = { id: uid('monster'), monsterConfigKey: key, monsterStripePresetKey: configs[key]?.monsterStripePresetKey || '', positionMode: 'grid', slots: 1, row: 0, column: 0 };
+    const monster: MonsterPlacement = { id: uid('monster'), monsterConfigKey: key, monsterStripePresetKey: configs[key]?.monsterStripePresetKey || '', chaos: { value: 0, threshold: 100, duration: 0 }, position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: false } };
     patchPlacements([...battlefield.monsters, monster]);
     setSelectedId(monster.id);
   };
@@ -272,7 +211,7 @@ const App: React.FC = () => {
   const resetPlacements = () => sourceBattlefield && setPlacements(all => ({ ...all, [sourceBattlefield.id]: sourceBattlefield.monsters.map(monster => ({ ...monster })) }));
   const save = async () => {
     try {
-      const payload = Object.fromEntries(Object.entries(rulesByBattlefield).map(([id, config]) => [id, normalizeRuleConfig(id, config)]));
+      const payload = Object.fromEntries(Object.entries(rulesByBattlefield).map(([id, config]) => [id, normalizeDistanceStripeRuleConfig(id, config)]));
       const response = await requestDevServer(RULE_API_PATH, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       const result = await response.json();
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] || result.message || `HTTP ${response.status}`);
@@ -309,8 +248,8 @@ const App: React.FC = () => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}><strong>怪物位置预览</strong><button onClick={addMonster}>添加怪物</button></div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 7, marginTop: 8 }}><button onClick={resetPlacements}>还原为战场默认怪物</button><button onClick={() => patchPlacements([])}>清空预览怪物</button></div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 9 }}>{battlefield?.monsters.map((item, index) => {
-          const effective = stripeForRow(activeRules?.rules || [], item.row, item.monsterStripePresetKey || configs[item.monsterConfigKey]?.monsterStripePresetKey || '');
-          return <button key={item.id} onClick={() => setSelectedId(item.id)} style={{ textAlign: 'left', borderColor: item.id === selectedId ? '#65a8ff' : '#3a4961', background: item.id === selectedId ? '#183b61' : '#202b3d' }}>{index + 1}. {configs[item.monsterConfigKey]?.name || item.monsterConfigKey} · 第 {item.row + 1} 行 · {effective}</button>;
+          const effective = resolveDistanceStripePresetKey(activeRules?.rules || [], item.position.row, item.monsterStripePresetKey || configs[item.monsterConfigKey]?.monsterStripePresetKey || '');
+          return <button key={item.id} onClick={() => setSelectedId(item.id)} style={{ textAlign: 'left', borderColor: item.id === selectedId ? '#65a8ff' : '#3a4961', background: item.id === selectedId ? '#183b61' : '#202b3d' }}>{index + 1}. {configs[item.monsterConfigKey]?.name || item.monsterConfigKey} · 第 {item.position.row + 1} 行 · {effective}</button>;
         })}</div>
       </section>
       {selected && <section style={section}>
@@ -319,12 +258,11 @@ const App: React.FC = () => {
         <label>战场默认条纹（只读，规则会覆盖它）</label>
         <input value={selected.monsterStripePresetKey || configs[selected.monsterConfigKey]?.monsterStripePresetKey || ''} disabled />
         <label>规则实际赋予条纹</label>
-        <input value={stripeForRow(activeRules?.rules || [], selected.row, selected.monsterStripePresetKey || configs[selected.monsterConfigKey]?.monsterStripePresetKey || '')} disabled />
-        <label>位置模式</label>
-        <select value={selected.positionMode} onChange={event => patchMonster({ positionMode: event.target.value === 'center' ? 'center' : 'grid' })}><option value="grid">格子定位</option><option value="center">绝对居中</option></select>
+        <input value={resolveDistanceStripePresetKey(activeRules?.rules || [], selected.position.row, selected.monsterStripePresetKey || configs[selected.monsterConfigKey]?.monsterStripePresetKey || '')} disabled />
+        <label><input type="checkbox" style={{width:'auto',marginRight:7}} checked={selected.position.isOccupyingFullRowCentered} onChange={event => patchMonster({ position: { ...selected.position, isOccupyingFullRowCentered: event.target.checked } })}/>占领该行全部格子并居中</label>
         <label>所在行（从 1 开始）</label>
-        <CommitNumberInput min={1} step={1} value={selected.row + 1} onCommit={value => patchMonster({ row: indexInt(value - 1) })} />
-        {selected.positionMode === 'grid' && <><label>占用格数</label><CommitNumberInput min={1} step={1} value={selected.slots} onCommit={value => patchMonster({ slots: positiveInt(value) })} /><label>所在列（从 1 开始）</label><CommitNumberInput min={1} step={1} value={selected.column + 1} onCommit={value => patchMonster({ column: indexInt(value - 1) })} /></>}
+        <CommitNumberInput min={1} step={1} value={selected.position.row + 1} onCommit={value => patchMonster({ position: { ...selected.position, row: indexInt(value - 1) } })} />
+        {!selected.position.isOccupyingFullRowCentered && <><label>占用格数</label><CommitNumberInput min={1} step={1} value={selected.position.size} onCommit={value => patchMonster({ position: { ...selected.position, size: positiveInt(value) } })} /><label>所在列（从 1 开始）</label><CommitNumberInput min={1} step={1} value={selected.position.column + 1} onCommit={value => patchMonster({ position: { ...selected.position, column: indexInt(value - 1) } })} /></>}
         <button style={{ width: '100%', marginTop: 10 }} onClick={() => battlefield && patchPlacements(battlefield.monsters.filter(monster => monster.id !== selected.id))}>删除此怪物</button>
       </section>}
       <section style={section}><button style={{ width: '100%' }} onClick={() => void save()}>保存条纹距离规则</button><div style={{ marginTop: 8, color: '#9dacbf', fontSize: 12, lineHeight: 1.5 }}>{message}</div></section>

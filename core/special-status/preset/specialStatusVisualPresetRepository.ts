@@ -12,6 +12,7 @@ const vector = (value: unknown, fallback: SpecialStatus3dVector): SpecialStatus3
 
 export const createDefaultSpecialStatusVisualPreset = (presetKey = 'special_status_default'): SpecialStatusVisualPreset => ({
   presetKey,
+  statuses: {},
   name: '默认特殊状态',
   ui2d: {
     badgeSize: 96, iconScale: 1, valueFontSize: 18, cornerInset: 0, textColor: '#e2e8f0',
@@ -30,8 +31,19 @@ export const normalizeSpecialStatusVisualPreset = (value: unknown, key: string):
   const ui2d = source.ui2d && typeof source.ui2d === 'object' ? source.ui2d as Record<string, unknown> : {};
   const babylon3d = source.babylon3d && typeof source.babylon3d === 'object' ? source.babylon3d as Record<string, unknown> : {};
   const offsets = Array.isArray(babylon3d.numberOffsets) ? babylon3d.numberOffsets : [];
+  const statuses = source.statuses && typeof source.statuses === 'object' && !Array.isArray(source.statuses)
+    ? source.statuses as Record<string, unknown>
+    : {};
   return {
     presetKey: key,
+    statuses: Object.fromEntries(Object.entries(statuses).map(([id, value]) => {
+      const status = value && typeof value === 'object' ? value as Record<string, unknown> : {};
+      return [id, {
+        id,
+        name: typeof status.name === 'string' && status.name.trim() ? status.name : id,
+        imagePath: typeof status.imagePath === 'string' ? status.imagePath : ''
+      }];
+    })),
     name: typeof source.name === 'string' && source.name.trim() ? source.name : fallback.name,
     ui2d: {
       badgeSize: Math.max(1, finite(ui2d.badgeSize, fallback.ui2d.badgeSize)),

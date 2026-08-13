@@ -23,9 +23,19 @@ export type SpecialStatusVisual3dConfig = {
   billboard: boolean;
 };
 
+export type SpecialStatusDefinition = {
+  id: string;
+  name: string;
+  imagePath: string;
+};
+
+export type SpecialStatusDefinitionMap = Record<string, SpecialStatusDefinition>;
+
 export type SpecialStatusVisualPreset = {
   presetKey: string;
   name: string;
+  /** 共用这一套视觉参数的特殊状态定义；状态自身只保存身份和图片。 */
+  statuses: SpecialStatusDefinitionMap;
   ui2d: SpecialStatusVisual2dConfig;
   babylon3d: SpecialStatusVisual3dConfig;
 };

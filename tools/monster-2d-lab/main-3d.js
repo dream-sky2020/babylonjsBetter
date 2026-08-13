@@ -6,11 +6,8 @@ import {
   HemisphericLight,
   MeshBuilder,
   Scene,
-  TransformNode,
   Vector3
 } from '@babylonjs/core';
-import { createAtlasSpritePlane } from '/core/sprite/render/createAtlasSpritePlane.ts';
-import { createSpriteMaskMaterial } from '/core/sprite/render/createSpriteEffectMaterial.ts';
 import { createCameraLabController } from '/core/camera/cameraLabController.ts';
 import { createRoadSceneEnvironment } from '/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '/core/ui/FloatingCameraControlPanel.ts';
@@ -23,6 +20,7 @@ import {
   DEFAULT_MONSTER_STRIPE_PRESET_KEY,
   MONSTER_LAYER_KEYS,
   MONSTER_RENDER_ORDER,
+  MonsterVisualManager,
   STRIPE_NONE,
   collectMonsterResourceImages,
   createDefaultMonsterConfig as createCoreDefaultMonsterConfig,
@@ -42,6 +40,8 @@ const STRIPE_CONFIG_API_PATH = '/api/stripe-presets';
 const MONSTER_STRIPE_PRESET_API_PATH = '/api/monster-stripe-presets';
 const LAYER_KEYS = MONSTER_LAYER_KEYS;
 const FIXED_RENDER_ORDER = MONSTER_RENDER_ORDER;
+const EDITOR_MONSTER_ID = 'monster-2d-lab-preview';
+const EDITOR_BATTLEFIELD_ID = 'monster-2d-lab-preview-field';
 const PROGRESS_SHAPE_OPTIONS = ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'];
 const PROGRESS_DIRECTION_OPTIONS = ['forward', 'reverse', 'center-out', 'edges-in'];
 
@@ -127,9 +127,7 @@ const state = {
     camera: null,
     cameraController: null,
     cameraPanel: null,
-    root: null,
-    layerHandles: new Map(),
-    stripeHandles: new Map(),
+    visualManager: null,
     layerDebugHandles: new Map(),
     spriteDebugEnabled: false,
     spriteFacingAxis: '+Z',
@@ -617,18 +615,18 @@ const layerShaderEditorHtml = (layerKey) => {
 };
 
 const applyLayerShaderParams = (layerKey) => {
-  const stripeHandle = state.babylon.stripeHandles.get(layerKey);
   const params = state.layerShaderParams[layerKey];
-  if (!stripeHandle?.controller || !params) return;
-  stripeHandle.controller.updateProgress({
-    enabled: params.scope === 'composite' && params.composite.shape !== 'none',
-    ...params.composite
-  });
-  stripeHandle.controller.updateLayerProgress({
-    enabled: params.scope === 'layers',
-    stripe: { enabled: params.stripe.shape !== 'none', ...params.stripe },
-    background: { enabled: params.background.shape !== 'none', ...params.background }
-  });
+  if (!params) return;
+  state.babylon.visualManager?.setMonsterLayerProgress(
+    EDITOR_MONSTER_ID,
+    layerKey,
+    { enabled: params.scope === 'composite' && params.composite.shape !== 'none', ...params.composite },
+    {
+      enabled: params.scope === 'layers',
+      stripe: { enabled: params.stripe.shape !== 'none', ...params.stripe },
+      background: { enabled: params.background.shape !== 'none', ...params.background }
+    }
+  );
 };
 
 const renderLayerStripeBindingsControls = () => {
@@ -954,19 +952,12 @@ const renderLayerControls = () => {
   });
 };
 
-const getLayerHandle = (layerKey) => state.babylon.layerHandles.get(layerKey) || null;
-
-const applyFacingAxisToMesh = (mesh) => {
-  if (!mesh) return;
-  mesh.rotation.x = 0;
-  mesh.rotation.z = 0;
-  mesh.rotation.y = state.babylon.spriteFacingAxis === '+Z' ? Math.PI : 0;
-};
+const getLayerMesh = (layerKey) => (
+  state.babylon.visualManager?.getMonsterLayerMesh(EDITOR_MONSTER_ID, layerKey) || null
+);
 
 const syncAllLayerFacingAxis = () => {
-  for (const handle of state.babylon.layerHandles.values()) {
-    applyFacingAxisToMesh(handle.controller.mesh);
-  }
+  state.babylon.visualManager?.setMonsterFacingAxis(EDITOR_MONSTER_ID, state.babylon.spriteFacingAxis);
 };
 
 const disposeLayerDebugHandle = (layerKey) => {
@@ -978,11 +969,11 @@ const disposeLayerDebugHandle = (layerKey) => {
 
 const syncLayerDebugHandle = (layerKey) => {
   disposeLayerDebugHandle(layerKey);
-  const handle = getLayerHandle(layerKey);
-  if (!handle) return;
+  const layerMesh = getLayerMesh(layerKey);
+  if (!layerMesh) return;
   const layerVisible = state.layers[layerKey]?.visible !== false;
   const shouldShowDebug = state.babylon.spriteDebugEnabled && layerVisible;
-  handle.controller.mesh.showBoundingBox = shouldShowDebug;
+  layerMesh.showBoundingBox = shouldShowDebug;
   if (!shouldShowDebug) return;
 
   const z = -0.015;
@@ -1003,7 +994,7 @@ const syncLayerDebugHandle = (layerKey) => {
     state.babylon.scene
   );
   bounds.color = edgeColor;
-  bounds.parent = handle.controller.mesh;
+  bounds.parent = layerMesh;
   bounds.isPickable = false;
 
   const axisH = MeshBuilder.CreateLines(
@@ -1012,7 +1003,7 @@ const syncLayerDebugHandle = (layerKey) => {
     state.babylon.scene
   );
   axisH.color = axisColor;
-  axisH.parent = handle.controller.mesh;
+  axisH.parent = layerMesh;
   axisH.isPickable = false;
 
   const axisV = MeshBuilder.CreateLines(
@@ -1021,7 +1012,7 @@ const syncLayerDebugHandle = (layerKey) => {
     state.babylon.scene
   );
   axisV.color = axisColor;
-  axisV.parent = handle.controller.mesh;
+  axisV.parent = layerMesh;
   axisV.isPickable = false;
 
   state.babylon.layerDebugHandles.set(layerKey, [bounds, axisH, axisV]);
@@ -1033,29 +1024,15 @@ const syncAllLayerDebugHandles = () => {
   }
 };
 
-const disposeLayerHandle = (layerKey) => {
-  disposeLayerDebugHandle(layerKey);
-  const stripe = state.babylon.stripeHandles.get(layerKey);
-  stripe?.controller?.dispose();
-  state.babylon.stripeHandles.delete(layerKey);
-
-  const handle = state.babylon.layerHandles.get(layerKey);
-  if (!handle) return;
-  handle.controller.dispose();
-  state.babylon.layerHandles.delete(layerKey);
-};
-
 const applyMonsterTransformFromInputs = () => {
-  const root = state.babylon.root;
-  if (!root) return;
+  const manager = state.babylon.visualManager;
+  if (!manager) return;
   const sizeRatio = Math.max(0.2, toNumber(el.sizeInput.value, 560) / 560);
   const scene3dScale = Math.max(0.01, toNumber(el.scene3dScaleInput?.value, 1));
   const finalScale = sizeRatio * scene3dScale;
   const scene3dHeight = toNumber(el.scene3dHeightInput?.value, 0);
   const scene3dOffsetX = toNumber(el.scene3dOffsetXInput?.value, 0);
-  root.scaling.set(finalScale, finalScale, finalScale);
-  root.position.x = scene3dOffsetX;
-  root.position.y = scene3dHeight;
+  manager.setMonsterTransform(EDITOR_MONSTER_ID, finalScale, scene3dHeight, scene3dOffsetX);
 };
 
 const updateCameraProjection = () => {
@@ -1153,123 +1130,44 @@ const handleCameraPointerDelta = (dx, dy) => {
   state.babylon.cameraPanel?.updateStatus();
 };
 
-const syncStripeMaterialsForAllLayers = () => {
-  for (const layerKey of FIXED_RENDER_ORDER) {
-    const handle = getLayerHandle(layerKey);
-    if (!handle) continue;
-
-    const stripePresetKey = state.layers[layerKey].stripePresetKey;
-    const layerVisible = state.layers[layerKey].visible !== false;
-    const preset = state.presets[stripePresetKey];
-    const currentStripe = state.babylon.stripeHandles.get(layerKey);
-
-    if (!layerVisible) {
-      handle.controller.mesh.setEnabled(false);
-      handle.controller.mesh.showBoundingBox = false;
-      if (currentStripe) {
-        currentStripe.controller.dispose();
-        state.babylon.stripeHandles.delete(layerKey);
-      }
-      handle.controller.mesh.material = handle.baseMaterial;
-      continue;
-    }
-    handle.controller.mesh.setEnabled(true);
-    handle.controller.mesh.showBoundingBox = state.babylon.spriteDebugEnabled;
-
-    const contentPreset = stripePresetKey === STRIPE_NONE || !preset
-      ? { mode: 'texture' }
-      : preset;
-
-    if (currentStripe && currentStripe.presetKey === stripePresetKey) {
-      currentStripe.controller.updatePreset(contentPreset);
-      currentStripe.controller.updateRenderSize(handle.renderSizePx.width, handle.renderSizePx.height);
-      applyLayerShaderParams(layerKey);
-      continue;
-    }
-
-    currentStripe?.controller.dispose();
-    const shader = createSpriteMaskMaterial(
-      state.babylon.scene,
-      `monster_stripe_${layerKey}`,
-      handle.textureUrl,
-      contentPreset,
-      handle.renderSizePx
-    );
-    shader.updateTime(state.animTimeSec);
-    state.babylon.stripeHandles.set(layerKey, {
-      presetKey: stripePresetKey,
-      controller: shader
-    });
-    handle.controller.mesh.material = shader.material;
-    applyLayerShaderParams(layerKey);
-  }
-  syncAllLayerDebugHandles();
-};
-
 const loadAllLayerMeshes = async () => {
-  if (!state.babylon.scene || !state.babylon.root) return;
-  setStatus('正在加载分层图片...');
-  const errors = [];
-  const loadedLayerKeys = new Set();
-  const loadedLayerImages = new Map();
-
+  const manager = state.babylon.visualManager;
+  const config = activeMonsterConfig();
+  if (!manager || !config) return;
+  setStatus('正在由 MonsterVisualManager 刷新 3D 怪物...');
   for (const layerKey of LAYER_KEYS) {
-    const layer = state.layers[layerKey];
-    layer.path = normalizeResourcePath(layer.path) || DEFAULT_ASSETS[layerKey];
+    state.layers[layerKey].path = normalizeResourcePath(state.layers[layerKey].path) || DEFAULT_ASSETS[layerKey];
   }
+  syncActiveConfigFromCurrentDisplay();
   state.resourceImageOptions = getScannedResourceImages();
   renderLayerControls();
   buildAssetDatalist();
-
-  const preloads = await Promise.allSettled(
-    LAYER_KEYS.map((layerKey) => loadImage(toResourceUrl(state.layers[layerKey].path)))
-  );
-
-  preloads.forEach((result, idx) => {
-    const layerKey = LAYER_KEYS[idx];
-    if (result.status === 'rejected') {
-      errors.push(`${LAYER_LABELS[layerKey]}: ${String(result.reason)}`);
-      return;
-    }
-    loadedLayerKeys.add(layerKey);
-    loadedLayerImages.set(layerKey, result.value);
-  });
-
-  for (const layerKey of FIXED_RENDER_ORDER) {
-    disposeLayerHandle(layerKey);
-  }
-
-  for (let index = 0; index < FIXED_RENDER_ORDER.length; index += 1) {
-    const layerKey = FIXED_RENDER_ORDER[index];
-    if (!loadedLayerKeys.has(layerKey)) continue;
-    const path = state.layers[layerKey].path;
-    const textureUrl = toResourceUrl(path);
-    const sourceImage = loadedLayerImages.get(layerKey);
-    const controller = createAtlasSpritePlane(state.babylon.scene, textureUrl, 2.8, { shareTexture: false });
-    controller.mesh.parent = state.babylon.root;
-    applyFacingAxisToMesh(controller.mesh);
-    controller.mesh.position = new Vector3(0, 0, index * 0.01);
-    controller.mesh.isPickable = false;
-    const baseMaterial = controller.mesh.material;
-    state.babylon.layerHandles.set(layerKey, {
-      controller,
-      textureUrl,
-      baseMaterial,
-      renderSizePx: {
-        width: Math.max(1, sourceImage?.naturalWidth || sourceImage?.width || 1),
-        height: Math.max(1, sourceImage?.naturalHeight || sourceImage?.height || 1)
-      }
-    });
-  }
-
-  syncStripeMaterialsForAllLayers();
+  manager.sync({
+    id: EDITOR_BATTLEFIELD_ID,
+    name: 'Monster 2D Lab 3D Preview',
+    width: 1,
+    cellSize: 1,
+    rowSpacing: 1,
+    monsters: [{
+      id: EDITOR_MONSTER_ID,
+      monsterConfigKey: config.id,
+      monsterStripePresetKey: state.activeMonsterStripePresetKey,
+      position: { row: 0, column: 0, size: 1, isOccupyingFullRowCentered: true },
+      chaos: { value: 0, threshold: 100, duration: 0 }
+    }]
+  }, {
+    configs: { [config.id]: JSON.parse(JSON.stringify(config)) },
+    monsterStripes: JSON.parse(JSON.stringify(state.monsterStripePresets)),
+    stripes: JSON.parse(JSON.stringify(state.presets))
+  }, EDITOR_MONSTER_ID);
   applyMonsterTransformFromInputs();
+  for (const layerKey of FIXED_RENDER_ORDER) applyLayerShaderParams(layerKey);
+  syncAllLayerDebugHandles();
+  setStatus('3D 怪物视觉已刷新。');
+};
 
-  if (errors.length > 0) {
-    setStatus(`部分图片加载失败：${errors.join('；')}`, true);
-  } else {
-    setStatus('分层图片加载成功。');
-  }
+const syncStripeMaterialsForAllLayers = () => {
+  void loadAllLayerMeshes();
 };
 
 const loadMonsterConfigsFromServer = async () => {
@@ -1798,8 +1696,9 @@ const initBabylon = () => {
   light.intensity = 0.95;
   light.groundColor = new Color3(0.32, 0.35, 0.3);
 
-  const root = new TransformNode('monsterRoot', scene);
   createRoadSceneEnvironment(scene);
+  const visualManager = new MonsterVisualManager(scene);
+  visualManager.setHelpersVisible(false);
   const cameraController = createCameraLabController(camera);
   cameraController.state.keys = cameraController.keys;
   cameraController.state.pointerLocked = false;
@@ -1812,9 +1711,7 @@ const initBabylon = () => {
     state.animTimeSec += dt;
     updateCameraControl(dt);
     state.babylon.cameraPanel?.updateStatus();
-    for (const stripeHandle of state.babylon.stripeHandles.values()) {
-      stripeHandle.controller.updateTime(state.animTimeSec);
-    }
+    visualManager.update(dt);
   });
 
   engine.runRenderLoop(() => {
@@ -1827,7 +1724,7 @@ const initBabylon = () => {
   state.babylon.cameraController = cameraController;
   state.babylon.cameraPanel = cameraPanel;
   state.babylon.cameraControl = cameraController.state;
-  state.babylon.root = root;
+  state.babylon.visualManager = visualManager;
   state.babylon.spriteFacingAxis = el.spriteFacingAxisSelect?.value === '-Z' ? '-Z' : '+Z';
   if (el.spriteFacingAxisSelect) {
     el.spriteFacingAxisSelect.value = state.babylon.spriteFacingAxis;

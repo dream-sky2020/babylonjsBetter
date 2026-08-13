@@ -1138,6 +1138,17 @@ def validate_special_status_visual_preset_payload(payload: dict) -> list[str]:
             errors.append(f"{path} must be an object"); continue
         if preset.get("presetKey") != key: errors.append(f"{path}.presetKey must match its object key")
         if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        statuses = preset.get("statuses")
+        if not isinstance(statuses, dict):
+            errors.append(f"{path}.statuses must be an object")
+        else:
+            for status_id, status in statuses.items():
+                status_path = f"{path}.statuses[{status_id}]"
+                if not isinstance(status_id, str) or not status_id.strip(): errors.append(f"{path}.statuses key must be a non-empty string"); continue
+                if not isinstance(status, dict): errors.append(f"{status_path} must be an object"); continue
+                if status.get("id") != status_id: errors.append(f"{status_path}.id must match its object key")
+                if not isinstance(status.get("name"), str) or not status.get("name", "").strip(): errors.append(f"{status_path}.name must be a non-empty string")
+                if not isinstance(status.get("imagePath"), str) or not status.get("imagePath", "").strip(): errors.append(f"{status_path}.imagePath must be a non-empty string")
         ui2d = preset.get("ui2d")
         if not isinstance(ui2d, dict):
             errors.append(f"{path}.ui2d must be an object")

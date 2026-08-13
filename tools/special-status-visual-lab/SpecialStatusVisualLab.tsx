@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
+import type { Scene } from '@babylonjs/core';
+import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
+import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
+import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
 import { SpecialStatusBadge } from '@/core/ui';
 import {
   getPublicResourceImagePaths,
@@ -18,7 +21,8 @@ import {
   type SpecialStatus3dValues,
   type SpecialStatus3dVisibility,
   type SpecialStatusVisualPreset,
-  type SpecialStatusVisualPresetMap
+  type SpecialStatusVisualPresetMap,
+  type SpecialStatusDefinitionMap
 } from '@/core/special-status';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 
@@ -42,6 +46,8 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const dragStateRef = useRef<DragState | null>(null);
   const [visualPresets, setVisualPresets] = useState<SpecialStatusVisualPresetMap>({});
   const [visualPresetKey, setVisualPresetKey] = useState('special_status_default');
+  const [statuses, setStatuses] = useState<SpecialStatusDefinitionMap>({});
+  const [selectedStatusId, setSelectedStatusId] = useState('');
   const [visualPresetName, setVisualPresetName] = useState('默认特殊状态');
   const [presetMessage, setPresetMessage] = useState('正在读取特殊状态配置…');
 
@@ -97,6 +103,12 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const applyVisualPreset = (preset: SpecialStatusVisualPreset) => {
     setVisualPresetKey(preset.presetKey);
     setVisualPresetName(preset.name);
+    setStatuses(preset.statuses);
+    setSelectedStatusId((current) => {
+      const id = preset.statuses[current] ? current : (Object.keys(preset.statuses)[0] ?? '');
+      if (id) setIconSrc(preset.statuses[id].imagePath);
+      return id;
+    });
     setBadgeSize(preset.ui2d.badgeSize); setIconScale(preset.ui2d.iconScale);
     setValueFontSize(preset.ui2d.valueFontSize); setCornerInset(preset.ui2d.cornerInset);
     applyTextColor(preset.ui2d.textColor);
@@ -113,6 +125,7 @@ export const SpecialStatusVisualLab: React.FC = () => {
   const captureVisualPreset = (): SpecialStatusVisualPreset => ({
     presetKey: visualPresetKey,
     name: visualPresetName.trim() || visualPresetKey,
+    statuses,
     ui2d: { badgeSize, iconScale, valueFontSize, cornerInset, textColor, frameOffsetX, frameOffsetY, frameWidth, frameHeight },
     babylon3d: {
       numberPresetKey, statusHeight: statusHeight3d, statusScale: statusScale3d,
@@ -161,6 +174,37 @@ export const SpecialStatusVisualLab: React.FC = () => {
   };
 
   const resourceImageOptions = useMemo(() => getPublicResourceImagePaths(true), []);
+  const selectedStatus = statuses[selectedStatusId] ?? null;
+  const createStatus = () => {
+    const base = `status_${Object.keys(statuses).length + 1}`;
+    let id = base, suffix = 2;
+    while (statuses[id]) id = `${base}_${suffix++}`;
+    setStatuses((current) => ({ ...current, [id]: { id, name: '新特殊状态', imagePath: resourceImageOptions[0] ?? '/resources/favicon.svg' } }));
+    setSelectedStatusId(id);
+  };
+  const updateSelectedStatus = (patch: Partial<{ name: string; imagePath: string }>) => {
+    if (!selectedStatus) return;
+    setStatuses((current) => ({ ...current, [selectedStatus.id]: { ...current[selectedStatus.id], ...patch } }));
+  };
+  const renameSelectedStatus = (nextId: string) => {
+    if (!selectedStatus) return;
+    const id = nextId.trim();
+    if (!id || (id !== selectedStatus.id && statuses[id])) return;
+    setStatuses((current) => {
+      const next = { ...current };
+      delete next[selectedStatus.id];
+      next[id] = { ...selectedStatus, id };
+      return next;
+    });
+    setSelectedStatusId(id);
+  };
+  const deleteSelectedStatus = () => {
+    if (!selectedStatus) return;
+    const next = { ...statuses };
+    delete next[selectedStatus.id];
+    setStatuses(next);
+    setSelectedStatusId(Object.keys(next)[0] ?? '');
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -274,22 +318,23 @@ export const SpecialStatusVisualLab: React.FC = () => {
         color: '#e2e8f0',
         fontFamily: '"Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif',
         display: 'grid',
-        gridTemplateColumns: '360px minmax(0, 1fr)',
+        gridTemplateColumns: '420px minmax(0, 1fr)',
         overflow: 'hidden'
       }}
     >
       <aside
         style={{
-          borderRight: '1px solid rgba(148, 163, 184, 0.24)',
-          background: '#111827',
-          padding: 14,
+          borderRight: '1px solid rgba(125, 211, 252, 0.18)',
+          background: 'linear-gradient(180deg, #111b2c 0%, #0b1220 100%)',
+          padding: 18,
           display: 'flex',
           flexDirection: 'column',
           gap: 10,
           overflowY: 'auto'
         }}
       >
-        <h3 style={{ margin: 0, color: '#e2e8f0' }}>Special Status Visual Lab</h3>
+        <div className="lab-kicker">VISUAL WORKBENCH</div>
+        <h2 style={{ margin: 0, color: '#f8fafc' }}>特殊状态视觉实验室</h2>
         <div style={{ fontSize: 12, color: '#cbd5e1' }}>
           纯视觉实验页：组件只根据参数显示样式，不包含业务逻辑。
         </div>
@@ -316,6 +361,37 @@ export const SpecialStatusVisualLab: React.FC = () => {
           </div>
           <div style={{ marginTop: 7, color: '#93c5fd', fontSize: 11, lineHeight: 1.4 }}>{presetMessage}</div>
           <div style={{ marginTop: 5, color: '#94a3b8', fontSize: 10 }}>图标、四个数字值及其显示开关属于运行时参数，不会保存。</div>
+        </fieldset>
+
+        <fieldset className="control-card">
+          <legend>特殊状态条目</legend>
+          <label>
+            当前状态
+            <select value={selectedStatusId} onChange={(event) => {
+              const id = event.target.value;
+              setSelectedStatusId(id);
+              if (statuses[id]) setIconSrc(statuses[id].imagePath);
+            }} style={{ width: '100%', marginTop: 4 }}>
+              <option value="">尚未创建</option>
+              {Object.values(statuses).map((status) => <option key={status.id} value={status.id}>{status.id} · {status.name}</option>)}
+            </select>
+          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 7, marginTop: 8 }}>
+            <button type="button" onClick={createStatus}>创建状态</button>
+            <button type="button" onClick={deleteSelectedStatus} disabled={!selectedStatus}>删除状态</button>
+          </div>
+          {selectedStatus ? <div style={{ display: 'grid', gap: 8, marginTop: 10 }}>
+            <label>状态 ID<input value={selectedStatus.id} onChange={(event) => renameSelectedStatus(event.target.value)} style={{ width: '100%', marginTop: 4 }} /></label>
+            <label>状态名称<input value={selectedStatus.name} onChange={(event) => updateSelectedStatus({ name: event.target.value })} style={{ width: '100%', marginTop: 4 }} /></label>
+            <label>对应图片
+              <select value={resourceImageOptions.includes(selectedStatus.imagePath) ? selectedStatus.imagePath : ''} onChange={(event) => { updateSelectedStatus({ imagePath: event.target.value }); setIconSrc(event.target.value); }} style={{ width: '100%', marginTop: 4 }}>
+                <option value="">手动填写路径</option>
+                {resourceImageOptions.map((path) => <option key={path} value={path}>{path}</option>)}
+              </select>
+            </label>
+            <label>图片路径<input value={selectedStatus.imagePath} onChange={(event) => { updateSelectedStatus({ imagePath: event.target.value }); setIconSrc(event.target.value); }} placeholder="/resources/StatusEffect/example.png" style={{ width: '100%', marginTop: 4 }} /></label>
+            <small style={{ color: '#8fa9c4' }}>点击“保存预设”后，条目会和全局视觉参数一起写入 specialStatusVisualPresets.json。</small>
+          </div> : null}
         </fieldset>
 
         <label>
@@ -772,34 +848,39 @@ type Babylon3dStatusPreviewProps = {
 
 const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, statusHeight, statusScale, numberScale, cornerInset, position, numberOffsets, numberPreset, billboard, debug }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<Scene | null>(null);
   const statusRef = useRef<SpecialStatus3dController | null>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const engine = new Engine(canvas, true, { stencil: true });
-    const scene = new Scene(engine);
-    sceneRef.current = scene;
-    scene.clearColor = new Color4(0.035, 0.055, 0.09, 1);
-    const camera = new ArcRotateCamera('special_status_3d_camera', -Math.PI / 2, 1.18, 9, new Vector3(0, 1, 0), scene);
-    camera.attachControl(canvas, true);
-    camera.wheelPrecision = 35;
-    const light = new HemisphericLight('special_status_3d_light', new Vector3(0.4, 1, 0.2), scene);
-    light.intensity = 1.35;
-    const ground = MeshBuilder.CreateGround('special_status_3d_ground', { width: 18, height: 18 }, scene);
-    const groundMaterial = new StandardMaterial('special_status_3d_ground_material', scene);
-    groundMaterial.diffuseColor = new Color3(0.06, 0.1, 0.16);
-    ground.material = groundMaterial;
-    engine.runRenderLoop(() => scene.render());
-    const resize = () => engine.resize();
+    const canvas = canvasRef.current, stage = stageRef.current;
+    if (!canvas || !stage) return;
+    const context = createCameraLabScene(canvas);
+    const camera = createCameraLabController(context.camera);
+    const cameraPanel = createFloatingCameraControlPanel(stage, camera);
+    sceneRef.current = context.scene;
+    const drag = { active: false, id: -1, x: 0, y: 0 };
+    const down = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { void canvas.requestPointerLock?.(); return; } drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.style.cursor = 'grabbing'; canvas.setPointerCapture(event.pointerId); };
+    const move = (event: PointerEvent) => { if (!drag.active || drag.id !== event.pointerId) return; camera.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y); drag.x = event.clientX; drag.y = event.clientY; cameraPanel.syncFromController(); };
+    const up = (event: PointerEvent) => { if (!drag.active || drag.id !== event.pointerId) return; drag.active = false; canvas.style.cursor = 'grab'; if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId); };
+    const documentMove = (event: MouseEvent) => { if (document.pointerLockElement === canvas) camera.handlePointerDelta(event.movementX, event.movementY); };
+    const lock = () => { canvas.style.cursor = document.pointerLockElement === canvas ? 'none' : 'grab'; };
+    const keyDown = (event: KeyboardEvent) => { if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement) return; if (!['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE'].includes(event.code)) return; camera.keys.add(event.code); event.preventDefault(); };
+    const keyUp = (event: KeyboardEvent) => camera.keys.delete(event.code);
+    const wheel = (event: WheelEvent) => { if (camera.state.mode !== 'orbit') return; event.preventDefault(); camera.handleWheel(event.deltaY); cameraPanel.syncFromController(); };
+    const resize = () => context.engine.resize();
+    canvas.style.cursor = 'grab';
+    canvas.addEventListener('pointerdown', down); canvas.addEventListener('pointermove', move); canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up); canvas.addEventListener('wheel', wheel, { passive: false });
+    document.addEventListener('mousemove', documentMove); document.addEventListener('pointerlockchange', lock); window.addEventListener('keydown', keyDown); window.addEventListener('keyup', keyUp);
+    context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; camera.update(dt); cameraPanel.updateStatus(); context.scene.render(); });
     window.addEventListener('resize', resize);
     return () => {
-      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', up); canvas.removeEventListener('wheel', wheel);
+      document.removeEventListener('mousemove', documentMove); document.removeEventListener('pointerlockchange', lock); window.removeEventListener('keydown', keyDown); window.removeEventListener('keyup', keyUp); window.removeEventListener('resize', resize);
       statusRef.current?.dispose();
       statusRef.current = null;
-      scene.dispose();
-      engine.dispose();
+      cameraPanel.dispose();
+      context.dispose();
       sceneRef.current = null;
     };
   }, []);
@@ -848,7 +929,7 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
   }, [values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3]]);
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
+    <div ref={stageRef} style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
       <canvas ref={canvasRef} style={{ display: 'block', width: '100%', height: '100%', outline: 'none' }} />
       <div style={{ position: 'absolute', left: 8, bottom: 6, color: '#94a3b8', fontSize: 10, pointerEvents: 'none' }}>
         Babylon3d 场景 · 左键旋转 · 滚轮缩放

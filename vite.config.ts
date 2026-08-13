@@ -125,7 +125,7 @@ export default defineConfig({
         monsterSpecialStatusPositionLab: path.resolve(__dirname, 'tools/monster-special-status-position-lab/index.html'),
         stripesConfigLab: path.resolve(__dirname, 'tools/stripes-config-lab/index.html'),
         stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
-        monsterHitDeathLab: path.resolve(__dirname, 'tools/monster-hit-death-lab/index.html'),
+        monsterHitLab: path.resolve(__dirname, 'tools/monster-hit-lab/index.html'),
         monsterFormationLab: path.resolve(__dirname, 'tools/monster-formation-lab/index.html'),
         monsterBattlefieldStripeRulesLab: path.resolve(__dirname, 'tools/monster-battlefield-stripe-rules-lab/index.html'),
         monsterMovementLab: path.resolve(__dirname, 'tools/monster-movement-lab/index.html'),
