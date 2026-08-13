@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import type { Scene } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
+import { MonsterVisualManager } from '@/core/monster';
 import { SpecialStatusBadge } from '@/core/ui';
 import {
   getPublicResourceImagePaths,
@@ -14,10 +14,8 @@ import {
   SPECIAL_STATUS_VISUAL_PRESET_API_PATH,
   SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL,
   createDefaultSpecialStatusVisualPreset,
-  createSpecialStatus3d,
   normalizeSpecialStatusVisualPresets,
   type SpecialStatus3dConfig,
-  type SpecialStatus3dController,
   type SpecialStatus3dValues,
   type SpecialStatus3dVisibility,
   type SpecialStatusVisualPreset,
@@ -849,8 +847,7 @@ type Babylon3dStatusPreviewProps = {
 const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc, values, visible, statusHeight, statusScale, numberScale, cornerInset, position, numberOffsets, numberPreset, billboard, debug }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<Scene | null>(null);
-  const statusRef = useRef<SpecialStatus3dController | null>(null);
+  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current, stage = stageRef.current;
@@ -858,7 +855,9 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
     const context = createCameraLabScene(canvas);
     const camera = createCameraLabController(context.camera);
     const cameraPanel = createFloatingCameraControlPanel(stage, camera);
-    sceneRef.current = context.scene;
+    const visualManager = new MonsterVisualManager(context.scene);
+    visualManager.setHelpersVisible(false);
+    visualManagerRef.current = visualManager;
     const drag = { active: false, id: -1, x: 0, y: 0 };
     const down = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { void canvas.requestPointerLock?.(); return; } drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.style.cursor = 'grabbing'; canvas.setPointerCapture(event.pointerId); };
     const move = (event: PointerEvent) => { if (!drag.active || drag.id !== event.pointerId) return; camera.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y); drag.x = event.clientX; drag.y = event.clientY; cameraPanel.syncFromController(); };
@@ -877,18 +876,16 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
     return () => {
       canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', up); canvas.removeEventListener('wheel', wheel);
       document.removeEventListener('mousemove', documentMove); document.removeEventListener('pointerlockchange', lock); window.removeEventListener('keydown', keyDown); window.removeEventListener('keyup', keyUp); window.removeEventListener('resize', resize);
-      statusRef.current?.dispose();
-      statusRef.current = null;
+      visualManager.dispose();
+      visualManagerRef.current = null;
       cameraPanel.dispose();
       context.dispose();
-      sceneRef.current = null;
     };
   }, []);
 
   useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene || !numberPreset) return;
-    let cancelled = false;
+    const visualManager = visualManagerRef.current;
+    if (!visualManager || !numberPreset) return;
     const config: SpecialStatus3dConfig = {
       iconPath: iconSrc || '/resources/favicon.svg',
       numberPreset,
@@ -900,33 +897,14 @@ const Babylon3dStatusPreview: React.FC<Babylon3dStatusPreviewProps> = ({ iconSrc
       numberOffsets: [0, 1, 2, 3].map((index) => [...(numberOffsets[index] ?? [0, 0, 0])]) as SpecialStatus3dConfig['numberOffsets'],
       billboard
     };
-    const apply = async () => {
-      if (statusRef.current) await statusRef.current.setConfig(config);
-      else {
-        const controller = await createSpecialStatus3d(scene, config, {
-          values: [...values] as SpecialStatus3dValues,
-          visible: [...visible] as SpecialStatus3dVisibility,
-          debug
-        }, 'specialStatusVisualLab');
-        if (cancelled) { controller.dispose(); return; }
-        statusRef.current = controller;
-      }
-      statusRef.current.setDebugVisible(debug);
-    };
-    void apply().catch((error) => console.error('Special Status 3D core 模块更新失败', error));
-    return () => { cancelled = true; };
-  }, [numberPreset, iconSrc, statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard]);
-
-  useEffect(() => {
-    statusRef.current?.setDebugVisible(debug);
-  }, [debug]);
-
-  useEffect(() => {
-    void statusRef.current?.setValues(
+    void visualManager.syncSpecialStatusPreview(
+      'specialStatusVisualLab',
+      config,
       [...values] as SpecialStatus3dValues,
-      [...visible] as SpecialStatus3dVisibility
-    ).catch((error) => console.error('Special Status 3D core 数值更新失败', error));
-  }, [values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3]]);
+      [...visible] as SpecialStatus3dVisibility,
+      debug
+    ).catch((error) => console.error('MonsterVisualManager 特殊状态预览更新失败', error));
+  }, [numberPreset, iconSrc, statusHeight, statusScale, numberScale, cornerInset, position[0], position[1], position[2], numberOffsets, billboard, debug, values[0], values[1], values[2], values[3], visible[0], visible[1], visible[2], visible[3]]);
 
   return (
     <div ref={stageRef} style={{ position: 'relative', width: '100%', height: '100%', minHeight: 0 }}>
