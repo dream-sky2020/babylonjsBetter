@@ -24,6 +24,14 @@ import {
 } from '@/core/special-status';
 import type { NumberSpritePresetMap } from '@/core/sprite';
 import type { MonsterSpecialStatusRowAnchorMode } from '@/core/monster/special-status/monsterSpecialStatusPosition.types.ts';
+import {
+  createExclamationMarkSprite,
+  type ExclamationBasePresetMap,
+  type ExclamationMarkPreset,
+  type ExclamationMarkPresetMap,
+  type ExclamationMarkSpriteController
+} from '@/core/sprite';
+import type { MonsterExclamationPositionConfig } from '@/core/monster/exclamation/monsterExclamationPosition.types.ts';
 
 export type VisualMonster = Monster & {
   monsterConfigKey: string;
@@ -69,9 +77,15 @@ export type MonsterSpecialStatusVisualLayout = {
   facingAxis: '+Z' | '-Z';
 };
 
+export type MonsterExclamationVisualResources = {
+  markPresets: ExclamationMarkPresetMap;
+  basePresets: ExclamationBasePresetMap;
+};
+
 type MonsterVisualEntry = {
   controller: LayeredMonsterController;
   anchor: TransformNode;
+  attachmentRoot: TransformNode;
   marker: Mesh;
   basePosition: Vector3;
   baseScaling: Vector3;
@@ -91,6 +105,11 @@ type MonsterSpecialStatusVisualEntry = {
 
 type SpecialStatusPreviewEntry = MonsterSpecialStatusVisualEntry & {
   generation: number;
+};
+
+type ExclamationVisualEntry = {
+  controller: ExclamationMarkSpriteController;
+  structureSignature: string;
 };
 
 type ActiveMonsterMotion = {
@@ -197,6 +216,8 @@ export class MonsterVisualManager {
   private readonly specialStatusGenerations = new Map<string, number>();
   private readonly specialStatusPreviews = new Map<string, SpecialStatusPreviewEntry>();
   private readonly specialStatusPreviewGenerations = new Map<string, number>();
+  private readonly monsterExclamations = new Map<string, Map<string, ExclamationVisualEntry>>();
+  private readonly exclamationPreviews = new Map<string, ExclamationVisualEntry>();
   private readonly distanceStripeRules = new Map<string, BattlefieldDistanceStripeRuleConfig>();
   private readonly root: TransformNode;
   private readonly gridRoot: TransformNode;
@@ -262,12 +283,13 @@ export class MonsterVisualManager {
     const nextIds = new Set(battlefield.monsters.map((monster) => monster.id));
     for (const [monsterId, entry] of this.monsters) {
       if (nextIds.has(monsterId)) continue;
+      this.clearMonsterSpecialStatuses(monsterId);
+      this.clearMonsterExclamations(monsterId);
       this.disposeMonsterEntry(entry);
       this.monsters.delete(monsterId);
       this.motions.delete(monsterId);
       this.attacks.delete(monsterId);
       this.hits.delete(monsterId);
-      this.clearMonsterSpecialStatuses(monsterId);
     }
 
     for (const item of battlefield.monsters) {
@@ -275,12 +297,13 @@ export class MonsterVisualManager {
       const existing = this.monsters.get(item.id);
       if (!config) {
         if (existing) {
+          this.clearMonsterSpecialStatuses(item.id);
+          this.clearMonsterExclamations(item.id);
           this.disposeMonsterEntry(existing);
           this.monsters.delete(item.id);
           this.motions.delete(item.id);
           this.attacks.delete(item.id);
           this.hits.delete(item.id);
-          this.clearMonsterSpecialStatuses(item.id);
         }
         continue;
       }
@@ -296,6 +319,7 @@ export class MonsterVisualManager {
         entry.basePosition.copyFrom(entry.controller.root.position);
         entry.baseScaling.copyFrom(entry.controller.root.scaling);
         entry.baseRotation.copyFrom(entry.controller.root.rotation);
+        entry.attachmentRoot.position.copyFrom(entry.basePosition);
         entry.controller.root.parent = entry.anchor;
       } else if (
         entry.stripePresetKey !== effectiveStripeKey ||
@@ -364,6 +388,9 @@ export class MonsterVisualManager {
     const baseRotation = controller.root.rotation.clone();
     controller.root.parent = anchor;
     controller.root.position.copyFrom(basePosition);
+    const attachmentRoot = new TransformNode(`monsterVisualAttachments_${item.id}`, this.scene);
+    attachmentRoot.parent = anchor;
+    attachmentRoot.position.copyFrom(basePosition);
 
     const markerWidth = this.calculateMarkerWidth(item, battlefield);
     const marker = MeshBuilder.CreateBox(`marker_${item.id}`, { width: markerWidth, depth: 0.14, height: 0.08 }, this.scene);
@@ -378,6 +405,7 @@ export class MonsterVisualManager {
     return {
       controller,
       anchor,
+      attachmentRoot,
       marker,
       basePosition,
       baseScaling,
@@ -419,6 +447,7 @@ export class MonsterVisualManager {
     entry.marker.material?.dispose();
     entry.marker.dispose();
     entry.controller.dispose();
+    entry.attachmentRoot.dispose();
     entry.anchor.dispose();
   }
 
@@ -630,7 +659,7 @@ export class MonsterVisualManager {
           controller.dispose();
           return;
         }
-        controller.root.parent = monster.controller.root;
+        controller.root.parent = monster.attachmentRoot;
         controller.root.scaling.setAll(Math.max(0.01, layout.groupScale));
         entry = { controller, configSignature, stateSignature };
         entries.set(item.id, entry);
@@ -716,6 +745,150 @@ export class MonsterVisualManager {
     this.specialStatusPreviewGenerations.clear();
   }
 
+  /** 将怪物的感叹号组配置同步为视觉对象，并绑定到怪物视觉根节点。 */
+  syncMonsterExclamations(
+    monsterId: string,
+    config: MonsterExclamationPositionConfig,
+    resources: MonsterExclamationVisualResources,
+    debugVisible = false
+  ): void {
+    const monster = this.monsters.get(monsterId);
+    if (!monster) {
+      this.clearMonsterExclamations(monsterId);
+      return;
+    }
+    const entries = this.monsterExclamations.get(monsterId) ?? new Map<string, ExclamationVisualEntry>();
+    this.monsterExclamations.set(monsterId, entries);
+    const fallbackMarkKey = Object.keys(resources.markPresets)[0] ?? '';
+    const fallbackBaseKey = Object.keys(resources.basePresets)[0] ?? '';
+    const visible = config.indicators
+      .filter((item) => item.visible && (resources.markPresets[item.exclamationPresetKey] || resources.markPresets[fallbackMarkKey]))
+      .sort((a, b) => a.order - b.order);
+    const nextIds = new Set(visible.map((item) => item.id));
+    for (const [indicatorId, entry] of entries) {
+      if (nextIds.has(indicatorId)) continue;
+      entry.controller.dispose();
+      entries.delete(indicatorId);
+    }
+    visible.forEach((item, index) => {
+      const mark = resources.markPresets[item.exclamationPresetKey] ?? resources.markPresets[fallbackMarkKey];
+      if (!mark) return;
+      const base = resources.basePresets[item.basePresetKey] ?? resources.basePresets[fallbackBaseKey] ?? mark.base;
+      const runtimePreset: ExclamationMarkPreset = {
+        ...mark,
+        progress: { ...mark.progress, progress: item.exclamationProgress },
+        base: { ...base, progress: { ...base.progress, progress: item.baseProgress } }
+      };
+      const centeredX = (index - (visible.length - 1) / 2) * config.spacing * config.groupScale;
+      const localPosition: [number, number, number] = [
+        config.groupOffset[0] + centeredX + item.offset[0],
+        config.groupOffset[1] + item.offset[1],
+        config.groupOffset[2] + item.offset[2]
+      ];
+      const { progress: _markProgress, ...markProgressStructure } = runtimePreset.progress;
+      const { progress: _baseProgress, ...baseProgressStructure } = runtimePreset.base.progress;
+      const structureSignature = JSON.stringify([{
+        ...runtimePreset,
+        progress: markProgressStructure,
+        base: { ...runtimePreset.base, progress: baseProgressStructure }
+      }, localPosition, item.scale, item.baseScale, config.groupScale]);
+      const existing = entries.get(item.id);
+      if (existing?.structureSignature === structureSignature) {
+        existing.controller.setFillPercent(item.exclamationProgress);
+        existing.controller.setBaseProgress(runtimePreset.base.progress);
+        existing.controller.setDebugVisible(debugVisible);
+        return;
+      }
+      existing?.controller.dispose();
+      const controller = createExclamationMarkSprite(this.scene, runtimePreset, item.exclamationProgress);
+      controller.mesh.parent = monster.attachmentRoot;
+      controller.mesh.position.set(...localPosition);
+      controller.setScale(item.scale * config.groupScale);
+      controller.setBaseScale(item.baseScale * config.groupScale);
+      controller.setBaseProgress(runtimePreset.base.progress);
+      controller.setDebugVisible(debugVisible);
+      entries.set(item.id, { controller, structureSignature });
+    });
+  }
+
+  clearMonsterExclamations(monsterId: string): void {
+    const entries = this.monsterExclamations.get(monsterId);
+    entries?.forEach(({ controller }) => controller.dispose());
+    this.monsterExclamations.delete(monsterId);
+  }
+
+  clearAllMonsterExclamations(): void {
+    for (const monsterId of [...this.monsterExclamations.keys()]) this.clearMonsterExclamations(monsterId);
+  }
+
+  /** 仅更新怪物感叹号和底座进度，不重建网格、纹理或材质。 */
+  setMonsterExclamationProgress(
+    monsterId: string,
+    indicatorId: string,
+    exclamationProgress: number,
+    baseProgress: number,
+    basePreset?: ExclamationMarkPreset['base']
+  ): boolean {
+    const entry = this.monsterExclamations.get(monsterId)?.get(indicatorId);
+    if (!entry) return false;
+    entry.controller.setFillPercent(exclamationProgress);
+    entry.controller.setBaseProgress({
+      ...(basePreset?.progress ?? entry.controller.preset.base.progress),
+      progress: baseProgress
+    });
+    return true;
+  }
+
+  /** 管理不依附怪物的感叹号预览，供感叹号配置 Lab 使用。 */
+  syncExclamationPreview(previewId: string, preset: ExclamationMarkPreset, debugVisible = false): void {
+    const { progress: _markProgress, ...markProgressStructure } = preset.progress;
+    const { progress: _baseProgress, ...baseProgressStructure } = preset.base.progress;
+    const structureSignature = JSON.stringify({
+      ...preset,
+      progress: markProgressStructure,
+      base: { ...preset.base, progress: baseProgressStructure }
+    });
+    const existing = this.exclamationPreviews.get(previewId);
+    if (existing?.structureSignature === structureSignature) {
+      existing.controller.setFillPercent(preset.progress.progress);
+      existing.controller.setBaseProgress(preset.base.progress);
+      existing.controller.setDebugVisible(debugVisible);
+      return;
+    }
+    existing?.controller.dispose();
+    const controller = createExclamationMarkSprite(this.scene, preset, preset.progress.progress);
+    controller.mesh.parent = this.root;
+    controller.setBaseProgress(preset.base.progress);
+    controller.setDebugVisible(debugVisible);
+    this.exclamationPreviews.set(previewId, { controller, structureSignature });
+  }
+
+  /** 仅更新独立感叹号预览的进度，不重建视觉对象。 */
+  setExclamationPreviewProgress(
+    previewId: string,
+    exclamationProgress: number,
+    baseProgress: number,
+    basePreset?: ExclamationMarkPreset['base']
+  ): boolean {
+    const entry = this.exclamationPreviews.get(previewId);
+    if (!entry) return false;
+    entry.controller.setFillPercent(exclamationProgress);
+    entry.controller.setBaseProgress({
+      ...(basePreset?.progress ?? entry.controller.preset.base.progress),
+      progress: baseProgress
+    });
+    return true;
+  }
+
+  clearExclamationPreview(previewId: string): void {
+    this.exclamationPreviews.get(previewId)?.controller.dispose();
+    this.exclamationPreviews.delete(previewId);
+  }
+
+  clearAllExclamationPreviews(): void {
+    for (const previewId of [...this.exclamationPreviews.keys()]) this.clearExclamationPreview(previewId);
+  }
+
   /** 为配置编辑器提供只读的图层网格，不转移怪物视觉对象的生命周期。 */
   getMonsterLayerMesh(monsterId: string, layerKey: (typeof MONSTER_RENDER_ORDER)[number]): Mesh | null {
     return this.monsters.get(monsterId)?.controller.getLayerMesh(layerKey) ?? null;
@@ -747,6 +920,12 @@ export class MonsterVisualManager {
     entry.controller.root.position.copyFrom(entry.basePosition);
     entry.controller.root.scaling.copyFrom(entry.baseScaling);
     entry.controller.root.rotation.copyFrom(entry.baseRotation);
+  }
+
+  private syncAttachmentTransform(entry: MonsterVisualEntry): void {
+    entry.attachmentRoot.position.copyFrom(entry.controller.root.position);
+    entry.attachmentRoot.rotation.copyFrom(entry.controller.root.rotation);
+    entry.attachmentRoot.scaling.setAll(1);
   }
 
   private clearHitVisual(entry: MonsterVisualEntry): void {
@@ -843,6 +1022,7 @@ export class MonsterVisualManager {
       }
       entry.controller.setColorOverlay(parameters.color, parameters.overlayStrength * flashEnvelope);
     }
+    this.monsters.forEach((entry) => this.syncAttachmentTransform(entry));
   }
 
   clear(): void {
@@ -851,6 +1031,8 @@ export class MonsterVisualManager {
     this.hits.clear();
     this.clearAllMonsterSpecialStatuses();
     this.clearAllSpecialStatusPreviews();
+    this.clearAllMonsterExclamations();
+    this.clearAllExclamationPreviews();
     this.monsters.forEach((entry) => this.disposeMonsterEntry(entry));
     this.monsters.clear();
     this.gridRoot.getChildMeshes().forEach((mesh) => {

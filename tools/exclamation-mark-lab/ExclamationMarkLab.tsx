@@ -1,22 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
+import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
+import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
+import { MonsterVisualManager } from '@/core/monster';
 import {
-  ArcRotateCamera,
-  Color3,
-  Color4,
-  Engine,
-  HemisphericLight,
-  Mesh,
-  MeshBuilder,
-  Scene,
-  StandardMaterial,
-  Vector3
-} from '@babylonjs/core';
-import {
-  createAtlasSpritePlane,
   createDefaultExclamationMarkPreset,
   createDefaultExclamationBasePreset,
-  createExclamationMarkProgressMaterial,
-  applyExclamationMarkProgressPreset,
   getPublicResourceImagePaths,
   normalizeExclamationMarkPresets,
   normalizeExclamationBasePresets,
@@ -43,12 +32,8 @@ const uniqueKey = (base: string, presets: Record<string, unknown>): string => {
 
 export const ExclamationMarkLab: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const sceneRef = useRef<Scene | null>(null);
-  const spriteRef = useRef<ReturnType<typeof createAtlasSpritePlane> | null>(null);
-  const progressMaterialRef = useRef<ReturnType<typeof createExclamationMarkProgressMaterial> | null>(null);
-  const baseSpriteRef = useRef<ReturnType<typeof createAtlasSpritePlane> | null>(null);
-  const baseMaterialRef = useRef<ReturnType<typeof createExclamationMarkProgressMaterial> | null>(null);
-  const desiredHeightRef = useRef(2.4);
+  const stageRef = useRef<HTMLElement>(null);
+  const visualManagerRef = useRef<MonsterVisualManager | null>(null);
   const [presets, setPresets] = useState<ExclamationMarkPresetMap>({});
   const [activeKey, setActiveKey] = useState('');
   const [basePresets, setBasePresets] = useState<ExclamationBasePresetMap>({});
@@ -60,6 +45,12 @@ export const ExclamationMarkLab: React.FC = () => {
   const markPreset = presets[activeKey];
   const basePreset = basePresets[activeBaseKey];
   const preset = markPreset ? { ...markPreset, base: basePreset ?? markPreset.base } : undefined;
+  const presetStructureKey = useMemo(() => {
+    if (!preset) return '';
+    const { progress: _markProgress, ...markProgress } = preset.progress;
+    const { progress: _baseProgress, ...baseProgress } = preset.base.progress;
+    return JSON.stringify({ ...preset, progress: markProgress, base: { ...preset.base, progress: baseProgress } });
+  }, [preset]);
 
   const patchBasePreset = useCallback((patch: Partial<ExclamationBasePreset>) => {
     if (!basePreset) return;
@@ -117,132 +108,46 @@ export const ExclamationMarkLab: React.FC = () => {
   }, [imageOptions]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const engine = new Engine(canvas, true, { stencil: true });
-    const scene = new Scene(engine);
-    sceneRef.current = scene;
-    scene.clearColor = new Color4(0.025, 0.04, 0.065, 1);
-    const camera = new ArcRotateCamera('exclamation_mark_camera', -Math.PI / 2, 1.18, 9, new Vector3(0, 1.5, 0), scene);
-    camera.attachControl(canvas, true);
-    camera.wheelPrecision = 35;
-    new HemisphericLight('exclamation_mark_light', new Vector3(0.4, 1, 0.2), scene).intensity = 1.25;
-    const ground = MeshBuilder.CreateGround('exclamation_mark_ground', { width: 18, height: 18 }, scene);
-    const material = new StandardMaterial('exclamation_mark_ground_material', scene);
-    material.diffuseColor = new Color3(0.055, 0.09, 0.14);
-    ground.material = material;
-    engine.runRenderLoop(() => scene.render());
-    const resize = () => engine.resize();
+    const canvas = canvasRef.current, stage = stageRef.current;
+    if (!canvas || !stage) return;
+    const context = createCameraLabScene(canvas), camera = createCameraLabController(context.camera), cameraPanel = createFloatingCameraControlPanel(stage, camera), visualManager = new MonsterVisualManager(context.scene);
+    visualManager.setHelpersVisible(false);
+    visualManagerRef.current = visualManager;
+    const drag = { active: false, id: -1, x: 0, y: 0 };
+    const down = (event: PointerEvent) => { if (event.button !== 0) return; if (camera.state.lookControlMode === 'pointerLock') { void canvas.requestPointerLock?.(); return; } drag.active = true; drag.id = event.pointerId; drag.x = event.clientX; drag.y = event.clientY; canvas.setPointerCapture(event.pointerId); };
+    const move = (event: PointerEvent) => { if (!drag.active || drag.id !== event.pointerId) return; camera.handlePointerDelta(event.clientX - drag.x, event.clientY - drag.y); drag.x = event.clientX; drag.y = event.clientY; cameraPanel.syncFromController(); };
+    const up = (event: PointerEvent) => { if (!drag.active || drag.id !== event.pointerId) return; drag.active = false; if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId); };
+    const documentMove = (event: MouseEvent) => { if (document.pointerLockElement === canvas) camera.handlePointerDelta(event.movementX, event.movementY); };
+    const keyDown = (event: KeyboardEvent) => { if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement) return; if (!['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE'].includes(event.code)) return; camera.keys.add(event.code); event.preventDefault(); };
+    const keyUp = (event: KeyboardEvent) => camera.keys.delete(event.code);
+    const wheel = (event: WheelEvent) => { if (camera.state.mode !== 'orbit') return; event.preventDefault(); camera.handleWheel(event.deltaY); cameraPanel.syncFromController(); };
+    const resize = () => context.engine.resize();
+    canvas.addEventListener('pointerdown', down); canvas.addEventListener('pointermove', move); canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up); canvas.addEventListener('wheel', wheel, { passive: false });
+    document.addEventListener('mousemove', documentMove); window.addEventListener('keydown', keyDown); window.addEventListener('keyup', keyUp);
     window.addEventListener('resize', resize);
+    context.engine.runRenderLoop(() => { const dt = context.engine.getDeltaTime() / 1000; camera.update(dt); cameraPanel.updateStatus(); visualManager.update(dt); context.scene.render(); });
     return () => {
+      canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointermove', move); canvas.removeEventListener('pointerup', up); canvas.removeEventListener('pointercancel', up); canvas.removeEventListener('wheel', wheel);
+      document.removeEventListener('mousemove', documentMove); window.removeEventListener('keydown', keyDown); window.removeEventListener('keyup', keyUp);
       window.removeEventListener('resize', resize);
-      scene.dispose();
-      engine.dispose();
-      sceneRef.current = null;
+      visualManager.dispose(); visualManagerRef.current = null; cameraPanel.dispose(); context.dispose();
     };
   }, []);
 
   useEffect(() => {
-    const scene = sceneRef.current;
-    if (!scene || !preset?.imagePath) return;
-    const sprite = createAtlasSpritePlane(scene, encodeURI(`/${preset.imagePath.replace(/^\/+/, '')}`), 1);
-    const progressMaterial = createExclamationMarkProgressMaterial(scene, sprite.texture, preset);
-    sprite.mesh.material = progressMaterial.material;
-    sprite.mesh.isPickable = false;
-    sprite.mesh.renderingGroupId = 1;
-    sprite.mesh.alphaIndex = 1;
-    spriteRef.current = sprite;
-    progressMaterialRef.current = progressMaterial;
-    const applyCurrentSize = () => {
-      const textureSize = sprite.texture.getSize();
-      const aspect = textureSize.width > 0 && textureSize.height > 0 ? textureSize.width / textureSize.height : 1;
-      sprite.mesh.scaling.x = (preset.sizeMode === 'fixed' ? preset.width * preset.scale : desiredHeightRef.current * aspect) * preset.scaleX;
-      sprite.mesh.scaling.y = desiredHeightRef.current * preset.scaleY;
-    };
-    sprite.texture.onLoadObservable.add(applyCurrentSize);
-    applyCurrentSize();
-    return () => {
-      if (spriteRef.current === sprite) spriteRef.current = null;
-      if (progressMaterialRef.current === progressMaterial) progressMaterialRef.current = null;
-      progressMaterial.dispose();
-      sprite.dispose();
-    };
-  }, [preset?.imagePath]);
+    if (!preset) return;
+    visualManagerRef.current?.syncExclamationPreview('exclamation-mark-lab', preset, debugVisible);
+  }, [presetStructureKey, debugVisible]);
 
   useEffect(() => {
-    const scene = sceneRef.current;
-    const base = preset?.base;
-    if (!scene || !preset || !base?.enabled || !base.imagePath) return;
-    const sprite = createAtlasSpritePlane(scene, encodeURI(`/${base.imagePath.replace(/^\/+/, '')}`), 1);
-    const basePreset = { ...preset, presetKey: `${preset.presetKey}_base`, imagePath: base.imagePath, progress: base.progress };
-    const material = createExclamationMarkProgressMaterial(scene, sprite.texture, basePreset);
-    sprite.mesh.material = material.material;
-    sprite.mesh.name = `exclamation_mark_base_${preset.presetKey}`;
-    sprite.mesh.position.copyFromFloats(
-      preset.position[0] + base.offset[0], preset.position[1] + base.offset[1], preset.position[2] + base.offset[2]
+    if (!preset) return;
+    visualManagerRef.current?.setExclamationPreviewProgress(
+      'exclamation-mark-lab',
+      preset.progress.progress,
+      preset.base.progress.progress,
+      preset.base
     );
-    sprite.mesh.billboardMode = preset.faceCamera ? Mesh.BILLBOARDMODE_Y : 0;
-    sprite.mesh.isPickable = false;
-    sprite.mesh.renderingGroupId = 1;
-    sprite.mesh.alphaIndex = 0;
-    const applySize = () => {
-      const size = sprite.texture.getSize();
-      const aspect = size.width > 0 && size.height > 0 ? size.width / size.height : 1;
-      const height = base.height * base.scale;
-      sprite.mesh.scaling.x = (base.sizeMode === 'fixed' ? base.width * base.scale : height * aspect) * base.scaleX;
-      sprite.mesh.scaling.y = height * base.scaleY;
-    };
-    sprite.texture.onLoadObservable.add(applySize);
-    applySize();
-    baseSpriteRef.current = sprite;
-    baseMaterialRef.current = material;
-    return () => {
-      if (baseSpriteRef.current === sprite) baseSpriteRef.current = null;
-      if (baseMaterialRef.current === material) baseMaterialRef.current = null;
-      material.dispose(); sprite.dispose();
-    };
-  }, [preset?.base?.enabled, preset?.base?.imagePath]);
-
-  useEffect(() => {
-    if (!preset?.base || !baseSpriteRef.current || !baseMaterialRef.current) return;
-    const base = preset.base;
-    const sprite = baseSpriteRef.current;
-    const size = sprite.texture.getSize();
-    const aspect = size.width > 0 && size.height > 0 ? size.width / size.height : 1;
-    const height = base.height * base.scale;
-    sprite.mesh.scaling.x = (base.sizeMode === 'fixed' ? base.width * base.scale : height * aspect) * base.scaleX;
-    sprite.mesh.scaling.y = height * base.scaleY;
-    sprite.mesh.position.copyFromFloats(preset.position[0] + base.offset[0], preset.position[1] + base.offset[1], preset.position[2] + base.offset[2]);
-    sprite.mesh.billboardMode = preset.faceCamera ? Mesh.BILLBOARDMODE_Y : 0;
-    sprite.mesh.showBoundingBox = debugVisible;
-    applyExclamationMarkProgressPreset(baseMaterialRef.current, { ...preset, progress: base.progress });
-  }, [preset, debugVisible]);
-
-  useEffect(() => {
-    if (!preset) return;
-    desiredHeightRef.current = preset.height * preset.scale;
-    const sprite = spriteRef.current;
-    if (!sprite) return;
-    const textureSize = sprite.texture.getSize();
-    const aspect = textureSize.width > 0 && textureSize.height > 0 ? textureSize.width / textureSize.height : 1;
-    sprite.mesh.scaling.x = (preset.sizeMode === 'fixed' ? preset.width * preset.scale : desiredHeightRef.current * aspect) * preset.scaleX;
-    sprite.mesh.scaling.y = desiredHeightRef.current * preset.scaleY;
-  }, [preset?.height, preset?.width, preset?.scale, preset?.scaleX, preset?.scaleY, preset?.sizeMode]);
-
-  useEffect(() => {
-    if (!preset) return;
-    const sprite = spriteRef.current;
-    if (!sprite) return;
-    sprite.mesh.name = `exclamation_mark_${preset.presetKey}`;
-    sprite.mesh.position.copyFromFloats(preset.position[0], preset.position[1], preset.position[2]);
-    sprite.mesh.billboardMode = preset.faceCamera ? Mesh.BILLBOARDMODE_Y : 0;
-    sprite.mesh.showBoundingBox = debugVisible;
-  }, [preset?.presetKey, preset?.position[0], preset?.position[1], preset?.position[2], preset?.faceCamera, debugVisible]);
-
-  useEffect(() => {
-    if (!preset || !progressMaterialRef.current) return;
-    applyExclamationMarkProgressPreset(progressMaterialRef.current, preset);
-  }, [preset]);
+  }, [preset?.progress.progress, preset?.base.progress.progress, preset?.base.progress]);
 
   const save = async () => {
     try {
@@ -409,7 +314,7 @@ export const ExclamationMarkLab: React.FC = () => {
       </section> : null}
       <section style={sectionStyle}><div style={{ color: serverPort ? '#8bd8a4' : '#e8ad83', fontSize: 12 }}>Python 服务：{serverPort ? `已连接 ${serverPort}` : '未连接'}</div><div style={{ marginTop: 7, color: '#9dacbf', fontSize: 12, lineHeight: 1.5 }}>{message}</div></section>
     </aside>
-    <main style={{ minWidth: 0, position: 'relative', border: '1px solid #273348', borderRadius: 12, overflow: 'hidden', background: '#080d14' }}>
+    <main ref={stageRef} style={{ minWidth: 0, position: 'relative', border: '1px solid #273348', borderRadius: 12, overflow: 'hidden', background: '#080d14' }}>
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
       <div style={{ position: 'absolute', left: 10, bottom: 8, color: '#8291a8', fontSize: 11, pointerEvents: 'none' }}>左键旋转 · 滚轮缩放 · Sprite 始终保持垂直</div>
     </main>
