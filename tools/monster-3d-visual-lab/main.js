@@ -34,14 +34,15 @@ import {
 } from '/core/monster/index.ts';
 
 const CONFIG_URL = '/config/stripePresets.json';
+const MONSTER_CONFIG_URL = '/config/monsterDisplayConfigs.json';
 const MONSTER_STRIPE_PRESET_URL = '/config/monsterStripePresets.json';
 const MONSTER_CONFIG_API_PATH = '/api/monster-display-configs';
 const STRIPE_CONFIG_API_PATH = '/api/stripe-presets';
 const MONSTER_STRIPE_PRESET_API_PATH = '/api/monster-stripe-presets';
 const LAYER_KEYS = MONSTER_LAYER_KEYS;
 const FIXED_RENDER_ORDER = MONSTER_RENDER_ORDER;
-const EDITOR_MONSTER_ID = 'monster-2d-lab-preview';
-const EDITOR_BATTLEFIELD_ID = 'monster-2d-lab-preview-field';
+const EDITOR_MONSTER_ID = 'monster-3d-visual-lab-preview';
+const EDITOR_BATTLEFIELD_ID = 'monster-3d-visual-lab-preview-field';
 const PROGRESS_SHAPE_OPTIONS = ['none', 'linear', 'radial', 'sector', 'ring', 'diamond', 'box', 'rect-perimeter'];
 const PROGRESS_DIRECTION_OPTIONS = ['forward', 'reverse', 'center-out', 'edges-in'];
 
@@ -161,8 +162,6 @@ const state = {
 };
 
 const el = {
-  go2dPageBtn: document.getElementById('go2dPageBtn'),
-  go3dPageBtn: document.getElementById('go3dPageBtn'),
   loadMonsterConfigsBtn: document.getElementById('loadMonsterConfigsBtn'),
   saveMonsterConfigsBtn: document.getElementById('saveMonsterConfigsBtn'),
   newMonsterConfigBtn: document.getElementById('newMonsterConfigBtn'),
@@ -815,7 +814,6 @@ const applyDisplayFromConfig = (config) => {
   }
   syncAllLayerFacingAxis();
   applyMonsterTransformFromInputs();
-  syncActiveConfigFromCurrentDisplay();
 };
 
 const refreshMonsterConfigSelect = () => {
@@ -1138,13 +1136,12 @@ const loadAllLayerMeshes = async () => {
   for (const layerKey of LAYER_KEYS) {
     state.layers[layerKey].path = normalizeResourcePath(state.layers[layerKey].path) || DEFAULT_ASSETS[layerKey];
   }
-  syncActiveConfigFromCurrentDisplay();
   state.resourceImageOptions = getScannedResourceImages();
   renderLayerControls();
   buildAssetDatalist();
   manager.sync({
     id: EDITOR_BATTLEFIELD_ID,
-    name: 'Monster 2D Lab 3D Preview',
+    name: 'Monster 3D Visual Lab Preview',
     width: 1,
     cellSize: 1,
     rowSpacing: 1,
@@ -1160,10 +1157,10 @@ const loadAllLayerMeshes = async () => {
     monsterStripes: JSON.parse(JSON.stringify(state.monsterStripePresets)),
     stripes: JSON.parse(JSON.stringify(state.presets))
   }, EDITOR_MONSTER_ID);
-  applyMonsterTransformFromInputs();
   for (const layerKey of FIXED_RENDER_ORDER) applyLayerShaderParams(layerKey);
   syncAllLayerDebugHandles();
-  setStatus('3D 怪物视觉已刷新。');
+  const finalScale = Math.max(0.01, config.scaleSize / 560) * Math.max(0.01, config.scene3dScale);
+  setStatus(`3D 怪物视觉已刷新：${config.id}，scaleSize=${config.scaleSize}，scene3dScale=${config.scene3dScale}，最终缩放=${finalScale.toFixed(3)}。`);
 };
 
 const syncStripeMaterialsForAllLayers = () => {
@@ -1221,6 +1218,29 @@ const loadMonsterConfigsFromServer = async () => {
     setStatus(valid ? `已读取怪物配置（${hostLabel}）` : `怪物配置已读取，但存在校验错误：${(payload.errors || []).join('；')}`, !valid);
   } catch (error) {
     setStatus(`读取怪物配置失败：${String(error)}`, true);
+  }
+};
+
+const loadMonsterConfigsFromStaticFile = async () => {
+  try {
+    const response = await fetch(`${MONSTER_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    state.monsterConfigs = normalizeMonsterConfigLibrary(await response.json());
+    const sorted = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
+    if (!sorted.length) throw new Error('monsterDisplayConfigs.json 中没有可用配置');
+    state.activeMonsterConfigId = preferredMonsterConfigFromQuery && state.monsterConfigs[preferredMonsterConfigFromQuery]
+      ? preferredMonsterConfigFromQuery
+      : sorted[0];
+    refreshMonsterConfigSelect();
+    const config = activeMonsterConfig();
+    if (!config) return;
+    applyDisplayFromConfig(config);
+    renderLayerControls();
+    await loadAllLayerMeshes();
+    setStatus('开发 API 未连接，已直接读取 monsterDisplayConfigs.json；当前仅可预览，保存需要开发服务器。');
+  } catch (error) {
+    setStatus(`读取怪物配置失败：${String(error)}`, true);
+    await loadAllLayerMeshes();
   }
 };
 
@@ -1306,12 +1326,6 @@ const saveMonsterStripePresetsToServer = async () => {
 };
 
 const bindEvents = () => {
-  if (el.go3dPageBtn) {
-    el.go3dPageBtn.disabled = true;
-  }
-  el.go2dPageBtn?.addEventListener('click', () => {
-    window.location.href = './index.html';
-  });
   el.loadMonsterConfigsBtn.addEventListener('click', () => {
     void loadMonsterConfigsFromServer();
   });
@@ -1656,21 +1670,23 @@ const bindEvents = () => {
     state.babylon.engine.resize();
     updateCameraProjection();
   });
-  el.sizeInput.addEventListener('input', () => {
-    applyMonsterTransformFromInputs();
+  const monsterTransformInputs = [
+    el.sizeInput,
+    el.scene3dScaleInput,
+    el.scene3dHeightInput,
+    el.scene3dOffsetXInput
+  ].filter(Boolean);
+  const commitMonsterTransformInputs = () => {
     syncActiveConfigFromCurrentDisplay();
-  });
-  el.scene3dScaleInput?.addEventListener('input', () => {
     applyMonsterTransformFromInputs();
-    syncActiveConfigFromCurrentDisplay();
-  });
-  el.scene3dHeightInput?.addEventListener('input', () => {
-    applyMonsterTransformFromInputs();
-    syncActiveConfigFromCurrentDisplay();
-  });
-  el.scene3dOffsetXInput?.addEventListener('input', () => {
-    applyMonsterTransformFromInputs();
-    syncActiveConfigFromCurrentDisplay();
+  };
+  monsterTransformInputs.forEach((input) => {
+    input.addEventListener('change', commitMonsterTransformInputs);
+    input.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      event.currentTarget.blur();
+    });
   });
 };
 
@@ -1763,7 +1779,7 @@ const boot = async () => {
   if (connection.connected) {
     await loadMonsterConfigsFromServer();
   } else {
-    await loadAllLayerMeshes();
+    await loadMonsterConfigsFromStaticFile();
   }
 };
 

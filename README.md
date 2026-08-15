@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# Babylon.js Better
+
+项目结构、核心模块、配置数据流和工具入口请先查看 [PROJECT_MAP.md](./PROJECT_MAP.md)。
+
+## 原始 Vite 模板说明
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

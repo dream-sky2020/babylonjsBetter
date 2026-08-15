@@ -81,8 +81,6 @@ const state = {
 };
 
 const el = {
-  go2dPageBtn: document.getElementById('go2dPageBtn'),
-  go3dPageBtn: document.getElementById('go3dPageBtn'),
   loadMonsterConfigsBtn: document.getElementById('loadMonsterConfigsBtn'),
   saveMonsterConfigsBtn: document.getElementById('saveMonsterConfigsBtn'),
   newMonsterConfigBtn: document.getElementById('newMonsterConfigBtn'),
@@ -992,13 +990,6 @@ const tick = () => {
 };
 
 const bindEvents = () => {
-  if (el.go2dPageBtn) {
-    el.go2dPageBtn.disabled = true;
-  }
-  el.go3dPageBtn?.addEventListener('click', () => {
-    window.location.href = './scene3d.html';
-  });
-
   el.loadMonsterConfigsBtn.addEventListener('click', () => {
     void loadMonsterConfigsFromServer();
   });
