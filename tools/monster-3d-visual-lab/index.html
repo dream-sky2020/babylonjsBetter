@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monster 3D Scene Lab</title>
+  <title>Monster 3D Visual Lab</title>
   <style>
     :root {
       color-scheme: dark;
@@ -159,14 +159,9 @@
 <body>
   <main class="root">
     <section class="panel">
-      <div class="title">Babylon3D 场景下的 2D 怪物创建</div>
+      <div class="title">Monster 3D Visual Lab</div>
       <div class="hint">
-        当前是 Babylon.js 3D 场景页；左右面板与 2D 页共用。
-      </div>
-
-      <div class="row segment-grid">
-        <button id="go2dPageBtn">切到 2D 预览页</button>
-        <button id="go3dPageBtn">当前：Babylon3D 场景页</button>
+        使用 MonsterVisualManager 预览并编辑怪物显示配置和怪物条纹配置。
       </div>
 
       <div class="row">
@@ -214,11 +209,11 @@
 
       <div class="row">
         <div class="label">怪物大小</div>
-        <input id="sizeInput" type="range" min="240" max="900" step="1" value="560" />
+        <input id="sizeInput" type="number" min="1" step="1" value="560" />
       </div>
       <div class="row">
         <div class="label">3D 场景倍率（最终大小 = 怪物大小倍率 * 3D 场景倍率）</div>
-        <input id="scene3dScaleInput" type="number" min="0.01" max="20" step="0.01" value="1" />
+        <input id="scene3dScaleInput" type="number" min="0.01" step="0.01" value="1" />
       </div>
       <div class="row">
         <div class="label">3D 场景高度（Y）</div>
@@ -295,7 +290,7 @@
       </div>
     </section>
   </main>
-  <script type="module" src="./main-3d.js"></script>
+  <script type="module" src="./main.js"></script>
 </body>
 
 </html>

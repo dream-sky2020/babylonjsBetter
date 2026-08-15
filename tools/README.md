@@ -51,7 +51,8 @@
   - `index.html`（点击位置弹出数字，可调范围/固定值/消失时间/发光）
 - `monster-2d-lab/`
   - `index.html`（2D 网页预览效果，编辑怪物分层与条纹）
-  - `scene3d.html`（Babylon3D 场景下创建 2D 怪物，和 2D 页共用左右面板）
+- `monster-3d-visual-lab/`
+  - `index.html`（使用 MonsterVisualManager 编辑并预览怪物显示配置与条纹配置）
 
 ## 访问路径示例（开发模式）
 
@@ -65,4 +66,4 @@
 - `/tools/render-lab/energy_line_dynamic_erosion.html`
 - `/tools/pop-number-lab/index.html`
 - `/tools/monster-2d-lab/index.html`
-- `/tools/monster-2d-lab/scene3d.html`
+- `/tools/monster-3d-visual-lab/index.html`
