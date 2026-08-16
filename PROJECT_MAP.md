@@ -101,6 +101,7 @@ config/monsterDisplayConfigs.json
 ### Sprite、特效与状态
 
 - `core/sprite/`：图集、精灵实体、动画、锚点、数字精灵、感叹号、Shader 进度遮罩。
+- `core/sprite/ash/`：独立 3D 精灵化灰 Shader、预设规范化和运行时控制器；不依赖怪物模块。
 - `core/effects/`：弹出数字、爆炸胶囊等效果。
 - `core/special-status/`：3D 特殊状态视觉和预设。
 - `core/particle/`：粒子实体、视觉预设、配置仓库和编辑器帮助函数。
@@ -137,6 +138,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 
 ### Sprite/UI
 
+- `3d-sprite-ash-lab/`：独立精灵化灰 Shader 与参数预览、调配和保存。
 - `sprite-anchor-editor/`
 - `sprite-animation-editor/`
 - `atlas-json-editor/`
@@ -189,6 +191,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `monsterStatusParticleConfigs.json` | 怪物状态粒子 |
 | `spriteAnchorPresets.json` | Sprite Anchor Editor |
 | `spriteAnimationLibrary.json` | Sprite Animation Editor/runtime |
+| `spriteAshPresets.json` | 3D Sprite Ash Lab / `core/sprite/ash`；通过 `/api/sprite-ash-presets` 保存 |
 | `numberSpriteConfigs.json` | Number Sprite Lab |
 | `exclamationMarkPresets.json`、`exclamationBasePresets.json` | 感叹号视觉 |
 | `particlePresets.json`、`particleVisualPresets.json` | Particle Editor/runtime |

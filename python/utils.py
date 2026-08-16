@@ -1393,6 +1393,40 @@ def validate_monster_death_config_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.parameters.duration must be greater than zero")
     return errors
 
+def validate_sprite_ash_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    if not payload:
+        return ["at least one sprite ash preset is required"]
+    numeric_fields = (
+        "duration", "directionAngleDeg", "noiseScale", "noiseStrength", "noiseSpeed",
+        "edgeWidth", "edgeSoftness", "edgeIntensity", "charStrength", "ashTrail",
+        "ashDensity", "ashOpacity", "rise", "driftX", "turbulence", "flickerSpeed",
+        "seed", "alphaCutoff"
+    )
+    color_fields = ("edgeColor", "charColor", "ashColor")
+    for key, preset in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("sprite ash preset key must be a non-empty string"); continue
+        if not isinstance(preset, dict):
+            errors.append(f"{path} must be an object"); continue
+        if preset.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset["name"].strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        for field in numeric_fields:
+            if not is_finite_number(preset.get(field)):
+                errors.append(f"{path}.{field} must be a finite number")
+        if is_finite_number(preset.get("duration")) and preset["duration"] <= 0:
+            errors.append(f"{path}.duration must be greater than zero")
+        for field in color_fields:
+            value = preset.get(field)
+            if not isinstance(value, str) or len(value) != 7 or not value.startswith("#"):
+                errors.append(f"{path}.{field} must be a #RRGGBB color")
+    return errors
+
 
 def validate_monster_status_particle_config_payload(payload: dict) -> list[str]:
     errors: list[str] = []

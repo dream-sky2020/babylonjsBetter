@@ -119,6 +119,7 @@ export default defineConfig({
         index: path.resolve(__dirname, 'index.html'),
         spriteAnchorEditor: path.resolve(__dirname, 'tools/sprite-anchor-editor/index.html'),
         spriteAnimationEditor: path.resolve(__dirname, 'tools/sprite-animation-editor/index.html'),
+        spriteAsh3dLab: path.resolve(__dirname, 'tools/3d-sprite-ash-lab/index.html'),
         numberSpriteLab: path.resolve(__dirname, 'tools/number-sprite-lab/index.html'),
         exclamationMarkLab: path.resolve(__dirname, 'tools/exclamation-mark-lab/index.html'),
         monsterExclamationPositionLab: path.resolve(__dirname, 'tools/monster-exclamation-position-lab/index.html'),
