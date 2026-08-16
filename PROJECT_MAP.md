@@ -64,7 +64,7 @@ npm run electron:dev
 | `core/monster/resource/monsterResources.ts` | 资源路径规范化与扫描结果整理 |
 | `core/monster/api/monsterApi.ts` | 怪物显示与条纹配置 API |
 | `core/monster/render/createLayeredMonster.ts` | 创建四层 Babylon 怪物，应用显示配置与条纹材质 |
-| `core/monster/visual/MonsterVisualManager.ts` | 怪物视觉生命周期、编队同步、移动、攻击、受击、特殊状态和感叹号的统一管理器 |
+| `core/monster/visual/MonsterVisualManager.ts` | 怪物视觉生命周期、编队同步、移动、攻击、受击、死亡、特殊状态和感叹号的统一管理器 |
 | `core/monster/data/` | 正式怪物/战场实例数据类型 |
 
 怪物显示标准路径：
@@ -94,6 +94,7 @@ config/monsterDisplayConfigs.json
 
 - `core/monster-motion/`：移动模式注册、参数定义和轨迹计算。
 - `core/monster-attack-motion/`：攻击模式注册与动画定义。
+- `core/monster-death-motion/`：死亡模式注册、参数定义和逐帧采样；当前包含击飞倒地、沉底消亡和化灰消散。
 - `core/monster-status-particle/`：怪物状态粒子。
 - `core/battlefield/`：战场和编队数据类型。
 
@@ -120,7 +121,8 @@ config/monsterDisplayConfigs.json
 | --- | --- | --- |
 | Monster 2D Lab | `tools/monster-2d-lab/index.html` | 纯 2D 网页预览；不再拥有 3D 模式 |
 | Monster 3D Visual Lab | `tools/monster-3d-visual-lab/index.html` | 编辑怪物显示配置和怪物条纹配置；通过 `MonsterVisualManager` 进行 3D 预览 |
-| Monster Hit Lab | `tools/monster-hit-lab/index.html` | 受击反馈、弹出数字和爆炸胶囊测试 |
+| Monster Hit Lab | `tools/monster-hit-feedback-lab/index.html` | 受击反馈、弹出数字和爆炸胶囊测试 |
+| Monster Death Lab | `tools/monster-death-lab/index.html` | 选择、编辑和预览多种死亡动画；参数由 core 模式声明并保存到 `monsterDeathConfigs.json` |
 | Monster Movement Lab | `tools/monster-movement-lab/index.html` | 编队中的移动模式和距离条纹规则测试 |
 | Monster Attack Lab | `tools/monster-attack-lab/index.html` | 怪物攻击动作配置与测试 |
 | Monster Formation Lab | `tools/monster-formation-lab/index.html` | 战场编队编辑与预览 |
@@ -175,10 +177,11 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 
 | 配置 | 主要消费者/编辑器 |
 | --- | --- |
-| `monsterDisplayConfigs.json` | MonsterVisualManager、Monster 3D Visual/Hit/Movement/Attack labs |
+| `monsterDisplayConfigs.json` | MonsterVisualManager、Monster 3D Visual/Hit/Death/Movement/Attack labs |
 | `monsterStripePresets.json`、`stripePresets.json` | 怪物分层条纹和通用条纹 Shader |
 | `monsterMovementConfigs.json` | Monster Movement Lab / monster-motion |
 | `monsterAttackConfigs.json` | Monster Attack Lab / monster-attack-motion |
+| `monsterDeathConfigs.json` | Monster Death Lab / monster-death-motion；通过 `/api/monster-death-configs` 保存 |
 | `monsterBattlefieldFormations.json` | Formation、Movement 等战场 lab |
 | `monsterBattlefieldStripeRules.json` | 距离条纹规则 |
 | `monsterExclamationPositions.json` | 怪物感叹号布局 |
@@ -224,4 +227,3 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - 新增统一 Manager、Repository 或场景工厂；
 - 页面功能迁移到 `core/`，或核心功能退回页面实现；
 - 开发 API、构建入口或持久化方式改变。
-
