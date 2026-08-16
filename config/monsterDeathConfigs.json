@@ -1,0 +1,53 @@
+{
+  "knockback_default": {
+    "presetKey": "knockback_default",
+    "name": "击飞倒地",
+    "modeId": "knockback",
+    "parameters": {
+      "duration": 1.35,
+      "impactRatio": 0.68,
+      "fadeStart": 0.82,
+      "side": "right",
+      "distance": 4.2,
+      "height": 4.8,
+      "spinTurns": 0.85,
+      "landingSquash": 0.28,
+      "bounceHeight": 0.42,
+      "hitColor": "#ff3b30",
+      "hitFlash": 0.72
+    }
+  },
+  "sink_default": {
+    "presetKey": "sink_default",
+    "name": "沉底消亡",
+    "modeId": "sink",
+    "parameters": {
+      "duration": 1.8,
+      "settleRatio": 0.25,
+      "fadeStart": 0.58,
+      "depth": 5.8,
+      "drift": 0.25,
+      "wobbleDeg": 8,
+      "wobbleCycles": 2.5,
+      "squash": 0.18,
+      "shadowColor": "#301934",
+      "shadowStrength": 0.68
+    }
+  },
+  "ash_default": {
+    "presetKey": "ash_default",
+    "name": "化灰消散",
+    "modeId": "ash",
+    "parameters": {
+      "duration": 2.15,
+      "dissolveStart": 0.24,
+      "layerStagger": 0.32,
+      "rise": 2.6,
+      "spread": 1.5,
+      "shrink": 0.32,
+      "flutter": 0.28,
+      "ashColor": "#c7c7c7",
+      "ashStrength": 0.92
+    }
+  }
+}

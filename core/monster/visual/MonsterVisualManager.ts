@@ -14,6 +14,7 @@ import {
 import type { Monster } from '@/core/monster/data';
 import { getMonsterMotionDefinition, type MonsterMotionParameterValues, type MonsterMotionPreset } from '@/core/monster-motion';
 import { getMonsterAttackDefinition, type MonsterAttackParameterValues, type MonsterAttackPreset } from '@/core/monster-attack-motion';
+import { getMonsterDeathDefinition, type MonsterDeathParameterValues, type MonsterDeathPreset } from '@/core/monster-death-motion';
 import {
   createSpecialStatus3d,
   type SpecialStatus3dConfig,
@@ -145,6 +146,15 @@ type ActiveMonsterHit = {
   onComplete?: () => void;
 };
 
+type ActiveMonsterDeath = {
+  elapsed: number;
+  duration: number;
+  parameters: MonsterDeathParameterValues;
+  definition: ReturnType<typeof getMonsterDeathDefinition>;
+  completed: boolean;
+  onComplete?: () => void;
+};
+
 const HIT_LAYER_SHAKE_PROFILES = {
   bottomFillMask: { amplitude: 0.42, phase: 0.15, vertical: 0.1 },
   bottomBorder: { amplitude: 0.68, phase: 1.35, vertical: 0.14 },
@@ -212,6 +222,7 @@ export class MonsterVisualManager {
   private readonly motions = new Map<string, ActiveMonsterMotion>();
   private readonly attacks = new Map<string, ActiveMonsterAttack>();
   private readonly hits = new Map<string, ActiveMonsterHit>();
+  private readonly deaths = new Map<string, ActiveMonsterDeath>();
   private readonly specialStatuses = new Map<string, Map<string, MonsterSpecialStatusVisualEntry>>();
   private readonly specialStatusGenerations = new Map<string, number>();
   private readonly specialStatusPreviews = new Map<string, SpecialStatusPreviewEntry>();
@@ -290,6 +301,7 @@ export class MonsterVisualManager {
       this.motions.delete(monsterId);
       this.attacks.delete(monsterId);
       this.hits.delete(monsterId);
+      this.deaths.delete(monsterId);
     }
 
     for (const item of battlefield.monsters) {
@@ -304,6 +316,7 @@ export class MonsterVisualManager {
           this.motions.delete(item.id);
           this.attacks.delete(item.id);
           this.hits.delete(item.id);
+          this.deaths.delete(item.id);
         }
         continue;
       }
@@ -559,6 +572,40 @@ export class MonsterVisualManager {
   stopAllHits(): void {
     this.hits.clear();
     this.monsters.forEach((entry) => this.clearHitVisual(entry));
+  }
+
+  playMonsterDeath(
+    monsterId: string,
+    preset: MonsterDeathPreset,
+    onComplete?: () => void
+  ): boolean {
+    const entry = this.monsters.get(monsterId);
+    const definition = getMonsterDeathDefinition(preset.modeId);
+    if (!entry || !definition) return false;
+    this.motions.delete(monsterId);
+    this.attacks.delete(monsterId);
+    this.stopMonsterHit(monsterId);
+    this.clearDeathVisual(entry);
+    this.deaths.set(monsterId, {
+      elapsed: 0,
+      duration: Math.max(0.05, Number(preset.parameters.duration) || 1),
+      parameters: { ...preset.parameters },
+      definition,
+      completed: false,
+      onComplete
+    });
+    return true;
+  }
+
+  stopMonsterDeath(monsterId: string): void {
+    const entry = this.monsters.get(monsterId);
+    this.deaths.delete(monsterId);
+    if (entry) this.clearDeathVisual(entry);
+  }
+
+  stopAllDeaths(): void {
+    this.deaths.clear();
+    this.monsters.forEach((entry) => this.clearDeathVisual(entry));
   }
 
   getMonsterWorldPosition(monsterId: string): Vector3 | null {
@@ -933,6 +980,16 @@ export class MonsterVisualManager {
     entry.controller.setColorOverlay(Color3.Red(), 0);
   }
 
+  private clearDeathVisual(entry: MonsterVisualEntry): void {
+    this.resetVisualTransform(entry);
+    entry.controller.clearLayerEffectOffsets();
+    entry.controller.setColorOverlay(Color3.Black(), 0);
+    for (const layerKey of MONSTER_RENDER_ORDER) {
+      const mesh = entry.controller.getLayerMesh(layerKey);
+      if (mesh) mesh.visibility = 1;
+    }
+  }
+
   update(deltaTime: number): void {
     this.time += deltaTime;
     this.monsters.forEach(({ controller }) => controller.updateTime(this.time));
@@ -1022,6 +1079,42 @@ export class MonsterVisualManager {
       }
       entry.controller.setColorOverlay(parameters.color, parameters.overlayStrength * flashEnvelope);
     }
+    for (const [id, active] of this.deaths) {
+      const entry = this.monsters.get(id);
+      if (!entry) {
+        this.deaths.delete(id);
+        continue;
+      }
+      active.elapsed += deltaTime;
+      const progress = Math.max(0, Math.min(1, active.elapsed / active.duration));
+      const frame = active.definition.sample({ progress }, active.parameters);
+      entry.controller.root.position.copyFrom(entry.basePosition).addInPlace(frame.visualOffset);
+      entry.controller.root.rotation.set(
+        entry.baseRotation.x + frame.rotationX,
+        entry.baseRotation.y + frame.rotationY,
+        entry.baseRotation.z + frame.rotationZ
+      );
+      entry.controller.root.scaling.set(
+        entry.baseScaling.x * frame.scaleX,
+        entry.baseScaling.y * frame.scaleY,
+        entry.baseScaling.z * frame.scaleZ
+      );
+      const overlayColor = /^#[0-9a-f]{6}$/i.test(frame.overlayColor) ? Color3.FromHexString(frame.overlayColor) : Color3.White();
+      entry.controller.setColorOverlay(overlayColor, Math.max(0, Math.min(1, frame.overlayStrength)));
+      MONSTER_RENDER_ORDER.forEach((layerKey, index) => {
+        const layer = frame.layers?.[index];
+        const mesh = entry.controller.getLayerMesh(layerKey);
+        if (mesh) mesh.visibility = Math.max(0, Math.min(1, frame.opacity * (layer?.opacity ?? 1)));
+        entry.controller.setLayerEffectOffset(
+          layerKey,
+          layer?.offsetX ?? 0,
+          layer?.offsetY ?? 0
+        );
+      });
+      if (progress < 1 || active.completed) continue;
+      active.completed = true;
+      active.onComplete?.();
+    }
     this.monsters.forEach((entry) => this.syncAttachmentTransform(entry));
   }
 
@@ -1029,6 +1122,7 @@ export class MonsterVisualManager {
     this.motions.clear();
     this.attacks.clear();
     this.hits.clear();
+    this.deaths.clear();
     this.clearAllMonsterSpecialStatuses();
     this.clearAllSpecialStatusPreviews();
     this.clearAllMonsterExclamations();

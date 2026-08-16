@@ -1,108 +1,121 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web 调试入口</title>
-    <style>
-      :root {
-        color-scheme: dark;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
-        background: #101318;
-        color: #e8edf2;
-      }
-      .wrap {
-        width: min(960px, 92vw);
-        margin: 40px auto;
-      }
-      h1 {
-        margin: 0 0 10px;
-        font-size: 26px;
-      }
-      p {
-        margin: 0 0 24px;
-        color: #a6b0be;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: 12px;
-      }
-      a {
-        display: block;
-        padding: 14px 16px;
-        border-radius: 10px;
-        text-decoration: none;
-        border: 1px solid #2d3542;
-        background: #171c25;
-        color: #e8edf2;
-      }
-      a:hover {
-        border-color: #4a7bff;
-        background: #1c2431;
-      }
-      .hint {
-        margin-top: 22px;
-        font-size: 13px;
-        color: #8d99aa;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="wrap">
-      <h1>网页端调试界面</h1>
-      <p>此页面仅作为调试导航，不再自动启动游戏场景或其它测试模块。</p>
-      <section class="grid">
-        <a href="/tools/sprite-anchor-editor/index.html">Sprite Anchor Editor</a>
-        <a href="/tools/model-lab/index.html">3D Model Lab</a>
-        <a href="/tools/model-scene-lab/index.html">3D Scene Preset Lab</a>
-        <a href="/tools/model-shake-lab/index.html">3D Model Shake Lab</a>
-        <a href="/tools/model-display-lab/index.html">3D Model Display Config Lab</a>
-        <a href="/tools/model-swing-lab/index.html">3D Model Swing Lab</a>
-        <a href="/tools/model-shoot-lab/index.html">3D Model Shoot Lab</a>
-        <a href="/tools/bullet-config-lab/index.html">Bullet Config Lab</a>
-        <a href="/tools/atlas-json-editor/index.html">Atlas JSON Editor</a>
-        <a href="/tools/sprite-animation-editor/index.html">Sprite Animation Editor</a>
-        <a href="/tools/number-sprite-lab/index.html">Number Sprite Config Lab</a>
-        <a href="/tools/exclamation-mark-lab/index.html">Exclamation Mark Sprite Lab</a>
-        <a href="/tools/monster-exclamation-position-lab/index.html">Monster Exclamation Position Lab</a>
-        <a href="/tools/monster-special-status-position-lab/index.html">Monster Special Status Position Lab</a>
-        <a href="/tools/stripes-config-lab/index.html">Stripes Config Lab</a>
-        <a href="/tools/monster-2d-lab/index.html">2D Monster Lab</a>
-        <a href="/tools/monster-3d-visual-lab/index.html">Monster 3D Visual Lab</a>
-        <a href="/tools/monster-hit-lab/index.html">Monster Hit Lab</a>
-        <a href="/tools/monster-formation-lab/index.html">Monster Battlefield Formation Lab</a>
-        <a href="/tools/monster-battlefield-stripe-rules-lab/index.html">Monster Battlefield Stripe Rules Lab</a>
-        <a href="/tools/monster-movement-lab/index.html">Monster Movement Animation Lab</a>
-        <a href="/tools/monster-attack-lab/index.html">Monster Attack Animation Lab</a>
-        <a href="/tools/monster-status-particle-lab/index.html">Monster Status Particle Lab</a>
-        <a href="/tools/camera-scene-lab/index.html">Camera Scene Lab</a>
-        <a href="/tools/pop-number-lab/index.html">Pop Number Lab</a>
-        <a href="/tools/particle-editor/index.html">L1 原生粒子特效 Lab</a>
-        <a href="/tools/particle-motion-lab/index.html">L2 粒子运动接管 Lab</a>
-        <a href="/tools/target-link-lab/index.html">Target Link Lab</a>
-        <a href="/tools/battle-lab/battle.html">Battle Lab</a>
-        <a href="/tools/oscilloscope-ui-lab/index.html">Oscilloscope UI Lab</a>
-        <a href="/tools/burst-capsule-lab/index.html">Burst Capsule Lab</a>
-        <a href="/tools/battle-skill-slots-lab/index.html">Battle Skill Slots Lab</a>
-        <a href="/tools/db-game-selfstatus-lab/index.html">DB Game Selfstatus Lab</a>
-        <a href="/tools/avatar-visual-lab/index.html">Avatar Visual Lab</a>
-        <a href="/tools/special-status-visual-lab/index.html">Special Status Visual Lab</a>
-        <a href="/tools/skill-lab/skilleffect.html">Skill Effect Lab</a>
-        <a href="/tools/render-lab/energy-line.html">Energy Line Lab</a>
-        <a href="/tools/render-lab/energy_line_dynamic_erosion.html">Energy Erosion Lab</a>
-        <a href="/tools/galgame-lab/galgame-console.html">Galgame Console</a>
-        <a href="/tools/limbus-lab/limbusgame-console.html">Limbus Console</a>
-        <a href="/tools/limbus-lab/rpg-battle.html">RPG Battle Debug</a>
-      </section>
-      <div class="hint">如果只想调一个页面，直接访问对应链接即可。</div>
-    </main>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web 调试入口</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: #101318;
+      color: #e8edf2;
+    }
+
+    .wrap {
+      width: min(960px, 92vw);
+      margin: 40px auto;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    p {
+      margin: 0 0 24px;
+      color: #a6b0be;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    a {
+      display: block;
+      padding: 14px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid #2d3542;
+      background: #171c25;
+      color: #e8edf2;
+    }
+
+    a:hover {
+      border-color: #4a7bff;
+      background: #1c2431;
+    }
+
+    .hint {
+      margin-top: 22px;
+      font-size: 13px;
+      color: #8d99aa;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <h1>网页端调试界面</h1>
+    <p>此页面仅作为调试导航，不再自动启动游戏场景或其它测试模块。</p>
+    <section class="grid">
+      <a href="/tools/sprite-anchor-editor/index.html">Sprite Anchor Editor</a>
+      <a href="/tools/model-lab/index.html">3D Model Lab</a>
+      <a href="/tools/model-scene-lab/index.html">3D Scene Preset Lab</a>
+      <a href="/tools/model-shake-lab/index.html">3D Model Shake Lab</a>
+      <a href="/tools/model-display-lab/index.html">3D Model Display Config Lab</a>
+      <a href="/tools/model-swing-lab/index.html">3D Model Swing Lab</a>
+      <a href="/tools/model-shoot-lab/index.html">3D Model Shoot Lab</a>
+      <a href="/tools/bullet-config-lab/index.html">Bullet Config Lab</a>
+      <a href="/tools/atlas-json-editor/index.html">Atlas JSON Editor</a>
+      <a href="/tools/sprite-animation-editor/index.html">Sprite Animation Editor</a>
+      <a href="/tools/number-sprite-lab/index.html">Number Sprite Config Lab</a>
+      <a href="/tools/exclamation-mark-lab/index.html">Exclamation Mark Sprite Lab</a>
+      <a href="/tools/monster-exclamation-position-lab/index.html">Monster Exclamation Position Lab</a>
+      <a href="/tools/monster-special-status-position-lab/index.html">Monster Special Status Position Lab</a>
+      <a href="/tools/stripes-config-lab/index.html">Stripes Config Lab</a>
+      <a href="/tools/monster-2d-lab/index.html">2D Monster Lab</a>
+      <a href="/tools/monster-3d-visual-lab/index.html">Monster 3D Visual Lab</a>
+      <a href="/tools/monster-hit-feedback-lab/index.html">Monster Hit Lab</a>
+      <a href="/tools/monster-death-lab/index.html">Monster Death Lab</a>
+      <a href="/tools/monster-formation-lab/index.html">Monster Battlefield Formation Lab</a>
+      <a href="/tools/monster-battlefield-stripe-rules-lab/index.html">Monster Battlefield Stripe Rules Lab</a>
+      <a href="/tools/monster-movement-lab/index.html">Monster Movement Animation Lab</a>
+      <a href="/tools/monster-attack-lab/index.html">Monster Attack Animation Lab</a>
+      <a href="/tools/monster-status-particle-lab/index.html">Monster Status Particle Lab</a>
+      <a href="/tools/camera-scene-lab/index.html">Camera Scene Lab</a>
+      <a href="/tools/pop-number-lab/index.html">Pop Number Lab</a>
+      <a href="/tools/particle-editor/index.html">L1 原生粒子特效 Lab</a>
+      <a href="/tools/particle-motion-lab/index.html">L2 粒子运动接管 Lab</a>
+      <a href="/tools/target-link-lab/index.html">Target Link Lab</a>
+      <a href="/tools/battle-lab/battle.html">Battle Lab</a>
+      <a href="/tools/oscilloscope-ui-lab/index.html">Oscilloscope UI Lab</a>
+      <a href="/tools/burst-capsule-lab/index.html">Burst Capsule Lab</a>
+      <a href="/tools/battle-skill-slots-lab/index.html">Battle Skill Slots Lab</a>
+      <a href="/tools/db-game-selfstatus-lab/index.html">DB Game Selfstatus Lab</a>
+      <a href="/tools/avatar-visual-lab/index.html">Avatar Visual Lab</a>
+      <a href="/tools/special-status-visual-lab/index.html">Special Status Visual Lab</a>
+      <a href="/tools/skill-lab/skilleffect.html">Skill Effect Lab</a>
+      <a href="/tools/render-lab/energy-line.html">Energy Line Lab</a>
+      <a href="/tools/render-lab/energy_line_dynamic_erosion.html">Energy Erosion Lab</a>
+      <a href="/tools/galgame-lab/galgame-console.html">Galgame Console</a>
+      <a href="/tools/limbus-lab/limbusgame-console.html">Limbus Console</a>
+      <a href="/tools/limbus-lab/rpg-battle.html">RPG Battle Debug</a>
+    </section>
+    <div class="hint">如果只想调一个页面，直接访问对应链接即可。</div>
+  </main>
+</body>
+
 </html>

@@ -1359,6 +1359,40 @@ def validate_monster_attack_config_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.parameters.duration must be greater than zero")
     return errors
 
+def validate_monster_death_config_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    if not payload:
+        return ["at least one death preset is required"]
+    for key, config in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.strip():
+            errors.append("death preset key must be a non-empty string"); continue
+        if not isinstance(config, dict):
+            errors.append(f"{path} must be an object"); continue
+        if config.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(config.get("name"), str) or not config["name"].strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        if not isinstance(config.get("modeId"), str) or not config["modeId"].strip():
+            errors.append(f"{path}.modeId must be a non-empty string")
+        parameters = config.get("parameters")
+        if not isinstance(parameters, dict):
+            errors.append(f"{path}.parameters must be an object"); continue
+        for parameter_key, value in parameters.items():
+            parameter_path = f"{path}.parameters[{parameter_key}]"
+            if not isinstance(parameter_key, str) or not parameter_key.strip():
+                errors.append(f"{path}.parameters keys must be non-empty strings")
+            elif not isinstance(value, (str, int, float, bool)) or not (
+                isinstance(value, bool) or isinstance(value, str) or is_finite_number(value)
+            ):
+                errors.append(f"{parameter_path} must be a finite number, string, or boolean")
+        duration = parameters.get("duration")
+        if not is_finite_number(duration) or duration <= 0:
+            errors.append(f"{path}.parameters.duration must be greater than zero")
+    return errors
+
 
 def validate_monster_status_particle_config_payload(payload: dict) -> list[str]:
     errors: list[str] = []
