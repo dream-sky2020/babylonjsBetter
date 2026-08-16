@@ -23,7 +23,7 @@ from utils import (
     validate_monster_exclamation_position_payload, validate_special_status_visual_preset_payload,
     validate_monster_special_status_position_payload, validate_monster_battlefield_formation_payload,
     validate_monster_battlefield_stripe_rule_payload, validate_monster_movement_config_payload,
-    validate_monster_attack_config_payload, validate_monster_death_config_payload, validate_monster_status_particle_config_payload,
+    validate_monster_attack_config_payload, validate_monster_death_config_payload, validate_sprite_ash_preset_payload, validate_monster_status_particle_config_payload,
     validate_avatar_config_payload
 )
 
@@ -47,6 +47,7 @@ MONSTER_BATTLEFIELD_STRIPE_RULE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config
 MONSTER_MOVEMENT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterMovementConfigs.json")
 MONSTER_ATTACK_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterAttackConfigs.json")
 MONSTER_DEATH_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDeathConfigs.json")
+SPRITE_ASH_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAshPresets.json")
 MONSTER_STATUS_PARTICLE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStatusParticleConfigs.json")
 PARTICLE_EFFECT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleEffects.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
@@ -331,6 +332,9 @@ def handle_monster_attack_configs():
 @app.route("/api/monster-death-configs", methods=["GET", "PUT"])
 def handle_monster_death_configs():
     return _handle_json_config(MONSTER_DEATH_CONFIG_PATH, validate_monster_death_config_payload, "monster death configs")
+@app.route("/api/sprite-ash-presets", methods=["GET", "PUT"])
+def handle_sprite_ash_presets():
+    return _handle_json_config(SPRITE_ASH_PRESET_CONFIG_PATH, validate_sprite_ash_preset_payload, "sprite ash presets")
 @app.route("/api/monster-status-particle-configs", methods=["GET", "PUT"])
 def handle_monster_status_particle_configs():
     return _handle_json_config(MONSTER_STATUS_PARTICLE_CONFIG_PATH, validate_monster_status_particle_config_payload, "monster status particle configs")
