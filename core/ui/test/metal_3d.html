@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three.js 3D 暗黑金属 UI 模拟器</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #08090a;
+      color: #e0e6ed;
+      overflow: hidden;
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* 3D 渲染舞台 */
+    #webgl-container {
+      flex: 1;
+      height: 100%;
+      position: relative;
+    }
+
+    /* 右侧控制参数面板 */
+    .control-panel {
+      width: 320px;
+      height: 100%;
+      background: #111215;
+      border-left: 1px solid #22252a;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: -10px 0 25px rgba(0, 0, 0, 0.8);
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      color: #fff;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #22252a;
+      letter-spacing: 1px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      color: #8a939e;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: #585e68;
+      cursor: pointer;
+    }
+
+    .control-group input[type="color"] {
+      border: none;
+      width: 100%;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+    }
+
+    /* 开关样式 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #2a2d34;
+      transition: .3s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #e0e6ed;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4f5663;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      #webgl-container { height: 60vh; }
+      .control-panel { width: 100%; height: 40vh; border-left: none; border-top: 1px solid #22252a; }
+    }
+  </style>
+
+  <!-- 引入 Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <!-- WebGL Canvas 渲染容器 -->
+  <div id="webgl-container"></div>
+
+  <!-- 参数控制面板 -->
+  <aside class="control-panel">
+    <h2 class="panel-title">Three.js 金属 PBR 参数</h2>
+
+    <div class="control-group">
+      <label>鼠标跟随光源 (Mouse Light): <span id="light-val">ON</span></label>
+      <label class="switch">
+        <input type="checkbox" id="lightSwitch" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <label>金属度 (Metalness): <span id="metal-val">0.95</span></label>
+      <input type="range" id="metalness" min="0" max="1" step="0.01" value="0.95">
+    </div>
+
+    <div class="control-group">
+      <label>表面粗糙度 (Roughness): <span id="rough-val">0.25</span></label>
+      <input type="range" id="roughness" min="0.05" max="1" step="0.01" value="0.25">
+    </div>
+
+    <div class="control-group">
+      <label>清漆反光层 (Clearcoat): <span id="coat-val">0.8</span></label>
+      <input type="range" id="clearcoat" min="0" max="1" step="0.05" value="0.8">
+    </div>
+
+    <div class="control-group">
+      <label>光源强度 (Light Intensity): <span id="intensity-val">3.0</span></label>
+      <input type="range" id="lightIntensity" min="0.5" max="8" step="0.1" value="3.0">
+    </div>
+
+    <div class="control-group">
+      <label>光源悬浮高度 Z: <span id="height-val">3.0</span></label>
+      <input type="range" id="lightHeight" min="0.5" max="8" step="0.1" value="3.0">
+    </div>
+
+    <div class="control-group">
+      <label>暗色金属颜色 (Metal Color)</label>
+      <input type="color" id="metalColor" value="#1c1f24">
+    </div>
+
+    <div class="control-group">
+      <label>鼠标光束颜色 (Light Color)</label>
+      <input type="color" id="lightColor" value="#ffffff">
+    </div>
+  </aside>
+
+  <script>
+    // --- 1. 场景与渲染器初始化 ---
+    const container = document.getElementById('webgl-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color('#08090a');
+
+    // 视角相机
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 7);
+
+    // 渲染器开启抗锯齿与阴影
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    container.appendChild(renderer.domElement);
+
+    // --- 2. 灯光部署 ---
+    // 基础暗环境光
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(ambientLight);
+
+    // 辅助平行光（制造轮廓线条高光）
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(-5, 5, 4);
+    scene.add(dirLight);
+
+    // 核心：鼠标跟随 3D 点光源（实现动态倒影与光斑）
+    const mouseLight = new THREE.PointLight(0xffffff, 3.0, 12);
+    mouseLight.position.set(0, 0, 3.0);
+    mouseLight.castShadow = true;
+    mouseLight.shadow.mapSize.width = 1024;
+    mouseLight.shadow.mapSize.height = 1024;
+    scene.add(mouseLight);
+
+    // 可视化光球（跟随鼠标）
+    const lightBulbMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const lightBulb = new THREE.Mesh(new THREE.SphereGeometry(0.06, 16, 16), lightBulbMat);
+    mouseLight.add(lightBulb);
+
+    // --- 3. 构造 3D 暗黑金属 UI 几何体 ---
+
+    // 材质定义：MeshPhysicalMaterial 带来高端 PBR 反光与各向异性感
+    const metalMaterial = new THREE.MeshPhysicalMaterial({
+      color: new THREE.Color('#1c1f24'),
+      metalness: 0.95,
+      roughness: 0.25,
+      clearcoat: 0.8,
+      clearcoatRoughness: 0.1,
+      reflectivity: 0.9
+    });
+
+    const borderMaterial = new THREE.MeshStandardMaterial({
+      color: new THREE.Color('#383e47'),
+      metalness: 0.9,
+      roughness: 0.2
+    });
+
+    // 组（包含卡片与按钮）
+    const uiGroup = new THREE.Group();
+    scene.add(uiGroup);
+
+    // 辅助函数：创建带圆角和倒角（Bevel）的拉伸 Shape Geometry
+    function createRoundedBox(w, h, depth, radius, bevel) {
+      const shape = new THREE.Shape();
+      const x = -w / 2, y = -h / 2;
+      shape.moveTo(x + radius, y);
+      shape.lineTo(x + w - radius, y);
+      shape.quadraticCurveTo(x + w, y, x + w, y + radius);
+      shape.lineTo(x + w, y + h - radius);
+      shape.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+      shape.lineTo(x + radius, y + h);
+      shape.quadraticCurveTo(x, y + h, x, y + h - radius);
+      shape.lineTo(x, y + radius);
+      shape.quadraticCurveTo(x, y, x + radius, y);
+
+      const extrudeSettings = {
+        depth: depth,
+        bevelEnabled: true,
+        bevelSegments: 5,
+        steps: 1,
+        bevelSize: bevel,
+        bevelThickness: bevel
+      };
+      return new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    }
+
+    // A. 金属底板面板 (Card)
+    const cardGeo = createRoundedBox(3.2, 2.2, 0.1, 0.15, 0.03);
+    cardGeo.center();
+    const cardMesh = new THREE.Mesh(cardGeo, metalMaterial);
+    cardMesh.receiveShadow = true;
+    cardMesh.castShadow = true;
+    uiGroup.add(cardMesh);
+
+    // B. 底板暗色金属外框 (Outer Border)
+    const borderGeo = createRoundedBox(3.28, 2.28, 0.08, 0.16, 0.02);
+    borderGeo.center();
+    const borderMesh = new THREE.Mesh(borderGeo, borderMaterial);
+    borderMesh.position.z = -0.02;
+    uiGroup.add(borderMesh);
+
+    // C. 中央 3D 暗黑金属按钮 (Button)
+    const btnGeo = createRoundedBox(1.5, 0.5, 0.08, 0.08, 0.02);
+    btnGeo.center();
+    const buttonMesh = new THREE.Mesh(btnGeo, metalMaterial.clone()); // 独立材质便于交互
+    buttonMesh.position.z = 0.12;
+    buttonMesh.castShadow = true;
+    buttonMesh.receiveShadow = true;
+    uiGroup.add(buttonMesh);
+
+    // --- 4. 交互与 Raycaster (悬停与点击) ---
+    const raycaster = new THREE.Raycaster();
+    const mouse2D = new THREE.Vector2(-999, -999);
+    let isLightOn = true;
+    let isHovered = false;
+
+    // 鼠标在网页展示区移动时更新 3D 光源坐标
+    window.addEventListener('mousemove', (e) => {
+      const rect = container.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        
+        // 映射归一化坐标 (-1 到 +1)
+        mouse2D.x = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
+        mouse2D.y = -((e.clientY - rect.top) / container.clientHeight) * 2 + 1;
+
+        // 计算三维世界坐标，将点光源平滑定位到鼠标处
+        if (isLightOn) {
+          const vector = new THREE.Vector3(mouse2D.x, mouse2D.y, 0.5);
+          vector.unproject(camera);
+          const dir = vector.sub(camera.position).normalize();
+          const distance = (mouseLight.position.z - camera.position.z) / dir.z;
+          const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+          
+          mouseLight.position.x = pos.x;
+          mouseLight.position.y = pos.y;
+        }
+      }
+    });
+
+    // 按钮按下沉浸感效果
+    window.addEventListener('mousedown', () => {
+      if (isHovered) {
+        buttonMesh.position.z = 0.06; // 缩回凹陷
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      buttonMesh.position.z = 0.12; // 弹回
+    });
+
+    // 窗口 Resize 尺寸自适应
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    // --- 5. UI 参数面板绑定 ---
+    const lightSwitch = document.getElementById('lightSwitch');
+    lightSwitch.addEventListener('change', (e) => {
+      isLightOn = e.target.checked;
+      mouseLight.visible = isLightOn;
+      document.getElementById('light-val').innerText = isLightOn ? 'ON' : 'OFF';
+    });
+
+    document.getElementById('metalness').addEventListener('input', (e) => {
+      metalMaterial.metalness = parseFloat(e.target.value);
+      buttonMesh.material.metalness = parseFloat(e.target.value);
+      document.getElementById('metal-val').innerText = e.target.value;
+    });
+
+    document.getElementById('roughness').addEventListener('input', (e) => {
+      metalMaterial.roughness = parseFloat(e.target.value);
+      buttonMesh.material.roughness = parseFloat(e.target.value);
+      document.getElementById('rough-val').innerText = e.target.value;
+    });
+
+    document.getElementById('clearcoat').addEventListener('input', (e) => {
+      metalMaterial.clearcoat = parseFloat(e.target.value);
+      buttonMesh.material.clearcoat = parseFloat(e.target.value);
+      document.getElementById('coat-val').innerText = e.target.value;
+    });
+
+    document.getElementById('lightIntensity').addEventListener('input', (e) => {
+      mouseLight.intensity = parseFloat(e.target.value);
+      document.getElementById('intensity-val').innerText = e.target.value;
+    });
+
+    document.getElementById('lightHeight').addEventListener('input', (e) => {
+      mouseLight.position.z = parseFloat(e.target.value);
+      document.getElementById('height-val').innerText = e.target.value;
+    });
+
+    document.getElementById('metalColor').addEventListener('input', (e) => {
+      metalMaterial.color.set(e.target.value);
+      buttonMesh.material.color.set(e.target.value);
+    });
+
+    document.getElementById('lightColor').addEventListener('input', (e) => {
+      mouseLight.color.set(e.target.value);
+      lightBulbMat.color.set(e.target.value);
+    });
+
+    // --- 6. 渲染循环与实时交互检测 ---
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // 视线射线碰撞检测 (按钮 Hover 高亮)
+      raycaster.setFromCamera(mouse2D, camera);
+      const intersects = raycaster.intersectObject(buttonMesh);
+
+      if (intersects.length > 0) {
+        if (!isHovered) {
+          isHovered = true;
+          document.body.style.cursor = 'pointer';
+          buttonMesh.material.emissive = new THREE.Color('#11151c');
+        }
+      } else {
+        if (isHovered) {
+          isHovered = false;
+          document.body.style.cursor = 'default';
+          buttonMesh.material.emissive = new THREE.Color('#000000');
+        }
+      }
+
+      // 卡片与按钮根据光源位置产生微小的立体倾斜反光（视差效果）
+      uiGroup.rotation.y = THREE.MathUtils.lerp(uiGroup.rotation.y, mouseLight.position.x * 0.08, 0.05);
+      uiGroup.rotation.x = THREE.MathUtils.lerp(uiGroup.rotation.x, -mouseLight.position.y * 0.08, 0.05);
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

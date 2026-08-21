@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暗黑金属风 UI 与参数调节面板 - 鼠标光源版</title>
+  <style>
+    :root {
+      /* 动态CSS变量，由JS参数面板控制 */
+      --metal-angle: 135deg;
+      --base-color: #1a1c1f;
+      --highlight-color: #585e68;
+      --shadow-color: #0b0c0d;
+      --gloss-opacity: 0.6;
+      --border-width: 3px;
+      --border-radius: 12px;
+      --button-scale: 1;
+
+      /* 鼠标光源相关变量 */
+      --mouse-x: 50%;
+      --mouse-y: 50%;
+      --light-radius: 150px;
+      --light-color: rgba(255, 255, 255, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0d0e10;
+      /* 碳纤维/暗色背景纹理 */
+      background-image: 
+        radial-gradient(#1e2025 15%, transparent 16%),
+        radial-gradient(#1e2025 15%, transparent 16%);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+      color: #e0e6ed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: row;
+      overflow-x: hidden;
+    }
+
+    /* 展示区域 */
+    .stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      position: relative;
+    }
+
+    /* 金属容器卡片 */
+    .metal-card {
+      position: relative;
+      padding: 40px 60px;
+      border-radius: var(--border-radius);
+      /* 金属边框与深度阴影 */
+      border: var(--border-width) solid transparent;
+      background-clip: padding-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      
+      /* 基础金属材质 */
+      background: linear-gradient(var(--metal-angle), var(--base-color), var(--shadow-color));
+      
+      /* 阴影和内部高光 */
+      box-shadow: 
+        /* 外部外发光与重阴影 */
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        /* 内部拉丝高光 */
+        inset 0 1px 1px rgba(255, 255, 255, calc(var(--gloss-opacity) * 0.5)),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.9);
+    }
+
+    /* 鼠标光源层 */
+    .mouse-light {
+      display: none; /* 默认隐藏 */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none; /* 穿透鼠标事件 */
+      z-index: 999; /* 置于顶层 */
+      background: radial-gradient(
+        circle var(--light-radius) at var(--mouse-x) var(--mouse-y),
+        var(--light-color) 0%,
+        rgba(0,0,0,0) 100%
+      );
+    }
+
+    /* 当鼠标光源开关打开时显示 */
+    body.light-on .mouse-light {
+      display: block;
+    }
+
+    /* 鼠标光源下的金属卡片高光 */
+    body.light-on .metal-card {
+        background: radial-gradient(
+            circle var(--light-radius) at calc(var(--mouse-x) - (100vw - 320px) / 2) calc(var(--mouse-y) - 100vh / 2),
+            var(--light-color) 0%,
+            transparent 100%
+        ), linear-gradient(var(--metal-angle), var(--base-color), var(--shadow-color));
+    }
+
+    /* 鼠标光源下的按钮高光 */
+    body.light-on .metal-btn {
+        background: radial-gradient(
+            circle calc(var(--light-radius) / 2) at calc(var(--mouse-x) - (100vw - 320px) / 2) calc(var(--mouse-y) - 100vh / 2),
+            rgba(255, 255, 255, calc(var(--gloss-opacity) * 0.5)) 0%,
+            transparent 100%
+        ), linear-gradient(180deg, var(--base-color) 0%, var(--shadow-color) 100%);
+    }
+
+    /* 利用伪元素制作金属拟真边框渐变 */
+    .metal-card::before {
+      content: '';
+      position: absolute;
+      top: calc(-1 * var(--border-width));
+      left: calc(-1 * var(--border-width));
+      right: calc(-1 * var(--border-width));
+      bottom: calc(-1 * var(--border-width));
+      background: linear-gradient(
+        var(--metal-angle),
+        var(--highlight-color),
+        var(--base-color) 40%,
+        var(--shadow-color) 70%,
+        var(--highlight-color)
+      );
+      border-radius: calc(var(--border-radius) + var(--border-width));
+      z-index: -1;
+    }
+
+    .metal-title {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #8a939e;
+      text-shadow: 0 -1px 1px #000, 0 1px 1px rgba(255,255,255,0.1);
+    }
+
+    /* 暗黑金属按钮 */
+    .metal-btn {
+      position: relative;
+      outline: none;
+      border: none;
+      padding: 16px 42px;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #c5cbd3;
+      cursor: pointer;
+      border-radius: calc(var(--border-radius) * 0.7);
+      transform: scale(var(--button-scale));
+      transition: transform 0.1s ease, color 0.2s ease, background 0.1s ease;
+
+      /* 多层重叠渐变打造暗黑金属光泽 */
+      background: 
+        /* 底色渐变 */
+        linear-gradient(180deg, var(--base-color) 0%, var(--shadow-color) 100%);
+
+      /* 暗色金属边框与内凹立体感 */
+      box-shadow: 
+        /* 外部浮雕阴影 */
+        0 6px 12px rgba(0, 0, 0, 0.6),
+        0 1px 2px rgba(0, 0, 0, 0.8),
+        /* 顶部微锐利高光边缘 */
+        inset 0 1px 1px rgba(255, 255, 255, calc(var(--gloss-opacity) * 0.6)),
+        /* 底部沉重阴影 */
+        inset 0 -2px 4px rgba(0, 0, 0, 0.8);
+      
+      text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.8);
+      user-select: none;
+    }
+
+    /* 按钮 Hover 悬停效果 */
+    .metal-btn:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+      /* 增强亮部 */
+      filter: brightness(1.15);
+    }
+
+    /* 按钮 Click 按下凹陷效果 */
+    .metal-btn:active {
+      transform: scale(calc(var(--button-scale) * 0.96)) translateY(2px);
+      box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.8),
+        inset 0 3px 6px rgba(0, 0, 0, 0.9),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.1);
+    }
+
+    /* 右侧控制参数面板 */
+    .control-panel {
+      width: 320px;
+      background: #141518;
+      border-left: 1px solid #252830;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: -10px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      color: #fff;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #252830;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      color: #9aa0a6;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: #585e68;
+      cursor: pointer;
+    }
+
+    .control-group input[type="color"] {
+      border: none;
+      width: 100%;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+    }
+
+    /* 开关样式 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #333;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #585e68;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #585e68;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* 响应式适配移动端 */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .control-panel {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #252830;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 鼠标光源层 -->
+  <div class="mouse-light"></div>
+
+  <!-- 中央展示区 -->
+  <main class="stage">
+    <div class="metal-card">
+      <div class="metal-title">DARK METAL UI</div>
+      <!-- 暗黑金属按钮 -->
+      <button class="metal-btn">PRESS START</button>
+    </div>
+  </main>
+
+  <!-- 右侧参数调节面板 -->
+  <aside class="control-panel">
+    <h2 class="panel-title">材质参数调节面板</h2>
+
+    <!-- 鼠标光源开关 -->
+    <div class="control-group">
+      <label>鼠标光源 (Mouse Light): <span id="light-val">OFF</span></label>
+      <label class="switch">
+        <input type="checkbox" id="lightSwitch">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <label>反光角度 (Angle): <span id="angle-val">135°</span></label>
+      <input type="range" id="angle" min="0" max="360" value="135">
+    </div>
+
+    <div class="control-group">
+      <label>光泽/反光强度 (Glossiness): <span id="gloss-val">0.6</span></label>
+      <input type="range" id="gloss" min="0" max="1" step="0.05" value="0.6">
+    </div>
+
+    <div class="control-group">
+      <label>金属基础色 (Base Color)</label>
+      <input type="color" id="baseColor" value="#1a1c1f">
+    </div>
+
+    <div class="control-group">
+      <label>高光/拉丝色 (Highlight Color)</label>
+      <input type="color" id="highlightColor" value="#585e68">
+    </div>
+
+    <div class="control-group">
+      <label>暗部/阴影色 (Shadow Color)</label>
+      <input type="color" id="shadowColor" value="#0b0c0d">
+    </div>
+
+    <div class="control-group">
+      <label>边框粗细 (Border Width): <span id="border-val">3px</span></label>
+      <input type="range" id="borderWidth" min="1" max="10" value="3">
+    </div>
+
+    <div class="control-group">
+      <label>圆角大小 (Border Radius): <span id="radius-val">12px</span></label>
+      <input type="range" id="borderRadius" min="0" max="30" value="12">
+    </div>
+
+    <div class="control-group">
+      <label>按钮缩放 (Button Scale): <span id="scale-val">1.0</span></label>
+      <input type="range" id="btnScale" min="0.8" max="1.5" step="0.05" value="1">
+    </div>
+  </aside>
+
+  <script>
+    // 绑定 CSS 变量与面板控件
+    const root = document.documentElement;
+    const body = document.body;
+
+    function bindControl(id, cssVar, unit = '', displayId = null) {
+      const input = document.getElementById(id);
+      input.addEventListener('input', (e) => {
+        const val = e.target.value;
+        root.style.setProperty(cssVar, val + unit);
+        if (displayId) {
+          document.getElementById(displayId).innerText = val + unit;
+        }
+      });
+    }
+
+    // 监听各个滑块与颜色选择器
+    bindControl('angle', '--metal-angle', 'deg', 'angle-val');
+    bindControl('gloss', '--gloss-opacity', '', 'gloss-val');
+    bindControl('baseColor', '--base-color');
+    bindControl('highlightColor', '--highlight-color');
+    bindControl('shadowColor', '--shadow-color');
+    bindControl('borderWidth', '--border-width', 'px', 'border-val');
+    bindControl('borderRadius', '--border-radius', 'px', 'radius-val');
+    bindControl('btnScale', '--button-scale', '', 'scale-val');
+
+    // 鼠标光源开关逻辑
+    const lightSwitch = document.getElementById('lightSwitch');
+    const lightVal = document.getElementById('light-val');
+    
+    lightSwitch.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            body.classList.add('light-on');
+            lightVal.innerText = 'ON';
+        } else {
+            body.classList.remove('light-on');
+            lightVal.innerText = 'OFF';
+        }
+    });
+
+    // 鼠标移动监听，更新光源位置变量
+    document.addEventListener('mousemove', (e) => {
+        if (body.classList.contains('light-on')) {
+            const x = e.clientX + 'px';
+            const y = e.clientY + 'px';
+            root.style.setProperty('--mouse-x', x);
+            root.style.setProperty('--mouse-y', y);
+        }
+    });
+  </script>
+</body>
+</html>

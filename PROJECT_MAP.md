@@ -94,15 +94,18 @@ config/monsterDisplayConfigs.json
 
 - `core/monster-motion/`：移动模式注册、参数定义和轨迹计算。
 - `core/monster-attack-motion/`：攻击模式注册与动画定义。
-- `core/monster-death-motion/`：死亡模式注册、参数定义和逐帧采样；当前包含击飞倒地、沉底消亡和化灰消散。
+- `core/monster-death-motion/`：死亡模式注册、参数定义和纯姿态采样；`visual` 只声明常驻 Sprite Recipe 能力与粒子预设，不创建渲染对象。
 - `core/monster-status-particle/`：怪物状态粒子。
 - `core/battlefield/`：战场和编队数据类型。
 
 ### Sprite、特效与状态
 
 - `core/sprite/`：图集、精灵实体、动画、锚点、数字精灵、感叹号、Shader 进度遮罩。
-- `core/sprite/ash/`：独立 3D 精灵化灰 Shader、预设规范化和运行时控制器；不依赖怪物模块。
-- `core/effects/`：弹出数字、爆炸胶囊等效果。
+- `core/sprite/shader/`：`.glsl` Chunk、Shader Module、受控 Composer、Recipe 校验、Program Cache 与材质 Recipe；所有 Babylon include 使用 `mySprite` 前缀，Monster 的 `stripedSpriteRecipe` 常驻包含 `noiseErodeModule`。
+- `core/sprite/dissolve/`：连续消散 uniform 控制器，以及死亡参数到消散/粒子预设的转换；不负责死亡生命周期。
+- `core/sprite/ash/`：独立 3D Sprite Ash Lab 与兼容入口；正式怪物死亡粒子归 `core/effects/sprite-death/` 所有。
+- `core/effects/sprite-death/`：统一同步消散 Shader 与专属粒子，并封装创建、逐帧更新、复位和释放；`MonsterVisualManager` 只管理此 runtime 生命周期。
+- `core/effects/`：弹出数字、爆炸胶囊和精灵死亡视觉运行时等效果。
 - `core/special-status/`：3D 特殊状态视觉和预设。
 - `core/particle/`：粒子实体、视觉预设、配置仓库和编辑器帮助函数。
 - `core/particle-motion/`：粒子运动模式。
