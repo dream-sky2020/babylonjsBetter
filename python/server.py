@@ -48,6 +48,7 @@ MONSTER_MOVEMENT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterMove
 MONSTER_ATTACK_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterAttackConfigs.json")
 MONSTER_DEATH_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDeathConfigs.json")
 SPRITE_ASH_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "spriteAshPresets.json")
+MONSTER_DISSOLVE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterDissolvePresets.json")
 MONSTER_STATUS_PARTICLE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monsterStatusParticleConfigs.json")
 PARTICLE_EFFECT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particleEffects.json")
 PARTICLE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "particlePresets.json")
@@ -335,6 +336,9 @@ def handle_monster_death_configs():
 @app.route("/api/sprite-ash-presets", methods=["GET", "PUT"])
 def handle_sprite_ash_presets():
     return _handle_json_config(SPRITE_ASH_PRESET_CONFIG_PATH, validate_sprite_ash_preset_payload, "sprite ash presets")
+@app.route("/api/monster-dissolve-presets", methods=["GET", "PUT"])
+def handle_monster_dissolve_presets():
+    return _handle_json_config(MONSTER_DISSOLVE_PRESET_CONFIG_PATH, validate_sprite_ash_preset_payload, "monster dissolve presets")
 @app.route("/api/monster-status-particle-configs", methods=["GET", "PUT"])
 def handle_monster_status_particle_configs():
     return _handle_json_config(MONSTER_STATUS_PARTICLE_CONFIG_PATH, validate_monster_status_particle_config_payload, "monster status particle configs")

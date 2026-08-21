@@ -1,13 +1,14 @@
 import { Mesh, ParticleSystem, Scene, Texture, Vector3 } from '@babylonjs/core';
-import type { SpriteAshEffectMode, SpriteAshPreset } from '@/core/sprite/ash/spriteAsh.types.ts';
+import type { SpriteAshPreset, SpriteDissolveParticleMode } from '@/core/sprite/ash/spriteAsh.types.ts';
 import { configureAshParticles } from '@/core/effects/sprite-death/particles/ashParticles.ts';
 import { configureEmberParticles } from '@/core/effects/sprite-death/particles/emberParticles.ts';
 import { configureBlackShardParticles } from '@/core/effects/sprite-death/particles/blackShardParticles.ts';
 import { configurePixelParticles } from '@/core/effects/sprite-death/particles/pixelParticles.ts';
 import type { SpriteDeathParticleProfile } from '@/core/effects/sprite-death/particles/particleProfile.types.ts';
+import { rotateParticleMotion } from '@/core/effects/sprite-death/particles/particleProfile.types.ts';
 
-const PARTICLE_MODES = new Set<SpriteAshEffectMode>(['ash', 'blackShards', 'embers', 'pixel']);
-const PARTICLE_PROFILES: Partial<Record<SpriteAshEffectMode, SpriteDeathParticleProfile>> = {
+const PARTICLE_MODES = new Set<SpriteDissolveParticleMode>(['ash', 'blackShards', 'embers', 'pixel']);
+const PARTICLE_PROFILES: Partial<Record<SpriteDissolveParticleMode, SpriteDeathParticleProfile>> = {
   ash: configureAshParticles,
   blackShards: configureBlackShardParticles,
   embers: configureEmberParticles,
@@ -39,8 +40,6 @@ export const createSpriteDeathParticles = (
   system.minEmitBox = new Vector3(-.52, -.018, -.015);
   system.maxEmitBox = new Vector3(.52, .018, .015);
   system.updateSpeed = .012;
-  system.minAngularSpeed = -5;
-  system.maxAngularSpeed = 5;
   system.start();
 
   let preset = initialPreset;
@@ -48,21 +47,20 @@ export const createSpriteDeathParticles = (
   let displayScale = 5;
   let time = 0;
   let lastMotionTime = -1;
-  let configuredRate = 0;
 
   const applySize = () => {
     const unit = Math.max(.025, displayScale * .022);
-    if (preset.effectMode === 'blackShards') {
-      system.minSize = unit * .65; system.maxSize = unit * 1.45;
+    if (preset.particleMode === 'blackShards') {
+      system.minSize = unit * preset.particleSizeMin; system.maxSize = unit * preset.particleSizeMax;
       system.minScaleX = .6; system.maxScaleX = 1.8; system.minScaleY = .25; system.maxScaleY = .65;
-    } else if (preset.effectMode === 'embers') {
-      system.minSize = unit * .35; system.maxSize = unit * .85;
+    } else if (preset.particleMode === 'embers') {
+      system.minSize = unit * preset.particleSizeMin; system.maxSize = unit * preset.particleSizeMax;
       system.minScaleX = .55; system.maxScaleX = 1.25; system.minScaleY = .55; system.maxScaleY = 1.25;
-    } else if (preset.effectMode === 'ash') {
-      system.minSize = unit * .25; system.maxSize = unit * .72;
+    } else if (preset.particleMode === 'ash') {
+      system.minSize = unit * preset.particleSizeMin; system.maxSize = unit * preset.particleSizeMax;
       system.minScaleX = .45; system.maxScaleX = 1.1; system.minScaleY = .45; system.maxScaleY = 1.25;
     } else {
-      system.minSize = unit * .55; system.maxSize = unit * 1.15;
+      system.minSize = unit * preset.particleSizeMin; system.maxSize = unit * preset.particleSizeMax;
       system.minScaleX = .85; system.maxScaleX = 1.15; system.minScaleY = .85; system.maxScaleY = 1.15;
     }
   };
@@ -70,15 +68,25 @@ export const createSpriteDeathParticles = (
   const applyPreset = () => {
     const angle = preset.directionAngleDeg * Math.PI / 180;
     emitter.rotation.z = angle - Math.PI / 2;
-    const profile = PARTICLE_PROFILES[preset.effectMode];
-    configuredRate = profile?.(system, preset, system.minEmitBox, system.maxEmitBox) ?? 0;
+    const profile = PARTICLE_PROFILES[preset.particleMode];
+    profile?.(system, preset, system.minEmitBox, system.maxEmitBox);
+    system.minLifeTime = Math.min(preset.particleLifeMin, preset.particleLifeMax);
+    system.maxLifeTime = Math.max(preset.particleLifeMin, preset.particleLifeMax);
+    system.minEmitPower = Math.min(preset.particlePowerMin, preset.particlePowerMax);
+    system.maxEmitPower = Math.max(preset.particlePowerMin, preset.particlePowerMax);
+    system.gravity.copyFrom(rotateParticleMotion(
+      new Vector3(preset.particleGravityX, preset.particleGravityY, preset.particleGravityZ),
+      preset.directionAngleDeg
+    ));
+    system.minAngularSpeed = Math.min(preset.particleAngularSpeedMin, preset.particleAngularSpeedMax);
+    system.maxAngularSpeed = Math.max(preset.particleAngularSpeedMin, preset.particleAngularSpeedMax);
     applySize();
     system.emitRate = 0;
   };
 
   const controller: SpriteDeathParticleController = {
     setPreset: (next) => {
-      const changed = next.effectMode !== preset.effectMode;
+      const changed = next.particleMode !== preset.particleMode;
       preset = next;
       if (changed) system.reset();
       applyPreset();
@@ -91,9 +99,12 @@ export const createSpriteDeathParticles = (
       const angle = preset.directionAngleDeg * Math.PI / 180;
       const edge = value - .5;
       emitter.position.set(Math.cos(angle) * edge, Math.sin(angle) * edge, -.01);
-      if (PARTICLE_MODES.has(preset.effectMode) && movedForward && value < .985) {
+      const start = Math.min(preset.particleStartProgress, preset.particleEndProgress - .001);
+      const end = Math.max(start + .001, preset.particleEndProgress);
+      if (PARTICLE_MODES.has(preset.particleMode) && movedForward && value >= start && value < end) {
         lastMotionTime = time;
-        system.emitRate = configuredRate * Math.sin(Math.PI * value);
+        const localProgress = Math.max(0, Math.min(1, (value - start) / (end - start)));
+        system.emitRate = preset.particleRate * Math.pow(Math.sin(Math.PI * localProgress), preset.particleRatePower);
       }
     },
     setDisplayScale: (next) => { displayScale = Math.max(.1, next); applySize(); },

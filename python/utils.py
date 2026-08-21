@@ -1400,12 +1400,27 @@ def validate_sprite_ash_preset_payload(payload: dict) -> list[str]:
     if not payload:
         return ["at least one sprite ash preset is required"]
     numeric_fields = (
-        "duration", "directionAngleDeg", "noiseScale", "noiseStrength", "noiseSpeed",
-        "edgeWidth", "edgeSoftness", "edgeIntensity", "charStrength", "ashTrail",
+        "duration", "progressPower", "startHold", "endFade", "fieldInvert", "fieldContrast", "fieldOffset",
+        "directionalStrength", "directionAngleDeg", "radialStrength", "radialDirection",
+        "centerX", "centerY", "radialScaleX", "radialScaleY", "radialRotationDeg", "radialPower",
+        "radialNoiseStrength", "radialNoiseScale", "crystalStrength", "crystalScale", "crystalSharpness",
+        "crystalAspect", "crystalRotationDeg", "crystalCrackWidth", "crystalJitter", "crystalBranchStrength", "crystalBranchScale",
+        "spiralStrength", "spiralTurns", "spiralSpeed", "spiralDirection", "spiralRadialFrequency",
+        "voidPullStrength", "voidPullRadius", "voidPullFalloff", "voidPullPower", "noiseScale", "noiseStrength", "noiseSpeed",
+        "noiseDetail", "noiseRoughness", "noiseAspect", "noiseRotationDeg", "noiseFlowAngleDeg",
+        "warpStrength", "warpScale", "warpSpeed",
+        "edgeWidth", "edgeSoftness", "edgeIntensity", "edgeInnerWidth", "edgeOuterWidth", "edgeFalloffPower",
+        "edgeNoiseStrength", "edgeNoiseScale", "edgePulseStrength", "edgePulseSpeed", "charStrength", "ashTrail",
+        "residueWidth", "residueOpacity", "residueDensity", "residueNoiseScale", "residueDecayPower", "residueFadeStart", "residueGlow",
+        "vertexDeformStrength", "vertexBendX", "vertexBendY", "vertexTwist", "vertexBulge", "vertexDepth",
+        "vertexWaveStrength", "vertexWaveScale", "vertexWaveSpeed", "vertexAnchorY", "vertexSubdivisions",
+        "particleRate", "particleStartProgress", "particleEndProgress", "particleRatePower",
+        "particleLifeMin", "particleLifeMax", "particlePowerMin", "particlePowerMax", "particleSizeMin", "particleSizeMax",
+        "particleGravityX", "particleGravityY", "particleGravityZ", "particleAngularSpeedMin", "particleAngularSpeedMax",
         "ashDensity", "ashOpacity", "rise", "driftX", "turbulence", "flickerSpeed",
         "seed", "alphaCutoff"
     )
-    color_fields = ("edgeColor", "charColor", "ashColor")
+    color_fields = ("edgeColor", "edgeInnerColor", "edgeOuterColor", "residueColor", "charColor", "ashColor")
     for key, preset in payload.items():
         path = f"root[{key}]"
         if not isinstance(key, str) or not key.strip():
@@ -1416,6 +1431,10 @@ def validate_sprite_ash_preset_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.presetKey must match its object key")
         if not isinstance(preset.get("name"), str) or not preset["name"].strip():
             errors.append(f"{path}.name must be a non-empty string")
+        if preset.get("particleMode") not in ("none", "ash", "blackShards", "embers", "pixel"):
+            errors.append(f"{path}.particleMode is invalid")
+        if preset.get("fieldBlendMode") not in ("weighted", "add", "max", "min", "multiply"):
+            errors.append(f"{path}.fieldBlendMode is invalid")
         for field in numeric_fields:
             if not is_finite_number(preset.get(field)):
                 errors.append(f"{path}.{field} must be a finite number")

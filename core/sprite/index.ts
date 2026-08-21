@@ -270,7 +270,7 @@ export type { ExclamationMarkSpriteController } from '@/core/sprite/exclamation/
 export { createExclamationMarkSprite } from '@/core/sprite/exclamation/createExclamationMarkSprite.ts';
 
 // 3D sprite ash dissolve
-export type { SpriteAshEffectMode, SpriteAshPreset, SpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAsh.types.ts';
+export type { SpriteDissolveParticleMode, SpriteDissolveFieldBlendMode, SpriteAshPreset, SpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAsh.types.ts';
 export type { SpriteAshEffectController } from '@/core/sprite/ash/createSpriteAshEffect.ts';
 export type { SpriteAshParameterDefinition } from '@/core/sprite/ash/spriteAshPreset.ts';
 export { DEFAULT_SPRITE_ASH_PRESET, SPRITE_ASH_PARAMETER_DEFINITIONS, normalizeSpriteAshPreset, normalizeSpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAshPreset.ts';

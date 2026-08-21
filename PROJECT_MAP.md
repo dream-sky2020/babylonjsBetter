@@ -1,5 +1,34 @@
 # Babylon.js Better 项目地图
 
+## 2026-08-21：精灵消散系统统一
+
+本轮重构已经取消“精灵 Lab 使用独立 Shader、怪物使用 Recipe Shader”的双实现。当前统一关系如下：
+
+```text
+spriteAshPresets.json / monsterDissolvePresets.json
+  -> normalizeSpriteAshPreset()
+  -> createSpriteNoiseErodeOptions()
+  -> createSpriteEffectMaterial()
+  -> stripedSpriteRecipe
+  -> noiseErodeModule
+  -> mySprite* Shader Chunks
+```
+
+- `core/sprite/shader/chunks/`：存放可复用 GLSL Chunk；注册到 `Effect.IncludesShadersStore` 的名称必须使用 `mySprite` 项目前缀，禁止占用 Babylon.js 内置 include 名称。
+- `core/sprite/shader/modules/noiseErode.module.ts`：唯一的通用连续消散场实现，负责方向场、径向/虚空场、冰晶结构、噪声结构、边缘、焦化、残留和 3D 顶点变形。
+- `core/sprite/shader/recipes/stripedSprite.recipe.ts`：怪物基础材质常驻包含 `noiseErodeModule`；死亡瞬间只更新 uniform，不创建或切换 Shader Recipe。
+- `core/sprite/render/createSpriteEffectMaterial.ts`：精灵和怪物共用的材质控制器，负责 Recipe 编译、缓存和 uniform 更新。
+- `core/sprite/dissolve/createSpriteNoiseErodeOptions.ts`：`SpriteAshPreset` 到 `noiseErodeModule` 参数的公共转换入口。新增消散参数时应优先更新此处，避免两个 Lab 再次产生参数映射差异。
+- `core/sprite/ash/createSpriteAshEffect.ts`：精灵消散 Lab 的预览控制器；现已改用 `createSpriteEffectMaterial + noiseErodeModule`，不再创建独立的 `spriteNoiseErodeShader` 材质。
+- `core/sprite/ash/createSpriteDissolveParticles.ts`：消散边缘粒子运行时。碎片、余烬、像素块等离散动态由粒子负责，不再由网格碎裂 Shader 模拟。
+- `tools/sprite-dissolve-effect-lab/`：编辑并保存通用精灵消散预设，使用单层精灵验证效果。
+- `tools/monster-dissolve-effect-lab/`：编辑并保存怪物专属消散预设，使用怪物多图层材质验证效果。
+- `tools/monster-knockback-lab/`：只负责旋转击飞、落地和淡出等怪物死亡运动。
+
+消散网格细分的项目默认值已从 `72×72` 调整为 `12×12`，并同步迁移 `spriteAshPresets.json`、`monsterDissolvePresets.json`、精灵预览网格和怪物分层网格。`vertexSubdivisions` 仍可由预设单独覆盖；只有确实需要更细腻的 3D 顶点变形时才建议提高。
+
+兼容目录 `core/sprite/ash/shaders/` 目前仍保留旧独立 Shader 源码，但精灵消散 Lab 和怪物主流程均不应再从该目录创建材质。后续确认无外部调用后可单独清理。
+
 > 用途：供维护者和后续 Codex 对话快速定位代码。进行全局搜索或架构修改前，先阅读本文件。
 >
 > 实际 Git 根目录：`D:/WebProjects/babylonjsBetter/babylonjsBetter`。外层还有一个同名工作区目录，不是仓库根目录。
@@ -103,7 +132,7 @@ config/monsterDisplayConfigs.json
 - `core/sprite/`：图集、精灵实体、动画、锚点、数字精灵、感叹号、Shader 进度遮罩。
 - `core/sprite/shader/`：`.glsl` Chunk、Shader Module、受控 Composer、Recipe 校验、Program Cache 与材质 Recipe；所有 Babylon include 使用 `mySprite` 前缀，Monster 的 `stripedSpriteRecipe` 常驻包含 `noiseErodeModule`。
 - `core/sprite/dissolve/`：连续消散 uniform 控制器，以及死亡参数到消散/粒子预设的转换；不负责死亡生命周期。
-- `core/sprite/ash/`：独立 3D Sprite Ash Lab 与兼容入口；正式怪物死亡粒子归 `core/effects/sprite-death/` 所有。
+- `core/sprite/ash/`：精灵消散效果 Lab 的预设、独立预览控制器与兼容入口；正式怪物死亡粒子归 `core/effects/sprite-death/` 所有。
 - `core/effects/sprite-death/`：统一同步消散 Shader 与专属粒子，并封装创建、逐帧更新、复位和释放；`MonsterVisualManager` 只管理此 runtime 生命周期。
 - `core/effects/`：弹出数字、爆炸胶囊和精灵死亡视觉运行时等效果。
 - `core/special-status/`：3D 特殊状态视觉和预设。
@@ -126,7 +155,8 @@ config/monsterDisplayConfigs.json
 | Monster 2D Lab | `tools/monster-2d-lab/index.html` | 纯 2D 网页预览；不再拥有 3D 模式 |
 | Monster 3D Visual Lab | `tools/monster-3d-visual-lab/index.html` | 编辑怪物显示配置和怪物条纹配置；通过 `MonsterVisualManager` 进行 3D 预览 |
 | Monster Hit Lab | `tools/monster-hit-feedback-lab/index.html` | 受击反馈、弹出数字和爆炸胶囊测试 |
-| Monster Death Lab | `tools/monster-death-lab/index.html` | 选择、编辑和预览多种死亡动画；参数由 core 模式声明并保存到 `monsterDeathConfigs.json` |
+| 怪物击飞效果 Lab | `tools/monster-knockback-lab/index.html` | 只编辑和预览 `knockback` 旋转击飞、落地与淡出参数；保存时保留配置库中的其他死亡模式 |
+| 怪物消散效果 Lab | `tools/monster-dissolve-effect-lab/index.html` | 编辑、保存并预览 `monsterDissolvePresets.json` 中的怪物专属消散预设；空配置首次以精灵预设为模板 |
 | Monster Movement Lab | `tools/monster-movement-lab/index.html` | 编队中的移动模式和距离条纹规则测试 |
 | Monster Attack Lab | `tools/monster-attack-lab/index.html` | 怪物攻击动作配置与测试 |
 | Monster Formation Lab | `tools/monster-formation-lab/index.html` | 战场编队编辑与预览 |
@@ -141,7 +171,9 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 
 ### Sprite/UI
 
-- `3d-sprite-ash-lab/`：独立精灵化灰 Shader 与参数预览、调配和保存。
+- `sprite-dissolve-effect-lab/`：精灵消散预设的编辑、独立预览和保存，并作为怪物消散预设首次初始化的模板来源。
+- `monster-knockback-lab/`：怪物旋转击飞动作的编辑与预览。
+- `monster-dissolve-effect-lab/`：怪物专属消散预设的编辑、保存和四层材质预览。
 - `sprite-anchor-editor/`
 - `sprite-animation-editor/`
 - `atlas-json-editor/`
@@ -186,7 +218,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `monsterStripePresets.json`、`stripePresets.json` | 怪物分层条纹和通用条纹 Shader |
 | `monsterMovementConfigs.json` | Monster Movement Lab / monster-motion |
 | `monsterAttackConfigs.json` | Monster Attack Lab / monster-attack-motion |
-| `monsterDeathConfigs.json` | Monster Death Lab / monster-death-motion；通过 `/api/monster-death-configs` 保存 |
+| `monsterDeathConfigs.json` | 怪物击飞效果 Lab / monster-death-motion；当前 Lab 只编辑 `knockback`，通过 `/api/monster-death-configs` 合并保存 |
 | `monsterBattlefieldFormations.json` | Formation、Movement 等战场 lab |
 | `monsterBattlefieldStripeRules.json` | 距离条纹规则 |
 | `monsterExclamationPositions.json` | 怪物感叹号布局 |
@@ -194,7 +226,8 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `monsterStatusParticleConfigs.json` | 怪物状态粒子 |
 | `spriteAnchorPresets.json` | Sprite Anchor Editor |
 | `spriteAnimationLibrary.json` | Sprite Animation Editor/runtime |
-| `spriteAshPresets.json` | 3D Sprite Ash Lab / `core/sprite/ash`；通过 `/api/sprite-ash-presets` 保存 |
+| `spriteAshPresets.json` | 精灵消散效果 Lab 编辑并通过 `/api/sprite-ash-presets` 保存；仅在怪物专属配置为空时作为初始化模板 |
+| `monsterDissolvePresets.json` | 怪物消散效果 Lab 编辑并通过 `/api/monster-dissolve-presets` 独立保存 |
 | `numberSpriteConfigs.json` | Number Sprite Lab |
 | `exclamationMarkPresets.json`、`exclamationBasePresets.json` | 感叹号视觉 |
 | `particlePresets.json`、`particleVisualPresets.json` | Particle Editor/runtime |

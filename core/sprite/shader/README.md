@@ -161,7 +161,7 @@ mySprite:<recipe-id>:<module-id>:<module-id>...
 - `core/effects/sprite-death/createSpriteDeathVisualRuntime.ts`
   - 将同一死亡进度同步给消散控制器和粒子控制器。
 - `core/monster-death-motion/modes/ash/index.ts`
-  - 通过静态 `visual.spriteEffect` 声明需要驱动常驻 `striped-sprite` Recipe 的 ash 图案。
+  - 通过静态 `visual.spriteEffect` 声明需要驱动常驻 `striped-sprite` Recipe 的消散视觉。
 - `core/sprite/exclamation/createExclamationMarkProgressMaterial.ts`
   - 通过 `createSpriteEffectMaterial()` 间接使用默认 Recipe 和程序缓存。
 - Monster、死亡动画、感叹号及相关 Lab/应用
@@ -197,7 +197,12 @@ mySprite:<recipe-id>:<module-id>:<module-id>...
 
 只有“是否具备 burn 功能”属于 Recipe；以下内容应继续使用 uniform，不应生成新 Recipe：
 
-- burn/ash/frost/void 图案选择
+- 方向场、径向场、冰晶场的混合权重
+- 径向中心、内外方向、旋涡与中心拉扯
+- 进度曲线、开始保持与末段淡出
+- 场混合方式、最终场反相、场对比度与偏移
+- 噪声细节、粗糙度、长宽比、旋转与独立流动方向
+- Domain Warp 的强度、尺度和流速
 - 进度
 - 颜色
 - 方向
