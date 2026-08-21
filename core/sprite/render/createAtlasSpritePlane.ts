@@ -1,4 +1,4 @@
-import { Color3, MeshBuilder, Scene, Texture } from '@babylonjs/core';
+import { Color3, Mesh, Scene, Texture, VertexData } from '@babylonjs/core';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { IconPlaneController, SpriteFrameRegion } from '@/core/sprite/types/sprite.types.ts';
 import {
@@ -11,6 +11,28 @@ export type CreateAtlasSpritePlaneOptions = {
   shareTexture?: boolean;
   /** 世界单位 / 像素，用于按 sourceSize 自动换算尺寸 */
   worldUnitsPerPixel?: number;
+  /** 顶点变形需要细分网格；普通图标保持 1 可避免额外顶点成本。 */
+  subdivisions?: number;
+};
+
+export const normalizeSpritePlaneSubdivisions = (value: number, fallback = 12) =>
+  Math.max(1, Math.min(128, Math.round(Number.isFinite(value) ? value : fallback)));
+
+export const applySubdividedPlaneGeometry = (mesh: Mesh, subdivisions: number) => {
+  const count = normalizeSpritePlaneSubdivisions(subdivisions);
+  const positions: number[] = [], uvs: number[] = [], normals: number[] = [], indices: number[] = [];
+  for (let y = 0; y <= count; y++) for (let x = 0; x <= count; x++) {
+    const u = x / count, v = y / count;
+    positions.push(u - .5, v - .5, 0); uvs.push(u, v); normals.push(0, 0, 1);
+  }
+  const stride = count + 1;
+  for (let y = 0; y < count; y++) for (let x = 0; x < count; x++) {
+    const a = y * stride + x, b = a + 1, d = a + stride, c = d + 1;
+    indices.push(a, b, c, a, c, d);
+  }
+  const data = new VertexData();
+  data.positions = positions; data.uvs = uvs; data.normals = normals; data.indices = indices; data.applyToMesh(mesh, true);
+  return count;
 };
 
 /**
@@ -24,7 +46,8 @@ export const createAtlasSpritePlane = (
 ): IconPlaneController => {
   const shareTexture = options.shareTexture === true;
   const worldUnitsPerPixel = options.worldUnitsPerPixel;
-  const plane = MeshBuilder.CreatePlane('plane', { size: 1 }, scene);
+  const plane = new Mesh('plane', scene);
+  let subdivisions = applySubdividedPlaneGeometry(plane, options.subdivisions ?? 1);
   const planeMaterial = new StandardMaterial('planeMat', scene);
   let currentRegion: SpriteFrameRegion | null = null;
   let displayScale = 1;
@@ -127,6 +150,12 @@ export const createAtlasSpritePlane = (
     setDisplayScale: (scale: number) => {
       displayScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
       applyPlaneScale(currentRegion);
+    },
+    getSubdivisions: () => subdivisions,
+    setSubdivisions: (next) => {
+      const normalized = normalizeSpritePlaneSubdivisions(next);
+      if (normalized === subdivisions) return;
+      subdivisions = applySubdividedPlaneGeometry(plane, normalized);
     },
     getFrameRegion: () => currentRegion,
     setFrameRegion: (region: SpriteFrameRegion | null) => {

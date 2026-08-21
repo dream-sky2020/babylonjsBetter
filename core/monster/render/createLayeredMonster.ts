@@ -61,7 +61,7 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
     MONSTER_RENDER_ORDER.forEach((layerKey, index) => {
       const textureUrl = toMonsterResourceUrl(config.layers[layerKey].path);
       if (!textureUrl) return;
-      const sprite = createAtlasSpritePlane(scene, textureUrl, 2.8, { shareTexture: false });
+      const sprite = createAtlasSpritePlane(scene, textureUrl, 2.8, { shareTexture: false, subdivisions: 12 });
       sprite.mesh.name = `${name}_${layerKey}`;
       sprite.mesh.parent = root;
       sprite.mesh.position = new Vector3(0, 0, index * 0.01);
@@ -159,7 +159,10 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
       stripe.updateLayerProgress(layerProgress);
     },
     setNoiseErode: (options) => {
-      for (const handle of layers.values()) handle.stripe?.updateNoiseErode(options);
+      for (const handle of layers.values()) {
+        if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
+        handle.stripe?.updateNoiseErode(options);
+      }
     },
     updateTime: (timeSec) => {
       for (const handle of layers.values()) handle.stripe?.updateTime(timeSec);

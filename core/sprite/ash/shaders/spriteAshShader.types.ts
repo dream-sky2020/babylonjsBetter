@@ -1,10 +1,6 @@
-import type { SpriteAshEffectMode } from '../spriteAsh.types';
-
 export type SpriteAshShaderDefinition = {
-  mode: SpriteAshEffectMode;
   shaderName: string;
   subdivisions: number;
-  variant: number;
   vertexSource: string;
   fragmentSource: string;
 };
@@ -13,8 +9,22 @@ export const SPRITE_ASH_UNIFORMS = [
   'worldViewProjection', 'uTime', 'uProgress', 'uRise', 'uDriftX', 'uTurbulence', 'uSeed',
   'uDirectionAngle', 'uNoiseScale', 'uNoiseStrength', 'uNoiseSpeed', 'uEdgeWidth',
   'uEdgeSoftness', 'uEdgeColor', 'uEdgeIntensity', 'uCharColor', 'uCharStrength',
+  'uEdgeInnerWidth', 'uEdgeOuterWidth', 'uEdgeInnerColor', 'uEdgeOuterColor', 'uEdgeFalloffPower',
+  'uEdgeNoiseStrength', 'uEdgeNoiseScale', 'uEdgePulseStrength', 'uEdgePulseSpeed',
+  'uResidueWidth', 'uResidueOpacity', 'uResidueColor', 'uResidueDensity', 'uResidueNoiseScale',
+  'uResidueDecayPower', 'uResidueFadeStart', 'uResidueGlow',
+  'uVertexDeformStrength', 'uVertexBendX', 'uVertexBendY', 'uVertexTwist', 'uVertexBulge',
+  'uVertexDepth', 'uVertexWaveStrength', 'uVertexWaveScale', 'uVertexWaveSpeed', 'uVertexAnchorY',
   'uAshColor', 'uAshTrail', 'uAshDensity', 'uAshOpacity', 'uFlickerSpeed', 'uAlphaCutoff',
-  'uVariant'
+  'uDirectionalStrength', 'uRadialStrength', 'uRadialDirection', 'uCenter',
+  'uRadialScale', 'uRadialRotation', 'uRadialPower', 'uRadialNoiseStrength', 'uRadialNoiseScale',
+  'uCrystalStrength', 'uCrystalScale', 'uCrystalSharpness', 'uSpiralStrength',
+  'uCrystalAspect', 'uCrystalRotation', 'uCrystalCrackWidth', 'uCrystalJitter', 'uCrystalBranchStrength', 'uCrystalBranchScale',
+  'uSpiralTurns', 'uSpiralSpeed', 'uSpiralDirection', 'uSpiralRadialFrequency',
+  'uVoidPullStrength', 'uVoidPullRadius', 'uVoidPullFalloff', 'uVoidPullPower', 'uProgressPower', 'uStartHold', 'uEndFade',
+  'uFieldBlendMode', 'uFieldInvert', 'uFieldContrast', 'uFieldOffset',
+  'uNoiseDetail', 'uNoiseRoughness', 'uNoiseAspect', 'uNoiseRotation', 'uNoiseFlowAngle',
+  'uWarpStrength', 'uWarpScale', 'uWarpSpeed'
 ];
 
 export const SHADER_NOISE = `

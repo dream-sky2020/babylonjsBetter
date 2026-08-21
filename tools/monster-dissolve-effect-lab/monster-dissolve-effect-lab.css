@@ -1,0 +1,8 @@
+@import "../monster-knockback-lab/monster-knockback-lab.css";
+.readonly-card { margin-top: 10px; padding: 10px; border: 1px solid #2e3a4d; border-radius: 8px; background: #101620; }
+.readonly-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin-top: 8px; }
+.readonly-grid div { min-width: 0; }
+.readonly-grid span { display: block; color: #8492a6; font-size: 11px; }
+.readonly-grid strong { display: block; overflow: hidden; color: #e8edf2; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.progress-row { display: grid; grid-template-columns: 1fr 72px; gap: 8px; align-items: center; }
+.progress-row input[type="range"] { padding: 0; accent-color: #f59e0b; }
