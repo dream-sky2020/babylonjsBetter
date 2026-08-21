@@ -33,6 +33,8 @@ import {
   type ExclamationMarkSpriteController
 } from '@/core/sprite';
 import type { MonsterExclamationPositionConfig } from '@/core/monster/exclamation/monsterExclamationPosition.types.ts';
+import { createSpriteDeathVisualRuntime } from '@/core/effects/sprite-death/createSpriteDeathVisualRuntime.ts';
+import type { SpriteDeathVisualRuntime } from '@/core/effects/sprite-death/spriteDeathVisual.types.ts';
 
 export type VisualMonster = Monster & {
   monsterConfigKey: string;
@@ -151,9 +153,11 @@ type ActiveMonsterDeath = {
   duration: number;
   parameters: MonsterDeathParameterValues;
   definition: ReturnType<typeof getMonsterDeathDefinition>;
+  visualRuntime?: SpriteDeathVisualRuntime;
   completed: boolean;
   onComplete?: () => void;
 };
+
 
 const HIT_LAYER_SHAKE_PROFILES = {
   bottomFillMask: { amplitude: 0.42, phase: 0.15, vertical: 0.1 },
@@ -301,6 +305,7 @@ export class MonsterVisualManager {
       this.motions.delete(monsterId);
       this.attacks.delete(monsterId);
       this.hits.delete(monsterId);
+      this.deaths.get(monsterId)?.visualRuntime?.dispose();
       this.deaths.delete(monsterId);
     }
 
@@ -316,6 +321,7 @@ export class MonsterVisualManager {
           this.motions.delete(item.id);
           this.attacks.delete(item.id);
           this.hits.delete(item.id);
+          this.deaths.get(item.id)?.visualRuntime?.dispose();
           this.deaths.delete(item.id);
         }
         continue;
@@ -585,25 +591,40 @@ export class MonsterVisualManager {
     this.motions.delete(monsterId);
     this.attacks.delete(monsterId);
     this.stopMonsterHit(monsterId);
+    this.deaths.get(monsterId)?.visualRuntime?.dispose();
     this.clearDeathVisual(entry);
-    this.deaths.set(monsterId, {
+    const active: ActiveMonsterDeath = {
       elapsed: 0,
       duration: Math.max(0.05, Number(preset.parameters.duration) || 1),
       parameters: { ...preset.parameters },
       definition,
       completed: false,
       onComplete
-    });
+    };
+    if (definition.visual) {
+      const emitterMesh = entry.controller.getLayerMesh('body') ?? entry.controller.getLayerMesh(MONSTER_RENDER_ORDER[0]);
+      active.visualRuntime = createSpriteDeathVisualRuntime({
+        scene: this.scene,
+        host: entry.controller,
+        emitterMesh,
+        visual: definition.visual,
+        parameters: active.parameters,
+        duration: active.duration
+      });
+    }
+    this.deaths.set(monsterId, active);
     return true;
   }
 
   stopMonsterDeath(monsterId: string): void {
     const entry = this.monsters.get(monsterId);
+    this.deaths.get(monsterId)?.visualRuntime?.dispose();
     this.deaths.delete(monsterId);
     if (entry) this.clearDeathVisual(entry);
   }
 
   stopAllDeaths(): void {
+    this.deaths.forEach((active) => active.visualRuntime?.dispose());
     this.deaths.clear();
     this.monsters.forEach((entry) => this.clearDeathVisual(entry));
   }
@@ -1087,6 +1108,8 @@ export class MonsterVisualManager {
       }
       active.elapsed += deltaTime;
       const progress = Math.max(0, Math.min(1, active.elapsed / active.duration));
+      active.visualRuntime?.setProgress(progress);
+      active.visualRuntime?.update(active.elapsed);
       const frame = active.definition.sample({ progress }, active.parameters);
       entry.controller.root.position.copyFrom(entry.basePosition).addInPlace(frame.visualOffset);
       entry.controller.root.rotation.set(
@@ -1122,6 +1145,7 @@ export class MonsterVisualManager {
     this.motions.clear();
     this.attacks.clear();
     this.hits.clear();
+    this.deaths.forEach((active) => active.visualRuntime?.dispose());
     this.deaths.clear();
     this.clearAllMonsterSpecialStatuses();
     this.clearAllSpecialStatusPreviews();

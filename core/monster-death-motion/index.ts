@@ -8,6 +8,7 @@ export type {
   MonsterDeathParameterValues,
   MonsterDeathPreset,
   MonsterDeathPresetLibrary,
+  MonsterDeathVisualDefinition,
   MonsterDeathSample,
   MonsterDeathSampleContext
 } from './types';

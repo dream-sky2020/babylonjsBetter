@@ -23,12 +23,25 @@ export type MonsterDeathSample = {
   layers?: MonsterDeathLayerSample[];
 };
 export type MonsterDeathSampleContext = { progress: number };
+export type MonsterDeathVisualDefinition = {
+  spriteEffect?: {
+    /** Monster 已常驻此 Recipe；这里只声明需要驱动的能力，不触发切换。 */
+    recipeId: 'striped-sprite';
+    pattern: 'ash' | 'frost' | 'void';
+  };
+  particles?: {
+    presetKey: 'ash' | 'blackShards' | 'embers' | 'pixel';
+    startProgress?: number;
+    endProgress?: number;
+  };
+};
 export type MonsterDeathDefinition = {
   id: string;
   name: string;
   description: string;
   version: number;
   parameters: MonsterDeathParameterSchema;
+  visual?: MonsterDeathVisualDefinition;
   sample: (context: MonsterDeathSampleContext, parameters: MonsterDeathParameterValues) => MonsterDeathSample;
 };
 export type MonsterDeathPreset = { presetKey: string; name: string; modeId: string; parameters: MonsterDeathParameterValues };

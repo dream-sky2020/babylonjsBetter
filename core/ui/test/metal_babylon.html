@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Babylon.js 3D 暗黑金属 UI 模拟器</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #08090a;
+      color: #e0e6ed;
+      overflow: hidden;
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Babylon 渲染 Canvas */
+    #renderCanvas {
+      flex: 1;
+      height: 100%;
+      touch-action: none;
+      outline: none;
+    }
+
+    /* 右侧控制参数面板 */
+    .control-panel {
+      width: 320px;
+      height: 100%;
+      background: #111215;
+      border-left: 1px solid #22252a;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: -10px 0 25px rgba(0, 0, 0, 0.8);
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      color: #fff;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #22252a;
+      letter-spacing: 1px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      color: #8a939e;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: #585e68;
+      cursor: pointer;
+    }
+
+    .control-group input[type="color"] {
+      border: none;
+      width: 100%;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      background: none;
+    }
+
+    /* 开关样式 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #2a2d34;
+      transition: .3s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #e0e6ed;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider { background-color: #4f5663; }
+    input:checked + .slider:before { transform: translateX(24px); }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      #renderCanvas { height: 60vh; }
+      .control-panel { width: 100%; height: 40vh; border-left: none; border-top: 1px solid #22252a; }
+    }
+  </style>
+
+  <!-- 引入 Babylon.js 引擎核心 -->
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+</head>
+<body>
+
+  <!-- WebGL Canvas -->
+  <canvas id="renderCanvas"></canvas>
+
+  <!-- 参数控制面板 -->
+  <aside class="control-panel">
+    <h2 class="panel-title">Babylon.js PBR 材质参数</h2>
+
+    <div class="control-group">
+      <label>鼠标跟随光源 (Mouse Light): <span id="light-val">ON</span></label>
+      <label class="switch">
+        <input type="checkbox" id="lightSwitch" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="control-group">
+      <label>金属度 (Metallic): <span id="metal-val">0.95</span></label>
+      <input type="range" id="metallic" min="0" max="1" step="0.01" value="0.95">
+    </div>
+
+    <div class="control-group">
+      <label>表面粗糙度 (Roughness): <span id="rough-val">0.25</span></label>
+      <input type="range" id="roughness" min="0.05" max="1" step="0.01" value="0.25">
+    </div>
+
+    <div class="control-group">
+      <label>清漆光泽层 (Clearcoat): <span id="coat-val">0.8</span></label>
+      <input type="range" id="clearcoat" min="0" max="1" step="0.05" value="0.8">
+    </div>
+
+    <div class="control-group">
+      <label>光源强度 (Light Intensity): <span id="intensity-val">3.0</span></label>
+      <input type="range" id="lightIntensity" min="0.5" max="8" step="0.1" value="3.0">
+    </div>
+
+    <div class="control-group">
+      <label>光源悬浮高度 Z: <span id="height-val">3.0</span></label>
+      <input type="range" id="lightHeight" min="0.5" max="8" step="0.1" value="3.0">
+    </div>
+
+    <div class="control-group">
+      <label>暗色金属颜色 (Albedo Color)</label>
+      <input type="color" id="metalColor" value="#1c1f24">
+    </div>
+
+    <div class="control-group">
+      <label>鼠标光束颜色 (Light Color)</label>
+      <input type="color" id="lightColor" value="#ffffff">
+    </div>
+  </aside>
+
+  <script>
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+
+    const createScene = function () {
+      const scene = new BABYLON.Scene(engine);
+      scene.clearColor = new BABYLON.Color4(0.03, 0.03, 0.04, 1);
+
+      // 1. 相机设置
+      const camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, 0, -7), scene);
+      camera.setTarget(BABYLON.Vector3.Zero());
+
+      // 2. 灯光部署
+      // 基础暗环境光
+      const hemisphericLight = new BABYLON.HemisphericLight("hemiLight", new BABYLON.Vector3(0, 1, 0), scene);
+      hemisphericLight.intensity = 0.2;
+
+      // 边缘切向轮廓光
+      const dirLight = new BABYLON.DirectionalLight("dirLight", new BABYLON.Vector3(-1, -1, 1), scene);
+      dirLight.intensity = 0.8;
+
+      // 核心：鼠标跟随 3D 点光源（动态反射倒影）
+      const mouseLight = new BABYLON.PointLight("mouseLight", new BABYLON.Vector3(0, 0, -3), scene);
+      mouseLight.intensity = 3.0;
+      mouseLight.diffuse = new BABYLON.Color3(1, 1, 1);
+
+      // 可视化光球
+      const lightBulb = BABYLON.MeshBuilder.CreateSphere("lightBulb", { diameter: 0.12 }, scene);
+      lightBulb.parent = mouseLight;
+      const lightMat = new BABYLON.StandardMaterial("lightMat", scene);
+      lightMat.emissiveColor = new BABYLON.Color3(1, 1, 1);
+      lightBulb.material = lightMat;
+
+      // 3. PBR 高级暗黑金属材质定义
+      const metalMaterial = new BABYLON.PBRMaterial("metalMaterial", scene);
+      metalMaterial.albedoColor = BABYLON.Color3.FromHexString("#1c1f24");
+      metalMaterial.metallic = 0.95;
+      metalMaterial.roughness = 0.25;
+      
+      // 清漆层（Clearcoat）打造抛光反光膜
+      metalMaterial.clearCoat.isEnabled = true;
+      metalMaterial.clearCoat.intensity = 0.8;
+      metalMaterial.clearCoat.roughness = 0.1;
+
+      // 4. 构造 3D 金属 UI 结构
+      const uiGroup = new BABYLON.TransformNode("uiGroup", scene);
+
+      // A. 暗色金属卡片底座
+      const cardMesh = BABYLON.MeshBuilder.CreateBox("card", { width: 3.2, height: 2.2, depth: 0.1 }, scene);
+      cardMesh.material = metalMaterial;
+      cardMesh.parent = uiGroup;
+
+      // B. 边框
+      const borderMaterial = new BABYLON.PBRMaterial("borderMat", scene);
+      borderMaterial.albedoColor = BABYLON.Color3.FromHexString("#383e47");
+      borderMaterial.metallic = 0.9;
+      borderMaterial.roughness = 0.2;
+
+      const borderMesh = BABYLON.MeshBuilder.CreateBox("border", { width: 3.28, height: 2.28, depth: 0.08 }, scene);
+      borderMesh.position.z = 0.02; // 稍靠后
+      borderMesh.material = borderMaterial;
+      borderMesh.parent = uiGroup;
+
+      // C. 暗黑金属按钮 (按键)
+      const buttonMaterial = metalMaterial.clone("btnMat");
+      const buttonMesh = BABYLON.MeshBuilder.CreateBox("button", { width: 1.5, height: 0.5, depth: 0.1 }, scene);
+      buttonMesh.position.z = -0.1; // 向前凸起
+      buttonMesh.material = buttonMaterial;
+      buttonMesh.parent = uiGroup;
+
+      // -------------------------------------------------------------
+      // 5. 原生 Babylon.js 极简交互处理（对比 Three.js 的核心区别！）
+      // -------------------------------------------------------------
+
+      // A. 按钮 Hover & Press（直接绑定 Mesh 原生 Observable 事件，无需手动写射线投射！）
+      buttonMesh.actionManager = new BABYLON.ActionManager(scene);
+
+      // 鼠标悬停高亮
+      buttonMesh.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, () => {
+          canvas.style.cursor = "pointer";
+          buttonMaterial.emissiveColor = new BABYLON.Color3(0.08, 0.1, 0.14);
+        })
+      );
+
+      buttonMesh.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, () => {
+          canvas.style.cursor = "default";
+          buttonMaterial.emissiveColor = new BABYLON.Color3(0, 0, 0);
+        })
+      );
+
+      // 点击按下凹陷 & 弹起（直接操控物理位移）
+      buttonMesh.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickDownTrigger, () => {
+          buttonMesh.position.z = -0.03; // 物理凹陷
+        })
+      );
+
+      buttonMesh.actionManager.registerAction(
+        new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickUpTrigger, () => {
+          buttonMesh.position.z = -0.1; // 还原弹起
+        })
+      );
+
+      // B. 鼠标光源位置映射 & 微倾斜视差动画
+      let isLightOn = true;
+
+      scene.onPointerMove = function () {
+        if (!isLightOn) return;
+
+        // 利用 Babylon 的屏幕坐标解算直接求出三维世界鼠标点
+        const pickResult = scene.pick(scene.pointerX, scene.pointerY);
+        const ray = scene.createPickingRay(scene.pointerX, scene.pointerY, BABYLON.Matrix.Identity(), camera);
+        
+        // 计算距相机的 3D 悬浮平面
+        const distance = (mouseLight.position.z - camera.position.z) / ray.direction.z;
+        const targetPos = ray.origin.add(ray.direction.scale(distance));
+
+        mouseLight.position.x = targetPos.x;
+        mouseLight.position.y = targetPos.y;
+
+        // 视角倾斜视差（流畅平滑）
+        uiGroup.rotation.y = BABYLON.Scalar.Lerp(uiGroup.rotation.y, targetPos.x * 0.08, 0.1);
+        uiGroup.rotation.x = BABYLON.Scalar.Lerp(uiGroup.rotation.x, -targetPos.y * 0.08, 0.1);
+      };
+
+      // 6. UI 面板参数联动
+      document.getElementById('lightSwitch').addEventListener('change', (e) => {
+        isLightOn = e.target.checked;
+        mouseLight.setEnabled(isLightOn);
+        document.getElementById('light-val').innerText = isLightOn ? 'ON' : 'OFF';
+      });
+
+      document.getElementById('metallic').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        metalMaterial.metallic = val;
+        buttonMaterial.metallic = val;
+        document.getElementById('metal-val').innerText = val;
+      });
+
+      document.getElementById('roughness').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        metalMaterial.roughness = val;
+        buttonMaterial.roughness = val;
+        document.getElementById('rough-val').innerText = val;
+      });
+
+      document.getElementById('clearcoat').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        metalMaterial.clearCoat.intensity = val;
+        buttonMaterial.clearCoat.intensity = val;
+        document.getElementById('coat-val').innerText = val;
+      });
+
+      document.getElementById('lightIntensity').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        mouseLight.intensity = val;
+        document.getElementById('intensity-val').innerText = val;
+      });
+
+      document.getElementById('lightHeight').addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        mouseLight.position.z = -val;
+        document.getElementById('height-val').innerText = val;
+      });
+
+      document.getElementById('metalColor').addEventListener('input', (e) => {
+        metalMaterial.albedoColor = BABYLON.Color3.FromHexString(e.target.value);
+        buttonMaterial.albedoColor = BABYLON.Color3.FromHexString(e.target.value);
+      });
+
+      document.getElementById('lightColor').addEventListener('input', (e) => {
+        mouseLight.diffuse = BABYLON.Color3.FromHexString(e.target.value);
+        lightMat.emissiveColor = BABYLON.Color3.FromHexString(e.target.value);
+      });
+
+      return scene;
+    };
+
+    const scene = createScene();
+
+    // 渲染主循环
+    engine.runRenderLoop(function () {
+      scene.render();
+    });
+
+    // 响应窗口 resize
+    window.addEventListener("resize", function () {
+      engine.resize();
+    });
+  </script>
+</body>
+</html>

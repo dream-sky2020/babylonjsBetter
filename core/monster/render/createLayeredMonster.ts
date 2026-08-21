@@ -2,6 +2,7 @@ import { Color3, TransformNode, Vector3, type Material, type Scene } from '@baby
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 import {
   createSpriteMaskMaterial,
+  type SpriteNoiseErodeOptions,
   type StripeLayerProgressOptions,
   type StripeMaskMaterialController,
   type StripeProgressMaskOptions
@@ -28,6 +29,7 @@ export type LayeredMonsterController = {
     progress: StripeProgressMaskOptions,
     layerProgress: StripeLayerProgressOptions
   ) => void;
+  setNoiseErode: (options: SpriteNoiseErodeOptions) => void;
   updateTime: (timeSec: number) => void;
   getLayerMesh: (key: MonsterLayerKey) => IconPlaneController['mesh'] | null;
   dispose: () => void;
@@ -146,9 +148,8 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
     setColorOverlay: (color, alpha) => {
       const normalizedAlpha = Math.max(0, Math.min(1, Number.isFinite(alpha) ? alpha : 0));
       for (const handle of layers.values()) {
-        handle.sprite.mesh.overlayColor.copyFrom(color);
-        handle.sprite.mesh.overlayAlpha = normalizedAlpha;
-        handle.sprite.mesh.renderOverlay = normalizedAlpha > 0.001;
+        handle.stripe?.updateColorOverlay(color, normalizedAlpha);
+        handle.sprite.mesh.renderOverlay = false;
       }
     },
     setLayerProgress: (key, progress, layerProgress) => {
@@ -156,6 +157,9 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
       if (!stripe) return;
       stripe.updateProgress(progress);
       stripe.updateLayerProgress(layerProgress);
+    },
+    setNoiseErode: (options) => {
+      for (const handle of layers.values()) handle.stripe?.updateNoiseErode(options);
     },
     updateTime: (timeSec) => {
       for (const handle of layers.values()) handle.stripe?.updateTime(timeSec);

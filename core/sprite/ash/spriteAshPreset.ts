@@ -1,7 +1,7 @@
-import type { SpriteAshPreset, SpriteAshPresetLibrary } from './spriteAsh.types';
+import type { SpriteAshEffectMode, SpriteAshPreset, SpriteAshPresetLibrary } from './spriteAsh.types';
 
 export type SpriteAshParameterDefinition = {
-  key: Exclude<keyof SpriteAshPreset, 'presetKey' | 'name'>;
+  key: Exclude<keyof SpriteAshPreset, 'presetKey' | 'name' | 'effectMode'>;
   label: string;
   group: string;
   type: 'number' | 'color';
@@ -36,6 +36,7 @@ export const SPRITE_ASH_PARAMETER_DEFINITIONS: SpriteAshParameterDefinition[] = 
 
 export const DEFAULT_SPRITE_ASH_PRESET: SpriteAshPreset = {
   presetKey: 'ash_default',
+  effectMode: 'ash',
   name: '默认精灵化灰',
   duration: 2.4,
   directionAngleDeg: 90,
@@ -65,12 +66,15 @@ const finite = (value: unknown, fallback: number, min: number, max: number) => {
   return Math.max(min, Math.min(max, Number.isFinite(number) ? number : fallback));
 };
 const color = (value: unknown, fallback: string) => typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value) ? value : fallback;
+const EFFECT_MODES: SpriteAshEffectMode[] = ['ash', 'blackShards', 'embers', 'frost', 'pixel', 'void'];
+const normalizeEffectMode = (value: unknown): SpriteAshEffectMode => EFFECT_MODES.includes(value as SpriteAshEffectMode) ? value as SpriteAshEffectMode : 'ash';
 
 export const normalizeSpriteAshPreset = (key: string, value: unknown): SpriteAshPreset => {
   const input = value && typeof value === 'object' ? value as Partial<SpriteAshPreset> : {};
   const fallback = DEFAULT_SPRITE_ASH_PRESET;
   return {
     presetKey: key,
+    effectMode: normalizeEffectMode(input.effectMode),
     name: typeof input.name === 'string' && input.name.trim() ? input.name : fallback.name,
     duration: finite(input.duration, fallback.duration, 0.1, 30),
     directionAngleDeg: finite(input.directionAngleDeg, fallback.directionAngleDeg, -360, 360),

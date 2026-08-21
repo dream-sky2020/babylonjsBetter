@@ -1,6 +1,9 @@
+export type SpriteAshEffectMode = 'ash' | 'blackShards' | 'embers' | 'frost' | 'pixel' | 'void';
+
 export type SpriteAshPreset = {
   presetKey: string;
   name: string;
+  effectMode: SpriteAshEffectMode;
   duration: number;
   directionAngleDeg: number;
   noiseScale: number;

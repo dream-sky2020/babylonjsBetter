@@ -1,27 +1,50 @@
 {
   "ash_default": {
-    "presetKey": "ash_default",
-    "name": "默认精灵化灰",
-    "duration": 2.4,
-    "directionAngleDeg": 90,
-    "noiseScale": 7.5,
-    "noiseStrength": 0.3,
-    "noiseSpeed": 0.08,
-    "edgeWidth": 0.055,
-    "edgeSoftness": 0.012,
-    "edgeColor": "#ff9a3d",
-    "edgeIntensity": 1.65,
-    "charColor": "#241c18",
-    "charStrength": 0.72,
-    "ashColor": "#c8c3bb",
-    "ashTrail": 0.2,
-    "ashDensity": 0.52,
-    "ashOpacity": 0.72,
-    "rise": 0.7,
-    "driftX": 0.18,
-    "turbulence": 0.13,
-    "flickerSpeed": 7,
-    "seed": 3.7,
-    "alphaCutoff": 0.025
+    "presetKey": "ash_default", "name": "默认精灵化灰", "effectMode": "ash", "duration": 2.4,
+    "directionAngleDeg": 90, "noiseScale": 7.5, "noiseStrength": 0.3, "noiseSpeed": 0.08,
+    "edgeWidth": 0.055, "edgeSoftness": 0.012, "edgeColor": "#ff9a3d", "edgeIntensity": 1.65,
+    "charColor": "#241c18", "charStrength": 0.72, "ashColor": "#c8c3bb", "ashTrail": 0.2,
+    "ashDensity": 0.52, "ashOpacity": 0.72, "rise": 0.7, "driftX": 0.18, "turbulence": 0.13,
+    "flickerSpeed": 7, "seed": 3.7, "alphaCutoff": 0.025
+  },
+  "black_shards_fall": {
+    "presetKey": "black_shards_fall", "name": "黑色碎片散落", "effectMode": "blackShards", "duration": 2.8,
+    "directionAngleDeg": 90, "noiseScale": 10, "noiseStrength": 0.35, "noiseSpeed": 0,
+    "edgeWidth": 0.025, "edgeSoftness": 0.01, "edgeColor": "#2b2b2b", "edgeIntensity": 0.15,
+    "charColor": "#050505", "charStrength": 1, "ashColor": "#101010", "ashTrail": 0.18,
+    "ashDensity": 0.7, "ashOpacity": 0.9, "rise": 2.4, "driftX": 1.15, "turbulence": 0.55,
+    "flickerSpeed": 2, "seed": 11.3, "alphaCutoff": 0.02
+  },
+  "ember_burst": {
+    "presetKey": "ember_burst", "name": "余烬爆散", "effectMode": "embers", "duration": 1.8,
+    "directionAngleDeg": 75, "noiseScale": 14, "noiseStrength": 0.42, "noiseSpeed": 0.22,
+    "edgeWidth": 0.07, "edgeSoftness": 0.009, "edgeColor": "#ff4d00", "edgeIntensity": 3.2,
+    "charColor": "#160703", "charStrength": 0.9, "ashColor": "#ff7b16", "ashTrail": 0.32,
+    "ashDensity": 0.68, "ashOpacity": 0.92, "rise": 1.45, "driftX": 0.65, "turbulence": 0.48,
+    "flickerSpeed": 16, "seed": 6.1, "alphaCutoff": 0.02
+  },
+  "frost_erode": {
+    "presetKey": "frost_erode", "name": "冰晶侵蚀", "effectMode": "frost", "duration": 3.1,
+    "directionAngleDeg": -35, "noiseScale": 11, "noiseStrength": 0.5, "noiseSpeed": 0.035,
+    "edgeWidth": 0.085, "edgeSoftness": 0.014, "edgeColor": "#8eeaff", "edgeIntensity": 2.4,
+    "charColor": "#b8e9ff", "charStrength": 0.75, "ashColor": "#d9f6ff", "ashTrail": 0.12,
+    "ashDensity": 0.34, "ashOpacity": 0.6, "rise": 0.22, "driftX": -0.12, "turbulence": 0.08,
+    "flickerSpeed": 3, "seed": 18.4, "alphaCutoff": 0.018
+  },
+  "pixel_breakup": {
+    "presetKey": "pixel_breakup", "name": "像素解体", "effectMode": "pixel", "duration": 2.2,
+    "directionAngleDeg": 90, "noiseScale": 9, "noiseStrength": 0.28, "noiseSpeed": 0,
+    "edgeWidth": 0.03, "edgeSoftness": 0.006, "edgeColor": "#4de3ff", "edgeIntensity": 1.8,
+    "charColor": "#112a36", "charStrength": 0.45, "ashColor": "#5bdcff", "ashTrail": 0.16,
+    "ashDensity": 0.55, "ashOpacity": 0.8, "rise": 0.5, "driftX": 0.85, "turbulence": 0.42,
+    "flickerSpeed": 8, "seed": 22.9, "alphaCutoff": 0.02
+  },
+  "void_swallow": {
+    "presetKey": "void_swallow", "name": "虚空吞噬", "effectMode": "void", "duration": 2.6,
+    "directionAngleDeg": 0, "noiseScale": 8, "noiseStrength": 0.2, "noiseSpeed": -0.12,
+    "edgeWidth": 0.075, "edgeSoftness": 0.012, "edgeColor": "#a855f7", "edgeIntensity": 2.8,
+    "charColor": "#10051d", "charStrength": 0.95, "ashColor": "#35105a", "ashTrail": 0.24,
+    "ashDensity": 0.42, "ashOpacity": 0.7, "rise": 0.1, "driftX": 0.05, "turbulence": 0.16,
+    "flickerSpeed": 11, "seed": 31.2, "alphaCutoff": 0.02
   }
 }

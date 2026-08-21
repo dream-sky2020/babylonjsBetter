@@ -5,7 +5,12 @@ import {
   resolveProgressOptions,
   type SpriteProgressOptions
 } from '@/core/sprite/progress/spriteProgress.ts';
-import { SPRITE_PROGRESS_GLSL } from '@/core/sprite/progress/spriteProgress.glsl.ts';
+import { registerMySpriteShaderChunks } from '@/core/sprite/shader/chunks/registerMySpriteShaderChunks.ts';
+import { spriteNoiseErodePatternValue, type SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import { composeSpriteShader } from '@/core/sprite/shader/composer/composeSpriteShader.ts';
+import { registerSpriteShaderProgram } from '@/core/sprite/shader/composer/shaderProgramCache.ts';
+import { stripedSpriteRecipe } from '@/core/sprite/shader/recipes/stripedSprite.recipe.ts';
+export type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
 
 export type StripeSegmentLike = {
   width?: number;
@@ -70,6 +75,8 @@ export type StripeMaskMaterialController = {
   updatePreset: (preset: StripePresetLike) => void;
   updateProgress: (progress: StripeProgressMaskOptions) => void;
   updateLayerProgress: (progress: StripeLayerProgressOptions) => void;
+  updateNoiseErode: (options: SpriteNoiseErodeOptions) => void;
+  updateColorOverlay: (color: Color3, alpha: number) => void;
   updateTime: (timeSec: number) => void;
   updateRenderSize: (widthPx: number, heightPx: number) => void;
   dispose: () => void;
@@ -88,10 +95,11 @@ export type CreateStripeShaderMaterialOptions = {
   };
 };
 
-const VERTEX_SHADER_NAME = 'spriteStripeVertex';
-const FRAGMENT_SHADER_NAME = 'spriteStripeFragment';
+const VERTEX_SHADER_NAME = 'mySpriteStripeVertex';
+const FRAGMENT_SHADER_NAME = 'mySpriteStripeFragment';
 
 const ensureShaderRegistered = () => {
+  registerMySpriteShaderChunks();
   if (!Effect.ShadersStore[`${VERTEX_SHADER_NAME}VertexShader`]) {
     const vertexShader = `
       precision highp float;
@@ -99,8 +107,14 @@ const ensureShaderRegistered = () => {
       attribute vec2 uv;
       uniform mat4 worldViewProjection;
       varying vec2 vUV;
+      /* mySprite:vertex:declarations */
+      /* mySprite:vertex:functions */
       void main(void) {
-        gl_Position = worldViewProjection * vec4(position, 1.0);
+        /* mySprite:vertex:beforePosition */
+        vec3 mySpritePosition = position;
+        /* mySprite:vertex:transformPosition */
+        gl_Position = worldViewProjection * vec4(mySpritePosition, 1.0);
+        /* mySprite:vertex:afterPosition */
         vUV = uv;
       }
     `;
@@ -181,7 +195,8 @@ const ensureShaderRegistered = () => {
       uniform vec3 uBackgroundUnfilledColor;
       uniform float uBackgroundUnfilledOpacity;
 
-      ${SPRITE_PROGRESS_GLSL}
+      /* mySprite:fragment:declarations */
+      /* mySprite:fragment:functions */
 
       const float PI = 3.14159265358979323846;
 
@@ -257,7 +272,9 @@ const ensureShaderRegistered = () => {
       }
 
       void main(void) {
-        vec4 sourceSample = texture2D(uMaskTexture, vUV);
+        vec2 mySpriteSourceUv = vUV;
+        vec4 sourceSample = texture2D(uMaskTexture, mySpriteSourceUv);
+        /* mySprite:fragment:afterSample */
         float maskAlpha = 1.0;
         if (uUseMask > 0.5) {
           maskAlpha = sourceSample.a;
@@ -308,6 +325,9 @@ const ensureShaderRegistered = () => {
           alphaOut = mix(1.0, alphaOut, useTexture) * clamp(regionOpacity, 0.0, 1.0);
         }
 
+        /* mySprite:fragment:modifyColor */
+        /* mySprite:fragment:modifyField */
+        /* mySprite:fragment:beforeOutput */
         gl_FragColor = vec4(colorOut, maskAlpha * alphaOut);
       }
     `;
@@ -395,6 +415,10 @@ export const createSpriteEffectMaterial = (
   options: CreateStripeShaderMaterialOptions = {}
 ): StripeShaderMaterialController => {
   ensureShaderRegistered();
+  const shaderProgram = registerSpriteShaderProgram(composeSpriteShader(stripedSpriteRecipe, {
+    vertex: Effect.ShadersStore[`${VERTEX_SHADER_NAME}VertexShader`] ?? '',
+    fragment: Effect.ShadersStore[`${FRAGMENT_SHADER_NAME}PixelShader`] ?? ''
+  }));
 
   const ownsMaskTexture = !options.sourceTexture;
   const maskTexture = options.sourceTexture ?? (options.maskTexturePath
@@ -408,81 +432,13 @@ export const createSpriteEffectMaterial = (
     name,
     scene,
     {
-      vertex: VERTEX_SHADER_NAME,
-      fragment: FRAGMENT_SHADER_NAME
+      vertex: shaderProgram.vertexName,
+      fragment: shaderProgram.fragmentName
     },
     {
-      attributes: ['position', 'uv'],
-      uniforms: [
-        'worldViewProjection',
-        'uSolidColor',
-        'uSolidAlpha',
-        'uBackgroundColor',
-        'uBackgroundAlpha',
-        'uUseSolid',
-        'uUseMask',
-        'uAngleRad',
-        'uSpeed',
-        'uTime',
-        'uPatternPeriodPx',
-        'uRenderSizePx',
-        'uProgressEnabled',
-        'uProgress',
-        'uProgressShape',
-        'uProgressDirection',
-        'uProgressAngleRad',
-        'uProgressStartAngleRad',
-        'uProgressSweepAngleRad',
-        'uProgressInnerRadius',
-        'uProgressOuterRadius',
-        'uProgressSoftness',
-        'uProgressCenterOffsetPx',
-        'uProgressAxisScale',
-        'uFilledUseTexture',
-        'uFilledColor',
-        'uFilledOpacity',
-        'uUnfilledUseTexture',
-        'uUnfilledColor',
-        'uUnfilledOpacity',
-        'uLayerProgressEnabled',
-        'uStripeProgressEnabled',
-        'uStripeProgress',
-        'uStripeProgressShape',
-        'uStripeProgressDirection',
-        'uStripeProgressAngleRad',
-        'uStripeProgressStartAngleRad',
-        'uStripeProgressSweepAngleRad',
-        'uStripeProgressInnerRadius',
-        'uStripeProgressOuterRadius',
-        'uStripeProgressSoftness',
-        'uStripeProgressCenterOffsetPx',
-        'uStripeProgressAxisScale',
-        'uStripeFilledUseTexture',
-        'uStripeFilledColor',
-        'uStripeFilledOpacity',
-        'uStripeUnfilledUseTexture',
-        'uStripeUnfilledColor',
-        'uStripeUnfilledOpacity',
-        'uBackgroundProgressEnabled',
-        'uBackgroundProgress',
-        'uBackgroundProgressShape',
-        'uBackgroundProgressDirection',
-        'uBackgroundProgressAngleRad',
-        'uBackgroundProgressStartAngleRad',
-        'uBackgroundProgressSweepAngleRad',
-        'uBackgroundProgressInnerRadius',
-        'uBackgroundProgressOuterRadius',
-        'uBackgroundProgressSoftness',
-        'uBackgroundProgressCenterOffsetPx',
-        'uBackgroundProgressAxisScale',
-        'uBackgroundFilledUseTexture',
-        'uBackgroundFilledColor',
-        'uBackgroundFilledOpacity',
-        'uBackgroundUnfilledUseTexture',
-        'uBackgroundUnfilledColor',
-        'uBackgroundUnfilledOpacity'
-      ],
-      samplers: ['uMaskTexture', 'uStripeTexture']
+      attributes: shaderProgram.attributes,
+      uniforms: shaderProgram.uniforms,
+      samplers: shaderProgram.samplers
     }
   );
   material.backFaceCulling = false;
@@ -582,10 +538,35 @@ export const createSpriteEffectMaterial = (
     applyLayerProgressPart('Background', progress.background);
   };
 
+  const applyNoiseErode = (options: SpriteNoiseErodeOptions = {}) => {
+    const progress = Number(options.progress);
+    material.setFloat('uMySpriteNoiseErodeEnabled', options.enabled === true ? 1 : 0);
+    material.setFloat('uMySpriteNoiseErodeProgress', Number.isFinite(progress) ? clamp01(progress) : 0);
+    material.setFloat('uMySpriteNoiseErodePattern', spriteNoiseErodePatternValue(options.pattern));
+    material.setFloat('uMySpriteNoiseErodeAngle', (Number(options.directionAngleDeg) || 90) * Math.PI / 180);
+    material.setFloat('uMySpriteNoiseErodeScale', Math.max(1, Number(options.noiseScale) || 7));
+    material.setFloat('uMySpriteNoiseErodeStrength', clamp01(Number.isFinite(Number(options.noiseStrength)) ? Number(options.noiseStrength) : .62));
+    material.setFloat('uMySpriteNoiseErodeSpeed', Number.isFinite(Number(options.noiseSpeed)) ? Number(options.noiseSpeed) : .08);
+    material.setFloat('uMySpriteNoiseErodeEdgeWidth', Math.max(.001, Number(options.edgeWidth) || .1));
+    material.setFloat('uMySpriteNoiseErodeEdgeSoftness', Math.max(.001, Number(options.edgeSoftness) || .025));
+    material.setColor3('uMySpriteNoiseErodeEdgeColor', toColor3(options.edgeColor, '#ffb45b'));
+    material.setFloat('uMySpriteNoiseErodeEdgeIntensity', Math.max(0, Number.isFinite(Number(options.edgeIntensity)) ? Number(options.edgeIntensity) : 1.4));
+    material.setColor3('uMySpriteNoiseErodeCharColor', toColor3(options.charColor, '#202020'));
+    material.setFloat('uMySpriteNoiseErodeCharStrength', clamp01(Number.isFinite(Number(options.charStrength)) ? Number(options.charStrength) : .8));
+    material.setFloat('uMySpriteNoiseErodeSeed', Number.isFinite(Number(options.seed)) ? Number(options.seed) : 1);
+  };
+
+  const applyColorOverlay = (color: Color3, alpha: number) => {
+    material.setColor3('uMySpriteOverlayColor', color);
+    material.setFloat('uMySpriteOverlayAlpha', clamp01(Number.isFinite(alpha) ? alpha : 0));
+  };
+
   applyPreset(initialPreset);
   applyRenderSize(options.renderSizePx?.width || 512, options.renderSizePx?.height || 512);
   applyProgress(options.progress);
   applyLayerProgress(options.layerProgress);
+  applyNoiseErode({ enabled: false, progress: 0 });
+  applyColorOverlay(Color3.Black(), 0);
 
   return {
     material,
@@ -594,6 +575,8 @@ export const createSpriteEffectMaterial = (
     },
     updateProgress: applyProgress,
     updateLayerProgress: applyLayerProgress,
+    updateNoiseErode: applyNoiseErode,
+    updateColorOverlay: applyColorOverlay,
     updateTime: (timeSec) => {
       material.setFloat('uTime', Number.isFinite(timeSec) ? timeSec : 0);
     },
