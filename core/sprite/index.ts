@@ -43,6 +43,10 @@ export { DEFAULT_SPRITE_TRANSFORM } from '@/core/sprite/types/sprite-animation.t
 // render
 export { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 export type { CreateAtlasSpritePlaneOptions } from '@/core/sprite/render/createAtlasSpritePlane.ts';
+export type { SpriteVisualSurface, SpriteVisualSurfaceRole, SpriteVisualSurfaceFactory, CreateSpriteVisualSurfaceOptions } from '@/core/sprite/render/spriteVisualSurface.ts';
+export { createSpriteVisualSurface, createStandardSpriteVisualSurface, DEFAULT_SPRITE_VISUAL_SURFACE_FACTORY } from '@/core/sprite/render/spriteVisualSurface.ts';
+export { createProfiledSpriteVisualSurface, DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY, SPRITE_VISUAL_SURFACE_PROFILES } from '@/core/sprite/render/createProfiledSpriteVisualSurface.ts';
+export type { SpriteVisualEffectState, SpriteColorOverlayState } from '@/core/sprite/render/spriteVisualEffect.types.ts';
 export type {
   StripeSegmentLike,
   StripePresetLike,
@@ -272,6 +276,9 @@ export { createExclamationMarkSprite } from '@/core/sprite/exclamation/createExc
 // 3D sprite ash dissolve
 export type { SpriteDissolveParticleMode, SpriteDissolveFieldBlendMode, SpriteAshPreset, SpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAsh.types.ts';
 export type { SpriteAshEffectController } from '@/core/sprite/ash/createSpriteAshEffect.ts';
-export type { SpriteAshParameterDefinition } from '@/core/sprite/ash/spriteAshPreset.ts';
-export { DEFAULT_SPRITE_ASH_PRESET, SPRITE_ASH_PARAMETER_DEFINITIONS, normalizeSpriteAshPreset, normalizeSpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAshPreset.ts';
+export type { SpriteAshParameterDefinition, SpriteAshFeatureKey } from '@/core/sprite/ash/spriteAshPreset.ts';
+export { DEFAULT_SPRITE_ASH_PRESET, SPRITE_ASH_PARAMETER_DEFINITIONS, SPRITE_ASH_GROUP_FEATURES, normalizeSpriteAshPreset, normalizeSpriteAshPresetLibrary } from '@/core/sprite/ash/spriteAshPreset.ts';
 export { createSpriteAshEffect } from '@/core/sprite/ash/createSpriteAshEffect.ts';
+export type { SpriteNoiseErodeFeatureFlags } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';
+export { FULL_SPRITE_NOISE_ERODE_FEATURES, LOW_PERFORMANCE_SPRITE_NOISE_ERODE_FEATURES } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';
+export type { SpriteDissolveEffectState, SpriteNoiseErodeOptions } from '@/core/sprite/dissolve/spriteDissolve.types.ts';

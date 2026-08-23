@@ -1,7 +1,7 @@
 export type SpriteDissolveParticleMode = 'none' | 'ash' | 'blackShards' | 'embers' | 'pixel';
 export type SpriteDissolveFieldBlendMode = 'weighted' | 'add' | 'max' | 'min' | 'multiply';
 
-export type SpriteAshPreset = {
+export type SpriteAshPreset = SpriteNoiseErodeFeatureFlags & {
   presetKey: string;
   name: string;
   particleMode: SpriteDissolveParticleMode;
@@ -116,3 +116,4 @@ export type SpriteAshPreset = {
 };
 
 export type SpriteAshPresetLibrary = Record<string, SpriteAshPreset>;
+import type { SpriteNoiseErodeFeatureFlags } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';

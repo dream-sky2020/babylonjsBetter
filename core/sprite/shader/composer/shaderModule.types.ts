@@ -10,12 +10,19 @@ export type ShaderStageSlots = {
   beforeOutput?: string;
 };
 
+export type SpriteShaderRuntimeToggle = {
+  optionKey: string;
+  uniform: string;
+  defaultEnabled?: boolean;
+};
+
 export type SpriteShaderModule = {
   id: string;
   requires?: readonly string[];
   attributes?: readonly string[];
   uniforms?: readonly string[];
   samplers?: readonly string[];
+  runtimeToggles?: readonly SpriteShaderRuntimeToggle[];
   vertex?: ShaderStageSlots;
   fragment?: ShaderStageSlots;
 };

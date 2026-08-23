@@ -1,9 +1,31 @@
 import type { SpriteAshPreset, SpriteAshPresetLibrary, SpriteDissolveFieldBlendMode, SpriteDissolveParticleMode } from './spriteAsh.types';
+import { FULL_SPRITE_NOISE_ERODE_FEATURES } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';
 
 export type SpriteAshParameterDefinition = {
   key: Exclude<keyof SpriteAshPreset, 'presetKey' | 'name' | 'particleMode'>;
   label: string; group: string; type: 'number' | 'color' | 'select'; min?: number; max?: number; step?: number;
   options?: { value: string; label: string }[];
+};
+
+export type SpriteAshFeatureKey = Extract<keyof SpriteAshPreset,
+  'directionalFieldEnabled' | 'radialFieldEnabled' | 'crystalEnabled' | 'spiralEnabled' | 'voidEnabled' | 'domainWarpEnabled' |
+  'vertexMotionEnabled' | 'vertexDeformEnabled' |
+  'edgeEnabled' | 'charEnabled' | 'residueEnabled' | 'ashTrailEnabled'>;
+
+export const SPRITE_ASH_GROUP_FEATURES: Partial<Record<string, SpriteAshFeatureKey>> = {
+  '方向场': 'directionalFieldEnabled',
+  '径向场': 'radialFieldEnabled',
+  '冰晶结构': 'crystalEnabled',
+  '旋涡结构': 'spiralEnabled',
+  '虚空拉扯': 'voidEnabled',
+  'Domain Warp': 'domainWarpEnabled',
+  '3D 飘散': 'vertexMotionEnabled',
+  '3D 顶点变形': 'vertexDeformEnabled',
+  '燃烧边缘': 'edgeEnabled',
+  '边缘渐染': 'edgeEnabled',
+  '焦化': 'charEnabled',
+  '消失后残留': 'residueEnabled',
+  '灰烬尾迹': 'ashTrailEnabled'
 };
 
 export const SPRITE_ASH_PARAMETER_DEFINITIONS: SpriteAshParameterDefinition[] = [
@@ -18,36 +40,36 @@ export const SPRITE_ASH_PARAMETER_DEFINITIONS: SpriteAshParameterDefinition[] = 
   { key: 'fieldInvert', label: '最终场反相', group: '轮廓控制', type: 'number', min: 0, max: 1, step: .01 },
   { key: 'fieldContrast', label: '场对比度', group: '轮廓控制', type: 'number', min: .1, max: 5, step: .05 },
   { key: 'fieldOffset', label: '场偏移', group: '轮廓控制', type: 'number', min: -1, max: 1, step: .01 },
-  { key: 'directionalStrength', label: '方向场强度', group: '场结构', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'directionAngleDeg', label: '消散方向角度', group: '场结构', type: 'number', min: -360, max: 360, step: 1 },
-  { key: 'radialStrength', label: '径向场强度', group: '场结构', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'radialDirection', label: '径向方向（-1 内向外 / 1 外向内）', group: '场结构', type: 'number', min: -1, max: 1, step: .05 },
-  { key: 'centerX', label: '径向中心 X', group: '场结构', type: 'number', min: -1, max: 1, step: .01 },
-  { key: 'centerY', label: '径向中心 Y', group: '场结构', type: 'number', min: -1, max: 1, step: .01 },
-  { key: 'radialScaleX', label: '径向横向比例', group: '径向与虚空', type: 'number', min: .1, max: 10, step: .05 },
-  { key: 'radialScaleY', label: '径向纵向比例', group: '径向与虚空', type: 'number', min: .1, max: 10, step: .05 },
-  { key: 'radialRotationDeg', label: '径向形状旋转角度', group: '径向与虚空', type: 'number', min: -360, max: 360, step: 1 },
-  { key: 'radialPower', label: '径向曲线指数', group: '径向与虚空', type: 'number', min: .1, max: 5, step: .05 },
-  { key: 'radialNoiseStrength', label: '径向边缘噪声强度', group: '径向与虚空', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'radialNoiseScale', label: '径向边缘噪声尺度', group: '径向与虚空', type: 'number', min: .25, max: 40, step: .05 },
-  { key: 'crystalStrength', label: '冰晶结构强度', group: '场结构', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'crystalScale', label: '冰晶尺寸', group: '场结构', type: 'number', min: .25, max: 40, step: .05 },
-  { key: 'crystalSharpness', label: '冰晶锐利度', group: '场结构', type: 'number', min: .01, max: 1, step: .01 },
+  { key: 'directionalStrength', label: '方向场强度', group: '方向场', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'directionAngleDeg', label: '消散方向角度', group: '方向场', type: 'number', min: -360, max: 360, step: 1 },
+  { key: 'radialStrength', label: '径向场强度', group: '径向场', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'radialDirection', label: '径向方向（-1 内向外 / 1 外向内）', group: '径向场', type: 'number', min: -1, max: 1, step: .05 },
+  { key: 'centerX', label: '径向中心 X', group: '径向场', type: 'number', min: -1, max: 1, step: .01 },
+  { key: 'centerY', label: '径向中心 Y', group: '径向场', type: 'number', min: -1, max: 1, step: .01 },
+  { key: 'radialScaleX', label: '径向横向比例', group: '径向场', type: 'number', min: .1, max: 10, step: .05 },
+  { key: 'radialScaleY', label: '径向纵向比例', group: '径向场', type: 'number', min: .1, max: 10, step: .05 },
+  { key: 'radialRotationDeg', label: '径向形状旋转角度', group: '径向场', type: 'number', min: -360, max: 360, step: 1 },
+  { key: 'radialPower', label: '径向曲线指数', group: '径向场', type: 'number', min: .1, max: 5, step: .05 },
+  { key: 'radialNoiseStrength', label: '径向边缘噪声强度', group: '径向场', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'radialNoiseScale', label: '径向边缘噪声尺度', group: '径向场', type: 'number', min: .25, max: 40, step: .05 },
+  { key: 'crystalStrength', label: '冰晶结构强度', group: '冰晶结构', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'crystalScale', label: '冰晶尺寸', group: '冰晶结构', type: 'number', min: .25, max: 40, step: .05 },
+  { key: 'crystalSharpness', label: '冰晶锐利度', group: '冰晶结构', type: 'number', min: .01, max: 1, step: .01 },
   { key: 'crystalAspect', label: '冰晶横纵比例', group: '冰晶结构', type: 'number', min: .1, max: 10, step: .05 },
   { key: 'crystalRotationDeg', label: '冰晶旋转角度', group: '冰晶结构', type: 'number', min: -360, max: 360, step: 1 },
   { key: 'crystalCrackWidth', label: '主裂隙宽度', group: '冰晶结构', type: 'number', min: .001, max: .25, step: .001 },
   { key: 'crystalJitter', label: '晶格错位强度', group: '冰晶结构', type: 'number', min: 0, max: 1, step: .01 },
   { key: 'crystalBranchStrength', label: '分支裂隙强度', group: '冰晶结构', type: 'number', min: 0, max: 1, step: .01 },
   { key: 'crystalBranchScale', label: '分支裂隙尺度', group: '冰晶结构', type: 'number', min: .25, max: 4, step: .05 },
-  { key: 'spiralStrength', label: '旋涡强度', group: '场结构', type: 'number', min: 0, max: 2, step: .01 },
-  { key: 'spiralTurns', label: '旋涡圈数', group: '场结构', type: 'number', min: 0, max: 12, step: .1 },
-  { key: 'voidPullStrength', label: '中心拉扯强度', group: '场结构', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'spiralSpeed', label: '旋涡旋转速度', group: '径向与虚空', type: 'number', min: -8, max: 8, step: .05 },
-  { key: 'spiralDirection', label: '旋涡方向（-1 / 1）', group: '径向与虚空', type: 'number', min: -1, max: 1, step: .05 },
-  { key: 'spiralRadialFrequency', label: '旋涡径向频率', group: '径向与虚空', type: 'number', min: 0, max: 40, step: .1 },
-  { key: 'voidPullRadius', label: '中心拉扯半径', group: '径向与虚空', type: 'number', min: .05, max: 2, step: .01 },
-  { key: 'voidPullFalloff', label: '中心拉扯衰减', group: '径向与虚空', type: 'number', min: .05, max: 1, step: .01 },
-  { key: 'voidPullPower', label: '拉扯进度指数', group: '径向与虚空', type: 'number', min: .1, max: 5, step: .05 },
+  { key: 'spiralStrength', label: '旋涡强度', group: '旋涡结构', type: 'number', min: 0, max: 2, step: .01 },
+  { key: 'spiralTurns', label: '旋涡圈数', group: '旋涡结构', type: 'number', min: 0, max: 12, step: .1 },
+  { key: 'voidPullStrength', label: '中心拉扯强度', group: '虚空拉扯', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'spiralSpeed', label: '旋涡旋转速度', group: '旋涡结构', type: 'number', min: -8, max: 8, step: .05 },
+  { key: 'spiralDirection', label: '旋涡方向（-1 / 1）', group: '旋涡结构', type: 'number', min: -1, max: 1, step: .05 },
+  { key: 'spiralRadialFrequency', label: '旋涡径向频率', group: '旋涡结构', type: 'number', min: 0, max: 40, step: .1 },
+  { key: 'voidPullRadius', label: '中心拉扯半径', group: '虚空拉扯', type: 'number', min: .05, max: 2, step: .01 },
+  { key: 'voidPullFalloff', label: '中心拉扯衰减', group: '虚空拉扯', type: 'number', min: .05, max: 1, step: .01 },
+  { key: 'voidPullPower', label: '拉扯进度指数', group: '虚空拉扯', type: 'number', min: .1, max: 5, step: .05 },
   { key: 'noiseScale', label: '噪声尺度', group: '溶解边界', type: 'number', min: .25, max: 80, step: .05 },
   { key: 'noiseStrength', label: '噪声扰动强度', group: '溶解边界', type: 'number', min: 0, max: 1, step: .005 },
   { key: 'noiseSpeed', label: '噪声流动速度', group: '溶解边界', type: 'number', min: -4, max: 4, step: .01 },
@@ -56,9 +78,9 @@ export const SPRITE_ASH_PARAMETER_DEFINITIONS: SpriteAshParameterDefinition[] = 
   { key: 'noiseAspect', label: '噪声长宽比', group: '噪声结构', type: 'number', min: .1, max: 10, step: .05 },
   { key: 'noiseRotationDeg', label: '噪声纹理旋转角度', group: '噪声结构', type: 'number', min: -360, max: 360, step: 1 },
   { key: 'noiseFlowAngleDeg', label: '噪声流动方向', group: '噪声结构', type: 'number', min: -360, max: 360, step: 1 },
-  { key: 'warpStrength', label: 'Domain Warp 强度', group: '噪声结构', type: 'number', min: 0, max: 1, step: .01 },
-  { key: 'warpScale', label: 'Domain Warp 尺度', group: '噪声结构', type: 'number', min: .25, max: 40, step: .05 },
-  { key: 'warpSpeed', label: 'Domain Warp 流速', group: '噪声结构', type: 'number', min: -4, max: 4, step: .01 },
+  { key: 'warpStrength', label: 'Domain Warp 强度', group: 'Domain Warp', type: 'number', min: 0, max: 1, step: .01 },
+  { key: 'warpScale', label: 'Domain Warp 尺度', group: 'Domain Warp', type: 'number', min: .25, max: 40, step: .05 },
+  { key: 'warpSpeed', label: 'Domain Warp 流速', group: 'Domain Warp', type: 'number', min: -4, max: 4, step: .01 },
   { key: 'edgeWidth', label: '燃烧边宽度', group: '燃烧边缘', type: 'number', min: .001, max: .4, step: .001 },
   { key: 'edgeSoftness', label: '边缘柔化', group: '燃烧边缘', type: 'number', min: .0001, max: .2, step: .0005 },
   { key: 'edgeColor', label: '燃烧边颜色', group: '燃烧边缘', type: 'color' },
@@ -122,6 +144,7 @@ export const SPRITE_ASH_PARAMETER_DEFINITIONS: SpriteAshParameterDefinition[] = 
 
 export const DEFAULT_SPRITE_ASH_PRESET: SpriteAshPreset = {
   presetKey: 'ash_default', name: '默认精灵化灰', particleMode: 'ash', duration: 2.4,
+  ...FULL_SPRITE_NOISE_ERODE_FEATURES,
   progressPower: 1, startHold: 0, endFade: .04, fieldBlendMode: 'weighted', fieldInvert: 0, fieldContrast: 1, fieldOffset: 0,
   directionalStrength: 1, directionAngleDeg: 90, radialStrength: 0, radialDirection: 1, centerX: 0, centerY: 0,
   radialScaleX: 1, radialScaleY: 1, radialRotationDeg: 0, radialPower: 1, radialNoiseStrength: .2, radialNoiseScale: 6,
@@ -148,6 +171,7 @@ export const DEFAULT_SPRITE_ASH_PRESET: SpriteAshPreset = {
 };
 
 const finite = (value: unknown, fallback: number, min: number, max: number) => Math.max(min, Math.min(max, Number.isFinite(Number(value)) ? Number(value) : fallback));
+const booleanValue = (value: unknown, fallback: boolean) => typeof value === 'boolean' ? value : fallback;
 const color = (value: unknown, fallback: string) => typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value) ? value : fallback;
 const PARTICLE_MODES: SpriteDissolveParticleMode[] = ['none', 'ash', 'blackShards', 'embers', 'pixel'];
 const FIELD_BLEND_MODES: SpriteDissolveFieldBlendMode[] = ['weighted', 'add', 'max', 'min', 'multiply'];
@@ -161,6 +185,12 @@ export const normalizeSpriteAshPreset = (key: string, value: unknown): SpriteAsh
   return {
     presetKey: key, name: typeof input.name === 'string' && input.name.trim() ? input.name : f.name,
     particleMode: PARTICLE_MODES.includes(input.particleMode as SpriteDissolveParticleMode) ? input.particleMode as SpriteDissolveParticleMode : legacyParticleMode(oldMode),
+    directionalFieldEnabled: booleanValue(input.directionalFieldEnabled, true), radialFieldEnabled: booleanValue(input.radialFieldEnabled, true),
+    crystalEnabled: booleanValue(input.crystalEnabled, true), spiralEnabled: booleanValue(input.spiralEnabled, true),
+    voidEnabled: booleanValue(input.voidEnabled, true), domainWarpEnabled: booleanValue(input.domainWarpEnabled, true),
+    vertexMotionEnabled: booleanValue(input.vertexMotionEnabled, true), vertexDeformEnabled: booleanValue(input.vertexDeformEnabled, true),
+    edgeEnabled: booleanValue(input.edgeEnabled, true), charEnabled: booleanValue(input.charEnabled, true),
+    residueEnabled: booleanValue(input.residueEnabled, true), ashTrailEnabled: booleanValue(input.ashTrailEnabled, true),
     duration: finite(input.duration, f.duration, .1, 30),
     progressPower: finite(input.progressPower, 1, .1, 5), startHold: finite(input.startHold, 0, 0, .9), endFade: finite(input.endFade, .04, 0, .5),
     fieldBlendMode: FIELD_BLEND_MODES.includes(input.fieldBlendMode as SpriteDissolveFieldBlendMode) ? input.fieldBlendMode as SpriteDissolveFieldBlendMode : 'weighted',

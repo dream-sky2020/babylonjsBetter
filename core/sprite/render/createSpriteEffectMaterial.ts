@@ -2,15 +2,16 @@ import { Color3, DynamicTexture, Effect, Scene, ShaderMaterial, Texture, Vector2
 import {
   progressDirectionValue,
   progressShapeValue,
-  resolveProgressOptions,
-  type SpriteProgressOptions
+  resolveProgressOptions
 } from '@/core/sprite/progress/spriteProgress.ts';
 import { registerMySpriteShaderChunks } from '@/core/sprite/shader/chunks/registerMySpriteShaderChunks.ts';
-import { spriteNoiseErodeBlendModeValue, type SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import { spriteNoiseErodeBlendModeValue } from '@/core/sprite/shader/modules/noiseErode.module.ts';
 import { composeSpriteShader } from '@/core/sprite/shader/composer/composeSpriteShader.ts';
 import { registerSpriteShaderProgram } from '@/core/sprite/shader/composer/shaderProgramCache.ts';
 import { stripedSpriteRecipe } from '@/core/sprite/shader/recipes/stripedSprite.recipe.ts';
-export type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import { FULL_SPRITE_NOISE_ERODE_FEATURES } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';
+import type { SpriteNoiseErodeOptions } from '@/core/sprite/dissolve/spriteDissolve.types.ts';
+export type { SpriteDissolveEffectState, SpriteNoiseErodeOptions } from '@/core/sprite/dissolve/spriteDissolve.types.ts';
 
 export type StripeSegmentLike = {
   width?: number;
@@ -44,6 +45,7 @@ export type StripeProgressRegionStyle = {
 export type StripeProgressMaskOptions = {
   enabled?: boolean;
   value?: number;
+  progress?: number;
   shape?: StripeProgressShape;
   direction?: StripeProgressDirection;
   /** 线性遮罩方向：0° 从左向右，90° 从下向上。 */
@@ -75,6 +77,8 @@ export type StripeMaskMaterialController = {
   updatePreset: (preset: StripePresetLike) => void;
   updateProgress: (progress: StripeProgressMaskOptions) => void;
   updateLayerProgress: (progress: StripeLayerProgressOptions) => void;
+  updateDissolve: (options: SpriteNoiseErodeOptions) => void;
+  /** @deprecated 兼容旧调用；新代码使用 updateDissolve。 */
   updateNoiseErode: (options: SpriteNoiseErodeOptions) => void;
   updateColorOverlay: (color: Color3, alpha: number) => void;
   updateTime: (timeSec: number) => void;
@@ -448,7 +452,11 @@ export const createSpriteEffectMaterial = (
   let stripeTexture = buildStripeTexture(scene, initialPreset, `${name}_stripeTexture`);
   material.setTexture('uMaskTexture', maskTexture);
   material.setTexture('uStripeTexture', stripeTexture);
-  material.setFloat('uUseMask', options.maskTexturePath ? 1 : 0);
+  // A caller-provided texture is both the visual source and the sprite silhouette.
+  // Surface-backed sprites pass their already configured atlas Texture here, so
+  // limiting the mask switch to maskTexturePath would paint stripes over the
+  // transparent part of the whole atlas frame.
+  material.setFloat('uUseMask', options.maskTexturePath || options.sourceTexture ? 1 : 0);
 
   const applyPreset = (preset: StripePresetLike) => {
     const mode = preset?.mode === 'texture' ? 'texture' : preset?.mode === 'solid' ? 'solid' : 'stripes';
@@ -538,9 +546,13 @@ export const createSpriteEffectMaterial = (
     applyLayerProgressPart('Background', progress.background);
   };
 
-  const applyNoiseErode = (options: SpriteNoiseErodeOptions = {}) => {
+  const applyNoiseErode = (options: SpriteNoiseErodeOptions) => {
     const progress = Number(options.progress);
     material.setFloat('uMySpriteNoiseErodeEnabled', options.enabled === true ? 1 : 0);
+    for (const module of stripedSpriteRecipe.modules) for (const toggle of module.runtimeToggles ?? []) {
+      const value = options[toggle.optionKey as keyof SpriteNoiseErodeOptions];
+      material.setFloat(toggle.uniform, typeof value === 'boolean' ? (value ? 1 : 0) : toggle.defaultEnabled === false ? 0 : 1);
+    }
     material.setFloat('uMySpriteNoiseErodeProgress', Number.isFinite(progress) ? clamp01(progress) : 0);
     material.setFloat('uMySpriteNoiseErodeProgressPower', Math.max(.1, Number(options.progressPower) || 1));
     material.setFloat('uMySpriteNoiseErodeStartHold', Math.max(0, Math.min(.9, Number(options.startHold) || 0)));
@@ -642,7 +654,7 @@ export const createSpriteEffectMaterial = (
   applyRenderSize(options.renderSizePx?.width || 512, options.renderSizePx?.height || 512);
   applyProgress(options.progress);
   applyLayerProgress(options.layerProgress);
-  applyNoiseErode({ enabled: false, progress: 0 });
+  applyNoiseErode({ ...FULL_SPRITE_NOISE_ERODE_FEATURES, enabled: false, progress: 0 });
   applyColorOverlay(Color3.Black(), 0);
 
   return {
@@ -652,6 +664,7 @@ export const createSpriteEffectMaterial = (
     },
     updateProgress: applyProgress,
     updateLayerProgress: applyLayerProgress,
+    updateDissolve: applyNoiseErode,
     updateNoiseErode: applyNoiseErode,
     updateColorOverlay: applyColorOverlay,
     updateTime: (timeSec) => {

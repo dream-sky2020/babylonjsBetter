@@ -1,18 +1,18 @@
-import type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import type { SpriteDissolveEffectState } from './spriteDissolve.types.ts';
 
-export type SpriteDissolveHost = { setNoiseErode: (options: SpriteNoiseErodeOptions) => void };
+export type SpriteDissolveHost = { setDissolve: (options: SpriteDissolveEffectState) => void };
 export type SpriteDissolveController = {
   setProgress: (progress: number) => void;
-  updateOptions: (options: SpriteNoiseErodeOptions) => void;
+  updateOptions: (options: SpriteDissolveEffectState) => void;
   reset: () => void;
 };
 
 export const createSpriteDissolveController = (
   host: SpriteDissolveHost,
-  initialOptions: SpriteNoiseErodeOptions
+  initialOptions: SpriteDissolveEffectState
 ): SpriteDissolveController => {
   let options = { ...initialOptions, enabled: true, progress: initialOptions.progress ?? 0 };
-  const apply = () => host.setNoiseErode(options);
+  const apply = () => host.setDissolve(options);
   apply();
   return {
     setProgress: (progress) => {
@@ -20,6 +20,6 @@ export const createSpriteDissolveController = (
       apply();
     },
     updateOptions: (next) => { options = { ...options, ...next }; apply(); },
-    reset: () => host.setNoiseErode({ enabled: false, progress: 0 })
+    reset: () => host.setDissolve({ ...options, enabled: false, progress: 0 })
   };
 };

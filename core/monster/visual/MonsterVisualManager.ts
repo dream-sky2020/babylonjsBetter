@@ -23,7 +23,7 @@ import {
   type SpecialStatus3dVisibility,
   type SpecialStatusVisualPresetMap
 } from '@/core/special-status';
-import type { NumberSpritePresetMap } from '@/core/sprite';
+import type { NumberSpritePresetMap, SpriteVisualSurfaceFactory } from '@/core/sprite';
 import type { MonsterSpecialStatusRowAnchorMode } from '@/core/monster/special-status/monsterSpecialStatusPosition.types.ts';
 import {
   createExclamationMarkSprite,
@@ -85,6 +85,11 @@ export type MonsterExclamationVisualResources = {
   basePresets: ExclamationBasePresetMap;
 };
 
+export type MonsterVisualManagerOptions = {
+  /** 可替换平面精灵渲染后端；怪物、感叹号、特殊状态和数字共用。 */
+  spriteSurfaceFactory?: SpriteVisualSurfaceFactory;
+};
+
 type MonsterVisualEntry = {
   controller: LayeredMonsterController;
   anchor: TransformNode;
@@ -113,6 +118,12 @@ type SpecialStatusPreviewEntry = MonsterSpecialStatusVisualEntry & {
 type ExclamationVisualEntry = {
   controller: ExclamationMarkSpriteController;
   structureSignature: string;
+};
+
+const withoutProgress = <T extends { progress?: unknown }>(value: T): Omit<T, 'progress'> => {
+  const copy = { ...value };
+  delete copy.progress;
+  return copy;
 };
 
 type ActiveMonsterMotion = {
@@ -240,9 +251,11 @@ export class MonsterVisualManager {
   private gridSignature = '';
   private helpersVisible = true;
   private time = 0;
+  private readonly spriteSurfaceFactory?: SpriteVisualSurfaceFactory;
 
-  constructor(scene: Scene) {
+  constructor(scene: Scene, options: MonsterVisualManagerOptions = {}) {
     this.scene = scene;
+    this.spriteSurfaceFactory = options.spriteSurfaceFactory;
     this.root = new TransformNode('monsterFormationVisuals', scene);
     this.gridRoot = new TransformNode('monsterFormationGrid', scene);
   }
@@ -400,7 +413,9 @@ export class MonsterVisualManager {
     const anchor = new TransformNode(`movementAnchor_${item.id}`, this.scene);
     anchor.parent = this.root;
     anchor.position.set(position.x, 0, position.z);
-    const controller = createLayeredMonster(this.scene, `placement_${item.id}`);
+    const controller = createLayeredMonster(this.scene, `placement_${item.id}`, {
+      surfaceFactory: this.spriteSurfaceFactory
+    });
     controller.load(config, stripePreset, resources.stripes);
     const basePosition = controller.root.position.clone();
     const baseScaling = controller.root.scaling.clone();
@@ -722,7 +737,7 @@ export class MonsterVisualManager {
           values: item.values,
           visible: item.visible,
           debug: layout.debugVisible
-        }, `monsterStatus_${monsterId}_${item.id}`);
+        }, `monsterStatus_${monsterId}_${item.id}`, this.spriteSurfaceFactory);
         if (this.specialStatusGenerations.get(monsterId) !== generation || !this.monsters.has(monsterId)) {
           controller.dispose();
           return;
@@ -778,7 +793,7 @@ export class MonsterVisualManager {
         values,
         visible,
         debug: debugVisible
-      }, `specialStatusPreview_${previewId}`);
+      }, `specialStatusPreview_${previewId}`, this.spriteSurfaceFactory);
       if (this.specialStatusPreviewGenerations.get(previewId) !== generation) {
         controller.dispose();
         return;
@@ -853,8 +868,8 @@ export class MonsterVisualManager {
         config.groupOffset[1] + item.offset[1],
         config.groupOffset[2] + item.offset[2]
       ];
-      const { progress: _markProgress, ...markProgressStructure } = runtimePreset.progress;
-      const { progress: _baseProgress, ...baseProgressStructure } = runtimePreset.base.progress;
+      const markProgressStructure = withoutProgress(runtimePreset.progress);
+      const baseProgressStructure = withoutProgress(runtimePreset.base.progress);
       const structureSignature = JSON.stringify([{
         ...runtimePreset,
         progress: markProgressStructure,
@@ -868,7 +883,7 @@ export class MonsterVisualManager {
         return;
       }
       existing?.controller.dispose();
-      const controller = createExclamationMarkSprite(this.scene, runtimePreset, item.exclamationProgress);
+      const controller = createExclamationMarkSprite(this.scene, runtimePreset, item.exclamationProgress, this.spriteSurfaceFactory);
       controller.mesh.parent = monster.attachmentRoot;
       controller.mesh.position.set(...localPosition);
       controller.setScale(item.scale * config.groupScale);
@@ -909,8 +924,8 @@ export class MonsterVisualManager {
 
   /** 管理不依附怪物的感叹号预览，供感叹号配置 Lab 使用。 */
   syncExclamationPreview(previewId: string, preset: ExclamationMarkPreset, debugVisible = false): void {
-    const { progress: _markProgress, ...markProgressStructure } = preset.progress;
-    const { progress: _baseProgress, ...baseProgressStructure } = preset.base.progress;
+    const markProgressStructure = withoutProgress(preset.progress);
+    const baseProgressStructure = withoutProgress(preset.base.progress);
     const structureSignature = JSON.stringify({
       ...preset,
       progress: markProgressStructure,
@@ -924,7 +939,7 @@ export class MonsterVisualManager {
       return;
     }
     existing?.controller.dispose();
-    const controller = createExclamationMarkSprite(this.scene, preset, preset.progress.progress);
+    const controller = createExclamationMarkSprite(this.scene, preset, preset.progress.progress, this.spriteSurfaceFactory);
     controller.mesh.parent = this.root;
     controller.setBaseProgress(preset.base.progress);
     controller.setDebugVisible(debugVisible);
