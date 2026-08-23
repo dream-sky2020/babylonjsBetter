@@ -1,11 +1,9 @@
 import { Mesh, type Scene } from '@babylonjs/core';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
-import {
-  applyExclamationMarkProgressPreset,
-  createExclamationMarkProgressMaterial
-} from './createExclamationMarkProgressMaterial.ts';
 import type { ExclamationMarkPreset } from './exclamationMark.types.ts';
 import type { SpriteProgressOptions } from '@/core/sprite/progress/spriteProgress.ts';
+import type { SpriteVisualSurfaceFactory } from '@/core/sprite/render/spriteVisualSurface.ts';
+import { DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY } from '@/core/sprite/render/createProfiledSpriteVisualSurface.ts';
 
 export type ExclamationMarkSpriteController = {
   mesh: ReturnType<typeof createAtlasSpritePlane>['mesh'];
@@ -23,20 +21,30 @@ export type ExclamationMarkSpriteController = {
 export const createExclamationMarkSprite = (
   scene: Scene,
   preset: ExclamationMarkPreset,
-  fillPercent = preset.progress.progress ?? 1
+  fillPercent = preset.progress.progress ?? 1,
+  surfaceFactory?: SpriteVisualSurfaceFactory
 ): ExclamationMarkSpriteController => {
   const runtimePreset = { ...preset, progress: { ...preset.progress, progress: Number.isFinite(fillPercent) ? fillPercent : 1 } };
   const sprite = createAtlasSpritePlane(
     scene,
     encodeURI(`/${preset.imagePath.replace(/^\/+/, '')}`),
-    preset.height * preset.scale
+    preset.height * preset.scale,
+    {
+      surfaceRole: 'exclamation-mark',
+      surfaceName: `exclamation_mark_progress_${preset.presetKey}`,
+      surfaceFactory: surfaceFactory ?? DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY,
+      initialEffects: { progressMask: runtimePreset.progress }
+    }
   );
-  const progressMaterial = createExclamationMarkProgressMaterial(scene, sprite.texture, runtimePreset);
   const baseSprite = preset.base.enabled && preset.base.imagePath
-    ? createAtlasSpritePlane(scene, encodeURI(`/${preset.base.imagePath.replace(/^\/+/, '')}`), 1)
+    ? createAtlasSpritePlane(scene, encodeURI(`/${preset.base.imagePath.replace(/^\/+/, '')}`), 1, {
+      surfaceRole: 'exclamation-mark',
+      surfaceName: `exclamation_mark_progress_${preset.presetKey}_base`,
+      surfaceFactory: surfaceFactory ?? DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY,
+      initialEffects: { progressMask: preset.base.progress }
+    })
     : null;
   const baseRuntimePreset = { ...runtimePreset, presetKey: `${preset.presetKey}_base`, progress: { ...preset.base.progress } };
-  const baseMaterial = baseSprite ? createExclamationMarkProgressMaterial(scene, baseSprite.texture, baseRuntimePreset) : null;
   let runtimeScale = 1;
   let runtimeBaseScale = 1;
   const applyDisplaySize = () => {
@@ -59,15 +67,13 @@ export const createExclamationMarkSprite = (
   sprite.texture.onLoadObservable.add(applyDisplaySize);
   applyDisplaySize();
   sprite.mesh.name = `exclamation_mark_${preset.presetKey}`;
-  sprite.mesh.material = progressMaterial.material;
   sprite.mesh.position.copyFromFloats(preset.position[0], preset.position[1], preset.position[2]);
   sprite.mesh.billboardMode = preset.faceCamera ? Mesh.BILLBOARDMODE_Y : 0;
   sprite.mesh.isPickable = false;
   sprite.mesh.renderingGroupId = 1;
   sprite.mesh.alphaIndex = 1;
-  if (baseSprite && baseMaterial) {
+  if (baseSprite) {
     baseSprite.mesh.name = `exclamation_mark_base_${preset.presetKey}`;
-    baseSprite.mesh.material = baseMaterial.material;
     baseSprite.mesh.parent = sprite.mesh;
     baseSprite.mesh.position.copyFromFloats(preset.base.offset[0], preset.base.offset[1], preset.base.offset[2]);
     baseSprite.mesh.isPickable = false;
@@ -82,16 +88,16 @@ export const createExclamationMarkSprite = (
     preset,
     setFillPercent: (percent) => {
       runtimePreset.progress.progress = Number.isFinite(percent) ? percent : 0;
-      applyExclamationMarkProgressPreset(progressMaterial, runtimePreset);
+      sprite.surface.setEffects({ progressMask: runtimePreset.progress });
     },
     setProgress: (progress) => {
       runtimePreset.progress = { ...runtimePreset.progress, ...progress };
-      applyExclamationMarkProgressPreset(progressMaterial, runtimePreset);
+      sprite.surface.setEffects({ progressMask: runtimePreset.progress });
     },
     setBaseProgress: (progress) => {
-      if (!baseMaterial) return;
+      if (!baseSprite) return;
       baseRuntimePreset.progress = { ...baseRuntimePreset.progress, ...progress };
-      applyExclamationMarkProgressPreset(baseMaterial, baseRuntimePreset);
+      baseSprite.surface.setEffects({ progressMask: baseRuntimePreset.progress });
     },
     setScale: (scale) => {
       runtimeScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
@@ -103,10 +109,8 @@ export const createExclamationMarkSprite = (
     },
     setDebugVisible: (visible) => { sprite.mesh.showBoundingBox = visible; if (baseSprite) baseSprite.mesh.showBoundingBox = visible; },
     dispose: () => {
-      progressMaterial.dispose();
-      baseMaterial?.dispose();
-      baseSprite?.dispose();
-      sprite.dispose();
+      baseSprite?.dispose?.();
+      sprite.dispose?.();
     }
   };
 };

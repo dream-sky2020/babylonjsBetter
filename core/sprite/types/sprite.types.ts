@@ -1,4 +1,5 @@
 import type { Mesh, Texture } from '@babylonjs/core';
+import type { SpriteVisualSurface } from '../render/spriteVisualSurface.ts';
 
 export type SpriteFrameRegion = {
   frameName?: string;
@@ -13,6 +14,8 @@ export type SpriteFrameRegion = {
 export type IconPlaneController = {
   mesh: Mesh;
   texture: Texture;
+  /** 材质无关的视觉能力入口；创建者不需要知道具体 Shader。 */
+  surface: SpriteVisualSurface;
   getDisplayScale: () => number;
   setDisplayScale: (scale: number) => void;
   getSubdivisions: () => number;

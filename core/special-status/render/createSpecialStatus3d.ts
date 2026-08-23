@@ -1,5 +1,6 @@
 import { Color3, Mesh, MeshBuilder, TransformNode, Vector3, type Scene } from '@babylonjs/core';
 import { createAtlasSpritePlane, createNumberSprite, type IconPlaneController, type NumberSprite } from '@/core/sprite';
+import type { SpriteVisualSurfaceFactory } from '@/core/sprite/render/spriteVisualSurface.ts';
 import { createDefaultSpecialStatus3dState, normalizeSpecialStatus3dConfig } from '../config/specialStatus3dConfig.ts';
 import type {
   SpecialStatus3dConfig,
@@ -37,7 +38,8 @@ export const createSpecialStatus3d = async (
   scene: Scene,
   initialConfig: SpecialStatus3dConfig,
   initialState: Partial<SpecialStatus3dState> = {},
-  name = 'specialStatus3d'
+  name = 'specialStatus3d',
+  surfaceFactory?: SpriteVisualSurfaceFactory
 ): Promise<SpecialStatus3dController> => {
   const root = new TransformNode(`${name}_root`, scene);
   let config = normalizeSpecialStatus3dConfig(initialConfig);
@@ -66,7 +68,11 @@ export const createSpecialStatus3d = async (
   };
   const createIcon = () => {
     clearIcon();
-    icon = createAtlasSpritePlane(scene, encodeURI(config.iconPath), config.statusHeight * config.statusScale);
+    icon = createAtlasSpritePlane(scene, encodeURI(config.iconPath), config.statusHeight * config.statusScale, {
+      surfaceRole: 'special-status-icon',
+      surfaceName: `${name}_icon_surface`,
+      surfaceFactory
+    });
     icon.mesh.name = `${name}_icon`;
     icon.mesh.parent = root;
     icon.mesh.rotation.y = config.facingAxis === '+Z' ? Math.PI : 0;
@@ -86,7 +92,7 @@ export const createSpecialStatus3d = async (
     const runtimePreset = { ...config.numberPreset, height: config.numberPreset.height * config.numberScale, billboard: false };
     const created = await Promise.all(state.values.map(async (value, index) => {
       if (!state.visible[index]) return null;
-      const number = await createNumberSprite(scene, String(value), runtimePreset);
+      const number = await createNumberSprite(scene, String(value), runtimePreset, surfaceFactory);
       if (disposed || currentGeneration !== generation) { number.dispose(); return null; }
       const base = bases[index];
       const extra = config.numberOffsets[index];

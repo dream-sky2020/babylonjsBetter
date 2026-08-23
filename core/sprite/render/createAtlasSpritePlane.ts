@@ -5,6 +5,12 @@ import {
   acquireSharedAtlasTexture,
   releaseSharedAtlasTexture
 } from '@/core/sprite/render/sharedAtlasTexture.ts';
+import {
+  DEFAULT_SPRITE_VISUAL_SURFACE_FACTORY,
+  type SpriteVisualSurfaceFactory,
+  type SpriteVisualSurfaceRole
+} from './spriteVisualSurface.ts';
+import type { SpriteVisualEffectState } from './spriteVisualEffect.types.ts';
 
 export type CreateAtlasSpritePlaneOptions = {
   /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
@@ -13,6 +19,11 @@ export type CreateAtlasSpritePlaneOptions = {
   worldUnitsPerPixel?: number;
   /** 顶点变形需要细分网格；普通图标保持 1 可避免额外顶点成本。 */
   subdivisions?: number;
+  /** 只声明视觉角色；具体使用普通材质还是组合 Shader 由 Surface 工厂决定。 */
+  surfaceRole?: SpriteVisualSurfaceRole;
+  surfaceName?: string;
+  initialEffects?: SpriteVisualEffectState;
+  surfaceFactory?: SpriteVisualSurfaceFactory;
 };
 
 export const normalizeSpritePlaneSubdivisions = (value: number, fallback = 12) =>
@@ -126,6 +137,8 @@ export const createAtlasSpritePlane = (
 
   iconTexture.onLoadObservable.add(() => {
     applyTextureRegion(currentRegion);
+    const loadedSize = iconTexture.getSize();
+    surface.setRenderSize(Math.max(1, loadedSize.width), Math.max(1, loadedSize.height));
   });
 
   // 叠层部件需要半透明混合，AlphaTest 会导致边缘发硬/锯齿明显
@@ -140,12 +153,21 @@ export const createAtlasSpritePlane = (
   planeMaterial.disableLighting = true;
   planeMaterial.backFaceCulling = false;
 
-  plane.material = planeMaterial;
+  const surface = (options.surfaceFactory ?? DEFAULT_SPRITE_VISUAL_SURFACE_FACTORY).create(scene, {
+    role: options.surfaceRole ?? 'generic-sprite',
+    name: options.surfaceName ?? 'sprite_surface',
+    sourceTexture: iconTexture,
+    baseMaterial: planeMaterial,
+    effects: options.initialEffects,
+    renderSizePx: iconTexture.getSize()
+  });
+  plane.material = surface.material;
   applyTextureRegion(null);
 
   return {
     mesh: plane,
     texture: iconTexture,
+    surface,
     getDisplayScale: () => displayScale,
     setDisplayScale: (scale: number) => {
       displayScale = Math.max(0.01, Number.isFinite(scale) ? scale : 1);
@@ -163,7 +185,7 @@ export const createAtlasSpritePlane = (
       applyTextureRegion(region);
     },
     dispose: () => {
-      planeMaterial.dispose();
+      surface.dispose();
       iconTexture.dispose();
       if (shareTexture) {
         releaseSharedAtlasTexture(texturePath);

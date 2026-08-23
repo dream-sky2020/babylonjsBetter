@@ -1,6 +1,7 @@
 import { Mesh, Scene, ShaderMaterial, Texture, VertexData } from '@babylonjs/core';
+import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { createSpriteNoiseErodeOptions } from '@/core/sprite/dissolve/createSpriteNoiseErodeOptions.ts';
-import { createSpriteEffectMaterial } from '@/core/sprite/render/createSpriteEffectMaterial.ts';
+import { createProfiledSpriteVisualSurface } from '@/core/sprite/render/createProfiledSpriteVisualSurface.ts';
 import { createSpriteDissolveParticles } from './createSpriteDissolveParticles';
 import { DEFAULT_SPRITE_ASH_PRESET, normalizeSpriteAshPreset } from './spriteAshPreset';
 import type { SpriteAshPreset } from './spriteAsh.types';
@@ -57,12 +58,15 @@ export const createSpriteAshEffect = (
   let displayScale = 5;
   let meshSubdivisions = preset.vertexSubdivisions;
 
-  const materialController = createSpriteEffectMaterial(scene, 'spriteAshMaterial', { mode: 'texture' }, {
+  const surface = createProfiledSpriteVisualSurface(scene, {
+    role: 'effect-preview',
+    name: 'spriteAshMaterial',
     sourceTexture: texture,
-    renderSizePx: { width: 512, height: 512 }
+    baseMaterial: new StandardMaterial('spriteAshFallbackMaterial', scene),
+    renderSizePx: { width: 512, height: 512 },
+    effects: { dissolve: createSpriteNoiseErodeOptions(preset, progress) }
   });
-  const material = materialController.material;
-  materialController.updateNoiseErode(createSpriteNoiseErodeOptions(preset, progress));
+  const material = surface.material as ShaderMaterial;
   mesh.material = material;
   const particles = createSpriteDissolveParticles(scene, mesh, preset);
 
@@ -73,7 +77,7 @@ export const createSpriteAshEffect = (
   };
   texture.onLoadObservable.add(() => {
     const size = texture.getSize();
-    materialController.updateRenderSize(size.width, size.height);
+    surface.setRenderSize(size.width, size.height);
     applyScale();
   });
   applyScale();
@@ -89,16 +93,16 @@ export const createSpriteAshEffect = (
         applyContinuousSpriteGeometry(mesh, meshSubdivisions);
       }
       particles.setPreset(preset);
-      materialController.updateNoiseErode(createSpriteNoiseErodeOptions(preset, progress));
+      surface.setEffects({ dissolve: createSpriteNoiseErodeOptions(preset, progress) });
     },
     setProgress: (next) => {
       progress = Math.max(0, Math.min(1, Number(next) || 0));
-      materialController.updateNoiseErode(createSpriteNoiseErodeOptions(preset, progress));
+      surface.setEffects({ dissolve: createSpriteNoiseErodeOptions(preset, progress) });
       particles.setProgress(progress);
     },
     updateTime: (next) => {
       time = Number.isFinite(next) ? next : 0;
-      materialController.updateTime(time);
+      surface.setTime(time);
       particles.updateTime(time);
     },
     setDisplayScale: (next) => {
@@ -106,7 +110,7 @@ export const createSpriteAshEffect = (
       applyScale();
       particles.setDisplayScale(displayScale);
     },
-    dispose: () => { particles.dispose(); materialController.dispose(); texture.dispose(); mesh.dispose(); }
+    dispose: () => { particles.dispose(); surface.dispose(); texture.dispose(); mesh.dispose(); }
   };
   return controller;
 };

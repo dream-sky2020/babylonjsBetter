@@ -1,4 +1,4 @@
-/* eslint-disable react-refresh/only-export-components, react-hooks/exhaustive-deps */
+/* eslint-disable react-refresh/only-export-components, react-hooks/exhaustive-deps, react-hooks/refs */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
@@ -22,6 +22,7 @@ import {
   normalizeSpriteAshPresetLibrary,
   normalizeSpriteAshPreset,
   SPRITE_ASH_PARAMETER_DEFINITIONS,
+  SPRITE_ASH_GROUP_FEATURES,
   type SpriteAshPreset,
   type SpriteAshPresetLibrary
 } from '@/core/sprite';
@@ -29,6 +30,7 @@ import {
   createSpriteDissolveParticles,
   type SpriteDissolveParticleController
 } from '@/core/sprite/ash/createSpriteDissolveParticles.ts';
+import { createSpriteNoiseErodeOptions } from '@/core/sprite/dissolve/createSpriteNoiseErodeOptions.ts';
 
 const PRESET_URL = '/config/monsterDissolvePresets.json';
 const SPRITE_PRESET_URL = '/config/spriteAshPresets.json';
@@ -73,54 +75,7 @@ const App: React.FC = () => {
     setProgress(next);
     const preset = presetRef.current;
     if (!preset) return;
-    monsterRef.current?.setNoiseErode({
-      enabled: true,
-      progress: next,
-      progressPower: preset.progressPower, startHold: preset.startHold, endFade: preset.endFade,
-      fieldBlendMode: preset.fieldBlendMode, fieldInvert: preset.fieldInvert, fieldContrast: preset.fieldContrast, fieldOffset: preset.fieldOffset,
-      directionalStrength: preset.directionalStrength,
-      directionAngleDeg: preset.directionAngleDeg,
-      radialStrength: preset.radialStrength, radialDirection: preset.radialDirection,
-      centerX: preset.centerX, centerY: preset.centerY,
-      radialScaleX: preset.radialScaleX, radialScaleY: preset.radialScaleY, radialRotationDeg: preset.radialRotationDeg,
-      radialPower: preset.radialPower, radialNoiseStrength: preset.radialNoiseStrength, radialNoiseScale: preset.radialNoiseScale,
-      crystalStrength: preset.crystalStrength, crystalScale: preset.crystalScale, crystalSharpness: preset.crystalSharpness,
-      crystalAspect: preset.crystalAspect, crystalRotationDeg: preset.crystalRotationDeg,
-      crystalCrackWidth: preset.crystalCrackWidth, crystalJitter: preset.crystalJitter,
-      crystalBranchStrength: preset.crystalBranchStrength, crystalBranchScale: preset.crystalBranchScale,
-      spiralStrength: preset.spiralStrength, spiralTurns: preset.spiralTurns, spiralSpeed: preset.spiralSpeed,
-      spiralDirection: preset.spiralDirection, spiralRadialFrequency: preset.spiralRadialFrequency,
-      voidPullStrength: preset.voidPullStrength, voidPullRadius: preset.voidPullRadius,
-      voidPullFalloff: preset.voidPullFalloff, voidPullPower: preset.voidPullPower,
-      noiseScale: preset.noiseScale,
-      noiseStrength: preset.noiseStrength,
-      noiseSpeed: preset.noiseSpeed,
-      noiseDetail: preset.noiseDetail, noiseRoughness: preset.noiseRoughness, noiseAspect: preset.noiseAspect,
-      noiseRotationDeg: preset.noiseRotationDeg, noiseFlowAngleDeg: preset.noiseFlowAngleDeg,
-      warpStrength: preset.warpStrength, warpScale: preset.warpScale, warpSpeed: preset.warpSpeed,
-      edgeWidth: preset.edgeWidth,
-      edgeSoftness: preset.edgeSoftness,
-      edgeColor: preset.edgeColor,
-      edgeIntensity: preset.edgeIntensity,
-      edgeInnerWidth: preset.edgeInnerWidth, edgeOuterWidth: preset.edgeOuterWidth,
-      edgeInnerColor: preset.edgeInnerColor, edgeOuterColor: preset.edgeOuterColor,
-      edgeFalloffPower: preset.edgeFalloffPower, edgeNoiseStrength: preset.edgeNoiseStrength,
-      edgeNoiseScale: preset.edgeNoiseScale, edgePulseStrength: preset.edgePulseStrength, edgePulseSpeed: preset.edgePulseSpeed,
-      residueWidth: preset.residueWidth, residueOpacity: preset.residueOpacity, residueColor: preset.residueColor,
-      residueDensity: preset.residueDensity, residueNoiseScale: preset.residueNoiseScale,
-      residueDecayPower: preset.residueDecayPower, residueFadeStart: preset.residueFadeStart, residueGlow: preset.residueGlow,
-      vertexDeformStrength: preset.vertexDeformStrength, vertexBendX: preset.vertexBendX, vertexBendY: preset.vertexBendY,
-      vertexTwist: preset.vertexTwist, vertexBulge: preset.vertexBulge, vertexDepth: preset.vertexDepth,
-      vertexWaveStrength: preset.vertexWaveStrength, vertexWaveScale: preset.vertexWaveScale,
-      vertexWaveSpeed: preset.vertexWaveSpeed, vertexAnchorY: preset.vertexAnchorY,
-      vertexSubdivisions: preset.vertexSubdivisions,
-      rise: preset.rise, driftX: preset.driftX, turbulence: preset.turbulence,
-      ashColor: preset.ashColor, ashTrail: preset.ashTrail, ashDensity: preset.ashDensity, ashOpacity: preset.ashOpacity,
-      flickerSpeed: preset.flickerSpeed, alphaCutoff: preset.alphaCutoff,
-      charColor: preset.charColor,
-      charStrength: preset.charStrength,
-      seed: preset.seed
-    });
+    monsterRef.current?.setNoiseErode(createSpriteNoiseErodeOptions(preset, next));
     particlesRef.current?.setProgress(next);
   };
 
@@ -313,7 +268,14 @@ const App: React.FC = () => {
         </>}
       </section>
       <section className="section"><strong>播放预览</strong><label>消散进度</label><div className="progress-row"><input type="range" min="0" max="1" step="0.001" value={progress} onChange={(event) => { setPlaying(false); applyProgress(Number(event.target.value)); }} /><input type="text" readOnly value={progress.toFixed(3)} /></div><div className="grid-2 section"><button className="primary" disabled={!activePreset} onClick={replay}>从头播放</button><button onClick={reset}>重置怪物</button></div></section>
-      {activePreset && groups.map((group) => <section className="section" key={group}><strong>{group}</strong><div className="grid-2">{SPRITE_ASH_PARAMETER_DEFINITIONS.filter((item) => item.group === group).map((item) => <div key={item.key}><label>{item.label}</label>{item.type === 'color' ? <input type="color" value={String(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: event.target.value })} /> : item.type === 'select' ? <select value={String(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: event.target.value })}>{item.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select> : <input type="number" min={item.min} max={item.max} step={item.step} value={Number(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: Number(event.target.value) })} />}</div>)}</div></section>)}
+      {activePreset && groups.map((group) => {
+        const featureKey = SPRITE_ASH_GROUP_FEATURES[group];
+        const featureEnabled = featureKey ? activePreset[featureKey] : true;
+        return <section className={`section feature-group${featureEnabled ? '' : ' disabled'}`} key={group}>
+          <div className="section-head"><strong>{group}</strong>{featureKey && <label className="feature-toggle"><input type="checkbox" checked={featureEnabled} onChange={(event) => updatePreset({ ...activePreset, [featureKey]: event.target.checked })} />启用</label>}</div>
+          <fieldset disabled={!featureEnabled}><div className="grid-2">{SPRITE_ASH_PARAMETER_DEFINITIONS.filter((item) => item.group === group).map((item) => <div key={item.key}><label>{item.label}</label>{item.type === 'color' ? <input type="color" value={String(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: event.target.value })} /> : item.type === 'select' ? <select value={String(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: event.target.value })}>{item.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select> : <input type="number" min={item.min} max={item.max} step={item.step} value={Number(activePreset[item.key])} onChange={(event) => updatePreset({ ...activePreset, [item.key]: Number(event.target.value) })} />}</div>)}</div></fieldset>
+        </section>;
+      })}
       <section className="section"><button className="save" onClick={() => void save()}>保存全部怪物消散预设</button><div className={`status${isError ? ' error' : ''}`}>{message}</div></section>
     </aside>
     <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="/">返回调试入口</a><div className="stage-hint">怪物消散预设独立编辑 · 拖动旋转视角 · 滚轮缩放</div></main>

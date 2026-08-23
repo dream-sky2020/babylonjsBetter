@@ -1,5 +1,5 @@
 import type { SpriteAshPreset } from '@/core/sprite/ash/spriteAsh.types.ts';
-import type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import type { SpriteDissolveEffectState } from './spriteDissolve.types.ts';
 
 /**
  * 精灵消散预设到通用 noiseErodeModule 的唯一参数入口。
@@ -8,7 +8,7 @@ import type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noise
 export const createSpriteNoiseErodeOptions = (
   preset: SpriteAshPreset,
   progress = 0
-): SpriteNoiseErodeOptions => ({
+): SpriteDissolveEffectState => ({
   ...preset,
   enabled: true,
   progress: Math.max(0, Math.min(1, Number(progress) || 0))

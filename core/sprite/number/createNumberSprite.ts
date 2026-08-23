@@ -4,6 +4,7 @@ import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePl
 import { joinPublicPath, toFrameRegion } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
 import type { IconPlaneController } from '@/core/sprite/types/sprite.types.ts';
 import type { NumberSprite, NumberSpriteGlyphSource, NumberSpritePreset } from './numberSprite.types.ts';
+import type { SpriteVisualSurfaceFactory } from '@/core/sprite/render/spriteVisualSurface.ts';
 
 const atlasCache = new Map<string, Awaited<ReturnType<typeof loadTexturePackerAtlas>>>();
 
@@ -57,7 +58,8 @@ const collectIntegerGroupingBoundaries = (text: string): Set<number> => {
 export const createNumberSprite = async (
   scene: Scene,
   text: string,
-  preset: NumberSpritePreset
+  preset: NumberSpritePreset,
+  surfaceFactory?: SpriteVisualSurfaceFactory
 ): Promise<NumberSprite> => {
   const root = new TransformNode(`number_sprite_${preset.presetKey}`, scene);
   root.billboardMode = preset.billboard ? Mesh.BILLBOARDMODE_ALL : 0;
@@ -131,7 +133,10 @@ export const createNumberSprite = async (
           return;
         }
         const controller = createAtlasSpritePlane(scene, encodeURI(`/${normalizePath(imagePath)}`), preset.height, {
-          shareTexture: source.type === 'atlas'
+          shareTexture: source.type === 'atlas',
+          surfaceRole: 'number-glyph',
+          surfaceName: `number_sprite_${preset.presetKey}_${index}_${character}_surface`,
+          surfaceFactory
         });
         controller.mesh.name = `number_sprite_${preset.presetKey}_${index}_${character}`;
         controller.mesh.parent = root;

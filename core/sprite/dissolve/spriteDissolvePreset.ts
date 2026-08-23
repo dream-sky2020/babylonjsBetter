@@ -1,6 +1,7 @@
 import type { MonsterDeathParameterValues, MonsterDeathVisualDefinition } from '@/core/monster-death-motion/types.ts';
 import type { SpriteAshPreset } from '@/core/sprite/ash/spriteAsh.types.ts';
-import type { SpriteNoiseErodeOptions } from '@/core/sprite/shader/modules/noiseErode.module.ts';
+import type { SpriteDissolveEffectState } from './spriteDissolve.types.ts';
+import { FULL_SPRITE_NOISE_ERODE_FEATURES } from '@/core/sprite/dissolve/noiseErodeFeatureFlags.ts';
 
 const numberValue = (values: MonsterDeathParameterValues, key: string, fallback: number): number => {
   const value = Number(values[key]);
@@ -16,7 +17,8 @@ export const createSpriteDissolveOptions = (
   visual: MonsterDeathVisualDefinition,
   parameters: MonsterDeathParameterValues,
   progress = 0
-): SpriteNoiseErodeOptions => ({
+): SpriteDissolveEffectState => ({
+  ...FULL_SPRITE_NOISE_ERODE_FEATURES,
   enabled: true,
   progress,
   directionalStrength: visual.spriteEffect?.pattern === 'void' ? 0 : 1,
@@ -111,6 +113,7 @@ export const createSpriteDeathParticlePreset = (
   parameters: MonsterDeathParameterValues,
   duration: number
 ): SpriteAshPreset => ({
+  ...FULL_SPRITE_NOISE_ERODE_FEATURES,
   presetKey: `spriteDeath_${visual.spriteEffect?.pattern ?? 'ash'}`,
   name: 'Sprite death edge particles',
   particleMode: visual.particles?.presetKey === 'blackShards' || visual.particles?.presetKey === 'embers' || visual.particles?.presetKey === 'pixel' ? visual.particles.presetKey : 'ash',

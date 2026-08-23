@@ -46,6 +46,15 @@ Effect.IncludesShadersStore.mySpriteHashNoise = source;
 
 Module 声明一个结构能力，包括依赖、attribute、uniform、sampler，以及需要写入的固定插槽：
 
+可运行时启停的能力还应在模块自身声明 `runtimeToggles`。材质控制器会遍历当前 Recipe 自动把对应布尔参数写入 uniform，因此新增能力开关时不再修改中央绑定列表：
+
+```ts
+runtimeToggles: [{
+  optionKey: 'vertexDeformEnabled',
+  uniform: 'uMySpriteNoiseErodeVertexDeformEnabled'
+}]
+```
+
 ```ts
 export const exampleModule: SpriteShaderModule = {
   id: 'example',

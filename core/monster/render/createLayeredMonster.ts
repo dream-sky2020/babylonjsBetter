@@ -1,18 +1,15 @@
-import { Color3, TransformNode, Vector3, type Material, type Scene } from '@babylonjs/core';
+import { Color3, TransformNode, Vector3, type Scene } from '@babylonjs/core';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
-import {
-  createSpriteMaskMaterial,
-  type SpriteNoiseErodeOptions,
-  type StripeLayerProgressOptions,
-  type StripeMaskMaterialController,
-  type StripeProgressMaskOptions
-} from '@/core/sprite/render/createSpriteEffectMaterial.ts';
+import type { SpriteDissolveEffectState } from '@/core/sprite/dissolve/spriteDissolve.types.ts';
+import type { StripeLayerProgressOptions, StripeProgressMaskOptions } from '@/core/sprite/render/spriteVisualEffect.types.ts';
 import { MONSTER_RENDER_ORDER, STRIPE_NONE } from '@/core/monster/config/monsterConfig.ts';
 import { toMonsterResourceUrl } from '@/core/monster/resource/monsterResources.ts';
 import type { MonsterDisplayConfig, MonsterFacingAxis, MonsterLayerKey, MonsterStripePreset, StripePresetLibrary } from '@/core/monster/types/monster.types.ts';
 import type { IconPlaneController } from '@/core/sprite/types/sprite.types.ts';
+import type { SpriteVisualSurfaceFactory } from '@/core/sprite/render/spriteVisualSurface.ts';
+import { DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY } from '@/core/sprite/render/createProfiledSpriteVisualSurface.ts';
 
-type LayerHandle = { sprite: IconPlaneController; baseMaterial: Material | null; stripe: StripeMaskMaterialController | null };
+type LayerHandle = { sprite: IconPlaneController };
 
 export type LayeredMonsterController = {
   root: TransformNode;
@@ -29,13 +26,21 @@ export type LayeredMonsterController = {
     progress: StripeProgressMaskOptions,
     layerProgress: StripeLayerProgressOptions
   ) => void;
-  setNoiseErode: (options: SpriteNoiseErodeOptions) => void;
+  setDissolve: (options: SpriteDissolveEffectState) => void;
+  /** @deprecated 兼容旧 Lab；新代码使用 setDissolve。 */
+  setNoiseErode: (options: SpriteDissolveEffectState) => void;
   updateTime: (timeSec: number) => void;
   getLayerMesh: (key: MonsterLayerKey) => IconPlaneController['mesh'] | null;
   dispose: () => void;
 };
 
-export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): LayeredMonsterController => {
+export type CreateLayeredMonsterOptions = { surfaceFactory?: SpriteVisualSurfaceFactory };
+
+export const createLayeredMonster = (
+  scene: Scene,
+  name = 'layeredMonster',
+  options: CreateLayeredMonsterOptions = {}
+): LayeredMonsterController => {
   const root = new TransformNode(`${name}_root`, scene);
   const layers = new Map<MonsterLayerKey, LayerHandle>();
   let facingAxis: MonsterFacingAxis = '+Z';
@@ -43,8 +48,7 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
 
   const disposeLayers = () => {
     for (const handle of layers.values()) {
-      handle.stripe?.dispose();
-      handle.sprite.dispose();
+      handle.sprite.dispose?.();
     }
     layers.clear();
   };
@@ -61,40 +65,27 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
     MONSTER_RENDER_ORDER.forEach((layerKey, index) => {
       const textureUrl = toMonsterResourceUrl(config.layers[layerKey].path);
       if (!textureUrl) return;
-      const sprite = createAtlasSpritePlane(scene, textureUrl, 2.8, { shareTexture: false, subdivisions: 12 });
+      const layerStyle = monsterStripePreset?.layers[layerKey];
+      const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
+      const stripePreset = stripePresets[stripeKey];
+      const sprite = createAtlasSpritePlane(scene, textureUrl, 2.8, {
+        shareTexture: false,
+        subdivisions: 12,
+        surfaceRole: 'monster-layer',
+        surfaceName: `${name}_${layerKey}_surface`,
+        surfaceFactory: options.surfaceFactory ?? DEFAULT_PROFILED_SPRITE_VISUAL_SURFACE_FACTORY,
+        initialEffects: {
+          stripe: stripeKey === STRIPE_NONE || !stripePreset ? { mode: 'texture' } : stripePreset
+        }
+      });
       sprite.mesh.name = `${name}_${layerKey}`;
       sprite.mesh.parent = root;
       sprite.mesh.position = new Vector3(0, 0, index * 0.01);
       sprite.mesh.isPickable = false;
-      const handle: LayerHandle = { sprite, baseMaterial: sprite.mesh.material, stripe: null };
+      const handle: LayerHandle = { sprite };
       applyFacing(handle);
 
-      const layerStyle = monsterStripePreset?.layers[layerKey];
       sprite.mesh.setEnabled(layerStyle?.visible !== false);
-      const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
-      const stripePreset = stripePresets[stripeKey];
-      {
-        const textureSize = sprite.texture.getSize();
-        const stripe = createSpriteMaskMaterial(
-          scene,
-          `${name}_${layerKey}_stripe`,
-          textureUrl,
-          stripeKey === STRIPE_NONE || !stripePreset ? { mode: 'texture' } : stripePreset,
-          {
-            width: Math.max(1, textureSize.width),
-            height: Math.max(1, textureSize.height)
-          }
-        );
-        sprite.texture.onLoadObservable.addOnce(() => {
-          const loadedSize = sprite.texture.getSize();
-          stripe.updateRenderSize(
-            Math.max(1, loadedSize.width),
-            Math.max(1, loadedSize.height)
-          );
-        });
-        sprite.mesh.material = stripe.material;
-        handle.stripe = stripe;
-      }
       layers.set(layerKey, handle);
     });
     const scale = Math.max(0.01, config.scaleSize / 560) * Math.max(0.01, config.scene3dScale);
@@ -112,11 +103,9 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
         handle.sprite.mesh.setEnabled(layerStyle?.visible !== false);
         const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
         const stripePreset = stripePresets[stripeKey];
-        handle.stripe?.updatePreset(
-          stripeKey === STRIPE_NONE || !stripePreset
-            ? { mode: 'texture' }
-            : stripePreset
-        );
+        handle.sprite.surface.setEffects({
+          stripe: stripeKey === STRIPE_NONE || !stripePreset ? { mode: 'texture' } : stripePreset
+        });
       }
     },
     setFacingAxis: (axis) => {
@@ -148,24 +137,30 @@ export const createLayeredMonster = (scene: Scene, name = 'layeredMonster'): Lay
     setColorOverlay: (color, alpha) => {
       const normalizedAlpha = Math.max(0, Math.min(1, Number.isFinite(alpha) ? alpha : 0));
       for (const handle of layers.values()) {
-        handle.stripe?.updateColorOverlay(color, normalizedAlpha);
+        handle.sprite.surface.setEffects({ colorOverlay: { color, alpha: normalizedAlpha } });
         handle.sprite.mesh.renderOverlay = false;
       }
     },
     setLayerProgress: (key, progress, layerProgress) => {
-      const stripe = layers.get(key)?.stripe;
-      if (!stripe) return;
-      stripe.updateProgress(progress);
-      stripe.updateLayerProgress(layerProgress);
+      layers.get(key)?.sprite.surface.setEffects({
+        progressMask: progress,
+        layerProgressMask: layerProgress
+      });
+    },
+    setDissolve: (options) => {
+      for (const handle of layers.values()) {
+        if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
+        handle.sprite.surface.setEffects({ dissolve: options });
+      }
     },
     setNoiseErode: (options) => {
       for (const handle of layers.values()) {
         if (Number.isFinite(options.vertexSubdivisions)) handle.sprite.setSubdivisions(options.vertexSubdivisions!);
-        handle.stripe?.updateNoiseErode(options);
+        handle.sprite.surface.setEffects({ dissolve: options });
       }
     },
     updateTime: (timeSec) => {
-      for (const handle of layers.values()) handle.stripe?.updateTime(timeSec);
+      for (const handle of layers.values()) handle.sprite.surface.setTime(timeSec);
     },
     getLayerMesh: (key) => layers.get(key)?.sprite.mesh || null,
     dispose: () => {
