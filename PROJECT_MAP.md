@@ -159,6 +159,8 @@ config/monsterDisplayConfigs.json
 - `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂。
 - `core/camera/`：战斗相机和 lab 相机控制器。
 - `core/ui/`：共享 React UI 和浮动相机面板；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
+- `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
+- `core/map/`：地牢地图的稳定数据契约、坐标/格子访问、四边通行规则与结构校验；每个格子独立保存 `north/east/south/west` 四条边，不存在相邻格子的公用边，也不要求两侧边配置一致。每条边可独立携带 `enter/leave/cross/interact` 事件。
 - `core/tracking/`：UI 与 3D 世界位置跟踪。
 - `core/network/devServerPortResolver.ts`：开发服务器端口探测和请求转发。
 
@@ -195,6 +197,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `exclamation-mark-lab/`
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
+- `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
 

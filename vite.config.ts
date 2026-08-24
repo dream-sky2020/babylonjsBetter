@@ -149,6 +149,7 @@ export default defineConfig({
         modelSwingLab: path.resolve(__dirname, 'tools/model-swing-lab/index.html'),
         modelShootLab: path.resolve(__dirname, 'tools/model-shoot-lab/index.html'),
         bulletConfigLab: path.resolve(__dirname, 'tools/bullet-config-lab/index.html'),
+        dungeonMapCanvasLab: path.resolve(__dirname, 'tools/dungeon-map-canvas-lab/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }
