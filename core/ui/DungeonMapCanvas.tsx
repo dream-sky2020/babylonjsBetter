@@ -50,6 +50,12 @@ const directionAngle: Record<DungeonMapDirection, number> = {
   south: Math.PI / 2,
   west: Math.PI,
 };
+const directionVector: Record<DungeonMapDirection, { x: number; y: number }> = {
+  north: { x: 0, y: -1 },
+  east: { x: 1, y: 0 },
+  south: { x: 0, y: 1 },
+  west: { x: -1, y: 0 },
+};
 const patternKey = {
   north: 'edgeNorth',
   east: 'edgeEast',
@@ -69,6 +75,27 @@ const loadImage = (source: string) =>
     image.onerror = reject;
     image.src = source;
   });
+
+const distanceToSegment = (
+  pointX: number,
+  pointY: number,
+  startX: number,
+  startY: number,
+  endX: number,
+  endY: number,
+) => {
+  const segmentX = endX - startX;
+  const segmentY = endY - startY;
+  const lengthSquared = segmentX * segmentX + segmentY * segmentY;
+  if (lengthSquared === 0) return Math.hypot(pointX - startX, pointY - startY);
+  const projection = Math.max(0, Math.min(1,
+    ((pointX - startX) * segmentX + (pointY - startY) * segmentY) / lengthSquared,
+  ));
+  return Math.hypot(
+    pointX - (startX + segmentX * projection),
+    pointY - (startY + segmentY * projection),
+  );
+};
 
 const drawThreeSlice = (
   context: CanvasRenderingContext2D,
@@ -291,10 +318,26 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       context.restore();
     });
 
-    if (selection) {
+    let drawableSelection = selection;
+    if (selection?.mode === 'shared') {
+      const selectedSharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
+      const selectedSide = selectedSharedEdge?.sides.find((side) =>
+        side.x === selection.x &&
+        side.y === selection.y &&
+        side.direction === selection.direction
+      ) ?? selectedSharedEdge?.sides[0];
+      drawableSelection = selectedSide ? {
+        mode: 'shared',
+        x: selectedSide.x,
+        y: selectedSide.y,
+        direction: selectedSide.direction,
+        sharedEdgeId: selectedSharedEdge?.id,
+      } : undefined;
+    }
+    if (drawableSelection) {
       drawSelection(
         context,
-        selection,
+        drawableSelection,
         cell,
         gap,
         pitch,
@@ -335,16 +378,46 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
           ['south', cell - offsetY],
           ['west', offsetX],
         ] as [DungeonMapDirection, number][]).sort((a, b) => a[1] - b[1])[0][0];
-        const sharedEdge = map.sharedEdges?.find((edge) =>
-          edge.sides.some(
-            (side) => side.x === x && side.y === y && side.direction === direction,
-          ),
-        );
+        const sharedHit = (map.sharedEdges ?? [])
+          .filter((edge) => hasData(edge.edge.data))
+          .map((edge) => {
+            const side = edge.sides[0];
+            const vector = directionVector[side.direction];
+            const centerX = side.x * pitch + cell / 2 + vector.x * (cell / 2 + gap / 2);
+            const centerY = side.y * pitch + cell / 2 + vector.y * (cell / 2 + gap / 2);
+            const tangentX = -vector.y;
+            const tangentY = vector.x;
+            const halfLength = (cell + gap) / 2;
+            return {
+              edge,
+              side,
+              distance: distanceToSegment(
+                localX,
+                localY,
+                centerX - tangentX * halfLength,
+                centerY - tangentY * halfLength,
+                centerX + tangentX * halfLength,
+                centerY + tangentY * halfLength,
+              ),
+            };
+          })
+          .sort((left, right) => left.distance - right.distance)[0];
+        const sharedEdge = sharedHit && sharedHit.distance <= sharedThickness / 2 + 5
+          ? sharedHit
+          : undefined;
         const nextSelection: DungeonMapSelection =
           selectionMode === 'tile'
             ? { mode: 'tile', x, y }
             : selectionMode === 'shared'
-              ? { mode: 'shared', x, y, direction, sharedEdgeId: sharedEdge?.id }
+              ? sharedEdge
+                ? {
+                    mode: 'shared',
+                    x: sharedEdge.side.x,
+                    y: sharedEdge.side.y,
+                    direction: sharedEdge.side.direction,
+                    sharedEdgeId: sharedEdge.edge.id,
+                  }
+                : { mode: 'shared', x, y, direction }
               : { mode: 'edge', x, y, direction };
         onSelectionChange?.(nextSelection);
         onTileClick?.(x, y, map.tiles[y * map.width + x]);

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import {
+  createDungeonMapData,
   isDungeonMapPositionInside,
   isDungeonMapTileWalkable,
   validateDungeonMapData,
@@ -7,8 +8,10 @@ import {
   type DungeonMapDirection,
   type DungeonMapEdge,
   type DungeonMapEdgeEvent,
+  type IPhysicsComponent,
   type DungeonMapSharedEdge,
-  type DungeonMapTile
+  type DungeonMapTile,
+  PHYSICS_COMPONENT_FIELD_SCHEMA
 } from '@/core/map';
 import { DungeonMapCanvas, type DungeonMapSelection } from '@/core/ui/DungeonMapCanvas';
 import './dungeon-map-canvas-lab.css';
@@ -54,6 +57,10 @@ const TILE_BY_CHARACTER: Record<string, DungeonMapTile> = {
 const EXPLICIT_DOOR_EDGES = new Set(['5,3,east', '6,3,west', '5,9,east', '6,9,west']);
 const EXPLICIT_WALL_EDGES = new Set(['2,1,east', '3,1,west']);
 const EXPLICIT_LOOP_EDGES = new Set(['0,5,west', '12,5,east']);
+const SPECIAL_SHARED_EDGE_POSITIONS = new Set([
+  '2,1,east', '5,3,east', '5,2,east', '5,2,south', '6,2,south',
+  '1,1,south', '9,1,south', '3,3,east', '9,9,east', '6,8,south',
+]);
 const DIRECTIONS: DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
 const DIRECTION_LABEL: Record<DungeonMapDirection, string> = { north: '北', east: '东', south: '南', west: '西' };
 const VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
@@ -97,6 +104,36 @@ const rotate = (direction: DungeonMapDirection, delta: -1 | 1): DungeonMapDirect
   return DIRECTIONS[(index + delta + DIRECTIONS.length) % DIRECTIONS.length];
 };
 
+type ComponentHostData = Record<string, unknown> & {
+  components?: Array<{ type: string; [key: string]: unknown }>;
+};
+
+const valueAtPath = (value: unknown, path: string): unknown => path.split('.').reduce<unknown>(
+  (current, key) => current && typeof current === 'object'
+    ? (current as Record<string, unknown>)[key]
+    : undefined,
+  value,
+);
+
+const valueWithPath = <T extends object>(source: T, path: string, value: unknown): T => {
+  const result = { ...source } as Record<string, unknown>;
+  const keys = path.split('.');
+  let cursor = result;
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      if (value === undefined || value === '') delete cursor[key];
+      else cursor[key] = value;
+      return;
+    }
+    const child = cursor[key];
+    cursor[key] = child && typeof child === 'object' && !Array.isArray(child)
+      ? { ...(child as Record<string, unknown>) }
+      : {};
+    cursor = cursor[key] as Record<string, unknown>;
+  });
+  return result as T;
+};
+
 export const DungeonMapCanvasLab: React.FC = () => {
   const [cellSize, setCellSize] = useState(42);
   const [mapScale, setMapScale] = useState(1);
@@ -132,18 +169,49 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const isRevealed = (x: number, y: number) => !fogEnabled || visitedPositions.some(
       ([visitedX, visitedY]) => Math.abs(visitedX - x) + Math.abs(visitedY - y) <= 1
     );
+    const generatedSharedEdges = createDungeonMapData({
+      id: 'forgotten-corridor-b1-generated-topology',
+      width: MAP_ROWS[0].length,
+      height: MAP_ROWS.length,
+      createSharedEdgeData: ({ first }) => ({
+        legacy: {
+          kind: 'open',
+          label: `自动公用边 ${first.x},${first.y},${first.direction}`,
+        },
+      }),
+    }).sharedEdges?.filter((edge) => {
+      const side = edge.sides[0];
+      return !SPECIAL_SHARED_EDGE_POSITIONS.has(`${side.x},${side.y},${side.direction}`);
+    }) ?? [];
     return {
       id: 'forgotten-corridor-b1',
       width: MAP_ROWS[0].length,
       height: MAP_ROWS.length,
       tiles: BASE_TILES.map((baseTile, index) => {
-      const tile = tileOverrides[index] ?? baseTile;
-      if (!fogEnabled) return tile;
-      const x = index % MAP_ROWS[0].length;
-      const y = Math.floor(index / MAP_ROWS[0].length);
-        return { ...tile, discovered: isRevealed(x, y) };
+        const tile = tileOverrides[index] ?? baseTile;
+        const x = index % MAP_ROWS[0].length;
+        const y = Math.floor(index / MAP_ROWS[0].length);
+        const legacyTile = tile as DungeonMapTile & { data?: ComponentHostData };
+        return {
+          ...tile,
+          x,
+          y,
+          discovered: isRevealed(x, y),
+          data: legacyTile.data ?? {
+            legacy: { kind: tile.kind, label: tile.label, walkable: tile.walkable },
+          },
+          edges: Object.fromEntries(DIRECTIONS.map((direction) => {
+            const edge = tile.edges[direction] as DungeonMapEdge & { data?: ComponentHostData };
+            return [direction, {
+              ...edge,
+              data: edge.data ?? {
+                legacy: { kind: edge.kind, label: edge.label, passable: edge.passable },
+              },
+            }];
+          })),
+        };
       }),
-      sharedEdges: [
+      sharedEdges: [...generatedSharedEdges,
         {
           id: 'shared-room-wall',
           sides: [{ x: 2, y: 1, direction: 'east' }, { x: 3, y: 1, direction: 'west' }],
@@ -194,7 +262,22 @@ export const DungeonMapCanvasLab: React.FC = () => {
           sides: [{ x: 6, y: 8, direction: 'south' }, { x: 6, y: 9, direction: 'north' }],
           edge: { kind: 'door', label: '下层纵向公用门', events: [{ id: 'shared-lower-vertical-door-contact', type: 'door-contact', trigger: 'interact' }] }
         }
-      ].filter((edge) => !removedSharedEdgeIds.has(edge.id)).map((edge) => sharedEdgeEdits[edge.id] ?? edge).concat(addedSharedEdges),
+      ]
+        .filter((edge) => !removedSharedEdgeIds.has(edge.id))
+        .map((edge) => sharedEdgeEdits[edge.id] ?? edge)
+        .concat(addedSharedEdges)
+        .map((sharedEdge) => {
+          const edge = sharedEdge.edge as DungeonMapEdge & { data?: ComponentHostData };
+          return {
+            ...sharedEdge,
+            edge: {
+              ...edge,
+              data: edge.data ?? {
+                legacy: { kind: edge.kind, label: edge.label, passable: edge.passable },
+              },
+            },
+          };
+        }),
       markers: [
         { id: 'goal', x: 6, y: 6, label: '出口', color: '#ffd166', shape: 'diamond', visible: isRevealed(6, 6) },
         { id: 'event', x: 10, y: 9, label: '事件', color: '#ff6b9a', visible: isRevealed(10, 9) }
@@ -208,6 +291,111 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const selectedMapTile = map.tiles[selectedIndex];
   const selectedSharedEdge = map.sharedEdges?.find(({ sides }) => sides.some((side) => side.x === selectedTile.x && side.y === selectedTile.y && side.direction === selectedDirection));
   const selectedEdge = edgeTarget === 'shared' ? selectedSharedEdge?.edge : selectedMapTile?.edges[selectedDirection];
+
+  const canvasSelectedTile = map.tiles[canvasSelection.y * map.width + canvasSelection.x];
+  const canvasSelectionDirection = canvasSelection.direction ?? selectedDirection;
+  // 公用边编辑只认 Canvas 精确命中后返回的 ID，禁止按附近格子猜测目标。
+  const canvasSelectedSharedEdge = map.sharedEdges?.find(
+    (edge) => edge.id === canvasSelection.sharedEdgeId,
+  );
+  const selectedContainerData = (
+    canvasSelection.mode === 'tile'
+      ? canvasSelectedTile?.data
+      : canvasSelection.mode === 'edge'
+        ? canvasSelectedTile?.edges[canvasSelectionDirection]?.data
+        : canvasSelectedSharedEdge?.edge.data
+  ) as ComponentHostData | undefined;
+  const selectedPhysics = selectedContainerData?.components?.find(
+    (component) => component.type === 'physics',
+  ) as IPhysicsComponent | undefined;
+  const selectionHasTarget = canvasSelection.mode !== 'shared' || Boolean(canvasSelectedSharedEdge);
+
+  const changeSelectionMode = (mode: DungeonMapSelection['mode']) => {
+    setSelectionMode(mode);
+    setCanvasSelection((current) => {
+      if (mode === 'tile') return { mode, x: current.x, y: current.y };
+      const direction = current.direction ?? selectedDirection;
+      if (mode === 'edge') return { mode, x: current.x, y: current.y, direction };
+      const sharedEdge = map.sharedEdges?.find((edge) => edge.sides.some((side) =>
+        side.x === current.x && side.y === current.y && side.direction === direction
+      ));
+      return {
+        mode,
+        x: current.x,
+        y: current.y,
+        direction,
+        sharedEdgeId: sharedEdge?.id,
+      };
+    });
+  };
+
+  const updateCanvasSelectionData = (
+    updater: (data: ComponentHostData) => ComponentHostData,
+  ) => {
+    if (!selectionHasTarget) return;
+    if (canvasSelection.mode === 'shared') {
+      if (!canvasSelectedSharedEdge) return;
+      const next = {
+        ...canvasSelectedSharedEdge,
+        edge: {
+          ...canvasSelectedSharedEdge.edge,
+          data: updater((canvasSelectedSharedEdge.edge.data ?? {}) as ComponentHostData),
+        },
+      };
+      if (addedSharedEdges.some((edge) => edge.id === next.id)) {
+        setAddedSharedEdges((edges) => edges.map((edge) => edge.id === next.id ? next : edge));
+      } else {
+        setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
+      }
+      return;
+    }
+
+    const index = canvasSelection.y * map.width + canvasSelection.x;
+    const tile = tileOverrides[index] ?? BASE_TILES[index];
+    if (!tile) return;
+    if (canvasSelection.mode === 'tile') {
+      setTileOverrides((overrides) => ({
+        ...overrides,
+        [index]: { ...tile, data: updater((tile.data ?? {}) as ComponentHostData) },
+      }));
+      return;
+    }
+    const direction = canvasSelectionDirection;
+    const edge = tile.edges[direction];
+    setTileOverrides((overrides) => ({
+      ...overrides,
+      [index]: {
+        ...tile,
+        edges: {
+          ...tile.edges,
+          [direction]: { ...edge, data: updater((edge.data ?? {}) as ComponentHostData) },
+        },
+      },
+    }));
+  };
+
+  const savePhysics = (physics?: IPhysicsComponent) => updateCanvasSelectionData((data) => ({
+    ...data,
+    components: [
+      ...(data.components ?? []).filter((component) => component.type !== 'physics'),
+      ...(physics ? [physics] : []),
+    ],
+  }));
+
+  const updatePhysicsField = (path: string, value: unknown) => {
+    let next = valueWithPath<IPhysicsComponent>(selectedPhysics ?? { type: 'physics' }, path, value);
+    if (path === 'passRequirement.mode' && !value) {
+      const { passRequirement: _removed, ...rest } = next;
+      next = rest as IPhysicsComponent;
+    } else if (path === 'passRequirement.tags' && Array.isArray(value) && value.length > 0 && !next.passRequirement?.mode) {
+      next = valueWithPath(next, 'passRequirement.mode', 'all-of');
+    }
+    if (path === 'condition.expressionId' && !value) {
+      const { condition: _removed, ...rest } = next;
+      next = rest as IPhysicsComponent;
+    }
+    savePhysics(next);
+  };
 
   const updateSingleTile = (updater: (tile: DungeonMapTile) => DungeonMapTile) => {
     const current = tileOverrides[selectedIndex] ?? BASE_TILES[selectedIndex];
@@ -349,9 +537,100 @@ export const DungeonMapCanvasLab: React.FC = () => {
         </section>
         <section className="control-card selection-panel">
           <div className="map-editor__header"><div><h2>选中数据</h2><p>切换模式后点击地图</p></div><strong>{canvasSelection.x}, {canvasSelection.y}</strong></div>
-          <div className="selection-mode-switch">{([['tile','格子'],['edge','单格边'],['shared','公用边']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>setSelectionMode(mode)}>{label}</button>)}</div>
+          <div className="selection-mode-switch">{([['tile','格子'],['edge','单格边'],['shared','公用边']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
           <div className="selection-summary"><span>类型：{canvasSelection.mode==='tile'?'格子':canvasSelection.mode==='edge'?'单格边':'公用边'}</span>{canvasSelection.direction?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>
-          <pre className="selection-data">{JSON.stringify(canvasSelection.mode==='tile'?map.tiles[canvasSelection.y*map.width+canvasSelection.x]?.data:canvasSelection.mode==='edge'?map.tiles[canvasSelection.y*map.width+canvasSelection.x]?.edges[canvasSelection.direction??'north']?.data:map.sharedEdges?.find(edge=>edge.id===canvasSelection.sharedEdgeId)?.edge.data,null,2)??'无数据'}</pre>
+          <pre className="selection-data">{JSON.stringify(selectedContainerData, null, 2) ?? '无数据'}</pre>
+        </section>
+        <section className="control-card physics-editor">
+          <div className="map-editor__header">
+            <div><h2>PhysicsComponent</h2><p>根据组件字段 Schema 自动生成</p></div>
+            <strong>{selectedPhysics ? '已挂载' : '未挂载'}</strong>
+          </div>
+          {!selectionHasTarget ? (
+            <div className="editor-empty">当前位置没有可编辑的公用边</div>
+          ) : !selectedPhysics ? (
+            <button type="button" onClick={() => savePhysics({ type: 'physics', directionMode: 'all' })}>
+              ＋ 添加 PhysicsComponent
+            </button>
+          ) : (
+            <>
+              <div className="physics-fields">
+                {PHYSICS_COMPONENT_FIELD_SCHEMA.map((field) => {
+                  const currentValue = valueAtPath(selectedPhysics, field.path);
+                  if (field.control === 'checkbox') return (
+                    <label className="physics-check" key={field.path}>
+                      <input
+                        type="checkbox"
+                        checked={currentValue === true}
+                        onChange={(event) => updatePhysicsField(field.path, event.target.checked)}
+                      />
+                      <span>{field.label}</span>
+                    </label>
+                  );
+                  if (field.control === 'select') return (
+                    <label key={field.path}>
+                      <span>{field.label}</span>
+                      <select
+                        value={String(currentValue ?? (field.path === 'directionMode' ? 'all' : ''))}
+                        onChange={(event) => updatePhysicsField(field.path, event.target.value || undefined)}
+                      >
+                        {field.optional && field.path !== 'directionMode' ? <option value="">不启用</option> : null}
+                        {field.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                      </select>
+                    </label>
+                  );
+                  if (field.control === 'tags') return (
+                    <label key={field.path}>
+                      <span>{field.label}</span>
+                      <textarea
+                        rows={2}
+                        value={Array.isArray(currentValue) ? currentValue.join(', ') : ''}
+                        placeholder={field.placeholder}
+                        onChange={(event) => updatePhysicsField(
+                          field.path,
+                          event.target.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean),
+                        )}
+                      />
+                    </label>
+                  );
+                  if (field.control === 'json') return (
+                    <label key={`${field.path}-${JSON.stringify(currentValue)}`}>
+                      <span>{field.label}</span>
+                      <textarea
+                        className="physics-json"
+                        rows={4}
+                        defaultValue={currentValue ? JSON.stringify(currentValue, null, 2) : ''}
+                        placeholder={field.placeholder}
+                        onBlur={(event) => {
+                          const text = event.currentTarget.value.trim();
+                          try {
+                            event.currentTarget.setCustomValidity('');
+                            updatePhysicsField(field.path, text ? JSON.parse(text) : undefined);
+                          } catch {
+                            event.currentTarget.setCustomValidity('请输入合法的 JSON 对象');
+                            event.currentTarget.reportValidity();
+                          }
+                        }}
+                      />
+                    </label>
+                  );
+                  return (
+                    <label key={field.path}>
+                      <span>{field.label}</span>
+                      <input
+                        value={String(currentValue ?? '')}
+                        placeholder={field.placeholder}
+                        onChange={(event) => updatePhysicsField(field.path, event.target.value || undefined)}
+                      />
+                    </label>
+                  );
+                })}
+              </div>
+              <button type="button" className="danger-button" onClick={() => savePhysics(undefined)}>
+                删除 PhysicsComponent
+              </button>
+            </>
+          )}
         </section>
         <section className="control-card map-editor legacy-map-editor">
           <div className="map-editor__header"><div><h2>地图编辑</h2><p>点击地图选择格子</p></div><strong>{selectedTile.x}, {selectedTile.y}</strong></div>
