@@ -89,15 +89,6 @@ export interface IVisualComponent extends IComponent {
   visible?: boolean;
 }
 
-/** 2. 物理与规则属性组件 (Physics / Rule Aspect) */
-export interface IPhysicsComponent extends IComponent {
-  type: 'physics';
-  /** 是否阻挡移动 */
-  blocksMovement?: boolean;
-  /** 单向限制：仅允许某方向通过 (例: 'forward' | 'backward') */
-  oneWay?: string;
-}
-
 /** 3. 动态状态组件 (State Aspect) */
 export interface IStateComponent<TState extends string = string> extends IComponent {
   type: 'state';
