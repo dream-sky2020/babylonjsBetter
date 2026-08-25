@@ -1,100 +1,122 @@
 export type DungeonMapDirection = 'north' | 'east' | 'south' | 'west';
 
-export type DungeonMapAction =
-  | 'move-forward'
-  | 'move-backward'
-  | 'strafe-left'
-  | 'strafe-right'
-  | 'turn-left'
-  | 'turn-right';
-
-export type DungeonMapTileKind = 'void' | 'floor' | 'wall' | 'door' | 'stairs-up' | 'stairs-down';
-
-export type DungeonMapEdgeKind = 'open' | 'wall' | 'door';
-
-export type DungeonMapEdgeEventTrigger = 'enter' | 'leave' | 'cross' | 'interact';
-
-export type DungeonMapEdgeEvent = {
-  id: string;
-  type: string;
-  trigger: DungeonMapEdgeEventTrigger;
-  enabled?: boolean;
-  once?: boolean;
-  payload?: Readonly<Record<string, unknown>>;
-};
-
-export type DungeonMapEdge = {
-  kind: DungeonMapEdgeKind;
-  passable?: boolean;
-  color?: string;
-  label?: string;
-  events?: readonly DungeonMapEdgeEvent[];
-  metadata?: Readonly<Record<string, string | number | boolean>>;
-};
-
-/** 四条边完全归当前格子所有，不与任何相邻格子共享引用或配置。 */
-export type DungeonMapTileEdges = Readonly<Record<DungeonMapDirection, DungeonMapEdge>>;
-
-export type DungeonMapTile = {
-  kind: DungeonMapTileKind;
-  edges: DungeonMapTileEdges;
-  discovered?: boolean;
-  walkable?: boolean;
-  color?: string;
-  label?: string;
-  metadata?: Readonly<Record<string, string | number | boolean>>;
-};
-
-export type DungeonMapMarker = {
-  id: string;
+export type DungeonMapEdgeEndpoint = {
   x: number;
   y: number;
-  color?: string;
-  label?: string;
-  shape?: 'circle' | 'diamond' | 'square';
-  visible?: boolean;
-  metadata?: Readonly<Record<string, string | number | boolean>>;
+  direction: DungeonMapDirection;
 };
 
 /**
- * 地图的稳定数据契约。tiles 使用从左到右、从上到下的一维行优先数组，
- * 因此坐标 (x, y) 的索引恒为 y * width + x。
+ * 边容器（Edge Container）
+ * 纯粹的边数据载体，可挂载视觉、状态、属性等任意扩展数据
  */
-export type DungeonMapData = {
+export type DungeonMapEdgeContainer<TData = Record<string, unknown>> = {
+  id?: string;
+  /** 挂载的数据/组件集合，类型完全由业务决定 */
+  data?: TData;
+};
+
+/** 单元格的四条边容器 */
+export type DungeonMapTileEdges<TData = Record<string, unknown>> = Readonly<
+  Record<DungeonMapDirection, DungeonMapEdgeContainer<TData>>
+>;
+
+/**
+ * 格子容器（Tile Container）
+ * 纯粹的空间单元载体，包含拓扑位置、四条边，以及任意挂载数据
+ */
+export type DungeonMapTileContainer<
+  TTileData = Record<string, unknown>,
+  TEdgeData = Record<string, unknown>
+> = {
+  x: number;
+  y: number;
+  /** 四条独立边容器 */
+  edges: DungeonMapTileEdges<TEdgeData>;
+  /** 挂载在格子自身上的数据（如地形、物件、标记、事件等） */
+  data?: TTileData;
+};
+
+/**
+ * 公用边容器（Shared Edge Overrides）
+ * 用于覆盖或共享两个邻接格子之间的边容器
+ */
+export type DungeonMapSharedEdge<TEdgeData = Record<string, unknown>> = {
+  id: string;
+  sides: readonly [DungeonMapEdgeEndpoint, DungeonMapEdgeEndpoint];
+  /** 权威边容器数据 */
+  edge: DungeonMapEdgeContainer<TEdgeData>;
+};
+
+/**
+ * 地图总体拓扑契约
+ */
+export type DungeonMapData<
+  TTileData = Record<string, unknown>,
+  TEdgeData = Record<string, unknown>,
+  TMapData = Record<string, unknown>
+> = {
   id: string;
   width: number;
   height: number;
-  tiles: readonly DungeonMapTile[];
-  markers?: readonly DungeonMapMarker[];
-  metadata?: Readonly<Record<string, string | number | boolean>>;
+  /** 行优先铺开的纯容器格子数组 */
+  tiles: readonly DungeonMapTileContainer<TTileData, TEdgeData>[];
+  /** 可选的公用边数据覆盖 */
+  sharedEdges?: readonly DungeonMapSharedEdge<TEdgeData>[];
+  /** 地图全局元数据/挂载容器 */
+  data?: TMapData;
 };
 
-export type DungeonMapPlayer = {
-  x: number;
-  y: number;
-  direction: DungeonMapDirection;
+
+/** 组件基类标识 */
+export interface IComponent {
+  /** 组件类型标识，用于业务逻辑快速识别与分发 */
+  type: string;
+}
+
+/** 1. 视觉表现组件 (Visual Aspect) */
+export interface IVisualComponent extends IComponent {
+  type: 'visual';
+  /** 纹理 / 贴图 / 模型 ID */
+  assetId?: string;
+  /** 颜色或 Tint */
   color?: string;
-};
+  /** 标注或显示文本 */
+  label?: string;
+  /** 图层排序 / 渲染优先级 */
+  layer?: number;
+  /** 是否在小地图/UI上可见 */
+  visible?: boolean;
+}
 
-export type DungeonMapValidationIssue = {
-  code:
-    | 'invalid-id'
-    | 'invalid-size'
-    | 'tile-count-mismatch'
-    | 'missing-tile-edge'
-    | 'marker-out-of-bounds'
-    | 'duplicate-marker-id';
-  message: string;
-};
+/** 2. 物理与规则属性组件 (Physics / Rule Aspect) */
+export interface IPhysicsComponent extends IComponent {
+  type: 'physics';
+  /** 是否阻挡移动 */
+  blocksMovement?: boolean;
+  /** 单向限制：仅允许某方向通过 (例: 'forward' | 'backward') */
+  oneWay?: string;
+}
 
-export type DungeonMapTraversalEdge = {
-  tileX: number;
-  tileY: number;
-  direction: DungeonMapDirection;
-  edge: DungeonMapEdge;
-};
+/** 3. 动态状态组件 (State Aspect) */
+export interface IStateComponent<TState extends string = string> extends IComponent {
+  type: 'state';
+  /** 当前状态 (如: 'open' | 'closed' | 'locked' | 'activated') */
+  current: TState;
+}
 
-export type DungeonMapTraversalEdges = {
-  leaving: DungeonMapTraversalEdge;
-  entering: DungeonMapTraversalEdge;
-};
+/** 4. 事件响应组件 (Event Aspect) */
+export interface IEventComponent extends IComponent {
+  type: 'event';
+  id: string;
+  /** 触发时机 (如: 'enter' | 'leave' | 'interact' | 'look-at') */
+  trigger: string;
+  /** 触发条件限制 */
+  enabled?: boolean;
+  /** 是否为一次性事件 */
+  once?: boolean;
+  /** 关联的操作指令或脚本 ID */
+  actionId: string;
+  /** 业务载荷数据 */
+  payload?: Record<string, unknown>;
+}

@@ -1,265 +1,361 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type {
-  DungeonMapAction,
   DungeonMapData,
   DungeonMapDirection,
-  DungeonMapEdge,
-  DungeonMapMarker,
-  DungeonMapPlayer,
-  DungeonMapTile,
-  DungeonMapTileKind
+  DungeonMapTileContainer,
 } from '@/core/map';
 
-export type {
-  DungeonMapAction,
-  DungeonMapData,
-  DungeonMapDirection,
-  DungeonMapEdge,
-  DungeonMapMarker,
-  DungeonMapPlayer,
-  DungeonMapTile,
-  DungeonMapTileKind
-} from '@/core/map';
+export type DungeonMapPatterns = {
+  wall?: string;
+  floor?: string;
+  player?: string;
+  event?: string;
+  edgeNorth?: string;
+  edgeEast?: string;
+  edgeSouth?: string;
+  edgeWest?: string;
+  sharedEdge?: string;
+};
 
-export type DungeonMapTheme = {
-  background: string;
-  void: string;
-  floor: string;
-  wall: string;
-  door: string;
-  stairs: string;
-  undiscovered: string;
-  grid: string;
-  player: string;
-  text: string;
-  edgeWall: string;
-  edgeDoor: string;
+export type DungeonMapSelection = {
+  mode: 'tile' | 'edge' | 'shared';
+  x: number;
+  y: number;
+  direction?: DungeonMapDirection;
+  sharedEdgeId?: string;
 };
 
 export type DungeonMapCanvasProps = {
   map: DungeonMapData;
-  player: DungeonMapPlayer;
-  className?: string;
-  style?: React.CSSProperties;
-  ariaLabel?: string;
   cellSize?: number;
+  displayScale?: number;
   showGrid?: boolean;
   showCoordinates?: boolean;
+  patterns?: DungeonMapPatterns;
+  edgeThicknessRatio?: number;
+  sharedEdgeThicknessRatio?: number;
+  selectionMode?: DungeonMapSelection['mode'];
+  selection?: DungeonMapSelection;
+  onSelectionChange?: (selection: DungeonMapSelection) => void;
+  onTileClick?: (x: number, y: number, tile: DungeonMapTileContainer | undefined) => void;
+  className?: string;
+  style?: React.CSSProperties;
   keyboardEnabled?: boolean;
-  theme?: Partial<DungeonMapTheme>;
-  onAction?: (action: DungeonMapAction) => void;
-  onTileClick?: (x: number, y: number, tile: DungeonMapTile | undefined) => void;
 };
 
-const DEFAULT_THEME: DungeonMapTheme = {
-  background: '#07100d', void: '#07100d', floor: '#18352b', wall: '#557066', door: '#c7924b',
-  stairs: '#6fcf97', undiscovered: '#0b1713', grid: 'rgba(173, 255, 214, 0.12)', player: '#8fffc1', text: '#d8ffea',
-  edgeWall: '#b9c8c1', edgeDoor: '#e0a85c'
+const directions: DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
+const directionAngle: Record<DungeonMapDirection, number> = {
+  north: -Math.PI / 2,
+  east: 0,
+  south: Math.PI / 2,
+  west: Math.PI,
 };
+const patternKey = {
+  north: 'edgeNorth',
+  east: 'edgeEast',
+  south: 'edgeSouth',
+  west: 'edgeWest',
+} as const;
 
-const TILE_COLOR_KEY: Record<DungeonMapTileKind, keyof DungeonMapTheme> = {
-  void: 'void', floor: 'floor', wall: 'wall', door: 'door', 'stairs-up': 'stairs', 'stairs-down': 'stairs'
-};
+const hasData = (value: unknown) =>
+  value != null &&
+  (!Array.isArray(value) || value.length > 0) &&
+  (typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length > 0);
 
-const DIRECTION_ANGLE: Record<DungeonMapDirection, number> = {
-  north: -Math.PI / 2, east: 0, south: Math.PI / 2, west: Math.PI
-};
+const loadImage = (source: string) =>
+  new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
 
-const keyToAction = (event: React.KeyboardEvent<HTMLCanvasElement>): DungeonMapAction | undefined => {
-  const key = event.key.toLowerCase();
-  if (event.key === 'ArrowUp' || key === 'w') return 'move-forward';
-  if (event.key === 'ArrowDown' || key === 's') return 'move-backward';
-  if (event.key === 'ArrowLeft' || key === 'q') return 'turn-left';
-  if (event.key === 'ArrowRight' || key === 'e') return 'turn-right';
-  if (key === 'a') return 'strafe-left';
-  if (key === 'd') return 'strafe-right';
-  return undefined;
-};
-
-const drawMarker = (context: CanvasRenderingContext2D, marker: DungeonMapMarker, cellSize: number, textColor: string) => {
-  const centerX = (marker.x + 0.5) * cellSize;
-  const centerY = (marker.y + 0.5) * cellSize;
-  const radius = cellSize * 0.18;
-  context.save();
-  context.fillStyle = marker.color ?? '#f7d36f';
-  context.beginPath();
-  if (marker.shape === 'square') {
-    context.rect(centerX - radius, centerY - radius, radius * 2, radius * 2);
-  } else if (marker.shape === 'diamond') {
-    context.moveTo(centerX, centerY - radius * 1.25);
-    context.lineTo(centerX + radius * 1.25, centerY);
-    context.lineTo(centerX, centerY + radius * 1.25);
-    context.lineTo(centerX - radius * 1.25, centerY);
-    context.closePath();
-  } else {
-    context.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  }
-  context.fill();
-  if (marker.label && cellSize >= 28) {
-    context.fillStyle = textColor;
-    context.font = `600 ${Math.max(9, cellSize * 0.23)}px sans-serif`;
-    context.textAlign = 'center';
-    context.textBaseline = 'bottom';
-    context.fillText(marker.label, centerX, centerY - radius - 3);
-  }
-  context.restore();
-};
-
-const drawTileEdge = (
+const drawThreeSlice = (
   context: CanvasRenderingContext2D,
-  edge: DungeonMapEdge | undefined,
-  direction: DungeonMapDirection,
+  image: HTMLImageElement,
   x: number,
   y: number,
-  cellSize: number,
-  colors: DungeonMapTheme
+  width: number,
+  height: number,
+  cap: number,
 ) => {
-  if (!edge || edge.kind === 'open') return;
-  const left = x * cellSize;
-  const top = y * cellSize;
-  const right = left + cellSize;
-  const bottom = top + cellSize;
-  const inset = edge.kind === 'door' ? cellSize * 0.22 : 0;
-  const lineWidth = Math.max(2, cellSize * (edge.kind === 'door' ? 0.09 : 0.11));
-  const tileInset = lineWidth / 2;
+  const sourceWidth = image.naturalWidth;
+  const sourceHeight = image.naturalHeight;
+  const sourceCap = Math.min(sourceHeight / 2, sourceWidth / 2);
+  const targetCap = Math.min(cap, width / 2);
+  context.drawImage(image, 0, 0, sourceCap, sourceHeight, x, y, targetCap, height);
+  context.drawImage(
+    image,
+    sourceCap,
+    0,
+    sourceWidth - sourceCap * 2,
+    sourceHeight,
+    x + targetCap,
+    y,
+    width - targetCap * 2,
+    height,
+  );
+  context.drawImage(
+    image,
+    sourceWidth - sourceCap,
+    0,
+    sourceCap,
+    sourceHeight,
+    x + width - targetCap,
+    y,
+    targetCap,
+    height,
+  );
+};
+
+const drawSelection = (
+  context: CanvasRenderingContext2D,
+  selection: DungeonMapSelection,
+  cell: number,
+  gap: number,
+  pitch: number,
+  edgeThickness: number,
+  sharedThickness: number,
+) => {
+  const left = selection.x * pitch;
+  const top = selection.y * pitch;
   context.save();
-  context.strokeStyle = edge.color ?? (edge.kind === 'door' ? colors.edgeDoor : colors.edgeWall);
-  context.lineWidth = lineWidth;
-  context.lineCap = edge.kind === 'door' ? 'square' : 'butt';
-  context.beginPath();
-  if (direction === 'north') {
-    context.moveTo(left + inset, top + tileInset);
-    context.lineTo(right - inset, top + tileInset);
-  } else if (direction === 'east') {
-    context.moveTo(right - tileInset, top + inset);
-    context.lineTo(right - tileInset, bottom - inset);
-  } else if (direction === 'south') {
-    context.moveTo(left + inset, bottom - tileInset);
-    context.lineTo(right - inset, bottom - tileInset);
-  } else {
-    context.moveTo(left + tileInset, top + inset);
-    context.lineTo(left + tileInset, bottom - inset);
+  context.fillStyle = 'rgba(255, 209, 102, .34)';
+  context.strokeStyle = '#ffd166';
+  context.lineWidth = 2;
+  context.lineJoin = 'miter';
+
+  if (selection.mode === 'tile') {
+    context.fillRect(left, top, cell, cell);
+    context.strokeRect(left + 1, top + 1, cell - 2, cell - 2);
+    context.restore();
+    return;
   }
-  context.stroke();
+
+  context.translate(left + cell / 2, top + cell / 2);
+  context.rotate(directionAngle[selection.direction ?? 'north'] + Math.PI / 2);
+
+  if (selection.mode === 'edge') {
+    // Four copies of this exact 45-degree trapezoid surround a hollow square.
+    const depth = Math.min(cell / 2, Math.max(1, edgeThickness));
+    const outerY = -cell / 2;
+    const innerY = outerY + depth;
+    context.beginPath();
+    context.moveTo(-cell / 2, outerY);
+    context.lineTo(cell / 2, outerY);
+    context.lineTo(cell / 2 - depth, innerY);
+    context.lineTo(-cell / 2 + depth, innerY);
+    context.closePath();
+    context.fill();
+    context.stroke();
+  } else {
+    // Shared edges stay a central strip so they cannot be confused with tile-edge trapezoids.
+    const length = cell + gap;
+    const centerY = -cell / 2 - gap / 2;
+    const top = centerY - sharedThickness / 2;
+    context.fillRect(-length / 2, top, length, sharedThickness);
+    context.strokeRect(-length / 2, top, length, sharedThickness);
+  }
+
   context.restore();
 };
 
 export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
-  map, player, className, style, ariaLabel = '地牢地图，点击后可使用方向键或 WASD/QE 操作', cellSize = 42,
-  showGrid = true, showCoordinates = false, keyboardEnabled = true, theme, onAction, onTileClick
+  map,
+  cellSize = 42,
+  displayScale = 1,
+  showGrid = true,
+  showCoordinates = false,
+  patterns,
+  edgeThicknessRatio = 0.3,
+  sharedEdgeThicknessRatio = 0.1,
+  selectionMode = 'tile',
+  selection,
+  onSelectionChange,
+  onTileClick,
+  className,
+  style,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const safeCellSize = Math.max(8, cellSize);
-  const logicalWidth = Math.max(1, map.width) * safeCellSize;
-  const logicalHeight = Math.max(1, map.height) * safeCellSize;
+  const imagesRef = useRef<Record<string, HTMLImageElement>>({});
+  const [imageRevision, setImageRevision] = useState(0);
+  const cell = Math.max(8, cellSize);
+  const sharedThickness = Math.max(1, cell * sharedEdgeThicknessRatio);
+  const edgeThickness = Math.min(cell / 2, Math.max(1, cell * edgeThicknessRatio));
+  const gap = sharedThickness + Math.max(2, cell * 0.04);
+  const pitch = cell + gap;
+  const width = map.width * cell + Math.max(0, map.width - 1) * gap;
+  const height = map.height * cell + Math.max(0, map.height - 1) * gap;
 
-  const draw = useCallback(() => {
+  useEffect(() => {
+    let active = true;
+    imagesRef.current = {};
+    Object.entries(patterns ?? {}).forEach(([key, source]) => {
+      if (!source) return;
+      loadImage(source).then((image) => {
+        if (!active) return;
+        imagesRef.current[key] = image;
+        setImageRevision((value) => value + 1);
+      });
+    });
+    return () => {
+      active = false;
+    };
+  }, [patterns]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const colors = { ...DEFAULT_THEME, ...theme };
-    const ratio = Math.max(1, window.devicePixelRatio || 1);
-    canvas.width = Math.round(logicalWidth * ratio);
-    canvas.height = Math.round(logicalHeight * ratio);
+    const ratio = Math.max(1, devicePixelRatio || 1);
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
     const context = canvas.getContext('2d');
     if (!context) return;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    context.imageSmoothingEnabled = false;
-    context.fillStyle = colors.background;
-    context.fillRect(0, 0, logicalWidth, logicalHeight);
+    context.fillStyle = '#07100d';
+    context.fillRect(0, 0, width, height);
 
     for (let y = 0; y < map.height; y += 1) {
       for (let x = 0; x < map.width; x += 1) {
         const tile = map.tiles[y * map.width + x];
-        const kind = tile?.kind ?? 'void';
-        context.fillStyle = tile?.discovered === false ? colors.undiscovered : tile?.color ?? colors[TILE_COLOR_KEY[kind]];
-        context.fillRect(x * safeCellSize, y * safeCellSize, safeCellSize, safeCellSize);
-        if (tile?.discovered !== false && (kind === 'stairs-up' || kind === 'stairs-down')) {
-          context.fillStyle = colors.text;
-          context.font = `700 ${Math.max(10, safeCellSize * 0.34)}px sans-serif`;
-          context.textAlign = 'center';
-          context.textBaseline = 'middle';
-          context.fillText(kind === 'stairs-up' ? '↑' : '↓', (x + 0.5) * safeCellSize, (y + 0.5) * safeCellSize);
+        const left = x * pitch;
+        const top = y * pitch;
+        context.fillStyle = hasData(tile?.data) ? '#294c3f' : '#0b1713';
+        context.fillRect(left, top, cell, cell);
+        if (hasData(tile?.data) && imagesRef.current.floor) {
+          context.drawImage(imagesRef.current.floor, left, top, cell, cell);
         }
-        if (showCoordinates && safeCellSize >= 28 && tile?.discovered !== false) {
-          context.fillStyle = colors.text;
-          context.globalAlpha = 0.48;
-          context.font = `${Math.max(8, safeCellSize * 0.19)}px monospace`;
-          context.textAlign = 'left';
-          context.textBaseline = 'top';
-          context.fillText(`${x},${y}`, x * safeCellSize + 3, y * safeCellSize + 3);
-          context.globalAlpha = 1;
+        if (showGrid) {
+          context.strokeStyle = '#35584b';
+          context.strokeRect(left + 0.5, top + 0.5, cell - 1, cell - 1);
+        }
+        if (showCoordinates) {
+          context.fillStyle = '#d8ffea';
+          context.fillText(`${x},${y}`, left + 3, top + 11);
         }
       }
     }
 
-    if (showGrid) {
-      context.strokeStyle = colors.grid;
-      context.lineWidth = 1;
-      context.beginPath();
-      for (let x = 0; x <= map.width; x += 1) {
-        context.moveTo(x * safeCellSize + 0.5, 0);
-        context.lineTo(x * safeCellSize + 0.5, logicalHeight);
-      }
-      for (let y = 0; y <= map.height; y += 1) {
-        context.moveTo(0, y * safeCellSize + 0.5);
-        context.lineTo(logicalWidth, y * safeCellSize + 0.5);
-      }
-      context.stroke();
-    }
-
+    const occupied = new Set(
+      (map.sharedEdges ?? []).flatMap((edge) =>
+        edge.sides.map((side) => `${side.x},${side.y},${side.direction}`),
+      ),
+    );
     for (let y = 0; y < map.height; y += 1) {
       for (let x = 0; x < map.width; x += 1) {
         const tile = map.tiles[y * map.width + x];
-        if (!tile || tile.discovered === false) continue;
-        (['north', 'east', 'south', 'west'] as const).forEach((direction) => {
-          drawTileEdge(context, tile.edges[direction], direction, x, y, safeCellSize, colors);
+        directions.forEach((direction) => {
+          if (
+            !tile ||
+            occupied.has(`${x},${y},${direction}`) ||
+            !hasData(tile.edges[direction].data)
+          ) return;
+          const image = imagesRef.current[patternKey[direction]];
+          context.save();
+          context.translate(x * pitch + cell / 2, y * pitch + cell / 2);
+          context.rotate(directionAngle[direction] + Math.PI / 2);
+          if (image) {
+            drawThreeSlice(
+              context,
+              image,
+              -cell / 2,
+              -cell / 2,
+              cell,
+              edgeThickness,
+              edgeThickness,
+            );
+          } else {
+            context.fillStyle = '#8fb9a8';
+            context.fillRect(-cell / 2, -cell / 2, cell, edgeThickness);
+          }
+          context.restore();
         });
       }
     }
 
-    map.markers?.filter((marker) => marker.visible !== false).forEach((marker) => drawMarker(context, marker, safeCellSize, colors.text));
-    const radius = safeCellSize * 0.29;
-    context.save();
-    context.translate((player.x + 0.5) * safeCellSize, (player.y + 0.5) * safeCellSize);
-    context.rotate(DIRECTION_ANGLE[player.direction]);
-    context.fillStyle = player.color ?? colors.player;
-    context.beginPath();
-    context.moveTo(radius * 1.25, 0);
-    context.lineTo(-radius * 0.8, radius * 0.76);
-    context.lineTo(-radius * 0.42, 0);
-    context.lineTo(-radius * 0.8, -radius * 0.76);
-    context.closePath();
-    context.fill();
-    context.restore();
-  }, [logicalHeight, logicalWidth, map, player, safeCellSize, showCoordinates, showGrid, theme]);
+    (map.sharedEdges ?? []).forEach((edge) => {
+      if (!hasData(edge.edge.data)) return;
+      const side = edge.sides[0];
+      const image = imagesRef.current.sharedEdge;
+      const length = cell + gap;
+      context.save();
+      context.translate(side.x * pitch + cell / 2, side.y * pitch + cell / 2);
+      context.rotate(directionAngle[side.direction] + Math.PI / 2);
+      const y = -cell / 2 - gap / 2 - sharedThickness / 2;
+      if (image) {
+        drawThreeSlice(context, image, -length / 2, y, length, sharedThickness, sharedThickness / 2);
+      } else {
+        context.fillStyle = '#7ee8bb';
+        context.fillRect(-length / 2, y, length, sharedThickness);
+      }
+      context.restore();
+    });
 
-  useEffect(() => { draw(); }, [draw]);
+    if (selection) {
+      drawSelection(
+        context,
+        selection,
+        cell,
+        gap,
+        pitch,
+        edgeThickness,
+        sharedThickness,
+      );
+    }
+  }, [
+    map,
+    selection,
+    cell,
+    width,
+    height,
+    pitch,
+    gap,
+    sharedThickness,
+    edgeThickness,
+    showGrid,
+    showCoordinates,
+    imageRevision,
+  ]);
 
   return (
     <canvas
       ref={canvasRef}
       className={className}
-      width={logicalWidth}
-      height={logicalHeight}
-      tabIndex={keyboardEnabled ? 0 : undefined}
-      role="img"
-      aria-label={ariaLabel}
-      onKeyDown={(event) => {
-        if (!keyboardEnabled) return;
-        const action = keyToAction(event);
-        if (!action) return;
-        event.preventDefault();
-        onAction?.(action);
-      }}
       onClick={(event) => {
-        event.currentTarget.focus();
-        if (!onTileClick) return;
         const bounds = event.currentTarget.getBoundingClientRect();
-        const x = Math.floor(((event.clientX - bounds.left) / bounds.width) * map.width);
-        const y = Math.floor(((event.clientY - bounds.top) / bounds.height) * map.height);
-        if (x >= 0 && y >= 0 && x < map.width && y < map.height) onTileClick(x, y, map.tiles[y * map.width + x]);
+        const localX = ((event.clientX - bounds.left) / bounds.width) * width;
+        const localY = ((event.clientY - bounds.top) / bounds.height) * height;
+        const x = Math.min(map.width - 1, Math.max(0, Math.floor(localX / pitch)));
+        const y = Math.min(map.height - 1, Math.max(0, Math.floor(localY / pitch)));
+        const offsetX = localX - x * pitch;
+        const offsetY = localY - y * pitch;
+        const direction = ([
+          ['north', offsetY],
+          ['east', cell - offsetX],
+          ['south', cell - offsetY],
+          ['west', offsetX],
+        ] as [DungeonMapDirection, number][]).sort((a, b) => a[1] - b[1])[0][0];
+        const sharedEdge = map.sharedEdges?.find((edge) =>
+          edge.sides.some(
+            (side) => side.x === x && side.y === y && side.direction === direction,
+          ),
+        );
+        const nextSelection: DungeonMapSelection =
+          selectionMode === 'tile'
+            ? { mode: 'tile', x, y }
+            : selectionMode === 'shared'
+              ? { mode: 'shared', x, y, direction, sharedEdgeId: sharedEdge?.id }
+              : { mode: 'edge', x, y, direction };
+        onSelectionChange?.(nextSelection);
+        onTileClick?.(x, y, map.tiles[y * map.width + x]);
       }}
-      style={{ display: 'block', width: logicalWidth, height: logicalHeight, maxWidth: '100%', objectFit: 'contain', borderRadius: 0, outline: 'none', ...style }}
+      style={{
+        display: 'block',
+        width: width * displayScale,
+        height: height * displayScale,
+        maxWidth: 'none',
+        ...style,
+      }}
     />
   );
 };

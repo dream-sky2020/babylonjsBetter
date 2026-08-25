@@ -38,6 +38,19 @@ export const isDungeonMapEdgePassable = (edge: DungeonMapEdge | undefined): bool
   return edge.passable ?? (edge.kind === 'open' || edge.kind === 'door');
 };
 
+/** 优先返回接管该位置的公用边，否则返回格子自身保存的单格边。 */
+export const getDungeonMapEdge = (
+  map: DungeonMapData,
+  x: number,
+  y: number,
+  direction: DungeonMapDirection
+): DungeonMapEdge | undefined => {
+  const shared = map.sharedEdges?.find(({ sides }) => sides.some((side) => (
+    side.x === x && side.y === y && side.direction === direction
+  )));
+  return shared?.edge ?? getDungeonMapTile(map, x, y)?.edges[direction];
+};
+
 export const canTraverseDungeonMap = (
   map: DungeonMapData,
   fromX: number,
@@ -65,9 +78,9 @@ export const getDungeonMapTraversalEdges = (
   const vector = DIRECTION_VECTOR[direction];
   const toX = destination?.x ?? fromX + vector.x;
   const toY = destination?.y ?? fromY + vector.y;
-  const leavingEdge = getDungeonMapTile(map, fromX, fromY)?.edges[direction];
+  const leavingEdge = getDungeonMapEdge(map, fromX, fromY, direction);
   const enteringDirection = OPPOSITE_DIRECTION[direction];
-  const enteringEdge = getDungeonMapTile(map, toX, toY)?.edges[enteringDirection];
+  const enteringEdge = getDungeonMapEdge(map, toX, toY, enteringDirection);
   if (!leavingEdge || !enteringEdge) return undefined;
   return {
     leaving: { tileX: fromX, tileY: fromY, direction, edge: leavingEdge },
@@ -104,6 +117,24 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
     }
     if (markerIds.has(marker.id)) issues.push({ code: 'duplicate-marker-id', message: `标记 id ${marker.id} 重复。` });
     markerIds.add(marker.id);
+  }
+  const sharedEdgeIds = new Set<string>();
+  for (const sharedEdge of map.sharedEdges ?? []) {
+    if (!sharedEdge.id || sharedEdgeIds.has(sharedEdge.id)) {
+      issues.push({ code: 'duplicate-shared-edge-id', message: `公用边 id ${sharedEdge.id || '(空)'} 重复或为空。` });
+    }
+    sharedEdgeIds.add(sharedEdge.id);
+    const [first, second] = sharedEdge.sides;
+    const firstVector = DIRECTION_VECTOR[first.direction];
+    const expectedSecondDirection = OPPOSITE_DIRECTION[first.direction];
+    const isValidPair = isDungeonMapPositionInside(map, first.x, first.y)
+      && isDungeonMapPositionInside(map, second.x, second.y)
+      && second.x === first.x + firstVector.x
+      && second.y === first.y + firstVector.y
+      && second.direction === expectedSecondDirection;
+    if (!isValidPair) {
+      issues.push({ code: 'invalid-shared-edge', message: `公用边 ${sharedEdge.id} 的两侧不是一对相邻且相反的格子边。` });
+    }
   }
   return issues;
 };
