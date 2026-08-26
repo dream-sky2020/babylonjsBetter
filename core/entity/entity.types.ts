@@ -11,6 +11,8 @@ export interface IComponent {
 
 export interface IEntity {
   id: string;
+  /** 稳定的实体类型；决定该实体可出现的容器以及可挂载的组件。 */
+  entityType: string;
   name?: string;
   archetypeId?: string;
   enabled?: boolean;
@@ -21,6 +23,26 @@ export interface IEntity {
 export interface IEntityContainer {
   entities: IEntity[];
 }
+
+export type EntityContainerKind =
+  | 'map'
+  | 'tile'
+  | 'tile-edge'
+  | 'shared-edge'
+  | 'shared-point'
+  | 'scene'
+  | 'actor-slot'
+  | 'item-slot';
+
+export type EntityTypeDefinition = {
+  type: string;
+  label: string;
+  description?: string;
+  allowedContainers: readonly EntityContainerKind[];
+  defaultComponents?: readonly string[];
+  requiredComponents?: readonly string[];
+  allowMultiplePerContainer?: boolean;
+};
 
 export type ComponentFieldControl =
   | 'checkbox'
@@ -47,6 +69,8 @@ export type ComponentDefinition<T extends IComponent = IComponent> = {
   version: number;
   label: string;
   description?: string;
+  /** 该组件允许挂载到的实体类型。 */
+  allowedEntityTypes: readonly string[];
   allowMultiple?: boolean;
   fields: readonly ComponentFieldSchema[];
   createDefault: () => T;

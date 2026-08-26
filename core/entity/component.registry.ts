@@ -17,4 +17,12 @@ export class ComponentRegistry {
   list(): ComponentDefinition[] {
     return [...this.definitions.values()].sort((left, right) => left.label.localeCompare(right.label, 'zh-CN'));
   }
+
+  listForEntity(entityType: string): ComponentDefinition[] {
+    return this.list().filter((definition) => definition.allowedEntityTypes.includes(entityType));
+  }
+
+  canAttachTo(componentType: string, entityType: string): boolean {
+    return this.definitions.get(componentType)?.allowedEntityTypes.includes(entityType) === true;
+  }
 }

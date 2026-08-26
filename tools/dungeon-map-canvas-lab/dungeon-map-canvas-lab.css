@@ -48,22 +48,30 @@ h1 { margin: 0; font-size: 23px; }
 .entity-component-editor { display: grid; gap: 8px; }
 .subpanel-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 7px; border-top: 1px solid rgba(110,231,183,.1); }
 .collapse-button { padding: 4px 6px; border: 0; color: #9affe0; background: transparent; font-size: 11px; font-weight: 700; }
+.subpanel-title { color: #9affe0; font-size: 11px; }
+.subpanel-title span { margin-left: 3px; color: #668d7e; font-size: 9px; font-weight: 500; }
 .mini-mode-switch { display: flex; gap: 2px; padding: 2px; border-radius: 6px; background: #071812; }
 .mini-mode-switch button { min-width: 38px; padding: 3px 6px; border: 0; border-radius: 5px; color: #75988b; background: transparent; font-size: 9px; }
 .mini-mode-switch button.is-active { color: #effff7; background: #1b4938; }
 .subpanel-body, .component-groups { display: grid; gap: 8px; }
-.entity-toolbar { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 5px; align-items: center; }
+.entity-toolbar { display: grid; gap: 7px; }
 .component-toolbar { display: grid; gap: 7px; }
 .component-toolbar__field { min-width: 0; display: grid; gap: 4px; color: #789b8e; font-size: 9px; }
-.component-add-row { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 5px; align-items: end; }
+.entity-add-row, .component-add-row { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 5px; align-items: end; }
 .compact-button, .entity-component-editor .compact-button { box-sizing: border-box; height: 30px; min-height: 30px; padding: 0 8px; border-radius: 6px; font-size: 10px; line-height: 28px; white-space: nowrap; }
 .icon-button { min-height: 0; padding: 3px 6px; border-radius: 5px; font-size: 9px; }
 .entity-count { color: #789b8e; font-size: 10px; }
 .entity-toolbar select, .component-toolbar select { box-sizing: border-box; min-width: 0; width: 100%; height: 30px; border: 1px solid rgba(110,231,183,.18); border-radius: 7px; padding: 0 8px; color: #effff7; background: #0c211a; font-size: 11px; line-height: 28px; }
+.entity-toolbar select:disabled, .component-toolbar select:disabled, .compact-button:disabled { cursor: not-allowed; opacity: .48; }
 .entity-card-list, .component-card-list { display: grid; gap: 7px; }
 .entity-card { display: grid; gap: 7px; padding: 8px; border: 1px solid rgba(110,231,183,.13); border-radius: 8px; background: rgba(4,17,13,.38); }
 .entity-card__title { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .entity-card__title strong { overflow: hidden; color: #dffff0; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.card-collapse-button { min-width: 0; display: flex; flex: 1; align-items: center; gap: 6px; padding: 2px 0; border: 0; color: inherit; text-align: left; background: transparent; }
+.card-collapse-button__icon { flex: none; width: 10px; color: #77d9b0; font-size: 10px; }
+.card-collapse-button__text { min-width: 0; display: grid; gap: 2px; }
+.card-collapse-button__text strong, .card-collapse-button__text small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-collapse-button__text small { color: #6f9486; font: 9px monospace; }
 .entity-fields { padding: 0; border: 0; background: transparent; }
 .component-group { display: grid; gap: 7px; padding: 8px; border: 1px solid rgba(110,231,183,.11); border-radius: 8px; background: rgba(4,17,13,.28); }
 .component-group__title { color: #8fffc1; font-size: 10px; font-weight: 700; }
@@ -73,9 +81,7 @@ h1 { margin: 0; font-size: 23px; }
 .component-group--nested { padding: 7px; border-color: rgba(110,231,183,.09); background: rgba(2,12,9,.36); }
 .component-card { display: grid; gap: 9px; padding: 10px; border: 1px solid rgba(110,231,183,.16); border-radius: 9px; background: rgba(6,22,17,.58); }
 .component-card__header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.component-card__header > div { min-width: 0; display: grid; gap: 2px; }
 .component-card__header strong { color: #9affe0; font-size: 12px; }
-.component-card__header span { overflow: hidden; color: #6f9486; font: 9px monospace; text-overflow: ellipsis; }
 .component-enabled { display: flex !important; grid-template-columns: auto auto; align-items: center; white-space: nowrap; }
 .component-enabled input { accent-color: #34d399; }
 .unknown-component-json { display: grid; gap: 5px; color: #9fc2b4; font-size: 11px; }
