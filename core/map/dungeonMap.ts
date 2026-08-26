@@ -30,7 +30,7 @@ export const getDungeonMapTile = (map: DungeonMapData, x: number, y: number): Du
 
 export const isDungeonMapTileWalkable = (tile: DungeonMapTile | undefined): boolean => {
   if (!tile) return false;
-  return tile.walkable ?? DEFAULT_WALKABLE_KINDS.has(tile.kind);
+  return tile.walkable ?? (tile.kind ? DEFAULT_WALKABLE_KINDS.has(tile.kind) : false);
 };
 
 export const isDungeonMapEdgePassable = (edge: DungeonMapEdge | undefined): boolean => {
@@ -127,13 +127,60 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
     const [first, second] = sharedEdge.sides;
     const firstVector = DIRECTION_VECTOR[first.direction];
     const expectedSecondDirection = OPPOSITE_DIRECTION[first.direction];
-    const isValidPair = isDungeonMapPositionInside(map, first.x, first.y)
+    const isValidBoundary = map.topologyMode !== 'loop'
+      && !second
+      && isDungeonMapPositionInside(map, first.x, first.y)
+      && ((first.direction === 'west' && first.x === 0)
+        || (first.direction === 'east' && first.x === map.width - 1)
+        || (first.direction === 'north' && first.y === 0)
+        || (first.direction === 'south' && first.y === map.height - 1));
+    const isValidPair = !!second && isDungeonMapPositionInside(map, first.x, first.y)
       && isDungeonMapPositionInside(map, second.x, second.y)
       && second.x === first.x + firstVector.x
       && second.y === first.y + firstVector.y
       && second.direction === expectedSecondDirection;
-    if (!isValidPair) {
-      issues.push({ code: 'invalid-shared-edge', message: `公用边 ${sharedEdge.id} 的两侧不是一对相邻且相反的格子边。` });
+    const isHorizontalLoopPair = !!second && map.topologyMode === 'loop'
+      && first.y === second.y
+      && ((first.x === 0 && first.direction === 'west' && second.x === map.width - 1 && second.direction === 'east')
+        || (second.x === 0 && second.direction === 'west' && first.x === map.width - 1 && first.direction === 'east'));
+    const isVerticalLoopPair = !!second && map.topologyMode === 'loop'
+      && first.x === second.x
+      && ((first.y === 0 && first.direction === 'north' && second.y === map.height - 1 && second.direction === 'south')
+        || (second.y === 0 && second.direction === 'north' && first.y === map.height - 1 && first.direction === 'south'));
+    if (!isValidBoundary && !isValidPair && !isHorizontalLoopPair && !isVerticalLoopPair) {
+      issues.push({ code: 'invalid-shared-edge', message: `公用边 ${sharedEdge.id} 不是有效的外轮廓边或相邻格子边。` });
+    }
+  }
+  const sharedPointIds = new Set<string>();
+  for (const sharedPoint of map.sharedPoints ?? []) {
+    if (!sharedPoint.id || sharedPointIds.has(sharedPoint.id)) {
+      issues.push({ code: 'duplicate-shared-point-id', message: `公用点 id ${sharedPoint.id || '(空)'} 重复或为空。` });
+    }
+    sharedPointIds.add(sharedPoint.id);
+    const { gridX, gridY } = sharedPoint;
+    const expectedSides = new Set<string>();
+    if (map.topologyMode === 'loop') {
+      const westX = (gridX - 1 + map.width) % map.width;
+      const northY = (gridY - 1 + map.height) % map.height;
+      expectedSides.add(`${westX},${northY},south-east`);
+      expectedSides.add(`${gridX},${northY},south-west`);
+      expectedSides.add(`${gridX},${gridY},north-west`);
+      expectedSides.add(`${westX},${gridY},north-east`);
+    } else {
+      if (gridX > 0 && gridY > 0) expectedSides.add(`${gridX - 1},${gridY - 1},south-east`);
+      if (gridX < map.width && gridY > 0) expectedSides.add(`${gridX},${gridY - 1},south-west`);
+      if (gridX < map.width && gridY < map.height) expectedSides.add(`${gridX},${gridY},north-west`);
+      if (gridX > 0 && gridY < map.height) expectedSides.add(`${gridX - 1},${gridY},north-east`);
+    }
+    const actualSides = new Set(sharedPoint.sides.map((side) => `${side.x},${side.y},${side.corner}`));
+    const isSharedPoint = map.topologyMode === 'loop'
+      ? gridX >= 0 && gridY >= 0 && gridX < map.width && gridY < map.height && expectedSides.size === 4
+      : gridX >= 0 && gridY >= 0 && gridX <= map.width && gridY <= map.height
+        && (expectedSides.size === 1 || expectedSides.size === 2 || expectedSides.size === 4);
+    const hasExpectedSides = expectedSides.size === actualSides.size
+      && [...expectedSides].every((side) => actualSides.has(side));
+    if (!isSharedPoint || !hasExpectedSides) {
+      issues.push({ code: 'invalid-shared-point', message: `公用点 ${sharedPoint.id} 不是有效的边界角、双格或四格交汇点。` });
     }
   }
   return issues;

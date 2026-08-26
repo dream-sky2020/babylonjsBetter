@@ -2,7 +2,11 @@ import type {
   DungeonMapData,
   DungeonMapDirection,
   DungeonMapEdgeEndpoint,
+  DungeonMapPointEndpoint,
+  DungeonMapSharedPointSides,
+  DungeonMapTopologyMode,
 } from './dungeonMap.types';
+import type { IEntityContainer } from '../entity';
 
 export type DungeonMapTileFactoryContext = Readonly<{ x: number; y: number }>;
 export type DungeonMapTileEdgeFactoryContext = Readonly<{
@@ -13,20 +17,30 @@ export type DungeonMapTileEdgeFactoryContext = Readonly<{
 export type DungeonMapSharedEdgeFactoryContext = Readonly<{
   id: string;
   first: DungeonMapEdgeEndpoint;
-  second: DungeonMapEdgeEndpoint;
+  /** 有界地图外轮廓没有第二侧。 */
+  second?: DungeonMapEdgeEndpoint;
+}>;
+export type DungeonMapSharedPointFactoryContext = Readonly<{
+  id: string;
+  gridX: number;
+  gridY: number;
+  sides: DungeonMapSharedPointSides;
 }>;
 
 export type CreateDungeonMapOptions<
-  TTileData = Record<string, unknown>,
-  TEdgeData = Record<string, unknown>,
-  TMapData = Record<string, unknown>,
+  TTileData = IEntityContainer,
+  TEdgeData = IEntityContainer,
+  TMapData = IEntityContainer,
+  TPointData = TEdgeData,
 > = {
   id: string;
   width: number;
   height: number;
+  mode?: DungeonMapTopologyMode;
   createTileData?: (context: DungeonMapTileFactoryContext) => TTileData | undefined;
   createTileEdgeData?: (context: DungeonMapTileEdgeFactoryContext) => TEdgeData | undefined;
   createSharedEdgeData?: (context: DungeonMapSharedEdgeFactoryContext) => TEdgeData | undefined;
+  createSharedPointData?: (context: DungeonMapSharedPointFactoryContext) => TPointData | undefined;
   createMapData?: () => TMapData | undefined;
 };
 
@@ -34,18 +48,20 @@ const DIRECTIONS: DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
 
 /**
  * 创建完整的矩形地下城拓扑。
- * 每个格子拥有四条独立边；每对相邻格子之间拥有且只拥有一条公用边。
+ * 每个格子拥有四条独立边；相邻格子之间及地图外轮廓均拥有公用边。
  */
 export const createDungeonMapData = <
-  TTileData = Record<string, unknown>,
-  TEdgeData = Record<string, unknown>,
-  TMapData = Record<string, unknown>,
->(options: CreateDungeonMapOptions<TTileData, TEdgeData, TMapData>): DungeonMapData<
+  TTileData = IEntityContainer,
+  TEdgeData = IEntityContainer,
+  TMapData = IEntityContainer,
+  TPointData = TEdgeData,
+>(options: CreateDungeonMapOptions<TTileData, TEdgeData, TMapData, TPointData>): DungeonMapData<
   TTileData,
   TEdgeData,
-  TMapData
+  TMapData,
+  TPointData
 > => {
-  const { id, width, height } = options;
+  const { id, width, height, mode = 'bounded' } = options;
   if (!id.trim()) throw new Error('Dungeon map id cannot be empty.');
   if (!Number.isInteger(width) || width <= 0 || !Number.isInteger(height) || height <= 0) {
     throw new RangeError('Dungeon map width and height must be positive integers.');
@@ -71,12 +87,12 @@ export const createDungeonMapData = <
   const sharedEdges: NonNullable<DungeonMapData<TTileData, TEdgeData, TMapData>['sharedEdges']>[number][] = [];
   const addSharedEdge = (
     first: DungeonMapEdgeEndpoint,
-    second: DungeonMapEdgeEndpoint,
+    second?: DungeonMapEdgeEndpoint,
   ) => {
-    const edgeId = `shared:${first.x},${first.y}:${first.direction}`;
+    const edgeId = `${second ? 'shared' : 'shared-boundary'}:${first.x},${first.y}:${first.direction}`;
     sharedEdges.push({
       id: edgeId,
-      sides: [first, second],
+      sides: second ? [first, second] : [first],
       edge: {
         id: edgeId,
         data: options.createSharedEdgeData?.({ id: edgeId, first, second }),
@@ -100,13 +116,82 @@ export const createDungeonMapData = <
       }
     }
   }
+  if (mode === 'loop') {
+    for (let y = 0; y < height; y += 1) {
+      addSharedEdge(
+        { x: 0, y, direction: 'west' },
+        { x: width - 1, y, direction: 'east' },
+      );
+    }
+    for (let x = 0; x < width; x += 1) {
+      addSharedEdge(
+        { x, y: 0, direction: 'north' },
+        { x, y: height - 1, direction: 'south' },
+      );
+    }
+  } else {
+    for (let y = 0; y < height; y += 1) {
+      addSharedEdge({ x: 0, y, direction: 'west' });
+      addSharedEdge({ x: width - 1, y, direction: 'east' });
+    }
+    for (let x = 0; x < width; x += 1) {
+      addSharedEdge({ x, y: 0, direction: 'north' });
+      addSharedEdge({ x, y: height - 1, direction: 'south' });
+    }
+  }
+
+  const sharedPoints: NonNullable<
+    DungeonMapData<TTileData, TEdgeData, TMapData, TPointData>['sharedPoints']
+  >[number][] = [];
+  const pointGridWidth = mode === 'loop' ? width : width + 1;
+  const pointGridHeight = mode === 'loop' ? height : height + 1;
+  for (let gridY = 0; gridY < pointGridHeight; gridY += 1) {
+    for (let gridX = 0; gridX < pointGridWidth; gridX += 1) {
+      const sides: DungeonMapPointEndpoint[] = [];
+      if (mode === 'loop') {
+        const westX = (gridX - 1 + width) % width;
+        const northY = (gridY - 1 + height) % height;
+        sides.push(
+          { x: westX, y: northY, corner: 'south-east' },
+          { x: gridX, y: northY, corner: 'south-west' },
+          { x: gridX, y: gridY, corner: 'north-west' },
+          { x: westX, y: gridY, corner: 'north-east' },
+        );
+      } else {
+        if (gridX > 0 && gridY > 0) sides.push({ x: gridX - 1, y: gridY - 1, corner: 'south-east' });
+        if (gridX < width && gridY > 0) sides.push({ x: gridX, y: gridY - 1, corner: 'south-west' });
+        if (gridX < width && gridY < height) sides.push({ x: gridX, y: gridY, corner: 'north-west' });
+        if (gridX > 0 && gridY < height) sides.push({ x: gridX - 1, y: gridY, corner: 'north-east' });
+      }
+      const sharedSides = sides as unknown as DungeonMapSharedPointSides;
+      const pointId = `point:${gridX},${gridY}`;
+      const xPositions = mode === 'loop' && gridX === 0 ? [0, width] : [gridX];
+      const yPositions = mode === 'loop' && gridY === 0 ? [0, height] : [gridY];
+      const positions = yPositions.flatMap((positionY) =>
+        xPositions.map((positionX) => ({ gridX: positionX, gridY: positionY })),
+      );
+      sharedPoints.push({
+        id: pointId,
+        gridX,
+        gridY,
+        positions,
+        sides: sharedSides,
+        point: {
+          id: pointId,
+          data: options.createSharedPointData?.({ id: pointId, gridX, gridY, sides: sharedSides }),
+        },
+      });
+    }
+  }
 
   return {
     id,
     width,
     height,
+    topologyMode: mode,
     tiles,
     sharedEdges,
+    sharedPoints,
     data: options.createMapData?.(),
   };
 };
