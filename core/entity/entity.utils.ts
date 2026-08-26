@@ -5,8 +5,9 @@ export const createEntityDataId = (prefix: string): string => {
   return randomId ? `${prefix}:${randomId}` : `${prefix}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 };
 
-export const createEntity = (name = '新实体', id = createEntityDataId('entity')): IEntity => ({
+export const createEntity = (name = '新实体', entityType = 'generic', id = createEntityDataId('entity')): IEntity => ({
   id,
+  entityType,
   name,
   enabled: true,
   components: [],
@@ -23,8 +24,15 @@ export const normalizeEntityContainer = (
   value: unknown,
   fallbackEntityId: string,
   fallbackName = '地图实体',
+  fallbackEntityType = 'generic',
 ): IEntityContainer => {
-  if (isEntityContainer(value)) return value;
+  if (isEntityContainer(value)) return {
+    ...value,
+    entities: value.entities.map((entity) => ({
+      ...entity,
+      entityType: typeof entity.entityType === 'string' && entity.entityType ? entity.entityType : fallbackEntityType,
+    })),
+  };
   const record = value && typeof value === 'object' ? value as Record<string, unknown> : {};
   const legacyComponents = Array.isArray(record.components) ? record.components : [];
   const components = legacyComponents
@@ -38,6 +46,7 @@ export const normalizeEntityContainer = (
   const legacyData = Object.fromEntries(Object.entries(record).filter(([key]) => key !== 'components'));
   return createEntityContainer({
     id: fallbackEntityId,
+    entityType: fallbackEntityType,
     name: fallbackName,
     enabled: true,
     components,
