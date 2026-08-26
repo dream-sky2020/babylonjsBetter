@@ -19,3 +19,4 @@ export * from './effects';
 export * from './special-status';
 export * from './battlefield';
 export * from './map';
+export * from './entity';

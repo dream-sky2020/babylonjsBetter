@@ -1,4 +1,4 @@
-import type { IComponent } from './dungeonMap.types';
+import type { ComponentFieldSchema, IComponent } from '../entity';
 
 /** 穿越一条边时，相对于该边定义方向的通行限制。 */
 export type PassableDirectionMode = 'all' | 'none' | 'forward' | 'backward';
@@ -34,14 +34,7 @@ export interface TraversalContext {
   ) => boolean;
 }
 
-export type PhysicsComponentFieldSchema = {
-  path: string;
-  label: string;
-  control: 'checkbox' | 'select' | 'tags' | 'text' | 'json';
-  optional?: boolean;
-  placeholder?: string;
-  options?: readonly { value: string; label: string }[];
-};
+export type PhysicsComponentFieldSchema = ComponentFieldSchema;
 
 /**
  * PhysicsComponent 的运行时字段描述。

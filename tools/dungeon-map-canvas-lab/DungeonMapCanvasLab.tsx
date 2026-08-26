@@ -1,38 +1,74 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   createDungeonMapData,
-  isDungeonMapPositionInside,
-  isDungeonMapTileWalkable,
   validateDungeonMapData,
   type DungeonMapData,
   type DungeonMapDirection,
   type DungeonMapEdge,
-  type DungeonMapEdgeEvent,
-  type IPhysicsComponent,
   type DungeonMapSharedEdge,
+  type DungeonMapSharedPoint,
   type DungeonMapTile,
-  PHYSICS_COMPONENT_FIELD_SCHEMA
+  type DungeonMapTopologyMode,
 } from '@/core/map';
-import { DungeonMapCanvas, type DungeonMapSelection } from '@/core/ui/DungeonMapCanvas';
+import {
+  ComponentRegistry,
+  createEntity,
+  normalizeEntityContainer,
+  type ComponentDefinition,
+  type ComponentFieldSchema,
+  type IComponent,
+  type IEntity,
+  type IEntityContainer,
+} from '@/core/entity';
+import { DungeonMapCanvas, type DungeonMapSelection, type DungeonMapSelectionMode } from '@/core/ui/DungeonMapCanvas';
 import './dungeon-map-canvas-lab.css';
 
 const PATTERN_MODULES = import.meta.glob('/public/resources/dungeon-map/**/*.svg', {
   eager: true, query: '?url', import: 'default'
 }) as Record<string, string>;
-type PatternKind = 'walls' | 'tiles' | 'characters' | 'events' | 'edges' | 'shared-edges';
-type MapBrush = 'select' | 'walkable' | 'blocked' | 'single-wall' | 'single-door' | 'single-open' | 'shared-wall' | 'shared-door' | 'erase-shared' | 'event';
-const BRUSHES: readonly { id: MapBrush; icon: string; label: string }[] = [
-  { id: 'select', icon: '⌖', label: '选择' }, { id: 'walkable', icon: '□', label: '可通行格' },
-  { id: 'blocked', icon: '■', label: '阻挡格' }, { id: 'single-wall', icon: '▰', label: '单格墙' },
-  { id: 'single-door', icon: '▥', label: '单格门' }, { id: 'single-open', icon: '⌫', label: '开放单格边' },
-  { id: 'shared-wall', icon: '═', label: '公用墙' }, { id: 'shared-door', icon: '╫', label: '公用门' },
-  { id: 'erase-shared', icon: '✕', label: '删除公用边' }, { id: 'event', icon: '⚡', label: '添加边事件' }
-];
-const PATTERN_LABELS: Record<PatternKind, string> = { walls: '墙壁格', tiles: '地面格', characters: '角色', events: '事件', edges: '单格边', 'shared-edges': '公用边' };
+const COMPONENT_MODULES = import.meta.glob('/core/entity/components/*.component.ts', {
+  eager: true, import: 'componentDefinition'
+}) as Record<string, ComponentDefinition>;
+const COMPONENT_REGISTRY = new ComponentRegistry();
+Object.values(COMPONENT_MODULES).forEach((definition) => COMPONENT_REGISTRY.register(definition));
+const COMPONENT_DEFINITIONS = COMPONENT_REGISTRY.list();
+type PatternKind = 'walls' | 'tiles' | 'characters' | 'events' | 'edges' | 'shared-edges' | 'shared-points';
+const PATTERN_LABELS: Record<PatternKind, string> = { walls: '墙壁格', tiles: '地面格', characters: '角色', events: '事件', edges: '单格边', 'shared-edges': '公用边', 'shared-points': '公用点' };
 const patternOptions = (kind: PatternKind) => Object.entries(PATTERN_MODULES)
   .filter(([path]) => path.includes(`/dungeon-map/${kind}/`))
   .map(([path, url]) => ({ label: path.split('/').pop()?.replace(/\.svg$/i, '') ?? path, url }))
   .sort((left, right) => left.label.localeCompare(right.label, 'zh-CN'));
+
+type PatternSuite = {
+  name: string;
+  wall?: string;
+  floor?: string;
+  edge?: string;
+  sharedEdge?: string;
+  sharedPoint?: string;
+};
+
+const patternSuites = (): PatternSuite[] => {
+  const suites = new Map<string, PatternSuite>();
+  const targetByKind: Partial<Record<PatternKind, keyof Omit<PatternSuite, 'name'>>> = {
+    walls: 'wall', tiles: 'floor', edges: 'edge',
+    'shared-edges': 'sharedEdge', 'shared-points': 'sharedPoint',
+  };
+  Object.entries(PATTERN_MODULES).forEach(([path, url]) => {
+    const match = path.match(/\/dungeon-map\/([^/]+)\/([^/]+)套装-[^/]+\.svg$/i);
+    if (!match) return;
+    const kind = match[1] as PatternKind;
+    const target = targetByKind[kind];
+    if (!target) return;
+    const name = match[2];
+    const suite = suites.get(name) ?? { name };
+    suite[target] = url;
+    suites.set(name, suite);
+  });
+  return [...suites.values()]
+    .filter((suite) => suite.floor && suite.sharedEdge && suite.sharedPoint)
+    .sort((left, right) => left.name.localeCompare(right.name, 'zh-CN'));
+};
 
 const MAP_ROWS = [
   '#############',
@@ -48,7 +84,7 @@ const MAP_ROWS = [
   '#############'
 ] as const;
 
-const TILE_BY_CHARACTER: Record<string, DungeonMapTile> = {
+const TILE_BY_CHARACTER: Record<string, Omit<DungeonMapTile, 'x' | 'y'>> = {
   '#': { kind: 'wall', edges: { north: { kind: 'wall' }, east: { kind: 'wall' }, south: { kind: 'wall' }, west: { kind: 'wall' } } },
   '.': { kind: 'floor', edges: { north: { kind: 'open' }, east: { kind: 'open' }, south: { kind: 'open' }, west: { kind: 'open' } } },
   D: { kind: 'floor', label: '门旁地面', edges: { north: { kind: 'open' }, east: { kind: 'open' }, south: { kind: 'open' }, west: { kind: 'open' } } },
@@ -66,7 +102,6 @@ const DIRECTION_LABEL: Record<DungeonMapDirection, string> = { north: '北', eas
 const VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 }
 };
-const OPPOSITE: Record<DungeonMapDirection, DungeonMapDirection> = { north: 'south', east: 'west', south: 'north', west: 'east' };
 
 const createEdge = (x: number, y: number, direction: DungeonMapDirection): DungeonMapEdge => {
   const key = `${x},${y},${direction}`;
@@ -99,14 +134,11 @@ const BASE_TILES: DungeonMapTile[] = MAP_ROWS.flatMap((row, y) => [...row].map((
   }
 })));
 
-const rotate = (direction: DungeonMapDirection, delta: -1 | 1): DungeonMapDirection => {
-  const index = DIRECTIONS.indexOf(direction);
-  return DIRECTIONS[(index + delta + DIRECTIONS.length) % DIRECTIONS.length];
-};
-
-type ComponentHostData = Record<string, unknown> & {
-  components?: Array<{ type: string; [key: string]: unknown }>;
-};
+const legacyEntityContainer = (
+  id: string,
+  name: string,
+  data: Record<string, unknown>,
+): IEntityContainer => normalizeEntityContainer(data, id, name);
 
 const valueAtPath = (value: unknown, path: string): unknown => path.split('.').reduce<unknown>(
   (current, key) => current && typeof current === 'object'
@@ -135,80 +167,187 @@ const valueWithPath = <T extends object>(source: T, path: string, value: unknown
 };
 
 export const DungeonMapCanvasLab: React.FC = () => {
-  const [cellSize, setCellSize] = useState(42);
+  const [cellSize, setCellSize] = useState(64);
+  const [canvasOuterPadding, setCanvasOuterPadding] = useState(48);
+  const [minCanvasWidth, setMinCanvasWidth] = useState(800);
+  const [minCanvasHeight, setMinCanvasHeight] = useState(640);
+  const [mapWidth, setMapWidth] = useState<number>(MAP_ROWS[0].length);
+  const [mapHeight, setMapHeight] = useState<number>(MAP_ROWS.length);
+  const [topologyMode, setTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
   const [mapScale, setMapScale] = useState(1);
+  const mapViewportRef = useRef<HTMLDivElement>(null);
+  const [mapViewportSize, setMapViewportSize] = useState({ width: 0, height: 0 });
   const [showGrid, setShowGrid] = useState(true);
   const [showCoordinates, setShowCoordinates] = useState(false);
   const [fogEnabled, setFogEnabled] = useState(true);
-  const [visited, setVisited] = useState(() => new Set(['1,1']));
-  const [eventLog, setEventLog] = useState<string[]>(['地图已加载；点击地图后可使用键盘。']);
-  const options = useMemo(() => ({ walls: patternOptions('walls'), tiles: patternOptions('tiles'), characters: patternOptions('characters'), events: patternOptions('events'), edges: patternOptions('edges'), sharedEdges: patternOptions('shared-edges') }), []);
+  const [visited] = useState(() => new Set(['1,1']));
+  const options = useMemo(() => ({ walls: patternOptions('walls'), tiles: patternOptions('tiles'), characters: patternOptions('characters'), events: patternOptions('events'), edges: patternOptions('edges'), sharedEdges: patternOptions('shared-edges'), sharedPoints: patternOptions('shared-points') }), []);
+  const suites = useMemo(() => patternSuites(), []);
+  const minimalSuite = suites.find((suite) => suite.name === '极简');
+  const [selectedSuite, setSelectedSuite] = useState(minimalSuite?.name ?? '');
   const [patterns, setPatterns] = useState(() => ({
-    wall: patternOptions('walls')[0]?.url ?? '', floor: patternOptions('tiles')[0]?.url ?? '',
+    wall: minimalSuite?.wall ?? patternOptions('walls')[0]?.url ?? '', floor: minimalSuite?.floor ?? patternOptions('tiles')[0]?.url ?? '',
     player: patternOptions('characters')[0]?.url ?? '', event: patternOptions('events')[0]?.url ?? '',
-    edgeNorth: patternOptions('edges')[0]?.url ?? '', edgeEast: patternOptions('edges')[0]?.url ?? '',
-    edgeSouth: patternOptions('edges')[0]?.url ?? '', edgeWest: patternOptions('edges')[0]?.url ?? '',
-    sharedEdge: patternOptions('shared-edges')[0]?.url ?? ''
+    edgeNorth: minimalSuite?.edge ?? patternOptions('edges')[0]?.url ?? '', edgeEast: minimalSuite?.edge ?? patternOptions('edges')[0]?.url ?? '',
+    edgeSouth: minimalSuite?.edge ?? patternOptions('edges')[0]?.url ?? '', edgeWest: minimalSuite?.edge ?? patternOptions('edges')[0]?.url ?? '',
+    sharedEdge: minimalSuite?.sharedEdge ?? patternOptions('shared-edges')[0]?.url ?? '',
+    sharedPoint: minimalSuite?.sharedPoint ?? patternOptions('shared-points')[0]?.url ?? ''
   }));
   const [edgeEditMode, setEdgeEditMode] = useState<'linked' | 'individual'>('linked');
-  const [edgeThicknessRatio, setEdgeThicknessRatio] = useState(0.3);
-  const [sharedEdgeThicknessRatio, setSharedEdgeThicknessRatio] = useState(0.1);
-  const [selectedTile, setSelectedTile] = useState({ x: 1, y: 1 });
+  const [edgeThicknessRatio, setEdgeThicknessRatio] = useState(0.12);
+  const [sharedEdgeThicknessRatio, setSharedEdgeThicknessRatio] = useState(0.24);
   const [selectedDirection, setSelectedDirection] = useState<DungeonMapDirection>('east');
-  const [edgeTarget, setEdgeTarget] = useState<'single' | 'shared'>('single');
-  const [tileOverrides, setTileOverrides] = useState<Record<number, DungeonMapTile>>({});
-  const [addedSharedEdges, setAddedSharedEdges] = useState<DungeonMapSharedEdge[]>([]);
+  const [mapDataEdits, setMapDataEdits] = useState<IEntityContainer>();
+  const [tileDataEdits, setTileDataEdits] = useState<Record<string, IEntityContainer>>({});
+  const [tileEdgeDataEdits, setTileEdgeDataEdits] = useState<Record<string, IEntityContainer>>({});
   const [sharedEdgeEdits, setSharedEdgeEdits] = useState<Record<string, DungeonMapSharedEdge>>({});
-  const [removedSharedEdgeIds, setRemovedSharedEdgeIds] = useState(() => new Set<string>());
-  const [activeBrush, setActiveBrush] = useState<MapBrush>('select');
-  const [selectionMode, setSelectionMode] = useState<DungeonMapSelection['mode']>('tile');
-  const [canvasSelection, setCanvasSelection] = useState<DungeonMapSelection>({ mode: 'tile', x: 1, y: 1 });
+  const [sharedPointEdits, setSharedPointEdits] = useState<Record<string, DungeonMapSharedPoint>>({});
+  const [selectionMode, setSelectionMode] = useState<DungeonMapSelectionMode>('tile');
+  const [canvasSelections, setCanvasSelections] = useState<DungeonMapSelection[]>([{ mode: 'tile', x: 1, y: 1 }]);
+  const canvasSelection = canvasSelections[0];
+  const [selectedEntityId, setSelectedEntityId] = useState('');
+  const [selectedComponentId, setSelectedComponentId] = useState('');
+  const [componentTypeToAdd, setComponentTypeToAdd] = useState(COMPONENT_DEFINITIONS[0]?.type ?? '');
+  const [entityViewMode, setEntityViewMode] = useState<'all' | 'select'>('select');
+  const [componentViewMode, setComponentViewMode] = useState<'all' | 'select'>('select');
+  const [entityPanelOpen, setEntityPanelOpen] = useState(true);
+  const [componentPanelOpen, setComponentPanelOpen] = useState(true);
+
+  useEffect(() => {
+    const viewport = mapViewportRef.current;
+    if (!viewport) return;
+    const updateSize = () => setMapViewportSize({ width: viewport.clientWidth, height: viewport.clientHeight });
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, []);
+
+  const fittedMapScale = useMemo(() => {
+    const sharedThickness = Math.max(0, cellSize * sharedEdgeThicknessRatio);
+    const gap = sharedThickness > 0 ? sharedThickness + Math.max(2, cellSize * 0.04) : 0;
+    const topologyMargin = sharedThickness > 0 ? gap : 0;
+    const naturalWidth = mapWidth * cellSize + Math.max(0, mapWidth - 1) * gap + topologyMargin * 2 + canvasOuterPadding * 2;
+    const naturalHeight = mapHeight * cellSize + Math.max(0, mapHeight - 1) * gap + topologyMargin * 2 + canvasOuterPadding * 2;
+    const width = Math.max(naturalWidth, minCanvasWidth);
+    const height = Math.max(naturalHeight, minCanvasHeight);
+    if (!mapViewportSize.width || !mapViewportSize.height) return 1;
+    return Math.max(0.05, Math.min(mapViewportSize.width / width, mapViewportSize.height / height));
+  }, [canvasOuterPadding, cellSize, mapHeight, mapViewportSize, mapWidth, minCanvasHeight, minCanvasWidth, sharedEdgeThicknessRatio]);
+
+  const updateMapWidth = (width: number) => {
+    setMapWidth(width);
+    setCanvasSelections((current) => current.map((selection) => ({
+      ...selection,
+      x: Math.min(selection.mode === 'point' ? width : width - 1, selection.x),
+      sharedEdgeId: undefined,
+      sharedPointId: undefined,
+    })));
+  };
+
+  const updateMapHeight = (height: number) => {
+    setMapHeight(height);
+    setCanvasSelections((current) => current.map((selection) => ({
+      ...selection,
+      y: Math.min(selection.mode === 'point' ? height : height - 1, selection.y),
+      sharedEdgeId: undefined,
+      sharedPointId: undefined,
+    })));
+  };
+
+  const updateTopologyMode = (mode: DungeonMapTopologyMode) => {
+    setTopologyMode(mode);
+    setCanvasSelections((current) => current.map((selection) => ({
+      ...selection,
+      sharedEdgeId: undefined,
+      sharedPointId: undefined,
+    })));
+  };
 
   const map = useMemo<DungeonMapData>(() => {
     const visitedPositions = [...visited].map((key) => key.split(',').map(Number));
     const isRevealed = (x: number, y: number) => !fogEnabled || visitedPositions.some(
       ([visitedX, visitedY]) => Math.abs(visitedX - x) + Math.abs(visitedY - y) <= 1
     );
-    const generatedSharedEdges = createDungeonMapData({
+    const generatedTopology = createDungeonMapData({
       id: 'forgotten-corridor-b1-generated-topology',
-      width: MAP_ROWS[0].length,
-      height: MAP_ROWS.length,
-      createSharedEdgeData: ({ first }) => ({
-        legacy: {
+      width: mapWidth,
+      height: mapHeight,
+      mode: topologyMode,
+      createMapData: () => mapDataEdits ?? legacyEntityContainer(
+        'map:forgotten-corridor-b1:entity', '地图实体',
+        { legacy: { name: '遗忘回廊', floor: 'B1' } },
+      ),
+      createTileData: ({ x, y }) => tileDataEdits[`${x},${y}`] ?? legacyEntityContainer(
+        `tile:${x},${y}:entity`, `格子 ${x},${y}`,
+        { legacy: { kind: MAP_ROWS[y]?.[x] === '#' ? 'wall' : 'floor' } },
+      ),
+      createTileEdgeData: ({ x, y, direction }) => tileEdgeDataEdits[`${x},${y},${direction}`] ?? legacyEntityContainer(
+        `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`,
+        { legacy: { kind: 'open' } },
+      ),
+      createSharedEdgeData: ({ first }) => legacyEntityContainer(
+        `shared:${first.x},${first.y}:${first.direction}:entity`, '公用边实体', {
+          legacy: {
           kind: 'open',
           label: `自动公用边 ${first.x},${first.y},${first.direction}`,
+          },
         },
-      }),
-    }).sharedEdges?.filter((edge) => {
+      ),
+      createSharedPointData: ({ gridX, gridY }) => legacyEntityContainer(
+        `point:${gridX},${gridY}:entity`, '公用点实体',
+        { legacy: { label: `公用点 ${gridX},${gridY}` } },
+      ),
+    });
+    const generatedSharedEdges = generatedTopology.sharedEdges?.filter((edge) => {
       const side = edge.sides[0];
       return !SPECIAL_SHARED_EDGE_POSITIONS.has(`${side.x},${side.y},${side.direction}`);
     }) ?? [];
+    const generatedSharedPoints = generatedTopology.sharedPoints?.map(
+      (point) => sharedPointEdits[point.id] ?? point,
+    ) ?? [];
+    const usesGeneratedConfiguration = topologyMode === 'loop'
+      || mapWidth !== MAP_ROWS[0].length
+      || mapHeight !== MAP_ROWS.length;
+    if (usesGeneratedConfiguration) {
+      return {
+        ...generatedTopology,
+        id: 'configurable-dungeon-map',
+        sharedEdges: generatedTopology.sharedEdges?.map(
+          (edge) => sharedEdgeEdits[edge.id] ?? edge,
+        ),
+        sharedPoints: generatedSharedPoints,
+        data: generatedTopology.data,
+      };
+    }
     return {
       id: 'forgotten-corridor-b1',
       width: MAP_ROWS[0].length,
       height: MAP_ROWS.length,
       tiles: BASE_TILES.map((baseTile, index) => {
-        const tile = tileOverrides[index] ?? baseTile;
+        const tile = baseTile;
         const x = index % MAP_ROWS[0].length;
         const y = Math.floor(index / MAP_ROWS[0].length);
-        const legacyTile = tile as DungeonMapTile & { data?: ComponentHostData };
+        const legacyTile = tile as DungeonMapTile & { data?: unknown };
         return {
           ...tile,
           x,
           y,
           discovered: isRevealed(x, y),
-          data: legacyTile.data ?? {
-            legacy: { kind: tile.kind, label: tile.label, walkable: tile.walkable },
-          },
+          data: tileDataEdits[`${x},${y}`] ?? normalizeEntityContainer(
+            legacyTile.data ?? { legacy: { kind: tile.kind, label: tile.label, walkable: tile.walkable } },
+            `tile:${x},${y}:entity`, `格子 ${x},${y}`,
+          ),
           edges: Object.fromEntries(DIRECTIONS.map((direction) => {
-            const edge = tile.edges[direction] as DungeonMapEdge & { data?: ComponentHostData };
+            const edge = tile.edges[direction] as DungeonMapEdge & { data?: unknown };
             return [direction, {
               ...edge,
-              data: edge.data ?? {
-                legacy: { kind: edge.kind, label: edge.label, passable: edge.passable },
-              },
+              data: tileEdgeDataEdits[`${x},${y},${direction}`] ?? normalizeEntityContainer(
+                edge.data ?? { legacy: { kind: edge.kind, label: edge.label, passable: edge.passable } },
+                `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`,
+              ),
             }];
-          })),
+          })) as DungeonMapTile['edges'],
         };
       }),
       sharedEdges: [...generatedSharedEdges,
@@ -263,256 +402,232 @@ export const DungeonMapCanvasLab: React.FC = () => {
           edge: { kind: 'door', label: '下层纵向公用门', events: [{ id: 'shared-lower-vertical-door-contact', type: 'door-contact', trigger: 'interact' }] }
         }
       ]
-        .filter((edge) => !removedSharedEdgeIds.has(edge.id))
         .map((edge) => sharedEdgeEdits[edge.id] ?? edge)
-        .concat(addedSharedEdges)
         .map((sharedEdge) => {
-          const edge = sharedEdge.edge as DungeonMapEdge & { data?: ComponentHostData };
+          const edge = sharedEdge.edge as DungeonMapEdge & { data?: unknown };
           return {
             ...sharedEdge,
             edge: {
               ...edge,
-              data: edge.data ?? {
-                legacy: { kind: edge.kind, label: edge.label, passable: edge.passable },
-              },
+              data: normalizeEntityContainer(
+                edge.data ?? { legacy: { kind: edge.kind, label: edge.label, passable: edge.passable } },
+                `${sharedEdge.id}:entity`, '公用边实体',
+              ),
             },
           };
         }),
+      sharedPoints: generatedSharedPoints,
+      data: mapDataEdits ?? generatedTopology.data,
       markers: [
         { id: 'goal', x: 6, y: 6, label: '出口', color: '#ffd166', shape: 'diamond', visible: isRevealed(6, 6) },
         { id: 'event', x: 10, y: 9, label: '事件', color: '#ff6b9a', visible: isRevealed(10, 9) }
       ],
       metadata: { floor: 'B1', name: '遗忘回廊' }
     };
-  }, [fogEnabled, visited, tileOverrides, addedSharedEdges, sharedEdgeEdits, removedSharedEdgeIds]);
+  }, [fogEnabled, visited, mapWidth, mapHeight, topologyMode, mapDataEdits, tileDataEdits, tileEdgeDataEdits, sharedEdgeEdits, sharedPointEdits]);
 
   const validationIssues = useMemo(() => validateDungeonMapData(map), [map]);
-  const selectedIndex = selectedTile.y * map.width + selectedTile.x;
-  const selectedMapTile = map.tiles[selectedIndex];
-  const selectedSharedEdge = map.sharedEdges?.find(({ sides }) => sides.some((side) => side.x === selectedTile.x && side.y === selectedTile.y && side.direction === selectedDirection));
-  const selectedEdge = edgeTarget === 'shared' ? selectedSharedEdge?.edge : selectedMapTile?.edges[selectedDirection];
-
   const canvasSelectedTile = map.tiles[canvasSelection.y * map.width + canvasSelection.x];
   const canvasSelectionDirection = canvasSelection.direction ?? selectedDirection;
   // 公用边编辑只认 Canvas 精确命中后返回的 ID，禁止按附近格子猜测目标。
   const canvasSelectedSharedEdge = map.sharedEdges?.find(
     (edge) => edge.id === canvasSelection.sharedEdgeId,
   );
-  const selectedContainerData = (
-    canvasSelection.mode === 'tile'
+  const canvasSelectedSharedPoint = map.sharedPoints?.find(
+    (point) => point.id === canvasSelection.sharedPointId,
+  );
+  const rawSelectedContainerData = (
+    canvasSelection.mode === 'map'
+      ? map.data
+      : canvasSelection.mode === 'tile'
       ? canvasSelectedTile?.data
       : canvasSelection.mode === 'edge'
         ? canvasSelectedTile?.edges[canvasSelectionDirection]?.data
-        : canvasSelectedSharedEdge?.edge.data
-  ) as ComponentHostData | undefined;
-  const selectedPhysics = selectedContainerData?.components?.find(
-    (component) => component.type === 'physics',
-  ) as IPhysicsComponent | undefined;
-  const selectionHasTarget = canvasSelection.mode !== 'shared' || Boolean(canvasSelectedSharedEdge);
+        : canvasSelection.mode === 'shared'
+          ? canvasSelectedSharedEdge?.edge.data
+          : canvasSelectedSharedPoint?.point.data
+  ) as unknown;
+  const selectionHasTarget = canvasSelection.mode === 'map'
+    ? true
+    : canvasSelection.mode === 'shared'
+    ? Boolean(canvasSelectedSharedEdge)
+    : canvasSelection.mode === 'point'
+      ? Boolean(canvasSelectedSharedPoint)
+      : true;
+  const selectionHostId = canvasSelection.mode === 'map'
+    ? map.id
+    : canvasSelection.mode === 'shared'
+    ? canvasSelectedSharedEdge?.id ?? 'missing-shared-edge'
+    : canvasSelection.mode === 'point'
+      ? canvasSelectedSharedPoint?.id ?? 'missing-shared-point'
+      : `${canvasSelection.mode}:${canvasSelection.x},${canvasSelection.y}:${canvasSelectionDirection}`;
+  const selectedContainerData = selectionHasTarget
+    ? normalizeEntityContainer(rawSelectedContainerData, `${selectionHostId}:entity`, '地图实体')
+    : undefined;
+  const selectedEntity = selectedContainerData?.entities.find((entity) => entity.id === selectedEntityId)
+    ?? selectedContainerData?.entities[0];
 
-  const changeSelectionMode = (mode: DungeonMapSelection['mode']) => {
+  const changeSelectionMode = (mode: DungeonMapSelectionMode) => {
     setSelectionMode(mode);
-    setCanvasSelection((current) => {
-      if (mode === 'tile') return { mode, x: current.x, y: current.y };
+    if (mode === 'all') {
+      setCanvasSelections((currentSelections) => {
+        const current = currentSelections[0];
+        return current?.mode === 'map'
+          ? [{ mode: 'tile', x: 0, y: 0 }]
+          : currentSelections;
+      });
+      return;
+    }
+    setCanvasSelections((currentSelections) => {
+      const current: DungeonMapSelection = currentSelections[0] ?? { mode: 'tile', x: 0, y: 0 };
+      if (mode === 'map') return [{ mode, x: 0, y: 0 }];
+      if (mode === 'tile') return [{ mode, x: current.x, y: current.y }];
+      if (mode === 'point') return [{ mode, x: current.x, y: current.y }];
       const direction = current.direction ?? selectedDirection;
-      if (mode === 'edge') return { mode, x: current.x, y: current.y, direction };
+      if (mode === 'edge') return [{ mode, x: current.x, y: current.y, direction }];
       const sharedEdge = map.sharedEdges?.find((edge) => edge.sides.some((side) =>
         side.x === current.x && side.y === current.y && side.direction === direction
       ));
-      return {
+      const next: DungeonMapSelection = {
         mode,
         x: current.x,
         y: current.y,
         direction,
         sharedEdgeId: sharedEdge?.id,
       };
+      return [next];
     });
   };
 
   const updateCanvasSelectionData = (
-    updater: (data: ComponentHostData) => ComponentHostData,
+    updater: (data: IEntityContainer) => IEntityContainer,
   ) => {
     if (!selectionHasTarget) return;
+    if (canvasSelection.mode === 'map') {
+      setMapDataEdits(updater(normalizeEntityContainer(map.data, `${map.id}:entity`, '地图实体')));
+      return;
+    }
+    if (canvasSelection.mode === 'point') {
+      if (!canvasSelectedSharedPoint) return;
+      const next = {
+        ...canvasSelectedSharedPoint,
+        point: {
+          ...canvasSelectedSharedPoint.point,
+          data: updater(normalizeEntityContainer(canvasSelectedSharedPoint.point.data, `${canvasSelectedSharedPoint.id}:entity`, '公用点实体')),
+        },
+      };
+      setSharedPointEdits((edits) => ({ ...edits, [next.id]: next }));
+      return;
+    }
     if (canvasSelection.mode === 'shared') {
       if (!canvasSelectedSharedEdge) return;
       const next = {
         ...canvasSelectedSharedEdge,
         edge: {
           ...canvasSelectedSharedEdge.edge,
-          data: updater((canvasSelectedSharedEdge.edge.data ?? {}) as ComponentHostData),
+          data: updater(normalizeEntityContainer(canvasSelectedSharedEdge.edge.data, `${canvasSelectedSharedEdge.id}:entity`, '公用边实体')),
         },
       };
-      if (addedSharedEdges.some((edge) => edge.id === next.id)) {
-        setAddedSharedEdges((edges) => edges.map((edge) => edge.id === next.id ? next : edge));
-      } else {
-        setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
-      }
+      setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
       return;
     }
 
-    const index = canvasSelection.y * map.width + canvasSelection.x;
-    const tile = tileOverrides[index] ?? BASE_TILES[index];
-    if (!tile) return;
     if (canvasSelection.mode === 'tile') {
-      setTileOverrides((overrides) => ({
-        ...overrides,
-        [index]: { ...tile, data: updater((tile.data ?? {}) as ComponentHostData) },
+      const key = `${canvasSelection.x},${canvasSelection.y}`;
+      setTileDataEdits((edits) => ({
+        ...edits,
+        [key]: updater(normalizeEntityContainer(canvasSelectedTile?.data, `tile:${key}:entity`, `格子 ${key}`)),
       }));
       return;
     }
     const direction = canvasSelectionDirection;
-    const edge = tile.edges[direction];
-    setTileOverrides((overrides) => ({
-      ...overrides,
-      [index]: {
-        ...tile,
-        edges: {
-          ...tile.edges,
-          [direction]: { ...edge, data: updater((edge.data ?? {}) as ComponentHostData) },
-        },
-      },
+    const key = `${canvasSelection.x},${canvasSelection.y},${direction}`;
+    setTileEdgeDataEdits((edits) => ({
+      ...edits,
+      [key]: updater(normalizeEntityContainer(canvasSelectedTile?.edges[direction]?.data, `tile-edge:${key}:entity`, `单格边 ${key}`)),
     }));
   };
 
-  const savePhysics = (physics?: IPhysicsComponent) => updateCanvasSelectionData((data) => ({
-    ...data,
-    components: [
-      ...(data.components ?? []).filter((component) => component.type !== 'physics'),
-      ...(physics ? [physics] : []),
-    ],
-  }));
-
-  const updatePhysicsField = (path: string, value: unknown) => {
-    let next = valueWithPath<IPhysicsComponent>(selectedPhysics ?? { type: 'physics' }, path, value);
-    if (path === 'passRequirement.mode' && !value) {
-      const { passRequirement: _removed, ...rest } = next;
-      next = rest as IPhysicsComponent;
-    } else if (path === 'passRequirement.tags' && Array.isArray(value) && value.length > 0 && !next.passRequirement?.mode) {
-      next = valueWithPath(next, 'passRequirement.mode', 'all-of');
-    }
-    if (path === 'condition.expressionId' && !value) {
-      const { condition: _removed, ...rest } = next;
-      next = rest as IPhysicsComponent;
-    }
-    savePhysics(next);
+  const updateEntityById = (entityId: string, updater: (entity: IEntity) => IEntity) => {
+    updateCanvasSelectionData((container) => ({
+      ...container,
+      entities: container.entities.map((entity) => entity.id === entityId ? updater(entity) : entity),
+    }));
   };
 
-  const updateSingleTile = (updater: (tile: DungeonMapTile) => DungeonMapTile) => {
-    const current = tileOverrides[selectedIndex] ?? BASE_TILES[selectedIndex];
-    if (!current) return;
-    setTileOverrides((overrides) => ({ ...overrides, [selectedIndex]: updater(current) }));
+  const addEntityToSelection = () => {
+    const entity = createEntity('新实体');
+    updateCanvasSelectionData((container) => ({ ...container, entities: [...container.entities, entity] }));
+    setSelectedEntityId(entity.id);
+    setSelectedComponentId('');
   };
 
-  const updateCurrentEdge = (updater: (edge: DungeonMapEdge) => DungeonMapEdge) => {
-    if (edgeTarget === 'shared') {
-      if (!selectedSharedEdge) return;
-      const next = { ...selectedSharedEdge, edge: updater(selectedSharedEdge.edge) };
-      if (addedSharedEdges.some((edge) => edge.id === selectedSharedEdge.id)) {
-        setAddedSharedEdges((edges) => edges.map((edge) => edge.id === next.id ? next : edge));
-      } else setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
-      return;
-    }
-    updateSingleTile((tile) => ({ ...tile, edges: { ...tile.edges, [selectedDirection]: updater(tile.edges[selectedDirection]) } }));
+  const removeEntityById = (entityId: string) => {
+    updateCanvasSelectionData((container) => ({
+      ...container,
+      entities: container.entities.filter((entity) => entity.id !== entityId),
+    }));
+    setSelectedEntityId('');
+    setSelectedComponentId('');
   };
 
-  const addSharedEdge = () => {
-    const vector = VECTOR[selectedDirection];
-    const neighbor = { x: selectedTile.x + vector.x, y: selectedTile.y + vector.y };
-    if (!isDungeonMapPositionInside(map, neighbor.x, neighbor.y) || selectedSharedEdge) return;
-    const id = `shared-editor-${selectedTile.x}-${selectedTile.y}-${selectedDirection}-${Date.now()}`;
-    setAddedSharedEdges((edges) => [...edges, {
-      id,
-      sides: [{ ...selectedTile, direction: selectedDirection }, { ...neighbor, direction: OPPOSITE[selectedDirection] }],
-      edge: { kind: 'wall', label: '编辑器公用边', metadata: { shared: true } }
-    }]);
-    setEdgeTarget('shared');
+  const addComponentToEntity = (entityId = selectedEntity?.id) => {
+    if (!entityId) return;
+    const entity = selectedContainerData?.entities.find((item) => item.id === entityId);
+    if (!entity) return;
+    const definition = COMPONENT_REGISTRY.get(componentTypeToAdd);
+    if (!definition) return;
+    if (!definition.allowMultiple && entity.components.some((component) => component.type === definition.type)) return;
+    const component = definition.createDefault();
+    updateEntityById(entityId, (current) => ({ ...current, components: [...current.components, component] }));
+    setSelectedEntityId(entityId);
+    setSelectedComponentId(component.id);
   };
 
-  const removeSelectedSharedEdge = () => {
-    if (!selectedSharedEdge) return;
-    setAddedSharedEdges((edges) => edges.filter((edge) => edge.id !== selectedSharedEdge.id));
-    setRemovedSharedEdgeIds((ids) => new Set(ids).add(selectedSharedEdge.id));
-    setEdgeTarget('single');
+  const updateComponentById = (entityId: string, componentId: string, updater: (component: IComponent) => IComponent) => {
+    updateEntityById(entityId, (entity) => ({
+      ...entity,
+      components: entity.components.map((component) => component.id === componentId ? updater(component) : component),
+    }));
   };
 
-  const addEdgeEvent = () => updateCurrentEdge((edge) => ({ ...edge, events: [...(edge.events ?? []), {
-    id: `event-${Date.now()}`, type: 'custom-event', trigger: 'interact', enabled: true
-  }] }));
-  const updateEdgeEvent = (index: number, patch: Partial<DungeonMapEdgeEvent>) => updateCurrentEdge((edge) => ({
-    ...edge, events: (edge.events ?? []).map((event, eventIndex) => eventIndex === index ? { ...event, ...patch } : event)
-  }));
-  const removeEdgeEvent = (index: number) => updateCurrentEdge((edge) => ({ ...edge, events: (edge.events ?? []).filter((_, eventIndex) => eventIndex !== index) }));
-
-  const applyBrush = (x: number, y: number) => {
-    const index = y * map.width + x;
-    const direction = selectedDirection;
-    const shared = map.sharedEdges?.find(({ sides }) => sides.some((side) => side.x === x && side.y === y && side.direction === direction));
-    const updateTileAt = (updater: (tile: DungeonMapTile) => DungeonMapTile) => {
-      const current = tileOverrides[index] ?? BASE_TILES[index];
-      if (current) setTileOverrides((overrides) => ({ ...overrides, [index]: updater(current) }));
-    };
-    if (activeBrush === 'walkable') updateTileAt((tile) => ({ ...tile, kind: 'floor', walkable: true }));
-    if (activeBrush === 'blocked') updateTileAt((tile) => ({ ...tile, kind: 'wall', walkable: false }));
-    const singleKind = activeBrush === 'single-wall' ? 'wall' : activeBrush === 'single-door' ? 'door' : activeBrush === 'single-open' ? 'open' : undefined;
-    if (singleKind) updateTileAt((tile) => ({ ...tile, edges: { ...tile.edges, [direction]: { kind: singleKind, label: `画笔${DIRECTION_LABEL[direction]}边` } } }));
-    if (activeBrush === 'event') updateTileAt((tile) => ({ ...tile, edges: { ...tile.edges, [direction]: { ...tile.edges[direction], events: [...(tile.edges[direction].events ?? []), { id: `paint-event-${Date.now()}`, type: 'custom-event', trigger: 'interact', enabled: true }] } } }));
-    if (activeBrush === 'erase-shared' && shared) {
-      setAddedSharedEdges((edges) => edges.filter((edge) => edge.id !== shared.id));
-      setRemovedSharedEdgeIds((ids) => new Set(ids).add(shared.id));
-    }
-    if (activeBrush === 'shared-wall' || activeBrush === 'shared-door') {
-      const kind = activeBrush === 'shared-wall' ? 'wall' : 'door';
-      if (shared) {
-        const next = { ...shared, edge: { ...shared.edge, kind, label: `画笔公用${kind === 'wall' ? '墙' : '门'}` } };
-        if (addedSharedEdges.some((edge) => edge.id === shared.id)) setAddedSharedEdges((edges) => edges.map((edge) => edge.id === shared.id ? next : edge));
-        else setSharedEdgeEdits((edits) => ({ ...edits, [shared.id]: next }));
-      } else {
-        const vector = VECTOR[direction];
-        const neighbor = { x: x + vector.x, y: y + vector.y };
-        if (isDungeonMapPositionInside(map, neighbor.x, neighbor.y)) setAddedSharedEdges((edges) => [...edges, {
-          id: `shared-brush-${x}-${y}-${direction}-${Date.now()}`,
-          sides: [{ x, y, direction }, { ...neighbor, direction: OPPOSITE[direction] }],
-          edge: { kind, label: `画笔公用${kind === 'wall' ? '墙' : '门'}`, metadata: { shared: true } }
-        }]);
-      }
-    }
-  };
-
-  const log = (message: string) => setEventLog((current) => [message, ...current].slice(0, 8));
-
-  const handleTileClick = (x: number, y: number) => {
-    setSelectedTile({ x, y });
-    if (activeBrush !== 'select') {
-      applyBrush(x, y);
-      log(`${BRUSHES.find((brush) => brush.id === activeBrush)?.label ?? '画笔'}应用于 (${x}, ${y}) · ${DIRECTION_LABEL[selectedDirection]}边`);
-      return;
-    }
-    log(`已选择格子 (${x}, ${y})`);
+  const removeComponentById = (entityId: string, componentId: string) => {
+    updateEntityById(entityId, (entity) => ({
+      ...entity,
+      components: entity.components.filter((component) => component.id !== componentId),
+    }));
+    setSelectedComponentId('');
   };
 
   const reset = () => {
-    setTileOverrides({}); setAddedSharedEdges([]); setSharedEdgeEdits({}); setRemovedSharedEdgeIds(new Set());
-    setEventLog(['编辑数据已重置。']);
+    setMapDataEdits(undefined); setTileDataEdits({}); setTileEdgeDataEdits({}); setSharedEdgeEdits({}); setSharedPointEdits({});
   };
 
-  const activateBrush = (brush: MapBrush, direction?: DungeonMapDirection) => {
-    setActiveBrush(brush);
-    if (direction) setSelectedDirection(direction);
-  };
+  const visibleEntities = entityViewMode === 'all'
+    ? selectedContainerData?.entities ?? []
+    : selectedEntity ? [selectedEntity] : [];
 
-  const renderDirectionalBrushRow = (label: string, brush: MapBrush) => (
-    <div className="direction-brush-row" key={brush}>
-      <span>{label}</span>
-      <div>
-        {DIRECTIONS.map((direction) => <button
-          type="button"
-          key={direction}
-          className={activeBrush === brush && selectedDirection === direction ? 'is-active' : ''}
-          onClick={() => activateBrush(brush, direction)}
-        >{DIRECTION_LABEL[direction]}</button>)}
-      </div>
-    </div>
-  );
+  const renderComponentCard = (entity: IEntity, component: IComponent) => {
+    const definition = COMPONENT_REGISTRY.get(component.type);
+    const setField = (field: ComponentFieldSchema, value: unknown) => updateComponentById(
+      entity.id, component.id, (current) => valueWithPath(current, field.path, value),
+    );
+    return <div className="component-card" key={component.id}>
+      <div className="component-card__header"><div><strong>{definition?.label ?? component.type}</strong><span>{component.type} · v{component.version}</span></div><label className="component-enabled"><input type="checkbox" checked={component.enabled !== false} onChange={(event) => updateComponentById(entity.id, component.id, (current) => ({ ...current, enabled: event.target.checked }))} />启用</label></div>
+      {definition ? <div className="physics-fields">
+        {definition.fields.map((field) => {
+          const currentValue = valueAtPath(component, field.path);
+          if (field.control === 'checkbox') return <label className="physics-check" key={field.path}><input type="checkbox" checked={currentValue === true} onChange={(event) => setField(field, event.target.checked)} /><span>{field.label}</span></label>;
+          if (field.control === 'select') return <label key={field.path}><span>{field.label}</span><select value={String(currentValue ?? '')} onChange={(event) => setField(field, event.target.value || undefined)}>{field.optional ? <option value="">不启用</option> : null}{field.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
+          if (field.control === 'tags') return <label key={field.path}><span>{field.label}</span><textarea rows={2} value={Array.isArray(currentValue) ? currentValue.join(', ') : ''} placeholder={field.placeholder} onChange={(event) => setField(field, event.target.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean))} /></label>;
+          if (field.control === 'json') return <label key={`${component.id}-${field.path}-${JSON.stringify(currentValue)}`}><span>{field.label}</span><textarea rows={4} defaultValue={currentValue === undefined ? '' : JSON.stringify(currentValue, null, 2)} placeholder={field.placeholder} onBlur={(event) => { const text = event.currentTarget.value.trim(); try { event.currentTarget.setCustomValidity(''); setField(field, text ? JSON.parse(text) : undefined); } catch { event.currentTarget.setCustomValidity('请输入合法 JSON'); event.currentTarget.reportValidity(); } }} /></label>;
+          if (field.control === 'number') return <label key={field.path}><span>{field.label}</span><input type="number" min={field.min} max={field.max} step={field.step ?? 1} value={typeof currentValue === 'number' ? currentValue : ''} onChange={(event) => setField(field, event.target.value === '' ? undefined : Number(event.target.value))} /></label>;
+          return <label key={field.path}><span>{field.label}</span><input value={String(currentValue ?? '')} placeholder={field.placeholder} onChange={(event) => setField(field, event.target.value || undefined)} /></label>;
+        })}
+      </div> : <label className="unknown-component-json"><span>未注册组件，使用原始 JSON 编辑</span><textarea key={`${component.id}-${JSON.stringify(component)}`} rows={8} defaultValue={JSON.stringify(component, null, 2)} onBlur={(event) => { try { const parsed = JSON.parse(event.currentTarget.value) as IComponent; if (!parsed.id || !parsed.type || !parsed.version) throw new Error(); event.currentTarget.setCustomValidity(''); updateComponentById(entity.id, component.id, () => parsed); } catch { event.currentTarget.setCustomValidity('必须包含合法的 id、type、version'); event.currentTarget.reportValidity(); } }} /></label>}
+      <button type="button" className="danger-button compact-button" onClick={() => removeComponentById(entity.id, component.id)}>删除</button>
+    </div>;
+  };
 
   return (
     <div className="dungeon-lab">
@@ -526,157 +641,86 @@ export const DungeonMapCanvasLab: React.FC = () => {
         <section className="control-card">
           <div className="status-row"><span>地图结构</span><strong>{validationIssues.length === 0 ? '校验通过' : `${validationIssues.length} 项错误`}</strong></div>
           <div className="status-row"><span>公用边</span><strong>{map.sharedEdges?.length ?? 0} 条</strong></div>
-          <div className="status-row"><span>选中格子</span><strong>{selectedTile.x}, {selectedTile.y}</strong></div>
+          <div className="status-row"><span>公用点</span><strong>{map.sharedPoints?.length ?? 0} 个</strong></div>
+          <div className="status-row"><span>当前坐标</span><strong>{canvasSelection.x}, {canvasSelection.y}</strong></div>
         </section>
         <section className="control-card controls">
-          <label>格子尺寸 <strong>{cellSize}px</strong><input type="range" min="24" max="64" value={cellSize} onChange={(event) => setCellSize(Number(event.target.value))} /></label>
+          <div className="map-size-fields">
+            <label>地图 X<input type="number" min="1" max="30" value={mapWidth} onChange={(event) => updateMapWidth(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+            <label>地图 Y<input type="number" min="1" max="30" value={mapHeight} onChange={(event) => updateMapHeight(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+          </div>
+          <label>拓扑模式<select value={topologyMode} onChange={(event) => updateTopologyMode(event.target.value as DungeonMapTopologyMode)}><option value="bounded">有界模式</option><option value="loop">循环模式</option></select></label>
+          <label>格子尺寸 <strong>{cellSize}px</strong><input type="range" min="24" max="128" value={cellSize} onChange={(event) => setCellSize(Number(event.target.value))} /></label>
+          <label>地图外侧留白 <strong>{canvasOuterPadding}px</strong><input type="range" min="0" max="160" step="4" value={canvasOuterPadding} onChange={(event) => setCanvasOuterPadding(Number(event.target.value))} /></label>
+          <div className="map-size-fields">
+            <label>最小画布宽度<input type="number" min="0" max="2400" step="20" value={minCanvasWidth} onChange={(event) => setMinCanvasWidth(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
+            <label>最小画布高度<input type="number" min="0" max="2400" step="20" value={minCanvasHeight} onChange={(event) => setMinCanvasHeight(Math.max(0, Math.min(2400, Number(event.target.value) || 0)))} /></label>
+          </div>
           <label className="check"><input type="checkbox" checked={fogEnabled} onChange={(event) => setFogEnabled(event.target.checked)} />探索迷雾</label>
           <label className="check"><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label>
           <label className="check"><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label>
           <button type="button" className="reset-button" onClick={reset}>重置编辑数据</button>
         </section>
         <section className="control-card selection-panel">
-          <div className="map-editor__header"><div><h2>选中数据</h2><p>切换模式后点击地图</p></div><strong>{canvasSelection.x}, {canvasSelection.y}</strong></div>
-          <div className="selection-mode-switch">{([['tile','格子'],['edge','单格边'],['shared','公用边']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
-          <div className="selection-summary"><span>类型：{canvasSelection.mode==='tile'?'格子':canvasSelection.mode==='edge'?'单格边':'公用边'}</span>{canvasSelection.direction?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>
+          <div className="map-editor__header"><div><h2>选中数据</h2><p>点击精确选择，拖动鼠标框选</p></div><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection.x}, ${canvasSelection.y}`}</strong></div>
+          <div className="selection-mode-switch">{([['all','所有'],['map','地图'],['tile','格子'],['edge','单格边'],['shared','公用边'],['point','公用点']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
+          <div className="selection-summary"><span>{canvasSelections.length > 1 ? `已框选 ${canvasSelections.length} 个数据容器` : `类型：${canvasSelection.mode==='map'?'地图':canvasSelection.mode==='tile'?'格子':canvasSelection.mode==='edge'?'单格边':canvasSelection.mode==='shared'?'公用边':'公用点'}`}</span>{canvasSelections.length <= 1 && canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>
+          {canvasSelections.length > 1 ? <div className="selection-multi-hint">下方编辑器显示框选结果中的主数据容器；地图会同时高亮全部结果。</div> : null}
           <pre className="selection-data">{JSON.stringify(selectedContainerData, null, 2) ?? '无数据'}</pre>
         </section>
-        <section className="control-card physics-editor">
-          <div className="map-editor__header">
-            <div><h2>PhysicsComponent</h2><p>根据组件字段 Schema 自动生成</p></div>
-            <strong>{selectedPhysics ? '已挂载' : '未挂载'}</strong>
-          </div>
-          {!selectionHasTarget ? (
-            <div className="editor-empty">当前位置没有可编辑的公用边</div>
-          ) : !selectedPhysics ? (
-            <button type="button" onClick={() => savePhysics({ type: 'physics', directionMode: 'all' })}>
-              ＋ 添加 PhysicsComponent
-            </button>
-          ) : (
-            <>
-              <div className="physics-fields">
-                {PHYSICS_COMPONENT_FIELD_SCHEMA.map((field) => {
-                  const currentValue = valueAtPath(selectedPhysics, field.path);
-                  if (field.control === 'checkbox') return (
-                    <label className="physics-check" key={field.path}>
-                      <input
-                        type="checkbox"
-                        checked={currentValue === true}
-                        onChange={(event) => updatePhysicsField(field.path, event.target.checked)}
-                      />
-                      <span>{field.label}</span>
-                    </label>
-                  );
-                  if (field.control === 'select') return (
-                    <label key={field.path}>
-                      <span>{field.label}</span>
-                      <select
-                        value={String(currentValue ?? (field.path === 'directionMode' ? 'all' : ''))}
-                        onChange={(event) => updatePhysicsField(field.path, event.target.value || undefined)}
-                      >
-                        {field.optional && field.path !== 'directionMode' ? <option value="">不启用</option> : null}
-                        {field.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                      </select>
-                    </label>
-                  );
-                  if (field.control === 'tags') return (
-                    <label key={field.path}>
-                      <span>{field.label}</span>
-                      <textarea
-                        rows={2}
-                        value={Array.isArray(currentValue) ? currentValue.join(', ') : ''}
-                        placeholder={field.placeholder}
-                        onChange={(event) => updatePhysicsField(
-                          field.path,
-                          event.target.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean),
-                        )}
-                      />
-                    </label>
-                  );
-                  if (field.control === 'json') return (
-                    <label key={`${field.path}-${JSON.stringify(currentValue)}`}>
-                      <span>{field.label}</span>
-                      <textarea
-                        className="physics-json"
-                        rows={4}
-                        defaultValue={currentValue ? JSON.stringify(currentValue, null, 2) : ''}
-                        placeholder={field.placeholder}
-                        onBlur={(event) => {
-                          const text = event.currentTarget.value.trim();
-                          try {
-                            event.currentTarget.setCustomValidity('');
-                            updatePhysicsField(field.path, text ? JSON.parse(text) : undefined);
-                          } catch {
-                            event.currentTarget.setCustomValidity('请输入合法的 JSON 对象');
-                            event.currentTarget.reportValidity();
-                          }
-                        }}
-                      />
-                    </label>
-                  );
-                  return (
-                    <label key={field.path}>
-                      <span>{field.label}</span>
-                      <input
-                        value={String(currentValue ?? '')}
-                        placeholder={field.placeholder}
-                        onChange={(event) => updatePhysicsField(field.path, event.target.value || undefined)}
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-              <button type="button" className="danger-button" onClick={() => savePhysics(undefined)}>
-                删除 PhysicsComponent
-              </button>
-            </>
-          )}
-        </section>
-        <section className="control-card map-editor legacy-map-editor">
-          <div className="map-editor__header"><div><h2>地图编辑</h2><p>点击地图选择格子</p></div><strong>{selectedTile.x}, {selectedTile.y}</strong></div>
-          <div className="brush-toolbar">
-            <div className="brush-toolbar__primary">
-              <button type="button" className={activeBrush === 'select' ? 'is-active' : ''} onClick={() => activateBrush('select')}><span>⌖</span>选择 / 精细编辑</button>
-              <button type="button" className={activeBrush === 'walkable' ? 'is-active' : ''} onClick={() => activateBrush('walkable')}><span>□</span>可通行格</button>
-              <button type="button" className={activeBrush === 'blocked' ? 'is-active' : ''} onClick={() => activateBrush('blocked')}><span>■</span>阻挡格</button>
-            </div>
-            <div className="brush-group"><h3>单格边画笔</h3>{renderDirectionalBrushRow('墙', 'single-wall')}{renderDirectionalBrushRow('门', 'single-door')}{renderDirectionalBrushRow('开放', 'single-open')}</div>
-            <div className="brush-group"><h3>公用边画笔</h3>{renderDirectionalBrushRow('墙', 'shared-wall')}{renderDirectionalBrushRow('门', 'shared-door')}{renderDirectionalBrushRow('删除', 'erase-shared')}</div>
-            <div className="brush-group"><h3>事件画笔</h3>{renderDirectionalBrushRow('添加事件', 'event')}</div>
-          </div>
-          <div className="brush-hint">{activeBrush === 'select' ? '选择模式：点击格子后精细编辑数据' : `画笔模式：${BRUSHES.find((brush) => brush.id === activeBrush)?.label} · 使用${DIRECTION_LABEL[selectedDirection]}边`}</div>
-          {activeBrush === 'select' ? <div className="precision-editor">
-          <label className="editor-check"><input type="checkbox" checked={isDungeonMapTileWalkable(selectedMapTile)} onChange={(event) => updateSingleTile((tile) => ({ ...tile, walkable: event.target.checked }))} />格子可以通过</label>
-          <div className="editor-row">
-            <label>方向<select value={selectedDirection} onChange={(event) => setSelectedDirection(event.target.value as DungeonMapDirection)}>{DIRECTIONS.map((direction) => <option key={direction} value={direction}>{DIRECTION_LABEL[direction]}</option>)}</select></label>
-            <label>编辑目标<select value={edgeTarget} onChange={(event) => setEdgeTarget(event.target.value as 'single' | 'shared')}><option value="single">单格边</option><option value="shared">公用边</option></select></label>
-          </div>
-          {edgeTarget === 'single' ? <div className="editor-row"><button type="button" onClick={() => updateCurrentEdge(() => ({ kind: 'wall', label: '新单格边' }))}>＋ 添加/重置单格边</button><button type="button" onClick={() => updateCurrentEdge(() => ({ kind: 'open', label: '开放边' }))}>清空为开放边</button></div> : null}
-          {edgeTarget === 'shared' && !selectedSharedEdge ? <button type="button" onClick={addSharedEdge}>＋ 添加公用边</button> : null}
-          {edgeTarget === 'shared' && selectedSharedEdge ? <button type="button" className="danger-button" onClick={removeSelectedSharedEdge}>删除公用边</button> : null}
-          {selectedEdge ? <>
-            <div className="editor-row">
-              <label>边类型<select value={selectedEdge.kind} onChange={(event) => updateCurrentEdge((edge) => ({ ...edge, kind: event.target.value as DungeonMapEdge['kind'] }))}><option value="open">开放</option><option value="wall">墙</option><option value="door">门</option></select></label>
-              <label>通行<select value={selectedEdge.passable === undefined ? 'auto' : String(selectedEdge.passable)} onChange={(event) => updateCurrentEdge((edge) => ({ ...edge, passable: event.target.value === 'auto' ? undefined : event.target.value === 'true' }))}><option value="auto">跟随类型</option><option value="true">可以通过</option><option value="false">禁止通过</option></select></label>
-            </div>
-            <label>边名称<input value={selectedEdge.label ?? ''} onChange={(event) => updateCurrentEdge((edge) => ({ ...edge, label: event.target.value }))} /></label>
-            <div className="event-editor__title"><strong>边事件</strong><button type="button" onClick={addEdgeEvent}>＋ 添加事件</button></div>
-            {(selectedEdge.events ?? []).map((edgeEvent, index) => <div className="event-editor" key={`${edgeEvent.id}-${index}`}>
-              <input aria-label="事件 ID" value={edgeEvent.id} onChange={(event) => updateEdgeEvent(index, { id: event.target.value })} />
-              <input aria-label="事件类型" value={edgeEvent.type} onChange={(event) => updateEdgeEvent(index, { type: event.target.value })} />
-              <select aria-label="触发方式" value={edgeEvent.trigger} onChange={(event) => updateEdgeEvent(index, { trigger: event.target.value as DungeonMapEdgeEvent['trigger'] })}><option value="enter">进入</option><option value="leave">离开</option><option value="cross">穿过</option><option value="interact">交互</option></select>
-              <label className="event-enabled"><input type="checkbox" checked={edgeEvent.enabled !== false} onChange={(event) => updateEdgeEvent(index, { enabled: event.target.checked })} />启用</label>
-              <button type="button" className="danger-button" onClick={() => removeEdgeEvent(index)}>删除</button>
-            </div>)}
-          </> : edgeTarget === 'shared' ? <div className="editor-empty">当前方向没有公用边</div> : null}
-          </div> : null}
-        </section>
-        <section className="control-card event-log">
-          <h2>事件输出</h2>
-          {eventLog.map((entry, index) => <div key={`${entry}-${index}`}>{entry}</div>)}
+        <section className="control-card entity-component-editor">
+          <div className="map-editor__header"><div><h2>Entity / Component</h2><p>{COMPONENT_DEFINITIONS.length} 种组件定义已自动扫描</p></div><strong>{selectedContainerData?.entities.length ?? 0} Entity</strong></div>
+          {!selectionHasTarget ? <div className="editor-empty">当前位置没有可编辑的数据容器</div> : <>
+            <div className="subpanel-header"><button type="button" className="collapse-button" onClick={() => setEntityPanelOpen((open) => !open)}>{entityPanelOpen ? '▾' : '▸'} Entity</button><div className="mini-mode-switch"><button type="button" className={entityViewMode === 'all' ? 'is-active' : ''} onClick={() => setEntityViewMode('all')}>全部</button><button type="button" className={entityViewMode === 'select' ? 'is-active' : ''} onClick={() => setEntityViewMode('select')}>下拉</button></div></div>
+            {entityPanelOpen ? <div className="subpanel-body">
+              <div className="entity-toolbar">{entityViewMode === 'select' ? <select aria-label="选择 Entity" value={selectedEntity?.id ?? ''} onChange={(event) => { setSelectedEntityId(event.target.value); setSelectedComponentId(''); }}>{(selectedContainerData?.entities ?? []).map((entity) => <option key={entity.id} value={entity.id}>{entity.name || entity.id}</option>)}</select> : <span className="entity-count">全部 {visibleEntities.length} 个</span>}<button type="button" className="compact-button" onClick={addEntityToSelection}>＋ Entity</button></div>
+              <div className="entity-card-list">{visibleEntities.map((entity) => {
+                const chosen = selectedEntityId === entity.id
+                  ? entity.components.find((component) => component.id === selectedComponentId) ?? entity.components[0]
+                  : entity.components[0];
+                const shown = componentViewMode === 'all' ? entity.components : chosen ? [chosen] : [];
+                return <div className="entity-card" key={entity.id}>
+                  <div className="entity-card__title"><strong>{entity.name || '未命名 Entity'}</strong><button type="button" className="danger-button icon-button" onClick={() => removeEntityById(entity.id)}>删除</button></div>
+                  <div className="physics-fields entity-fields"><label><span>Entity ID</span><input value={entity.id} readOnly /></label><label><span>名称</span><input value={entity.name ?? ''} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, name: event.target.value || undefined }))} /></label><label><span>原型 ID</span><input value={entity.archetypeId ?? ''} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, archetypeId: event.target.value || undefined }))} /></label><label className="physics-check"><input type="checkbox" checked={entity.enabled !== false} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, enabled: event.target.checked }))} /><span>启用</span></label></div>
+                  <div className="entity-component-child">
+                    <div className="subpanel-header component-child-header"><button type="button" className="collapse-button" onClick={() => setComponentPanelOpen((open) => !open)}>{componentPanelOpen ? '▾' : '▸'} Component <span>{entity.components.length}</span></button><div className="mini-mode-switch"><button type="button" className={componentViewMode === 'all' ? 'is-active' : ''} onClick={() => setComponentViewMode('all')}>全部</button><button type="button" className={componentViewMode === 'select' ? 'is-active' : ''} onClick={() => setComponentViewMode('select')}>下拉</button></div></div>
+                    {componentPanelOpen ? <div className="component-group component-group--nested">
+                      <div className="component-toolbar">
+                        {componentViewMode === 'select' ? <label className="component-toolbar__field"><span>编辑 Component</span><select aria-label={`选择 ${entity.name || entity.id} 的 Component`} value={chosen?.id ?? ''} onChange={(event) => { setSelectedEntityId(entity.id); setSelectedComponentId(event.target.value); }}>{entity.components.length === 0 ? <option value="">暂无 Component</option> : null}{entity.components.map((component) => <option key={component.id} value={component.id}>{COMPONENT_REGISTRY.get(component.type)?.label ?? component.type}</option>)}</select></label> : <span className="entity-count">当前显示全部 {entity.components.length} 个 Component</span>}
+                        <div className="component-add-row"><label className="component-toolbar__field"><span>新增组件类型</span><select aria-label={`新增 ${entity.name || entity.id} 的 Component 类型`} value={componentTypeToAdd} onChange={(event) => setComponentTypeToAdd(event.target.value)}>{COMPONENT_DEFINITIONS.map((definition) => <option key={definition.type} value={definition.type}>{definition.label}</option>)}</select></label><button type="button" className="compact-button" onClick={() => addComponentToEntity(entity.id)}>＋ 添加</button></div>
+                      </div>
+                      {shown.length > 0 ? <div className="component-card-list">{shown.map((component) => renderComponentCard(entity, component))}</div> : <div className="editor-empty">暂无 Component</div>}
+                    </div> : null}
+                  </div>
+                </div>;
+              })}</div>
+            </div> : null}
+          </>}
         </section>
         <section className="control-card pattern-controls">
           <div className="pattern-controls__header"><div><h2>地图图案</h2><p>资源自动扫描自 public</p></div><span>{Object.keys(PATTERN_MODULES).length} 个</span></div>
+          <label className="pattern-field"><span>成套主题</span><span className="pattern-select pattern-select--without-preview">
+            <select value={selectedSuite} onChange={(event) => {
+              const name = event.target.value;
+              setSelectedSuite(name);
+              const suite = suites.find((item) => item.name === name);
+              if (!suite) return;
+              setPatterns((current) => ({
+                ...current,
+                wall: suite.wall ?? current.wall,
+                floor: suite.floor ?? current.floor,
+                edgeNorth: suite.edge ?? current.edgeNorth,
+                edgeEast: suite.edge ?? current.edgeEast,
+                edgeSouth: suite.edge ?? current.edgeSouth,
+                edgeWest: suite.edge ?? current.edgeWest,
+                sharedEdge: suite.sharedEdge ?? current.sharedEdge,
+                sharedPoint: suite.sharedPoint ?? current.sharedPoint,
+              }));
+            }}>
+              <option value="">自定义组合</option>
+              {suites.map((suite) => <option key={suite.name} value={suite.name}>{suite.name}套装</option>)}
+            </select>
+          </span></label>
           <div className="pattern-grid">
             {([['walls', 'wall'], ['tiles', 'floor'], ['characters', 'player'], ['events', 'event']] as const).map(([kind, key]) => (
               <label className="pattern-field" key={kind}><span>{PATTERN_LABELS[kind]}</span><span className="pattern-select">
@@ -689,12 +733,17 @@ export const DungeonMapCanvasLab: React.FC = () => {
           <div className="edge-patterns">
             <div className="edge-patterns__title"><strong>格子四边</strong><span>墙边图案设置</span></div>
             <div className="edge-size-controls">
-              <label><span>单格边厚度</span><strong>{Math.round(edgeThicknessRatio * 100)}%</strong><input type="range" min="0.12" max="0.35" step="0.01" value={edgeThicknessRatio} onChange={(event) => setEdgeThicknessRatio(Number(event.target.value))} /></label>
-              <label><span>公用边厚度</span><strong>{Math.round(sharedEdgeThicknessRatio * 100)}%</strong><input type="range" min="0.04" max="0.24" step="0.01" value={sharedEdgeThicknessRatio} onChange={(event) => setSharedEdgeThicknessRatio(Number(event.target.value))} /></label>
+              <label><span>单格边厚度</span><strong>{Math.round(edgeThicknessRatio * 100)}%</strong><input type="range" min="0" max="0.5" step="0.01" value={edgeThicknessRatio} onChange={(event) => setEdgeThicknessRatio(Number(event.target.value))} /></label>
+              <label><span>公用边厚度</span><strong>{Math.round(sharedEdgeThicknessRatio * 100)}%</strong><input type="range" min="0" max="1" step="0.01" value={sharedEdgeThicknessRatio} onChange={(event) => setSharedEdgeThicknessRatio(Number(event.target.value))} /></label>
             </div>
             <label className="pattern-field shared-edge-field"><span>中央公用边</span><span className="pattern-select">
               <img src={patterns.sharedEdge} alt="" /><select value={patterns.sharedEdge} onChange={(event) => setPatterns((current) => ({ ...current, sharedEdge: event.target.value }))}>
                 {options.sharedEdges.map((option) => <option key={option.url} value={option.url}>{option.label}</option>)}
+              </select>
+            </span></label>
+            <label className="pattern-field shared-point-field"><span>公用交汇点</span><span className="pattern-select">
+              <img src={patterns.sharedPoint} alt="" /><select value={patterns.sharedPoint} onChange={(event) => setPatterns((current) => ({ ...current, sharedPoint: event.target.value }))}>
+                {options.sharedPoints.map((option) => <option key={option.url} value={option.url}>{option.label}</option>)}
               </select>
             </span></label>
             <div className="edge-mode-switch" role="group" aria-label="格子四边调整模式">
@@ -727,25 +776,30 @@ export const DungeonMapCanvasLab: React.FC = () => {
       </aside>
       <main className="dungeon-lab__stage">
         <div className="map-frame">
-          <div className="map-frame__header"><span>B1 · 遗忘回廊</span><div className="map-zoom"><button type="button" onClick={() => setMapScale((scale) => Math.max(0.5, scale - 0.1))}>−</button><button type="button" className="map-zoom__value" onClick={() => setMapScale(1)}>{Math.round(mapScale * 100)}%</button><button type="button" onClick={() => setMapScale((scale) => Math.min(2.5, scale + 0.1))}>＋</button></div><span>{map.width} × {map.height}</span></div>
-          <div className="map-scroll">
+          <div className="map-frame__header"><span>B1 · 遗忘回廊</span><div className="map-zoom"><button type="button" onClick={() => setMapScale((scale) => Math.max(0.5, scale - 0.1))}>−</button><button type="button" className="map-zoom__value" onClick={() => setMapScale(1)} title="恢复为适配窗口">{Math.round(mapScale * 100)}%</button><button type="button" onClick={() => setMapScale((scale) => Math.min(2.5, scale + 0.1))}>＋</button></div><span>{map.width} × {map.height}</span></div>
+          <div className="map-scroll" ref={mapViewportRef}>
             <DungeonMapCanvas
               map={map}
               cellSize={cellSize}
-              displayScale={mapScale}
+              displayScale={fittedMapScale * mapScale}
+              outerPadding={canvasOuterPadding}
+              minCanvasWidth={minCanvasWidth}
+              minCanvasHeight={minCanvasHeight}
               showGrid={showGrid}
               showCoordinates={showCoordinates}
               patterns={patterns}
               edgeThicknessRatio={edgeThicknessRatio}
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
-              selection={canvasSelection}
-              onSelectionChange={(next) => { setCanvasSelection(next); setSelectedTile({ x: next.x, y: next.y }); if (next.direction) setSelectedDirection(next.direction); }}
+              selections={canvasSelections}
+              onSelectionsChange={(next) => {
+                if (next.length === 0) return;
+                setCanvasSelections(next);
+                if (next[0].direction) setSelectedDirection(next[0].direction);
+              }}
               keyboardEnabled={false}
-              onTileClick={handleTileClick}
             />
           </div>
-          <div className="map-frame__footer">数据编辑预览 · 点击格子选择或应用画笔</div>
         </div>
       </main>
     </div>
