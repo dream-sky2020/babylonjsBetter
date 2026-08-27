@@ -31,6 +31,44 @@ def is_allowed_image_file(path: str) -> bool:
 def is_finite_number(value) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
+def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+    valid_topologies = {"bounded", "loop-horizontal", "loop-vertical", "loop"}
+    for key, preset in payload.items():
+        path = f"presets.{key}"
+        if not isinstance(preset, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if preset.get("presetKey") != key:
+            errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip():
+            errors.append(f"{path}.name must be a non-empty string")
+        map_data = preset.get("map")
+        if not isinstance(map_data, dict):
+            errors.append(f"{path}.map must be an object")
+            continue
+        if not isinstance(map_data.get("id"), str) or not map_data.get("id", "").strip():
+            errors.append(f"{path}.map.id must be a non-empty string")
+        width, height = map_data.get("width"), map_data.get("height")
+        if not isinstance(width, int) or isinstance(width, bool) or width < 1:
+            errors.append(f"{path}.map.width must be a positive integer")
+        if not isinstance(height, int) or isinstance(height, bool) or height < 1:
+            errors.append(f"{path}.map.height must be a positive integer")
+        if map_data.get("topologyMode", "bounded") not in valid_topologies:
+            errors.append(f"{path}.map.topologyMode is invalid")
+        tiles = map_data.get("tiles")
+        if not isinstance(tiles, list):
+            errors.append(f"{path}.map.tiles must be an array")
+        elif isinstance(width, int) and isinstance(height, int) and len(tiles) != width * height:
+            errors.append(f"{path}.map.tiles length must equal width * height")
+        if "sharedEdges" in map_data and not isinstance(map_data.get("sharedEdges"), list):
+            errors.append(f"{path}.map.sharedEdges must be an array")
+        if "sharedPoints" in map_data and not isinstance(map_data.get("sharedPoints"), list):
+            errors.append(f"{path}.map.sharedPoints must be an array")
+    return errors
+
 # --- 核心校验辅助工具 ---
 def _req_str(obj: dict, field: str, errs: list, path: str, allow_empty: bool = False) -> str:
     v = obj.get(field)

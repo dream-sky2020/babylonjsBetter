@@ -7,6 +7,7 @@ import type {
   DungeonMapTopologyMode,
 } from './dungeonMap.types';
 import type { IEntityContainer } from '../entity';
+import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology';
 
 export type DungeonMapTileFactoryContext = Readonly<{ x: number; y: number }>;
 export type DungeonMapTileEdgeFactoryContext = Readonly<{
@@ -62,6 +63,8 @@ export const createDungeonMapData = <
   TPointData
 > => {
   const { id, width, height, mode = 'bounded' } = options;
+  const wrapsX = dungeonMapWrapsX(mode);
+  const wrapsY = dungeonMapWrapsY(mode);
   if (!id.trim()) throw new Error('Dungeon map id cannot be empty.');
   if (!Number.isInteger(width) || width <= 0 || !Number.isInteger(height) || height <= 0) {
     throw new RangeError('Dungeon map width and height must be positive integers.');
@@ -116,17 +119,11 @@ export const createDungeonMapData = <
       }
     }
   }
-  if (mode === 'loop') {
+  if (wrapsX) {
     for (let y = 0; y < height; y += 1) {
       addSharedEdge(
         { x: 0, y, direction: 'west' },
         { x: width - 1, y, direction: 'east' },
-      );
-    }
-    for (let x = 0; x < width; x += 1) {
-      addSharedEdge(
-        { x, y: 0, direction: 'north' },
-        { x, y: height - 1, direction: 'south' },
       );
     }
   } else {
@@ -134,6 +131,15 @@ export const createDungeonMapData = <
       addSharedEdge({ x: 0, y, direction: 'west' });
       addSharedEdge({ x: width - 1, y, direction: 'east' });
     }
+  }
+  if (wrapsY) {
+    for (let x = 0; x < width; x += 1) {
+      addSharedEdge(
+        { x, y: 0, direction: 'north' },
+        { x, y: height - 1, direction: 'south' },
+      );
+    }
+  } else {
     for (let x = 0; x < width; x += 1) {
       addSharedEdge({ x, y: 0, direction: 'north' });
       addSharedEdge({ x, y: height - 1, direction: 'south' });
@@ -143,30 +149,27 @@ export const createDungeonMapData = <
   const sharedPoints: NonNullable<
     DungeonMapData<TTileData, TEdgeData, TMapData, TPointData>['sharedPoints']
   >[number][] = [];
-  const pointGridWidth = mode === 'loop' ? width : width + 1;
-  const pointGridHeight = mode === 'loop' ? height : height + 1;
+  const pointGridWidth = wrapsX ? width : width + 1;
+  const pointGridHeight = wrapsY ? height : height + 1;
   for (let gridY = 0; gridY < pointGridHeight; gridY += 1) {
     for (let gridX = 0; gridX < pointGridWidth; gridX += 1) {
       const sides: DungeonMapPointEndpoint[] = [];
-      if (mode === 'loop') {
-        const westX = (gridX - 1 + width) % width;
-        const northY = (gridY - 1 + height) % height;
-        sides.push(
-          { x: westX, y: northY, corner: 'south-east' },
-          { x: gridX, y: northY, corner: 'south-west' },
-          { x: gridX, y: gridY, corner: 'north-west' },
-          { x: westX, y: gridY, corner: 'north-east' },
-        );
-      } else {
-        if (gridX > 0 && gridY > 0) sides.push({ x: gridX - 1, y: gridY - 1, corner: 'south-east' });
-        if (gridX < width && gridY > 0) sides.push({ x: gridX, y: gridY - 1, corner: 'south-west' });
-        if (gridX < width && gridY < height) sides.push({ x: gridX, y: gridY, corner: 'north-west' });
-        if (gridX > 0 && gridY < height) sides.push({ x: gridX - 1, y: gridY, corner: 'north-east' });
-      }
+      const hasWest = gridX > 0 || wrapsX;
+      const hasEast = gridX < width || wrapsX;
+      const hasNorth = gridY > 0 || wrapsY;
+      const hasSouth = gridY < height || wrapsY;
+      const westX = wrapDungeonMapCoordinate(gridX - 1, width);
+      const eastX = wrapDungeonMapCoordinate(gridX, width);
+      const northY = wrapDungeonMapCoordinate(gridY - 1, height);
+      const southY = wrapDungeonMapCoordinate(gridY, height);
+      if (hasWest && hasNorth) sides.push({ x: westX, y: northY, corner: 'south-east' });
+      if (hasEast && hasNorth) sides.push({ x: eastX, y: northY, corner: 'south-west' });
+      if (hasEast && hasSouth) sides.push({ x: eastX, y: southY, corner: 'north-west' });
+      if (hasWest && hasSouth) sides.push({ x: westX, y: southY, corner: 'north-east' });
       const sharedSides = sides as unknown as DungeonMapSharedPointSides;
       const pointId = `point:${gridX},${gridY}`;
-      const xPositions = mode === 'loop' && gridX === 0 ? [0, width] : [gridX];
-      const yPositions = mode === 'loop' && gridY === 0 ? [0, height] : [gridY];
+      const xPositions = wrapsX && gridX === 0 ? [0, width] : [gridX];
+      const yPositions = wrapsY && gridY === 0 ? [0, height] : [gridY];
       const positions = yPositions.flatMap((positionY) =>
         xPositions.map((positionX) => ({ gridX: positionX, gridY: positionY })),
       );

@@ -9,6 +9,7 @@
     "build": "vite build",
     "typecheck:clash": "tsc --noEmit -p tsconfig.clash.json",
     "lint": "eslint .",
+    "test:batch": "node --experimental-strip-types --test core/entity/batch-edit.test.ts",
     "preview": "vite preview",
     "electron:start": "electron .",
     "electron:dev": "concurrently -k \"npm run dev\" \"wait-on http://localhost:1184/apps/mainGame/index.html && cross-env ELECTRON_RENDERER_URL=http://localhost:1184 electron .\""

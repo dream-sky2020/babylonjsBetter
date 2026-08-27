@@ -1,7 +1,11 @@
 import type { IEntityContainer } from '../entity';
 
 export type DungeonMapDirection = 'north' | 'east' | 'south' | 'west';
-export type DungeonMapTopologyMode = 'bounded' | 'loop';
+/**
+ * 地图拓扑模式。
+ * `loop` 保留为原有双向循环值，避免旧地图存档迁移；另外两个值分别只循环一个轴。
+ */
+export type DungeonMapTopologyMode = 'bounded' | 'loop-horizontal' | 'loop-vertical' | 'loop';
 export type DungeonMapTileCorner = 'north-west' | 'north-east' | 'south-east' | 'south-west';
 
 /** 地图自身的数据容器，可像格子、边和点一样挂载 Entity/Component。 */
@@ -133,7 +137,7 @@ export type DungeonMapData<
 > = DungeonMapContainer<TMapData> & {
   width: number;
   height: number;
-  /** 有界地图或双轴循环地图。 */
+  /** 有界、单轴循环或双轴循环地图。 */
   topologyMode?: DungeonMapTopologyMode;
   /** 行优先铺开的纯容器格子数组 */
   tiles: readonly DungeonMapTileContainer<TTileData, TEdgeData>[];
@@ -146,6 +150,15 @@ export type DungeonMapData<
   markers?: readonly DungeonMapMarker[];
   metadata?: Record<string, unknown>;
 };
+
+/** 可由编辑 Lab 与游戏运行时共同读取的完整地图预设。 */
+export type DungeonMapPreset = {
+  presetKey: string;
+  name: string;
+  map: DungeonMapData;
+};
+
+export type DungeonMapPresetLibrary = Record<string, DungeonMapPreset>;
 
 export type DungeonMapMarker = {
   id: string;

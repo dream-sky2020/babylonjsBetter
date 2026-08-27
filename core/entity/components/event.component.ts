@@ -12,6 +12,7 @@ export interface IEventComponent extends IComponent {
 export const componentDefinition: ComponentDefinition<IEventComponent> = {
   type: 'event', version: 1, label: '事件响应', description: '声明触发时机与业务动作 ID。', allowMultiple: true,
   allowedEntityTypes: ['map', 'tile', 'tile-edge', 'shared-edge', 'shared-point'],
+  batch: { scope: 'compatible', create: true, delete: true },
   fields: [
     { path: 'trigger', label: '触发时机', control: 'text', placeholder: 'interact' },
     { path: 'actionId', label: '动作 ID', control: 'text', placeholder: 'open_door' },

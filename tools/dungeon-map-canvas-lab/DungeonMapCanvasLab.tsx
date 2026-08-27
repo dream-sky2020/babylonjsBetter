@@ -5,6 +5,8 @@ import {
   type DungeonMapData,
   type DungeonMapDirection,
   type DungeonMapEdge,
+  type DungeonMapPreset,
+  type DungeonMapPresetLibrary,
   type DungeonMapSharedEdge,
   type DungeonMapSharedPoint,
   type DungeonMapTile,
@@ -13,8 +15,17 @@ import {
 import {
   ComponentRegistry,
   EntityTypeRegistry,
+  createMutationPlan,
   createEntity,
+  dedupeBatchContainerTargets,
+  listBatchComponentDefinitions,
+  listBatchEntityDefinitions,
   normalizeEntityContainer,
+  resolveBatchComponentGroups,
+  resolveBatchEntityGroups,
+  resolveBatchFieldValue,
+  type BatchContainerTarget,
+  type MutationPlan,
   type ComponentDefinition,
   type ComponentFieldSchema,
   type EntityContainerKind,
@@ -24,6 +35,7 @@ import {
   type IEntityContainer,
 } from '@/core/entity';
 import { DungeonMapCanvas, type DungeonMapSelection, type DungeonMapSelectionMode } from '@/core/ui/DungeonMapCanvas';
+import { requestDevServer } from '@/core/network/devServerPortResolver';
 import './dungeon-map-canvas-lab.css';
 
 const PATTERN_MODULES = import.meta.glob('/public/resources/dungeon-map/**/*.svg', {
@@ -108,6 +120,30 @@ const SPECIAL_SHARED_EDGE_POSITIONS = new Set([
 ]);
 const DIRECTIONS: DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
 const DIRECTION_LABEL: Record<DungeonMapDirection, string> = { north: '北', east: '东', south: '南', west: '西' };
+const SELECTION_MODE_LABEL: Record<DungeonMapSelection['mode'], string> = {
+  map: '地图', tile: '格子', edge: '单格边', shared: '公用边', point: '公用点',
+};
+const selectionIdentity = (selection: DungeonMapSelection): string => [
+  selection.mode,
+  selection.sharedEdgeId ?? '',
+  selection.sharedPointId ?? '',
+  selection.x,
+  selection.y,
+  selection.direction ?? '',
+].join(':');
+const selectionObjectLabel = (selection: DungeonMapSelection): string => {
+  if (selection.mode === 'map') return '地图';
+  if (selection.mode === 'point') return `公用点 (${selection.x}, ${selection.y})`;
+  const direction = selection.direction ? ` · ${DIRECTION_LABEL[selection.direction]}侧` : '';
+  return `${SELECTION_MODE_LABEL[selection.mode]} (${selection.x}, ${selection.y})${direction}`;
+};
+const selectionObjectId = (selection: DungeonMapSelection): string => (
+  selection.sharedEdgeId ?? selection.sharedPointId ?? selectionIdentity(selection)
+);
+type LabMutationPlan = {
+  plan: MutationPlan;
+  selections: Record<string, DungeonMapSelection>;
+};
 const VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 }
 };
@@ -150,6 +186,49 @@ const legacyEntityContainer = (
   entityType: string,
 ): IEntityContainer => normalizeEntityContainer(data, id, name, entityType);
 
+const createBlankPresetMap = (
+  presetKey: string,
+  width: number,
+  height: number,
+  mode: DungeonMapTopologyMode,
+): DungeonMapData => createDungeonMapData({
+  id: `dungeon-map:${presetKey}`,
+  width,
+  height,
+  mode,
+  createMapData: () => legacyEntityContainer(
+    `map:${presetKey}:entity`, '地图实体', { legacy: { presetKey } }, 'map',
+  ),
+  createTileData: ({ x, y }) => legacyEntityContainer(
+    `tile:${x},${y}:entity`, `格子 ${x},${y}`, { legacy: { kind: 'floor' } }, 'tile',
+  ),
+  createTileEdgeData: ({ x, y, direction }) => legacyEntityContainer(
+    `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`, { legacy: { kind: 'open' } }, 'tile-edge',
+  ),
+  createSharedEdgeData: ({ id, first }) => legacyEntityContainer(
+    `${id}:entity`, '公用边实体', { legacy: { kind: 'open', label: `公用边 ${first.x},${first.y},${first.direction}` } }, 'shared-edge',
+  ),
+  createSharedPointData: ({ id, gridX, gridY }) => legacyEntityContainer(
+    `${id}:entity`, '公用点实体', { legacy: { label: `公用点 ${gridX},${gridY}` } }, 'shared-point',
+  ),
+});
+
+const normalizedPresetLibrary = (value: unknown): DungeonMapPresetLibrary => {
+  if (!value || typeof value !== 'object') return {};
+  return Object.fromEntries(Object.entries(value as Record<string, unknown>).flatMap(([key, raw]) => {
+    if (!raw || typeof raw !== 'object') return [];
+    const preset = raw as Partial<DungeonMapPreset>;
+    const map = preset.map;
+    if (!map || typeof map.id !== 'string' || !Number.isInteger(map.width) || !Number.isInteger(map.height)
+      || !Array.isArray(map.tiles)) return [];
+    return [[key, {
+      presetKey: key,
+      name: typeof preset.name === 'string' && preset.name.trim() ? preset.name : key,
+      map,
+    } satisfies DungeonMapPreset]];
+  }));
+};
+
 const valueAtPath = (value: unknown, path: string): unknown => path.split('.').reduce<unknown>(
   (current, key) => current && typeof current === 'object'
     ? (current as Record<string, unknown>)[key]
@@ -184,6 +263,18 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [mapWidth, setMapWidth] = useState<number>(MAP_ROWS[0].length);
   const [mapHeight, setMapHeight] = useState<number>(MAP_ROWS.length);
   const [topologyMode, setTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
+  const [draftMapWidth, setDraftMapWidth] = useState<number>(MAP_ROWS[0].length);
+  const [draftMapHeight, setDraftMapHeight] = useState<number>(MAP_ROWS.length);
+  const [draftTopologyMode, setDraftTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
+  const [mapPresets, setMapPresets] = useState<DungeonMapPresetLibrary>({});
+  const [activePresetKey, setActivePresetKey] = useState('');
+  const [presetKeyDraft, setPresetKeyDraft] = useState('');
+  const [presetBaseMap, setPresetBaseMap] = useState<DungeonMapData>();
+  const [newPresetKey, setNewPresetKey] = useState('dungeon_map');
+  const [newPresetName, setNewPresetName] = useState('新地图预设');
+  const [presetMessage, setPresetMessage] = useState('正在连接 Python 服务…');
+  const [presetError, setPresetError] = useState(false);
+  const [presetSaving, setPresetSaving] = useState(false);
   const [mapScale, setMapScale] = useState(1);
   const mapViewportRef = useRef<HTMLDivElement>(null);
   const [mapViewportSize, setMapViewportSize] = useState({ width: 0, height: 0 });
@@ -214,6 +305,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [sharedPointEdits, setSharedPointEdits] = useState<Record<string, DungeonMapSharedPoint>>({});
   const [selectionMode, setSelectionMode] = useState<DungeonMapSelectionMode>('tile');
   const [canvasSelections, setCanvasSelections] = useState<DungeonMapSelection[]>([{ mode: 'tile', x: 1, y: 1 }]);
+  const [viewedSelectionKey, setViewedSelectionKey] = useState('');
   const canvasSelection = canvasSelections[0];
   const [selectedEntityId, setSelectedEntityId] = useState('');
   const [selectedComponentId, setSelectedComponentId] = useState('');
@@ -221,8 +313,18 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [entityTypeToAdd, setEntityTypeToAdd] = useState(ENTITY_TYPE_DEFINITIONS[0]?.type ?? '');
   const [entityViewMode, setEntityViewMode] = useState<'all' | 'select'>('select');
   const [componentViewMode, setComponentViewMode] = useState<'all' | 'select'>('select');
+  const [batchEntityTypeToCreate, setBatchEntityTypeToCreate] = useState('');
+  const [batchEntityArchetypeDraft, setBatchEntityArchetypeDraft] = useState('');
+  const [batchEntityGroupType, setBatchEntityGroupType] = useState('');
+  const [batchComponentTypeToCreate, setBatchComponentTypeToCreate] = useState('');
+  const [batchComponentSlotDraft, setBatchComponentSlotDraft] = useState('');
+  const [batchComponentTypeToEdit, setBatchComponentTypeToEdit] = useState('');
+  const [pendingMutationPlan, setPendingMutationPlan] = useState<LabMutationPlan>();
+  const [mutationHistoryPast, setMutationHistoryPast] = useState<LabMutationPlan[]>([]);
+  const [mutationHistoryFuture, setMutationHistoryFuture] = useState<LabMutationPlan[]>([]);
   const [collapsedEntityIds, setCollapsedEntityIds] = useState<Set<string>>(() => new Set());
   const [collapsedComponentIds, setCollapsedComponentIds] = useState<Set<string>>(() => new Set());
+  const [collapsedPanelIds, setCollapsedPanelIds] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     const viewport = mapViewportRef.current;
@@ -246,36 +348,23 @@ export const DungeonMapCanvasLab: React.FC = () => {
     return Math.max(0.05, Math.min(mapViewportSize.width / width, mapViewportSize.height / height));
   }, [canvasOuterPadding, cellSize, mapHeight, mapViewportSize, mapWidth, minCanvasHeight, minCanvasWidth, sharedEdgeThicknessRatio]);
 
-  const updateMapWidth = (width: number) => {
-    setMapWidth(width);
-    setCanvasSelections((current) => current.map((selection) => ({
-      ...selection,
-      x: Math.min(selection.mode === 'point' ? width : width - 1, selection.x),
-      sharedEdgeId: undefined,
-      sharedPointId: undefined,
-    })));
-  };
-
-  const updateMapHeight = (height: number) => {
-    setMapHeight(height);
-    setCanvasSelections((current) => current.map((selection) => ({
-      ...selection,
-      y: Math.min(selection.mode === 'point' ? height : height - 1, selection.y),
-      sharedEdgeId: undefined,
-      sharedPointId: undefined,
-    })));
-  };
-
-  const updateTopologyMode = (mode: DungeonMapTopologyMode) => {
-    setTopologyMode(mode);
-    setCanvasSelections((current) => current.map((selection) => ({
-      ...selection,
-      sharedEdgeId: undefined,
-      sharedPointId: undefined,
-    })));
-  };
-
   const map = useMemo<DungeonMapData>(() => {
+    if (presetBaseMap) {
+      return {
+        ...presetBaseMap,
+        data: mapDataEdits ?? presetBaseMap.data,
+        tiles: presetBaseMap.tiles.map((tile) => ({
+          ...tile,
+          data: tileDataEdits[`${tile.x},${tile.y}`] ?? tile.data,
+          edges: Object.fromEntries(DIRECTIONS.map((direction) => [direction, {
+            ...tile.edges[direction],
+            data: tileEdgeDataEdits[`${tile.x},${tile.y},${direction}`] ?? tile.edges[direction].data,
+          }])) as DungeonMapTile['edges'],
+        })),
+        sharedEdges: presetBaseMap.sharedEdges?.map((edge) => sharedEdgeEdits[edge.id] ?? edge),
+        sharedPoints: presetBaseMap.sharedPoints?.map((point) => sharedPointEdits[point.id] ?? point),
+      };
+    }
     const visitedPositions = [...visited].map((key) => key.split(',').map(Number));
     const isRevealed = (x: number, y: number) => !fogEnabled || visitedPositions.some(
       ([visitedX, visitedY]) => Math.abs(visitedX - x) + Math.abs(visitedY - y) <= 1
@@ -322,7 +411,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const generatedSharedPoints = generatedTopology.sharedPoints?.map(
       (point) => sharedPointEdits[point.id] ?? point,
     ) ?? [];
-    const usesGeneratedConfiguration = topologyMode === 'loop'
+    const usesGeneratedConfiguration = topologyMode !== 'bounded'
       || mapWidth !== MAP_ROWS[0].length
       || mapHeight !== MAP_ROWS.length;
     if (usesGeneratedConfiguration) {
@@ -443,7 +532,223 @@ export const DungeonMapCanvasLab: React.FC = () => {
       ],
       metadata: { floor: 'B1', name: '遗忘回廊' }
     };
-  }, [fogEnabled, visited, mapWidth, mapHeight, topologyMode, mapDataEdits, tileDataEdits, tileEdgeDataEdits, sharedEdgeEdits, sharedPointEdits]);
+  }, [fogEnabled, visited, mapWidth, mapHeight, topologyMode, mapDataEdits, tileDataEdits, tileEdgeDataEdits, sharedEdgeEdits, sharedPointEdits, presetBaseMap]);
+
+  const clearMapEdits = () => {
+    setMapDataEdits(undefined);
+    setTileDataEdits({});
+    setTileEdgeDataEdits({});
+    setSharedEdgeEdits({});
+    setSharedPointEdits({});
+    setSelectedEntityId('');
+    setSelectedComponentId('');
+    setPendingMutationPlan(undefined);
+    setMutationHistoryPast([]);
+    setMutationHistoryFuture([]);
+  };
+
+  const loadPresetIntoEditor = (preset: DungeonMapPreset) => {
+    const nextMode = preset.map.topologyMode ?? 'bounded';
+    clearMapEdits();
+    setActivePresetKey(preset.presetKey);
+    setPresetKeyDraft(preset.presetKey);
+    setPresetBaseMap(preset.map);
+    setMapWidth(preset.map.width);
+    setMapHeight(preset.map.height);
+    setTopologyMode(nextMode);
+    setDraftMapWidth(preset.map.width);
+    setDraftMapHeight(preset.map.height);
+    setDraftTopologyMode(nextMode);
+    setCanvasSelections([{ mode: 'tile', x: 0, y: 0 }]);
+  };
+
+  useEffect(() => {
+    let active = true;
+    requestDevServer(`/api/dungeon-map-presets?t=${Date.now()}`, { method: 'GET' })
+      .then(async (response) => {
+        const result = await response.json() as { success?: boolean; data?: unknown; message?: string; errors?: string[] };
+        if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
+        if (!active) return;
+        const library = normalizedPresetLibrary(result.data);
+        setMapPresets(library);
+        const first = Object.values(library)[0];
+        if (first) {
+          loadPresetIntoEditor(first);
+          setPresetMessage(`已从 config 载入 ${Object.keys(library).length} 个地图预设。`);
+        } else {
+          setPresetMessage('已连接 Python 服务，config 中暂无地图预设。');
+        }
+        setPresetError(false);
+      })
+      .catch((error: unknown) => {
+        if (!active) return;
+        setPresetError(true);
+        setPresetMessage(`地图预设加载失败：${error instanceof Error ? error.message : String(error)}`);
+      });
+    return () => { active = false; };
+  // 仅在 Lab 启动时读取一次；切换预设由显式操作完成。
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const selectMapPreset = (key: string) => {
+    const preset = mapPresets[key];
+    if (!preset) return;
+    if (activePresetKey && mapPresets[activePresetKey]) {
+      setMapPresets((current) => ({
+        ...current,
+        [activePresetKey]: { ...current[activePresetKey], map },
+      }));
+    }
+    loadPresetIntoEditor(preset);
+    setPresetError(false);
+    setPresetMessage(`已切换到地图预设：${preset.name}`);
+  };
+
+  const createMapPreset = () => {
+    const requestedKey = newPresetKey.trim().replace(/[^a-zA-Z0-9_-]+/g, '_').replace(/^_+|_+$/g, '') || 'dungeon_map';
+    let key = requestedKey;
+    let suffix = 2;
+    while (mapPresets[key]) {
+      key = `${requestedKey}_${suffix}`;
+      suffix += 1;
+    }
+    const nextMap = createBlankPresetMap(key, draftMapWidth, draftMapHeight, draftTopologyMode);
+    const preset: DungeonMapPreset = {
+      presetKey: key,
+      name: newPresetName.trim() || '新地图预设',
+      map: nextMap,
+    };
+    setMapPresets((current) => ({
+      ...current,
+      ...(activePresetKey && current[activePresetKey]
+        ? { [activePresetKey]: { ...current[activePresetKey], map } }
+        : {}),
+      [key]: preset,
+    }));
+    loadPresetIntoEditor(preset);
+    setNewPresetKey(`${requestedKey}_copy`);
+    setPresetError(false);
+    setPresetMessage(`已新建地图预设 ${preset.name}；点击“保存全部预设”写入 config。`);
+  };
+
+  const confirmPresetKeyChange = () => {
+    const fromKey = activePresetKey;
+    const toKey = presetKeyDraft.trim();
+    const sourcePreset = mapPresets[fromKey];
+    if (!fromKey || !sourcePreset) {
+      setPresetError(true);
+      setPresetMessage('当前没有可以修改 presetKey 的地图预设。');
+      return;
+    }
+    if (!toKey) {
+      setPresetKeyDraft(fromKey);
+      setPresetError(true);
+      setPresetMessage('presetKey 不能为空。');
+      return;
+    }
+    if (toKey === fromKey) {
+      setPresetError(false);
+      setPresetMessage('presetKey 没有变化。');
+      return;
+    }
+    if (mapPresets[toKey]) {
+      setPresetKeyDraft(fromKey);
+      setPresetError(true);
+      setPresetMessage(`无法修改：presetKey “${toKey}”已经存在。`);
+      return;
+    }
+    const nextLibrary = { ...mapPresets };
+    delete nextLibrary[fromKey];
+    nextLibrary[toKey] = {
+      ...sourcePreset,
+      presetKey: toKey,
+      map,
+    };
+    setMapPresets(nextLibrary);
+    setActivePresetKey(toKey);
+    setPresetKeyDraft(toKey);
+    setPresetError(false);
+    setPresetMessage(`已修改 presetKey：${fromKey} → ${toKey}；点击“保存全部预设”写入 config。`);
+  };
+
+  const duplicateMapPreset = () => {
+    const sourcePreset = mapPresets[activePresetKey];
+    if (!sourcePreset) return;
+    const requestedKey = `${activePresetKey}_copy`;
+    let key = requestedKey;
+    let suffix = 2;
+    while (mapPresets[key]) {
+      key = `${requestedKey}_${suffix}`;
+      suffix += 1;
+    }
+    const copiedMap = structuredClone(map);
+    copiedMap.id = `dungeon-map:${key}`;
+    const copiedPreset: DungeonMapPreset = {
+      presetKey: key,
+      name: `${sourcePreset.name} 副本`,
+      map: copiedMap,
+    };
+    setMapPresets((current) => ({
+      ...current,
+      [activePresetKey]: { ...sourcePreset, map },
+      [key]: copiedPreset,
+    }));
+    loadPresetIntoEditor(copiedPreset);
+    setPresetError(false);
+    setPresetMessage(`已复制地图预设为 ${copiedPreset.name}；点击“保存全部预设”写入 config。`);
+  };
+
+  const deleteMapPreset = () => {
+    const sourcePreset = mapPresets[activePresetKey];
+    if (!sourcePreset || !window.confirm(`删除地图预设“${sourcePreset.name}”？`)) return;
+    const nextLibrary = { ...mapPresets };
+    delete nextLibrary[activePresetKey];
+    setMapPresets(nextLibrary);
+    const nextPreset = Object.values(nextLibrary)[0];
+    if (nextPreset) {
+      loadPresetIntoEditor(nextPreset);
+    } else {
+      clearMapEdits();
+      setActivePresetKey('');
+      setPresetKeyDraft('');
+      setPresetBaseMap(undefined);
+      setMapWidth(MAP_ROWS[0].length);
+      setMapHeight(MAP_ROWS.length);
+      setTopologyMode('bounded');
+      setCanvasSelections([{ mode: 'tile', x: 1, y: 1 }]);
+    }
+    setPresetError(false);
+    setPresetMessage(`已删除地图预设 ${sourcePreset.name}；点击“保存全部预设”同步到 config。`);
+  };
+
+  const saveMapPresets = async () => {
+    const currentLibrary = activePresetKey && mapPresets[activePresetKey]
+      ? { ...mapPresets, [activePresetKey]: { ...mapPresets[activePresetKey], map } }
+      : mapPresets;
+    const payload = Object.fromEntries(Object.entries(currentLibrary).map(([key, preset]) => [key, {
+      ...preset,
+      presetKey: key,
+      name: preset.name.trim() || key,
+    }])) as DungeonMapPresetLibrary;
+    setPresetSaving(true);
+    try {
+      const response = await requestDevServer('/api/dungeon-map-presets', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json() as { success?: boolean; message?: string; errors?: string[] };
+      if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
+      setMapPresets(payload);
+      setPresetError(false);
+      setPresetMessage(`已保存 ${Object.keys(payload).length} 个地图预设到 config/dungeonMapPresets.json。`);
+    } catch (error) {
+      setPresetError(true);
+      setPresetMessage(`地图预设保存失败：${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      setPresetSaving(false);
+    }
+  };
 
   const validationIssues = useMemo(() => validateDungeonMapData(map), [map]);
   const canvasSelectedTile = map.tiles[canvasSelection.y * map.width + canvasSelection.x];
@@ -492,6 +797,64 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const selectedContainerData = selectionHasTarget
     ? normalizeEntityContainer(rawSelectedContainerData, `${selectionHostId}:entity`, '地图实体', selectedContainerKind)
     : undefined;
+  const viewedSelection = canvasSelections.find(
+    (item) => selectionIdentity(item) === viewedSelectionKey,
+  ) ?? canvasSelection;
+  const resolveSelectionTarget = (selection: DungeonMapSelection) => {
+    const tile = map.tiles[selection.y * map.width + selection.x];
+    const direction = selection.direction ?? selectedDirection;
+    const sharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
+    const sharedPoint = map.sharedPoints?.find((point) => point.id === selection.sharedPointId);
+    const hasTarget = selection.mode === 'map'
+      || selection.mode === 'shared' && Boolean(sharedEdge)
+      || selection.mode === 'point' && Boolean(sharedPoint)
+      || selection.mode === 'tile' && Boolean(tile)
+      || selection.mode === 'edge' && Boolean(tile?.edges[direction]);
+    if (!hasTarget) return undefined;
+    const rawData = selection.mode === 'map'
+      ? map.data
+      : selection.mode === 'tile'
+        ? tile?.data
+        : selection.mode === 'edge'
+          ? tile?.edges[direction]?.data
+          : selection.mode === 'shared'
+            ? sharedEdge?.edge.data
+            : sharedPoint?.point.data;
+    const hostId = selection.mode === 'map'
+      ? map.id
+      : selection.mode === 'shared'
+        ? sharedEdge?.id ?? 'missing-shared-edge'
+        : selection.mode === 'point'
+          ? sharedPoint?.id ?? 'missing-shared-point'
+          : selection.mode === 'tile'
+            ? `tile:${selection.x},${selection.y}`
+            : `tile-edge:${selection.x},${selection.y}:${direction}`;
+    const kind: EntityContainerKind = selection.mode === 'map'
+      ? 'map'
+      : selection.mode === 'tile'
+        ? 'tile'
+        : selection.mode === 'edge'
+          ? 'tile-edge'
+          : selection.mode === 'shared'
+            ? 'shared-edge'
+            : 'shared-point';
+    return {
+      id: hostId,
+      kind,
+      container: normalizeEntityContainer(rawData, `${hostId}:entity`, '地图实体', kind),
+    } satisfies BatchContainerTarget;
+  };
+  const viewedContainerData = resolveSelectionTarget(viewedSelection)?.container;
+  const resolvedBatchSelections = canvasSelections.flatMap((selection) => {
+    const target = resolveSelectionTarget(selection);
+    return target ? [{ selection, target }] : [];
+  });
+  const uniqueBatchSelections = [...new Map(
+    resolvedBatchSelections.map((item) => [item.target.id, item]),
+  ).values()];
+  const batchContainerTargets = dedupeBatchContainerTargets(
+    uniqueBatchSelections.map((item) => item.target),
+  );
   const availableEntityDefinitions = ENTITY_TYPE_REGISTRY.listForContainer(selectedContainerKind);
   const effectiveEntityTypeToAdd = availableEntityDefinitions.some((definition) => definition.type === entityTypeToAdd)
     ? entityTypeToAdd
@@ -531,67 +894,91 @@ export const DungeonMapCanvasLab: React.FC = () => {
     });
   };
 
-  const updateCanvasSelectionData = (
+  /** 底层快照写入；只供 MutationPlan 提交、撤销和重做使用。 */
+  const writeSelectionData = (
+    selection: DungeonMapSelection,
     updater: (data: IEntityContainer) => IEntityContainer,
   ) => {
-    if (!selectionHasTarget) return;
-    if (canvasSelection.mode === 'map') {
+    const target = resolveSelectionTarget(selection);
+    if (!target) return;
+    const tile = map.tiles[selection.y * map.width + selection.x];
+    const direction = selection.direction ?? selectedDirection;
+    const sharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
+    const sharedPoint = map.sharedPoints?.find((point) => point.id === selection.sharedPointId);
+    if (selection.mode === 'map') {
       setMapDataEdits(updater(normalizeEntityContainer(map.data, `${map.id}:entity`, '地图实体', 'map')));
       return;
     }
-    if (canvasSelection.mode === 'point') {
-      if (!canvasSelectedSharedPoint) return;
+    if (selection.mode === 'point') {
+      if (!sharedPoint) return;
       const next = {
-        ...canvasSelectedSharedPoint,
+        ...sharedPoint,
         point: {
-          ...canvasSelectedSharedPoint.point,
-          data: updater(normalizeEntityContainer(canvasSelectedSharedPoint.point.data, `${canvasSelectedSharedPoint.id}:entity`, '公用点实体', 'shared-point')),
+          ...sharedPoint.point,
+          data: updater(normalizeEntityContainer(sharedPoint.point.data, `${sharedPoint.id}:entity`, '公用点实体', 'shared-point')),
         },
       };
       setSharedPointEdits((edits) => ({ ...edits, [next.id]: next }));
       return;
     }
-    if (canvasSelection.mode === 'shared') {
-      if (!canvasSelectedSharedEdge) return;
+    if (selection.mode === 'shared') {
+      if (!sharedEdge) return;
       const next = {
-        ...canvasSelectedSharedEdge,
+        ...sharedEdge,
         edge: {
-          ...canvasSelectedSharedEdge.edge,
-          data: updater(normalizeEntityContainer(canvasSelectedSharedEdge.edge.data, `${canvasSelectedSharedEdge.id}:entity`, '公用边实体', 'shared-edge')),
+          ...sharedEdge.edge,
+          data: updater(normalizeEntityContainer(sharedEdge.edge.data, `${sharedEdge.id}:entity`, '公用边实体', 'shared-edge')),
         },
       };
       setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
       return;
     }
 
-    if (canvasSelection.mode === 'tile') {
-      const key = `${canvasSelection.x},${canvasSelection.y}`;
+    if (selection.mode === 'tile') {
+      const key = `${selection.x},${selection.y}`;
       setTileDataEdits((edits) => ({
         ...edits,
-        [key]: updater(normalizeEntityContainer(canvasSelectedTile?.data, `tile:${key}:entity`, `格子 ${key}`, 'tile')),
+        [key]: updater(normalizeEntityContainer(tile?.data, `tile:${key}:entity`, `格子 ${key}`, 'tile')),
       }));
       return;
     }
-    const direction = canvasSelectionDirection;
-    const key = `${canvasSelection.x},${canvasSelection.y},${direction}`;
+    const key = `${selection.x},${selection.y},${direction}`;
     setTileEdgeDataEdits((edits) => ({
       ...edits,
-      [key]: updater(normalizeEntityContainer(canvasSelectedTile?.edges[direction]?.data, `tile-edge:${key}:entity`, `单格边 ${key}`, 'tile-edge')),
+      [key]: updater(normalizeEntityContainer(tile?.edges[direction]?.data, `tile-edge:${key}:entity`, `单格边 ${key}`, 'tile-edge')),
     }));
   };
 
-  const updateEntityById = (entityId: string, updater: (entity: IEntity) => IEntity) => {
-    updateCanvasSelectionData((container) => ({
+  const commitSelectionMutation = (
+    selection: DungeonMapSelection,
+    label: string,
+    operation: string,
+    updater: (data: IEntityContainer) => IEntityContainer,
+  ) => {
+    const target = resolveSelectionTarget(selection);
+    if (!target || pendingMutationPlan) return;
+    const plan = createMutationPlan(label, operation, [target], (current) => updater(current.container));
+    if (plan.blockedReasons.length > 0 || plan.changes.length === 0) return;
+    const entry: LabMutationPlan = { plan, selections: { [target.id]: selection } };
+    writeSelectionData(selection, () => plan.changes[0].after);
+    setMutationHistoryPast((history) => [...history, entry]);
+    setMutationHistoryFuture([]);
+  };
+
+  const updateCanvasSelectionData = (
+    label: string,
+    operation: string,
+    updater: (data: IEntityContainer) => IEntityContainer,
+  ) => commitSelectionMutation(canvasSelection, label, operation, updater);
+
+  const updateEntityById = (entityId: string, label: string, updater: (entity: IEntity) => IEntity) => {
+    updateCanvasSelectionData(label, 'entity-edit', (container) => ({
       ...container,
       entities: container.entities.map((entity) => entity.id === entityId ? updater(entity) : entity),
     }));
   };
 
-  const addEntityToSelection = () => {
-    const definition = ENTITY_TYPE_REGISTRY.get(effectiveEntityTypeToAdd);
-    if (!definition || !ENTITY_TYPE_REGISTRY.canCreateIn(definition.type, selectedContainerKind)) return;
-    if (definition.allowMultiplePerContainer === false
-      && selectedContainerData?.entities.some((entity) => entity.entityType === definition.type)) return;
+  const createEntityFromDefinition = (definition: EntityTypeDefinition): IEntity => {
     const entity = createEntity(definition.label, definition.type);
     const initialComponentTypes = [...new Set([
       ...(definition.defaultComponents ?? []),
@@ -603,7 +990,16 @@ export const DungeonMapCanvasLab: React.FC = () => {
         ? [componentDefinition.createDefault()]
         : [];
     });
-    updateCanvasSelectionData((container) => ({ ...container, entities: [...container.entities, entity] }));
+    return entity;
+  };
+
+  const addEntityToSelection = () => {
+    const definition = ENTITY_TYPE_REGISTRY.get(effectiveEntityTypeToAdd);
+    if (!definition || !ENTITY_TYPE_REGISTRY.canCreateIn(definition.type, selectedContainerKind)) return;
+    if (definition.allowMultiplePerContainer === false
+      && selectedContainerData?.entities.some((entity) => entity.entityType === definition.type)) return;
+    const entity = createEntityFromDefinition(definition);
+    updateCanvasSelectionData(`添加 Entity：${definition.label}`, 'entity-create', (container) => ({ ...container, entities: [...container.entities, entity] }));
     setCollapsedEntityIds((ids) => {
       const next = new Set(ids);
       next.delete(entity.id);
@@ -614,7 +1010,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   };
 
   const removeEntityById = (entityId: string) => {
-    updateCanvasSelectionData((container) => ({
+    updateCanvasSelectionData('删除 Entity', 'entity-delete', (container) => ({
       ...container,
       entities: container.entities.filter((entity) => entity.id !== entityId),
     }));
@@ -630,7 +1026,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
     if (!definition || !COMPONENT_REGISTRY.canAttachTo(definition.type, entity.entityType)) return;
     if (!definition.allowMultiple && entity.components.some((component) => component.type === definition.type)) return;
     const component = definition.createDefault();
-    updateEntityById(entityId, (current) => ({ ...current, components: [...current.components, component] }));
+    updateEntityById(entityId, `添加 Component：${definition.label}`, (current) => ({ ...current, components: [...current.components, component] }));
     setCollapsedComponentIds((ids) => {
       const next = new Set(ids);
       next.delete(component.id);
@@ -640,8 +1036,8 @@ export const DungeonMapCanvasLab: React.FC = () => {
     setSelectedComponentId(component.id);
   };
 
-  const updateComponentById = (entityId: string, componentId: string, updater: (component: IComponent) => IComponent) => {
-    updateEntityById(entityId, (entity) => ({
+  const updateComponentById = (entityId: string, componentId: string, label: string, updater: (component: IComponent) => IComponent) => {
+    updateEntityById(entityId, label, (entity) => ({
       ...entity,
       components: entity.components.map((component) => component.id === componentId ? updater(component) : component),
     }));
@@ -652,7 +1048,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const component = entity?.components.find((item) => item.id === componentId);
     const requiredComponents = entity ? ENTITY_TYPE_REGISTRY.get(entity.entityType)?.requiredComponents ?? [] : [];
     if (component && requiredComponents.includes(component.type)) return;
-    updateEntityById(entityId, (entity) => ({
+    updateEntityById(entityId, `删除 Component：${component?.type ?? componentId}`, (entity) => ({
       ...entity,
       components: entity.components.filter((component) => component.id !== componentId),
     }));
@@ -660,12 +1056,206 @@ export const DungeonMapCanvasLab: React.FC = () => {
   };
 
   const reset = () => {
-    setMapDataEdits(undefined); setTileDataEdits({}); setTileEdgeDataEdits({}); setSharedEdgeEdits({}); setSharedPointEdits({});
+    clearMapEdits();
   };
 
   const visibleEntities = entityViewMode === 'all'
     ? selectedContainerData?.entities ?? []
     : selectedEntity ? [selectedEntity] : [];
+
+  const selectionCounts = canvasSelections.reduce<Record<DungeonMapSelection['mode'], number>>(
+    (counts, item) => ({ ...counts, [item.mode]: counts[item.mode] + 1 }),
+    { map: 0, tile: 0, edge: 0, shared: 0, point: 0 },
+  );
+  const selectionCountSummary = (['map', 'tile', 'edge', 'shared', 'point'] as const)
+    .filter((mode) => selectionCounts[mode] > 0)
+    .map((mode) => `${SELECTION_MODE_LABEL[mode]} ${selectionCounts[mode]}`)
+    .join(' · ');
+
+  const batchEntityDefinitions = listBatchEntityDefinitions(
+    ENTITY_TYPE_DEFINITIONS,
+    batchContainerTargets,
+    'create',
+  );
+  const effectiveBatchEntityTypeToCreate = batchEntityDefinitions.some(
+    (definition) => definition.type === batchEntityTypeToCreate,
+  ) ? batchEntityTypeToCreate : batchEntityDefinitions[0]?.type ?? '';
+  const batchEntityGroups = resolveBatchEntityGroups(batchContainerTargets);
+  const compatibleBatchEntityGroups = batchEntityGroups.filter((group) => group.compatible);
+  const effectiveBatchEntityGroupType = compatibleBatchEntityGroups.some(
+    (group) => group.key === batchEntityGroupType,
+  ) ? batchEntityGroupType : compatibleBatchEntityGroups[0]?.key ?? '';
+  const activeBatchEntityGroup = compatibleBatchEntityGroups.find(
+    (group) => group.key === effectiveBatchEntityGroupType,
+  );
+  const batchEntityTargets = activeBatchEntityGroup?.targets ?? [];
+  const batchComponentCreateDefinitions = listBatchComponentDefinitions(
+    COMPONENT_DEFINITIONS,
+    batchEntityTargets,
+    'create',
+  );
+  const effectiveBatchComponentTypeToCreate = batchComponentCreateDefinitions.some(
+    (definition) => definition.type === batchComponentTypeToCreate,
+  ) ? batchComponentTypeToCreate : batchComponentCreateDefinitions[0]?.type ?? '';
+  const batchComponentEditDefinitions = listBatchComponentDefinitions(
+    COMPONENT_DEFINITIONS,
+    batchEntityTargets,
+    'edit',
+  );
+  const batchComponentGroups = resolveBatchComponentGroups(batchEntityTargets);
+  const editableBatchComponentGroups = batchComponentGroups.filter((group) => (
+    group.compatible && batchComponentEditDefinitions.some(
+      (definition) => definition.type === group.componentType,
+    )
+  ));
+  const effectiveBatchComponentTypeToEdit = editableBatchComponentGroups.some(
+    (group) => group.key === batchComponentTypeToEdit,
+  ) ? batchComponentTypeToEdit : editableBatchComponentGroups[0]?.key ?? '';
+  const activeBatchComponentGroup = editableBatchComponentGroups.find(
+    (group) => group.key === effectiveBatchComponentTypeToEdit,
+  );
+  const activeBatchComponentDefinition = batchComponentEditDefinitions.find(
+    (definition) => definition.type === activeBatchComponentGroup?.componentType,
+  );
+  const activeBatchComponents = activeBatchComponentGroup?.targets.map(
+    (target) => target.component,
+  ) ?? [];
+  const batchComponentDeleteDefinitions = listBatchComponentDefinitions(
+    COMPONENT_DEFINITIONS,
+    batchEntityTargets,
+    'delete',
+  ).filter((definition) => batchEntityTargets.every((target) => !(
+    ENTITY_TYPE_REGISTRY.get(target.entity.entityType)?.requiredComponents ?? []
+  ).includes(definition.type)));
+
+  const queueBatchPlan = (
+    label: string,
+    operation: string,
+    updater: (target: BatchContainerTarget) => IEntityContainer,
+  ) => {
+    if (pendingMutationPlan) return;
+    const plan = createMutationPlan(label, operation, batchContainerTargets, updater);
+    setPendingMutationPlan({
+      plan,
+      selections: Object.fromEntries(uniqueBatchSelections.map(
+        ({ selection, target }) => [target.id, selection],
+      )),
+    });
+  };
+
+  const queueBatchEntityPlan = (
+    label: string,
+    operation: string,
+    updater: (entity: IEntity) => IEntity,
+  ) => {
+    if (!activeBatchEntityGroup) return;
+    const entityIdByContainer = new Map(activeBatchEntityGroup.targets.map(
+      (target) => [target.containerId, target.entity.id],
+    ));
+    queueBatchPlan(label, operation, (target) => {
+      const entityId = entityIdByContainer.get(target.id);
+      if (!entityId) throw new Error('目标容器没有唯一匹配的 Entity');
+      return {
+        ...target.container,
+        entities: target.container.entities.map((entity) => (
+          entity.id === entityId ? updater(entity) : entity
+        )),
+      };
+    });
+  };
+
+  const applyLabMutationPlan = (entry: LabMutationPlan, direction: 'forward' | 'backward') => {
+    entry.plan.changes.forEach((change) => {
+      const selection = entry.selections[change.targetId];
+      if (!selection) return;
+      const snapshot = direction === 'forward' ? change.after : change.before;
+      writeSelectionData(selection, () => snapshot);
+    });
+  };
+
+  const confirmMutationPlan = () => {
+    if (!pendingMutationPlan || pendingMutationPlan.plan.blockedReasons.length > 0 || pendingMutationPlan.plan.changes.length === 0) return;
+    applyLabMutationPlan(pendingMutationPlan, 'forward');
+    setMutationHistoryPast((history) => [...history, pendingMutationPlan]);
+    setMutationHistoryFuture([]);
+    setPendingMutationPlan(undefined);
+  };
+
+  const undoMutationPlan = () => {
+    const entry = mutationHistoryPast.at(-1);
+    if (!entry || pendingMutationPlan) return;
+    applyLabMutationPlan(entry, 'backward');
+    setMutationHistoryPast((history) => history.slice(0, -1));
+    setMutationHistoryFuture((history) => [entry, ...history]);
+  };
+
+  const redoMutationPlan = () => {
+    const entry = mutationHistoryFuture[0];
+    if (!entry || pendingMutationPlan) return;
+    applyLabMutationPlan(entry, 'forward');
+    setMutationHistoryFuture((history) => history.slice(1));
+    setMutationHistoryPast((history) => [...history, entry]);
+  };
+
+  const batchCreateEntity = () => {
+    const definition = ENTITY_TYPE_REGISTRY.get(effectiveBatchEntityTypeToCreate);
+    if (!definition || !batchEntityDefinitions.includes(definition)) return;
+    queueBatchPlan(`批量创建 ${definition.label}`, 'entity-create', (target) => {
+      const archetypeId = batchEntityArchetypeDraft.trim() || undefined;
+      if (target.container.entities.some((entity) => (
+        entity.entityType === definition.type && entity.archetypeId === archetypeId
+      ))) throw new Error('已存在相同 Entity 类型与 Archetype ID 的实例');
+      const entity = createEntityFromDefinition(definition);
+      entity.archetypeId = archetypeId;
+      return { ...target.container, entities: [...target.container.entities, entity] };
+    });
+  };
+
+  const batchAddComponent = () => {
+    const definition = COMPONENT_REGISTRY.get(effectiveBatchComponentTypeToCreate);
+    if (!definition || !batchComponentCreateDefinitions.includes(definition)) return;
+    queueBatchEntityPlan(`批量添加 ${definition.label}`, 'component-create', (entity) => {
+      const slot = batchComponentSlotDraft.trim() || undefined;
+      if (entity.components.some((component) => (
+        component.type === definition.type && component.slot === slot
+      ))) throw new Error('已存在相同 Component 类型与 Slot 的实例');
+      const component = definition.createDefault();
+      component.slot = slot;
+      return {
+      ...entity,
+        components: [...entity.components, component],
+      };
+    });
+  };
+
+  const batchDeleteComponent = (componentType: string) => {
+    if (!batchComponentDeleteDefinitions.some((definition) => definition.type === componentType)) return;
+    const definition = COMPONENT_REGISTRY.get(componentType);
+    queueBatchEntityPlan(`批量删除 ${definition?.label ?? componentType}`, 'component-delete', (entity) => ({
+      ...entity,
+      components: entity.components.filter((component) => component.type !== componentType),
+    }));
+  };
+
+  const batchSetComponentField = (field: ComponentFieldSchema, value: unknown) => {
+    if (!activeBatchComponentDefinition || !activeBatchComponentGroup || field.batch?.editable !== true) return;
+    const componentByContainer = new Map(activeBatchComponentGroup.targets.map(
+      (target) => [target.containerId, { entityId: target.entityId, componentId: target.component.id }],
+    ));
+    queueBatchPlan(`批量修改 ${activeBatchComponentDefinition.label} · ${field.label}`, 'component-edit', (target) => {
+      const matched = componentByContainer.get(target.id);
+      if (!matched) throw new Error('目标容器没有匹配的 Component 槽位');
+      return {
+        ...target.container,
+        entities: target.container.entities.map((entity) => entity.id === matched.entityId ? {
+          ...entity,
+          components: entity.components.map((component) => component.id === matched.componentId
+            ? valueWithPath(component, field.path, value)
+            : component),
+        } : entity),
+      };
+    });
+  };
 
   const toggleCollapsedId = (
     setter: React.Dispatch<React.SetStateAction<Set<string>>>,
@@ -684,23 +1274,40 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const isAllowed = definition ? COMPONENT_REGISTRY.canAttachTo(component.type, entity.entityType) : false;
     const isCollapsed = collapsedComponentIds.has(component.id);
     const setField = (field: ComponentFieldSchema, value: unknown) => updateComponentById(
-      entity.id, component.id, (current) => valueWithPath(current, field.path, value),
+      entity.id, component.id, `修改 ${definition?.label ?? component.type} · ${field.label}`,
+      (current) => valueWithPath(current, field.path, value),
     );
     return <div className="component-card" key={component.id}>
-      <div className="component-card__header"><button type="button" className="card-collapse-button" aria-expanded={!isCollapsed} onClick={() => toggleCollapsedId(setCollapsedComponentIds, component.id)}><span className="card-collapse-button__icon">{isCollapsed ? '▸' : '▾'}</span><span className="card-collapse-button__text"><strong>{definition?.label ?? component.type}</strong><small>{component.type} · v{component.version}{!isAllowed ? ' · 当前 Entity 类型不允许' : ''}</small></span></button><label className="component-enabled"><input type="checkbox" checked={component.enabled !== false} onChange={(event) => updateComponentById(entity.id, component.id, (current) => ({ ...current, enabled: event.target.checked }))} />启用</label></div>
+      <div className="component-card__header"><button type="button" className="card-collapse-button" aria-expanded={!isCollapsed} onClick={() => toggleCollapsedId(setCollapsedComponentIds, component.id)}><span className="card-collapse-button__icon">{isCollapsed ? '▸' : '▾'}</span><span className="card-collapse-button__text"><strong>{definition?.label ?? component.type}</strong><small>{component.type} · v{component.version}{!isAllowed ? ' · 当前 Entity 类型不允许' : ''}</small></span></button><label className="component-enabled"><input type="checkbox" checked={component.enabled !== false} onChange={(event) => updateComponentById(entity.id, component.id, `切换 ${definition?.label ?? component.type} 启用状态`, (current) => ({ ...current, enabled: event.target.checked }))} />启用</label></div>
+      {!isCollapsed ? <div className="component-instance-meta"><label><span>Component Slot</span><input key={`${component.id}-slot-${component.slot ?? ''}`} defaultValue={component.slot ?? ''} placeholder="多实例跨 Entity 匹配键" onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; updateComponentById(entity.id, component.id, '修改 Component Slot', (current) => ({ ...current, slot: event.currentTarget.value || undefined })); delete event.currentTarget.dataset.dirty; }} /></label></div> : null}
       {!isCollapsed && (definition ? <div className="physics-fields">
         {definition.fields.map((field) => {
           const currentValue = valueAtPath(component, field.path);
           if (field.control === 'checkbox') return <label className="physics-check" key={field.path}><input type="checkbox" checked={currentValue === true} onChange={(event) => setField(field, event.target.checked)} /><span>{field.label}</span></label>;
           if (field.control === 'select') return <label key={field.path}><span>{field.label}</span><select value={String(currentValue ?? '')} onChange={(event) => setField(field, event.target.value || undefined)}>{field.optional ? <option value="">不启用</option> : null}{field.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
-          if (field.control === 'tags') return <label key={field.path}><span>{field.label}</span><textarea rows={2} value={Array.isArray(currentValue) ? currentValue.join(', ') : ''} placeholder={field.placeholder} onChange={(event) => setField(field, event.target.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean))} /></label>;
-          if (field.control === 'json') return <label key={`${component.id}-${field.path}-${JSON.stringify(currentValue)}`}><span>{field.label}</span><textarea rows={4} defaultValue={currentValue === undefined ? '' : JSON.stringify(currentValue, null, 2)} placeholder={field.placeholder} onBlur={(event) => { const text = event.currentTarget.value.trim(); try { event.currentTarget.setCustomValidity(''); setField(field, text ? JSON.parse(text) : undefined); } catch { event.currentTarget.setCustomValidity('请输入合法 JSON'); event.currentTarget.reportValidity(); } }} /></label>;
-          if (field.control === 'number') return <label key={field.path}><span>{field.label}</span><input type="number" min={field.min} max={field.max} step={field.step ?? 1} value={typeof currentValue === 'number' ? currentValue : ''} onChange={(event) => setField(field, event.target.value === '' ? undefined : Number(event.target.value))} /></label>;
-          return <label key={field.path}><span>{field.label}</span><input value={String(currentValue ?? '')} placeholder={field.placeholder} onChange={(event) => setField(field, event.target.value || undefined)} /></label>;
+          if (field.control === 'tags') return <label key={`${field.path}-${JSON.stringify(currentValue)}`}><span>{field.label}</span><textarea rows={2} defaultValue={Array.isArray(currentValue) ? currentValue.join(', ') : ''} placeholder={field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; setField(field, event.currentTarget.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean)); delete event.currentTarget.dataset.dirty; }} /></label>;
+          if (field.control === 'json') return <label key={`${component.id}-${field.path}-${JSON.stringify(currentValue)}`}><span>{field.label}</span><textarea rows={4} defaultValue={currentValue === undefined ? '' : JSON.stringify(currentValue, null, 2)} placeholder={field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; const text = event.currentTarget.value.trim(); try { event.currentTarget.setCustomValidity(''); setField(field, text ? JSON.parse(text) : undefined); delete event.currentTarget.dataset.dirty; } catch { event.currentTarget.setCustomValidity('请输入合法 JSON'); event.currentTarget.reportValidity(); } }} /></label>;
+          if (field.control === 'number') return <label key={`${field.path}-${String(currentValue)}`}><span>{field.label}</span><input type="number" min={field.min} max={field.max} step={field.step ?? 1} defaultValue={typeof currentValue === 'number' ? currentValue : ''} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; setField(field, event.currentTarget.value === '' ? undefined : Number(event.currentTarget.value)); delete event.currentTarget.dataset.dirty; }} /></label>;
+          return <label key={`${field.path}-${String(currentValue)}`}><span>{field.label}</span><input defaultValue={String(currentValue ?? '')} placeholder={field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; setField(field, event.currentTarget.value || undefined); delete event.currentTarget.dataset.dirty; }} /></label>;
         })}
-      </div> : <label className="unknown-component-json"><span>未注册组件，使用原始 JSON 编辑</span><textarea key={`${component.id}-${JSON.stringify(component)}`} rows={8} defaultValue={JSON.stringify(component, null, 2)} onBlur={(event) => { try { const parsed = JSON.parse(event.currentTarget.value) as IComponent; if (!parsed.id || !parsed.type || !parsed.version) throw new Error(); event.currentTarget.setCustomValidity(''); updateComponentById(entity.id, component.id, () => parsed); } catch { event.currentTarget.setCustomValidity('必须包含合法的 id、type、version'); event.currentTarget.reportValidity(); } }} /></label>)}
+      </div> : <label className="unknown-component-json"><span>未注册组件，使用原始 JSON 编辑</span><textarea key={`${component.id}-${JSON.stringify(component)}`} rows={8} defaultValue={JSON.stringify(component, null, 2)} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; try { const parsed = JSON.parse(event.currentTarget.value) as IComponent; if (!parsed.id || !parsed.type || !parsed.version) throw new Error(); event.currentTarget.setCustomValidity(''); updateComponentById(entity.id, component.id, `修改未注册 Component：${component.type}`, () => parsed); delete event.currentTarget.dataset.dirty; } catch { event.currentTarget.setCustomValidity('必须包含合法的 id、type、version'); event.currentTarget.reportValidity(); } }} /></label>)}
       {!isCollapsed ? <button type="button" className="danger-button compact-button" disabled={isRequired} onClick={() => removeComponentById(entity.id, component.id)}>{isRequired ? '必需组件' : '删除'}</button> : null}
     </div>;
+  };
+
+  const renderBatchField = (field: ComponentFieldSchema) => {
+    const fieldState = resolveBatchFieldValue(activeBatchComponents, field);
+    const currentValue = fieldState.state === 'same' ? fieldState.value : undefined;
+    const mixed = fieldState.state === 'mixed';
+    const editable = field.batch?.editable === true;
+    const status = mixed ? '多个值' : fieldState.state === 'missing' ? '未设置' : undefined;
+    if (!editable) return <div className="batch-readonly-field" key={field.path}><span>{field.label}</span><strong>{status ?? JSON.stringify(currentValue)}</strong><em>只读 · 字段未声明批量兼容</em></div>;
+    if (field.control === 'checkbox') return <label className="physics-check batch-field" key={field.path}><input type="checkbox" checked={currentValue === true} ref={(element) => { if (element) element.indeterminate = mixed; }} onChange={(event) => batchSetComponentField(field, event.target.checked)} /><span>{field.label}{status ? <em>{status}</em> : null}</span></label>;
+    if (field.control === 'select') return <label className="batch-field" key={field.path}><span>{field.label}{status ? <em>{status}</em> : null}</span><select value={mixed ? '__mixed__' : String(currentValue ?? '')} onChange={(event) => batchSetComponentField(field, event.target.value || undefined)}>{mixed ? <option value="__mixed__" disabled>多个值（选择后覆盖全部）</option> : null}{field.optional ? <option value="">不启用</option> : null}{field.options?.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>;
+    if (field.control === 'json') return <label className="batch-field" key={`${field.path}-${fieldState.state}-${JSON.stringify(currentValue)}`}><span>{field.label}{status ? <em>{status}</em> : null}</span><textarea rows={4} defaultValue={currentValue === undefined ? '' : JSON.stringify(currentValue, null, 2)} placeholder={mixed ? '多个值；输入后覆盖全部目标' : field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; const text = event.currentTarget.value.trim(); try { event.currentTarget.setCustomValidity(''); batchSetComponentField(field, text ? JSON.parse(text) : undefined); delete event.currentTarget.dataset.dirty; } catch { event.currentTarget.setCustomValidity('请输入合法 JSON'); event.currentTarget.reportValidity(); } }} /></label>;
+    if (field.control === 'tags') return <label className="batch-field" key={`${field.path}-${fieldState.state}-${JSON.stringify(currentValue)}`}><span>{field.label}{status ? <em>{status}</em> : null}</span><textarea rows={2} defaultValue={Array.isArray(currentValue) ? currentValue.join(', ') : ''} placeholder={mixed ? '多个值；输入后覆盖全部目标' : field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; batchSetComponentField(field, event.currentTarget.value.split(/[，,\n]/).map((tag) => tag.trim()).filter(Boolean)); delete event.currentTarget.dataset.dirty; }} /></label>;
+    if (field.control === 'number') return <label className="batch-field" key={`${field.path}-${fieldState.state}-${String(currentValue)}`}><span>{field.label}{status ? <em>{status}</em> : null}</span><input type="number" min={field.min} max={field.max} step={field.step ?? 1} defaultValue={typeof currentValue === 'number' ? currentValue : ''} placeholder={mixed ? '多个值' : field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; batchSetComponentField(field, event.currentTarget.value === '' ? undefined : Number(event.currentTarget.value)); delete event.currentTarget.dataset.dirty; }} /></label>;
+    return <label className="batch-field" key={`${field.path}-${fieldState.state}-${String(currentValue)}`}><span>{field.label}{status ? <em>{status}</em> : null}</span><input defaultValue={String(currentValue ?? '')} placeholder={mixed ? '多个值；输入后覆盖全部目标' : field.placeholder} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; batchSetComponentField(field, event.currentTarget.value || undefined); delete event.currentTarget.dataset.dirty; }} /></label>;
   };
 
   return (
@@ -718,12 +1325,29 @@ export const DungeonMapCanvasLab: React.FC = () => {
           <div className="status-row"><span>公用点</span><strong>{map.sharedPoints?.length ?? 0} 个</strong></div>
           <div className="status-row"><span>当前坐标</span><strong>{canvasSelection.x}, {canvasSelection.y}</strong></div>
         </section>
-        <section className="control-card controls">
+        <section className="control-card controls map-preset-controls">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-presets')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-presets')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-presets') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图预设</strong><small>拓扑参数只在新建时生效</small></span></button><strong>{Object.keys(mapPresets).length} 个</strong></div>
+          {!collapsedPanelIds.has('map-presets') ? <div className="collapsible-panel-body">
+          <label>当前预设<select value={activePresetKey} disabled={Object.keys(mapPresets).length === 0} onChange={(event) => selectMapPreset(event.target.value)}>{Object.keys(mapPresets).length === 0 ? <option value="">暂无已保存预设</option> : null}{Object.values(mapPresets).map((preset) => <option key={preset.presetKey} value={preset.presetKey}>{preset.name} · {preset.presetKey}</option>)}</select></label>
+          {activePresetKey && mapPresets[activePresetKey] ? <><label>presetKey（按确认才生效）<span className="preset-key-row"><input value={presetKeyDraft} placeholder="输入新的 presetKey" onChange={(event) => setPresetKeyDraft(event.target.value)} /><button type="button" disabled={presetKeyDraft.trim() === activePresetKey} onClick={confirmPresetKeyChange}>确认修改 ID</button></span></label><label>当前预设名称<input value={mapPresets[activePresetKey].name} onChange={(event) => setMapPresets((current) => ({ ...current, [activePresetKey]: { ...current[activePresetKey], name: event.target.value } }))} /></label><div className="preset-actions"><button type="button" onClick={duplicateMapPreset}>复制当前预设</button><button type="button" className="danger-button" onClick={deleteMapPreset}>删除当前预设</button></div></> : null}
+          <div className="preset-divider"><span>新地图参数</span><small>当前地图：{mapWidth} × {mapHeight}</small></div>
           <div className="map-size-fields">
-            <label>地图 X<input type="number" min="1" max="30" value={mapWidth} onChange={(event) => updateMapWidth(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
-            <label>地图 Y<input type="number" min="1" max="30" value={mapHeight} onChange={(event) => updateMapHeight(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+            <label>地图 X<input type="number" min="1" max="30" value={draftMapWidth} onChange={(event) => setDraftMapWidth(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
+            <label>地图 Y<input type="number" min="1" max="30" value={draftMapHeight} onChange={(event) => setDraftMapHeight(Math.max(1, Math.min(30, Number(event.target.value) || 1)))} /></label>
           </div>
-          <label>拓扑模式<select value={topologyMode} onChange={(event) => updateTopologyMode(event.target.value as DungeonMapTopologyMode)}><option value="bounded">有界模式</option><option value="loop">循环模式</option></select></label>
+          <label>拓扑模式<select value={draftTopologyMode} onChange={(event) => setDraftTopologyMode(event.target.value as DungeonMapTopologyMode)}><option value="bounded">有界模式</option><option value="loop-horizontal">左右循环</option><option value="loop-vertical">上下循环</option><option value="loop">双向循环</option></select></label>
+          <div className="map-size-fields">
+            <label>新预设 Key<input value={newPresetKey} onChange={(event) => setNewPresetKey(event.target.value)} /></label>
+            <label>显示名称<input value={newPresetName} onChange={(event) => setNewPresetName(event.target.value)} /></label>
+          </div>
+          <button type="button" className="create-preset-button" onClick={createMapPreset}>新建地图预设</button>
+          <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
+          <div className={`preset-status${presetError ? ' is-error' : ''}`}>{presetMessage}</div>
+          </div> : null}
+        </section>
+        <section className="control-card controls visual-controls">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('visual')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'visual')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('visual') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>视觉参数</strong><small>仅改变 Lab 显示，不重建地图数据</small></span></button></div>
+          {!collapsedPanelIds.has('visual') ? <div className="collapsible-panel-body">
           <label>格子尺寸 <strong>{cellSize}px</strong><input type="range" min="24" max="128" value={cellSize} onChange={(event) => setCellSize(Number(event.target.value))} /></label>
           <label>地图外侧留白 <strong>{canvasOuterPadding}px</strong><input type="range" min="0" max="160" step="4" value={canvasOuterPadding} onChange={(event) => setCanvasOuterPadding(Number(event.target.value))} /></label>
           <div className="map-size-fields">
@@ -734,17 +1358,72 @@ export const DungeonMapCanvasLab: React.FC = () => {
           <label className="check"><input type="checkbox" checked={showGrid} onChange={(event) => setShowGrid(event.target.checked)} />显示网格</label>
           <label className="check"><input type="checkbox" checked={showCoordinates} onChange={(event) => setShowCoordinates(event.target.checked)} />显示坐标</label>
           <button type="button" className="reset-button" onClick={reset}>重置编辑数据</button>
+          </div> : null}
         </section>
         <section className="control-card selection-panel">
-          <div className="map-editor__header"><div><h2>选中数据</h2><p>点击精确选择，拖动鼠标框选</p></div><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection.x}, ${canvasSelection.y}`}</strong></div>
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('selection')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('selection') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>选中数据</strong><small>点击精确选择，拖动鼠标框选</small></span></button><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection.x}, ${canvasSelection.y}`}</strong></div>
+          {!collapsedPanelIds.has('selection') ? <div className="collapsible-panel-body">
           <div className="selection-mode-switch">{([['all','所有'],['map','地图'],['tile','格子'],['edge','单格边'],['shared','公用边'],['point','公用点']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
-          <div className="selection-summary"><span>{canvasSelections.length > 1 ? `已框选 ${canvasSelections.length} 个数据容器` : `类型：${canvasSelection.mode==='map'?'地图':canvasSelection.mode==='tile'?'格子':canvasSelection.mode==='edge'?'单格边':canvasSelection.mode==='shared'?'公用边':'公用点'}`}</span>{canvasSelections.length <= 1 && canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>
-          {canvasSelections.length > 1 ? <div className="selection-multi-hint">下方编辑器显示框选结果中的主数据容器；地图会同时高亮全部结果。</div> : null}
-          <pre className="selection-data">{JSON.stringify(selectedContainerData, null, 2) ?? '无数据'}</pre>
+          {canvasSelections.length > 1 ? <>
+            <div className="selection-overview"><strong>已选择 {canvasSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
+            <div className="selection-object-list">
+              <div className="selection-object-list__header"><strong>选中对象列表</strong><span>点击查看对象数据</span></div>
+              {canvasSelections.map((item) => {
+                const isViewed = selectionIdentity(item) === selectionIdentity(viewedSelection);
+                return <button type="button" key={selectionIdentity(item)} className={isViewed ? 'is-viewed' : ''} onClick={() => setViewedSelectionKey(selectionIdentity(item))}><span className="selection-object-list__marker">{isViewed ? '●' : '○'}</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span>{isViewed ? <em>查看中</em> : null}</button>;
+              })}
+            </div>
+            <div className="selection-multi-hint">紫色高亮为当前查看对象；只影响下方数据显示，不改变批量选择范围，也不参与编辑目标判定。</div>
+            <div className="selection-viewed-label"><span>当前查看</span><strong>{selectionObjectLabel(viewedSelection)}</strong></div>
+          </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection.mode]}</span>{canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>}
+          <div className="selection-data-panel">
+            <button type="button" className="selection-data-panel__header" aria-expanded={!collapsedPanelIds.has('selection-json')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection-json')}>
+              <span>{collapsedPanelIds.has('selection-json') ? '▸' : '▾'}</span>
+              <strong>JSON 数据</strong>
+              <small>{selectionObjectLabel(viewedSelection)}</small>
+            </button>
+            {!collapsedPanelIds.has('selection-json') ? <pre className="selection-data">{JSON.stringify(viewedContainerData, null, 2) ?? '无数据'}</pre> : null}
+          </div>
+          </div> : null}
         </section>
         <section className="control-card entity-component-editor">
-          <div className="map-editor__header"><div><h2>Entity / Component</h2><p>{ENTITY_TYPE_DEFINITIONS.length} 种 Entity / {COMPONENT_DEFINITIONS.length} 种 Component 定义已自动扫描</p></div><strong>{selectedContainerData?.entities.length ?? 0} Entity</strong></div>
-          {!selectionHasTarget ? <div className="editor-empty">当前位置没有可编辑的数据容器</div> : <>
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('entity-component')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'entity-component')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('entity-component') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>Entity / Component</strong><small>{ENTITY_TYPE_DEFINITIONS.length} 种 Entity / {COMPONENT_DEFINITIONS.length} 种 Component 定义已自动扫描</small></span></button><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 个目标` : `${selectedContainerData?.entities.length ?? 0} Entity`}</strong></div>
+          {!collapsedPanelIds.has('entity-component') ? <div className="collapsible-panel-body">
+          <div className="batch-history-toolbar"><span>数据修改历史 {mutationHistoryPast.length} · 可重做 {mutationHistoryFuture.length}</span><div><button type="button" className="icon-button" disabled={mutationHistoryPast.length === 0 || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>撤销</button><button type="button" className="icon-button" disabled={mutationHistoryFuture.length === 0 || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>重做</button></div></div>
+          {canvasSelections.length > 1 ? <div className="batch-editor">
+            <div className="batch-edit-placeholder"><strong>批量编辑模式</strong><span>真实目标：{batchContainerTargets.length} 个数据容器</span><p>当前查看对象不参与判定。循环地图的重复视觉位置已按真实容器 ID 去重，所有写入均要求全部目标兼容。</p></div>
+            {pendingMutationPlan ? <section className="batch-plan-preview"><div className="batch-section__title"><strong>待确认：{pendingMutationPlan.plan.label}</strong><span>{pendingMutationPlan.plan.summary.changedContainers} 个真实容器</span></div><div className="batch-plan-summary"><span>Entity ＋{pendingMutationPlan.plan.summary.createdEntities} / −{pendingMutationPlan.plan.summary.deletedEntities}</span><span>Component ＋{pendingMutationPlan.plan.summary.createdComponents} / −{pendingMutationPlan.plan.summary.deletedComponents}</span><span>阻止 {pendingMutationPlan.plan.blockedReasons.length}</span></div>{pendingMutationPlan.plan.blockedReasons.length > 0 ? <div className="batch-plan-errors">{pendingMutationPlan.plan.blockedReasons.map((reason) => <div key={reason}>{reason}</div>)}</div> : null}<div className="batch-plan-targets">{pendingMutationPlan.plan.changes.slice(0, 8).map((change) => <code key={change.targetId}>{change.targetId}</code>)}{pendingMutationPlan.plan.changes.length > 8 ? <span>另有 {pendingMutationPlan.plan.changes.length - 8} 个目标</span> : null}</div><div className="batch-plan-actions"><button type="button" onClick={() => setPendingMutationPlan(undefined)}>取消</button><button type="button" className="create-preset-button" disabled={pendingMutationPlan.plan.blockedReasons.length > 0 || pendingMutationPlan.plan.changes.length === 0} onClick={confirmMutationPlan}>确认并一次提交</button></div></section> : null}
+            <section className="batch-section">
+              <div className="batch-section__title"><strong>批量创建 Entity</strong><span>{batchEntityDefinitions.length} 种可用</span></div>
+              {batchEntityDefinitions.length > 0 ? <><div className="batch-action-row"><select aria-label="批量创建 Entity 类型" value={effectiveBatchEntityTypeToCreate} onChange={(event) => setBatchEntityTypeToCreate(event.target.value)}>{batchEntityDefinitions.map((definition) => <option key={definition.type} value={definition.type}>{definition.label}</option>)}</select><button type="button" className="compact-button" disabled={Boolean(pendingMutationPlan)} onClick={batchCreateEntity}>生成创建计划</button></div><label className="batch-identity-field"><span>Archetype ID（跨容器匹配，可选）</span><input value={batchEntityArchetypeDraft} placeholder="例如 door:iron" onChange={(event) => setBatchEntityArchetypeDraft(event.target.value)} /></label></> : <div className="editor-empty">当前容器组合没有共同允许批量创建的 Entity 类型</div>}
+            </section>
+            <section className="batch-section">
+              <div className="batch-section__title"><strong>目标 Entity</strong><span>按类型跨容器匹配</span></div>
+              {compatibleBatchEntityGroups.length > 0 ? <select value={effectiveBatchEntityGroupType} onChange={(event) => { setBatchEntityGroupType(event.target.value); setBatchComponentTypeToCreate(''); setBatchComponentTypeToEdit(''); }}>{compatibleBatchEntityGroups.map((group) => <option key={group.key} value={group.key}>{ENTITY_TYPE_REGISTRY.get(group.entityType)?.label ?? group.entityType}{group.archetypeId ? ` · ${group.archetypeId}` : ' · 无 Archetype'} · {group.targets.length} 个</option>)}</select> : <div className="editor-empty">没有能在每个容器中唯一匹配的 Entity</div>}
+              {batchEntityGroups.filter((group) => !group.compatible).length > 0 ? <div className="batch-readonly-list"><strong>只读 / 不兼容 Entity</strong>{batchEntityGroups.filter((group) => !group.compatible).map((group) => <div key={group.key}><span>{ENTITY_TYPE_REGISTRY.get(group.entityType)?.label ?? group.entityType}{group.archetypeId ? ` · ${group.archetypeId}` : ''}</span><em>{group.reason}</em></div>)}</div> : null}
+            </section>
+            {activeBatchEntityGroup ? <>
+              <section className="batch-section">
+                <div className="batch-section__title"><strong>批量添加 Component</strong><span>{batchComponentCreateDefinitions.length} 种可用</span></div>
+                {batchComponentCreateDefinitions.length > 0 ? <><div className="batch-action-row"><select aria-label="批量添加 Component 类型" value={effectiveBatchComponentTypeToCreate} onChange={(event) => setBatchComponentTypeToCreate(event.target.value)}>{batchComponentCreateDefinitions.map((definition) => <option key={definition.type} value={definition.type}>{definition.label}</option>)}</select><button type="button" className="compact-button" disabled={Boolean(pendingMutationPlan)} onClick={batchAddComponent}>生成添加计划</button></div><label className="batch-identity-field"><span>Component Slot（多实例匹配，可选）</span><input value={batchComponentSlotDraft} placeholder="例如 on-enter" onChange={(event) => setBatchComponentSlotDraft(event.target.value)} /></label></> : <div className="editor-empty">没有可安全添加到全部目标 Entity 的 Component</div>}
+              </section>
+              <section className="batch-section">
+                <div className="batch-section__title"><strong>批量编辑 Component</strong><span>仅单实例与明确开放字段</span></div>
+                {editableBatchComponentGroups.length > 0 ? <><select value={effectiveBatchComponentTypeToEdit} onChange={(event) => setBatchComponentTypeToEdit(event.target.value)}>{editableBatchComponentGroups.map((group) => <option key={group.key} value={group.key}>{COMPONENT_REGISTRY.get(group.componentType)?.label ?? group.componentType}{group.slot ? ` · Slot: ${group.slot}` : ' · 默认槽位'}</option>)}</select>{activeBatchComponentDefinition ? <div className="physics-fields batch-fields">{activeBatchComponentDefinition.fields.map(renderBatchField)}</div> : null}</> : <div className="editor-empty">共同 Component 不支持批量字段编辑，数据仍保留为只读</div>}
+                {batchComponentGroups.filter((group) => !group.compatible).length > 0 ? <div className="batch-readonly-list"><strong>只读 / 不兼容 Component 槽位</strong>{batchComponentGroups.filter((group) => !group.compatible).map((group) => <div key={group.key}><span>{COMPONENT_REGISTRY.get(group.componentType)?.label ?? group.componentType}{group.slot ? ` · ${group.slot}` : ' · 无 Slot'}</span><em>{group.reason}</em></div>)}</div> : null}
+              </section>
+              <section className="batch-section">
+                <div className="batch-section__title"><strong>共同存在的 Component</strong><span>按类型匹配，不使用实例 ID</span></div>
+                <div className="batch-component-status-list">{[...new Set(batchEntityTargets.flatMap((target) => target.entity.components.map((component) => component.type)))].map((componentType) => {
+                  const definition = COMPONENT_REGISTRY.get(componentType);
+                  const canDelete = batchComponentDeleteDefinitions.some((item) => item.type === componentType);
+                  const canEdit = batchComponentEditDefinitions.some((item) => item.type === componentType);
+                  const existsEverywhere = batchEntityTargets.every((target) => target.entity.components.some((component) => component.type === componentType));
+                  return <div key={componentType}><span><strong>{definition?.label ?? componentType}</strong><small>{existsEverywhere ? canEdit ? '可批量编辑' : '只读显示' : '并非所有目标都存在'}</small></span>{canDelete ? <button type="button" className="danger-button icon-button" onClick={() => batchDeleteComponent(componentType)}>删除全部同类型实例</button> : <em>{existsEverywhere ? '禁止批量删除' : '不参与批量操作'}</em>}</div>;
+                })}</div>
+              </section>
+            </> : null}
+          </div> : !selectionHasTarget ? <div className="editor-empty">当前位置没有可编辑的数据容器</div> : <>
             <div className="subpanel-header"><strong className="subpanel-title">Entity</strong><div className="mini-mode-switch"><button type="button" className={entityViewMode === 'all' ? 'is-active' : ''} onClick={() => setEntityViewMode('all')}>全部</button><button type="button" className={entityViewMode === 'select' ? 'is-active' : ''} onClick={() => setEntityViewMode('select')}>下拉</button></div></div>
             <div className="subpanel-body">
               <div className="entity-toolbar">
@@ -764,7 +1443,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
                 const entityCollapsed = collapsedEntityIds.has(entity.id);
                 return <div className="entity-card" key={entity.id}>
                   <div className="entity-card__title"><button type="button" className="card-collapse-button" aria-expanded={!entityCollapsed} onClick={() => toggleCollapsedId(setCollapsedEntityIds, entity.id)}><span className="card-collapse-button__icon">{entityCollapsed ? '▸' : '▾'}</span><span className="card-collapse-button__text"><strong>{entity.name || '未命名 Entity'}</strong><small>{entityDefinition?.label ?? entity.entityType} · {entity.components.length} Component</small></span></button><button type="button" className="danger-button icon-button" onClick={() => removeEntityById(entity.id)}>删除</button></div>
-                  {!entityCollapsed ? <><div className="physics-fields entity-fields"><label><span>Entity ID</span><input value={entity.id} readOnly /></label><label><span>Entity 类型</span><input value={entityDefinition ? `${entityDefinition.label} (${entity.entityType})` : `未注册 (${entity.entityType})`} readOnly /></label><label><span>名称</span><input value={entity.name ?? ''} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, name: event.target.value || undefined }))} /></label><label><span>原型 ID</span><input value={entity.archetypeId ?? ''} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, archetypeId: event.target.value || undefined }))} /></label><label className="physics-check"><input type="checkbox" checked={entity.enabled !== false} onChange={(event) => updateEntityById(entity.id, (current) => ({ ...current, enabled: event.target.checked }))} /><span>启用</span></label></div>
+                  {!entityCollapsed ? <><div className="physics-fields entity-fields"><label><span>Entity ID</span><input value={entity.id} readOnly /></label><label><span>Entity 类型</span><input value={entityDefinition ? `${entityDefinition.label} (${entity.entityType})` : `未注册 (${entity.entityType})`} readOnly /></label><label><span>名称</span><input key={`${entity.id}-name-${entity.name ?? ''}`} defaultValue={entity.name ?? ''} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; updateEntityById(entity.id, '修改 Entity 名称', (current) => ({ ...current, name: event.currentTarget.value || undefined })); delete event.currentTarget.dataset.dirty; }} /></label><label><span>原型 ID</span><input key={`${entity.id}-archetype-${entity.archetypeId ?? ''}`} defaultValue={entity.archetypeId ?? ''} onInput={(event) => { event.currentTarget.dataset.dirty = 'true'; }} onBlur={(event) => { if (event.currentTarget.dataset.dirty !== 'true') return; updateEntityById(entity.id, '修改 Entity Archetype ID', (current) => ({ ...current, archetypeId: event.currentTarget.value || undefined })); delete event.currentTarget.dataset.dirty; }} /></label><label className="physics-check"><input type="checkbox" checked={entity.enabled !== false} onChange={(event) => updateEntityById(entity.id, '切换 Entity 启用状态', (current) => ({ ...current, enabled: event.target.checked }))} /><span>启用</span></label></div>
                   <div className="entity-component-child">
                     <div className="subpanel-header component-child-header"><strong className="subpanel-title">Component <span>{entity.components.length}</span></strong><div className="mini-mode-switch"><button type="button" className={componentViewMode === 'all' ? 'is-active' : ''} onClick={() => setComponentViewMode('all')}>全部</button><button type="button" className={componentViewMode === 'select' ? 'is-active' : ''} onClick={() => setComponentViewMode('select')}>下拉</button></div></div>
                     <div className="component-group component-group--nested">
@@ -780,9 +1459,11 @@ export const DungeonMapCanvasLab: React.FC = () => {
               })}</div>
             </div>
           </>}
+          </div> : null}
         </section>
         <section className="control-card pattern-controls">
-          <div className="pattern-controls__header"><div><h2>地图图案</h2><p>资源自动扫描自 public</p></div><span>{Object.keys(PATTERN_MODULES).length} 个</span></div>
+          <div className="pattern-controls__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('patterns')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'patterns')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('patterns') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图图案</strong><small>资源自动扫描自 public</small></span></button><span>{Object.keys(PATTERN_MODULES).length} 个</span></div>
+          {!collapsedPanelIds.has('patterns') ? <div className="collapsible-panel-body">
           <label className="pattern-field"><span>成套主题</span><span className="pattern-select pattern-select--without-preview">
             <select value={selectedSuite} onChange={(event) => {
               const name = event.target.value;
@@ -855,6 +1536,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
               </div>
             )}
           </div>
+          </div> : null}
         </section>
         </div>
       </aside>
@@ -876,6 +1558,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
               selections={canvasSelections}
+              viewedSelection={canvasSelections.length > 1 ? viewedSelection : undefined}
               onSelectionsChange={(next) => {
                 if (next.length === 0) return;
                 setCanvasSelections(next);

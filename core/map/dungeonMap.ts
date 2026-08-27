@@ -6,6 +6,7 @@ import type {
   DungeonMapTraversalEdges,
   DungeonMapValidationIssue
 } from './dungeonMap.types';
+import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology';
 
 const DEFAULT_WALKABLE_KINDS = new Set(['floor', 'door', 'stairs-up', 'stairs-down']);
 const DIRECTION_VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
@@ -61,8 +62,7 @@ export const canTraverseDungeonMap = (
   const traversal = getDungeonMapTraversalEdges(map, fromX, fromY, direction, destination);
   if (!traversal) return false;
   const fromTile = getDungeonMapTile(map, fromX, fromY);
-  const vector = DIRECTION_VECTOR[direction];
-  const toTile = getDungeonMapTile(map, destination?.x ?? fromX + vector.x, destination?.y ?? fromY + vector.y);
+  const toTile = getDungeonMapTile(map, traversal.entering.tileX, traversal.entering.tileY);
   if (!isDungeonMapTileWalkable(fromTile) || !isDungeonMapTileWalkable(toTile)) return false;
   return isDungeonMapEdgePassable(traversal.leaving.edge) && isDungeonMapEdgePassable(traversal.entering.edge);
 };
@@ -76,8 +76,14 @@ export const getDungeonMapTraversalEdges = (
   destination?: Readonly<{ x: number; y: number }>
 ): DungeonMapTraversalEdges | undefined => {
   const vector = DIRECTION_VECTOR[direction];
-  const toX = destination?.x ?? fromX + vector.x;
-  const toY = destination?.y ?? fromY + vector.y;
+  const rawToX = destination?.x ?? fromX + vector.x;
+  const rawToY = destination?.y ?? fromY + vector.y;
+  const toX = destination || !dungeonMapWrapsX(map.topologyMode)
+    ? rawToX
+    : wrapDungeonMapCoordinate(rawToX, map.width);
+  const toY = destination || !dungeonMapWrapsY(map.topologyMode)
+    ? rawToY
+    : wrapDungeonMapCoordinate(rawToY, map.height);
   const leavingEdge = getDungeonMapEdge(map, fromX, fromY, direction);
   const enteringDirection = OPPOSITE_DIRECTION[direction];
   const enteringEdge = getDungeonMapEdge(map, toX, toY, enteringDirection);
@@ -90,6 +96,8 @@ export const getDungeonMapTraversalEdges = (
 
 export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidationIssue[] => {
   const issues: DungeonMapValidationIssue[] = [];
+  const wrapsX = dungeonMapWrapsX(map.topologyMode);
+  const wrapsY = dungeonMapWrapsY(map.topologyMode);
   if (map.id.trim().length === 0) issues.push({ code: 'invalid-id', message: '地图 id 不能为空。' });
   if (!Number.isInteger(map.width) || !Number.isInteger(map.height) || map.width <= 0 || map.height <= 0) {
     issues.push({ code: 'invalid-size', message: '地图 width 和 height 必须是正整数。' });
@@ -127,8 +135,11 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
     const [first, second] = sharedEdge.sides;
     const firstVector = DIRECTION_VECTOR[first.direction];
     const expectedSecondDirection = OPPOSITE_DIRECTION[first.direction];
-    const isValidBoundary = map.topologyMode !== 'loop'
-      && !second
+    const boundaryAxisIsOpen = (first.direction === 'west' || first.direction === 'east')
+      ? !wrapsX
+      : !wrapsY;
+    const isValidBoundary = !second
+      && boundaryAxisIsOpen
       && isDungeonMapPositionInside(map, first.x, first.y)
       && ((first.direction === 'west' && first.x === 0)
         || (first.direction === 'east' && first.x === map.width - 1)
@@ -139,11 +150,11 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
       && second.x === first.x + firstVector.x
       && second.y === first.y + firstVector.y
       && second.direction === expectedSecondDirection;
-    const isHorizontalLoopPair = !!second && map.topologyMode === 'loop'
+    const isHorizontalLoopPair = !!second && wrapsX
       && first.y === second.y
       && ((first.x === 0 && first.direction === 'west' && second.x === map.width - 1 && second.direction === 'east')
         || (second.x === 0 && second.direction === 'west' && first.x === map.width - 1 && first.direction === 'east'));
-    const isVerticalLoopPair = !!second && map.topologyMode === 'loop'
+    const isVerticalLoopPair = !!second && wrapsY
       && first.x === second.x
       && ((first.y === 0 && first.direction === 'north' && second.y === map.height - 1 && second.direction === 'south')
         || (second.y === 0 && second.direction === 'north' && first.y === map.height - 1 && first.direction === 'south'));
@@ -159,24 +170,23 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
     sharedPointIds.add(sharedPoint.id);
     const { gridX, gridY } = sharedPoint;
     const expectedSides = new Set<string>();
-    if (map.topologyMode === 'loop') {
-      const westX = (gridX - 1 + map.width) % map.width;
-      const northY = (gridY - 1 + map.height) % map.height;
-      expectedSides.add(`${westX},${northY},south-east`);
-      expectedSides.add(`${gridX},${northY},south-west`);
-      expectedSides.add(`${gridX},${gridY},north-west`);
-      expectedSides.add(`${westX},${gridY},north-east`);
-    } else {
-      if (gridX > 0 && gridY > 0) expectedSides.add(`${gridX - 1},${gridY - 1},south-east`);
-      if (gridX < map.width && gridY > 0) expectedSides.add(`${gridX},${gridY - 1},south-west`);
-      if (gridX < map.width && gridY < map.height) expectedSides.add(`${gridX},${gridY},north-west`);
-      if (gridX > 0 && gridY < map.height) expectedSides.add(`${gridX - 1},${gridY},north-east`);
-    }
+    const hasWest = gridX > 0 || wrapsX;
+    const hasEast = gridX < map.width || wrapsX;
+    const hasNorth = gridY > 0 || wrapsY;
+    const hasSouth = gridY < map.height || wrapsY;
+    const westX = wrapDungeonMapCoordinate(gridX - 1, map.width);
+    const eastX = wrapDungeonMapCoordinate(gridX, map.width);
+    const northY = wrapDungeonMapCoordinate(gridY - 1, map.height);
+    const southY = wrapDungeonMapCoordinate(gridY, map.height);
+    if (hasWest && hasNorth) expectedSides.add(`${westX},${northY},south-east`);
+    if (hasEast && hasNorth) expectedSides.add(`${eastX},${northY},south-west`);
+    if (hasEast && hasSouth) expectedSides.add(`${eastX},${southY},north-west`);
+    if (hasWest && hasSouth) expectedSides.add(`${westX},${southY},north-east`);
     const actualSides = new Set(sharedPoint.sides.map((side) => `${side.x},${side.y},${side.corner}`));
-    const isSharedPoint = map.topologyMode === 'loop'
-      ? gridX >= 0 && gridY >= 0 && gridX < map.width && gridY < map.height && expectedSides.size === 4
-      : gridX >= 0 && gridY >= 0 && gridX <= map.width && gridY <= map.height
-        && (expectedSides.size === 1 || expectedSides.size === 2 || expectedSides.size === 4);
+    const isSharedPoint = gridX >= 0 && gridY >= 0
+      && gridX < map.width + (wrapsX ? 0 : 1)
+      && gridY < map.height + (wrapsY ? 0 : 1)
+      && (expectedSides.size === 1 || expectedSides.size === 2 || expectedSides.size === 4);
     const hasExpectedSides = expectedSides.size === actualSides.size
       && [...expectedSides].every((side) => actualSides.has(side));
     if (!isSharedPoint || !hasExpectedSides) {
