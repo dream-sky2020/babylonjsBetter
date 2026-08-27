@@ -210,7 +210,8 @@ h1 { margin: 0; font-size: 23px; }
 .danger-button { color: #ffc3c3; border-color: rgba(255,120,120,.25); background: rgba(90,25,25,.25); }
 .editor-empty { padding: 10px; border-radius: 7px; color: #6f9486; background: rgba(3,15,11,.45); font-size: 11px; text-align: center; }
 .pattern-controls { display: grid; gap: 14px; padding: 15px; }
-.pattern-controls__header { display: flex; align-items: flex-start; justify-content: space-between; padding-bottom: 11px; border-bottom: 1px solid rgba(110, 231, 183, .12); }
+.pattern-controls__header { display: flex; align-items: flex-start; justify-content: space-between; }
+.pattern-controls > .collapsible-panel-body { padding-top: 11px; border-top: 1px solid rgba(110, 231, 183, .12); }
 .pattern-controls__header h2 { margin: 0 0 3px; color: #dfffee; font-size: 14px; }
 .pattern-controls__header p { margin: 0; color: #6f9486; font-size: 10px; }
 .pattern-controls__header > span { padding: 3px 7px; border-radius: 999px; color: #7ee8bb; background: rgba(52, 211, 153, .1); font-size: 10px; }
