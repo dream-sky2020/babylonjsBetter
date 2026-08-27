@@ -767,16 +767,18 @@ export const DungeonMapCanvasLab: React.FC = () => {
   };
 
   const validationIssues = useMemo(() => validateDungeonMapData(map), [map]);
-  const canvasSelectedTile = map.tiles[canvasSelection.y * map.width + canvasSelection.x];
-  const canvasSelectionDirection = canvasSelection.direction ?? selectedDirection;
+  const canvasSelectedTile = canvasSelection
+    ? map.tiles[canvasSelection.y * map.width + canvasSelection.x]
+    : undefined;
+  const canvasSelectionDirection = canvasSelection?.direction ?? selectedDirection;
   // 公用边编辑只认 Canvas 精确命中后返回的 ID，禁止按附近格子猜测目标。
   const canvasSelectedSharedEdge = map.sharedEdges?.find(
-    (edge) => edge.id === canvasSelection.sharedEdgeId,
+    (edge) => edge.id === canvasSelection?.sharedEdgeId,
   );
   const canvasSelectedSharedPoint = map.sharedPoints?.find(
-    (point) => point.id === canvasSelection.sharedPointId,
+    (point) => point.id === canvasSelection?.sharedPointId,
   );
-  const rawSelectedContainerData = (
+  const rawSelectedContainerData = canvasSelection ? (
     canvasSelection.mode === 'map'
       ? map.data
       : canvasSelection.mode === 'tile'
@@ -786,22 +788,26 @@ export const DungeonMapCanvasLab: React.FC = () => {
         : canvasSelection.mode === 'shared'
           ? canvasSelectedSharedEdge?.edge.data
           : canvasSelectedSharedPoint?.point.data
-  ) as unknown;
-  const selectionHasTarget = canvasSelection.mode === 'map'
-    ? true
-    : canvasSelection.mode === 'shared'
-    ? Boolean(canvasSelectedSharedEdge)
-    : canvasSelection.mode === 'point'
-      ? Boolean(canvasSelectedSharedPoint)
-      : true;
-  const selectionHostId = canvasSelection.mode === 'map'
+  ) as unknown : undefined;
+  const selectionHasTarget = !canvasSelection
+    ? false
+    : canvasSelection.mode === 'map'
+      || canvasSelection.mode === 'shared' && Boolean(canvasSelectedSharedEdge)
+      || canvasSelection.mode === 'point' && Boolean(canvasSelectedSharedPoint)
+      || canvasSelection.mode === 'tile' && Boolean(canvasSelectedTile)
+      || canvasSelection.mode === 'edge' && Boolean(canvasSelectedTile?.edges[canvasSelectionDirection]);
+  const selectionHostId = !canvasSelection
+    ? 'no-selection'
+    : canvasSelection.mode === 'map'
     ? map.id
     : canvasSelection.mode === 'shared'
     ? canvasSelectedSharedEdge?.id ?? 'missing-shared-edge'
     : canvasSelection.mode === 'point'
       ? canvasSelectedSharedPoint?.id ?? 'missing-shared-point'
       : `${canvasSelection.mode}:${canvasSelection.x},${canvasSelection.y}:${canvasSelectionDirection}`;
-  const selectedContainerKind: EntityContainerKind = canvasSelection.mode === 'map'
+  const selectedContainerKind: EntityContainerKind = !canvasSelection
+    ? 'tile'
+    : canvasSelection.mode === 'map'
     ? 'map'
     : canvasSelection.mode === 'tile'
       ? 'tile'
@@ -913,10 +919,9 @@ export const DungeonMapCanvasLab: React.FC = () => {
   };
 
   const removeSelectedContainer = (containerId: string) => {
-    setCanvasSelections((current) => {
-      const next = current.filter((selection) => resolveSelectionTarget(selection)?.id !== containerId);
-      return next.length > 0 ? next : current;
-    });
+    setCanvasSelections((current) => current.filter(
+      (selection) => resolveSelectionTarget(selection)?.id !== containerId,
+    ));
   };
   const batchContainerTargets = dedupeBatchContainerTargets(
     uniqueBatchSelections.map((item) => item.target),
@@ -940,7 +945,8 @@ export const DungeonMapCanvasLab: React.FC = () => {
       return;
     }
     setCanvasSelections((currentSelections) => {
-      const current: DungeonMapSelection = currentSelections[0] ?? { mode: 'tile', x: 0, y: 0 };
+      const current = currentSelections[0];
+      if (!current) return currentSelections;
       if (mode === 'map') return [{ mode, x: 0, y: 0 }];
       if (mode === 'tile') return [{ mode, x: current.x, y: current.y }];
       if (mode === 'point') return [{ mode, x: current.x, y: current.y }];
@@ -1035,7 +1041,10 @@ export const DungeonMapCanvasLab: React.FC = () => {
     label: string,
     operation: string,
     updater: (data: IEntityContainer) => IEntityContainer,
-  ) => commitSelectionMutation(canvasSelection, label, operation, updater);
+  ) => {
+    if (!canvasSelection) return;
+    commitSelectionMutation(canvasSelection, label, operation, updater);
+  };
 
   const updateEntityById = (entityId: string, label: string, updater: (entity: IEntity) => IEntity) => {
     updateCanvasSelectionData(label, 'entity-edit', (container) => ({
@@ -1389,7 +1398,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
           <div className="status-row"><span>地图结构</span><strong>{validationIssues.length === 0 ? '校验通过' : `${validationIssues.length} 项错误`}</strong></div>
           <div className="status-row"><span>公用边</span><strong>{map.sharedEdges?.length ?? 0} 条</strong></div>
           <div className="status-row"><span>公用点</span><strong>{map.sharedPoints?.length ?? 0} 个</strong></div>
-          <div className="status-row"><span>当前坐标</span><strong>{canvasSelection.x}, {canvasSelection.y}</strong></div>
+          <div className="status-row"><span>当前坐标</span><strong>{canvasSelection ? `${canvasSelection.x}, ${canvasSelection.y}` : '未选择'}</strong></div>
         </section>
         <section className="control-card controls map-preset-controls">
           <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-presets')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-presets')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-presets') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图预设</strong><small>拓扑参数只在新建时生效</small></span></button><strong>{Object.keys(mapPresets).length} 个</strong></div>
@@ -1427,17 +1436,17 @@ export const DungeonMapCanvasLab: React.FC = () => {
           </div> : null}
         </section>
         <section className="control-card selection-panel">
-          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('selection')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('selection') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>选中数据</strong><small>点击精确选择，拖动鼠标框选</small></span></button><strong>{canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection.x}, ${canvasSelection.y}`}</strong></div>
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('selection')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('selection') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>选中数据</strong><small>左键框选；右键点击或框选取消</small></span></button><strong>{canvasSelections.length === 0 ? '未选择' : canvasSelections.length > 1 ? `${canvasSelections.length} 项` : `${canvasSelection!.x}, ${canvasSelection!.y}`}</strong></div>
           {!collapsedPanelIds.has('selection') ? <div className="collapsible-panel-body">
           <div className="selection-mode-switch">{([['all','所有'],['map','地图'],['tile','格子'],['edge','单格边'],['shared','公用边'],['point','公用点']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
-          {canvasSelections.length > 1 ? <>
+          {canvasSelections.length === 0 ? <div className="editor-empty">当前没有选中任何数据容器，可在地图上点击或框选。</div> : canvasSelections.length > 1 ? <>
             <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
             <div className="selection-object-list">
               <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
               {uniqueBatchSelections.map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
             </div>
             <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
-          </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection.mode]}</span>{canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>}
+          </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection!.mode]}</span>{canvasSelection!.direction&&canvasSelection!.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection!.direction]}</span>:null}</div>}
           <div className="selection-data-panel">
             <button type="button" className="selection-data-panel__header" aria-expanded={!collapsedPanelIds.has('selection-json')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection-json')}>
               <span>{collapsedPanelIds.has('selection-json') ? '▸' : '▾'}</span>
@@ -1456,7 +1465,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
           {!collapsedPanelIds.has('entity-component') ? <div className="collapsible-panel-body">
           <div className="batch-history-toolbar"><span>数据修改历史 {mutationHistoryPast.length} · 可重做 {mutationHistoryFuture.length}</span><div><button type="button" className="icon-button" disabled={mutationHistoryPast.length === 0 || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>撤销</button><button type="button" className="icon-button" disabled={mutationHistoryFuture.length === 0 || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>重做</button></div></div>
           {canvasSelections.length > 1 ? <div className="batch-editor">
-            <div className="batch-edit-placeholder"><strong>批量编辑模式</strong><span>真实目标：{batchContainerTargets.length} 个数据容器</span><p>当前查看对象不参与判定。循环地图的重复视觉位置已按真实容器 ID 去重，所有写入均要求全部目标兼容。</p></div>
+            <div className="batch-edit-placeholder"><strong>批量编辑模式</strong><span>真实目标：{batchContainerTargets.length} 个数据容器</span><p>循环地图的重复视觉位置已按真实容器 ID 去重，所有写入均要求全部目标兼容。</p></div>
             {pendingMutationPlan ? <section className="batch-plan-preview"><div className="batch-section__title"><strong>待确认：{pendingMutationPlan.plan.label}</strong><span>{pendingMutationPlan.plan.summary.changedContainers} 个真实容器</span></div><div className="batch-plan-summary"><span>Entity ＋{pendingMutationPlan.plan.summary.createdEntities} / −{pendingMutationPlan.plan.summary.deletedEntities}</span><span>Component ＋{pendingMutationPlan.plan.summary.createdComponents} / −{pendingMutationPlan.plan.summary.deletedComponents}</span><span>阻止 {pendingMutationPlan.plan.blockedReasons.length}</span></div>{pendingMutationPlan.plan.blockedReasons.length > 0 ? <div className="batch-plan-errors">{pendingMutationPlan.plan.blockedReasons.map((reason) => <div key={reason}>{reason}</div>)}</div> : null}<div className="batch-plan-targets">{pendingMutationPlan.plan.changes.slice(0, 8).map((change) => <code key={change.targetId}>{change.targetId}</code>)}{pendingMutationPlan.plan.changes.length > 8 ? <span>另有 {pendingMutationPlan.plan.changes.length - 8} 个目标</span> : null}</div><div className="batch-plan-actions"><button type="button" onClick={() => setPendingMutationPlan(undefined)}>取消</button><button type="button" className="create-preset-button" disabled={pendingMutationPlan.plan.blockedReasons.length > 0 || pendingMutationPlan.plan.changes.length === 0} onClick={confirmMutationPlan}>确认并一次提交</button></div></section> : null}
             <section className="batch-section">
               <div className="batch-section__title"><strong>批量创建 Entity</strong><span>{batchEntityDefinitions.length} 种可用</span></div>
@@ -1624,9 +1633,8 @@ export const DungeonMapCanvasLab: React.FC = () => {
               selectionMode={selectionMode}
               selections={canvasSelections}
               onSelectionsChange={(next) => {
-                if (next.length === 0) return;
                 setCanvasSelections(next);
-                if (next[0].direction) setSelectedDirection(next[0].direction);
+                if (next[0]?.direction) setSelectedDirection(next[0].direction);
               }}
               keyboardEnabled={false}
             />
