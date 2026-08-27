@@ -3,6 +3,7 @@ import {
   createDungeonMapData,
   validateDungeonMapData,
   type DungeonMapData,
+  type DungeonMapContainerCoordinates,
   type DungeonMapDirection,
   type DungeonMapEdge,
   type DungeonMapPreset,
@@ -105,7 +106,10 @@ const MAP_ROWS = [
   '#############'
 ] as const;
 
-const TILE_BY_CHARACTER: Record<string, Omit<DungeonMapTile, 'x' | 'y'>> = {
+type DungeonMapTileTemplate = Omit<DungeonMapTile, 'x' | 'y' | 'coordinates' | 'edges'> & {
+  edges: Record<DungeonMapDirection, Omit<DungeonMapEdge, 'coordinates'>>;
+};
+const TILE_BY_CHARACTER: Record<string, DungeonMapTileTemplate> = {
   '#': { kind: 'wall', edges: { north: { kind: 'wall' }, east: { kind: 'wall' }, south: { kind: 'wall' }, west: { kind: 'wall' } } },
   '.': { kind: 'floor', edges: { north: { kind: 'open' }, east: { kind: 'open' }, south: { kind: 'open' }, west: { kind: 'open' } } },
   D: { kind: 'floor', label: '门旁地面', edges: { north: { kind: 'open' }, east: { kind: 'open' }, south: { kind: 'open' }, west: { kind: 'open' } } },
@@ -144,11 +148,14 @@ type LabMutationPlan = {
   plan: MutationPlan;
   selections: Record<string, DungeonMapSelection>;
 };
+type ResolvedMapContainerTarget = BatchContainerTarget & {
+  coordinates: DungeonMapContainerCoordinates;
+};
 const VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 }
 };
 
-const createEdge = (x: number, y: number, direction: DungeonMapDirection): DungeonMapEdge => {
+const createEdge = (x: number, y: number, direction: DungeonMapDirection): Omit<DungeonMapEdge, 'coordinates'> => {
   const key = `${x},${y},${direction}`;
   if (key === '1,1,east') {
     return { kind: 'open', events: [{ id: 'leave-start', type: 'tutorial-step', trigger: 'leave', once: true }] };
@@ -171,11 +178,14 @@ const createEdge = (x: number, y: number, direction: DungeonMapDirection): Dunge
 
 const BASE_TILES: DungeonMapTile[] = MAP_ROWS.flatMap((row, y) => [...row].map((character, x) => ({
   ...(TILE_BY_CHARACTER[character] ?? TILE_BY_CHARACTER['#']),
+  x,
+  y,
+  coordinates: { type: 'tile', x, y },
   edges: {
-    north: createEdge(x, y, 'north'),
-    east: createEdge(x, y, 'east'),
-    south: createEdge(x, y, 'south'),
-    west: createEdge(x, y, 'west')
+    north: { ...createEdge(x, y, 'north'), coordinates: { type: 'tile-edge', x, y, direction: 'north' } },
+    east: { ...createEdge(x, y, 'east'), coordinates: { type: 'tile-edge', x, y, direction: 'east' } },
+    south: { ...createEdge(x, y, 'south'), coordinates: { type: 'tile-edge', x, y, direction: 'south' } },
+    west: { ...createEdge(x, y, 'west'), coordinates: { type: 'tile-edge', x, y, direction: 'west' } },
   }
 })));
 
@@ -218,9 +228,11 @@ const normalizedPresetLibrary = (value: unknown): DungeonMapPresetLibrary => {
   return Object.fromEntries(Object.entries(value as Record<string, unknown>).flatMap(([key, raw]) => {
     if (!raw || typeof raw !== 'object') return [];
     const preset = raw as Partial<DungeonMapPreset>;
-    const map = preset.map;
-    if (!map || typeof map.id !== 'string' || !Number.isInteger(map.width) || !Number.isInteger(map.height)
-      || !Array.isArray(map.tiles)) return [];
+    const rawMap = preset.map;
+    if (!rawMap || typeof rawMap.id !== 'string' || !Number.isInteger(rawMap.width) || !Number.isInteger(rawMap.height)
+      || !Array.isArray(rawMap.tiles)) return [];
+    const map = rawMap;
+    if (validateDungeonMapData(map).some((issue) => issue.code.includes('coordinates'))) return [];
     return [[key, {
       presetKey: key,
       name: typeof preset.name === 'string' && preset.name.trim() ? preset.name : key,
@@ -305,7 +317,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [sharedPointEdits, setSharedPointEdits] = useState<Record<string, DungeonMapSharedPoint>>({});
   const [selectionMode, setSelectionMode] = useState<DungeonMapSelectionMode>('tile');
   const [canvasSelections, setCanvasSelections] = useState<DungeonMapSelection[]>([{ mode: 'tile', x: 1, y: 1 }]);
-  const [viewedSelectionKey, setViewedSelectionKey] = useState('');
+  const [selectionJsonMessage, setSelectionJsonMessage] = useState<{ source: string; message: string }>();
   const canvasSelection = canvasSelections[0];
   const [selectedEntityId, setSelectedEntityId] = useState('');
   const [selectedComponentId, setSelectedComponentId] = useState('');
@@ -427,6 +439,9 @@ export const DungeonMapCanvasLab: React.FC = () => {
     }
     return {
       id: 'forgotten-corridor-b1',
+      coordinates: {
+        type: 'map', x: 0, y: 0, width: MAP_ROWS[0].length, height: MAP_ROWS.length,
+      },
       width: MAP_ROWS[0].length,
       height: MAP_ROWS.length,
       tiles: BASE_TILES.map((baseTile, index) => {
@@ -516,6 +531,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
             ...sharedEdge,
             edge: {
               ...edge,
+              coordinates: { type: 'shared-edge', sides: sharedEdge.sides },
               data: normalizeEntityContainer(
                 edge.data ?? { legacy: { kind: edge.kind, label: edge.label, passable: edge.passable } },
                 `${sharedEdge.id}:entity`, '公用边实体',
@@ -797,10 +813,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const selectedContainerData = selectionHasTarget
     ? normalizeEntityContainer(rawSelectedContainerData, `${selectionHostId}:entity`, '地图实体', selectedContainerKind)
     : undefined;
-  const viewedSelection = canvasSelections.find(
-    (item) => selectionIdentity(item) === viewedSelectionKey,
-  ) ?? canvasSelection;
-  const resolveSelectionTarget = (selection: DungeonMapSelection) => {
+  const resolveSelectionTarget = (selection: DungeonMapSelection): ResolvedMapContainerTarget | undefined => {
     const tile = map.tiles[selection.y * map.width + selection.x];
     const direction = selection.direction ?? selectedDirection;
     const sharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
@@ -838,13 +851,22 @@ export const DungeonMapCanvasLab: React.FC = () => {
           : selection.mode === 'shared'
             ? 'shared-edge'
             : 'shared-point';
+    const coordinates = selection.mode === 'map'
+      ? map.coordinates
+      : selection.mode === 'tile'
+        ? tile!.coordinates
+        : selection.mode === 'edge'
+          ? tile!.edges[direction].coordinates
+          : selection.mode === 'shared'
+            ? sharedEdge!.edge.coordinates
+            : sharedPoint!.point.coordinates;
     return {
       id: hostId,
       kind,
+      coordinates,
       container: normalizeEntityContainer(rawData, `${hostId}:entity`, '地图实体', kind),
-    } satisfies BatchContainerTarget;
+    };
   };
-  const viewedContainerData = resolveSelectionTarget(viewedSelection)?.container;
   const resolvedBatchSelections = canvasSelections.flatMap((selection) => {
     const target = resolveSelectionTarget(selection);
     return target ? [{ selection, target }] : [];
@@ -852,6 +874,43 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const uniqueBatchSelections = [...new Map(
     resolvedBatchSelections.map((item) => [item.target.id, item]),
   ).values()];
+  const selectedContainersJson = {
+    format: 'dungeon-map-container-selection',
+    version: 1,
+    mapId: map.id,
+    count: uniqueBatchSelections.length,
+    containers: uniqueBatchSelections.map(({ target }) => ({
+      id: target.id,
+      coordinates: target.coordinates,
+      data: target.container,
+    })),
+  } as const;
+  const selectedContainersJsonText = JSON.stringify(selectedContainersJson, null, 2);
+  const visibleSelectionJsonMessage = selectionJsonMessage?.source === selectedContainersJsonText
+    ? selectionJsonMessage.message
+    : '';
+
+  const copySelectedContainersJson = async () => {
+    try {
+      await navigator.clipboard.writeText(selectedContainersJsonText);
+      setSelectionJsonMessage({ source: selectedContainersJsonText, message: `已复制 ${selectedContainersJson.count} 个数据容器` });
+    } catch {
+      setSelectionJsonMessage({ source: selectedContainersJsonText, message: '复制失败：当前环境不允许访问剪贴板' });
+    }
+  };
+
+  const downloadSelectedContainersJson = () => {
+    const blob = new Blob([selectedContainersJsonText], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `${map.id.replace(/[^a-zA-Z0-9_-]+/g, '_') || 'dungeon-map'}-selection.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+    setSelectionJsonMessage({ source: selectedContainersJsonText, message: `已下载 ${selectedContainersJson.count} 个数据容器` });
+  };
   const batchContainerTargets = dedupeBatchContainerTargets(
     uniqueBatchSelections.map((item) => item.target),
   );
@@ -1365,24 +1424,23 @@ export const DungeonMapCanvasLab: React.FC = () => {
           {!collapsedPanelIds.has('selection') ? <div className="collapsible-panel-body">
           <div className="selection-mode-switch">{([['all','所有'],['map','地图'],['tile','格子'],['edge','单格边'],['shared','公用边'],['point','公用点']] as const).map(([mode,label])=><button type="button" key={mode} className={selectionMode===mode?'is-active':''} onClick={()=>changeSelectionMode(mode)}>{label}</button>)}</div>
           {canvasSelections.length > 1 ? <>
-            <div className="selection-overview"><strong>已选择 {canvasSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
+            <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
             <div className="selection-object-list">
-              <div className="selection-object-list__header"><strong>选中对象列表</strong><span>点击查看对象数据</span></div>
-              {canvasSelections.map((item) => {
-                const isViewed = selectionIdentity(item) === selectionIdentity(viewedSelection);
-                return <button type="button" key={selectionIdentity(item)} className={isViewed ? 'is-viewed' : ''} onClick={() => setViewedSelectionKey(selectionIdentity(item))}><span className="selection-object-list__marker">{isViewed ? '●' : '○'}</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span>{isViewed ? <em>查看中</em> : null}</button>;
-              })}
+              <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
+              {uniqueBatchSelections.map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span></div>)}
             </div>
-            <div className="selection-multi-hint">紫色高亮为当前查看对象；只影响下方数据显示，不改变批量选择范围，也不参与编辑目标判定。</div>
-            <div className="selection-viewed-label"><span>当前查看</span><strong>{selectionObjectLabel(viewedSelection)}</strong></div>
+            <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
           </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection.mode]}</span>{canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>}
           <div className="selection-data-panel">
             <button type="button" className="selection-data-panel__header" aria-expanded={!collapsedPanelIds.has('selection-json')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection-json')}>
               <span>{collapsedPanelIds.has('selection-json') ? '▸' : '▾'}</span>
-              <strong>JSON 数据</strong>
-              <small>{selectionObjectLabel(viewedSelection)}</small>
+              <strong>全部选中容器 JSON</strong>
+              <small>{selectedContainersJson.count} 个容器</small>
             </button>
-            {!collapsedPanelIds.has('selection-json') ? <pre className="selection-data">{JSON.stringify(viewedContainerData, null, 2) ?? '无数据'}</pre> : null}
+            {!collapsedPanelIds.has('selection-json') ? <>
+              <div className="selection-json-actions"><div><button type="button" onClick={copySelectedContainersJson}>复制 JSON</button><button type="button" onClick={downloadSelectedContainersJson}>下载 JSON</button></div><span>{visibleSelectionJsonMessage}</span></div>
+              <pre className="selection-data">{selectedContainersJsonText}</pre>
+            </> : null}
           </div>
           </div> : null}
         </section>
@@ -1558,7 +1616,6 @@ export const DungeonMapCanvasLab: React.FC = () => {
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
               selections={canvasSelections}
-              viewedSelection={canvasSelections.length > 1 ? viewedSelection : undefined}
               onSelectionsChange={(next) => {
                 if (next.length === 0) return;
                 setCanvasSelections(next);
