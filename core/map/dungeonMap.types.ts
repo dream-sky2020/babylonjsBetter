@@ -8,9 +8,32 @@ export type DungeonMapDirection = 'north' | 'east' | 'south' | 'west';
 export type DungeonMapTopologyMode = 'bounded' | 'loop-horizontal' | 'loop-vertical' | 'loop';
 export type DungeonMapTileCorner = 'north-west' | 'north-east' | 'south-east' | 'south-west';
 
+export type DungeonMapGridPoint = Readonly<{ gridX: number; gridY: number }>;
+export type DungeonMapMapCoordinates = Readonly<{
+  type: 'map'; x: number; y: number; width: number; height: number;
+}>;
+export type DungeonMapTileCoordinates = Readonly<{ type: 'tile'; x: number; y: number }>;
+export type DungeonMapTileEdgeCoordinates = Readonly<{
+  type: 'tile-edge'; x: number; y: number; direction: DungeonMapDirection;
+}>;
+export type DungeonMapSharedEdgeCoordinates = Readonly<{
+  type: 'shared-edge'; sides: readonly DungeonMapEdgeEndpoint[];
+}>;
+export type DungeonMapSharedPointCoordinates = Readonly<{
+  type: 'shared-point'; gridX: number; gridY: number; positions: readonly DungeonMapGridPoint[];
+}>;
+export type DungeonMapContainerCoordinates =
+  | DungeonMapMapCoordinates
+  | DungeonMapTileCoordinates
+  | DungeonMapTileEdgeCoordinates
+  | DungeonMapSharedEdgeCoordinates
+  | DungeonMapSharedPointCoordinates;
+
 /** 地图自身的数据容器，可像格子、边和点一样挂载 Entity/Component。 */
 export type DungeonMapContainer<TData = IEntityContainer> = {
   id: string;
+  /** 与 Entity 数据平级的空间坐标；旧预设加载时会自动补齐。 */
+  coordinates: DungeonMapMapCoordinates;
   data?: TData;
 };
 
@@ -33,8 +56,14 @@ export type DungeonMapEdgeEvent = {
  * 边容器（Edge Container）
  * 纯粹的边数据载体，可挂载视觉、状态、属性等任意扩展数据
  */
-export type DungeonMapEdgeContainer<TData = IEntityContainer> = {
+export type DungeonMapEdgeContainer<
+  TData = IEntityContainer,
+  TCoordinates extends DungeonMapTileEdgeCoordinates | DungeonMapSharedEdgeCoordinates =
+    DungeonMapTileEdgeCoordinates | DungeonMapSharedEdgeCoordinates,
+> = {
   id?: string;
+  /** 单格边保存格子与方向；公用边保存全部共享侧。 */
+  coordinates: TCoordinates;
   /** 挂载的数据/组件集合，类型完全由业务决定 */
   data?: TData;
   /** 迁移期旧地图表现字段；新业务规则应进入 Entity Component。 */
@@ -50,6 +79,7 @@ export type DungeonMapEdge<TData = IEntityContainer> = DungeonMapEdgeContainer<T
 /** 公用点自身的数据容器。 */
 export type DungeonMapPointContainer<TData = IEntityContainer> = {
   id?: string;
+  coordinates: DungeonMapSharedPointCoordinates;
   data?: TData;
 };
 
@@ -72,7 +102,7 @@ export type DungeonMapSharedPointSides =
 
 /** 单元格的四条边容器 */
 export type DungeonMapTileEdges<TData = IEntityContainer> = Readonly<
-  Record<DungeonMapDirection, DungeonMapEdgeContainer<TData>>
+  Record<DungeonMapDirection, DungeonMapEdgeContainer<TData, DungeonMapTileEdgeCoordinates>>
 >;
 
 /**
@@ -85,6 +115,8 @@ export type DungeonMapTileContainer<
 > = {
   x: number;
   y: number;
+  /** 统一坐标字段；x/y 暂时保留用于旧调用兼容。 */
+  coordinates: DungeonMapTileCoordinates;
   /** 四条独立边容器 */
   edges: DungeonMapTileEdges<TEdgeData>;
   /** 挂载在格子自身上的数据（如地形、物件、标记、事件等） */
@@ -110,7 +142,7 @@ export type DungeonMapSharedEdge<TEdgeData = IEntityContainer> = {
   /** 有界地图外轮廓为单侧；内部或循环接缝为双侧。 */
   sides: readonly [DungeonMapEdgeEndpoint] | readonly [DungeonMapEdgeEndpoint, DungeonMapEdgeEndpoint];
   /** 权威边容器数据 */
-  edge: DungeonMapEdgeContainer<TEdgeData>;
+  edge: DungeonMapEdgeContainer<TEdgeData, DungeonMapSharedEdgeCoordinates>;
 };
 
 /** 一个、两个或四个相邻格子共享的交汇点容器。 */
@@ -120,7 +152,7 @@ export type DungeonMapSharedPoint<TPointData = IEntityContainer> = {
   gridX: number;
   gridY: number;
   /** 同一数据点的所有画布落点；循环地图的边界点会有两个或四个落点。 */
-  positions: readonly { gridX: number; gridY: number }[];
+  positions: readonly DungeonMapGridPoint[];
   /** 顺时针排列的一个、两个或四个格子角。 */
   sides: DungeonMapSharedPointSides;
   point: DungeonMapPointContainer<TPointData>;

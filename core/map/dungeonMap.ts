@@ -99,6 +99,11 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
   const wrapsX = dungeonMapWrapsX(map.topologyMode);
   const wrapsY = dungeonMapWrapsY(map.topologyMode);
   if (map.id.trim().length === 0) issues.push({ code: 'invalid-id', message: '地图 id 不能为空。' });
+  if (!map.coordinates || map.coordinates.type !== 'map'
+    || map.coordinates.x !== 0 || map.coordinates.y !== 0
+    || map.coordinates.width !== map.width || map.coordinates.height !== map.height) {
+    issues.push({ code: 'invalid-map-coordinates', message: '地图 coordinates 必须与 width、height 一致。' });
+  }
   if (!Number.isInteger(map.width) || !Number.isInteger(map.height) || map.width <= 0 || map.height <= 0) {
     issues.push({ code: 'invalid-size', message: '地图 width 和 height 必须是正整数。' });
   }
@@ -109,11 +114,20 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
     for (let x = 0; x < map.width; x += 1) {
       const tile = getDungeonMapTile(map, x, y);
       if (!tile) continue;
+      if (!tile.coordinates || tile.coordinates.type !== 'tile'
+        || tile.coordinates.x !== x || tile.coordinates.y !== y) {
+        issues.push({ code: 'invalid-tile-coordinates', message: `格子 (${x}, ${y}) 的 coordinates 不正确。` });
+      }
       for (const direction of DIRECTIONS) {
         const edge = tile.edges?.[direction];
         if (!edge) {
           issues.push({ code: 'missing-tile-edge', message: `格子 (${x}, ${y}) 缺少 ${direction} 边。` });
           continue;
+        }
+        if (!edge.coordinates || edge.coordinates.type !== 'tile-edge'
+          || edge.coordinates.x !== x || edge.coordinates.y !== y
+          || edge.coordinates.direction !== direction) {
+          issues.push({ code: 'invalid-tile-edge-coordinates', message: `格子 (${x}, ${y}) 的 ${direction} 边 coordinates 不正确。` });
         }
       }
     }
@@ -132,6 +146,17 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
       issues.push({ code: 'duplicate-shared-edge-id', message: `公用边 id ${sharedEdge.id || '(空)'} 重复或为空。` });
     }
     sharedEdgeIds.add(sharedEdge.id);
+    const edgeCoordinates = sharedEdge.edge.coordinates;
+    const coordinatesMatchSides = edgeCoordinates?.type === 'shared-edge'
+      && edgeCoordinates.sides.length === sharedEdge.sides.length
+      && sharedEdge.sides.every((side, index) => {
+        const coordinateSide = edgeCoordinates.sides[index];
+        return coordinateSide?.x === side.x && coordinateSide.y === side.y
+          && coordinateSide.direction === side.direction;
+      });
+    if (!coordinatesMatchSides) {
+      issues.push({ code: 'invalid-shared-edge-coordinates', message: `公用边 ${sharedEdge.id} 的 coordinates 与 sides 不一致。` });
+    }
     const [first, second] = sharedEdge.sides;
     const firstVector = DIRECTION_VECTOR[first.direction];
     const expectedSecondDirection = OPPOSITE_DIRECTION[first.direction];
@@ -168,6 +193,19 @@ export const validateDungeonMapData = (map: DungeonMapData): DungeonMapValidatio
       issues.push({ code: 'duplicate-shared-point-id', message: `公用点 id ${sharedPoint.id || '(空)'} 重复或为空。` });
     }
     sharedPointIds.add(sharedPoint.id);
+    const pointCoordinates = sharedPoint.point.coordinates;
+    const coordinatesMatchPositions = pointCoordinates?.type === 'shared-point'
+      && pointCoordinates.gridX === sharedPoint.gridX
+      && pointCoordinates.gridY === sharedPoint.gridY
+      && pointCoordinates.positions.length === sharedPoint.positions.length
+      && sharedPoint.positions.every((position, index) => {
+        const coordinatePosition = pointCoordinates.positions[index];
+        return coordinatePosition?.gridX === position.gridX
+          && coordinatePosition.gridY === position.gridY;
+      });
+    if (!coordinatesMatchPositions) {
+      issues.push({ code: 'invalid-shared-point-coordinates', message: `公用点 ${sharedPoint.id} 的 coordinates 与位置不一致。` });
+    }
     const { gridX, gridY } = sharedPoint;
     const expectedSides = new Set<string>();
     const hasWest = gridX > 0 || wrapsX;

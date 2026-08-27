@@ -76,11 +76,13 @@ export const createDungeonMapData = <
     return {
       x,
       y,
+      coordinates: { type: 'tile' as const, x, y },
       data: options.createTileData?.({ x, y }),
       edges: Object.fromEntries(DIRECTIONS.map((direction) => [
         direction,
         {
           id: `tile:${x},${y}:${direction}`,
+          coordinates: { type: 'tile-edge' as const, x, y, direction },
           data: options.createTileEdgeData?.({ x, y, direction }),
         },
       ])) as DungeonMapData<TTileData, TEdgeData, TMapData>['tiles'][number]['edges'],
@@ -98,6 +100,10 @@ export const createDungeonMapData = <
       sides: second ? [first, second] : [first],
       edge: {
         id: edgeId,
+        coordinates: {
+          type: 'shared-edge',
+          sides: second ? [first, second] : [first],
+        },
         data: options.createSharedEdgeData?.({ id: edgeId, first, second }),
       },
     });
@@ -181,6 +187,7 @@ export const createDungeonMapData = <
         sides: sharedSides,
         point: {
           id: pointId,
+          coordinates: { type: 'shared-point', gridX, gridY, positions },
           data: options.createSharedPointData?.({ id: pointId, gridX, gridY, sides: sharedSides }),
         },
       });
@@ -189,6 +196,7 @@ export const createDungeonMapData = <
 
   return {
     id,
+    coordinates: { type: 'map', x: 0, y: 0, width, height },
     width,
     height,
     topologyMode: mode,
