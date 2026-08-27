@@ -41,9 +41,10 @@ export type PhysicsComponentFieldSchema = ComponentFieldSchema;
  * TypeScript 接口在运行时会被擦除，编辑器通过此 Schema 自动生成表单。
  */
 export const PHYSICS_COMPONENT_FIELD_SCHEMA: readonly PhysicsComponentFieldSchema[] = [
-  { path: 'blocksVision', label: '阻挡视线', control: 'checkbox', optional: true },
+  { path: 'blocksVision', label: '阻挡视线', control: 'checkbox', optional: true, batch: { editable: true } },
   {
     path: 'directionMode', label: '方向限制', control: 'select', optional: true,
+    batch: { editable: true },
     options: [
       { value: 'all', label: '双向通行' },
       { value: 'none', label: '完全阻挡' },
@@ -53,6 +54,7 @@ export const PHYSICS_COMPONENT_FIELD_SCHEMA: readonly PhysicsComponentFieldSchem
   },
   {
     path: 'passRequirement.mode', label: '标签匹配', control: 'select', optional: true,
+    batch: { editable: true },
     options: [
       { value: 'all-of', label: '满足全部' },
       { value: 'any-of', label: '满足任意' },
@@ -62,14 +64,17 @@ export const PHYSICS_COMPONENT_FIELD_SCHEMA: readonly PhysicsComponentFieldSchem
   {
     path: 'passRequirement.tags', label: '能力 / 身份标签', control: 'tags', optional: true,
     placeholder: 'fly, ghost, faction:elf',
+    batch: { editable: true, equality: 'unordered-array' },
   },
   {
     path: 'condition.expressionId', label: '条件表达式 ID', control: 'text', optional: true,
     placeholder: 'is_night_time',
+    batch: { editable: true },
   },
   {
     path: 'condition.params', label: '条件参数 JSON', control: 'json', optional: true,
     placeholder: '{\n  "switchId": "sw_01"\n}',
+    batch: { editable: true, equality: 'deep' },
   },
 ] as const;
 

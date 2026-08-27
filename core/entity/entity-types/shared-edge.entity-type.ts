@@ -5,6 +5,7 @@ export const entityTypeDefinition: EntityTypeDefinition = {
   label: '公用边实体',
   description: '由相邻格子共同引用的边实体。',
   allowedContainers: ['shared-edge'],
+  batch: { scope: 'same-kind', create: true, delete: true },
   defaultComponents: ['physics', 'visual'],
   allowMultiplePerContainer: true,
 };

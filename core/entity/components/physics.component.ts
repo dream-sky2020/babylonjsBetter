@@ -9,6 +9,7 @@ export const componentDefinition: ComponentDefinition<IPhysicsComponent> = {
   label: '通行规则',
   description: '方向、身份标签和动态条件组成的声明式通行规则。',
   allowedEntityTypes: ['tile', 'tile-edge', 'shared-edge', 'shared-point'],
+  batch: { scope: 'compatible', create: true, edit: true, delete: true },
   allowMultiple: false,
   fields: PHYSICS_COMPONENT_FIELD_SCHEMA,
   createDefault: () => ({

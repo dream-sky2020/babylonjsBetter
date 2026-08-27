@@ -24,7 +24,7 @@ from utils import (
     validate_monster_special_status_position_payload, validate_monster_battlefield_formation_payload,
     validate_monster_battlefield_stripe_rule_payload, validate_monster_movement_config_payload,
     validate_monster_attack_config_payload, validate_monster_death_config_payload, validate_sprite_ash_preset_payload, validate_monster_status_particle_config_payload,
-    validate_avatar_config_payload
+    validate_avatar_config_payload, validate_dungeon_map_preset_payload
 )
 
 app = Flask(__name__)
@@ -65,6 +65,7 @@ MODEL_SWING_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelSwingConfig
 MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfigs.json")
 BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
 AVATAR_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "avatarConfigs.json")
+DUNGEON_MAP_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "dungeonMapPresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -339,6 +340,9 @@ def handle_sprite_ash_presets():
 @app.route("/api/monster-dissolve-presets", methods=["GET", "PUT"])
 def handle_monster_dissolve_presets():
     return _handle_json_config(MONSTER_DISSOLVE_PRESET_CONFIG_PATH, validate_sprite_ash_preset_payload, "monster dissolve presets")
+@app.route("/api/dungeon-map-presets", methods=["GET", "PUT"])
+def handle_dungeon_map_presets():
+    return _handle_json_config(DUNGEON_MAP_PRESET_CONFIG_PATH, validate_dungeon_map_preset_payload, "dungeon map presets")
 @app.route("/api/monster-status-particle-configs", methods=["GET", "PUT"])
 def handle_monster_status_particle_configs():
     return _handle_json_config(MONSTER_STATUS_PARTICLE_CONFIG_PATH, validate_monster_status_particle_config_payload, "monster status particle configs")
