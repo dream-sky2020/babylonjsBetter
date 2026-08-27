@@ -307,7 +307,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
     sharedPoint: minimalSuite?.sharedPoint ?? patternOptions('shared-points')[0]?.url ?? ''
   }));
   const [edgeEditMode, setEdgeEditMode] = useState<'linked' | 'individual'>('linked');
-  const [edgeThicknessRatio, setEdgeThicknessRatio] = useState(0.12);
+  const [edgeThicknessRatio, setEdgeThicknessRatio] = useState(0.24);
   const [sharedEdgeThicknessRatio, setSharedEdgeThicknessRatio] = useState(0.24);
   const [selectedDirection, setSelectedDirection] = useState<DungeonMapDirection>('east');
   const [mapDataEdits, setMapDataEdits] = useState<IEntityContainer>();
@@ -911,6 +911,13 @@ export const DungeonMapCanvasLab: React.FC = () => {
     URL.revokeObjectURL(url);
     setSelectionJsonMessage({ source: selectedContainersJsonText, message: `已下载 ${selectedContainersJson.count} 个数据容器` });
   };
+
+  const removeSelectedContainer = (containerId: string) => {
+    setCanvasSelections((current) => {
+      const next = current.filter((selection) => resolveSelectionTarget(selection)?.id !== containerId);
+      return next.length > 0 ? next : current;
+    });
+  };
   const batchContainerTargets = dedupeBatchContainerTargets(
     uniqueBatchSelections.map((item) => item.target),
   );
@@ -1427,7 +1434,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
             <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
             <div className="selection-object-list">
               <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
-              {uniqueBatchSelections.map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span></div>)}
+              {uniqueBatchSelections.map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
             </div>
             <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
           </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection.mode]}</span>{canvasSelection.direction&&canvasSelection.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection.direction]}</span>:null}</div>}
