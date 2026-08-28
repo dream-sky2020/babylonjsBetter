@@ -1,4 +1,5 @@
 import bundledModelAssets from 'virtual:app-model-assets';
+import bundledResourceAssets from 'virtual:app-resource-assets';
 import { resolvePublicResourceUrl } from './appAssetUrl.ts';
 
 /**
@@ -6,6 +7,9 @@ import { resolvePublicResourceUrl } from './appAssetUrl.ts';
  * 正式构建不再依赖 `/api/model-assets`。
  */
 export const readBundledModelAssetPaths = (): string[] => [...bundledModelAssets];
+
+/** 构建期扫描到的全部 public/resources 文件，路径均以 /resources/ 开头。 */
+export const readBundledResourceAssetPaths = (): string[] => [...bundledResourceAssets];
 
 export const loadModelAssetManifest = async (): Promise<string[]> => {
   if (!import.meta.env.DEV) return readBundledModelAssetPaths();

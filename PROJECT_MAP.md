@@ -6,7 +6,7 @@
 
 打包根目录由 `import.meta.url` 字符串截取得到，不能写成 `new URL('../', import.meta.url)`——打包器会把这种写法当成静态资源引用并在构建期解析成错误地址。
 
-`core/resources/resourceManifest.ts` 提供 `loadModelAssetManifest()`。模型清单由 `vite.config.ts` 的虚拟模块 `virtual:app-model-assets` 在构建期扫描 `public/resources` 生成，正式构建不再请求 `/api/model-assets` 或 `/model-assets.json`；开发环境仍优先读取开发 API 以获取最新目录。
+`core/resources/resourceManifest.ts` 提供 `loadModelAssetManifest()` 和 `readBundledResourceAssetPaths()`。资源清单由 `vite.config.ts` 的虚拟模块在构建期扫描 `public/resources` 生成；Lab 不应再通过 `import.meta.glob('/public/**')` 导入 public 文件。模型在开发环境仍优先读取开发 API 以获取最新目录。
 
 所有 HTML 入口不得包含 `<base href="/">`，导航链接必须使用相对路径，否则 `file://` 下 Vite 生成的相对资源地址会落到磁盘根目录。
 
@@ -23,6 +23,8 @@
 ## 2026-08-28：配置读取与开发写回解耦
 
 `core/config/configLoader.ts` 是 JSON 配置的统一只读入口。它通过 `import.meta.glob('../../config/*.json', { eager: true })` 在构建时将 `config/*.json` 收录进应用，因此 Electron 正式构建从 `file://` 启动时不需要 Python/Vite 服务，也不再对 `/config/*.json` 发起网络请求。`loadConfig()` 接受可选的开发 API：开发环境优先读取 API 的最新数据，接口不可用时回退到构建时配置；`loadConfigFromUrl()` 用于迁移旧的 `/config/name.json` 调用。
+
+Vite 开发中间件只直接响应普通 `/config/*.json` 资源请求；带 `?import` 的 JSON 模块请求必须交回 Vite JSON 插件转换，禁止直接返回 `application/json`，否则浏览器会因模块 MIME 不匹配拒绝加载。
 
 `core/network/devServerPortResolver.ts` 在非开发构建中会立即拒绝连接，禁止正式应用扫描 `127.0.0.1:4550-4600`。Python API 只负责 Lab 开发期保存和热读取；正式构建中的配置是只读快照，修改 JSON 后必须重新打包才能进入应用。
 
