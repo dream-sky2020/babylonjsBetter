@@ -7,5 +7,6 @@ export {
 export {
   loadModelAssetManifest,
   loadModelAssetManifestByExtension,
-  readBundledModelAssetPaths
+  readBundledModelAssetPaths,
+  readBundledResourceAssetPaths
 } from './resourceManifest.ts';

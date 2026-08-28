@@ -37,11 +37,14 @@ import {
 } from '@/core/entity';
 import { DungeonMapCanvas, type DungeonMapSelection, type DungeonMapSelectionMode } from '@/core/ui/DungeonMapCanvas';
 import { requestDevServer } from '@/core/network/devServerPortResolver';
+import { readBundledResourceAssetPaths } from '@/core/resources';
 import './dungeon-map-canvas-lab.css';
 
-const PATTERN_MODULES = import.meta.glob('/public/resources/dungeon-map/**/*.svg', {
-  eager: true, query: '?url', import: 'default'
-}) as Record<string, string>;
+const PATTERN_MODULES = Object.fromEntries(
+  readBundledResourceAssetPaths()
+    .filter((path) => path.startsWith('/resources/dungeon-map/') && path.toLowerCase().endsWith('.svg'))
+    .map((path) => [decodeURIComponent(path), path])
+) as Record<string, string>;
 const COMPONENT_MODULES = import.meta.glob('/core/entity/components/*.component.ts', {
   eager: true, import: 'componentDefinition'
 }) as Record<string, ComponentDefinition>;

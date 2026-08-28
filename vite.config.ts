@@ -7,18 +7,20 @@ const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 
-const collectModelAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
+const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
   if (!fs.existsSync(dir)) return []
   const entries = await fsp.readdir(dir, { withFileTypes: true })
   const nested = await Promise.all(entries.map(async (entry) => {
     const absPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) return collectModelAssets(absPath)
-    if (!/\.(?:glb|fbx)$/i.test(entry.name)) return []
+    if (entry.isDirectory()) return collectResourceAssets(absPath)
     const relativePath = path.relative(RESOURCE_DIR, absPath).split(path.sep).map(encodeURIComponent).join('/')
     return [`/resources/${relativePath}`]
   }))
   return nested.flat().sort((left, right) => left.localeCompare(right))
 }
+
+const collectModelAssets = async (): Promise<string[]> =>
+  (await collectResourceAssets()).filter((asset) => /\.(?:glb|fbx)$/i.test(asset))
 
 const copyDir = async (srcDir: string, destDir: string): Promise<void> => {
   await fsp.mkdir(destDir, { recursive: true })
@@ -48,15 +50,20 @@ const contentTypeFromExt = (pathname: string): string => {
 
 const MODEL_ASSETS_MODULE_ID = 'virtual:app-model-assets'
 const RESOLVED_MODEL_ASSETS_MODULE_ID = '\0' + MODEL_ASSETS_MODULE_ID
+const RESOURCE_ASSETS_MODULE_ID = 'virtual:app-resource-assets'
+const RESOLVED_RESOURCE_ASSETS_MODULE_ID = '\0' + RESOURCE_ASSETS_MODULE_ID
 
 const sharedConfigPlugin = () => ({
   name: 'shared-config-public-bridge',
   resolveId(id: string) {
-    return id === MODEL_ASSETS_MODULE_ID ? RESOLVED_MODEL_ASSETS_MODULE_ID : null
+    if (id === MODEL_ASSETS_MODULE_ID) return RESOLVED_MODEL_ASSETS_MODULE_ID
+    if (id === RESOURCE_ASSETS_MODULE_ID) return RESOLVED_RESOURCE_ASSETS_MODULE_ID
+    return null
   },
   async load(id: string) {
-    if (id !== RESOLVED_MODEL_ASSETS_MODULE_ID) return null
-    return `export default ${JSON.stringify(await collectModelAssets())}`
+    if (id === RESOLVED_MODEL_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectModelAssets())}`
+    if (id === RESOLVED_RESOURCE_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectResourceAssets())}`
+    return null
   },
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
@@ -73,6 +80,14 @@ const sharedConfigPlugin = () => ({
         return
       }
       if (!url.startsWith(CONFIG_ROUTE)) {
+        next()
+        return
+      }
+      // `import.meta.glob('../../config/*.json')` 会让 Vite 以
+      // `/config/name.json?import` 请求 JSON 模块。此类请求必须继续交给
+      // Vite 的 JSON 插件转换成 JavaScript；这里只处理普通资源读取。
+      const query = url.includes('?') ? new URL(url, 'http://localhost').searchParams : null
+      if (query?.has('import')) {
         next()
         return
       }
