@@ -1,0 +1,5646 @@
+{
+  "minimal-city": {
+    "presetKey": "minimal-city",
+    "name": "极简城市",
+    "clearColor": "#172235",
+    "lights": [
+      {
+        "id": "minimal-city-environment-light",
+        "name": "环境补光",
+        "intensity": 0.65,
+        "color": "#ffffff",
+        "light": {
+          "primitive": "hemispheric",
+          "direction": [
+            0.3,
+            1,
+            0.2
+          ],
+          "groundColor": "#33443b"
+        }
+      },
+      {
+        "id": "minimal-city-sun",
+        "name": "太阳光",
+        "intensity": 0.9,
+        "color": "#fff2d2",
+        "light": {
+          "primitive": "directional",
+          "direction": [
+            -0.45,
+            -1,
+            0.35
+          ],
+          "position": [
+            40,
+            80,
+            -40
+          ]
+        },
+        "shadow": {
+          "qualityPresetKey": "compact-standard",
+          "overrides": {
+            "bias": 0.001,
+            "normalBias": 0.12,
+            "darkness": 0.28
+          }
+        }
+      }
+    ],
+    "objects": [
+      {
+        "id": "ground",
+        "name": "地面",
+        "geometry": {
+          "primitive": "ground",
+          "width": 120,
+          "height": 120
+        },
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "color": "#405442",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "road-main",
+        "name": "主道路",
+        "geometry": {
+          "primitive": "ground",
+          "width": 12,
+          "height": 110
+        },
+        "position": [
+          0,
+          0.02,
+          0
+        ],
+        "color": "#252a31",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "road-cross",
+        "name": "横向道路",
+        "geometry": {
+          "primitive": "ground",
+          "width": 10,
+          "height": 110
+        },
+        "position": [
+          0,
+          0.025,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "color": "#2b3038",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "building-nw-1",
+        "name": "西北建筑 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 15,
+          "height": 18,
+          "depth": 18
+        },
+        "position": [
+          -22,
+          9,
+          -28
+        ],
+        "color": "#667487",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-nw-2",
+        "name": "西北建筑 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 18,
+          "height": 11,
+          "depth": 14
+        },
+        "position": [
+          -38,
+          5.5,
+          -7
+        ],
+        "color": "#536273",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-ne-1",
+        "name": "东北建筑 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 17,
+          "height": 14,
+          "depth": 20
+        },
+        "position": [
+          25,
+          7,
+          -30
+        ],
+        "color": "#718096",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-ne-2",
+        "name": "东北建筑 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 14,
+          "height": 22,
+          "depth": 13
+        },
+        "position": [
+          38,
+          11,
+          -8
+        ],
+        "color": "#59697b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-sw-1",
+        "name": "西南建筑 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 20,
+          "height": 13,
+          "depth": 15
+        },
+        "position": [
+          -28,
+          6.5,
+          26
+        ],
+        "color": "#6a765f",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-sw-2",
+        "name": "西南建筑 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 13,
+          "height": 20,
+          "depth": 17
+        },
+        "position": [
+          -43,
+          10,
+          45
+        ],
+        "color": "#556352",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-se-1",
+        "name": "东南建筑 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 18,
+          "height": 17,
+          "depth": 18
+        },
+        "position": [
+          27,
+          8.5,
+          27
+        ],
+        "color": "#777064",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-se-2",
+        "name": "东南建筑 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 15,
+          "height": 10,
+          "depth": 20
+        },
+        "position": [
+          44,
+          5,
+          47
+        ],
+        "color": "#625d55",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      }
+    ]
+  },
+  "crossroads": {
+    "presetKey": "crossroads",
+    "name": "荒野十字路口",
+    "clearColor": "#7b98ad",
+    "lights": [
+      {
+        "id": "crossroads-environment-light",
+        "name": "荒野环境补光",
+        "intensity": 0.7,
+        "color": "#fff7e5",
+        "light": {
+          "primitive": "hemispheric",
+          "direction": [
+            0.2,
+            1,
+            -0.1
+          ],
+          "groundColor": "#51533c"
+        }
+      },
+      {
+        "id": "crossroads-sun",
+        "name": "荒野太阳光",
+        "intensity": 1.1,
+        "color": "#ffe8bd",
+        "light": {
+          "primitive": "directional",
+          "direction": [
+            -0.5,
+            -1,
+            0.25
+          ],
+          "position": [
+            50,
+            90,
+            -30
+          ]
+        },
+        "shadow": {
+          "qualityPresetKey": "compact-standard",
+          "overrides": {
+            "bias": 0.001,
+            "normalBias": 0.12,
+            "darkness": 0.28
+          }
+        }
+      }
+    ],
+    "objects": [
+      {
+        "id": "ground",
+        "name": "地面",
+        "geometry": {
+          "primitive": "ground",
+          "width": 140,
+          "height": 140
+        },
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "color": "#79815c",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "road-north-south",
+        "name": "南北道路",
+        "geometry": {
+          "primitive": "ground",
+          "width": 9,
+          "height": 135
+        },
+        "position": [
+          0,
+          0.02,
+          0
+        ],
+        "color": "#514c43",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "road-east-west",
+        "name": "东西道路",
+        "geometry": {
+          "primitive": "ground",
+          "width": 9,
+          "height": 135
+        },
+        "position": [
+          0,
+          0.025,
+          0
+        ],
+        "rotation": [
+          0,
+          1.5707963267948966,
+          0
+        ],
+        "color": "#514c43",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "building-north-west",
+        "name": "西北建筑",
+        "geometry": {
+          "primitive": "box",
+          "width": 16,
+          "height": 9,
+          "depth": 12
+        },
+        "position": [
+          -18,
+          4.5,
+          -19
+        ],
+        "rotation": [
+          0,
+          0.2,
+          0
+        ],
+        "color": "#7c6650",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "building-south-east",
+        "name": "东南建筑",
+        "geometry": {
+          "primitive": "box",
+          "width": 13,
+          "height": 12,
+          "depth": 15
+        },
+        "position": [
+          20,
+          6,
+          21
+        ],
+        "rotation": [
+          0,
+          -0.15,
+          0
+        ],
+        "color": "#67594d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      }
+    ]
+  },
+  "monster-formation-road": {
+    "presetKey": "monster-formation-road",
+    "name": "Monster Formation 原道路场景",
+    "clearColor": "#91c7fa",
+    "lights": [
+      {
+        "id": "cameraLabLight",
+        "name": "Monster Formation 环境补光",
+        "intensity": 0.95,
+        "color": "#ffffff",
+        "light": {
+          "primitive": "hemispheric",
+          "direction": [
+            0,
+            1,
+            0
+          ],
+          "groundColor": "#52594d"
+        }
+      },
+      {
+        "id": "cameraLabSun",
+        "name": "Monster Formation 太阳光",
+        "intensity": 0.75,
+        "color": "#fff1d4",
+        "light": {
+          "primitive": "directional",
+          "direction": [
+            -0.45,
+            -1,
+            0.3
+          ],
+          "position": [
+            160,
+            240,
+            -100
+          ]
+        },
+        "shadow": {
+          "qualityPresetKey": "large-outdoor-csm",
+          "overrides": {
+            "bias": 0.001,
+            "normalBias": 0.15,
+            "darkness": 0.28,
+            "forceBackFacesOnly": true,
+            "frustumEdgeFalloff": 0.08
+          }
+        }
+      }
+    ],
+    "objects": [
+      {
+        "id": "camera_lab_ground",
+        "name": "地面",
+        "geometry": {
+          "primitive": "ground",
+          "width": 520,
+          "height": 920
+        },
+        "position": [
+          0,
+          -2.25,
+          -280
+        ],
+        "color": "#5c7557",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_road",
+        "name": "道路",
+        "geometry": {
+          "primitive": "ground",
+          "width": 16,
+          "height": 760
+        },
+        "position": [
+          0,
+          -2.16,
+          -300
+        ],
+        "color": "#1f2126",
+        "shadow": {
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_road_edge_-7.6",
+        "name": "道路左边线",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.16,
+          "height": 0.01,
+          "depth": 740
+        },
+        "position": [
+          -7.6,
+          -2.135,
+          -300
+        ],
+        "color": "#dbd6ad",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_road_edge_7.6",
+        "name": "道路右边线",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.16,
+          "height": 0.01,
+          "depth": 740
+        },
+        "position": [
+          7.6,
+          -2.135,
+          -300
+        ],
+        "color": "#dbd6ad",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_0",
+        "name": "道路标记 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          24
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_1",
+        "name": "道路标记 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          13.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_2",
+        "name": "道路标记 3",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          3.6000000000000014
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_3",
+        "name": "道路标记 4",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -6.599999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_4",
+        "name": "道路标记 5",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -16.799999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_5",
+        "name": "道路标记 6",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -27
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_6",
+        "name": "道路标记 7",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -37.199999999999996
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_7",
+        "name": "道路标记 8",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -47.39999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_8",
+        "name": "道路标记 9",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -57.599999999999994
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_9",
+        "name": "道路标记 10",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -67.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_10",
+        "name": "道路标记 11",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -78
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_11",
+        "name": "道路标记 12",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -88.19999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_12",
+        "name": "道路标记 13",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -98.39999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_13",
+        "name": "道路标记 14",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -108.6
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_14",
+        "name": "道路标记 15",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -118.79999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_15",
+        "name": "道路标记 16",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -129
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_16",
+        "name": "道路标记 17",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -139.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_17",
+        "name": "道路标记 18",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -149.39999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_18",
+        "name": "道路标记 19",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -159.6
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_19",
+        "name": "道路标记 20",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -169.79999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_20",
+        "name": "道路标记 21",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -180
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_21",
+        "name": "道路标记 22",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -190.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_22",
+        "name": "道路标记 23",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -200.39999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_23",
+        "name": "道路标记 24",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -210.6
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_24",
+        "name": "道路标记 25",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -220.79999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_25",
+        "name": "道路标记 26",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -230.99999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_26",
+        "name": "道路标记 27",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -241.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_27",
+        "name": "道路标记 28",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -251.39999999999998
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_28",
+        "name": "道路标记 29",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -261.59999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_29",
+        "name": "道路标记 30",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -271.79999999999995
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_30",
+        "name": "道路标记 31",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -282
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_31",
+        "name": "道路标记 32",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -292.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_32",
+        "name": "道路标记 33",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -302.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_33",
+        "name": "道路标记 34",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -312.59999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_34",
+        "name": "道路标记 35",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -322.79999999999995
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_35",
+        "name": "道路标记 36",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -333
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_36",
+        "name": "道路标记 37",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -343.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_37",
+        "name": "道路标记 38",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -353.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_38",
+        "name": "道路标记 39",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -363.59999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_39",
+        "name": "道路标记 40",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -373.79999999999995
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_40",
+        "name": "道路标记 41",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -384
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_41",
+        "name": "道路标记 42",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -394.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_42",
+        "name": "道路标记 43",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -404.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_43",
+        "name": "道路标记 44",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -414.59999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_44",
+        "name": "道路标记 45",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -424.79999999999995
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_45",
+        "name": "道路标记 46",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -434.99999999999994
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_46",
+        "name": "道路标记 47",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -445.2
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_47",
+        "name": "道路标记 48",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -455.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_48",
+        "name": "道路标记 49",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -465.59999999999997
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_49",
+        "name": "道路标记 50",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -475.79999999999995
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_50",
+        "name": "道路标记 51",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -485.99999999999994
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_51",
+        "name": "道路标记 52",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -496.19999999999993
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_52",
+        "name": "道路标记 53",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -506.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_53",
+        "name": "道路标记 54",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -516.5999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_54",
+        "name": "道路标记 55",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -526.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_55",
+        "name": "道路标记 56",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -537
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_56",
+        "name": "道路标记 57",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -547.1999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_57",
+        "name": "道路标记 58",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -557.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_58",
+        "name": "道路标记 59",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -567.5999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_59",
+        "name": "道路标记 60",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -577.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_60",
+        "name": "道路标记 61",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -588
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_61",
+        "name": "道路标记 62",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -598.1999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_62",
+        "name": "道路标记 63",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -608.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_63",
+        "name": "道路标记 64",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -618.5999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_64",
+        "name": "道路标记 65",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -628.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_65",
+        "name": "道路标记 66",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -639
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_66",
+        "name": "道路标记 67",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -649.1999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_67",
+        "name": "道路标记 68",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -659.4
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_68",
+        "name": "道路标记 69",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -669.5999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_69",
+        "name": "道路标记 70",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -679.8
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_70",
+        "name": "道路标记 71",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -690
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_lane_mark_71",
+        "name": "道路标记 72",
+        "geometry": {
+          "primitive": "box",
+          "width": 0.32,
+          "height": 0.01,
+          "depth": 5.2
+        },
+        "position": [
+          0,
+          -2.129,
+          -700.1999999999999
+        ],
+        "color": "#f2e68c",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_0",
+        "name": "建筑 1",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 2.2,
+          "depth": 1.5
+        },
+        "position": [
+          -18,
+          -1.15,
+          4
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_1",
+        "name": "建筑 2",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.9000000000000004,
+          "depth": 2.2
+        },
+        "position": [
+          35.547450194958685,
+          -0.7999999999999998,
+          -3.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_2",
+        "name": "建筑 3",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 3.6,
+          "depth": 2.9
+        },
+        "position": [
+          -39.16585522691362,
+          -0.44999999999999996,
+          -11
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_3",
+        "name": "建筑 4",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 4.3,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          27.734814071368948,
+          -0.10000000000000009,
+          -18.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_4",
+        "name": "建筑 5",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 5,
+          "depth": 1.5
+        },
+        "position": [
+          -41.22715005969185,
+          0.25,
+          -26
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_5",
+        "name": "建筑 6",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5.7,
+          "depth": 2.2
+        },
+        "position": [
+          47.25808182679412,
+          0.6000000000000001,
+          -33.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_6",
+        "name": "建筑 7",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 6.3999999999999995,
+          "depth": 2.9
+        },
+        "position": [
+          -37.41910822380083,
+          0.9499999999999997,
+          -41
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_7",
+        "name": "建筑 8",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 7.1,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          46.63525504725638,
+          1.2999999999999998,
+          -48.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_8",
+        "name": "建筑 9",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.8,
+          "depth": 1.5
+        },
+        "position": [
+          -35.80634754025432,
+          1.65,
+          -56
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_9",
+        "name": "建筑 10",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 8.5,
+          "depth": 2.2
+        },
+        "position": [
+          27.80336942175815,
+          2,
+          -63.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_10",
+        "name": "建筑 11",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 9.2,
+          "depth": 2.9
+        },
+        "position": [
+          -32.60747838482525,
+          2.3499999999999996,
+          -71
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_11",
+        "name": "建筑 12",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          43.19972519921792,
+          -1.15,
+          -78.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_12",
+        "name": "建筑 13",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.9000000000000004,
+          "depth": 1.5
+        },
+        "position": [
+          -37.24007832888955,
+          -0.7999999999999998,
+          -86
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_13",
+        "name": "建筑 14",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 3.6,
+          "depth": 2.2
+        },
+        "position": [
+          37.58423452084477,
+          -0.44999999999999996,
+          -93.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_14",
+        "name": "建筑 15",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 4.3,
+          "depth": 2.9
+        },
+        "position": [
+          -50.23436070496998,
+          -0.10000000000000009,
+          -101
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_15",
+        "name": "建筑 16",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          46.484656388546455,
+          0.25,
+          -108.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_16",
+        "name": "建筑 17",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5.7,
+          "depth": 1.5
+        },
+        "position": [
+          -23.209833647945764,
+          0.6000000000000001,
+          -116
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_17",
+        "name": "建筑 18",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 6.3999999999999995,
+          "depth": 2.2
+        },
+        "position": [
+          37.71354984197804,
+          0.9499999999999997,
+          -123.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_18",
+        "name": "建筑 19",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.1,
+          "depth": 2.9
+        },
+        "position": [
+          -36.296354293313726,
+          1.2999999999999998,
+          -131
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_19",
+        "name": "建筑 20",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.8,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          27.93159858202146,
+          1.65,
+          -138.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_20",
+        "name": "建筑 21",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 8.5,
+          "depth": 1.5
+        },
+        "position": [
+          -44.04767259151056,
+          2,
+          -146
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_21",
+        "name": "建筑 22",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 9.2,
+          "depth": 2.2
+        },
+        "position": [
+          45.03906413597998,
+          2.3499999999999996,
+          -153.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_22",
+        "name": "建筑 23",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.2,
+          "depth": 2.9
+        },
+        "position": [
+          -32.59892159844685,
+          -1.15,
+          -161
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_23",
+        "name": "建筑 24",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.9000000000000004,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          50.05398625421027,
+          -0.7999999999999998,
+          -168.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_24",
+        "name": "建筑 25",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 3.6,
+          "depth": 1.5
+        },
+        "position": [
+          -34.282039055434055,
+          -0.44999999999999996,
+          -176
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_25",
+        "name": "建筑 26",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 4.3,
+          "depth": 2.2
+        },
+        "position": [
+          22.73771997690665,
+          -0.10000000000000009,
+          -20
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_26",
+        "name": "建筑 27",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5,
+          "depth": 2.9
+        },
+        "position": [
+          -36.556281504777104,
+          0.25,
+          -27.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_27",
+        "name": "建筑 28",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5.7,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          42.40050603464054,
+          0.6000000000000001,
+          -35
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_28",
+        "name": "建筑 29",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 6.3999999999999995,
+          "depth": 1.5
+        },
+        "position": [
+          -32.42776980217284,
+          0.9499999999999997,
+          -42.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_29",
+        "name": "建筑 30",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.1,
+          "depth": 2.2
+        },
+        "position": [
+          41.98440823373664,
+          1.2999999999999998,
+          -50
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_30",
+        "name": "建筑 31",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 7.8,
+          "depth": 2.9
+        },
+        "position": [
+          -50.17615963737042,
+          1.65,
+          -57.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_31",
+        "name": "建筑 32",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 8.5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          42.02160012881489,
+          2,
+          -65
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_32",
+        "name": "建筑 33",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 9.2,
+          "depth": 1.5
+        },
+        "position": [
+          -27.97368062646857,
+          2.3499999999999996,
+          -72.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_33",
+        "name": "建筑 34",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.2,
+          "depth": 2.2
+        },
+        "position": [
+          38.39752684330466,
+          -1.15,
+          -80
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_34",
+        "name": "建筑 35",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 2.9000000000000004,
+          "depth": 2.9
+        },
+        "position": [
+          -32.27150090369044,
+          -0.7999999999999998,
+          -87.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_35",
+        "name": "建筑 36",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 3.6,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          32.96417333652306,
+          -0.44999999999999996,
+          -95
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_36",
+        "name": "建筑 37",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 4.3,
+          "depth": 1.5
+        },
+        "position": [
+          -45.460195710192615,
+          -0.10000000000000009,
+          -102.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_37",
+        "name": "建筑 38",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5,
+          "depth": 2.2
+        },
+        "position": [
+          41.53263065063492,
+          0.25,
+          -110
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_38",
+        "name": "建筑 39",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 5.7,
+          "depth": 2.9
+        },
+        "position": [
+          -37.799922780787305,
+          0.6000000000000001,
+          -117.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_39",
+        "name": "建筑 40",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 6.3999999999999995,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          52.16690330573111,
+          0.9499999999999997,
+          -125
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_40",
+        "name": "建筑 41",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 7.1,
+          "depth": 1.5
+        },
+        "position": [
+          -31.363910180089213,
+          1.2999999999999998,
+          -132.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_41",
+        "name": "建筑 42",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 7.8,
+          "depth": 2.2
+        },
+        "position": [
+          23.328049475031033,
+          1.65,
+          -140
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_42",
+        "name": "建筑 43",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 8.5,
+          "depth": 2.9
+        },
+        "position": [
+          -39.32748115664525,
+          2,
+          -147.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_43",
+        "name": "建筑 44",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 9.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          40.12884131476147,
+          2.3499999999999996,
+          -155
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_44",
+        "name": "建筑 45",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 2.2,
+          "depth": 1.5
+        },
+        "position": [
+          -27.99781890205212,
+          -1.15,
+          -162.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_45",
+        "name": "建筑 46",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 2.9000000000000004,
+          "depth": 2.2
+        },
+        "position": [
+          45.35865930219296,
+          -0.7999999999999998,
+          -170
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_46",
+        "name": "建筑 47",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 3.6,
+          "depth": 2.9
+        },
+        "position": [
+          -48.59623431377126,
+          -0.44999999999999996,
+          -177.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_47",
+        "name": "建筑 48",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 4.3,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          36.94034037027795,
+          -0.10000000000000009,
+          -185
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_48",
+        "name": "建筑 49",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 5,
+          "depth": 1.5
+        },
+        "position": [
+          -31.883732857391188,
+          0.25,
+          -192.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_49",
+        "name": "建筑 50",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 5.7,
+          "depth": 2.2
+        },
+        "position": [
+          37.540829497407,
+          0.6000000000000001,
+          -200
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_50",
+        "name": "建筑 51",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 6.3999999999999995,
+          "depth": 2.9
+        },
+        "position": [
+          -27.435841751749223,
+          0.9499999999999997,
+          -44
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_51",
+        "name": "建筑 52",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 7.1,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          37.33209773149842,
+          1.2999999999999998,
+          -51.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_52",
+        "name": "建筑 53",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 7.8,
+          "depth": 1.5
+        },
+        "position": [
+          -45.343800683249825,
+          1.65,
+          -59
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_53",
+        "name": "建筑 54",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 8.5,
+          "depth": 2.2
+        },
+        "position": [
+          37.038948841998476,
+          2,
+          -66.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_54",
+        "name": "建筑 55",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 9.2,
+          "depth": 2.9
+        },
+        "position": [
+          -42.53866475508303,
+          2.3499999999999996,
+          -74
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_55",
+        "name": "建筑 56",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 2.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          52.7931303999694,
+          -1.15,
+          -81.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_56",
+        "name": "建筑 57",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.9000000000000004,
+          "depth": 1.5
+        },
+        "position": [
+          -27.301766698052422,
+          -0.7999999999999998,
+          -89
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_57",
+        "name": "建筑 58",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 3.6,
+          "depth": 2.2
+        },
+        "position": [
+          28.34316389237089,
+          -0.44999999999999996,
+          -96.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_58",
+        "name": "建筑 59",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 4.3,
+          "depth": 2.9
+        },
+        "position": [
+          -40.68384940062199,
+          -0.10000000000000009,
+          -104
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_59",
+        "name": "建筑 60",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          36.57919640084293,
+          0.25,
+          -111.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_60",
+        "name": "建筑 61",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5.7,
+          "depth": 1.5
+        },
+        "position": [
+          -33.18935240621728,
+          0.6000000000000001,
+          -119
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_61",
+        "name": "建筑 62",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 6.3999999999999995,
+          "depth": 2.2
+        },
+        "position": [
+          47.418135701848186,
+          0.9499999999999997,
+          -126.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_62",
+        "name": "建筑 63",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 7.1,
+          "depth": 2.9
+        },
+        "position": [
+          -45.6298338957819,
+          1.2999999999999998,
+          -134
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_63",
+        "name": "建筑 64",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.8,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          37.92414275731008,
+          1.65,
+          -141.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_64",
+        "name": "建筑 65",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 8.5,
+          "depth": 1.5
+        },
+        "position": [
+          -34.605271175078215,
+          2,
+          -149
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_65",
+        "name": "建筑 66",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 9.2,
+          "depth": 2.2
+        },
+        "position": [
+          35.21679519311924,
+          2.3499999999999996,
+          -156.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_66",
+        "name": "建筑 67",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.2,
+          "depth": 2.9
+        },
+        "position": [
+          -23.396667618941617,
+          -1.15,
+          -164
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_67",
+        "name": "建筑 68",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.9000000000000004,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          40.66145655489982,
+          -0.7999999999999998,
+          -171.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_68",
+        "name": "建筑 69",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 3.6,
+          "depth": 1.5
+        },
+        "position": [
+          -43.708451481494144,
+          -0.44999999999999996,
+          -179
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_69",
+        "name": "建筑 70",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 4.3,
+          "depth": 2.2
+        },
+        "position": [
+          31.942699357996823,
+          -0.10000000000000009,
+          -186.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_70",
+        "name": "建筑 71",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5,
+          "depth": 2.9
+        },
+        "position": [
+          -46.40948855155008,
+          0.25,
+          -194
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_71",
+        "name": "建筑 72",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5.7,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          51.87905950355309,
+          0.6000000000000001,
+          -201.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_72",
+        "name": "建筑 73",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 6.3999999999999995,
+          "depth": 1.5
+        },
+        "position": [
+          -22.44334751322985,
+          0.9499999999999997,
+          -209
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_73",
+        "name": "建筑 74",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.1,
+          "depth": 2.2
+        },
+        "position": [
+          32.67830550281765,
+          1.2999999999999998,
+          -216.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_74",
+        "name": "建筑 75",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.8,
+          "depth": 2.9
+        },
+        "position": [
+          -40.50927462998055,
+          1.65,
+          -224
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_75",
+        "name": "建筑 76",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 8.5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          32.05543786901225,
+          2,
+          -68
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_76",
+        "name": "建筑 77",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 9.2,
+          "depth": 1.5
+        },
+        "position": [
+          -37.90241062070336,
+          2.3499999999999996,
+          -75.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_77",
+        "name": "建筑 78",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.2,
+          "depth": 2.2
+        },
+        "position": [
+          47.98653640616185,
+          -1.15,
+          -83
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_78",
+        "name": "建筑 79",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.9000000000000004,
+          "depth": 2.9
+        },
+        "position": [
+          -41.5308964420803,
+          -0.7999999999999998,
+          -90.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_79",
+        "name": "建筑 80",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 3.6,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          42.921184327779685,
+          -0.44999999999999996,
+          -98
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_80",
+        "name": "建筑 81",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 4.3,
+          "depth": 1.5
+        },
+        "position": [
+          -35.90531888736789,
+          -0.10000000000000009,
+          -105.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_81",
+        "name": "建筑 82",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5,
+          "depth": 2.2
+        },
+        "position": [
+          31.624372378517347,
+          0.25,
+          -113
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_82",
+        "name": "建筑 83",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5.7,
+          "depth": 2.9
+        },
+        "position": [
+          -28.57809938867479,
+          0.6000000000000001,
+          -120.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_83",
+        "name": "建筑 84",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 6.3999999999999995,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          42.667240773175905,
+          0.9499999999999997,
+          -128
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_84",
+        "name": "建筑 85",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.1,
+          "depth": 1.5
+        },
+        "position": [
+          -40.694141815496906,
+          1.2999999999999998,
+          -135.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_85",
+        "name": "建筑 86",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 7.8,
+          "depth": 2.2
+        },
+        "position": [
+          33.319854479446924,
+          1.65,
+          -143
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_86",
+        "name": "建筑 87",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 8.5,
+          "depth": 2.9
+        },
+        "position": [
+          -49.08103314610079,
+          2,
+          -150.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_87",
+        "name": "建筑 88",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 9.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          49.50293945555409,
+          2.3499999999999996,
+          -158
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_88",
+        "name": "建筑 89",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.2,
+          "depth": 1.5
+        },
+        "position": [
+          -18.795443463174404,
+          -1.15,
+          -165.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_89",
+        "name": "建筑 90",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 2.9000000000000004,
+          "depth": 2.2
+        },
+        "position": [
+          35.96236545741954,
+          -0.7999999999999998,
+          -173
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_90",
+        "name": "建筑 91",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 3.6,
+          "depth": 2.9
+        },
+        "position": [
+          -38.8187012797615,
+          -0.44999999999999996,
+          -180.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_91",
+        "name": "建筑 92",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 4.3,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          26.944821078503328,
+          -0.10000000000000009,
+          -188
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_92",
+        "name": "建筑 93",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5,
+          "depth": 1.5
+        },
+        "position": [
+          -41.73353322836522,
+          0.25,
+          -195.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_93",
+        "name": "建筑 94",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 5.7,
+          "depth": 2.2
+        },
+        "position": [
+          47.015203597217905,
+          0.6000000000000001,
+          -203
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_94",
+        "name": "建筑 95",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 6.3999999999999995,
+          "depth": 2.9
+        },
+        "position": [
+          -36.65031059646604,
+          0.9499999999999997,
+          -210.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_95",
+        "name": "建筑 96",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 7.1,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          47.22301369093723,
+          1.2999999999999998,
+          -218
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_96",
+        "name": "建筑 97",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 7.8,
+          "depth": 1.5
+        },
+        "position": [
+          -35.67258569432438,
+          1.65,
+          -225.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_97",
+        "name": "建筑 98",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 8.5,
+          "depth": 2.2
+        },
+        "position": [
+          27.0710896225561,
+          2,
+          -233
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_98",
+        "name": "建筑 99",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 9.2,
+          "depth": 2.9
+        },
+        "position": [
+          -33.264898224597324,
+          2.3499999999999996,
+          -240.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_99",
+        "name": "建筑 100",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 2.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          43.17774566722457,
+          -1.15,
+          -248
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_100",
+        "name": "建筑 101",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 2.9000000000000004,
+          "depth": 1.5
+        },
+        "position": [
+          -36.55891100462843,
+          -0.7999999999999998,
+          -92
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_101",
+        "name": "建筑 102",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 3.6,
+          "depth": 2.2
+        },
+        "position": [
+          38.29821290062412,
+          -0.44999999999999996,
+          -99.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_102",
+        "name": "建筑 103",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 4.3,
+          "depth": 2.9
+        },
+        "position": [
+          -50.324601548302866,
+          -0.10000000000000009,
+          -107
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_103",
+        "name": "建筑 104",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          45.86817749274167,
+          0.25,
+          -114.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_104",
+        "name": "建筑 105",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 5.7,
+          "depth": 1.5
+        },
+        "position": [
+          -23.96614067597207,
+          0.6000000000000001,
+          -122
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_105",
+        "name": "建筑 106",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 6.3999999999999995,
+          "depth": 2.2
+        },
+        "position": [
+          37.914212522376914,
+          0.9499999999999997,
+          -129.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_106",
+        "name": "建筑 107",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 7.1,
+          "depth": 2.9
+        },
+        "position": [
+          -35.75685051168115,
+          1.2999999999999998,
+          -137
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_107",
+        "name": "建筑 108",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 7.8,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          28.715160738631248,
+          1.65,
+          -144.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_108",
+        "name": "建筑 109",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 8.5,
+          "depth": 1.5
+        },
+        "position": [
+          -44.354757816695155,
+          2,
+          -152
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_109",
+        "name": "建筑 110",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 9.2,
+          "depth": 2.2
+        },
+        "position": [
+          44.587288007580234,
+          2.3499999999999996,
+          -159.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_110",
+        "name": "建筑 111",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 2.2,
+          "depth": 2.9
+        },
+        "position": [
+          -33.39412215771116,
+          -1.15,
+          -167
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_111",
+        "name": "建筑 112",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.9000000000000004,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          50.46137368547093,
+          -0.7999999999999998,
+          -174.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_112",
+        "name": "建筑 113",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 3.6,
+          "depth": 1.5
+        },
+        "position": [
+          -33.92699467001189,
+          -0.44999999999999996,
+          -182
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_113",
+        "name": "建筑 114",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 4.3,
+          "depth": 2.2
+        },
+        "position": [
+          21.946729699215638,
+          -0.10000000000000009,
+          -189.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_114",
+        "name": "建筑 115",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 5,
+          "depth": 2.9
+        },
+        "position": [
+          -37.055851737919234,
+          0.25,
+          -197
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_115",
+        "name": "建筑 116",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5.7,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          42.1492695772988,
+          0.6000000000000001,
+          -204.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_116",
+        "name": "建筑 117",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 6.3999999999999995,
+          "depth": 1.5
+        },
+        "position": [
+          -31.656754577586042,
+          0.9499999999999997,
+          -212
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_117",
+        "name": "建筑 118",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 7.1,
+          "depth": 2.2
+        },
+        "position": [
+          42.56620462224859,
+          1.2999999999999998,
+          -219.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_118",
+        "name": "建筑 119",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.8,
+          "depth": 2.9
+        },
+        "position": [
+          -50.03373835720183,
+          1.65,
+          -227
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_119",
+        "name": "建筑 120",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 8.5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          41.285926617588196,
+          2,
+          -234.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_120",
+        "name": "建筑 121",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 9.2,
+          "depth": 1.5
+        },
+        "position": [
+          -28.62610772170652,
+          2.3499999999999996,
+          -242
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_121",
+        "name": "建筑 122",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 2.2,
+          "depth": 2.2
+        },
+        "position": [
+          38.36675925679472,
+          -1.15,
+          -249.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_122",
+        "name": "建筑 123",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.9000000000000004,
+          "depth": 2.9
+        },
+        "position": [
+          -31.585831390750343,
+          -0.7999999999999998,
+          -257
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_123",
+        "name": "建筑 124",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 3.6,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          33.67422798991871,
+          -0.44999999999999996,
+          -264.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_124",
+        "name": "建筑 125",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 4.3,
+          "depth": 1.5
+        },
+        "position": [
+          -45.54169502838261,
+          -0.10000000000000009,
+          -272
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_125",
+        "name": "建筑 126",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 5,
+          "depth": 2.2
+        },
+        "position": [
+          40.91063082002623,
+          0.25,
+          -116
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_126",
+        "name": "建筑 127",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5.7,
+          "depth": 2.9
+        },
+        "position": [
+          -38.55345330210985,
+          0.6000000000000001,
+          -123.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_127",
+        "name": "建筑 128",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 6.3999999999999995,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          52.359045212662394,
+          0.9499999999999997,
+          -131
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_128",
+        "name": "建筑 129",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 7.1,
+          "depth": 1.5
+        },
+        "position": [
+          -30.817976752098573,
+          1.2999999999999998,
+          -138.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_129",
+        "name": "建筑 130",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.8,
+          "depth": 2.2
+        },
+        "position": [
+          24.11003768157267,
+          1.65,
+          -146
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_130",
+        "name": "建筑 131",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 8.5,
+          "depth": 2.9
+        },
+        "position": [
+          -39.62643618266466,
+          2,
+          -153.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_131",
+        "name": "建筑 132",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 9.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          39.669854974026876,
+          2.3499999999999996,
+          -161
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_132",
+        "name": "建筑 133",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 2.2,
+          "depth": 1.5
+        },
+        "position": [
+          -28.792679437376066,
+          -1.15,
+          -168.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_133",
+        "name": "建筑 134",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.9000000000000004,
+          "depth": 2.2
+        },
+        "position": [
+          45.75846914690659,
+          -0.7999999999999998,
+          -176
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_134",
+        "name": "建筑 135",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 3.6,
+          "depth": 2.9
+        },
+        "position": [
+          -48.233342852625604,
+          -0.44999999999999996,
+          -183.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_135",
+        "name": "建筑 136",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 4.3,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          36.148449413578135,
+          -0.10000000000000009,
+          -191
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_136",
+        "name": "建筑 137",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 5,
+          "depth": 1.5
+        },
+        "position": [
+          -32.376429141116525,
+          0.25,
+          -198.5
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_137",
+        "name": "建筑 138",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5.7,
+          "depth": 2.2
+        },
+        "position": [
+          37.28126549649879,
+          0.6000000000000001,
+          -206
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_138",
+        "name": "建筑 139",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 6.3999999999999995,
+          "depth": 2.9
+        },
+        "position": [
+          -26.66270309611944,
+          0.9499999999999997,
+          -213.5
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_139",
+        "name": "建筑 140",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 7.1,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          37.907860808449165,
+          1.2999999999999998,
+          -221
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_140",
+        "name": "建筑 141",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 7.8,
+          "depth": 1.5
+        },
+        "position": [
+          -45.192737363145106,
+          1.65,
+          -228.5
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_141",
+        "name": "建筑 142",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 8.5,
+          "depth": 2.2
+        },
+        "position": [
+          36.29997146857457,
+          2,
+          -236
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_142",
+        "name": "建筑 143",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 9.2,
+          "depth": 2.9
+        },
+        "position": [
+          -43.186019423072786,
+          2.3499999999999996,
+          -243.5
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_143",
+        "name": "建筑 144",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 2.2,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          52.75357851667274,
+          -1.15,
+          -251
+        ],
+        "color": "#4f5862",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_144",
+        "name": "建筑 145",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 2.9000000000000004,
+          "depth": 1.5
+        },
+        "position": [
+          -26.611678739135456,
+          -0.7999999999999998,
+          -258.5
+        ],
+        "color": "#56606b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_145",
+        "name": "建筑 146",
+        "geometry": {
+          "primitive": "box",
+          "width": 1.5,
+          "height": 3.6,
+          "depth": 2.2
+        },
+        "position": [
+          29.049208098455875,
+          -0.44999999999999996,
+          -266
+        ],
+        "color": "#5d6874",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_146",
+        "name": "建筑 147",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.05,
+          "height": 4.3,
+          "depth": 2.9
+        },
+        "position": [
+          -40.75659723993333,
+          -0.10000000000000009,
+          -273.5
+        ],
+        "color": "#64707d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_147",
+        "name": "建筑 148",
+        "geometry": {
+          "primitive": "box",
+          "width": 2.6,
+          "height": 5,
+          "depth": 3.5999999999999996
+        },
+        "position": [
+          35.951751601979396,
+          0.25,
+          -281
+        ],
+        "color": "#394047",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_148",
+        "name": "建筑 149",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.1500000000000004,
+          "height": 5.7,
+          "depth": 1.5
+        },
+        "position": [
+          -33.940014390082254,
+          0.6000000000000001,
+          -288.5
+        ],
+        "color": "#404850",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_tower_149",
+        "name": "建筑 150",
+        "geometry": {
+          "primitive": "box",
+          "width": 3.7,
+          "height": 6.3999999999999995,
+          "depth": 2.2
+        },
+        "position": [
+          47.601733368492646,
+          0.9499999999999997,
+          -296
+        ],
+        "color": "#475059",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_0",
+        "name": "远山 1",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 32,
+          "diameterTop": 0,
+          "diameterBottom": 32,
+          "tessellation": 6
+        },
+        "position": [
+          -230,
+          13.75,
+          -398
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_1",
+        "name": "远山 2",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 41,
+          "diameterTop": 0,
+          "diameterBottom": 40,
+          "tessellation": 6
+        },
+        "position": [
+          -204.5698006870999,
+          18.25,
+          -410.4670410447064
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_2",
+        "name": "远山 3",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 50,
+          "diameterTop": 0,
+          "diameterBottom": 48,
+          "tessellation": 6
+        },
+        "position": [
+          -204.27553823079293,
+          22.75,
+          -414.64695776376857
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_3",
+        "name": "远山 4",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 59,
+          "diameterTop": 0,
+          "diameterBottom": 56,
+          "tessellation": 6
+        },
+        "position": [
+          -187.2540012518188,
+          27.25,
+          -435.9379953760262
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_4",
+        "name": "远山 5",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 68,
+          "diameterTop": 0,
+          "diameterBottom": 64,
+          "tessellation": 6
+        },
+        "position": [
+          -156.22806846654177,
+          31.75,
+          -477.8115263291756
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_5",
+        "name": "远山 6",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 77,
+          "diameterTop": 0,
+          "diameterBottom": 72,
+          "tessellation": 6
+        },
+        "position": [
+          -151.2489503711675,
+          36.25,
+          -397.36369519334545
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_6",
+        "name": "远山 7",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 86,
+          "diameterTop": 0,
+          "diameterBottom": 32,
+          "tessellation": 6
+        },
+        "position": [
+          -142.9407894183703,
+          40.75,
+          -414.66533250450624
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_7",
+        "name": "远山 8",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 32,
+          "diameterTop": 0,
+          "diameterBottom": 40,
+          "tessellation": 6
+        },
+        "position": [
+          -110.80120021984938,
+          13.75,
+          -418.2999873691082
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_8",
+        "name": "远山 9",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 41,
+          "diameterTop": 0,
+          "diameterBottom": 48,
+          "tessellation": 6
+        },
+        "position": [
+          -97.84981380614055,
+          18.25,
+          -434.3646252934774
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_9",
+        "name": "远山 10",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 50,
+          "diameterTop": 0,
+          "diameterBottom": 56,
+          "tessellation": 6
+        },
+        "position": [
+          -95.96063452619316,
+          22.75,
+          -473.02793573468523
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_10",
+        "name": "远山 11",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 59,
+          "diameterTop": 0,
+          "diameterBottom": 64,
+          "tessellation": 6
+        },
+        "position": [
+          -67.52165792017044,
+          27.25,
+          -395.49976786304535
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_11",
+        "name": "远山 12",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 68,
+          "diameterTop": 0,
+          "diameterBottom": 72,
+          "tessellation": 6
+        },
+        "position": [
+          -45.688633952117534,
+          31.75,
+          -418.10957926017426
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_12",
+        "name": "远山 13",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 77,
+          "diameterTop": 0,
+          "diameterBottom": 32,
+          "tessellation": 6
+        },
+        "position": [
+          -46.00932755033288,
+          36.25,
+          -422.6388130479641
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_13",
+        "name": "远山 14",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 86,
+          "diameterTop": 0,
+          "diameterBottom": 40,
+          "tessellation": 6
+        },
+        "position": [
+          -24.98137888883062,
+          40.75,
+          -434.0380856212524
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_14",
+        "name": "远山 15",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 32,
+          "diameterTop": 0,
+          "diameterBottom": 48,
+          "tessellation": 6
+        },
+        "position": [
+          3.9933531871761385,
+          13.75,
+          -468.4544716710511
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_15",
+        "name": "远山 16",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 41,
+          "diameterTop": 0,
+          "diameterBottom": 56,
+          "tessellation": 6
+        },
+        "position": [
+          6.331077246303221,
+          18.25,
+          -392.5399986668246
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_16",
+        "name": "远山 17",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 50,
+          "diameterTop": 0,
+          "diameterBottom": 64,
+          "tessellation": 6
+        },
+        "position": [
+          18.44821397834005,
+          22.75,
+          -420.55627122660644
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_17",
+        "name": "远山 18",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 59,
+          "diameterTop": 0,
+          "diameterBottom": 72,
+          "tessellation": 6
+        },
+        "position": [
+          50.69442861176122,
+          27.25,
+          -427.3566775075927
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_18",
+        "name": "远山 19",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 68,
+          "diameterTop": 0,
+          "diameterBottom": 32,
+          "tessellation": 6
+        },
+        "position": [
+          59.76588295242488,
+          31.75,
+          -434.98146288857345
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_19",
+        "name": "远山 20",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 77,
+          "diameterTop": 0,
+          "diameterBottom": 40,
+          "tessellation": 6
+        },
+        "position": [
+          64.13042486043548,
+          36.25,
+          -464.4144804901346
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_20",
+        "name": "远山 21",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 86,
+          "diameterTop": 0,
+          "diameterBottom": 48,
+          "tessellation": 6
+        },
+        "position": [
+          94.80204780438252,
+          40.75,
+          -388.6936448675881
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_21",
+        "name": "远山 22",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 32,
+          "diameterTop": 0,
+          "diameterBottom": 56,
+          "tessellation": 6
+        },
+        "position": [
+          112.67394442354411,
+          13.75,
+          -421.83242597506467
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_22",
+        "name": "远山 23",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 41,
+          "diameterTop": 0,
+          "diameterBottom": 64,
+          "tessellation": 6
+        },
+        "position": [
+          112.75662577287208,
+          18.25,
+          -432.12002521101545
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_23",
+        "name": "远山 24",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 50,
+          "diameterTop": 0,
+          "diameterBottom": 72,
+          "tessellation": 6
+        },
+        "position": [
+          137.47726685197114,
+          22.75,
+          -437.1280598188089
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_24",
+        "name": "远山 25",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 59,
+          "diameterTop": 0,
+          "diameterBottom": 32,
+          "tessellation": 6
+        },
+        "position": [
+          163.59123875746403,
+          27.25,
+          -461.19359172607557
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_25",
+        "name": "远山 26",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 68,
+          "diameterTop": 0,
+          "diameterBottom": 40,
+          "tessellation": 6
+        },
+        "position": [
+          164.14002759685445,
+          31.75,
+          -384.2326457331745
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_26",
+        "name": "远山 27",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 77,
+          "diameterTop": 0,
+          "diameterBottom": 48,
+          "tessellation": 6
+        },
+        "position": [
+          180.30841167696795,
+          36.25,
+          -421.84781868327343
+        ],
+        "color": "#485a74",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_27",
+        "name": "远山 28",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 86,
+          "diameterTop": 0,
+          "diameterBottom": 56,
+          "tessellation": 6
+        },
+        "position": [
+          211.64756786427876,
+          40.75,
+          -436.59208493162623
+        ],
+        "color": "#4e617d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_28",
+        "name": "远山 29",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 32,
+          "diameterTop": 0,
+          "diameterBottom": 64,
+          "tessellation": 6
+        },
+        "position": [
+          217.27139730080947,
+          13.75,
+          -440.3261108625522
+        ],
+        "color": "#3d4c62",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      },
+      {
+        "id": "camera_lab_mountain_29",
+        "name": "远山 30",
+        "geometry": {
+          "primitive": "cylinder",
+          "height": 41,
+          "diameterTop": 0,
+          "diameterBottom": 72,
+          "tessellation": 6
+        },
+        "position": [
+          224.83729718916445,
+          18.25,
+          -459.01952393468184
+        ],
+        "color": "#42536b",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      }
+    ]
+  },
+  "monster-formation-road-shadow-shape-test": {
+    "presetKey": "monster-formation-road-shadow-shape-test",
+    "name": "Monster Formation · 阴影轮廓修正版",
+    "extendsPresetKey": "monster-formation-road",
+    "lightShadowOverrides": {
+      "cameraLabSun": {
+        "qualityPresetKey": "large-outdoor-csm-shadow-shape-test",
+        "overrides": {
+          "bias": 0.001,
+          "darkness": 0.28,
+          "frustumEdgeFalloff": 0.08
+        }
+      }
+    }
+  }
+}

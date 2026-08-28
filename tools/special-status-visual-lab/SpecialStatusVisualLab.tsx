@@ -12,7 +12,6 @@ import {
 } from '@/core/sprite';
 import {
   SPECIAL_STATUS_VISUAL_PRESET_API_PATH,
-  SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL,
   createDefaultSpecialStatusVisualPreset,
   normalizeSpecialStatusVisualPresets,
   type SpecialStatus3dConfig,
@@ -23,6 +22,7 @@ import {
   type SpecialStatusDefinitionMap
 } from '@/core/special-status';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config';
 
 const clamp = (value: number, min: number, max: number): number => Math.min(max, Math.max(min, value));
 const HEX_COLOR_PATTERN = /^#([0-9a-fA-F]{6})$/;
@@ -208,17 +208,10 @@ export const SpecialStatusVisualLab: React.FC = () => {
     let cancelled = false;
     const load = async () => {
       try {
-        let raw: unknown;
-        try {
-          const response = await requestDevServer(`${SPECIAL_STATUS_VISUAL_PRESET_API_PATH}?t=${Date.now()}`, { method: 'GET' });
-          const payload = await response.json();
-          if (!response.ok || payload.success === false) throw new Error(payload.message || `HTTP ${response.status}`);
-          raw = payload.data;
-        } catch {
-          const response = await fetch(`${SPECIAL_STATUS_VISUAL_PRESET_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          raw = await response.json();
-        }
+        const raw = await loadConfig<unknown>('specialStatusVisualPresets.json', {
+          devApiPath: SPECIAL_STATUS_VISUAL_PRESET_API_PATH,
+          selectDevPayload: (payload) => (payload as Record<string, unknown>).data
+        });
         if (cancelled) return;
         const loaded = normalizeSpecialStatusVisualPresets(raw);
         const presets = Object.keys(loaded).length ? loaded : { special_status_default: createDefaultSpecialStatusVisualPreset() };

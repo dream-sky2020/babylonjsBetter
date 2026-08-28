@@ -3,6 +3,7 @@ import React,{useEffect,useMemo,useRef,useState}from'react';
 import{createRoot}from'react-dom/client';
 import{ArcRotateCamera,Color4,Engine,Scene,Vector3}from'@babylonjs/core';
 import{requestDevServer}from'@/core/network/devServerPortResolver.ts';
+import{loadConfig}from'@/core/config';
 import{createSpriteAshEffect,normalizeSpriteAshPreset,normalizeSpriteAshPresetLibrary,SPRITE_ASH_PARAMETER_DEFINITIONS,SPRITE_ASH_GROUP_FEATURES,type SpriteAshEffectController,type SpriteAshPreset,type SpriteAshPresetLibrary}from'@/core/sprite';
 
 const PRESET_URL='/config/spriteAshPresets.json',PRESET_API='/api/sprite-ash-presets';
@@ -34,7 +35,7 @@ const App:React.FC=()=>{
  const reset=()=>{setPlaying(false);applyProgress(0)};
  const replay=()=>{applyProgress(0);setPlaying(true)};
 
- useEffect(()=>{fetch(`${PRESET_URL}?t=${Date.now()}`,{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json()}).then(raw=>{const next=normalizeSpriteAshPresetLibrary(raw);setPresets(next);setPresetKey(Object.keys(next)[0]||'');setMessage(`已加载 ${Object.keys(next).length} 个精灵化灰预设。`)}).catch(error=>{setIsError(true);setMessage(`加载失败：${String(error)}`)})},[]);
+ useEffect(()=>{loadConfig<unknown>(PRESET_URL).then(raw=>{const next=normalizeSpriteAshPresetLibrary(raw);setPresets(next);setPresetKey(Object.keys(next)[0]||'');setMessage(`已加载 ${Object.keys(next).length} 个精灵化灰预设。`)}).catch(error=>{setIsError(true);setMessage(`加载失败：${String(error)}`)})},[]);
 
  useEffect(()=>{const canvas=canvasRef.current;if(!canvas)return;const engine=new Engine(canvas,true,{preserveDrawingBuffer:true,stencil:true});const scene=new Scene(engine);scene.clearColor=new Color4(.035,.05,.075,1);const camera=new ArcRotateCamera('spriteAshCamera',-Math.PI/2,Math.PI/2.15,12,new Vector3(0,0,0),scene);camera.lowerRadiusLimit=3;camera.upperRadiusLimit=30;camera.wheelPrecision=25;camera.attachControl(canvas,true);sceneRef.current=scene;let time=0,lastUi=0;engine.runRenderLoop(()=>{const dt=engine.getDeltaTime()/1000;time+=dt;const controller=controllerRef.current;if(controller){controller.updateTime(time);if(playingRef.current){const duration=Math.max(.1,presetRef.current?.duration||1);let next=progressRef.current+dt*speedRef.current/duration;if(next>=1){if(loopRef.current)next%=1;else{next=1;playingRef.current=false;setPlaying(false)}}progressRef.current=next;controller.setProgress(next);if(time-lastUi>.035){lastUi=time;setProgressState(next)}}}scene.render()});const resize=()=>engine.resize();window.addEventListener('resize',resize);return()=>{window.removeEventListener('resize',resize);controllerRef.current?.dispose();controllerRef.current=null;sceneRef.current=null;scene.dispose();engine.dispose()}},[]);
 

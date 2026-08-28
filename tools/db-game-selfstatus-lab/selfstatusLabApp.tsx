@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ConfigurableAvatar, OscilloscopeWrapper, type AvatarExpressionConfig } from '@/core/ui';
 import { joinPublicPath, normalizePublicPath, type TexturePackerAtlas } from '@/core/sprite';
-import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config';
 
 type AvatarCharacterConfig = { id: string; name: string; expressions: AvatarExpressionConfig[] };
 type AvatarConfigMap = Record<string, AvatarCharacterConfig>;
@@ -90,15 +90,10 @@ export const DbGameSelfstatusLab: React.FC = () => {
   useEffect(() => {
     void (async () => {
       try {
-        let response = await fetch(`/config/avatarConfigs.json?t=${Date.now()}`, { cache: 'no-store' });
-        let payload: AvatarConfigMap;
-        if (response.ok) payload = await response.json() as AvatarConfigMap;
-        else {
-          response = await requestDevServer(`/api/avatar-configs?t=${Date.now()}`, { method: 'GET' });
-          const serverPayload = await response.json();
-          if (!response.ok || serverPayload.success === false) throw new Error(serverPayload.message || `HTTP ${response.status}`);
-          payload = serverPayload.data as AvatarConfigMap;
-        }
+        const payload = await loadConfig<AvatarConfigMap>('avatarConfigs.json', {
+          devApiPath: '/api/avatar-configs',
+          selectDevPayload: (raw) => (raw as { data: AvatarConfigMap }).data
+        });
         const ids = Object.keys(payload);
         if (!ids.length) throw new Error('尚未保存任何头像配置');
         const firstId = ids[0];

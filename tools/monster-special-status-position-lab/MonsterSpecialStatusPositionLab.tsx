@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { loadConfigFromUrl } from '@/core/config';
 import { Vector3 } from '@babylonjs/core';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
@@ -20,8 +21,7 @@ type StatusItem = {
     visible: SpecialStatus3dVisibility;
 };
 const section: React.CSSProperties = { padding: 10, border: '1px solid #273348', borderRadius: 9, background: '#151d29' };
-const fetchJson = async (url: string) => { const response = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' }); if (!response.ok)
-    throw new Error(`${url}: HTTP ${response.status}`); return response.json(); };
+const fetchJson = (url: string) => loadConfigFromUrl(url);
 const vec = (value: Vec3): Vec3 => [...value];
 const POSITION_API_PATH = '/api/monster-special-status-positions';
 const PREVIEW_MONSTER_ID = 'monster-special-status-position-preview';

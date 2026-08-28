@@ -1,4 +1,5 @@
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 import type { ModelScenePresetLibrary } from '@/core/model/types/model-scene-preset.types.ts';
 import { sanitizeModelScenePresetLibrary } from '@/core/model/preset/modelScenePresetValidation.ts';
 
@@ -21,15 +22,11 @@ const parseResponse = async (response: Response): Promise<Record<string, unknown
 };
 
 export const loadModelScenePresetLibrary = async (): Promise<ModelScenePresetLibrary> => {
-  try {
-    const response = await requestDevServer(`${MODEL_SCENE_PRESET_API_PATH}?t=${Date.now()}`, { method: 'GET' });
-    const payload = await parseResponse(response);
-    return sanitizeModelScenePresetLibrary(payload.data);
-  } catch {
-    const response = await fetch(`${MODEL_SCENE_PRESET_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) return {};
-    return sanitizeModelScenePresetLibrary(await response.json());
-  }
+  const value = await loadConfig<unknown>('modelScenePresets.json', {
+    devApiPath: MODEL_SCENE_PRESET_API_PATH,
+    selectDevPayload: (payload) => (payload as Record<string, unknown>).data
+  });
+  return sanitizeModelScenePresetLibrary(value);
 };
 
 export const saveModelScenePresetLibrary = async (library: ModelScenePresetLibrary): Promise<void> => {

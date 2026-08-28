@@ -66,6 +66,8 @@ MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfig
 BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
 AVATAR_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "avatarConfigs.json")
 DUNGEON_MAP_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "dungeonMapPresets.json")
+SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
+SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
 DEV_PORT_MAX = 4600
@@ -343,6 +345,32 @@ def handle_monster_dissolve_presets():
 @app.route("/api/dungeon-map-presets", methods=["GET", "PUT"])
 def handle_dungeon_map_presets():
     return _handle_json_config(DUNGEON_MAP_PRESET_CONFIG_PATH, validate_dungeon_map_preset_payload, "dungeon map presets")
+
+@app.route("/api/scene-environment-presets", methods=["GET"])
+def handle_scene_environment_presets():
+    if not os.path.isfile(SCENE_ENVIRONMENT_PRESET_CONFIG_PATH):
+        return jsonify({"success": True, "count": 0, "data": {}})
+    try:
+        with open(SCENE_ENVIRONMENT_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        if not isinstance(data, dict):
+            return jsonify({"success": False, "message": "scene environment preset root must be an object"}), 500
+        return jsonify({"success": True, "count": len(data), "data": data})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to read scene environment presets: {exc}"}), 500
+
+@app.route("/api/shadow-quality-presets", methods=["GET"])
+def handle_shadow_quality_presets():
+    if not os.path.isfile(SHADOW_QUALITY_PRESET_CONFIG_PATH):
+        return jsonify({"success": True, "count": 0, "data": {}})
+    try:
+        with open(SHADOW_QUALITY_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        if not isinstance(data, dict):
+            return jsonify({"success": False, "message": "shadow quality preset root must be an object"}), 500
+        return jsonify({"success": True, "count": len(data), "data": data})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to read shadow quality presets: {exc}"}), 500
 @app.route("/api/monster-status-particle-configs", methods=["GET", "PUT"])
 def handle_monster_status_particle_configs():
     return _handle_json_config(MONSTER_STATUS_PARTICLE_CONFIG_PATH, validate_monster_status_particle_config_payload, "monster status particle configs")

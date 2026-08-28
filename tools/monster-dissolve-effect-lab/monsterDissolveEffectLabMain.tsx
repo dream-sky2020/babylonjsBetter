@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components, react-hooks/exhaustive-deps, react-hooks/refs */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from 'react-dom/client';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
@@ -36,9 +37,7 @@ const PRESET_URL = '/config/monsterDissolvePresets.json';
 const SPRITE_PRESET_URL = '/config/spriteAshPresets.json';
 const PRESET_API = '/api/monster-dissolve-presets';
 const fetchJson = async (url: string) => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
+  return loadConfigFromUrl(url);
 };
 const particleModeOptions: [SpriteAshPreset['particleMode'], string][] = [
   ['none', '无'], ['ash', '灰烬'], ['blackShards', '黑色碎片'], ['embers', '余烬'], ['pixel', '像素块']

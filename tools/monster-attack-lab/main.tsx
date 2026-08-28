@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from "react-dom/client";
 import {
   Color3,
@@ -123,9 +124,7 @@ const directionVector = (direction: AttackDirection) =>
         ? new Vector3(1, 0, 0)
         : new Vector3(0, 0, 1);
 const fetchJson = async (url: string) => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
+  return loadConfigFromUrl(url);
 };
 const normalizePreset = (key: string, value: any): MonsterAttackPreset => {
   const definition = getMonsterAttackDefinition(

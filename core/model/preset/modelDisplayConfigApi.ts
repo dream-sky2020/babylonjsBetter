@@ -1,4 +1,5 @@
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 import type { ModelDisplayConfigLibrary } from '@/core/model/types/model-display-config.types.ts';
 import { sanitizeModelDisplayConfigLibrary } from '@/core/model/preset/modelDisplayConfigValidation.ts';
 
@@ -18,14 +19,11 @@ const parseResponse = async (response: Response): Promise<Record<string, unknown
 };
 
 export const loadModelDisplayConfigLibrary = async (): Promise<ModelDisplayConfigLibrary> => {
-  try {
-    const response = await requestDevServer(`${MODEL_DISPLAY_CONFIG_API_PATH}?t=${Date.now()}`, { method: 'GET' });
-    return sanitizeModelDisplayConfigLibrary((await parseResponse(response)).data);
-  } catch {
-    const response = await fetch(`${MODEL_DISPLAY_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) return {};
-    return sanitizeModelDisplayConfigLibrary(await response.json());
-  }
+  const value = await loadConfig<unknown>('modelDisplayConfigs.json', {
+    devApiPath: MODEL_DISPLAY_CONFIG_API_PATH,
+    selectDevPayload: (payload) => (payload as Record<string, unknown>).data
+  });
+  return sanitizeModelDisplayConfigLibrary(value);
 };
 
 export const saveModelDisplayConfigLibrary = async (library: ModelDisplayConfigLibrary): Promise<void> => {

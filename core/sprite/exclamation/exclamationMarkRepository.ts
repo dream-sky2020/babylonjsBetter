@@ -1,4 +1,5 @@
 import type { ExclamationMarkPreset, ExclamationMarkPresetMap } from './exclamationMark.types.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 
 export const EXCLAMATION_MARK_CONFIG_URL = '/config/exclamationMarkPresets.json';
 
@@ -135,10 +136,5 @@ export const normalizeExclamationMarkPresets = (value: unknown): ExclamationMark
 };
 
 export const loadExclamationMarkPresets = async (): Promise<ExclamationMarkPresetMap> => {
-  const response = await fetch(`${EXCLAMATION_MARK_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) {
-    if (response.status === 404) return {};
-    throw new Error(`感叹号配置加载失败：HTTP ${response.status}`);
-  }
-  return normalizeExclamationMarkPresets(await response.json());
+  return normalizeExclamationMarkPresets(await loadConfig<unknown>('exclamationMarkPresets.json'));
 };

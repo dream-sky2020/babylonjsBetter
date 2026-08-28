@@ -8,8 +8,8 @@ import {
   sanitizeAnimationLibrary,
   type SpriteAnimationValidationReport
 } from '@/core/sprite/animation/spriteAnimationValidation.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 
-const SPRITE_ANIM_CONFIG_JSON_URL = '/config/spriteAnimationLibrary.json';
 const SPRITE_ANIM_DEV_API_PATH = '/api/sprite-animation-library';
 
 export const readAnimationLibraryConfigJson = async (): Promise<SpriteAnimationLibrary> => {
@@ -17,11 +17,7 @@ export const readAnimationLibraryConfigJson = async (): Promise<SpriteAnimationL
     return { rigs: {}, clips: {} };
   }
   try {
-    const response = await fetch(`${SPRITE_ANIM_CONFIG_JSON_URL}?t=${Date.now()}`, {
-      cache: 'no-store'
-    });
-    if (!response.ok) return { rigs: {}, clips: {} };
-    const json = (await response.json()) as unknown;
+    const json = await loadConfig<unknown>('spriteAnimationLibrary.json');
     return sanitizeAnimationLibrary(json);
   } catch {
     return { rigs: {}, clips: {} };

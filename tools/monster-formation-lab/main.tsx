@@ -4,6 +4,7 @@ import { createCameraLabController } from '@/core/camera/cameraLabController.ts'
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfigFromUrl } from '@/core/config';
 import { MONSTER_CONFIG_URL, MONSTER_STRIPE_PRESET_URL, STRIPE_PRESET_URL, normalizeMonsterConfigLibrary, normalizeMonsterStripePresetLibrary, normalizeStripePresetLibrary, type MonsterDisplayConfigLibrary, type MonsterStripePresetLibrary, type StripePresetLibrary } from '@/core/monster';
 import { MonsterVisualManager, type VisualBattlefield as Battlefield, type VisualMonster as MonsterPlacement } from '@/core/monster';
 
@@ -31,7 +32,7 @@ const normalizeBattlefield=(value:Partial<Battlefield>,fallbackId:string):Battle
   }
  })):[]
 });
-const fetchJson=async(url:string)=>{const response=await fetch(`${url}?t=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`${url}: HTTP ${response.status}`);return response.json()};
+const fetchJson = (url: string) => loadConfigFromUrl(url);
 
 const loadFormationLibrary=async():Promise<Record<string,Battlefield>>=>{
  try{

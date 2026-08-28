@@ -1,5 +1,11 @@
 # Babylon.js Better 项目地图
 
+## 2026-08-28：配置读取与开发写回解耦
+
+`core/config/configLoader.ts` 是 JSON 配置的统一只读入口。它通过 `import.meta.glob('../../config/*.json', { eager: true })` 在构建时将 `config/*.json` 收录进应用，因此 Electron 正式构建从 `file://` 启动时不需要 Python/Vite 服务，也不再对 `/config/*.json` 发起网络请求。`loadConfig()` 接受可选的开发 API：开发环境优先读取 API 的最新数据，接口不可用时回退到构建时配置；`loadConfigFromUrl()` 用于迁移旧的 `/config/name.json` 调用。
+
+`core/network/devServerPortResolver.ts` 在非开发构建中会立即拒绝连接，禁止正式应用扫描 `127.0.0.1:4550-4600`。Python API 只负责 Lab 开发期保存和热读取；正式构建中的配置是只读快照，修改 JSON 后必须重新打包才能进入应用。
+
 ## 2026-08-23：统一平面精灵渲染表面
 
 `core/sprite/render/spriteVisualSurface.ts` 现在定义稳定的 `SpriteVisualSurface`、`SpriteVisualEffectState` 和 `SpriteVisualSurfaceFactory` 边界。怪物、感叹号、特殊状态、数字及普通 atlas 平面只声明 `role` 并更新条纹、进度遮罩、分层遮罩、消散和颜色覆盖等视觉状态，不直接依赖 uniform、Shader Module 或 Recipe。
@@ -54,7 +60,7 @@ spriteAshPresets.json / monsterDissolvePresets.json
 - `apps/`：可运行应用。
 - `core/`：应用和实验室共享的无页面核心能力。
 - `tools/`：编辑器、配置器和视觉实验室。
-- `config/`：由运行时读取、由开发服务器辅助写回的 JSON 配置。
+- `config/`：构建时收录进应用、开发期可由 Python 服务写回的 JSON 配置源文件。
 - `public/resources/`：图片、模型、图集等原始资源。
 - `python/server.py`：开发期配置读写 API。
 - `electron/`、`runtime/`：桌面壳与 Web/Electron 桥接。
@@ -74,7 +80,7 @@ npm run electron:dev
 
 - Vite 的固定开发端口由 `vite.config.ts` 配置，Electron 默认等待 `http://localhost:1184/apps/mainGame/index.html`。
 - 编辑器需要写回 JSON 时，启动 `python/server.py` 或使用 Vite 已提供的对应开发 API。
-- 只读预览应优先从 `/config/*.json` 加载，不应依赖可写 API 一定在线。
+- 只读预览统一使用 `core/config`，禁止新增直接 `fetch('/config/*.json')`；写回仍使用开发 API。
 - 当前全项目 TypeScript 检查存在历史错误；修改时至少执行目标文件的语法/Lint 检查和 `git diff --check`。
 
 ## 3. 顶层目录
@@ -156,7 +162,7 @@ config/monsterDisplayConfigs.json
 ### Model、Scene、Camera 与 UI
 
 - `core/model/`：模型实体、缓存、展示/场景/摇晃/挥动预设。
-- `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂。
+- `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体与光源 JSON，`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体分别声明投射/接收阴影。
 - `core/camera/`：战斗相机和 lab 相机控制器。
 - `core/ui/`：共享 React UI 和浮动相机面板；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
 - `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
@@ -198,6 +204,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
+- `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
 
@@ -250,6 +257,8 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `particlePresets.json`、`particleVisualPresets.json` | Particle Editor/runtime |
 | `model*Configs.json`、`model*Presets.json` | 对应 Model labs |
 | `popNumberPresets.json`、`burstCapsulePresets.json` | Hit/effect labs |
+| `sceneEnvironmentPresets.json` | Scene Environment Lab；由 `/api/scene-environment-presets` 只读获取 |
+| `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
 
 配置的稳定原则：
 

@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { loadConfigFromUrl } from '@/core/config';
 import { Vector3 } from "@babylonjs/core";
 import { createCameraLabController } from "@/core/camera/cameraLabController.ts";
 import { createCameraLabScene } from "@/core/scene/createCameraLabScene.ts";
@@ -46,9 +47,7 @@ const section: React.CSSProperties = {
   background: "#151d29",
 };
 const fetchJson = async (url: string): Promise<unknown> => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
+  return loadConfigFromUrl(url);
 };
 const uid = () =>
   `indicator_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;

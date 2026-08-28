@@ -4,18 +4,14 @@ import {
   requestDevServer
 } from '@/core/network/devServerPortResolver.ts';
 import { parsePresetMap } from '@/core/particle/preset/particlePresetValidation.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 
-const PARTICLE_PRESET_CONFIG_JSON_URL = '/config/particlePresets.json';
 const PARTICLE_PRESET_DEV_API_PATH = '/api/particle-presets';
 
 export const readConfigJson = async (): Promise<ParticleEditorPresetMap> => {
   if (typeof window === 'undefined') return {};
   try {
-    const response = await fetch(`${PARTICLE_PRESET_CONFIG_JSON_URL}?t=${Date.now()}`, {
-      cache: 'no-store'
-    });
-    if (!response.ok) return {};
-    const json = (await response.json()) as unknown;
+    const json = await loadConfig<unknown>('particlePresets.json');
     return parsePresetMap(json);
   } catch {
     return {};

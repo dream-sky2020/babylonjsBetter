@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components, react-hooks/exhaustive-deps */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from 'react-dom/client';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
@@ -32,9 +33,7 @@ const KNOCKBACK_MODE_ID = 'knockback';
 const knockbackDefinition = getMonsterDeathDefinition(KNOCKBACK_MODE_ID);
 
 const fetchJson = async (url: string) => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
-  return response.json();
+  return loadConfigFromUrl(url);
 };
 
 const normalizePreset = (key: string, value: unknown): MonsterDeathPreset => {

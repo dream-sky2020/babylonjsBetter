@@ -99,6 +99,8 @@ const sharedConfigPlugin = () => ({
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 正式构建由 Electron/file:// 直接打开；所有入口必须使用相对资源路径。
+  base: './',
   plugins: [sharedConfigPlugin()],
   server: {
     port: 1184, // 将端口设置为你想要的数字
@@ -150,6 +152,7 @@ export default defineConfig({
         modelShootLab: path.resolve(__dirname, 'tools/model-shoot-lab/index.html'),
         bulletConfigLab: path.resolve(__dirname, 'tools/bullet-config-lab/index.html'),
         dungeonMapCanvasLab: path.resolve(__dirname, 'tools/dungeon-map-canvas-lab/index.html'),
+        sceneEnvironmentLab: path.resolve(__dirname, 'tools/scene-environment-lab/index.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }
