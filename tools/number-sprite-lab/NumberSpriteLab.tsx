@@ -24,6 +24,9 @@ import {
   type NumberSpritePresetMap,
   type TexturePackerAtlas
 } from '@/core/sprite';
+import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { CONFIG_READ_ONLY_MESSAGE, downloadConfigJson, isConfigWritable } from '@/core/config';
+import { resolveAppAssetUrl } from '@/core/resources';
 
 const API_PATH = '/api/number-sprite-configs';
 const GLYPHS = [...'0123456789-+.'];
@@ -36,18 +39,8 @@ const DEFAULT_PRESET: NumberSpritePreset = {
 const inputStyle: React.CSSProperties = { width: '100%' };
 const sectionStyle: React.CSSProperties = { padding: 12, border: '1px solid #273348', borderRadius: 10, background: '#151d29' };
 
-const scanServer = async (): Promise<number | null> => {
-  for (let port = 4550; port <= 4600; port += 1) {
-    try {
-      const response = await fetch(`http://127.0.0.1:${port}/health`, { signal: AbortSignal.timeout(250) });
-      if (response.ok) return port;
-    } catch { /* continue */ }
-  }
-  return null;
-};
-
 const loadAtlas = async (path: string): Promise<TexturePackerAtlas> => {
-  const response = await fetch(encodeURI(`/${normalizePublicPath(path)}?t=${Date.now()}`), { cache: 'no-store' });
+  const response = await fetch(`${resolveAppAssetUrl(normalizePublicPath(path))}?t=${Date.now()}`, { cache: 'no-store' });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return response.json() as Promise<TexturePackerAtlas>;
 };
@@ -63,7 +56,6 @@ export const NumberSpriteLab: React.FC = () => {
   const [previewText, setPreviewText] = useState('0123456789');
   const [debugVisible, setDebugVisible] = useState(false);
   const [message, setMessage] = useState('正在读取配置…');
-  const [serverPort, setServerPort] = useState<number | null>(null);
   const [atlasFrames, setAtlasFrames] = useState<string[]>([]);
   const [atlasImagePath, setAtlasImagePath] = useState('');
 
@@ -122,7 +114,6 @@ export const NumberSpriteLab: React.FC = () => {
         setActiveKey(keys[0] ?? 'number_default');
         setMessage(`已读取 ${keys.length} 个数字精灵配置。`);
       } catch (error) { setMessage(`读取配置失败：${String(error)}`); }
-      setServerPort(await scanServer());
     })();
   }, []);
 
@@ -177,16 +168,18 @@ export const NumberSpriteLab: React.FC = () => {
   }, [debugVisible]);
 
   const save = async () => {
-    const port = serverPort ?? await scanServer();
-    if (!port) { setMessage('未找到 python/server.py（端口 4550–4600）。'); return; }
+    const normalizedPresets = normalizeNumberSpritePresets(presets);
+    if (!isConfigWritable()) {
+      downloadConfigJson('numberSpriteConfigs.json', normalizedPresets);
+      setMessage(CONFIG_READ_ONLY_MESSAGE);
+      return;
+    }
     try {
-      const normalizedPresets = normalizeNumberSpritePresets(presets);
-      const response = await fetch(`http://127.0.0.1:${port}${API_PATH}`, {
+      const response = await requestDevServer(API_PATH, {
         method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(normalizedPresets)
       });
       const payload = await response.json();
       if (!response.ok || !payload.success) throw new Error(payload.errors?.join('；') || payload.message || `HTTP ${response.status}`);
-      setServerPort(port);
       setPresets(normalizedPresets);
       setMessage(`已保存到 config/numberSpriteConfigs.json（${Object.keys(presets).length} 个配置）。`);
     } catch (error) { setMessage(`保存失败：${String(error)}`); }
@@ -270,8 +263,7 @@ export const NumberSpriteLab: React.FC = () => {
         </>}
       </section>
       <section style={sectionStyle}>
-        <button style={{ width: '100%' }} onClick={() => void save()}>保存到项目配置</button>
-        <div style={{ marginTop: 8, fontSize: 12, color: serverPort ? '#8bd8a4' : '#e8ad83' }}>Python 服务：{serverPort ? `已连接 ${serverPort}` : '未连接'}</div>
+        <button style={{ width: '100%' }} onClick={() => void save()}>{isConfigWritable() ? '保存到项目配置' : '下载 JSON（只读构建）'}</button>
         <div style={{ marginTop: 6, color: '#9dacbf', fontSize: 12, lineHeight: 1.5 }}>{message}</div>
       </section>
     </aside>

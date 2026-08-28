@@ -31,8 +31,8 @@ sprite/
 ```ts
 import { createSpriteEntity } from '@/core/sprite';
 
-// texturePath 建议带 leading slash，例如 '/resources/foo.png'
-const sprite = createSpriteEntity(scene, '/resources/优势.png', 1.9);
+// texturePath 交给 resolvePublicResourceUrl 换算，兼容 dev 与 file:// 打包
+const sprite = createSpriteEntity(scene, resolvePublicResourceUrl('食肉精灵.png'), 1.9);
 
 // 世界坐标锚点
 const footWorld = sprite.getAnchorWorldPosition('foot');

@@ -277,7 +277,7 @@ const App: React.FC = () => {
       })}
       <section className="section"><button className="save" onClick={() => void save()}>保存全部怪物消散预设</button><div className={`status${isError ? ' error' : ''}`}>{message}</div></section>
     </aside>
-    <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="/">返回调试入口</a><div className="stage-hint">怪物消散预设独立编辑 · 拖动旋转视角 · 滚轮缩放</div></main>
+    <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="../../index.html">返回调试入口</a><div className="stage-hint">怪物消散预设独立编辑 · 拖动旋转视角 · 滚轮缩放</div></main>
   </div>;
 };
 

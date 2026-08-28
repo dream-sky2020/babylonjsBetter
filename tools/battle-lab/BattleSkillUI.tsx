@@ -1,25 +1,26 @@
 // BattleSkillUI.tsx
 import React from 'react';
 import type { SkillVisualData, TrackedUiState } from '../../core/types/battle.types.ts';
+import { resolveAppAssetUrl } from '@/core/resources';
 
 // 你要求的默认技能视觉数据配置
 const DEFAULT_SKILL_DATA: SkillVisualData = {
   icon: {
-    source: "resources/Identity Skill Icons/Anatomize Hong Lu Icon.png",
+    source: "resources/eye.png",
     visible: true,
     offsetX: 0,
     offsetY: 0,
     scale: 1
   },
   border: {
-    source: "resources/Skill Border Assets/Pride3.png",
+    source: "resources/Circle.png",
     visible: true,
     offsetX: 0,
     offsetY: 0,
     scale: 1
   },
   mask: {
-    source: "resources/Skill Border Background Assets/Def1BG.png",
+    source: "resources/Circle.png",
     visible: true
   }
 };
@@ -42,7 +43,7 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
 
   // 1. 解析遮罩层样式 (利用 CSS mask-image 裁剪)
   const maskUrl = config.mask?.visible && config.mask.source
-    ? `url("/${config.mask.source}")`
+    ? `url("${resolveAppAssetUrl(config.mask.source)}")`
     : 'none';
 
   const maskStyle: React.CSSProperties = {
@@ -98,7 +99,7 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
         <div style={maskStyle}>
           {config.icon.source && (
             <img
-              src={`/${config.icon.source}`}
+              src={resolveAppAssetUrl(config.icon.source)}
               alt="Skill Icon"
               style={{
                 position: 'absolute',
@@ -118,7 +119,7 @@ export const BattleSkillUI: React.FC<BattleSkillUiProps> = ({
         {/* 顶层：不受遮罩裁剪的技能边框 (Border) */}
         {config.border?.visible && config.border.source && (
           <img
-            src={`/${config.border.source}`}
+            src={resolveAppAssetUrl(config.border.source)}
             alt="Skill Border"
             style={{
               position: 'absolute',

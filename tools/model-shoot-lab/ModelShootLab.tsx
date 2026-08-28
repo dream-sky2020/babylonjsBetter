@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { createModelEntity, type ModelEntity } from '@/core/model';
-import { loadConfig } from '@/core/config';
+import { CONFIG_READ_ONLY_MESSAGE, downloadConfigJson, isConfigWritable, loadConfig } from '@/core/config';
+import { loadModelAssetManifestByExtension } from '@/core/resources';
+import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
 
 type ShootConfig = { modelPath: string; fireIntervalMs: number; recoilAngleDeg: number };
 const defaults = (modelPath = ''): ShootConfig => ({ modelPath, fireIntervalMs: 250, recoilAngleDeg: -8 });
@@ -35,8 +37,8 @@ export const ModelShootLab = () => {
 
   useEffect(() => {
     void loadConfig<unknown>(configUrl).then((raw) => { if (raw && typeof raw === 'object') configsRef.current = raw as Record<string, ShootConfig>; }).catch(() => undefined);
-    void fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then(({ assets: paths }) => {
-      const models = paths.filter((path) => /\.(glb|gltf)$/i.test(path)); setAssets(models); if (models[0]) selectModel(models[0]);
+    void loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then((models) => {
+      setAssets(models); if (models[0]) selectModel(models[0]);
     });
   }, []);
 
@@ -56,7 +58,11 @@ export const ModelShootLab = () => {
     window.setTimeout(() => modelRef.current?.root.rotation.copyFrom(baseRotationRef.current), Math.min(config.fireIntervalMs, 400));
     setStatus('已播放开火动作（粒子特效暂未接入）');
   };
-  const save = async () => { setSaving(true); try { const response = await fetch(apiUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configsRef.current) }); if (!response.ok) throw new Error('保存失败'); setStatus(`已保存 ${Object.keys(configsRef.current).length} 个模型的开火配置`); } catch (error) { setStatus(error instanceof Error ? error.message : String(error)); } finally { setSaving(false); } };
+  const save = async () => {
+    if (!isConfigWritable()) { downloadConfigJson('modelShootConfigs.json', configsRef.current); setStatus(CONFIG_READ_ONLY_MESSAGE); return; }
+    setSaving(true);
+    try { const response = await requestDevServer(apiUrl, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(configsRef.current) }); if (!response.ok) throw new Error('保存失败'); setStatus(`已保存 ${Object.keys(configsRef.current).length} 个模型的开火配置`); } catch (error) { setStatus(error instanceof Error ? error.message : String(error)); } finally { setSaving(false); }
+  };
 
   return <main className="shoot-lab"><header><div><h1>3D 模型射击动画 Lab</h1><span>{status}</span></div><select aria-label="选择模型" value={selectedPath} onChange={(event) => selectModel(event.target.value)}><option value="">选择模型…</option>{assets.map((path) => <option key={path} value={path}>{decodeURIComponent(path.replace('/resources/', ''))}</option>)}</select><button onClick={fire} disabled={loading || !selectedPath}>开火预览</button><button onClick={() => void save()} disabled={saving}>保存 Config</button></header><section className="viewport"><canvas ref={canvasRef} /></section><aside><h2>开火参数</h2><NumberControl label="开火间隔 ms" value={config.fireIntervalMs} min={1} max={60000} onChange={(fireIntervalMs) => update({ fireIntervalMs })} /><NumberControl label="后坐角度" value={config.recoilAngleDeg} min={-180} max={180} onChange={(recoilAngleDeg) => update({ recoilAngleDeg })} /><small>开火粒子特效暂时移除，等待统一特效模块接入。</small></aside></main>;
 };

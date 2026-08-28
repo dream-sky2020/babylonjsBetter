@@ -1,5 +1,6 @@
 import React from 'react';
 import type { AvatarExpressionConfig, ResolvedAvatarAtlasFrame } from './ConfigurableAvatar.types';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type ConfigurableAvatarProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children'> & {
   expression?: AvatarExpressionConfig;
@@ -9,10 +10,7 @@ export type ConfigurableAvatarProps = Omit<React.HTMLAttributes<HTMLDivElement>,
   children?: React.ReactNode;
 };
 
-const toPublicImageUrl = (imagePath: string): string => {
-  const normalized = imagePath.replace(/^https?:\/\/[^/]+/i, '').replace(/^\/+/, '');
-  return encodeURI(`/${normalized}`);
-};
+const toPublicImageUrl = (imagePath: string): string => resolveAppAssetUrl(imagePath);
 
 export const ConfigurableAvatar: React.FC<ConfigurableAvatarProps> = ({
   expression,

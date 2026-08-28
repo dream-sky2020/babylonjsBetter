@@ -1,4 +1,5 @@
 import { requestDevServer } from '/core/network/devServerPortResolver.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const CONFIG_URL = '/config/stripePresets.json';
 const API_PATH = '/api/stripe-presets';
@@ -166,11 +167,7 @@ const normalizePreset = (key, preset) => {
 };
 
 const loadConfig = async () => {
-  const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) {
-    throw new Error(`读取失败（HTTP ${response.status}）`);
-  }
-  const data = await response.json();
+  const data = await loadConfigFromUrl(CONFIG_URL);
   if (!data || typeof data !== 'object') {
     throw new Error('stripePresets.json 不是对象');
   }

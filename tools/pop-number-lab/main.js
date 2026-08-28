@@ -5,6 +5,7 @@ import {
 import {
   createPopNumberEffect
 } from '/core/effects/pop-number/index.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const POP_NUMBER_PRESET_URL = '/config/popNumberPresets.json';
 const POP_NUMBER_PRESET_API_PATH = '/api/pop-number-presets';
@@ -403,9 +404,7 @@ const loadPopPresets = async () => {
       const payload = await requestPopNumberPresetApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${POP_NUMBER_PRESET_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(POP_NUMBER_PRESET_URL);
     }
     state.presets = normalizePopPresetLibrary(data);
     ensureActivePreset();

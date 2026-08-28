@@ -2,9 +2,10 @@ import { Color3,Color4,Engine,Material,MeshBuilder,SolidParticleSystem,StandardM
 import { getParticleMotionDefinition,type MotionParameterValues,type ParticleMotionRuntimeConfig } from '@/core/particle-motion';
 import type { ParticleVisualPreset } from '@/core/particle';
 import type { MonsterStatusParticleController,MonsterStatusParticlePreset } from './types';
+import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
 
 const randomFactory=(initial:number)=>{let seed=initial>>>0;return()=>{seed+=0x6d2b79f5;let value=seed;value=Math.imul(value^(value>>>15),value|1);value^=value+Math.imul(value^(value>>>7),value|61);return((value^(value>>>14))>>>0)/4294967296}};
-const publicUrl=(path:string)=>{const normalized=path.replace(/^\/+|^public\//g,'');return encodeURI('/'+(normalized.includes('/')?normalized:'resources/'+normalized))};
+const publicUrl=(path:string)=>resolvePublicResourceUrl(path);
 const sampleSize=(preset:ParticleVisualPreset,time:number)=>{if(!preset.sizeGradientsEnabled||!preset.sizeGradients.length)return preset.baseSize;const values=[...preset.sizeGradients].sort((a,b)=>a.offset-b.offset),right=values.findIndex(item=>item.offset>=time);if(right<0)return values[values.length-1].size;if(right===0)return values[0].size;const left=values[right-1],next=values[right],q=(time-left.offset)/Math.max(.0001,next.offset-left.offset);return left.size+(next.size-left.size)*q};
 const sampleColor=(preset:ParticleVisualPreset,time:number)=>{const base=preset.baseColor;if(!preset.colorGradientsEnabled||preset.colorMode==='texture'||!preset.colorGradients.length)return new Color4(base.r,base.g,base.b,base.a);const values=[...preset.colorGradients].sort((a,b)=>a.offset-b.offset),right=values.findIndex(item=>item.offset>=time);if(right<0){const color=values[values.length-1].color;return new Color4(color.r,color.g,color.b,color.a)}if(right===0){const color=values[0].color;return new Color4(color.r,color.g,color.b,color.a)}const left=values[right-1],next=values[right],q=(time-left.offset)/Math.max(.0001,next.offset-left.offset);return new Color4(left.color.r+(next.color.r-left.color.r)*q,left.color.g+(next.color.g-left.color.g)*q,left.color.b+(next.color.b-left.color.b)*q,left.color.a+(next.color.a-left.color.a)*q)};
 

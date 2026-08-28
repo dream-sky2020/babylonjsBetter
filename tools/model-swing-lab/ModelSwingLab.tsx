@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { createDefaultModelSwingConfig, createModelEntity, loadModelSwingConfigLibrary, saveModelSwingConfigLibrary, type ModelEntity, type ModelSwingConfig, type ModelSwingConfigLibrary } from '@/core/model';
+import { loadModelAssetManifestByExtension } from '@/core/resources';
 
 const rad = Math.PI / 180;
 const focusModel = (camera: ArcRotateCamera, model: ModelEntity) => {
@@ -22,7 +23,7 @@ export const ModelSwingLab = () => {
   }, []);
 
   useEffect(() => { void loadModelSwingConfigLibrary().then((library) => { libraryRef.current = library; if (selectedPath && library[selectedPath]) { configRef.current = library[selectedPath]; setConfig(library[selectedPath]); } }).catch((error: unknown) => setStatus(error instanceof Error ? error.message : String(error))); }, [selectedPath]);
-  useEffect(() => { fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then(({ assets: paths }) => { const glb = paths.filter((path) => /\.(glb|gltf)$/i.test(path)); const first = glb[0] ?? ''; const next = libraryRef.current[first] ?? createDefaultModelSwingConfig(first); setAssets(glb); setSelectedPath(first); configRef.current = next; setConfig(next); setStatus(glb.length ? `发现 ${glb.length} 个可配置模型` : '没有发现 GLB/GLTF 模型'); }).catch((error: unknown) => setStatus(error instanceof Error ? error.message : String(error))); }, []);
+  useEffect(() => { loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then((glb) => { const first = glb[0] ?? ''; const next = libraryRef.current[first] ?? createDefaultModelSwingConfig(first); setAssets(glb); setSelectedPath(first); configRef.current = next; setConfig(next); setStatus(glb.length ? `发现 ${glb.length} 个可配置模型` : '没有发现 GLB/GLTF 模型'); }).catch((error: unknown) => setStatus(error instanceof Error ? error.message : String(error))); }, []);
   useEffect(() => { if (!selectedPath || !sceneRef.current || !cameraRef.current) return; let cancelled = false; setLoading(true); modelRef.current?.dispose(); modelRef.current = null; void createModelEntity(sceneRef.current, selectedPath, { autoPlayAnimation: true }).then((model) => { if (cancelled) return model.dispose(); model.root.rotationQuaternion = null; modelRef.current = model; focusModel(cameraRef.current!, model); setStatus(`正在挥动：${decodeURIComponent(selectedPath.split('/').pop() ?? selectedPath)}`); }).catch((error: unknown) => setStatus(error instanceof Error ? `加载失败：${error.message}` : String(error))).finally(() => { if (!cancelled) setLoading(false); }); return () => { cancelled = true; }; }, [selectedPath]);
 
   const selectModel = (path: string) => { const next = libraryRef.current[path] ?? createDefaultModelSwingConfig(path); configRef.current = next; setConfig(next); setSelectedPath(path); };

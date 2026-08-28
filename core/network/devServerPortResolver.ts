@@ -1,3 +1,5 @@
+import { CONFIG_READ_ONLY_MESSAGE } from '@/core/config/configWriteAccess.ts';
+
 const DEV_SERVER_HOST = '127.0.0.1';
 const DEV_SERVER_PORT_MIN = 4550;
 const DEV_SERVER_PORT_MAX = 4600;
@@ -54,7 +56,7 @@ export const getResolvedDevServerPort = (): number | null => activePort;
 
 export const requestDevServer = async (pathWithQuery: string, init?: RequestInit): Promise<Response> => {
   if (!import.meta.env.DEV) {
-    throw new Error('正式构建已禁用开发服务器连接；配置应从打包资源读取');
+    throw new Error(CONFIG_READ_ONLY_MESSAGE);
   }
 
   if (typeof window === 'undefined') {

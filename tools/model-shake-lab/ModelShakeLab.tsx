@@ -23,6 +23,7 @@ import {
   type ModelShakePresetControls,
   type ModelShakePresetLibrary
 } from '@/core/model';
+import { loadModelAssetManifestByExtension } from '@/core/resources';
 
 type LabRuntime = { engine: Engine; scene: Scene; camera: ArcRotateCamera };
 type ShakeSettings = ModelShakePresetControls;
@@ -118,8 +119,7 @@ export const ModelShakeLab = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then(({ assets: paths }) => {
-      const glbPaths = paths.filter((path) => /\.(glb|gltf)$/i.test(path));
+    loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then((glbPaths) => {
       setAssets(glbPaths);
       setModelPath(glbPaths[0] ?? '');
     }).catch(() => setStatus('模型资源列表读取失败'));

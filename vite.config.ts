@@ -46,8 +46,18 @@ const contentTypeFromExt = (pathname: string): string => {
   return 'application/octet-stream'
 }
 
+const MODEL_ASSETS_MODULE_ID = 'virtual:app-model-assets'
+const RESOLVED_MODEL_ASSETS_MODULE_ID = '\0' + MODEL_ASSETS_MODULE_ID
+
 const sharedConfigPlugin = () => ({
   name: 'shared-config-public-bridge',
+  resolveId(id: string) {
+    return id === MODEL_ASSETS_MODULE_ID ? RESOLVED_MODEL_ASSETS_MODULE_ID : null
+  },
+  async load(id: string) {
+    if (id !== RESOLVED_MODEL_ASSETS_MODULE_ID) return null
+    return `export default ${JSON.stringify(await collectModelAssets())}`
+  },
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
       const url = req.url ?? ''
@@ -129,6 +139,7 @@ export default defineConfig({
         stripesConfigLab: path.resolve(__dirname, 'tools/stripes-config-lab/index.html'),
         stripesConfigGallery: path.resolve(__dirname, 'tools/stripes-config-lab/gallery.html'),
         monster3dVisualLab: path.resolve(__dirname, 'tools/monster-3d-visual-lab/index.html'),
+        monster2dLab: path.resolve(__dirname, 'tools/monster-2d-lab/index.html'),
         monsterHitLab: path.resolve(__dirname, 'tools/monster-hit-feedback-lab/index.html'),
         monsterKnockbackLab: path.resolve(__dirname, 'tools/monster-knockback-lab/index.html'),
         monsterDissolveEffectLab: path.resolve(__dirname, 'tools/monster-dissolve-effect-lab/index.html'),
@@ -140,6 +151,8 @@ export default defineConfig({
         cameraSceneLab: path.resolve(__dirname, 'tools/camera-scene-lab/index.html'),
         particleEditor: path.resolve(__dirname, 'tools/particle-editor/index.html'),
         particleMotionLab: path.resolve(__dirname, 'tools/particle-motion-lab/index.html'),
+        popNumberLab: path.resolve(__dirname, 'tools/pop-number-lab/index.html'),
+        burstCapsuleLab: path.resolve(__dirname, 'tools/burst-capsule-lab/index.html'),
         oscilloscopeUiLab: path.resolve(__dirname, 'tools/oscilloscope-ui-lab/index.html'),
         avatarVisualLab: path.resolve(__dirname, 'tools/avatar-visual-lab/index.html'),
         specialStatusVisualLab: path.resolve(__dirname, 'tools/special-status-visual-lab/index.html'),
@@ -153,6 +166,10 @@ export default defineConfig({
         bulletConfigLab: path.resolve(__dirname, 'tools/bullet-config-lab/index.html'),
         dungeonMapCanvasLab: path.resolve(__dirname, 'tools/dungeon-map-canvas-lab/index.html'),
         sceneEnvironmentLab: path.resolve(__dirname, 'tools/scene-environment-lab/index.html'),
+        dbGameSelfstatusLab: path.resolve(__dirname, 'tools/db-game-selfstatus-lab/index.html'),
+        battleSkillSlotsLab: path.resolve(__dirname, 'tools/battle-skill-slots-lab/index.html'),
+        targetLinkLab: path.resolve(__dirname, 'tools/target-link-lab/index.html'),
+        battleLab: path.resolve(__dirname, 'tools/battle-lab/battle.html'),
         desktopPet: path.resolve(__dirname, 'apps/desktopPet/index.html'),
         mainGame: path.resolve(__dirname, 'apps/mainGame/index.html')
       }

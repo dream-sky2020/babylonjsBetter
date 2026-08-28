@@ -7,6 +7,7 @@ import {
   type Scene
 } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
+import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type ModelPrefabInstance = {
   entries: InstantiatedEntries;
@@ -36,7 +37,7 @@ type ScenePrefabCache = {
 const sceneCaches = new WeakMap<Scene, ScenePrefabCache>();
 
 const normalizeModelPath = (sourcePath: string): string => {
-  return sourcePath.replace(/\\/g, '/');
+  return resolvePublicResourceUrl(sourcePath);
 };
 
 const getSceneCache = (scene: Scene): ScenePrefabCache => {

@@ -8,6 +8,7 @@ import {
   type AvatarContainerShape,
   type AvatarExpressionConfig
 } from '@/core/ui';
+import { resolveAppAssetUrl } from '@/core/resources';
 
 const API_PATH = '/api/avatar-configs';
 const panel: React.CSSProperties = { border: '1px solid #334155', borderRadius: 10, padding: 10, background: '#111827' };
@@ -49,7 +50,7 @@ export const AvatarVisualLab: React.FC = () => {
   const loadAtlas = useCallback(async (path: string, preferredFrame?: string) => {
     if (!path) return;
     try {
-      const response = await fetch(encodeURI(`/${normalizePublicPath(path)}`));
+      const response = await fetch(resolveAppAssetUrl(normalizePublicPath(path)));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json() as TexturePackerAtlas;
       const names = Object.keys(data.frames ?? {}).sort((a, b) => a.localeCompare(b, 'zh-CN'));

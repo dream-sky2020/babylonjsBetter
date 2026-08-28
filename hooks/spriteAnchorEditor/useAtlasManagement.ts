@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { resolveAppAssetUrl } from '@/core/resources';
 import {
   getLocalSpriteAnchorPreset,
   getSpriteAnchorPreset,
@@ -106,7 +107,7 @@ export const useAtlasManagement = ({
     const normalizedAtlasPath = normalizePublicPath(nextAtlasPath);
     if (!normalizedAtlasPath) return;
     try {
-      const response = await fetch(encodeURI(`/${normalizedAtlasPath}`));
+      const response = await fetch(resolveAppAssetUrl(normalizedAtlasPath));
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const atlasJson = await response.json() as TexturePackerAtlas;
       const names = Object.keys(atlasJson.frames).sort((a, b) => a.localeCompare(b, 'zh-CN'));

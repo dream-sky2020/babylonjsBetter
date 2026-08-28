@@ -24,6 +24,7 @@ import {
   normalizePublicPath,
   type ParticleVisualPreset
 } from '@/core/particle';
+import { resolvePublicResourceUrl } from '@/core/resources';
 import {
   createDefaultMotionParameters,
   getParticleMotionDefinition,
@@ -315,7 +316,7 @@ export const ParticleMotionLab: React.FC = () => {
       shape.dispose();
 
       const material = new StandardMaterial('controlled-particle-material', scene);
-      const texturePath = encodeURI(`/${normalizePublicPath(currentVisual.texturePath).replace(/^public\//, '')}`);
+      const texturePath = resolvePublicResourceUrl(normalizePublicPath(currentVisual.texturePath));
       const texture = new Texture(texturePath, scene);
       texture.hasAlpha = true;
       material.diffuseTexture = texture;
