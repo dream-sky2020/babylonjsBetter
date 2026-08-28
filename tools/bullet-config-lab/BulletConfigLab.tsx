@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, Mesh, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
+import { loadConfig } from '@/core/config';
 
 type BulletConfig = { bulletKey: string; shape: 'sphere' | 'box' | 'cylinder'; scale: number; speed: number };
 const defaults = (key = 'bullet_default'): BulletConfig => ({ bulletKey: key, shape: 'sphere', scale: 0.18, speed: 2.5 });
@@ -27,7 +28,7 @@ export const BulletConfigLab = () => {
     return () => { bulletRef.current?.dispose(); scene.dispose(); engine.dispose(); };
   }, []);
 
-  useEffect(() => { void fetch('/config/bulletConfigs.json').then((response) => response.ok ? response.json() : {}).then((raw) => {
+  useEffect(() => { void loadConfig<unknown>('bulletConfigs.json').then((raw) => {
     if (!raw || typeof raw !== 'object') return;
     configsRef.current = raw as Record<string, BulletConfig>;
     const saved = configsRef.current[configRef.current.bulletKey];

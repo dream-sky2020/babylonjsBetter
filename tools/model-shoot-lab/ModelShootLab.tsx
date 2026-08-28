@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArcRotateCamera, Color3, Color4, Engine, HemisphericLight, MeshBuilder, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
 import { createModelEntity, type ModelEntity } from '@/core/model';
+import { loadConfig } from '@/core/config';
 
 type ShootConfig = { modelPath: string; fireIntervalMs: number; recoilAngleDeg: number };
 const defaults = (modelPath = ''): ShootConfig => ({ modelPath, fireIntervalMs: 250, recoilAngleDeg: -8 });
@@ -33,7 +34,7 @@ export const ModelShootLab = () => {
   }, []);
 
   useEffect(() => {
-    void fetch(configUrl).then((response) => response.ok ? response.json() : {}).then((raw) => { if (raw && typeof raw === 'object') configsRef.current = raw as Record<string, ShootConfig>; }).catch(() => undefined);
+    void loadConfig<unknown>(configUrl).then((raw) => { if (raw && typeof raw === 'object') configsRef.current = raw as Record<string, ShootConfig>; }).catch(() => undefined);
     void fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then(({ assets: paths }) => {
       const models = paths.filter((path) => /\.(glb|gltf)$/i.test(path)); setAssets(models); if (models[0]) selectModel(models[0]);
     });

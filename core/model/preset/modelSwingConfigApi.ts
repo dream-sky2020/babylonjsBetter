@@ -1,4 +1,5 @@
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 import type { ModelSwingConfigLibrary } from '@/core/model/types/model-swing-config.types.ts';
 import { sanitizeModelSwingConfigLibrary } from '@/core/model/preset/modelSwingConfigValidation.ts';
 
@@ -18,14 +19,11 @@ const parseResponse = async (response: Response): Promise<Record<string, unknown
 };
 
 export const loadModelSwingConfigLibrary = async (): Promise<ModelSwingConfigLibrary> => {
-  try {
-    const response = await requestDevServer(`${MODEL_SWING_CONFIG_API_PATH}?t=${Date.now()}`, { method: 'GET' });
-    return sanitizeModelSwingConfigLibrary((await parseResponse(response)).data);
-  } catch {
-    const response = await fetch(`${MODEL_SWING_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) return {};
-    return sanitizeModelSwingConfigLibrary(await response.json());
-  }
+  const value = await loadConfig<unknown>('modelSwingConfigs.json', {
+    devApiPath: MODEL_SWING_CONFIG_API_PATH,
+    selectDevPayload: (payload) => (payload as Record<string, unknown>).data
+  });
+  return sanitizeModelSwingConfigLibrary(value);
 };
 
 export const saveModelSwingConfigLibrary = async (library: ModelSwingConfigLibrary): Promise<void> => {

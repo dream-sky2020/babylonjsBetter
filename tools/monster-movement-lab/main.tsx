@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { loadConfigFromUrl } from '@/core/config';
 import { createRoot } from 'react-dom/client';
 import { createCameraLabController } from '@/core/camera/cameraLabController.ts';
 import { createCameraLabScene } from '@/core/scene/createCameraLabScene.ts';
@@ -21,7 +22,7 @@ const cloneMonsters=(items:Monster[])=>items.map(item=>({...item}));
 const normalizeBattlefield=(value:Partial<Battlefield>,id:string):Battlefield=>({id,name:typeof value.name==='string'?value.name:id,width:positiveInt(value.width,6),cellSize:Math.max(.01,numberOr(value.cellSize,2.5)),rowSpacing:Math.max(.01,numberOr(value.rowSpacing,4)),monsters:Array.isArray(value.monsters)?value.monsters.map((item,index)=>({id:item.id||`${id}_${index}`,monsterConfigKey:item.monsterConfigKey||'',monsterStripePresetKey:item.monsterStripePresetKey||'',positionMode:item.positionMode==='center'?'center':'grid',slots:positiveInt(item.slots),row:indexInt(item.row),column:indexInt(item.column,index)})):[]});
 const toVisualMonster=(item:Monster):VisualMonster=>({id:item.id,monsterConfigKey:item.monsterConfigKey,monsterStripePresetKey:item.monsterStripePresetKey,chaos:{value:0,threshold:100,duration:0},position:{row:item.row,column:item.column,size:item.slots,isOccupyingFullRowCentered:item.positionMode==='center'}});
 const toVisualField=(field:Battlefield):VisualBattlefield=>({...field,monsters:field.monsters.map(toVisualMonster)});
-const fetchJson=async(url:string)=>{const response=await fetch(`${url}?t=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`${url}: HTTP ${response.status}`);return response.json()};
+const fetchJson = (url: string) => loadConfigFromUrl(url);
 const normalizePreset=(key:string,value:any):MonsterMotionPreset=>{
  const definition=getMonsterMotionDefinition(String(value?.modeId||'ghost-float'))||monsterMotionDefinitions[0];
  return{presetKey:key,name:String(value?.name||definition?.name||key),modeId:definition.id,parameters:normalizeMonsterMotionParameters(definition.parameters,value?.parameters)};

@@ -1,0 +1,181 @@
+{
+  "compact-standard": {
+    "presetKey": "compact-standard",
+    "name": "中小型场景标准阴影",
+    "defaultTier": "high",
+    "tiers": {
+      "low": {
+        "enabled": true,
+        "generator": { "type": "standard" },
+        "mapSize": 1024,
+        "filter": { "mode": "pcf", "quality": "low" },
+        "directionalFrustum": { "autoUpdateExtents": true, "autoCalcZBounds": true }
+      },
+      "medium": {
+        "enabled": true,
+        "generator": { "type": "standard" },
+        "mapSize": 1024,
+        "filter": { "mode": "pcf", "quality": "medium" },
+        "directionalFrustum": { "autoUpdateExtents": true, "autoCalcZBounds": true }
+      },
+      "high": {
+        "enabled": true,
+        "generator": { "type": "standard" },
+        "mapSize": 2048,
+        "filter": { "mode": "pcf", "quality": "medium" },
+        "directionalFrustum": { "autoUpdateExtents": true, "autoCalcZBounds": true }
+      },
+      "ultra": {
+        "enabled": true,
+        "generator": { "type": "standard" },
+        "mapSize": 4096,
+        "filter": { "mode": "pcf", "quality": "high" },
+        "directionalFrustum": { "autoUpdateExtents": true, "autoCalcZBounds": true }
+      }
+    }
+  },
+  "large-outdoor-csm": {
+    "presetKey": "large-outdoor-csm",
+    "name": "大型室外场景 CSM",
+    "defaultTier": "high",
+    "tiers": {
+      "low": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 2,
+          "shadowMaxDistance": 110,
+          "lambda": 0.7,
+          "blendPercentage": 0.08,
+          "stabilizeCascades": true,
+          "depthClamp": true,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 1024,
+        "filter": { "mode": "pcf", "quality": "low" }
+      },
+      "medium": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 3,
+          "shadowMaxDistance": 180,
+          "lambda": 0.75,
+          "blendPercentage": 0.1,
+          "stabilizeCascades": true,
+          "depthClamp": true,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 2048,
+        "filter": { "mode": "pcf", "quality": "medium" }
+      },
+      "high": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 4,
+          "shadowMaxDistance": 280,
+          "lambda": 0.8,
+          "blendPercentage": 0.1,
+          "stabilizeCascades": true,
+          "depthClamp": true,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 2048,
+        "filter": { "mode": "pcf", "quality": "high" }
+      },
+      "ultra": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 4,
+          "shadowMaxDistance": 360,
+          "lambda": 0.85,
+          "blendPercentage": 0.12,
+          "stabilizeCascades": true,
+          "depthClamp": true,
+          "autoCalcDepthBounds": true,
+          "autoCalcDepthBoundsRefreshRate": 2
+        },
+        "mapSize": 4096,
+        "filter": { "mode": "pcf", "quality": "high" }
+      }
+    }
+  },
+  "large-outdoor-csm-shadow-shape-test": {
+    "presetKey": "large-outdoor-csm-shadow-shape-test",
+    "name": "大型室外场景 CSM · 阴影轮廓测试",
+    "defaultTier": "high",
+    "tiers": {
+      "low": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 2,
+          "shadowMaxDistance": 110,
+          "lambda": 0.7,
+          "blendPercentage": 0.08,
+          "stabilizeCascades": true,
+          "depthClamp": false,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 1024,
+        "normalBias": 0.05,
+        "forceBackFacesOnly": false,
+        "filter": { "mode": "pcf", "quality": "low" }
+      },
+      "medium": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 3,
+          "shadowMaxDistance": 180,
+          "lambda": 0.75,
+          "blendPercentage": 0.1,
+          "stabilizeCascades": true,
+          "depthClamp": false,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 2048,
+        "normalBias": 0.05,
+        "forceBackFacesOnly": false,
+        "filter": { "mode": "pcf", "quality": "medium" }
+      },
+      "high": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 4,
+          "shadowMaxDistance": 280,
+          "lambda": 0.8,
+          "blendPercentage": 0.1,
+          "stabilizeCascades": true,
+          "depthClamp": false,
+          "autoCalcDepthBounds": false
+        },
+        "mapSize": 2048,
+        "normalBias": 0.05,
+        "forceBackFacesOnly": false,
+        "filter": { "mode": "pcf", "quality": "high" }
+      },
+      "ultra": {
+        "enabled": true,
+        "generator": {
+          "type": "cascaded",
+          "cascadeCount": 4,
+          "shadowMaxDistance": 360,
+          "lambda": 0.85,
+          "blendPercentage": 0.12,
+          "stabilizeCascades": true,
+          "depthClamp": false,
+          "autoCalcDepthBounds": true,
+          "autoCalcDepthBoundsRefreshRate": 2
+        },
+        "mapSize": 4096,
+        "normalBias": 0.05,
+        "forceBackFacesOnly": false,
+        "filter": { "mode": "pcf", "quality": "high" }
+      }
+    }
+  }
+}

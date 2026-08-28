@@ -1,20 +1,19 @@
 import type { ParticleVisualPreset, ParticleVisualPresetMap } from '@/core/particle/types/particle-preset.types.ts';
 import { probeDevServerConnection, requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 import {
   createDefaultParticleVisualPreset,
   parseParticleVisualPresetMap,
   sanitizeParticleVisualPreset
 } from './particleVisualPresetValidation.ts';
 
-const CONFIG_URL = '/config/particleVisualPresets.json';
 const API_PATH = '/api/particle-visual-presets';
 let cache: ParticleVisualPresetMap = {};
 let hydrated = false;
 
 const readConfig = async (): Promise<ParticleVisualPresetMap> => {
   try {
-    const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    return response.ok ? parseParticleVisualPresetMap(await response.json()) : {};
+    return parseParticleVisualPresetMap(await loadConfig<unknown>('particleVisualPresets.json'));
   } catch {
     return {};
   }

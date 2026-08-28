@@ -1,4 +1,5 @@
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 import type { ModelShakePresetLibrary } from '@/core/model/types/model-shake-preset.types.ts';
 import { sanitizeModelShakePresetLibrary } from '@/core/model/preset/modelShakePresetValidation.ts';
 
@@ -21,14 +22,11 @@ const parseResponse = async (response: Response): Promise<Record<string, unknown
 };
 
 export const loadModelShakePresetLibrary = async (): Promise<ModelShakePresetLibrary> => {
-  try {
-    const response = await requestDevServer(`${MODEL_SHAKE_PRESET_API_PATH}?t=${Date.now()}`, { method: 'GET' });
-    return sanitizeModelShakePresetLibrary((await parseResponse(response)).data);
-  } catch {
-    const response = await fetch(`${MODEL_SHAKE_PRESET_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) return {};
-    return sanitizeModelShakePresetLibrary(await response.json());
-  }
+  const value = await loadConfig<unknown>('modelShakePresets.json', {
+    devApiPath: MODEL_SHAKE_PRESET_API_PATH,
+    selectDevPayload: (payload) => (payload as Record<string, unknown>).data
+  });
+  return sanitizeModelShakePresetLibrary(value);
 };
 
 export const saveModelShakePresetLibrary = async (library: ModelShakePresetLibrary): Promise<void> => {

@@ -151,6 +151,9 @@ type LabMutationPlan = {
 type ResolvedMapContainerTarget = BatchContainerTarget & {
   coordinates: DungeonMapContainerCoordinates;
 };
+type DungeonMapSharedEdgeDraft = Omit<DungeonMapSharedEdge, 'edge'> & {
+  edge: Omit<DungeonMapSharedEdge['edge'], 'coordinates'>;
+};
 const VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 }
 };
@@ -472,7 +475,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
           })) as DungeonMapTile['edges'],
         };
       }),
-      sharedEdges: [...generatedSharedEdges,
+      sharedEdges: [...generatedSharedEdges, ...([
         {
           id: 'shared-room-wall',
           sides: [{ x: 2, y: 1, direction: 'east' }, { x: 3, y: 1, direction: 'west' }],
@@ -523,7 +526,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
           sides: [{ x: 6, y: 8, direction: 'south' }, { x: 6, y: 9, direction: 'north' }],
           edge: { kind: 'door', label: '下层纵向公用门', events: [{ id: 'shared-lower-vertical-door-contact', type: 'door-contact', trigger: 'interact' }] }
         }
-      ]
+      ] satisfies DungeonMapSharedEdgeDraft[])]
         .map((edge) => sharedEdgeEdits[edge.id] ?? edge)
         .map((sharedEdge) => {
           const edge = sharedEdge.edge as DungeonMapEdge & { data?: unknown };

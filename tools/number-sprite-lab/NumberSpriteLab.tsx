@@ -14,6 +14,7 @@ import {
   createNumberSprite,
   DEFAULT_SCANNED_ATLAS_OPTIONS,
   joinPublicPath,
+  loadNumberSpritePresets,
   normalizePublicPath,
   normalizeNumberSpritePresets,
   RESOURCE_IMAGE_MODULES,
@@ -24,7 +25,6 @@ import {
   type TexturePackerAtlas
 } from '@/core/sprite';
 
-const CONFIG_URL = '/config/numberSpriteConfigs.json';
 const API_PATH = '/api/number-sprite-configs';
 const GLYPHS = [...'0123456789-+.'];
 const DEFAULT_PRESET: NumberSpritePreset = {
@@ -116,9 +116,7 @@ export const NumberSpriteLab: React.FC = () => {
   useEffect(() => {
     void (async () => {
       try {
-        const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const loaded = normalizeNumberSpritePresets(await response.json());
+        const loaded = normalizeNumberSpritePresets(await loadNumberSpritePresets(true));
         const keys = Object.keys(loaded);
         setPresets(keys.length ? loaded : { number_default: DEFAULT_PRESET });
         setActiveKey(keys[0] ?? 'number_default');

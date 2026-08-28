@@ -6,18 +6,14 @@ import {
 } from '@/core/network/devServerPortResolver.ts';
 import { parsePresetMap } from '@/core/sprite/preset/spritePresetValidation.ts';
 import type { SpritePresetValidationReport } from '@/core/sprite/preset/spritePresetValidation.ts';
+import { loadConfig } from '@/core/config/configLoader.ts';
 
-const SPRITE_ANCHOR_CONFIG_JSON_URL = '/config/spriteAnchorPresets.json';
 const SPRITE_ANCHOR_DEV_API_PATH = '/api/sprite-anchor-presets';
 
 export const readConfigJson = async (): Promise<SpriteAnchorPresetMap> => {
   if (typeof window === 'undefined') return {};
   try {
-    const response = await fetch(`${SPRITE_ANCHOR_CONFIG_JSON_URL}?t=${Date.now()}`, {
-      cache: 'no-store'
-    });
-    if (!response.ok) return {};
-    const json = (await response.json()) as unknown;
+    const json = await loadConfig<unknown>('spriteAnchorPresets.json');
     return parsePresetMap(json);
   } catch {
     return {};

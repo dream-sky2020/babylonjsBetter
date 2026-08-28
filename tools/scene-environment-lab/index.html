@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene Environment Lab</title>
+    <style>
+      :root { color-scheme: dark; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 760px; height: 100vh; overflow: hidden; background: #07110e; color: #d8f3e6; }
+      .layout { height: 100%; display: grid; grid-template-columns: 320px minmax(0, 1fr); }
+      aside { padding: 18px; overflow: auto; border-right: 1px solid #24483b; background: #0b1b16; }
+      h1 { margin: 0 0 6px; font-size: 21px; }
+      .hint, .status { color: #8db6a5; font-size: 12px; line-height: 1.55; }
+      .card { margin-top: 16px; padding: 13px; border: 1px solid #285343; border-radius: 10px; background: #0d241c; }
+      label { display: block; margin-bottom: 6px; color: #a6d4c0; font-size: 12px; }
+      select, button { width: 100%; height: 36px; border: 1px solid #3c725e; border-radius: 7px; background: #123126; color: #e8fff5; }
+      button { margin-top: 9px; cursor: pointer; background: #1e654c; font-weight: 700; }
+      button:hover { background: #287b5e; }
+      pre { max-height: 280px; margin: 10px 0 0; padding: 10px; overflow: auto; border-radius: 7px; background: #071712; color: #b8ddcd; font: 11px/1.5 Consolas, monospace; white-space: pre-wrap; }
+      main { position: relative; min-width: 0; min-height: 0; }
+      canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+      .badge { position: absolute; right: 14px; top: 14px; padding: 7px 10px; border: 1px solid #4e7b69; border-radius: 8px; background: rgba(7, 23, 18, .82); color: #bce8d5; font-size: 12px; pointer-events: none; }
+      .switch-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 11px; border-top: 1px solid #21483a; }
+      .switch-row label { margin: 0; cursor: pointer; }
+      .switch-row input { width: 18px; height: 18px; margin: 0; accent-color: #45bf8d; cursor: pointer; }
+      .switch-hint { margin-top: 5px; color: #6f9f8c; font-size: 11px; line-height: 1.45; }
+      a { color: #76d5ae; }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside>
+        <h1>Scene Environment Lab</h1>
+        <div class="hint">验证 Map Entity 的 SceneEnvironmentComponent 通过 presetKey 加载 JSON 场景预设。</div>
+        <div class="card">
+          <label for="preset">场景预设</label>
+          <select id="preset"></select>
+          <button id="load" type="button">通过 presetKey 加载</button>
+          <div class="switch-row">
+            <label for="csm-debug">阴影级联 Debug</label>
+            <input id="csm-debug" type="checkbox" />
+          </div>
+          <div id="csm-debug-hint" class="switch-hint">用不同颜色显示 CSM 的各个 cascade。</div>
+          <div id="status" class="status" style="margin-top:10px">正在读取场景预设……</div>
+        </div>
+        <div class="card">
+          <label>测试组件数据</label>
+          <pre id="component-json"></pre>
+        </div>
+        <div class="card">
+          <label>已解析的预设数据</label>
+          <pre id="preset-json"></pre>
+        </div>
+        <p class="hint"><a href="/">返回工具入口</a></p>
+      </aside>
+      <main id="stage">
+        <canvas id="preview"></canvas>
+        <div class="badge">使用摄像机控制面板切换视角 · WASDQE 移动</div>
+      </main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

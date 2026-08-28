@@ -53,6 +53,10 @@ const isUsableResponse = (response: Response | null): response is Response => {
 export const getResolvedDevServerPort = (): number | null => activePort;
 
 export const requestDevServer = async (pathWithQuery: string, init?: RequestInit): Promise<Response> => {
+  if (!import.meta.env.DEV) {
+    throw new Error('正式构建已禁用开发服务器连接；配置应从打包资源读取');
+  }
+
   if (typeof window === 'undefined') {
     throw new Error('当前环境无法访问浏览器 dev server');
   }
