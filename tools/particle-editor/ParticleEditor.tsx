@@ -15,6 +15,7 @@ import { usePresetManagement } from '@/hooks/particleEditor/usePresetManagement.
 import { hexToRgb, rgbToHex } from '@/core/utils/color.ts';
 import { clamp, toFixedNumber } from '@/core/utils/math.ts';
 import { CommitNumberInput } from '@/core/ui/CommitNumberInput.tsx';
+import { isConfigWritable } from '@/core/config';
 
 const RESOURCE_IMAGE_MODULES = import.meta.glob('/public/**/*.{png,jpg,jpeg,webp,gif,avif,svg}', {
   eager: true,
@@ -234,9 +235,9 @@ export const ParticleEditor: React.FC = () => {
         <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>支持实时测试、写入 config JSON、导出 JSON，并可复用到战斗场景。</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <div style={{ fontSize: 12, color: serverConnected ? '#95d5a6' : '#f0a8a8' }}>
-            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : '未连接（将自动扫描 4550-4600）'}
+            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : isConfigWritable() ? '未连接（将自动扫描 4550-4600）' : '正式构建为只读，不连接开发服务器'}
           </div>
-          <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>
+          {isConfigWritable() && <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>}
         </div>
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 8 }}>{presetSourceLabel}</div>
         <div style={{ fontSize: 12, color: '#9fb0c5', marginBottom: 10 }}>{message}</div>

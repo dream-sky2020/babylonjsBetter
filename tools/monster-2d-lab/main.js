@@ -21,6 +21,7 @@ import {
   normalizeStripePresetLibrary as normalizeCoreStripePresetLibrary,
   toMonsterResourceUrl
 } from '/core/monster/index.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const CONFIG_URL = '/config/stripePresets.json';
 const MONSTER_STRIPE_PRESET_URL = '/config/monsterStripePresets.json';
@@ -791,9 +792,7 @@ const loadStripePresets = async () => {
       const payload = await requestStripeConfigApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(CONFIG_URL);
     }
     state.presets = normalizeLibrary(data);
     state.patternCache.clear();
@@ -816,9 +815,7 @@ const loadMonsterStripePresetsFromServer = async () => {
       const payload = await requestMonsterStripePresetApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${MONSTER_STRIPE_PRESET_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(MONSTER_STRIPE_PRESET_URL);
     }
     state.monsterStripePresets = normalizeMonsterStripePresetLibrary(data);
     ensureActiveMonsterStripePreset();

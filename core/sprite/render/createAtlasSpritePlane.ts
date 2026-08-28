@@ -11,6 +11,7 @@ import {
   type SpriteVisualSurfaceRole
 } from './spriteVisualSurface.ts';
 import type { SpriteVisualEffectState } from './spriteVisualEffect.types.ts';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type CreateAtlasSpritePlaneOptions = {
   /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
@@ -65,7 +66,7 @@ export const createAtlasSpritePlane = (
 
   const iconTexture = shareTexture
     ? acquireSharedAtlasTexture(scene, texturePath)
-    : new Texture(texturePath, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
+    : new Texture(resolveAppAssetUrl(texturePath), scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
 
   if (!shareTexture) {
     iconTexture.hasAlpha = true;

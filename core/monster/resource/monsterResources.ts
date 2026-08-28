@@ -1,3 +1,5 @@
+import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
+
 export const normalizeMonsterResourcePath = (value: unknown): string => {
   const raw = String(value || '').trim().replace(/\\/g, '/');
   if (!raw) return '';
@@ -8,7 +10,7 @@ export const normalizeMonsterResourcePath = (value: unknown): string => {
 
 export const toMonsterResourceUrl = (value: unknown): string => {
   const relative = normalizeMonsterResourcePath(value);
-  return relative ? encodeURI(`/resources/${relative}`) : '';
+  return relative ? resolvePublicResourceUrl(relative) : '';
 };
 
 export const collectMonsterResourceImages = (moduleUrls: unknown[], additionalPaths: unknown[] = []): string[] => {

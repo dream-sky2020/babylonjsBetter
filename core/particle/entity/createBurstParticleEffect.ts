@@ -8,6 +8,7 @@ import {
   Texture,
   Vector3
 } from '@babylonjs/core';
+import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
 import type {
   ParticleController,
   ParticleEffectConfig
@@ -56,7 +57,7 @@ export const createBurstParticleEffect = (
   const configuredUpdateSpeed = Math.max(0.0001, config.updateSpeed ?? 0.01);
   let delayTimer: number | null = null;
 
-  particleSystem.particleTexture = new Texture(config.texturePath, scene);
+  particleSystem.particleTexture = new Texture(resolvePublicResourceUrl(config.texturePath), scene);
   particleSystem.emitter = config.emitter;
 
   particleSystem.minLifeTime = minLifeTime;

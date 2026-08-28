@@ -5,6 +5,7 @@ import {
 import {
   createBurstCapsuleEffect
 } from '/core/effects/burst-capsule/index.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const BURST_PRESET_URL = '/config/burstCapsulePresets.json';
 const BURST_PRESET_API_PATH = '/api/burst-capsule-presets';
@@ -246,9 +247,7 @@ async function loadBurstPresets() {
       const payload = await requestBurstPresetApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${BURST_PRESET_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(BURST_PRESET_URL);
     }
     state.presets = normalizeBurstPresetLibrary(data);
     ensureActivePreset();

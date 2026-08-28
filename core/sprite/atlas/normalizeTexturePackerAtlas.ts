@@ -1,4 +1,5 @@
 import type { TexturePackerAtlas, TexturePackerFrameRaw } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -99,7 +100,7 @@ export const normalizeTexturePackerAtlas = (raw: unknown): TexturePackerAtlas | 
 
 export const loadTexturePackerAtlas = async (atlasJsonPath: string): Promise<TexturePackerAtlas> => {
   const normalized = atlasJsonPath.replace(/^\/+/, '');
-  const response = await fetch(encodeURI(`/${normalized}?t=${Date.now()}`), { cache: 'no-store' });
+  const response = await fetch(`${resolveAppAssetUrl(normalized)}?t=${Date.now()}`, { cache: 'no-store' });
   if (!response.ok) {
     throw new Error(`图集加载失败（HTTP ${response.status}）：${normalized}`);
   }

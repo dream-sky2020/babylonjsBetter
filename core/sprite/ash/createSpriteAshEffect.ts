@@ -5,6 +5,7 @@ import { createProfiledSpriteVisualSurface } from '@/core/sprite/render/createPr
 import { createSpriteDissolveParticles } from './createSpriteDissolveParticles';
 import { DEFAULT_SPRITE_ASH_PRESET, normalizeSpriteAshPreset } from './spriteAshPreset';
 import type { SpriteAshPreset } from './spriteAsh.types';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 const applyContinuousSpriteGeometry = (mesh: Mesh, columns = 12, rows = columns) => {
   const positions: number[] = [], uvs: number[] = [], indices: number[] = [];
@@ -48,7 +49,7 @@ export const createSpriteAshEffect = (
   let preset = normalizeSpriteAshPreset(presetInput.presetKey, presetInput);
   const mesh = createContinuousSpriteMesh(scene, preset.vertexSubdivisions);
 
-  const texture = new Texture(texturePath, scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
+  const texture = new Texture(resolveAppAssetUrl(texturePath), scene, false, true, Texture.TRILINEAR_SAMPLINGMODE);
   texture.hasAlpha = true;
   texture.wrapU = Texture.CLAMP_ADDRESSMODE;
   texture.wrapV = Texture.CLAMP_ADDRESSMODE;

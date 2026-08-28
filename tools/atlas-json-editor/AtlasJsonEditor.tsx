@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { requestDevServer } from '@/core/network/devServerPortResolver.ts';
+import { resolveAppAssetUrl } from '@/core/resources';
 
 type EditorMode = 'manual' | 'grid' | 'irregular';
 type GridSplitMode = 'cell-size' | 'rows-columns';
@@ -617,7 +618,7 @@ export const AtlasJsonEditor: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`/${normalized}`);
+      const response = await fetch(resolveAppAssetUrl(normalized));
       if (!response.ok) {
         setMessage(`加载失败：HTTP ${response.status}`);
         return;

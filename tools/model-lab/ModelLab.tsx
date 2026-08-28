@@ -9,6 +9,7 @@ import {
   Vector3
 } from '@babylonjs/core';
 import { createModelEntity, type ModelEntity } from '@/core/model';
+import { loadModelAssetManifest, resolvePublicResourceUrl } from '@/core/resources';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
@@ -84,7 +85,7 @@ const createFbxPreview = async (host: HTMLElement, sourcePath: string): Promise<
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
 
-  const object = await new FBXLoader().loadAsync(sourcePath);
+  const object = await new FBXLoader().loadAsync(resolvePublicResourceUrl(sourcePath));
   scene.add(object);
   const bounds = new THREE.Box3().setFromObject(object);
   const size = bounds.getSize(new THREE.Vector3());
@@ -144,15 +145,8 @@ export const ModelLab = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchCatalog = async (): Promise<{ assets: string[] }> => {
-      const developmentResponse = await fetch('/api/model-assets');
-      if (developmentResponse.ok) return developmentResponse.json() as Promise<{ assets: string[] }>;
-      const staticResponse = await fetch('/model-assets.json');
-      if (!staticResponse.ok) throw new Error(`资源扫描失败（HTTP ${developmentResponse.status}）`);
-      return staticResponse.json() as Promise<{ assets: string[] }>;
-    };
-    fetchCatalog()
-      .then(({ assets: paths }) => {
+    loadModelAssetManifest()
+      .then((paths) => {
         setAssets(paths);
         setSelectedPath(paths[0] ?? '');
         setStatus(paths.length > 0 ? `发现 ${paths.length} 个模型文件` : '没有发现 GLB 或 FBX 文件');

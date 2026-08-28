@@ -6,6 +6,7 @@ import { configureBlackShardParticles } from '@/core/effects/sprite-death/partic
 import { configurePixelParticles } from '@/core/effects/sprite-death/particles/pixelParticles.ts';
 import type { SpriteDeathParticleProfile } from '@/core/effects/sprite-death/particles/particleProfile.types.ts';
 import { rotateParticleMotion } from '@/core/effects/sprite-death/particles/particleProfile.types.ts';
+import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
 
 const PARTICLE_MODES = new Set<SpriteDissolveParticleMode>(['ash', 'blackShards', 'embers', 'pixel']);
 const PARTICLE_PROFILES: Partial<Record<SpriteDissolveParticleMode, SpriteDeathParticleProfile>> = {
@@ -33,7 +34,7 @@ export const createSpriteDeathParticles = (
   emitter.isVisible = false;
 
   const system = new ParticleSystem('spriteDissolveParticles', 900, scene);
-  const particleTexture = new Texture('/resources/particle_white.svg', scene, false, true, Texture.BILINEAR_SAMPLINGMODE);
+  const particleTexture = new Texture(resolvePublicResourceUrl('particle_white.svg'), scene, false, true, Texture.BILINEAR_SAMPLINGMODE);
   particleTexture.hasAlpha = true;
   system.particleTexture = particleTexture;
   system.emitter = emitter;

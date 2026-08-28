@@ -6,6 +6,7 @@
 
 
 import React, { useRef, useState } from 'react';
+import { isConfigWritable } from '@/core/config';
 import {
   ANCHOR_MAX,
   ANCHOR_MIN,
@@ -22,7 +23,7 @@ import { useBabylonScene } from '@/hooks/spriteAnchorEditor/useBabylonScene.ts';
 import { useClipboardActions } from '@/hooks/spriteAnchorEditor/useClipboardActions.ts';
 
 export const SpriteAnchorEditor: React.FC = () => {
-  const initialImagePath = 'resources/优势.png';
+  const initialImagePath = 'resources/食肉精灵.png';
   const spriteRef = useRef<SpriteEntity | null>(null);
   const [isDebugVisible, setIsDebugVisible] = useState(false);
 
@@ -147,9 +148,9 @@ export const SpriteAnchorEditor: React.FC = () => {
         <p style={{ marginTop: 0, color: '#9fb0c5', fontSize: 13 }}>右侧画布支持拖拽平移、滚轮缩放、左下角小地图与回正视角。</p>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
           <div style={{ fontSize: 12, color: serverConnected ? '#95d5a6' : '#f0a8a8' }}>
-            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : '未连接（将自动扫描 4550-4600）'}
+            服务状态：{serverConnected ? `已连接（端口 ${serverPort ?? '-'}）` : isConfigWritable() ? '未连接（将自动扫描 4550-4600）' : '正式构建为只读，不连接开发服务器'}
           </div>
-          <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>
+          {isConfigWritable() && <button onClick={retryServerConnection} style={{ padding: '2px 8px', fontSize: 12 }}>手动重连</button>}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 8 }}>
@@ -178,7 +179,7 @@ export const SpriteAnchorEditor: React.FC = () => {
             <input
               value={imagePath}
               onChange={(e) => handleSpriteResourceChange(e.target.value)}
-              placeholder="resources/优势.png"
+              placeholder="resources/食肉精灵.png"
               style={{ width: '100%', marginBottom: 8, padding: '8px 10px', borderRadius: 6, border: '1px solid #3a4253', background: '#11151d', color: '#e8edf2' }}
             />
             <label style={{ display: 'block', marginBottom: 6, fontSize: 13 }}>资源图片列表（自动扫描 public）</label>

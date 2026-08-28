@@ -23,6 +23,7 @@ import {
   type ModelScenePresetLibrary,
   type ModelTransform
 } from '@/core/model';
+import { loadModelAssetManifestByExtension } from '@/core/resources';
 
 type GizmoMode = 'position' | 'rotation' | 'scale';
 type Runtime = { engine: Engine; scene: Scene; camera: ArcRotateCamera; gizmos: GizmoManager };
@@ -166,8 +167,7 @@ export const ModelSceneLab = () => {
   }, [gizmoMode, selectedId]);
 
   useEffect(() => {
-    fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then(({ assets: paths }) => {
-      const glbAssets = paths.filter((path) => /\.(glb|gltf)$/i.test(path));
+    loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then((glbAssets) => {
       setAssets(glbAssets);
       setAssetPath(glbAssets[0] ?? '');
     }).catch(() => setStatus('模型资源列表读取失败'));

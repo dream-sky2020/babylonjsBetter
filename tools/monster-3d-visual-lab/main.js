@@ -32,6 +32,7 @@ import {
   normalizeStripePresetLibrary as normalizeCoreStripePresetLibrary,
   toMonsterResourceUrl
 } from '/core/monster/index.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const CONFIG_URL = '/config/stripePresets.json';
 const MONSTER_CONFIG_URL = '/config/monsterDisplayConfigs.json';
@@ -1223,9 +1224,7 @@ const loadMonsterConfigsFromServer = async () => {
 
 const loadMonsterConfigsFromStaticFile = async () => {
   try {
-    const response = await fetch(`${MONSTER_CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    state.monsterConfigs = normalizeMonsterConfigLibrary(await response.json());
+    state.monsterConfigs = normalizeMonsterConfigLibrary(await loadConfigFromUrl(MONSTER_CONFIG_URL));
     const sorted = Object.keys(state.monsterConfigs).sort((a, b) => a.localeCompare(b, 'zh-CN'));
     if (!sorted.length) throw new Error('monsterDisplayConfigs.json 中没有可用配置');
     state.activeMonsterConfigId = preferredMonsterConfigFromQuery && state.monsterConfigs[preferredMonsterConfigFromQuery]
@@ -1271,9 +1270,7 @@ const loadStripePresets = async () => {
       const payload = await requestStripeConfigApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${CONFIG_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(CONFIG_URL);
     }
     state.presets = normalizeLibrary(data);
     sanitizeMonsterStripePresets();
@@ -1295,9 +1292,7 @@ const loadMonsterStripePresetsFromServer = async () => {
       const payload = await requestMonsterStripePresetApi('GET');
       data = payload.data;
     } catch {
-      const response = await fetch(`${MONSTER_STRIPE_PRESET_URL}?t=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      data = await loadConfigFromUrl(MONSTER_STRIPE_PRESET_URL);
     }
     state.monsterStripePresets = normalizeMonsterStripePresetLibrary(data);
     ensureActiveMonsterStripePreset();

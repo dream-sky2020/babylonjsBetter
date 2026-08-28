@@ -216,7 +216,7 @@ const App: React.FC = () => {
       <section className="section grid-2"><button className="primary" disabled={!activePreset} onClick={() => playDeath()}>播放击飞</button><button onClick={() => { managerRef.current?.stopMonsterDeath(PREVIEW_MONSTER_ID); setMessage('已重置怪物。'); }}>重置怪物</button></section>
       <section className="section"><button className="save" onClick={() => void save()}>保存全部击飞配置</button><div className={`status${isError ? ' error' : ''}`}>{message}</div></section>
     </aside>
-    <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="/">返回调试入口</a><div className="stage-hint">单击场景播放 · 拖动旋转视角 · 滚轮缩放</div></main>
+    <main className="stage" ref={stageRef}><canvas ref={canvasRef} /><a className="top-link" href="../../index.html">返回调试入口</a><div className="stage-hint">单击场景播放 · 拖动旋转视角 · 滚轮缩放</div></main>
   </div>;
 };
 

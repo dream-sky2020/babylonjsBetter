@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "test:batch": "node --experimental-strip-types --test core/entity/batch-edit.test.ts",
     "preview": "vite preview",
+    "verify:file": "electron scripts/verifyFileProtocol.cjs",
     "electron:start": "electron .",
     "electron:dev": "concurrently -k \"npm run dev\" \"wait-on http://localhost:1184/apps/mainGame/index.html && cross-env ELECTRON_RENDERER_URL=http://localhost:1184 electron .\""
   },

@@ -1,4 +1,5 @@
 import { Scene, Texture } from '@babylonjs/core';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 type CacheEntry = {
   master: Texture;
@@ -18,7 +19,7 @@ export const acquireSharedAtlasTexture = (scene: Scene, texturePath: string): Te
   let entry = textureCache.get(key);
   if (!entry) {
     const master = new Texture(
-      key.startsWith('http') || key.startsWith('data:') ? key : `/${key}`,
+      resolveAppAssetUrl(key),
       scene,
       false,
       true,

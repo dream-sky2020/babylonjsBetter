@@ -6,6 +6,7 @@ import { Engine, Mesh } from '@babylonjs/core';
 import type { SkillVisualData, TrackedUiState } from '../../core/types/battle.types.ts';
 import { hiddenTrackedUi } from '../../core/types/battle.types.ts';
 import { createSpriteEntity, drawSpriteDebugOverlay, uvToNormalizedAnchor } from '@/core/sprite';
+import { resolvePublicResourceUrl } from '@/core/resources';
 import { UiTracker } from '../../core/tracking/UiTracker';
 import { UiTrackerManager } from '../../core/tracking/UiTrackerManager';
 import { createBattleScene } from '../../scene/createScene';
@@ -27,21 +28,21 @@ export const Battle: React.FC = () => {
 
   const skillUiConfig: SkillVisualData = {
     icon: {
-      source: 'resources/Identity Skill Icons/Artwork Inspection Outis Icon.png',
+      source: 'resources/eye.png',
       visible: true,
       offsetX: 0,
       offsetY: 0,
       scale: 1
     },
     border: {
-      source: 'resources/Skill Border Assets/Pride3.png',
+      source: 'resources/Circle.png',
       visible: true,
       offsetX: 0,
       offsetY: 0,
       scale: 1
     },
     mask: {
-      source: 'resources/Skill Border Background Assets/Def1BG.png',
+      source: 'resources/Circle.png',
       visible: true
     }
   };
@@ -65,7 +66,7 @@ export const Battle: React.FC = () => {
     const { scene, camera, engine, updateOrthographicFrustum, dispose } = sceneContext;
 
     // 创建图标平面（Battle 只关注“放置物体”）
-    const iconTexturePath = encodeURI('/resources/优势.png');
+    const iconTexturePath = resolvePublicResourceUrl('食肉精灵.png');
     const mockSprite = createSpriteEntity(scene, iconTexturePath, 4.8, 'merged');
     const plane = mockSprite.mesh;
     let debugItems: Mesh[] = [];

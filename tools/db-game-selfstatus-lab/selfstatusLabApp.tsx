@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ConfigurableAvatar, OscilloscopeWrapper, type AvatarExpressionConfig } from '@/core/ui';
 import { joinPublicPath, normalizePublicPath, type TexturePackerAtlas } from '@/core/sprite';
 import { loadConfig } from '@/core/config';
+import { resolveAppAssetUrl } from '@/core/resources';
 
 type AvatarCharacterConfig = { id: string; name: string; expressions: AvatarExpressionConfig[] };
 type AvatarConfigMap = Record<string, AvatarCharacterConfig>;
@@ -109,7 +110,7 @@ export const DbGameSelfstatusLab: React.FC = () => {
     void (async () => {
       if (!expression?.atlas?.jsonPath) { setAtlas(null); return; }
       try {
-        const response = await fetch(encodeURI(`/${normalizePublicPath(expression.atlas.jsonPath)}`));
+        const response = await fetch(resolveAppAssetUrl(normalizePublicPath(expression.atlas.jsonPath)));
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         setAtlas(await response.json() as TexturePackerAtlas);
       } catch (error) { setAtlas(null); setAvatarMessage(`头像图集读取失败：${String(error)}`); }

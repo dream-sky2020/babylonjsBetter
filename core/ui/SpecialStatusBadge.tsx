@@ -1,4 +1,5 @@
 import React from 'react';
+import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type SpecialStatusBadgeProps = {
   iconSrc?: string;
@@ -81,7 +82,7 @@ export const SpecialStatusBadge: React.FC<SpecialStatusBadgeProps> = ({
     >
       {iconSrc ? (
         <img
-          src={iconSrc}
+          src={resolveAppAssetUrl(iconSrc)}
           alt="status icon"
           style={{
             position: 'absolute',

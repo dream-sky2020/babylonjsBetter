@@ -12,6 +12,7 @@ import {
   normalizeMonsterStripePresetLibrary,
   normalizeStripePresetLibrary
 } from '/core/monster/index.ts';
+import { loadConfigFromUrl } from '/core/config/index.ts';
 
 const MONSTER_DISPLAY_CONFIG_URL = '/config/monsterDisplayConfigs.json';
 const POP_NUMBER_PRESET_URL = '/config/popNumberPresets.json';
@@ -81,11 +82,7 @@ const setStatus = (message, isError = false) => {
   statusText.classList.toggle('error', isError);
 };
 
-const fetchJson = async (url) => {
-  const response = await fetch(`${url}?t=${Date.now()}`, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`${url}：HTTP ${response.status}`);
-  return response.json();
-};
+const fetchJson = async (url) => loadConfigFromUrl(url);
 
 const fillSelect = (select, library) => {
   select.innerHTML = '';

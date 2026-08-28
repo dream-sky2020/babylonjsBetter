@@ -9,6 +9,7 @@ import {
   type ModelDisplayConfigLibrary,
   type ModelEntity
 } from '@/core/model';
+import { loadModelAssetManifestByExtension } from '@/core/resources';
 
 const degreesToRadians = Math.PI / 180;
 
@@ -101,8 +102,7 @@ export const ModelDisplayLab = () => {
   }, []);
 
   useEffect(() => {
-    fetch('/api/model-assets').then((response) => response.json() as Promise<{ assets: string[] }>).then((catalog) => {
-      const paths = catalog.assets.filter((path) => /\.(glb|gltf)$/i.test(path));
+    loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then((paths) => {
       const firstPath = paths[0] ?? '';
       const firstSettings = libraryRef.current[firstPath] ?? createDefaultModelDisplayConfig(firstPath);
       setAssets(paths);
