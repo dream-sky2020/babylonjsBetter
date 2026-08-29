@@ -12,7 +12,7 @@ export interface IVisualComponent extends IComponent {
 
 export const componentDefinition: ComponentDefinition<IVisualComponent> = {
   type: 'visual', version: 1, label: '视觉表现', description: '纹理、模型、颜色和渲染层。',
-  allowedEntityTypes: ['map', 'tile', 'tile-edge', 'shared-edge', 'shared-point'],
+  allowedEntityTypes: ['tile', 'tile-edge', 'shared-edge', 'shared-point'],
   batch: { scope: 'compatible', create: true, edit: true, delete: true },
   fields: [
     { path: 'assetId', label: '资源 ID', control: 'text', optional: true, batch: { editable: true } },

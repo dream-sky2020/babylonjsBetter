@@ -76,7 +76,7 @@
         },
         "position": [
           0,
-          0.02,
+          0.08,
           0
         ],
         "color": "#252a31",
@@ -94,7 +94,7 @@
         },
         "position": [
           0,
-          0.025,
+          0.105,
           0
         ],
         "rotation": [
@@ -346,7 +346,7 @@
         },
         "position": [
           0,
-          0.02,
+          0.08,
           0
         ],
         "color": "#514c43",
@@ -364,7 +364,7 @@
         },
         "position": [
           0,
-          0.025,
+          0.100,
           0
         ],
         "rotation": [
@@ -422,6 +422,33 @@
           0
         ],
         "color": "#67594d",
+        "shadow": {
+          "cast": true,
+          "receive": true
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "local-cuboid-7-opened",
+        "name": "本地开启箱体示例",
+        "modelPath": "resources/Model/GLB/cuboid7Opened.glb",
+        "position": [
+          26,
+          0,
+          -18
+        ],
+        "rotation": [
+          0,
+          -0.35,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
         "shadow": {
           "cast": true,
           "receive": true
@@ -5623,6 +5650,475 @@
         "color": "#42536b",
         "shadow": {
           "cast": true,
+          "receive": true
+        }
+      }
+    ]
+  },
+  "local-model-loading-test": {
+    "presetKey": "local-model-loading-test",
+    "name": "本地 GLB 模型加载测试",
+    "clearColor": "#111923",
+    "lights": [
+      {
+        "id": "model-test-environment-light",
+        "name": "模型测试环境光",
+        "intensity": 1.2,
+        "color": "#ffffff",
+        "light": {
+          "primitive": "hemispheric",
+          "direction": [
+            0.3,
+            1,
+            0.2
+          ],
+          "groundColor": "#253247"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "id": "model-test-ground",
+        "name": "模型测试地面",
+        "geometry": {
+          "primitive": "ground",
+          "width": 120,
+          "height": 120
+        },
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "color": "#303b48",
+        "shadow": {
+          "receive": true
+        }
+      }
+    ],
+    "models": [
+      {
+        "id": "model-test-cuboid",
+        "name": "箱体 1 GLB",
+        "modelPath": "resources/Model/GLB/cuboid.glb",
+        "position": [
+          -16,
+          0,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-opened",
+        "name": "开启箱体 1 GLB",
+        "modelPath": "resources/Model/GLB/cuboidOpened.glb",
+        "position": [
+          -8,
+          0,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-2",
+        "name": "箱体 2 GLB",
+        "modelPath": "resources/Model/GLB/cuboid2.glb",
+        "position": [
+          0,
+          0,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-2-opened",
+        "name": "开启箱体 2 GLB",
+        "modelPath": "resources/Model/GLB/cuboid2Opened.glb",
+        "position": [
+          8,
+          0,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-3",
+        "name": "箱体 3 GLB",
+        "modelPath": "resources/Model/GLB/cuboid3.glb",
+        "position": [
+          16,
+          0,
+          -30
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-3-opened",
+        "name": "开启箱体 3 GLB",
+        "modelPath": "resources/Model/GLB/cuboid3Opened.glb",
+        "position": [
+          -16,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-4",
+        "name": "箱体 4 GLB",
+        "modelPath": "resources/Model/GLB/cuboid4.glb",
+        "position": [
+          -8,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-4-opened",
+        "name": "开启箱体 4 GLB",
+        "modelPath": "resources/Model/GLB/cuboid4Opened.glb",
+        "position": [
+          0,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-5",
+        "name": "箱体 5 GLB",
+        "modelPath": "resources/Model/GLB/cuboid5.glb",
+        "position": [
+          8,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-5-opened",
+        "name": "开启箱体 5 GLB",
+        "modelPath": "resources/Model/GLB/cuboid5Opened.glb",
+        "position": [
+          16,
+          0,
+          -22
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-6",
+        "name": "箱体 6 GLB",
+        "modelPath": "resources/Model/GLB/cuboid6.glb",
+        "position": [
+          -16,
+          0,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-6-opened",
+        "name": "开启箱体 6 GLB",
+        "modelPath": "resources/Model/GLB/cuboid6Opened.glb",
+        "position": [
+          -8,
+          0,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-7",
+        "name": "箱体 7 GLB",
+        "modelPath": "resources/Model/GLB/cuboid7.glb",
+        "position": [
+          0,
+          0,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-7-opened",
+        "name": "开启箱体 7 GLB",
+        "modelPath": "resources/Model/GLB/cuboid7Opened.glb",
+        "position": [
+          8,
+          0,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-8",
+        "name": "箱体 8 GLB",
+        "modelPath": "resources/Model/GLB/cuboid8.glb",
+        "position": [
+          16,
+          0,
+          -14
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-cuboid-8-opened",
+        "name": "开启箱体 8 GLB",
+        "modelPath": "resources/Model/GLB/cuboid8Opened.glb",
+        "position": [
+          -8,
+          0,
+          -6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
+          "receive": true
+        }
+      },
+      {
+        "id": "model-test-sword",
+        "name": "长剑 GLB",
+        "modelPath": "resources/Model/GLB/espada.glb",
+        "position": [
+          0,
+          0,
+          -6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scaling": [
+          1,
+          1,
+          1
+        ],
+        "transparencyPolicy": "depth-safe-cutout",
+        "shadow": {
+          "cast": false,
           "receive": true
         }
       }

@@ -5,6 +5,30 @@ export type {
   ModelLoader
 } from '@/core/model/types/model.types.ts';
 export { createModelEntity } from '@/core/model/entity/createModelEntity.ts';
+export { applyModelAssetProfile } from '@/core/model/entity/applyModelAssetProfile.ts';
+export type {
+  ModelAssetProfile,
+  ModelAssetProfileLibrary,
+  ModelAssetVector3
+} from '@/core/model/types/model-asset-profile.types.ts';
+export {
+  createDefaultModelAssetProfile,
+  normalizeModelAssetProfilePath,
+  sanitizeModelAssetProfile,
+  sanitizeModelAssetProfileLibrary
+} from '@/core/model/preset/modelAssetProfileValidation.ts';
+export {
+  MODEL_ASSET_PROFILE_CONFIG_URL,
+  MODEL_ASSET_PROFILE_API_PATH,
+  loadModelAssetProfileLibrary,
+  saveModelAssetProfileLibrary,
+  setModelAssetProfileLibraryCache
+} from '@/core/model/preset/modelAssetProfileApi.ts';
+export type { ModelTransparencyPolicy } from '@/core/model/material/applyModelMaterialPolicy.ts';
+export {
+  DEFAULT_MODEL_TRANSPARENCY_POLICY,
+  applyModelMaterialPolicy,
+} from '@/core/model/material/applyModelMaterialPolicy.ts';
 export type {
   ModelPrefabInstance,
   ModelPrefabCacheStats

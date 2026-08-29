@@ -1330,6 +1330,48 @@ def validate_monster_battlefield_stripe_rule_payload(payload: dict) -> list[str]
                 errors.append(f"{rule_path}.monsterStripePresetKey must be a non-empty string")
     return errors
 
+def validate_model_asset_profile_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict):
+        return ["body must be a JSON object"]
+
+    def validate_vector3(value, path, non_negative=False):
+        if not isinstance(value, dict):
+            errors.append(f"{path} must be an object")
+            return
+        for axis in ("x", "y", "z"):
+            component = value.get(axis)
+            if not is_finite_number(component):
+                errors.append(f"{path}.{axis} must be a finite number")
+            elif non_negative and component < 0:
+                errors.append(f"{path}.{axis} must be zero or greater")
+
+    for key, profile in payload.items():
+        path = f"root[{key}]"
+        if not isinstance(key, str) or not key.startswith("/"):
+            errors.append("model asset profile keys must be absolute public paths beginning with /")
+            continue
+        if not isinstance(profile, dict):
+            errors.append(f"{path} must be an object")
+            continue
+        if profile.get("modelPath") != key:
+            errors.append(f"{path}.modelPath must match its object key")
+        scale = profile.get("uniformScale")
+        if not is_finite_number(scale) or scale <= 0 or scale > 1000000:
+            errors.append(f"{path}.uniformScale must be greater than zero and no more than 1000000")
+        validate_vector3(profile.get("rotationDeg"), f"{path}.rotationDeg")
+        validate_vector3(profile.get("positionOffset"), f"{path}.positionOffset")
+        if profile.get("transparencyPolicy") not in ("source", "depth-safe-cutout"):
+            errors.append(f"{path}.transparencyPolicy is invalid")
+        bounds = profile.get("measuredBounds")
+        if bounds is not None:
+            if not isinstance(bounds, dict):
+                errors.append(f"{path}.measuredBounds must be an object")
+            else:
+                validate_vector3(bounds.get("size"), f"{path}.measuredBounds.size", True)
+                validate_vector3(bounds.get("center"), f"{path}.measuredBounds.center")
+    return errors
+
 def validate_monster_movement_config_payload(payload: dict) -> list[str]:
     errors: list[str] = []
     if not isinstance(payload, dict):

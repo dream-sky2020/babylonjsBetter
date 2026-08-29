@@ -1,6 +1,7 @@
 import type {
   SceneEnvironmentGeometry,
   SceneEnvironmentLight,
+  SceneEnvironmentModel,
   SceneEnvironmentObject,
   SceneEnvironmentPreset,
   SceneEnvironmentPresetLibrary,
@@ -82,6 +83,38 @@ const parseObject = (value: unknown, path: string): SceneEnvironmentObject => {
   };
 };
 
+const parseModel = (value: unknown, path: string): SceneEnvironmentModel => {
+  if (!isRecord(value)) throw new Error(`${path} 必须是对象`);
+  const animation = value.animation;
+  const shadow = value.shadow;
+  if (animation !== undefined && !isRecord(animation)) throw new Error(`${path}.animation 必须是对象`);
+  if (shadow !== undefined && !isRecord(shadow)) throw new Error(`${path}.shadow 必须是对象`);
+  const transparencyPolicy = value.transparencyPolicy;
+  if (transparencyPolicy !== undefined && transparencyPolicy !== 'source' && transparencyPolicy !== 'depth-safe-cutout') {
+    throw new Error(`${path}.transparencyPolicy 只允许 source 或 depth-safe-cutout`);
+  }
+  const modelPath = readString(value.modelPath, `${path}.modelPath`);
+  if (!/\.(?:glb|gltf)(?:[?#].*)?$/i.test(modelPath)) throw new Error(`${path}.modelPath 只支持 GLB 或 GLTF`);
+  return {
+    id: readString(value.id, `${path}.id`),
+    name: readString(value.name, `${path}.name`),
+    modelPath,
+    position: readVector3(value.position, `${path}.position`),
+    rotation: value.rotation === undefined ? undefined : readVector3(value.rotation, `${path}.rotation`),
+    scaling: value.scaling === undefined ? undefined : readVector3(value.scaling, `${path}.scaling`),
+    transparencyPolicy,
+    animation: animation === undefined ? undefined : {
+      name: animation.name === undefined ? undefined : readString(animation.name, `${path}.animation.name`),
+      autoplay: readOptionalBoolean(animation.autoplay, `${path}.animation.autoplay`),
+      loop: readOptionalBoolean(animation.loop, `${path}.animation.loop`),
+    },
+    shadow: shadow === undefined ? undefined : {
+      cast: readOptionalBoolean(shadow.cast, `${path}.shadow.cast`),
+      receive: readOptionalBoolean(shadow.receive, `${path}.shadow.receive`),
+    },
+  };
+};
+
 const parseLight = (value: unknown, path: string): SceneEnvironmentLight => {
   if (!isRecord(value)) throw new Error(`${path} 必须是对象`);
   if (!isRecord(value.light)) throw new Error(`${path}.light 必须是对象`);
@@ -113,14 +146,16 @@ export const parseSceneEnvironmentPreset = (value: unknown, key: string): SceneE
   if (presetKey !== key) throw new Error(`${path}.presetKey 必须与配置键一致`);
   if (!Array.isArray(value.lights)) throw new Error(`${path}.lights 必须是数组`);
   if (!Array.isArray(value.objects)) throw new Error(`${path}.objects 必须是数组`);
+  if (value.models !== undefined && !Array.isArray(value.models)) throw new Error(`${path}.models 必须是数组`);
   const lights = value.lights.map((item, index) => parseLight(item, `${path}.lights[${index}]`));
   const objects = value.objects.map((item, index) => parseObject(item, `${path}.objects[${index}]`));
+  const models = (value.models ?? []).map((item, index) => parseModel(item, `${path}.models[${index}]`));
   const nodeIds = new Set<string>();
-  [...lights, ...objects].forEach((node) => {
+  [...lights, ...objects, ...models].forEach((node) => {
     if (nodeIds.has(node.id)) throw new Error(`${path} 中存在重复节点 ID：${node.id}`);
     nodeIds.add(node.id);
   });
-  return { presetKey, name: readString(value.name, `${path}.name`), clearColor: readString(value.clearColor, `${path}.clearColor`), lights, objects };
+  return { presetKey, name: readString(value.name, `${path}.name`), clearColor: readString(value.clearColor, `${path}.clearColor`), lights, objects, models };
 };
 
 export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnvironmentPresetLibrary => {

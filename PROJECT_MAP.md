@@ -185,8 +185,8 @@ config/monsterDisplayConfigs.json
 
 ### Model、Scene、Camera 与 UI
 
-- `core/model/`：模型实体、缓存、展示/场景/摇晃/挥动预设。
-- `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体与光源 JSON，`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体分别声明投射/接收阴影。
+- `core/model/`：GLB/GLTF 模型实体、AssetContainer 预制体缓存、动画控制、共享材质透明策略，以及展示/场景/摇晃/挥动预设；`config/modelAssetProfiles.json` 保存模型资产级统一缩放、旋转、原点偏移与透明策略，`createModelEntity()` 默认应用到内层 `normalizationRoot`，外层 `root` 保留给场景实例变换。
+- `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体、光源和本地 GLB/GLTF 模型声明，异步环境接口通过 `core/model.createModelEntity()` 复用模型缓存、材质、动画和释放能力；`createDungeonMapSceneEnvironment` 负责从地图 map Entity 的 `scene-environment` 组件解析预设并创建大场景，`dungeonMapSceneLayout` 根据组件中的地图偏移、格子间隔、格子尺寸和固定锚定枚举将 2D 格子映射到 3D 世界位置；锚定模式支持偏移对应 `(0,0)` 格子底面中心或对应整张格子布局的 3D 中心。`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体与加载模型分别声明投射/接收阴影。
 - `core/camera/`：战斗相机和 lab 相机控制器。
 - `core/ui/`：共享 React UI 和浮动相机面板；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
 - `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
@@ -229,13 +229,15 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
-- `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角。
+- `dungeon-scene-loader-lab/`：选择地牢地图预设，检查 map Entity 的 `scene-environment` 组件，并通过 core 解析 `presetKey` 后加载对应大场景环境；Debug 模式按组件声明的偏移、间隔与大小绘制每个地图格子的 3D 对应盒。
+- `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角，并默认选择 `local-model-loading-test` 验证本地 GLB 模型加载。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
 
 ### Model
 
 - `model-lab/`
+- `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
 - `model-shake-lab/`
