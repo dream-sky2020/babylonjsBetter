@@ -14,6 +14,7 @@ import {
   type Light,
 } from '@babylonjs/core';
 import type { SceneEnvironmentInstance, SceneEnvironmentLight, SceneEnvironmentObject, SceneEnvironmentPreset } from './sceneEnvironment.types';
+import { createModelEntity, type ModelEntity } from '../model';
 import type { ShadowQualityPresetLibrary, ShadowQualitySettings, ShadowQualityTier } from './shadowQualityPreset.types';
 import { resolveShadowQuality } from './resolveShadowQuality';
 
@@ -107,11 +108,11 @@ export type CreateSceneEnvironmentOptions = {
   cascadedShadowDebug?: boolean;
 };
 
-export const createSceneEnvironment = (
+const createSceneEnvironmentRuntime = (
   scene: Scene,
   preset: SceneEnvironmentPreset,
   options: CreateSceneEnvironmentOptions,
-): SceneEnvironmentInstance => {
+): { instance: SceneEnvironmentInstance; shadowGenerators: ShadowGenerator[] } => {
   const root = new TransformNode(`scene_environment_${preset.presetKey}`, scene);
   const shadowGenerators: ShadowGenerator[] = [];
   scene.clearColor = Color4.FromHexString(preset.clearColor);
@@ -164,12 +165,73 @@ export const createSceneEnvironment = (
     mesh.receiveShadows = object.shadow?.receive ?? false;
     if (object.shadow?.cast) shadowGenerators.forEach((generator) => generator.addShadowCaster(mesh));
   });
-  return {
+  const instance: SceneEnvironmentInstance = {
     presetKey: preset.presetKey,
     root,
+    models: [],
     dispose: () => {
       shadowGenerators.forEach((generator) => generator.dispose());
       root.dispose(false, true);
+    },
+  };
+  return { instance, shadowGenerators };
+};
+
+/** 同步创建灯光和基础几何；模型声明由异步接口加载。 */
+export const createSceneEnvironment = (
+  scene: Scene,
+  preset: SceneEnvironmentPreset,
+  options: CreateSceneEnvironmentOptions,
+): SceneEnvironmentInstance => {
+  if (preset.models.length > 0) {
+    throw new Error(`场景预设“${preset.presetKey}”包含本地模型，请使用 createSceneEnvironmentAsync。`);
+  }
+  return createSceneEnvironmentRuntime(scene, preset, options).instance;
+};
+
+/** 创建完整场景环境，并通过 core/model 加载预设声明的本地 GLB/GLTF。 */
+export const createSceneEnvironmentAsync = async (
+  scene: Scene,
+  preset: SceneEnvironmentPreset,
+  options: CreateSceneEnvironmentOptions,
+): Promise<SceneEnvironmentInstance> => {
+  const runtime = createSceneEnvironmentRuntime(scene, preset, options);
+  const loadedModels: { definition: SceneEnvironmentPreset['models'][number]; entity: ModelEntity }[] = [];
+  try {
+    for (const definition of preset.models) {
+      const entity = await createModelEntity(scene, definition.modelPath, {
+        name: `${preset.presetKey}:${definition.id}`,
+        transparencyPolicy: definition.transparencyPolicy,
+      });
+      entity.root.parent = runtime.instance.root;
+      entity.root.position.set(...definition.position);
+      if (definition.rotation) entity.root.rotation.set(...definition.rotation);
+      if (definition.scaling) entity.root.scaling.set(...definition.scaling);
+      entity.meshes.forEach((mesh) => {
+        mesh.receiveShadows = definition.shadow?.receive ?? false;
+        if (definition.shadow?.cast) {
+          runtime.shadowGenerators.forEach((generator) => generator.addShadowCaster(mesh));
+        }
+      });
+      if (definition.animation?.autoplay === true) {
+        entity.playAnimation(definition.animation?.name, definition.animation?.loop ?? true);
+      }
+      loadedModels.push({ definition, entity });
+    }
+  } catch (error) {
+    loadedModels.forEach(({ entity }) => entity.dispose());
+    runtime.instance.dispose();
+    throw error;
+  }
+  let disposed = false;
+  return {
+    ...runtime.instance,
+    models: loadedModels,
+    dispose: () => {
+      if (disposed) return;
+      disposed = true;
+      loadedModels.forEach(({ entity }) => entity.dispose());
+      runtime.instance.dispose();
     },
   };
 };

@@ -17,6 +17,7 @@ from utils import (
     validate_monster_stripe_preset_payload, validate_pop_number_preset_payload,
     validate_burst_capsule_preset_payload, validate_model_scene_preset_payload,
     validate_model_shake_preset_payload, validate_model_display_config_payload,
+    validate_model_asset_profile_payload,
     validate_model_swing_config_payload, validate_model_shoot_config_payload,
     validate_bullet_config_payload,
     validate_number_sprite_config_payload, validate_exclamation_mark_preset_payload,
@@ -61,6 +62,7 @@ BURST_CAPSULE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "burstCa
 MODEL_SCENE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelScenePresets.json")
 MODEL_SHAKE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShakePresets.json")
 MODEL_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelDisplayConfigs.json")
+MODEL_ASSET_PROFILE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelAssetProfiles.json")
 MODEL_SWING_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelSwingConfigs.json")
 MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfigs.json")
 BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
@@ -130,6 +132,33 @@ def handle_model_scene_presets():
         return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_SCENE_PRESET_CONFIG_PATH)})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to write scene presets: {exc}"}), 500
+
+@app.route("/api/model-asset-profiles", methods=["GET", "PUT"])
+def handle_model_asset_profiles():
+    if request.method == "GET":
+        if not os.path.isfile(MODEL_ASSET_PROFILE_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(MODEL_ASSET_PROFILE_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            errors = validate_model_asset_profile_payload(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read model asset profiles: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    errors = validate_model_asset_profile_payload(payload)
+    if errors:
+        return jsonify({"success": False, "message": "model asset profile validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(MODEL_ASSET_PROFILE_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{MODEL_ASSET_PROFILE_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, MODEL_ASSET_PROFILE_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_ASSET_PROFILE_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write model asset profiles: {exc}"}), 500
 
 @app.route("/api/model-shake-presets", methods=["GET", "PUT"])
 def handle_model_shake_presets():

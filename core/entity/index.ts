@@ -6,4 +6,14 @@ export * from './batch-edit';
 export type { IVisualComponent } from './components/visual.component';
 export type { IEventComponent } from './components/event.component';
 export type { IStateComponent } from './components/state.component';
-export type { ISceneEnvironmentComponent } from './components/scene-environment.component';
+export {
+  DEFAULT_SCENE_ENVIRONMENT_MAP_ANCHOR_MODE,
+  DEFAULT_SCENE_ENVIRONMENT_MAP_OFFSET,
+  DEFAULT_SCENE_ENVIRONMENT_TILE_SIZE,
+  DEFAULT_SCENE_ENVIRONMENT_TILE_SPACING,
+  SCENE_ENVIRONMENT_MAP_ANCHOR_MODES,
+  SCENE_ENVIRONMENT_MAP_ANCHOR_MODE_OPTIONS,
+  isSceneEnvironmentMapAnchorMode,
+  type ISceneEnvironmentComponent,
+  type SceneEnvironmentMapAnchorMode,
+} from './components/scene-environment.component';

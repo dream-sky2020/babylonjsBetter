@@ -1,3 +1,4 @@
+import { canAttachComponentDefinitionToEntityType } from './component.registry';
 import type {
   BatchEditScope,
   ComponentDefinition,
@@ -184,7 +185,7 @@ export const listBatchComponentDefinitions = (
   return definitions.filter((definition) => {
     const policy = definition.batch;
     if (!policy?.[operation] || !supportsScope(policy.scope, entityTypes)) return false;
-    if (!targets.every((target) => definition.allowedEntityTypes.includes(target.entity.entityType))) return false;
+    if (!targets.every((target) => canAttachComponentDefinitionToEntityType(definition, target.entity.entityType))) return false;
     const instances = targets.map((target) => target.entity.components.filter(
       (component) => component.type === definition.type,
     ));

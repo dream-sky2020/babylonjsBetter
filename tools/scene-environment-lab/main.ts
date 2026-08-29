@@ -8,7 +8,7 @@ import type { ISceneEnvironmentComponent } from '@/core/entity';
 import { createCameraLabController } from '@/core/camera/cameraLabController';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel';
 import {
-  createSceneEnvironment,
+  createSceneEnvironmentAsync,
   parseSceneEnvironmentPresetLibrary,
   parseShadowQualityPresetLibrary,
   resolveShadowQuality,
@@ -28,6 +28,8 @@ const canvas = requireElement('#preview', HTMLCanvasElement);
 const stage = requireElement('#stage', HTMLElement);
 const presetSelect = requireElement('#preset', HTMLSelectElement);
 const loadButton = requireElement('#load', HTMLButtonElement);
+const currentSceneKeyInput = requireElement('#current-scene-key', HTMLInputElement);
+const copySceneKeyButton = requireElement('#copy-scene-key', HTMLButtonElement);
 const csmDebugToggle = requireElement('#csm-debug', HTMLInputElement);
 const csmDebugHint = requireElement('#csm-debug-hint', HTMLDivElement);
 const statusElement = requireElement('#status', HTMLDivElement);
@@ -109,13 +111,18 @@ window.addEventListener('resize', resize);
 let library: SceneEnvironmentPresetLibrary = {};
 let shadowQualityLibrary: ShadowQualityPresetLibrary = {};
 let currentInstance: SceneEnvironmentInstance | null = null;
+let loadGeneration = 0;
 
 const component: ISceneEnvironmentComponent = {
   id: 'scene-environment-lab-component',
   type: 'scene-environment',
-  version: 1,
+  version: 3,
   enabled: true,
   presetKey: '',
+  mapAnchorMode: 'first-tile',
+  mapOffset: [0, 0, 0],
+  tileSpacing: [8, 8],
+  tileSize: [7.5, 0.5, 7.5],
 };
 
 const setStatus = (message: string, error = false) => {
@@ -146,7 +153,8 @@ const fetchPresetLibraries = async (): Promise<{
   };
 };
 
-const loadByComponentPresetKey = () => {
+const loadByComponentPresetKey = async () => {
+  const generation = ++loadGeneration;
   component.presetKey = presetSelect.value;
   componentJson.textContent = JSON.stringify(component, null, 2);
   const preset = library[component.presetKey];
@@ -154,11 +162,27 @@ const loadByComponentPresetKey = () => {
     setStatus(`找不到 presetKey：${component.presetKey}`, true);
     return;
   }
+  loadButton.disabled = true;
+  setStatus(`正在加载场景“${component.presetKey}”及 ${preset.models.length} 个本地模型……`);
+  let nextInstance: SceneEnvironmentInstance;
+  try {
+    nextInstance = await createSceneEnvironmentAsync(scene, preset, {
+      shadowQualityPresets: shadowQualityLibrary,
+      cascadedShadowDebug: csmDebugToggle.checked,
+    });
+  } catch (error) {
+    if (generation === loadGeneration) setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`, true);
+    return;
+  } finally {
+    if (generation === loadGeneration) loadButton.disabled = false;
+  }
+  if (generation !== loadGeneration) {
+    nextInstance.dispose();
+    return;
+  }
   currentInstance?.dispose();
-  currentInstance = createSceneEnvironment(scene, preset, {
-    shadowQualityPresets: shadowQualityLibrary,
-    cascadedShadowDebug: csmDebugToggle.checked,
-  });
+  currentInstance = nextInstance;
+  currentSceneKeyInput.value = currentInstance.presetKey;
   const referencedShadowPresets = Object.fromEntries(preset.lights.flatMap((light) => {
     if (!('shadow' in light) || !light.shadow) return [];
     const shadowPreset = shadowQualityLibrary[light.shadow.qualityPresetKey];
@@ -179,11 +203,26 @@ const loadByComponentPresetKey = () => {
   csmDebugHint.textContent = hasCascadedShadow
     ? `当前场景包含 CSM；级联着色调试${csmDebugToggle.checked ? '已开启' : '未开启'}。`
     : '当前场景使用标准阴影，级联 Debug 不会产生效果。';
-  setStatus(`已通过 presetKey “${component.presetKey}” 创建 ${preset.objects.length} 个几何体和 ${preset.lights.length} 个光源，其中 ${enabledShadowSettings.length} 个启用阴影（${generatorLabels.join('、')}）${hasCascadedShadow && csmDebugToggle.checked ? '；级联 Debug 已开启' : ''}。`);
+  setStatus(`已通过 presetKey “${component.presetKey}” 创建 ${preset.objects.length} 个几何体、${currentInstance.models.length} 个本地模型和 ${preset.lights.length} 个光源，其中 ${enabledShadowSettings.length} 个启用阴影（${generatorLabels.join('、')}）${hasCascadedShadow && csmDebugToggle.checked ? '；级联 Debug 已开启' : ''}。`);
 };
 
-loadButton.addEventListener('click', loadByComponentPresetKey);
-csmDebugToggle.addEventListener('change', loadByComponentPresetKey);
+loadButton.addEventListener('click', () => { void loadByComponentPresetKey(); });
+currentSceneKeyInput.addEventListener('click', () => currentSceneKeyInput.select());
+copySceneKeyButton.addEventListener('click', () => {
+  const sceneKey = currentSceneKeyInput.value;
+  if (!sceneKey) return;
+  const copy = navigator.clipboard?.writeText
+    ? navigator.clipboard.writeText(sceneKey)
+    : Promise.reject(new Error('Clipboard API unavailable'));
+  void copy.catch(() => {
+    currentSceneKeyInput.select();
+    document.execCommand('copy');
+  }).finally(() => {
+    copySceneKeyButton.textContent = '已复制';
+    window.setTimeout(() => { copySceneKeyButton.textContent = '复制'; }, 1200);
+  });
+});
+csmDebugToggle.addEventListener('change', () => { void loadByComponentPresetKey(); });
 presetSelect.addEventListener('change', () => {
   component.presetKey = presetSelect.value;
   componentJson.textContent = JSON.stringify(component, null, 2);
@@ -198,12 +237,15 @@ void fetchPresetLibraries().then((result) => {
     option.textContent = `${preset.name} · ${preset.presetKey}`;
     return option;
   }));
+  const modelTestPresetKey = library['local-model-loading-test']
+    ? 'local-model-loading-test'
+    : Object.values(library).find((preset) => preset.models.length > 0)?.presetKey;
+  if (modelTestPresetKey) presetSelect.value = modelTestPresetKey;
   if (Object.keys(library).length === 0) {
     setStatus('配置中没有场景预设。', true);
     return;
   }
-  loadByComponentPresetKey();
-  setStatus(`${statusElement.textContent} 来源：${result.source}`);
+  void loadByComponentPresetKey().then(() => setStatus(`${statusElement.textContent} 来源：${result.source}`));
 }).catch((error: unknown) => setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`, true));
 
 engine.runRenderLoop(() => {

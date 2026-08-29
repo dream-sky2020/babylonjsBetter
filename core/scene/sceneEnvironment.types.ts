@@ -1,4 +1,5 @@
 import type { TransformNode } from '@babylonjs/core';
+import type { ModelEntity, ModelTransparencyPolicy } from '../model';
 import type { ShadowQualityReference } from './shadowQualityPreset.types';
 
 export type SceneEnvironmentVector3 = readonly [number, number, number];
@@ -22,6 +23,25 @@ export type SceneEnvironmentObject = {
   position: SceneEnvironmentVector3;
   rotation?: SceneEnvironmentVector3;
   color: string;
+  shadow?: {
+    cast?: boolean;
+    receive?: boolean;
+  };
+};
+
+export type SceneEnvironmentModel = {
+  id: string;
+  name: string;
+  modelPath: string;
+  position: SceneEnvironmentVector3;
+  rotation?: SceneEnvironmentVector3;
+  scaling?: SceneEnvironmentVector3;
+  transparencyPolicy?: ModelTransparencyPolicy;
+  animation?: {
+    name?: string;
+    autoplay?: boolean;
+    loop?: boolean;
+  };
   shadow?: {
     cast?: boolean;
     receive?: boolean;
@@ -68,6 +88,7 @@ export type SceneEnvironmentPreset = {
   clearColor: string;
   lights: readonly SceneEnvironmentLight[];
   objects: readonly SceneEnvironmentObject[];
+  models: readonly SceneEnvironmentModel[];
 };
 
 export type SceneEnvironmentPresetLibrary = Record<string, SceneEnvironmentPreset>;
@@ -75,5 +96,6 @@ export type SceneEnvironmentPresetLibrary = Record<string, SceneEnvironmentPrese
 export type SceneEnvironmentInstance = {
   presetKey: string;
   root: TransformNode;
+  models: readonly { definition: SceneEnvironmentModel; entity: ModelEntity }[];
   dispose: () => void;
 };

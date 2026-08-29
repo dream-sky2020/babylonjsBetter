@@ -4,7 +4,6 @@ import {
   Color4,
   Engine,
   HemisphericLight,
-  MeshBuilder,
   Scene,
   Vector3
 } from '@babylonjs/core';
@@ -49,8 +48,6 @@ const createBabylonPreview = async (host: HTMLElement, sourcePath: string): Prom
   camera.wheelPrecision = 35;
   const light = new HemisphericLight('model_lab_light', new Vector3(0.4, 1, 0.3), scene);
   light.intensity = 1.35;
-  MeshBuilder.CreateGround('model_lab_ground', { width: 20, height: 20 }, scene)
-    .position.y = -0.001;
   const entity = await createModelEntity(scene, sourcePath, { autoPlayAnimation: true });
   fitBabylonCamera(camera, entity);
   engine.runRenderLoop(() => scene.render());
@@ -86,6 +83,14 @@ const createFbxPreview = async (host: HTMLElement, sourcePath: string): Promise<
   controls.enableDamping = true;
 
   const object = await new FBXLoader().loadAsync(resolvePublicResourceUrl(sourcePath));
+  object.traverse((child) => {
+    if (!(child instanceof THREE.Mesh)) return;
+    const materials = Array.isArray(child.material) ? child.material : [child.material];
+    materials.forEach((material) => {
+      material.side = THREE.DoubleSide;
+      material.needsUpdate = true;
+    });
+  });
   scene.add(object);
   const bounds = new THREE.Box3().setFromObject(object);
   const size = bounds.getSize(new THREE.Vector3());
@@ -169,7 +174,9 @@ export const ModelLab = () => {
       sessionRef.current = format === 'fbx'
         ? await createFbxPreview(host, path)
         : await createBabylonPreview(host, path);
-      setStatus(format === 'fbx' ? 'FBX 预览（Three.js 兼容模式）' : 'GLB 预览（Babylon.js core/model）');
+      setStatus(format === 'fbx'
+        ? 'FBX 双面预览（Three.js 兼容模式）'
+        : 'GLB 深度遮挡预览（Babylon.js core/model）');
     } catch (error) {
       host.replaceChildren();
       setStatus(error instanceof Error ? `加载失败：${error.message}` : `加载失败：${String(error)}`);
