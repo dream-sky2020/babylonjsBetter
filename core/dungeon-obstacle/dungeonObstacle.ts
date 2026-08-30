@@ -182,21 +182,24 @@ export const resolveDungeonObstacleDebugLayout = (
       size: [tile.size[0] * 0.65, height, tile.size[2] * 0.65],
     };
   }
-  const individualEdge = binding.placement.kind === 'tile-edge';
-  const edge = individualEdge
-    ? binding.placement
-    : {
-        tileX: binding.placement.side.x,
-        tileY: binding.placement.side.y,
-        direction: binding.placement.side.direction,
-      };
+  if (binding.placement.kind === 'tile-edge') {
+    return edgeDebugLayout(
+      component,
+      mapWidth,
+      mapHeight,
+      binding.placement.tileX,
+      binding.placement.tileY,
+      binding.placement.direction,
+      true,
+    );
+  }
   return edgeDebugLayout(
     component,
     mapWidth,
     mapHeight,
-    edge.tileX,
-    edge.tileY,
-    edge.direction,
-    individualEdge,
+    binding.placement.side.x,
+    binding.placement.side.y,
+    binding.placement.side.direction,
+    false,
   );
 };
