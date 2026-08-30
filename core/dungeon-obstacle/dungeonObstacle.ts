@@ -131,22 +131,33 @@ const edgeDebugLayout = (
   tileX: number,
   tileY: number,
   direction: DungeonMapDirection,
+  insideTile: boolean,
 ): DungeonObstacleDebugLayout => {
   const tile = resolveDungeonMapTileWorldLayout(component, mapWidth, mapHeight, tileX, tileY);
   const northSouth = direction === 'north' || direction === 'south';
   const sign = direction === 'north' || direction === 'west' ? -1 : 1;
-  const thickness = Math.max(0.18, Math.min(tile.size[0], tile.size[2]) * 0.04);
+  const tileShortSide = Math.min(tile.size[0], tile.size[2]);
+  const thickness = insideTile
+    ? Math.max(0.45, tileShortSide * 0.12)
+    : Math.max(0.18, tileShortSide * 0.04);
+  const lengthScale = insideTile ? 0.72 : 1;
   const height = Math.max(1.5, tile.size[1] * 2);
+  const horizontalOffset = insideTile
+    ? Math.max(0, tile.size[0] / 2 - thickness / 2)
+    : component.tileSpacing[0] / 2;
+  const verticalOffset = insideTile
+    ? Math.max(0, tile.size[2] / 2 - thickness / 2)
+    : component.tileSpacing[1] / 2;
   const center: [number, number, number] = [
-    tile.center[0] + (!northSouth ? sign * component.tileSpacing[0] / 2 : 0),
+    tile.center[0] + (!northSouth ? sign * horizontalOffset : 0),
     tile.center[1] + tile.size[1] / 2 + height / 2,
-    tile.center[2] + (northSouth ? sign * component.tileSpacing[1] / 2 : 0),
+    tile.center[2] + (northSouth ? sign * verticalOffset : 0),
   ];
   return {
     center,
     size: northSouth
-      ? [tile.size[0], height, thickness]
-      : [thickness, height, tile.size[2]],
+      ? [tile.size[0] * lengthScale, height, thickness]
+      : [thickness, height, tile.size[2] * lengthScale],
   };
 };
 
@@ -171,12 +182,21 @@ export const resolveDungeonObstacleDebugLayout = (
       size: [tile.size[0] * 0.65, height, tile.size[2] * 0.65],
     };
   }
-  const edge = binding.placement.kind === 'tile-edge'
+  const individualEdge = binding.placement.kind === 'tile-edge';
+  const edge = individualEdge
     ? binding.placement
     : {
         tileX: binding.placement.side.x,
         tileY: binding.placement.side.y,
         direction: binding.placement.side.direction,
       };
-  return edgeDebugLayout(component, mapWidth, mapHeight, edge.tileX, edge.tileY, edge.direction);
+  return edgeDebugLayout(
+    component,
+    mapWidth,
+    mapHeight,
+    edge.tileX,
+    edge.tileY,
+    edge.direction,
+    individualEdge,
+  );
 };

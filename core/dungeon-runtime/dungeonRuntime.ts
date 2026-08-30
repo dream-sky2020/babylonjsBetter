@@ -6,12 +6,19 @@ import type { DungeonRuntime, DungeonRuntimePlayerPosition } from './dungeonRunt
 export const createDungeonRuntime = (
   map: DungeonMapData,
   playerSpawn: DungeonPlayerSpawnBinding,
+  playerFacing: DungeonRuntime['playerFacing'] = 'south',
 ): DungeonRuntime => ({
   map,
   playerPosition: {
     tileX: playerSpawn.tilePosition.x,
     tileY: playerSpawn.tilePosition.y,
   },
+  playerFacing,
+  playerWorldPosition: [...playerSpawn.worldPosition],
+  playerWorldRotationY: playerFacing === 'north' ? Math.PI
+    : playerFacing === 'east' ? Math.PI / 2
+      : playerFacing === 'west' ? -Math.PI / 2 : 0,
+  playerMovement: null,
   obstacleStates: new Map<string, boolean>(),
 });
 
@@ -30,4 +37,5 @@ export const setDungeonRuntimePlayerPosition = (
     );
   }
   runtime.playerPosition = { ...nextPosition };
+  runtime.playerMovement = null;
 };
