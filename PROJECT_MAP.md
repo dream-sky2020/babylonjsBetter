@@ -201,6 +201,11 @@ config/monsterDisplayConfigs.json
 - `core/network/devServerPortResolver.ts`：开发服务器端口探测和请求转发；正式构建直接抛出只读错误，不扫描端口。
 - `core/resources/`：`public/` 资源地址解析与构建期模型清单。
 
+### 可组合 Lab 基础设施
+
+- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期。
+- `tools/lab-modules/dungeon/`：首批可组合地牢模块；当前包含地图配置、场景环境、全部格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动。模块通过 `dependencies` 自动补齐依赖，通过事件推进 `map-requested → scene-ready → runtime-ready → obstacles-ready` 生命周期。
+
 ## 5. Monster Lab 职责
 
 | Lab | 入口 | 职责 |
@@ -235,10 +240,10 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
-- `dungeon-scene-loader-lab/`：选择地牢地图预设，检查 map Entity 的 `scene-environment` 组件，并通过 core 解析 `presetKey` 后加载对应大场景环境；Debug 模式按组件声明的偏移、间隔与大小绘制每个地图格子的 3D 对应盒。
-- `dungeon-obstacle-lab/`：复用地牢大场景加载，独立测试格子、独立边与公用边阻碍的扫描和 `DungeonRuntime.obstacleStates` 初始化；可逐个切换阻碍状态，独立显示全部格子 Debug 盒，并用红色实体盒/灰色线框显示启用与停用阻碍的大致 3D 位置。
-- `dungeon-player-spawn-lab/`：复用 core 的地牢大场景加载，独立测试地图级玩家出生点解析和 3D 世界位置计算；蓝色 Debug 盒可显示全部格子，黄色 Debug 盒独立高亮玩家出生格。
-- `dungeon-player-movement-lab/`：在玩家出生点 Lab 全部能力之上创建 `DungeonRuntime` 并接入玩家移动与阻碍系统；提供方向按钮、WASD/方向键、地图边界/阻碍限制开关、Runtime 阻碍状态编辑、阻碍 Debug 盒以及绿色当前位置标记。
+- `dungeon-scene-loader-lab/`：由 `dungeon-grid-debug` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
+- `dungeon-obstacle-lab/`：由 `dungeon-obstacle + dungeon-grid-debug` 组合阻碍 Runtime 状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug；其场景与出生点依赖自动补齐。
+- `dungeon-player-spawn-lab/`：由 `player-spawn + dungeon-grid-debug` 组合场景加载、玩家出生点解析、黄色出生格 Debug 与全部格子 Debug。
+- `dungeon-player-movement-lab/`：首个迁移到可组合 Lab 体系的页面；入口只声明 `player-movement` 顶层模块，由依赖图自动组合地图配置、场景、格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动 UI。
 - `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角，并默认选择 `local-model-loading-test` 验证本地 GLB 模型加载。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
