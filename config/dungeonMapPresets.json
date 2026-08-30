@@ -41,6 +41,21 @@
             "entityType": "map",
             "id": "map:dungeon_map:entity",
             "name": "地图实体"
+          },
+          {
+            "id": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad",
+            "entityType": "spawn-point",
+            "name": "出生点实体",
+            "enabled": true,
+            "components": [
+              {
+                "id": "component:ddbadf54-d317-4d60-91b6-283b2debfd23",
+                "type": "actor-spawn",
+                "version": 1,
+                "tileX": 0,
+                "tileY": 0
+              }
+            ]
           }
         ]
       },
@@ -476,6 +491,20 @@
                   "entityType": "shared-edge",
                   "id": "shared:0,7:south:entity",
                   "name": "公用边实体"
+                },
+                {
+                  "id": "obstacle:test:shared-edge:0,7:south",
+                  "entityType": "obstacle",
+                  "name": "测试阻碍 · 公用边",
+                  "enabled": true,
+                  "components": [
+                    {
+                      "id": "obstacle:test:shared-edge:0,7:south:movement",
+                      "type": "movement-obstacle",
+                      "version": 1,
+                      "activeByDefault": true
+                    }
+                  ]
                 }
               ]
             },
@@ -3607,6 +3636,20 @@
                 "entityType": "tile",
                 "id": "tile:0,3:entity",
                 "name": "格子 0,3"
+              },
+              {
+                "id": "obstacle:test:tile:0,3",
+                "entityType": "obstacle",
+                "name": "测试阻碍 · 格子",
+                "enabled": true,
+                "components": [
+                  {
+                    "id": "obstacle:test:tile:0,3:movement",
+                    "type": "movement-obstacle",
+                    "version": 1,
+                    "activeByDefault": true
+                  }
+                ]
               }
             ]
           },
@@ -3982,6 +4025,20 @@
                     "entityType": "tile-edge",
                     "id": "tile:0,5:east:entity",
                     "name": "单格边 0,5,east"
+                  },
+                  {
+                    "id": "obstacle:test:tile-edge:0,5:east",
+                    "entityType": "obstacle",
+                    "name": "测试阻碍 · 独立边",
+                    "enabled": true,
+                    "components": [
+                      {
+                        "id": "obstacle:test:tile-edge:0,5:east:movement",
+                        "type": "movement-obstacle",
+                        "version": 1,
+                        "activeByDefault": false
+                      }
+                    ]
                   }
                 ]
               },
