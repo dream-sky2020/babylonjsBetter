@@ -43,3 +43,13 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-movement-grid [data-move="west"] { grid-column: 1; grid-row: 2; }
 .lab-movement-grid [data-move="south"] { grid-column: 2; grid-row: 2; }
 .lab-movement-grid [data-move="east"] { grid-column: 3; grid-row: 2; }
+.lab-relative-movement-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.lab-relative-movement-grid button { margin: 0; background: #276078; }
+.lab-relative-movement-grid button:hover { background: #327b99; }
+.lab-relative-movement-grid [data-relative-move="forward"] { grid-column: 2; }
+.lab-relative-movement-grid [data-relative-move="left"] { grid-column: 1; grid-row: 2; }
+.lab-relative-movement-grid [data-relative-move="backward"] { grid-column: 2; grid-row: 2; }
+.lab-relative-movement-grid [data-relative-move="right"] { grid-column: 3; grid-row: 2; }
+.lab-turn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.lab-turn-grid button { margin: 0; background: #604d7a; }
+.lab-turn-grid button:hover { background: #79609a; }

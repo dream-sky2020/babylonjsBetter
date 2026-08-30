@@ -192,9 +192,9 @@ config/monsterDisplayConfigs.json
 - `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
 - `core/map/`：地牢地图的稳定数据契约、坐标/格子访问、四边通行规则与结构校验；每个格子独立保存 `north/east/south/west` 四条边，不存在相邻格子的公用边，也不要求两侧边配置一致。每条边可独立携带 `enter/leave/cross/interact` 事件。
 - `core/dungeon-player-spawn/`：从地图容器读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
-- `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置与 `obstacleStates` 运行时启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
-- `core/dungeon-player-movement/`：玩家格步移动系统；直接更新 `DungeonRuntime.playerPosition`，默认阻止移出地图，并默认阻止进入启用的阻碍格或跨越带启用阻碍的独立边/公用边；地图边界限制和阻碍限制均可由调用方独立关闭。普通墙、边事件和其他实体占用暂未处理。
-- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停，并计算仅供开发观察的近似 3D Debug 盒。
+- `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置、离散朝向、支持小数的连续 3D 世界位置/Y 轴旋转、当前移动过渡与 `obstacleStates` 启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
+- `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
+- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停，并计算仅供开发观察的近似 3D Debug 盒；独立边盒沿所属格子的内侧边缘放置，长度约为对应格子边的 72%、厚度约为格子短边的 12%；公用边盒仍以完整边长和约 4% 的细线位于格子间隔边界，避免两类数据在 Debug 视图中混淆。
 - `core/entity/entity-types/spawn-point.entity-type.ts`：只能创建在地图数据容器中的出生点 Entity；默认附带 `actor-spawn`。`actor-spawn` 只能挂载到 `spawn-point` Entity，并以 `tileX/tileY` 保存出生格坐标；加载时无需扫描全部格子。
 - `core/entity/entity-types/obstacle.entity-type.ts`：只能创建在格子、独立边或公用边数据容器中的阻碍 Entity；默认且必须附带 `movement-obstacle`，其 `activeByDefault` 决定 Runtime 初始启停状态。
 - `core/tracking/`：UI 与 3D 世界位置跟踪。
@@ -243,7 +243,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `dungeon-scene-loader-lab/`：由 `dungeon-grid-debug` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
 - `dungeon-obstacle-lab/`：由 `dungeon-obstacle + dungeon-grid-debug` 组合阻碍 Runtime 状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug；其场景与出生点依赖自动补齐。
 - `dungeon-player-spawn-lab/`：由 `player-spawn + dungeon-grid-debug` 组合场景加载、玩家出生点解析、黄色出生格 Debug 与全部格子 Debug。
-- `dungeon-player-movement-lab/`：首个迁移到可组合 Lab 体系的页面；入口只声明 `player-movement` 顶层模块，由依赖图自动组合地图配置、场景、格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动 UI。
+- `dungeon-player-movement-lab/`：首个迁移到可组合 Lab 体系的页面；入口只声明 `player-movement` 顶层模块，由依赖图自动组合地图配置、场景、格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动 UI。移动面板分别提供东南西北绝对移动、相对朝向的前进/后退/左右横移、原地左转/后转/右转；移动与转向均可切换速度或单次耗时模式，并保留各模式的手动值和瞬移开关。玩家 Debug 使用绿色圆锥身体、绿色球形头部与前方四棱锥朝向标记。
 - `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角，并默认选择 `local-model-loading-test` 验证本地 GLB 模型加载。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
