@@ -69,6 +69,27 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.map.sharedPoints must be an array")
     return errors
 
+def validate_world_preset_payload(payload: dict) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(payload, dict): return ["body must be a JSON object"]
+    if not payload: return ["at least one world preset is required"]
+    for key, preset in payload.items():
+        path = f"presets.{key}"
+        if not isinstance(preset, dict): errors.append(f"{path} must be an object"); continue
+        if preset.get("presetKey") != key: errors.append(f"{path}.presetKey must match its object key")
+        if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip(): errors.append(f"{path}.name must be a non-empty string")
+        data = preset.get("data")
+        if not isinstance(data, dict) or not isinstance(data.get("entities"), list): errors.append(f"{path}.data.entities must be an array"); continue
+        entities = [item for item in data["entities"] if isinstance(item, dict) and item.get("entityType") == "initial-dungeon" and item.get("enabled", True)]
+        if len(entities) != 1: errors.append(f"{path} must contain exactly one enabled initial-dungeon entity"); continue
+        components = entities[0].get("components")
+        if not isinstance(components, list): errors.append(f"{path} initial-dungeon components must be an array"); continue
+        loaders = [item for item in components if isinstance(item, dict) and item.get("type") == "initial-dungeon-load" and item.get("enabled", True)]
+        if len(loaders) != 1: errors.append(f"{path} must contain exactly one enabled initial-dungeon-load component"); continue
+        key_value = loaders[0].get("dungeonPresetKey")
+        if not isinstance(key_value, str) or not key_value.strip(): errors.append(f"{path} dungeonPresetKey must be a non-empty string")
+    return errors
+
 # --- 核心校验辅助工具 ---
 def _req_str(obj: dict, field: str, errs: list, path: str, allow_empty: bool = False) -> str:
     v = obj.get(field)

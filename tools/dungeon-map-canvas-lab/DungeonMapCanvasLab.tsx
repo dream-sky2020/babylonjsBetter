@@ -14,10 +14,7 @@ import {
   type DungeonMapTopologyMode,
 } from '@/core/map';
 import {
-  ComponentRegistry,
-  EntityTypeRegistry,
   createMutationPlan,
-  createEntity,
   dedupeBatchContainerTargets,
   listBatchComponentDefinitions,
   listBatchEntityDefinitions,
@@ -27,14 +24,19 @@ import {
   resolveBatchFieldValue,
   type BatchContainerTarget,
   type MutationPlan,
-  type ComponentDefinition,
   type ComponentFieldSchema,
   type EntityContainerKind,
-  type EntityTypeDefinition,
   type IComponent,
   type IEntity,
   type IEntityContainer,
 } from '@/core/entity';
+import {
+  componentDefinitions as COMPONENT_DEFINITIONS,
+  componentRegistry as COMPONENT_REGISTRY,
+  createEntityFromDefinition,
+  entityTypeDefinitions as ENTITY_TYPE_DEFINITIONS,
+  entityTypeRegistry as ENTITY_TYPE_REGISTRY,
+} from '@/tools/entity-container-editor';
 import { DungeonMapCanvas, type DungeonMapSelection, type DungeonMapSelectionMode } from '@/core/ui/DungeonMapCanvas';
 import { requestDevServer } from '@/core/network/devServerPortResolver';
 import { readBundledResourceAssetPaths } from '@/core/resources';
@@ -45,18 +47,6 @@ const PATTERN_MODULES = Object.fromEntries(
     .filter((path) => path.startsWith('/resources/dungeon-map/') && path.toLowerCase().endsWith('.svg'))
     .map((path) => [decodeURIComponent(path), path])
 ) as Record<string, string>;
-const COMPONENT_MODULES = import.meta.glob('/core/entity/components/*.component.ts', {
-  eager: true, import: 'componentDefinition'
-}) as Record<string, ComponentDefinition>;
-const ENTITY_TYPE_MODULES = import.meta.glob('/core/entity/entity-types/*.entity-type.ts', {
-  eager: true, import: 'entityTypeDefinition'
-}) as Record<string, EntityTypeDefinition>;
-const COMPONENT_REGISTRY = new ComponentRegistry();
-Object.values(COMPONENT_MODULES).forEach((definition) => COMPONENT_REGISTRY.register(definition));
-const COMPONENT_DEFINITIONS = COMPONENT_REGISTRY.list();
-const ENTITY_TYPE_REGISTRY = new EntityTypeRegistry();
-Object.values(ENTITY_TYPE_MODULES).forEach((definition) => ENTITY_TYPE_REGISTRY.register(definition));
-const ENTITY_TYPE_DEFINITIONS = ENTITY_TYPE_REGISTRY.list();
 type PatternKind = 'walls' | 'tiles' | 'characters' | 'events' | 'edges' | 'shared-edges' | 'shared-points';
 const PATTERN_LABELS: Record<PatternKind, string> = { walls: '墙壁格', tiles: '地面格', characters: '角色', events: '事件', edges: '单格边', 'shared-edges': '公用边', 'shared-points': '公用点' };
 const patternOptions = (kind: PatternKind) => Object.entries(PATTERN_MODULES)
@@ -1064,21 +1054,6 @@ export const DungeonMapCanvasLab: React.FC = () => {
       ...container,
       entities: container.entities.map((entity) => entity.id === entityId ? updater(entity) : entity),
     }));
-  };
-
-  const createEntityFromDefinition = (definition: EntityTypeDefinition): IEntity => {
-    const entity = createEntity(definition.label, definition.type);
-    const initialComponentTypes = [...new Set([
-      ...(definition.defaultComponents ?? []),
-      ...(definition.requiredComponents ?? []),
-    ])];
-    entity.components = initialComponentTypes.flatMap((componentType) => {
-      const componentDefinition = COMPONENT_REGISTRY.get(componentType);
-      return componentDefinition && COMPONENT_REGISTRY.canAttachTo(componentType, entity.entityType)
-        ? [componentDefinition.createDefault()]
-        : [];
-    });
-    return entity;
   };
 
   const addEntityToSelection = () => {

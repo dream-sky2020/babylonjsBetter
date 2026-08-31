@@ -27,6 +27,7 @@ export interface IEntityContainer {
 }
 
 export type EntityContainerKind =
+  | 'world'
   | 'map'
   | 'tile'
   | 'tile-edge'

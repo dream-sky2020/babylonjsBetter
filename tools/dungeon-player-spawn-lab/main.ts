@@ -9,8 +9,8 @@ const host = await createLab({
   root,
   title: '玩家出生点世界位置 Lab',
   description: '组合场景、全部格子 Debug 和玩家出生点模块，验证出生格的 3D 世界位置。',
-  badge: 'Composable Lab · player-spawn + dungeon-grid-debug',
-  modules: ['dungeon-grid-debug', 'player-spawn'],
+  badge: 'Composable Lab · player-spawn + dungeon-runtime + dungeon-grid-debug',
+  modules: ['dungeon-config', 'dungeon-grid-debug', 'player-spawn', 'dungeon-runtime'],
   catalog: dungeonLabModuleCatalog,
 });
 window.addEventListener('beforeunload', () => host.dispose(), { once: true });

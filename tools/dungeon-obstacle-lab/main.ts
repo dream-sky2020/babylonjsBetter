@@ -9,8 +9,8 @@ const host = await createLab({
   root,
   title: '地牢阻碍系统 Lab',
   description: '组合地牢场景、全部格子 Debug、Runtime 与阻碍模块，测试阻碍扫描和运行时启停。',
-  badge: 'Composable Lab · dungeon-obstacle + dungeon-grid-debug',
-  modules: ['dungeon-grid-debug', 'dungeon-obstacle'],
+  badge: 'Composable Lab · dungeon-runtime + dungeon-obstacle + dungeon-grid-debug',
+  modules: ['dungeon-config', 'dungeon-grid-debug', 'dungeon-runtime', 'dungeon-obstacle'],
   catalog: dungeonLabModuleCatalog,
 });
 window.addEventListener('beforeunload', () => host.dispose(), { once: true });

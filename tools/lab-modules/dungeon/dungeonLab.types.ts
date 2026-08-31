@@ -25,8 +25,11 @@ export type DungeonSceneReadyEvent = DungeonMapRequestedEvent & {
   instance: DungeonMapSceneEnvironmentInstance;
 };
 
-export type DungeonRuntimeReadyEvent = DungeonSceneReadyEvent & {
+export type DungeonSpawnReadyEvent = DungeonSceneReadyEvent & {
   spawn: DungeonPlayerSpawnBinding;
+};
+
+export type DungeonRuntimeReadyEvent = DungeonSpawnReadyEvent & {
   runtime: DungeonRuntime;
 };
 

@@ -10,7 +10,7 @@ const host = await createLab({
   title: '地牢大场景加载 Lab',
   description: '选择地图预设，通过 map Entity 的 scene-environment 组件加载大场景。',
   badge: 'Composable Lab · dungeon-grid-debug 自动解析依赖',
-  modules: ['dungeon-grid-debug'],
+  modules: ['dungeon-config', 'dungeon-grid-debug'],
   catalog: dungeonLabModuleCatalog,
 });
 window.addEventListener('beforeunload', () => host.dispose(), { once: true });
