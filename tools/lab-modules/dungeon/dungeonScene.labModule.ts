@@ -12,7 +12,7 @@ import {
 
 export const dungeonSceneLabModule: LabModule = {
   id: 'dungeon-scene',
-  dependencies: ['dungeon-config'],
+  dependencies: ['dungeon-libraries'],
   setup(context) {
     const panel = context.ui.addPanel('dungeon-scene', '场景环境组件');
     const keyRow = document.createElement('div');

@@ -101,6 +101,9 @@ const shortestAngleDelta = (from: number, to: number): number => {
 
 const lerp = (from: number, to: number, progress: number) => from + (to - from) * progress;
 
+const BLOCKED_ATTEMPT_DISTANCE_RATIO = 0.22;
+const BLOCKED_ATTEMPT_TILE_DURATION_RATIO = 0.35;
+
 const resolveMovementDuration = (
   distance: number,
   options: DungeonPlayerMovementOptions,
@@ -133,22 +136,53 @@ export const startDungeonPlayerMovement = (
   if (runtime.playerMovement) {
     return { started: false, completed: false, direction, from, to, blockedReason: 'movement-in-progress' };
   }
+  const startBlockedAttempt = (
+    blockedReason: 'map-boundary' | 'movement-obstacle',
+    blockedObstacleIds?: readonly string[],
+  ): DungeonPlayerMovementResult => {
+    if (options.teleport) {
+      return { started: false, completed: false, direction, from, to, blockedReason, blockedObstacleIds };
+    }
+    const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
+    const resolvedTarget = options.resolveWorldPosition(to);
+    const attemptedWorldPosition: DungeonRuntimeWorldPosition = [
+      lerp(fromWorldPosition[0], resolvedTarget[0], BLOCKED_ATTEMPT_DISTANCE_RATIO),
+      lerp(fromWorldPosition[1], resolvedTarget[1], BLOCKED_ATTEMPT_DISTANCE_RATIO),
+      lerp(fromWorldPosition[2], resolvedTarget[2], BLOCKED_ATTEMPT_DISTANCE_RATIO),
+    ];
+    const targetFacing = (options.faceMovementDirection ?? true) ? direction : runtime.playerFacing;
+    const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[targetFacing]);
+    const attemptDistance = distance3d(fromWorldPosition, attemptedWorldPosition) * 2;
+    const movementDurationSeconds = options.movementTimingMode === 'seconds-per-tile'
+      ? assertPositiveSpeed(options.movementSecondsPerTile ?? 1, '每格移动耗时')
+        * BLOCKED_ATTEMPT_TILE_DURATION_RATIO
+      : attemptDistance / assertPositiveSpeed(options.movementSpeed ?? 6, '移动速度');
+    runtime.playerMovement = {
+      kind: 'blocked',
+      direction,
+      targetFacing,
+      from,
+      to: from,
+      fromWorldPosition,
+      toWorldPosition: attemptedWorldPosition,
+      fromWorldRotationY: runtime.playerWorldRotationY,
+      toWorldRotationY: runtime.playerWorldRotationY + yawDelta,
+      elapsedSeconds: 0,
+      movementDurationSeconds,
+      turnDurationSeconds: resolveTurnDuration(yawDelta, options),
+      blockedObstacleIds,
+    };
+    return { started: true, completed: false, direction, from, to, blockedReason, blockedObstacleIds };
+  };
   const outside = to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height;
   if ((options.restrictToMapBounds ?? true) && outside) {
-    return { started: false, completed: false, direction, from, to, blockedReason: 'map-boundary' };
+    return startBlockedAttempt('map-boundary');
   }
   if (options.restrictMovementObstacles ?? true) {
     const obstacles = findDungeonMovementObstacles(runtime, from, to, direction);
     if (obstacles.length > 0) {
-      return {
-        started: false,
-        completed: false,
-        direction,
-        from,
-        to,
-        blockedReason: 'movement-obstacle',
-        blockedObstacleIds: obstacles.map(({ entity }) => entity.id),
-      };
+      const blockedObstacleIds = obstacles.map(({ entity }) => entity.id);
+      return startBlockedAttempt('movement-obstacle', blockedObstacleIds);
     }
   }
   const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
@@ -238,11 +272,16 @@ export const updateDungeonPlayerMovement = (
     ? 1 : Math.min(1, movement.elapsedSeconds / movement.movementDurationSeconds);
   const turnProgress = movement.turnDurationSeconds <= 0
     ? 1 : Math.min(1, movement.elapsedSeconds / movement.turnDurationSeconds);
-  runtime.playerWorldPosition = [
-    lerp(movement.fromWorldPosition[0], movement.toWorldPosition[0], movementProgress),
-    lerp(movement.fromWorldPosition[1], movement.toWorldPosition[1], movementProgress),
-    lerp(movement.fromWorldPosition[2], movement.toWorldPosition[2], movementProgress),
-  ];
+  const positionProgress = movement.kind === 'blocked'
+    ? (movementProgress <= 0.5 ? movementProgress * 2 : (1 - movementProgress) * 2)
+    : movementProgress;
+  runtime.playerWorldPosition = movement.kind === 'turn'
+    ? [...movement.fromWorldPosition]
+    : [
+      lerp(movement.fromWorldPosition[0], movement.toWorldPosition[0], positionProgress),
+      lerp(movement.fromWorldPosition[1], movement.toWorldPosition[1], positionProgress),
+      lerp(movement.fromWorldPosition[2], movement.toWorldPosition[2], positionProgress),
+    ];
   runtime.playerWorldRotationY = lerp(movement.fromWorldRotationY, movement.toWorldRotationY, turnProgress);
   const completed = movementProgress >= 1 && turnProgress >= 1;
   if (completed) {

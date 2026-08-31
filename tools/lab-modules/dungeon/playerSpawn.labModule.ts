@@ -1,11 +1,10 @@
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { resolveDungeonPlayerSpawn } from '@/core/dungeon-player-spawn';
-import { createDungeonRuntime } from '@/core/dungeon-runtime';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import {
   DUNGEON_LAB_SERVICES,
-  type DungeonRuntimeReadyEvent,
   type DungeonSceneReadyEvent,
+  type DungeonSpawnReadyEvent,
 } from './dungeonLab.types';
 
 export const playerSpawnLabModule: LabModule = {
@@ -16,7 +15,7 @@ export const playerSpawnLabModule: LabModule = {
     const toggle = createLabSwitch('显示玩家出生格 Debug 盒');
     const json = createLabJson();
     panel.content.append(toggle.row, json);
-    let current: DungeonRuntimeReadyEvent | null = null;
+    let current: DungeonSpawnReadyEvent | null = null;
     let root: TransformNode | null = null;
     const dispose = () => {
       root?.dispose(false, true);
@@ -46,10 +45,8 @@ export const playerSpawnLabModule: LabModule = {
     toggle.input.addEventListener('change', render);
     const offScene = context.events.on<DungeonSceneReadyEvent>('dungeon:scene-ready', async (event) => {
       const spawn = resolveDungeonPlayerSpawn(event.preset.map, event.libraries.environments);
-      const runtime = createDungeonRuntime(event.preset.map, spawn);
-      current = { ...event, spawn, runtime };
+      current = { ...event, spawn };
       context.services.set(DUNGEON_LAB_SERVICES.spawn, spawn);
-      context.services.set(DUNGEON_LAB_SERVICES.runtime, runtime);
       json.textContent = JSON.stringify({
         spawnPointEntity: spawn.spawnPointEntity,
         actorSpawnComponent: spawn.actorSpawnComponent,
@@ -57,7 +54,7 @@ export const playerSpawnLabModule: LabModule = {
         worldPosition: spawn.worldPosition,
       }, null, 2);
       render();
-      await context.events.emit('dungeon:runtime-ready', current);
+      await context.events.emit('dungeon:spawn-ready', current);
     });
     return () => {
       offScene();

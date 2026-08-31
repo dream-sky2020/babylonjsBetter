@@ -1,5 +1,28 @@
 # Babylon.js Better 项目地图
 
+## 2026-08-31：地牢 Core 与可组合 Lab
+
+地牢功能已按“正式规则在 `core/`、测试装配在 `tools/lab-modules/`、页面只声明顶层模块”拆分。`core/dungeon-player-spawn/`、`core/dungeon-obstacle/`、`core/dungeon-player-movement/` 均为可脱离 Lab 使用的正式能力；对应 Lab Module 只负责面板、事件衔接和 Babylon.js Debug 可视化。
+
+`tools/lab-kit/` 提供统一 Lab Host。Host 根据模块的 `dependencies` 做拓扑排序、自动补齐和去重，共享一个 Engine、Scene、Camera、事件总线、服务注册表和面板容器，并按逆初始化顺序释放模块。具体 Lab 不得从另一个 Lab 目录复制或导入实现。
+
+当前四个 3D Dungeon Lab 和 World Loader Lab 已改为组合式入口：普通 Dungeon Lab 显式组合 `dungeon-config` 地图选择器；World Loader 从 `worldPresets.json` 的世界数据容器解析唯一的 `initial-dungeon / initial-dungeon-load` 实体组件，再复用同一个 `dungeon-scene + dungeon-grid-debug` 链路加载首次地牢。世界预设只保存地牢 Key 引用，不持有或解释地牢内容，地牢预设也不依赖世界容器。`dungeon-map-canvas-lab` 和 `world-preset-editor-lab` 是平行的 React 编辑 Lab，不属于 Babylon.js 模块链。
+
+截至本次更新，源码中有以下六个页面使用 `tools/lab-kit` 和组合模块；其他 Monster、Sprite、Model、Scene、UI Lab 尚未接入组合式框架：
+
+| Lab 页面 | 入口声明的顶层模块 | Host 自动补齐的间接模块 |
+| --- | --- | --- |
+| `tools/dungeon-scene-loader-lab/` | `dungeon-config`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-scene` |
+| `tools/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-scene` |
+| `tools/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-scene`、`player-spawn` |
+| `tools/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-scene`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
+| `tools/world-loader-lab/` | `world-loader`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-scene` |
+| `tools/world-runtime-lab/` | `world-runtime`、`dungeon-grid-debug` | `world-loader`、`dungeon-libraries`、`dungeon-scene` |
+
+这里的“使用”分为两层：页面负责调用 `createLab()` 并选择顶层模块；`tools/lab-modules/dungeon/` 与 `tools/lab-modules/world/` 共同使用 `lab-kit` 提供的模块契约、UI 控件、事件总线和服务注册表。
+
+世界预设编辑链路：`core/world/` 定义带唯一 `IEntityContainer` 的 `WorldPreset` 及首次地牢解析器；`core/entity/entity-types/initial-dungeon.entity-type.ts` 与 `core/entity/components/initial-dungeon-load.component.ts` 提供世界专用定义。`tools/entity-container-editor/` 统一扫描所有 Entity/Component 定义并建立注册表，`dungeon-map-canvas-lab` 与 `world-preset-editor-lab` 共用该注册表；后者通过 `/api/world-presets` 写回 `config/worldPresets.json`。
+
 ## 2026-08-28：离线资源路径与只读构建
 
 `core/resources/appAssetUrl.ts` 是 `public/` 静态资源地址的统一入口。`resolveAppAssetUrl()` 接受 `/resources/a.png`、`resources/a.png`、`public/resources/a.png` 等写法，开发期解析到站点根，正式构建解析到相对打包根的地址；`resolvePublicResourceUrl()` 会额外补齐 `resources/` 前缀。完整 URL（http、data、blob）原样透传，函数是幂等的，可以安全套在旧的 `encodeURI('/' + path)` 结果上。
@@ -187,10 +210,12 @@ config/monsterDisplayConfigs.json
 
 - `core/model/`：GLB/GLTF 模型实体、AssetContainer 预制体缓存、动画控制、共享材质透明策略，以及展示/场景/摇晃/挥动预设；`config/modelAssetProfiles.json` 保存模型资产级统一缩放、旋转、原点偏移与透明策略，`createModelEntity()` 默认应用到内层 `normalizationRoot`，外层 `root` 保留给场景实例变换。
 - `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体、光源和本地 GLB/GLTF 模型声明，异步环境接口通过 `core/model.createModelEntity()` 复用模型缓存、材质、动画和释放能力；`createDungeonMapSceneEnvironment` 负责从地图 map Entity 的 `scene-environment` 组件解析预设并创建大场景，`dungeonMapSceneLayout` 根据组件中的地图偏移、格子间隔、格子尺寸和固定锚定枚举将 2D 格子映射到 3D 世界位置；锚定模式支持偏移对应 `(0,0)` 格子底面中心或对应整张格子布局的 3D 中心。`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体与加载模型分别声明投射/接收阴影。
-- `core/camera/`：战斗相机和 lab 相机控制器。
-- `core/ui/`：共享 React UI 和浮动相机面板；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
+- `core/camera/`：战斗相机和多模式相机控制器。`cameraLabController.ts` 支持第一人称、无人机、环绕和锁定平面四种模式；自定义输入层包含帧率无关的移动加减速、对角移动归一化、鼠标视角平滑、锁定平面拖拽和滚轮缩放平滑，并统一管理 FOV 与近远裁剪面。虽然文件名仍保留 `Lab`，该控制器已被多个正式 Core 场景与 Lab 共享。
+- `core/ui/`：共享 React UI 和浮动相机面板；`FloatingCameraControlPanel.ts` 可实时编辑相机模式、位置、移动速度/加速度/减速度、鼠标灵敏度/平滑、平移灵敏度、环绕缩放速度/平滑、FOV、裁剪面及各模式专属参数；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
 - `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
 - `core/map/`：地牢地图的稳定数据契约、坐标/格子访问、四边通行规则与结构校验；每个格子独立保存 `north/east/south/west` 四条边，不存在相邻格子的公用边，也不要求两侧边配置一致。每条边可独立携带 `enter/leave/cross/interact` 事件。
+- `core/world/`：世界静态预设契约、容器解析与首次地牢解析入口；每个 `WorldPreset` 只有一个 `IEntityContainer`，首次地牢由其中唯一启用的 `initial-dungeon-load` 组件引用。世界与地牢只共享通用实体容器契约，不直接依赖彼此的数据结构。
+- `core/world-runtime/`：已加载世界的动态运行时；当前只持有 `worldPresetKey`、累计游玩秒数及是否正在计时。计时由游戏帧 delta 推进，提供开始、暂停、重置、快照和恢复函数；玩家位置仍由 `dungeon-runtime` 管理。
 - `core/dungeon-player-spawn/`：从地图容器读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
 - `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置、离散朝向、支持小数的连续 3D 世界位置/Y 轴旋转、当前移动过渡与 `obstacleStates` 启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
 - `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
@@ -203,8 +228,47 @@ config/monsterDisplayConfigs.json
 
 ### 可组合 Lab 基础设施
 
-- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期。
-- `tools/lab-modules/dungeon/`：首批可组合地牢模块；当前包含地图配置、场景环境、全部格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动。模块通过 `dependencies` 自动补齐依赖，通过事件推进 `map-requested → scene-ready → runtime-ready → obstacles-ready` 生命周期。
+- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期；新增模块遵循 `tools/lab-kit/README.md`。
+- `tools/lab-modules/<domain>/`：可组合模块目录。游戏规则不能放在这里；模块只装配 `core/`、创建输入和状态面板、维护 Debug 对象，并在清理函数中释放订阅和 Babylon.js 资源。
+
+当前 `tools/lab-modules/dungeon/` 模块：
+
+| 模块 ID | 直接依赖 | 装配职责 |
+| --- | --- | --- |
+| `dungeon-libraries` | 无 | 无 UI 地读取地图、场景环境和阴影配置库，供 Dungeon 与 World 模块共享 |
+| `dungeon-config` | `dungeon-libraries` | 普通 Dungeon Lab 的地图选择器，选择预设并发出地图加载请求 |
+| `dungeon-scene` | `dungeon-libraries` | 根据外部请求的地图及其 `scene-environment` 创建/替换大场景并注册场景服务 |
+| `dungeon-grid-debug` | `dungeon-scene` | 绘制全部格子的 3D Debug 盒，可独立开关 |
+| `player-spawn` | `dungeon-scene` | 调用 `core/dungeon-player-spawn` 解析出生点并发布 `dungeon:spawn-ready`，只负责出生信息和出生格 Debug |
+| `dungeon-runtime` | `player-spawn` | 使用出生信息唯一创建、注册并集中浏览 `DungeonRuntime`，随后发布 `dungeon:runtime-ready` |
+| `dungeon-obstacle` | `dungeon-runtime` | 调用 `core/dungeon-obstacle` 初始化阻碍状态，提供启停面板和阻碍 Debug |
+| `player-movement` | `dungeon-grid-debug`、`dungeon-obstacle` | 调用 `core/dungeon-player-movement` 驱动绝对/相对移动与转向，并同步玩家 Debug |
+
+依赖自动展开的完整主链：
+
+```text
+dungeon-libraries ─┬→ dungeon-config ───────────────┐
+                   └→ dungeon-scene ─┬→ dungeon-grid-debug ───────┼→ player-movement
+                                     └→ player-spawn → dungeon-runtime → dungeon-obstacle
+```
+
+`tools/lab-modules/world/world-loader` 依赖 `dungeon-scene`，读取并校验 `worldPresets.json` 后，通过 `resolveInitialDungeon()` 从世界容器取得首次地牢引用，再转换成同一个 `dungeon:map-requested` 事件。`worldLabModuleCatalog` 合并 World 与 Dungeon Catalog，因此 World 页面可以直接组合既有场景和 Debug 模块，但不会引入普通 Dungeon 的手动地图选择器。
+
+`tools/lab-modules/world/world-runtime` 依赖 `world-loader`，收到 `world:requested` 后创建并注册 `WorldRuntime`，发出 `world:runtime-ready`，并在 Babylon.js 帧循环中累计游玩时间。其面板用于验证暂停、继续、重置和可序列化快照，不保存玩家地牢位置。
+
+模块通过事件推进加载与运行期刷新：
+
+```text
+lab:ready
+  → dungeon:map-requested
+  → dungeon:scene-ready
+  → dungeon:spawn-ready
+  → dungeon:runtime-ready
+  → dungeon:obstacles-ready
+  → dungeon:runtime-changed（移动、转向或阻碍状态变化时重复）
+```
+
+跨模块长期对象以 `DUNGEON_LAB_SERVICES` 的稳定 Key 存入服务注册表；事件载荷类型集中在 `dungeonLab.types.ts`。新模块应监听满足其数据要求的最晚事件，不应读取其他模块的私有 DOM。
 
 ## 5. Monster Lab 职责
 
@@ -240,10 +304,13 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
+- `world-preset-editor-lab/`：与地牢地图编辑器平行，编辑世界预设及其唯一 Entity 数据容器；自动扫描共享 Entity/Component 定义，新世界自动创建且锁定唯一的首次地牢加载实体，并从现有地牢预设生成 Key 下拉选项。
 - `dungeon-scene-loader-lab/`：由 `dungeon-grid-debug` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
-- `dungeon-obstacle-lab/`：由 `dungeon-obstacle + dungeon-grid-debug` 组合阻碍 Runtime 状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug；其场景与出生点依赖自动补齐。
-- `dungeon-player-spawn-lab/`：由 `player-spawn + dungeon-grid-debug` 组合场景加载、玩家出生点解析、黄色出生格 Debug 与全部格子 Debug。
-- `dungeon-player-movement-lab/`：首个迁移到可组合 Lab 体系的页面；入口只声明 `player-movement` 顶层模块，由依赖图自动组合地图配置、场景、格子 Debug、玩家出生点、阻碍 Runtime/Debug 和玩家移动 UI。移动面板分别提供东南西北绝对移动、相对朝向的前进/后退/左右横移、原地左转/后转/右转；移动与转向均可切换速度或单次耗时模式，并保留各模式的手动值和瞬移开关。玩家 Debug 使用绿色圆锥身体、绿色球形头部与前方四棱锥朝向标记。
+- `dungeon-obstacle-lab/`：显式组合 `dungeon-runtime + dungeon-obstacle + dungeon-grid-debug`，集中浏览 Runtime，并测试阻碍状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug。
+- `dungeon-player-spawn-lab/`：显式组合 `player-spawn + dungeon-runtime + dungeon-grid-debug`，验证出生点只提供初始化信息，再由 Runtime 模块唯一创建地牢动态数据。
+- `dungeon-player-movement-lab/`：入口声明 `dungeon-config + dungeon-runtime + player-movement`，独立 Runtime 卡片集中显示权威格子位置、连续世界位置、朝向、移动过程和阻碍状态。移动面板分别提供东南西北绝对移动、相对朝向的前进/后退/左右横移、原地左转/后转/右转；移动与转向均可切换速度或单次耗时模式，并保留各模式的手动值和瞬移开关。
+- `world-loader-lab/`：读取 `worldPresets.json`，选择世界并校验唯一的首次地牢加载实体/组件；通过 `world-loader + dungeon-grid-debug` 复用 Dungeon Scene Loader 的配置库、场景创建/替换和全部格子 Debug，不复制具体 Dungeon Lab 页面代码。
+- `world-runtime-lab/`：组合 `world-runtime + dungeon-grid-debug`，经真实世界加载链创建世界动态数据，验证游玩时间累计、暂停、继续、重置和存档快照。
 - `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角，并默认选择 `local-model-loading-test` 验证本地 GLB 模型加载。
 - `special-status-visual-lab/`
 - `avatar-visual-lab/`
@@ -298,6 +365,8 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `particlePresets.json`、`particleVisualPresets.json` | Particle Editor/runtime |
 | `model*Configs.json`、`model*Presets.json` | 对应 Model labs |
 | `popNumberPresets.json`、`burstCapsulePresets.json` | Hit/effect labs |
+| `dungeonMapPresets.json` | Dungeon Map Canvas、组合式 Dungeon Lab，以及 World Loader 引用的实际地图预设 |
+| `worldPresets.json` | World Loader 与世界预设编辑器；每个世界拥有唯一 Entity 容器，并以唯一启用的 `initial-dungeon-load.dungeonPresetKey` 指向首次加载的地牢预设 |
 | `sceneEnvironmentPresets.json` | Scene Environment Lab；由 `/api/scene-environment-presets` 只读获取 |
 | `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
 

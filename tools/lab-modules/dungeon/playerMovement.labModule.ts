@@ -11,6 +11,7 @@ import {
   type DungeonPlayerTurnTimingMode,
 } from '@/core/dungeon-player-movement';
 import type { DungeonMapDirection } from '@/core/map';
+import { setDungeonRuntimePlayerPosition } from '@/core/dungeon-runtime';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
   createLabField,
@@ -100,6 +101,18 @@ export const playerMovementLabModule: LabModule = {
       button.textContent = label;
       turnControls.append(button);
     });
+    const teleportPositionControls = document.createElement('div');
+    teleportPositionControls.className = 'lab-player-movement-teleport';
+    const teleportXInput = createNumberInput(0, 0, 1);
+    const teleportYInput = createNumberInput(0, 0, 1);
+    teleportXInput.placeholder = 'X';
+    teleportXInput.setAttribute('aria-label', '目标格 X');
+    teleportYInput.placeholder = 'Y';
+    teleportYInput.setAttribute('aria-label', '目标格 Y');
+    const teleportPositionButton = document.createElement('button');
+    teleportPositionButton.type = 'button';
+    teleportPositionButton.textContent = '瞬移到指定位置';
+    teleportPositionControls.append(teleportXInput, teleportYInput, teleportPositionButton);
     const status = createLabStatus('尚未创建 DungeonRuntime。');
     const runtimeJson = createLabJson();
     const movementTimingField = createLabField('移动速度（世界单位/秒）', movementTimingInput);
@@ -149,6 +162,7 @@ export const playerMovementLabModule: LabModule = {
       createLabField('东南西北绝对移动', controls),
       createLabField('相对当前朝向移动', relativeControls),
       createLabField('原地转向', turnControls),
+      createLabField('指定格坐标（X / Y）', teleportPositionControls),
       status,
       runtimeJson,
     );
@@ -300,7 +314,11 @@ export const playerMovementLabModule: LabModule = {
       }
       syncMarker();
       refreshRuntimeJson(true);
-      status.textContent = result.completed
+      status.textContent = result.blockedReason === 'movement-obstacle'
+        ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+        : result.blockedReason === 'map-boundary'
+          ? `玩家尝试向 ${direction} 移动，即将被地图边界挡回。`
+        : result.completed
         ? `玩家瞬移到 (${result.to.tileX}, ${result.to.tileY})，朝向 ${direction}。`
         : `开始移动到 (${result.to.tileX}, ${result.to.tileY})，同时转向 ${direction}。`;
       if (result.completed) {
@@ -350,7 +368,11 @@ export const playerMovementLabModule: LabModule = {
       }
       syncMarker();
       refreshRuntimeJson(true);
-      status.textContent = result.completed
+      status.textContent = result.blockedReason === 'movement-obstacle'
+        ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
+        : result.blockedReason === 'map-boundary'
+          ? `玩家尝试 ${movement}，即将被地图边界挡回。`
+        : result.completed
         ? `${movement} 瞬移完成：玩家位于 (${result.to.tileX}, ${result.to.tileY})，仍朝向 ${facingBeforeMove}。`
         : `开始 ${movement} 到 (${result.to.tileX}, ${result.to.tileY})，保持朝向 ${facingBeforeMove}。`;
       if (result.completed) {
@@ -358,6 +380,34 @@ export const playerMovementLabModule: LabModule = {
           reason: 'player-relative-movement-completed', runtime: event.runtime,
         });
       }
+    };
+
+    const teleportToPosition = () => {
+      if (!current) {
+        status.textContent = '尚未创建 DungeonRuntime，无法瞬移。';
+        return;
+      }
+      const tileX = Number(teleportXInput.value);
+      const tileY = Number(teleportYInput.value);
+      if (!Number.isInteger(tileX) || !Number.isInteger(tileY)) {
+        status.textContent = '目标位置必须使用整数格坐标。';
+        return;
+      }
+      const event = current;
+      try {
+        setDungeonRuntimePlayerPosition(event.runtime, { tileX, tileY });
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : '目标位置无效。';
+        return;
+      }
+      const worldPosition = resolveWorldPosition(event)({ tileX, tileY });
+      event.runtime.playerWorldPosition = [...worldPosition];
+      syncMarker();
+      refreshRuntimeJson(true);
+      status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.runtime.playerFacing}。`;
+      void context.events.emit('dungeon:runtime-changed', {
+        reason: 'player-position-teleported', runtime: event.runtime,
+      });
     };
 
     controls.querySelectorAll<HTMLButtonElement>('[data-move]').forEach((button) => {
@@ -369,6 +419,7 @@ export const playerMovementLabModule: LabModule = {
     relativeControls.querySelectorAll<HTMLButtonElement>('[data-relative-move]').forEach((button) => {
       button.addEventListener('click', () => moveRelative(button.dataset.relativeMove as DungeonPlayerRelativeMovement));
     });
+    teleportPositionButton.addEventListener('click', teleportToPosition);
     const keyDirections: Readonly<Record<string, DungeonMapDirection>> = {
       ArrowUp: 'north', w: 'north', W: 'north', ArrowRight: 'east', d: 'east', D: 'east',
       ArrowDown: 'south', s: 'south', S: 'south', ArrowLeft: 'west', a: 'west', A: 'west',
@@ -390,17 +441,24 @@ export const playerMovementLabModule: LabModule = {
       syncMarker();
       if (result.completed) {
         refreshRuntimeJson(true);
-        status.textContent = movementKind === 'turn'
+        status.textContent = movementKind === 'blocked'
+          ? `移动受阻：玩家退回 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})。`
+          : movementKind === 'turn'
           ? `原地转向完成：玩家仍位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`
           : `移动完成：玩家位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`;
         void context.events.emit('dungeon:runtime-changed', {
-          reason: movementKind === 'turn' ? 'player-turn-completed' : 'player-movement-completed',
+          reason: movementKind === 'turn' ? 'player-turn-completed'
+            : movementKind === 'blocked' ? 'player-movement-blocked' : 'player-movement-completed',
           runtime: current.runtime,
         });
       }
     });
     const offReady = context.events.on<DungeonObstaclesReadyEvent>('dungeon:obstacles-ready', (event) => {
       current = event;
+      teleportXInput.max = String(event.runtime.map.width - 1);
+      teleportYInput.max = String(event.runtime.map.height - 1);
+      teleportXInput.value = String(event.runtime.playerPosition.tileX);
+      teleportYInput.value = String(event.runtime.playerPosition.tileY);
       createMarker(event);
       syncMarker();
       refreshRuntimeJson(true);

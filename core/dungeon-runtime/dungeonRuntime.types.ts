@@ -10,7 +10,7 @@ export type DungeonRuntimeWorldPosition = [number, number, number];
 
 /** 一次正在进行的格步移动；世界位置与旋转会在每帧推进时插值。 */
 export type DungeonRuntimePlayerMovement = {
-  kind: 'move' | 'turn';
+  kind: 'move' | 'turn' | 'blocked';
   /** 实际跨越地图格子的方向。 */
   direction: DungeonMapDirection;
   /** 动作完成后的玩家朝向；横移和后退时可与 direction 不同。 */
@@ -24,6 +24,8 @@ export type DungeonRuntimePlayerMovement = {
   elapsedSeconds: number;
   movementDurationSeconds: number;
   turnDurationSeconds: number;
+  /** 受阻尝试动画命中的阻碍；仅 kind=blocked 时存在。 */
+  blockedObstacleIds?: readonly string[];
 };
 
 /**

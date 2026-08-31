@@ -21,7 +21,9 @@ const panelStyle = `
   z-index:20;
   width:360px;
   max-height:calc(100% - 32px);
-  overflow:auto;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
   border:1px solid rgba(148,163,184,.35);
   border-radius:12px;
   background:rgba(15,19,26,.72);
@@ -33,8 +35,13 @@ const panelStyle = `
 `;
 
 const html = `
-  <div data-role="drag" style="cursor:move;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.24);font-weight:700;">摄像机控制</div>
-  <div style="padding:12px;">
+  <div data-role="header" style="flex:0 0 auto;">
+    <div data-role="drag" style="box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;cursor:move;padding:7px 9px 7px 13px;border-bottom:1px solid rgba(148,163,184,.24);background:rgba(18,25,34,.82);font-weight:700;">
+    <span data-role="title" style="white-space:nowrap;line-height:1;letter-spacing:.02em;">摄像机控制</span>
+    <button data-role="toggle" type="button" title="折叠摄像机控制" aria-label="折叠摄像机控制">折叠</button>
+    </div>
+  </div>
+  <div data-role="body" style="flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:12px;">
     <label>预览模式</label>
     <select data-field="mode"></select>
     <label>鼠标视角方式</label>
@@ -52,7 +59,17 @@ const html = `
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
       <div><label>移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
+      <div><label>移动加速度</label><input data-field="moveAcceleration" type="number" min="0" max="1000" step="1" /></div>
+      <div><label>移动减速度</label><input data-field="moveDeceleration" type="number" min="0" max="1000" step="1" /></div>
       <div><label>鼠标灵敏度</label><input data-field="mouseSensitivity" type="number" min="0.0005" max="0.02" step="0.0005" /></div>
+      <div><label>视角平滑（响应/秒）</label><input data-field="lookSmoothing" type="number" min="0" max="60" step="1" /></div>
+      <div data-lock-only><label>拖拽平移灵敏度</label><input data-field="panSensitivity" type="number" min="0.001" max="2" step="0.005" /></div>
+      <div data-orbit-only><label>滚轮缩放速度</label><input data-field="orbitZoomSpeed" type="number" min="0.1" max="50" step="0.1" /></div>
+      <div data-orbit-only><label>缩放平滑（响应/秒）</label><input data-field="zoomSmoothing" type="number" min="0" max="60" step="1" /></div>
+      <div><label>垂直视场角（°）</label><input data-field="fovDeg" type="number" min="1" max="179" step="0.1" /></div>
+      <div><label>水平视场角 HFOV（°）</label><input data-field="horizontalFovDeg" type="number" min="1" max="179" step="0.1" /></div>
+      <div><label>近裁剪面</label><input data-field="minZ" type="number" min="0.001" step="0.01" /></div>
+      <div><label>远裁剪面</label><input data-field="maxZ" type="number" min="0.01" step="10" /></div>
       <div data-first-person-only><label>第一人称高度</label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
       <div data-lock-only>
         <label>锁定平面</label>
@@ -128,51 +145,35 @@ export const createFloatingCameraControlPanel = (
   applyControlStyles(panel);
   host.appendChild(panel);
 
-  const toggleButton = document.createElement('button');
-  toggleButton.type = 'button';
-  toggleButton.textContent = '👁';
-  toggleButton.title = '隐藏面板';
-  toggleButton.setAttribute('aria-label', '隐藏面板');
+  const toggleButton = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]');
+  if (!toggleButton) throw new Error('摄像机控制面板缺少折叠按钮。');
   toggleButton.style.cssText = `
-    position:absolute;
-    z-index:21;
-    width:24px;
-    height:24px;
+    position:static;
+    flex:0 0 auto;
+    width:52px;
+    height:28px;
     border:1px solid rgba(148,163,184,.4);
-    border-radius:999px;
+    border-radius:6px;
     background:rgba(71,85,105,.48);
     color:#e8edf2;
-    padding:0;
+    padding:0 10px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    font-size:13px;
+    font-size:12px;
     line-height:1;
     cursor:pointer;
   `;
-  host.appendChild(toggleButton);
 
   let isCollapsed = false;
-  const refreshToggleButtonPosition = () => {
-    if (isCollapsed) return;
-    const left = panel.offsetLeft + panel.offsetWidth - 30;
-    const top = panel.offsetTop + 6;
-    toggleButton.style.left = `${Math.max(0, left)}px`;
-    toggleButton.style.top = `${Math.max(0, top)}px`;
-  };
+  const panelBody = panel.querySelector<HTMLElement>('[data-role="body"]');
   const setCollapsed = (collapsed: boolean) => {
     if (collapsed === isCollapsed) return;
     isCollapsed = collapsed;
-    if (collapsed) {
-      panel.style.display = 'none';
-      toggleButton.title = '显示面板';
-      toggleButton.setAttribute('aria-label', '显示面板');
-      return;
-    }
-    panel.style.display = '';
-    toggleButton.title = '隐藏面板';
-    toggleButton.setAttribute('aria-label', '隐藏面板');
-    refreshToggleButtonPosition();
+    if (panelBody) panelBody.style.display = collapsed ? 'none' : '';
+    toggleButton.textContent = collapsed ? '展开' : '折叠';
+    toggleButton.title = collapsed ? '展开摄像机控制' : '折叠摄像机控制';
+    toggleButton.setAttribute('aria-label', collapsed ? '展开摄像机控制' : '折叠摄像机控制');
   };
   toggleButton.addEventListener('pointerdown', (event) => {
     event.stopPropagation();
@@ -217,7 +218,17 @@ export const createFloatingCameraControlPanel = (
       if (field === 'mode') input.value = state.mode;
       else if (field === 'lookControlMode') input.value = state.lookControlMode;
       else if (field === 'moveSpeed') input.value = String(state.moveSpeed);
+      else if (field === 'moveAcceleration') input.value = String(state.moveAcceleration);
+      else if (field === 'moveDeceleration') input.value = String(state.moveDeceleration);
       else if (field === 'mouseSensitivity') input.value = String(state.mouseSensitivity);
+      else if (field === 'lookSmoothing') input.value = String(state.lookSmoothing);
+      else if (field === 'panSensitivity') input.value = String(state.panSensitivity);
+      else if (field === 'orbitZoomSpeed') input.value = String(state.orbitZoomSpeed);
+      else if (field === 'zoomSmoothing') input.value = String(state.zoomSmoothing);
+      else if (field === 'fovDeg') input.value = String(state.fovDeg);
+      else if (field === 'horizontalFovDeg') input.value = String(state.horizontalFovDeg);
+      else if (field === 'minZ') input.value = String(state.minZ);
+      else if (field === 'maxZ') input.value = String(state.maxZ);
       else if (field === 'firstPersonHeight') input.value = String(state.firstPersonHeight);
       else if (field === 'position.x') input.value = String(position.x);
       else if (field === 'position.y') input.value = String(position.y);
@@ -247,7 +258,17 @@ export const createFloatingCameraControlPanel = (
     if (field === 'mode') controller.setMode(input.value as CameraLabMode);
     else if (field === 'lookControlMode') state.lookControlMode = input.value === 'drag' ? 'drag' : 'pointerLock';
     else if (field === 'moveSpeed') state.moveSpeed = readNumber(input as HTMLInputElement, state.moveSpeed);
+    else if (field === 'moveAcceleration') state.moveAcceleration = Math.max(0, readNumber(input as HTMLInputElement, state.moveAcceleration));
+    else if (field === 'moveDeceleration') state.moveDeceleration = Math.max(0, readNumber(input as HTMLInputElement, state.moveDeceleration));
     else if (field === 'mouseSensitivity') state.mouseSensitivity = readNumber(input as HTMLInputElement, state.mouseSensitivity);
+    else if (field === 'lookSmoothing') state.lookSmoothing = Math.max(0, readNumber(input as HTMLInputElement, state.lookSmoothing));
+    else if (field === 'panSensitivity') state.panSensitivity = Math.max(0, readNumber(input as HTMLInputElement, state.panSensitivity));
+    else if (field === 'orbitZoomSpeed') state.orbitZoomSpeed = Math.max(0, readNumber(input as HTMLInputElement, state.orbitZoomSpeed));
+    else if (field === 'zoomSmoothing') state.zoomSmoothing = Math.max(0, readNumber(input as HTMLInputElement, state.zoomSmoothing));
+    else if (field === 'fovDeg') controller.setVerticalFovDeg(readNumber(input as HTMLInputElement, state.fovDeg));
+    else if (field === 'horizontalFovDeg') controller.setHorizontalFovDeg(readNumber(input as HTMLInputElement, state.horizontalFovDeg));
+    else if (field === 'minZ') state.minZ = Math.max(0.001, readNumber(input as HTMLInputElement, state.minZ));
+    else if (field === 'maxZ') state.maxZ = Math.max(state.minZ + 0.001, readNumber(input as HTMLInputElement, state.maxZ));
     else if (field === 'firstPersonHeight') state.firstPersonHeight = readNumber(input as HTMLInputElement, state.firstPersonHeight);
     else if (field.startsWith('position.')) {
       const axis = field.slice(-1) as CameraPositionAxis;
@@ -277,6 +298,7 @@ export const createFloatingCameraControlPanel = (
       field.endsWith('.z') ? readNumber(input as HTMLInputElement, state.lockTarget.z) : state.lockTarget.z
     );
     controller.applyPose();
+    if (field === 'fovDeg' || field === 'horizontalFovDeg') syncFromController();
     if (field === 'mode' || field === 'lockPlaneAxis') syncFromController();
     updateStatus();
   };
@@ -304,7 +326,6 @@ export const createFloatingCameraControlPanel = (
     if (!dragging) return;
     panel.style.left = `${Math.max(0, startLeft + event.clientX - startX)}px`;
     panel.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`;
-    refreshToggleButtonPosition();
   };
   const onPointerUp = () => {
     dragging = false;
@@ -323,7 +344,6 @@ export const createFloatingCameraControlPanel = (
 
   syncFromController();
   updateStatus();
-  refreshToggleButtonPosition();
 
   return {
     element: panel,
@@ -331,7 +351,6 @@ export const createFloatingCameraControlPanel = (
     updateStatus,
     dispose: () => {
       panel.remove();
-      toggleButton.remove();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerup', onPointerUp);
     }

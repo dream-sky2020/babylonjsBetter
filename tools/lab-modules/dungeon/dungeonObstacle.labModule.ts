@@ -21,7 +21,7 @@ const placementLabel = (binding: DungeonObstacleBinding): string => {
 
 export const dungeonObstacleLabModule: LabModule = {
   id: 'dungeon-obstacle',
-  dependencies: ['player-spawn'],
+  dependencies: ['dungeon-runtime'],
   setup(context) {
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
     const debugToggle = createLabSwitch('显示阻碍 Debug 盒');
