@@ -20,7 +20,7 @@ import {
   createLabSwitch,
   type LabModule,
 } from '@/tools/lab-kit';
-import type { DungeonObstaclesReadyEvent } from './dungeonLab.types';
+import type { DungeonLabSession, DungeonSessionChangedEvent } from './dungeonLab.types';
 
 const createNumberInput = (value: number, min: number, step: number): HTMLInputElement => {
   const input = document.createElement('input');
@@ -188,7 +188,7 @@ export const playerMovementLabModule: LabModule = {
       };
     };
 
-    let current: DungeonObstaclesReadyEvent | null = null;
+    let current: DungeonLabSession | null = null;
     let markerRoot: TransformNode | null = null;
     let markerVerticalOffset = 0;
     let lastJsonUpdateTime = 0;
@@ -198,7 +198,7 @@ export const playerMovementLabModule: LabModule = {
       markerRoot = null;
     };
 
-    const createMarker = (event: DungeonObstaclesReadyEvent) => {
+    const createMarker = (event: DungeonLabSession) => {
       disposeMarker();
       const layout = resolveDungeonMapTileWorldLayout(
         event.spawn.sceneEnvironmentComponent,
@@ -284,7 +284,7 @@ export const playerMovementLabModule: LabModule = {
       refreshRuntimeJson();
     };
 
-    const resolveWorldPosition = (event: DungeonObstaclesReadyEvent) => (
+    const resolveWorldPosition = (event: DungeonLabSession) => (
       position: Readonly<{ tileX: number; tileY: number }>,
     ): readonly [number, number, number] => resolveDungeonMapTileWorldLayout(
       event.spawn.sceneEnvironmentComponent,
@@ -453,7 +453,7 @@ export const playerMovementLabModule: LabModule = {
         });
       }
     });
-    const offReady = context.events.on<DungeonObstaclesReadyEvent>('dungeon:obstacles-ready', (event) => {
+    const offReady = context.events.on<DungeonSessionChangedEvent>('dungeon:session-changed', ({ current: event }) => {
       current = event;
       teleportXInput.max = String(event.runtime.map.width - 1);
       teleportYInput.max = String(event.runtime.map.height - 1);

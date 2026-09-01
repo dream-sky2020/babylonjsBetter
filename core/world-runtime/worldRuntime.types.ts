@@ -1,15 +1,12 @@
-/** 可写入存档的世界运行时数据。运行状态本身不进入存档。 */
-export type WorldRuntimeSnapshot = {
-  version: 1;
-  worldPresetKey: string;
-  playTimeSeconds: number;
-};
+import type { DungeonDelta } from '../dungeon-delta';
+import type { DungeonSession } from '../dungeon-session';
 
-/** 一个已加载世界的动态运行时；玩家位置和场景变化仍归 DungeonRuntime。 */
 export type WorldRuntime = {
   readonly worldPresetKey: string;
-  /** 仅在 playTimeRunning=true 时由游戏帧推进。 */
+  /** @deprecated 时间权威数据已迁移到 core/game-time 的 playTimeSecondsData。 */
   playTimeSeconds: number;
-  /** 暂停、菜单或失焦时可停止累计，但不会清空已有时间。 */
+  /** @deprecated 计时运行状态由 GameTimeController 管理。 */
   playTimeRunning: boolean;
+  activeDungeonSession: DungeonSession | null;
+  dungeonDeltas: Record<string, DungeonDelta>;
 };

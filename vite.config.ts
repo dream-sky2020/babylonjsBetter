@@ -6,6 +6,7 @@ import fsp from 'fs/promises'
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
+const DUNGEON_MAP_PRESETS_PATH = path.resolve(CONFIG_DIR, 'dungeonMapPresets.json')
 
 const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
   if (!fs.existsSync(dir)) return []
@@ -64,6 +65,12 @@ const sharedConfigPlugin = () => ({
     if (id === RESOLVED_MODEL_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectModelAssets())}`
     if (id === RESOLVED_RESOURCE_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectResourceAssets())}`
     return null
+  },
+  handleHotUpdate(context: { file: string }) {
+    // Dungeon Map Canvas Lab 会主动把当前编辑状态同步到本地 React state；
+    // 禁止该写回再次触发 Vite HMR，否则整张编辑器页面会被重新创建。
+    if (path.resolve(context.file) === DUNGEON_MAP_PRESETS_PATH) return []
+    return undefined
   },
   configureServer(server: any) {
     server.middlewares.use((req: any, res: any, next: any) => {
@@ -184,7 +191,7 @@ export default defineConfig({
         worldPresetEditorLab: path.resolve(__dirname, 'tools/world-preset-editor-lab/index.html'),
         dungeonSceneLoaderLab: path.resolve(__dirname, 'tools/dungeon-scene-loader-lab/index.html'),
         worldLoaderLab: path.resolve(__dirname, 'tools/world-loader-lab/index.html'),
-        worldRuntimeLab: path.resolve(__dirname, 'tools/world-runtime-lab/index.html'),
+        dungeonDeltaSwitchingLab: path.resolve(__dirname, 'tools/dungeon-delta-switching-lab/index.html'),
         dungeonObstacleLab: path.resolve(__dirname, 'tools/dungeon-obstacle-lab/index.html'),
         dungeonPlayerSpawnLab: path.resolve(__dirname, 'tools/dungeon-player-spawn-lab/index.html'),
         dungeonPlayerMovementLab: path.resolve(__dirname, 'tools/dungeon-player-movement-lab/index.html'),

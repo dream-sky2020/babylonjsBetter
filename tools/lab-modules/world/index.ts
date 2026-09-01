@@ -1,14 +1,17 @@
 import type { LabModuleCatalog } from '@/tools/lab-kit';
 import { dungeonLabModuleCatalog } from '@/tools/lab-modules/dungeon';
+import { gameRuntimeLabModule } from './gameRuntime.labModule';
+import { gameTimeLabModule } from './gameTime.labModule';
 import { worldLoaderLabModule } from './worldLoader.labModule';
-import { worldRuntimeLabModule } from './worldRuntime.labModule';
 
 export const worldLabModuleCatalog: LabModuleCatalog = {
   ...dungeonLabModuleCatalog,
   [worldLoaderLabModule.id]: worldLoaderLabModule,
-  [worldRuntimeLabModule.id]: worldRuntimeLabModule,
+  [gameTimeLabModule.id]: gameTimeLabModule,
+  [gameRuntimeLabModule.id]: gameRuntimeLabModule,
 };
 
 export * from './worldLab.types';
+export * from './gameRuntime.labModule';
+export * from './gameTime.labModule';
 export * from './worldLoader.labModule';
-export * from './worldRuntime.labModule';
