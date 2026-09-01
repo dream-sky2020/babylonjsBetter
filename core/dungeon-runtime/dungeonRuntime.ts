@@ -1,4 +1,5 @@
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
+import { createDungeonObstacleStates } from '../dungeon-obstacle';
 import { isDungeonMapPositionInside, type DungeonMapData } from '../map';
 import type { DungeonRuntime, DungeonRuntimePlayerPosition } from './dungeonRuntime.types';
 
@@ -19,7 +20,7 @@ export const createDungeonRuntime = (
     : playerFacing === 'east' ? Math.PI / 2
       : playerFacing === 'west' ? -Math.PI / 2 : 0,
   playerMovement: null,
-  obstacleStates: new Map<string, boolean>(),
+  obstacleStates: createDungeonObstacleStates(map),
 });
 
 /**

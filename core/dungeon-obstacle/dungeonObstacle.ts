@@ -68,17 +68,11 @@ export const scanDungeonObstacles = (map: DungeonMapData): DungeonObstacleBindin
   return bindings;
 };
 
-/** 从地图声明重建 Runtime 的完整阻碍状态表。 */
-export const initializeDungeonObstacleStates = (
-  runtime: DungeonRuntime,
-): DungeonObstacleBinding[] => {
-  const bindings = scanDungeonObstacles(runtime.map);
-  runtime.obstacleStates.clear();
-  bindings.forEach(({ entity, component }) => {
-    runtime.obstacleStates.set(entity.id, component.activeByDefault);
-  });
-  return bindings;
-};
+/** 从只读地图预设生成完整的阻碍默认状态，不修改地图数据。 */
+export const createDungeonObstacleStates = (map: DungeonMapData): Map<string, boolean> => new Map(
+  scanDungeonObstacles(map).map(({ entity, component }) => [entity.id, component.activeByDefault]),
+);
+
 
 export const setDungeonObstacleActive = (
   runtime: DungeonRuntime,

@@ -1,8 +1,10 @@
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
+import { createRuntimeDataStore } from '@/core/runtime';
 import { LabEventBus } from './labEventBus';
 import { LabServiceRegistry } from './labServiceRegistry';
-import type { CreateLabOptions, LabHost, LabModule } from './labKit.types';
+import type { CreateLabOptions, LabContext, LabHost, LabModule } from './labKit.types';
 import { LabUi } from './labUi';
+import { LabViewportManager } from './labViewportManager';
 
 const resolveModules = (requested: readonly string[], catalog: CreateLabOptions['catalog']): LabModule[] => {
   const result: LabModule[] = [];
@@ -43,12 +45,15 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   home.href = '../../index.html';
   home.textContent = '返回工具入口';
   sidebar.append(heading, description, status, panels, home);
+
   const stage = document.createElement('main');
+  stage.className = 'lab-viewport';
   const canvas = document.createElement('canvas');
+  canvas.className = 'lab-babylon-canvas';
   const badge = document.createElement('div');
   badge.className = 'lab-badge';
   badge.textContent = options.badge;
-  stage.append(canvas, badge);
+  stage.append(canvas);
   layout.append(sidebar, stage);
   options.root.replaceChildren(layout);
 
@@ -59,26 +64,51 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   camera.upperRadiusLimit = 500;
   camera.wheelPrecision = 8;
   camera.attachControl(canvas, true);
+
+  const viewport = new LabViewportManager(stage, canvas, camera, () => engine.resize());
+  stage.append(badge);
   const events = new LabEventBus();
   const services = new LabServiceRegistry();
-  const context = { engine, scene, camera, canvas, events, services, ui: new LabUi(panels, status) };
+  const runtime = createRuntimeDataStore();
+  const runtimeScopes = Object.freeze({
+    game: runtime.createScope({ kind: 'game', key: 'main' }),
+  });
+  const context: LabContext = {
+    runtime,
+    runtimeScopes,
+    engine,
+    scene,
+    camera,
+    canvas,
+    viewport,
+    events,
+    services,
+    ui: new LabUi(panels, status),
+  };
   const modules = resolveModules(options.modules, options.catalog);
   const cleanups: Array<() => void> = [];
+
   try {
     for (const module of modules) {
       const cleanup = await module.setup(context);
       if (cleanup) cleanups.unshift(cleanup);
     }
-    engine.runRenderLoop(() => scene.render());
-    const resize = () => engine.resize();
-    window.addEventListener('resize', resize);
-    cleanups.unshift(() => window.removeEventListener('resize', resize));
+    engine.runRenderLoop(() => {
+      if (!viewport.isBabylonRenderingPaused) scene.render();
+    });
     context.ui.setStatus(`已组合 ${modules.length} 个 Lab 模块。`);
     await events.emit('lab:ready', undefined);
   } catch (error) {
-    context.ui.setStatus(error instanceof Error ? error.message : String(error), true);
+    cleanups.forEach((cleanup) => cleanup());
+    runtime.dispose();
+    viewport.dispose();
+    events.clear();
+    services.clear();
+    scene.dispose();
+    engine.dispose();
     throw error;
   }
+
   let disposed = false;
   return {
     context,
@@ -87,9 +117,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       if (disposed) return;
       disposed = true;
       cleanups.forEach((cleanup) => cleanup());
+      runtime.dispose();
+      viewport.dispose();
       events.clear();
       services.clear();
-      camera.detachControl();
       scene.dispose();
       engine.dispose();
     },

@@ -1,48 +1,24 @@
-import type { DungeonObstacleBinding } from '@/core/dungeon-obstacle';
-import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
-import type { DungeonRuntime } from '@/core/dungeon-runtime';
-import type { DungeonMapPreset, DungeonMapPresetLibrary } from '@/core/map';
 import type {
-  DungeonMapSceneEnvironmentInstance,
-  DungeonMapSceneEnvironmentBinding,
-  SceneEnvironmentPresetLibrary,
-  ShadowQualityPresetLibrary,
-} from '@/core/scene';
+  DungeonSession,
+  DungeonSessionChanged,
+  DungeonSessionController,
+  DungeonSessionLibraries,
+} from '@/core/dungeon-session';
 
-export type DungeonLabLibraries = {
-  maps: DungeonMapPresetLibrary;
-  environments: SceneEnvironmentPresetLibrary;
-  shadows: ShadowQualityPresetLibrary;
-};
-
-export type DungeonMapRequestedEvent = {
-  preset: DungeonMapPreset;
-  libraries: DungeonLabLibraries;
-};
-
-export type DungeonSceneReadyEvent = DungeonMapRequestedEvent & {
-  binding: DungeonMapSceneEnvironmentBinding;
-  instance: DungeonMapSceneEnvironmentInstance;
-};
-
-export type DungeonSpawnReadyEvent = DungeonSceneReadyEvent & {
-  spawn: DungeonPlayerSpawnBinding;
-};
-
-export type DungeonRuntimeReadyEvent = DungeonSpawnReadyEvent & {
-  runtime: DungeonRuntime;
-};
-
-export type DungeonObstaclesReadyEvent = DungeonRuntimeReadyEvent & {
-  obstacles: DungeonObstacleBinding[];
-};
+export type DungeonLabLibraries = DungeonSessionLibraries;
+export type DungeonSessionChangedEvent = DungeonSessionChanged;
 
 export const DUNGEON_LAB_SERVICES = {
   libraries: 'dungeon:libraries',
   preset: 'dungeon:preset',
+  sessionController: 'dungeon:session-controller',
+  session: 'dungeon:session',
   sceneBinding: 'dungeon:scene-binding',
   sceneInstance: 'dungeon:scene-instance',
   spawn: 'dungeon:spawn',
   runtime: 'dungeon:runtime',
   obstacles: 'dungeon:obstacles',
 } as const;
+
+export type DungeonLabSession = DungeonSession;
+export type DungeonLabSessionController = DungeonSessionController;

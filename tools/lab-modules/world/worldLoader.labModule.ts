@@ -4,12 +4,13 @@ import { createLabField, createLabJson, createLabStatus, type LabModule } from '
 import {
   DUNGEON_LAB_SERVICES,
   type DungeonLabLibraries,
+  type DungeonLabSessionController,
 } from '@/tools/lab-modules/dungeon';
 import { WORLD_LAB_SERVICES, type WorldRequestedEvent } from './worldLab.types';
 
 export const worldLoaderLabModule: LabModule = {
   id: 'world-loader',
-  dependencies: ['dungeon-scene'],
+  dependencies: ['dungeon-session'],
   setup(context) {
     const panel = context.ui.addPanel('world-loader', '世界加载');
     const select = document.createElement('select');
@@ -29,8 +30,6 @@ export const worldLoaderLabModule: LabModule = {
     );
 
     let worlds: WorldPresetLibrary | null = null;
-    let generation = 0;
-
     const syncSelectedWorld = () => {
       const preset = worlds?.[select.value];
       try {
@@ -40,7 +39,6 @@ export const worldLoaderLabModule: LabModule = {
       }
       presetJson.textContent = preset ? JSON.stringify(preset, null, 2) : '尚未选择世界预设。';
     };
-
     const loadSelectedWorld = async () => {
       const worldPreset = worlds?.[select.value];
       if (!worldPreset) return;
@@ -48,39 +46,32 @@ export const worldLoaderLabModule: LabModule = {
       const initialDungeon = resolveInitialDungeon(worldPreset);
       const dungeonPreset = libraries.maps[initialDungeon.dungeonPresetKey];
       if (!dungeonPreset) {
-        throw new Error(
-          `世界“${worldPreset.presetKey}”引用的首次地牢预设“${initialDungeon.dungeonPresetKey}”不存在。`,
-        );
+        throw new Error(`世界“${worldPreset.presetKey}”引用的首次地牢预设“${initialDungeon.dungeonPresetKey}”不存在。`);
       }
-      const currentGeneration = ++generation;
       loadButton.disabled = true;
-      status.textContent = `正在加载世界“${worldPreset.name}”的首次地牢……`;
+      status.textContent = `正在加载世界“${worldPreset.name}”的首次地牢 Session……`;
       context.services.set(WORLD_LAB_SERVICES.preset, worldPreset);
-      context.services.set(DUNGEON_LAB_SERVICES.preset, dungeonPreset);
       try {
         const worldEvent: WorldRequestedEvent = { preset: worldPreset, initialDungeonPreset: dungeonPreset };
         await context.events.emit('world:requested', worldEvent);
-        await context.events.emit('dungeon:map-requested', { preset: dungeonPreset, libraries });
-        if (generation === currentGeneration) {
-          status.textContent = `世界“${worldPreset.name}”已加载首次地牢“${dungeonPreset.name}”。`;
-        }
+        const controller = context.services.get<DungeonLabSessionController>(DUNGEON_LAB_SERVICES.sessionController);
+        const session = await controller.switchDungeon(dungeonPreset.presetKey);
+        status.textContent = session
+          ? `世界“${worldPreset.name}”已原子加载首次地牢“${dungeonPreset.name}”。`
+          : '首次地牢装载已被更新请求取代。';
       } catch (error) {
-        if (generation === currentGeneration) {
-          const message = error instanceof Error ? error.message : String(error);
-          status.textContent = message;
-          context.ui.setStatus(message, true);
-        }
+        const message = error instanceof Error ? error.message : String(error);
+        status.textContent = message;
+        context.ui.setStatus(message, true);
       } finally {
-        if (generation === currentGeneration) loadButton.disabled = false;
+        loadButton.disabled = false;
       }
     };
-
     loadButton.addEventListener('click', () => { void loadSelectedWorld(); });
     select.addEventListener('change', () => {
       syncSelectedWorld();
       void loadSelectedWorld();
     });
-
     return context.events.on('lab:ready', async () => {
       worlds = parseWorldPresetLibrary(await loadConfig<unknown>('worldPresets.json'));
       context.services.set(WORLD_LAB_SERVICES.library, worlds);
