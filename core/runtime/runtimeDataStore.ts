@@ -1,5 +1,5 @@
 import {
-  isRuntimeShallowData,
+  isRuntimeDataValue,
   type RuntimeDataDefinition,
 } from './runtimeDataDefinition';
 import { RuntimeModuleRegistry, type RuntimeModuleToken } from './runtimeModuleRegistry';
@@ -10,10 +10,10 @@ import type {
   RuntimeDataListener,
   RuntimeScopeAddress,
   RuntimeScopeToken,
-  RuntimeShallowData,
+  RuntimeDataValue,
 } from './runtime.types';
 
-type StoredRuntimeData = Map<string, RuntimeShallowData>;
+type StoredRuntimeData = Map<string, RuntimeDataValue>;
 
 type RuntimeListenerEntry = {
   readonly dataKey: string;
@@ -22,11 +22,11 @@ type RuntimeListenerEntry = {
 };
 
 export type RuntimePublicReader = {
-  read<TData extends RuntimeShallowData>(
+  read<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
-  ): TData | null;
-  subscribe<TData extends RuntimeShallowData>(
+  ): TData | null | undefined;
+  subscribe<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
     listener: RuntimeDataListener<TData>,
@@ -35,15 +35,15 @@ export type RuntimePublicReader = {
 };
 
 export type RuntimeModuleScopeAccess = {
-  read<TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>): TData | null;
-  ensure<TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>): TData;
-  write<TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>, value: TData): void;
-  update<TData extends RuntimeShallowData>(
+  read<TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>): TData | undefined;
+  ensure<TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>): TData;
+  write<TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>, value: TData): void;
+  update<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
-    updater: (current: TData | null) => TData,
+    updater: (current: TData | undefined) => TData,
   ): TData;
-  clear<TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>): void;
-  subscribe<TData extends RuntimeShallowData>(
+  clear<TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>): void;
+  subscribe<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     listener: RuntimeDataListener<TData>,
   ): () => void;
@@ -51,11 +51,11 @@ export type RuntimeModuleScopeAccess = {
 
 export type RuntimeModuleHandle = {
   readonly id: string;
-  registerData<TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>): void;
+  registerData<TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>): void;
   openScope(scope: RuntimeScopeToken): RuntimeModuleScopeAccess;
 };
 
-const cloneData = <TData extends RuntimeShallowData>(value: TData): TData => structuredClone(value);
+const cloneData = <TData extends RuntimeDataValue>(value: TData): TData => structuredClone(value);
 
 export class RuntimeDataStore {
   private disposed = false;
@@ -67,11 +67,11 @@ export class RuntimeDataStore {
   private readonly listeners = new Set<RuntimeListenerEntry>();
 
   readonly publicData: RuntimePublicReader = Object.freeze({
-    read: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>, scope: RuntimeScopeToken) => {
+    read: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>, scope: RuntimeScopeToken) => {
       if (definition.visibility !== 'public') return null;
       return this.read(definition, scope);
     },
-    subscribe: <TData extends RuntimeShallowData>(
+    subscribe: <TData extends RuntimeDataValue>(
       definition: RuntimeDataDefinition<TData>,
       scope: RuntimeScopeToken,
       listener: RuntimeDataListener<TData>,
@@ -87,7 +87,7 @@ export class RuntimeDataStore {
     const token = this.modules.register(moduleId);
     return Object.freeze({
       id: token.id,
-      registerData: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>) => {
+      registerData: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>) => {
         this.registerDefinition(token, definition);
       },
       openScope: (scope: RuntimeScopeToken) => this.createModuleScopeAccess(token, scope),
@@ -117,7 +117,7 @@ export class RuntimeDataStore {
     const stored = this.scopeData.get(scope)!;
     [...stored.keys()].forEach((dataKey) => {
       const definition = this.definitions.get(dataKey);
-      if (definition) this.emit(definition, scope, stored.get(dataKey) ?? null, null);
+      if (definition) this.emit(definition, scope, stored.get(dataKey), undefined);
     });
     stored.clear();
     this.listeners.forEach((entry) => {
@@ -140,7 +140,7 @@ export class RuntimeDataStore {
     return this.modules.moduleIds;
   }
 
-  private registerDefinition<TData extends RuntimeShallowData>(
+  private registerDefinition<TData extends RuntimeDataValue>(
     token: RuntimeModuleToken,
     definition: RuntimeDataDefinition<TData>,
   ): void {
@@ -153,42 +153,42 @@ export class RuntimeDataStore {
   private createModuleScopeAccess(token: RuntimeModuleToken, scope: RuntimeScopeToken): RuntimeModuleScopeAccess {
     this.modules.requireOwner(token);
     this.requireScope(scope);
-    const requireOwned = <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>) => {
+    const requireOwned = <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>) => {
       this.modules.requireOwner(token, definition.moduleId);
       this.requireDefinition(definition, scope);
     };
     return Object.freeze({
-      read: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>) => {
+      read: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>) => {
         requireOwned(definition);
         return this.read(definition, scope);
       },
-      ensure: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>) => {
+      ensure: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>) => {
         requireOwned(definition);
         const current = this.read(definition, scope);
-        if (current !== null) return current;
+        if (current !== undefined) return current;
         if (!definition.createDefault) throw new Error(`Runtime 数据“${definition.key}”没有默认值工厂。`);
         const value = definition.createDefault();
         this.write(definition, scope, value);
         return cloneData(value);
       },
-      write: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>, value: TData) => {
+      write: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>, value: TData) => {
         requireOwned(definition);
         this.write(definition, scope, value);
       },
-      update: <TData extends RuntimeShallowData>(
+      update: <TData extends RuntimeDataValue>(
         definition: RuntimeDataDefinition<TData>,
-        updater: (current: TData | null) => TData,
+        updater: (current: TData | undefined) => TData,
       ) => {
         requireOwned(definition);
         const next = updater(this.read(definition, scope));
         this.write(definition, scope, next);
         return cloneData(next);
       },
-      clear: <TData extends RuntimeShallowData>(definition: RuntimeDataDefinition<TData>) => {
+      clear: <TData extends RuntimeDataValue>(definition: RuntimeDataDefinition<TData>) => {
         requireOwned(definition);
         this.clear(definition, scope);
       },
-      subscribe: <TData extends RuntimeShallowData>(
+      subscribe: <TData extends RuntimeDataValue>(
         definition: RuntimeDataDefinition<TData>,
         listener: RuntimeDataListener<TData>,
       ) => {
@@ -209,7 +209,7 @@ export class RuntimeDataStore {
     if (this.disposed) throw new Error('RuntimeDataStore 已释放。');
   }
 
-  private requireDefinition<TData extends RuntimeShallowData>(
+  private requireDefinition<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
   ): void {
@@ -222,32 +222,32 @@ export class RuntimeDataStore {
     }
   }
 
-  private read<TData extends RuntimeShallowData>(
+  private read<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
-  ): TData | null {
+  ): TData | undefined {
     this.requireDefinition(definition, scope);
     const value = this.scopeData.get(scope)!.get(definition.key);
-    return value === undefined ? null : cloneData(value as TData);
+    return value === undefined ? undefined : cloneData(value as TData);
   }
 
-  private write<TData extends RuntimeShallowData>(
+  private write<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
     value: TData,
   ): void {
     this.requireDefinition(definition, scope);
-    if (!isRuntimeShallowData(value) || (definition.validate && !definition.validate(value))) {
+    if (!isRuntimeDataValue(value) || (definition.validate && !definition.validate(value))) {
       throw new TypeError(`Runtime 数据“${definition.key}”不符合浅数据定义。`);
     }
     const stored = this.scopeData.get(scope)!;
-    const previous = stored.get(definition.key) ?? null;
+    const previous = stored.get(definition.key);
     const current = cloneData(value);
     stored.set(definition.key, current);
     this.emit(definition, scope, previous, current);
   }
 
-  private clear<TData extends RuntimeShallowData>(
+  private clear<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
   ): void {
@@ -256,10 +256,10 @@ export class RuntimeDataStore {
     const previous = stored.get(definition.key);
     if (previous === undefined) return;
     stored.delete(definition.key);
-    this.emit(definition, scope, previous, null);
+    this.emit(definition, scope, previous, undefined);
   }
 
-  private subscribe<TData extends RuntimeShallowData>(
+  private subscribe<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
     listener: RuntimeDataListener<TData>,
@@ -274,18 +274,18 @@ export class RuntimeDataStore {
     return () => this.listeners.delete(entry);
   }
 
-  private emit<TData extends RuntimeShallowData>(
+  private emit<TData extends RuntimeDataValue>(
     definition: RuntimeDataDefinition<TData>,
     scope: RuntimeScopeToken,
-    previous: RuntimeShallowData | null,
-    current: RuntimeShallowData | null,
+    previous: RuntimeDataValue | undefined,
+    current: RuntimeDataValue | undefined,
   ): void {
     const change: RuntimeDataChange = {
       moduleId: definition.moduleId,
       dataKey: definition.key,
       scope,
-      previous: previous ? cloneData(previous) : null,
-      current: current ? cloneData(current) : null,
+      previous: previous === undefined ? undefined : cloneData(previous),
+      current: current === undefined ? undefined : cloneData(current),
     };
     this.listeners.forEach((entry) => {
       if (entry.dataKey === definition.key && entry.scope === scope) entry.listener(change);

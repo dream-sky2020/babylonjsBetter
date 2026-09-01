@@ -3,36 +3,67 @@
 `core/runtime/` 是业务无关的中央浅数据容器。目前不会自动替代
 `GameRuntime`、`WorldRuntime` 或 `DungeonRuntime`。
 
-组合式 Lab 不应自行调用 createRuntimeDataStore()；createLab() 已为每个页面创建独立实例，并通过 context.runtime 提供给所有模块。
+组合式 Lab 不应自行调用 `createRuntimeDataStore()`；`createLab()` 已为每个页面创建独立实例，并通过 `context.runtime` 提供给所有模块。
+
+## Runtime Value
+
+每个 Data Key 直接对应以下四种值之一：
+
+```ts
+type RuntimeScalar = string | number | boolean | null;
+type RuntimeFlatRecord = Readonly<Record<string, RuntimeScalar>>;
+type RuntimeScalarArray = readonly RuntimeScalar[];
+type RuntimeFlatRecordArray = readonly RuntimeFlatRecord[];
+```
+
+允许：
+
+```ts
+120
+['door-a', 'door-b', null]
+{ id: 'door-a', active: true }
+[
+  { id: 'door-a', active: true },
+  { id: 'door-b', active: false },
+]
+```
+
+不允许数组嵌套、对象嵌套、对象字段包含数组，或在同一数组中混合基础值和对象：
+
+```ts
+[[1, 2], [3, 4]]
+{ position: { x: 1, y: 2 } }
+{ tags: ['a', 'b'] }
+[1, { id: 'door-a' }]
+```
+
+空数组是合法的 `RuntimeScalarArray`；第一次写入非空内容时由对应数据定义的类型和校验器确定元素结构。
+
+`null` 是合法数据，因此 Store 使用 `undefined` 表示数据不存在或已被删除。Public Reader 读取 Private 数据仍返回 `null`；调用方可据此区分权限拒绝与缺失数据。
 
 ## 基本流程
 
 ```ts
-type ClockData = { playTimeSeconds: number; running: boolean };
-
-const clockData = defineRuntimeData<ClockData>({
-  key: 'game.clock',
-  moduleId: 'game-clock',
-  scope: 'world',
+const playTimeSeconds = defineRuntimeData<number>({
+  key: 'playTimeSeconds',
+  moduleId: 'game-time',
+  scope: 'game',
   visibility: 'public',
   persistence: 'full',
   version: 1,
-  createDefault: () => ({ playTimeSeconds: 0, running: false }),
+  createDefault: () => 0,
 });
 
 const runtime = createRuntimeDataStore();
-const worldScope = runtime.createScope({ kind: 'world', key: 'main-world' });
-const clockModule = runtime.registerModule('game-clock');
-clockModule.registerData(clockData);
+const gameScope = runtime.createScope({ kind: 'game', key: 'main' });
+const timeModule = runtime.registerModule('game-time');
+timeModule.registerData(playTimeSeconds);
 
-const clock = clockModule.openScope(worldScope);
-clock.ensure(clockData);
-clock.update(clockData, (current) => ({
-  ...current!,
-  playTimeSeconds: current!.playTimeSeconds + 1,
-}));
+const time = timeModule.openScope(gameScope);
+time.ensure(playTimeSeconds);
+time.update(playTimeSeconds, (current) => (current ?? 0) + 1);
 
-const publicCopy = runtime.publicData.read(clockData, worldScope);
+const publicCopy = runtime.publicData.read(playTimeSeconds, gameScope);
 ```
 
 ## 当前约束
@@ -42,7 +73,6 @@ const publicCopy = runtime.publicData.read(clockData, worldScope);
 - 同一个 `kind:key` Scope 只能存在一个；使用 `findScope()` 查找已有 Scope。
 - 只有注册数据的模块 Handle 能读写 Private 数据和修改 Public 数据。
 - Public Reader 对 Private 数据返回 `null`，订阅 Private 数据会抛错。
-- 数据必须是单层对象；字段只能是有限数字、字符串、布尔值、`null` 或这些值的一维数组。
 - Store 在读、写和事件通知边界复制数据，调用方不能通过保留引用绕过写权限。
 - `inspect()` 会枚举已有数据，但 Private 值会被脱敏。
 

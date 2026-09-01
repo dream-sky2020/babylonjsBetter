@@ -4,24 +4,22 @@ import {
   type RuntimeModuleScopeAccess,
   type RuntimeScopeToken,
 } from '../runtime';
-import type { GameTimeController, PlayTimeSecondsData } from './gameTime.types';
+import type { GameTimeController, PlayTimeSeconds } from './gameTime.types';
 
 export const GAME_TIME_RUNTIME_MODULE_ID = 'game-time';
 export const PLAY_TIME_SECONDS_DATA_KEY = 'playTimeSeconds';
 
-export const playTimeSecondsData = defineRuntimeData<PlayTimeSecondsData>({
+export const playTimeSecondsData = defineRuntimeData<PlayTimeSeconds>({
   key: PLAY_TIME_SECONDS_DATA_KEY,
   moduleId: GAME_TIME_RUNTIME_MODULE_ID,
   scope: 'game',
   visibility: 'public',
   persistence: 'full',
   version: 1,
-  createDefault: () => ({ playTimeSeconds: 0 }),
-  validate: (value): value is PlayTimeSecondsData => {
-    if (value === null || typeof value !== 'object') return false;
-    const seconds = (value as Partial<PlayTimeSecondsData>).playTimeSeconds;
-    return typeof seconds === 'number' && Number.isFinite(seconds) && seconds >= 0;
-  },
+  createDefault: () => 0,
+  validate: (value): value is PlayTimeSeconds => (
+    typeof value === 'number' && Number.isFinite(value) && value >= 0
+  ),
 });
 
 const requireDeltaSeconds = (value: number): number => {
@@ -42,8 +40,8 @@ class RegisteredGameTimeController implements GameTimeController {
     return this.isRunning;
   }
 
-  readPlayTime(): PlayTimeSecondsData {
-    return this.data.read(playTimeSecondsData) ?? { playTimeSeconds: 0 };
+  readPlayTime(): PlayTimeSeconds {
+    return this.data.read(playTimeSecondsData) ?? 0;
   }
 
   start(): void {
@@ -55,15 +53,13 @@ class RegisteredGameTimeController implements GameTimeController {
   }
 
   reset(): void {
-    this.data.write(playTimeSecondsData, { playTimeSeconds: 0 });
+    this.data.write(playTimeSecondsData, 0);
   }
 
   update(deltaSeconds: number): void {
     const delta = requireDeltaSeconds(deltaSeconds);
     if (!this.isRunning || delta === 0) return;
-    this.data.update(playTimeSecondsData, (current) => ({
-      playTimeSeconds: (current?.playTimeSeconds ?? 0) + delta,
-    }));
+    this.data.update(playTimeSecondsData, (current) => (current ?? 0) + delta);
   }
 
   subscribe(listener: Parameters<GameTimeController['subscribe']>[0]): () => void {

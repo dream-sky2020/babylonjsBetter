@@ -1,10 +1,12 @@
 # Babylon.js Better 项目地图
 ## 2026-09-01：首个 Runtime 数据模块——游戏时间
 
-`core/game-time/` 是第一个迁入中央 `RuntimeDataStore` 的业务模块。它以 ModuleID `game-time` 注册 game Scope 下的 Public 数据 `playTimeSeconds`，数据值为浅结构 `{ playTimeSeconds: number }`，并通过所有者 `GameTimeController` 提供开始、暂停、重置、更新和订阅能力。其他模块只能通过 `playTimeSecondsData + RuntimePublicReader` 读取副本。
+`core/game-time/` 是第一个迁入中央 `RuntimeDataStore` 的业务模块。它以 ModuleID `game-time` 注册 game Scope 下的 Public 数据 `playTimeSeconds`，数据值直接保存为 `number` RuntimeScalar，并通过所有者 `GameTimeController` 提供开始、暂停、重置、更新和订阅能力。其他模块只能通过 `playTimeSecondsData + RuntimePublicReader` 读取副本。
 
 `createLab()` 现在同时创建唯一的 `context.runtimeScopes.game`，供同页所有模块绑定同一个游戏级 Scope。`tools/lab-modules/world/gameTime.labModule.ts` 显示“时间”面板并负责 Engine 帧计时；旧 `game-runtime` Lab Module 已降为无界面的 `WorldRuntime / DungeonSession` 兼容装配器，不再读写旧时间字段。旧 `WorldRuntime.playTimeSeconds / playTimeRunning` 与旧快照字段暂未删除，但不能再作为组合式 Lab 的时间权威来源。
 ## 2026-09-01：Runtime Store 骨架
+
+`RuntimeDataValue` 允许 `RuntimeScalar / RuntimeFlatRecord / RuntimeScalarArray / RuntimeFlatRecordArray`；禁止数组嵌套、记录嵌套及标量与记录混合数组。`null` 是合法值，缺失或删除统一使用 `undefined`。
 
 `core/runtime/` 提供尚未接管现有业务数据的中央 Runtime Store 骨架。模块通过稳定的 ModuleID 注册并取得不可伪造的能力 Handle；数据由模块自己的 `RuntimeDataDefinition` 描述 Key、Scope、可见性、存储策略和版本。Store 当前支持 `game / world / dungeon / session` Scope、Public/Private 读权限、所有者写权限、浅数据运行时校验、读写防引用泄漏、变化订阅以及对 Private 值脱敏的只读枚举。
 

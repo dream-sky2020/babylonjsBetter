@@ -30,15 +30,13 @@ export const gameTimeLabModule: LabModule = {
 
     const refresh = () => {
       const current = controller.readPlayTime();
-      playTime.value = formatPlayTime(current.playTimeSeconds);
+      playTime.value = formatPlayTime(current);
       toggle.textContent = controller.running ? '暂停计时' : '继续计时';
       json.textContent = JSON.stringify({
         moduleId: GAME_TIME_RUNTIME_MODULE_ID,
         dataKey: PLAY_TIME_SECONDS_DATA_KEY,
         scope: context.runtimeScopes.game.address,
-        data: {
-          playTimeSeconds: Math.round(current.playTimeSeconds * 1000) / 1000,
-        },
+        data: Math.round(current * 1000) / 1000,
       }, null, 2);
     };
 

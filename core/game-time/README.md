@@ -17,13 +17,13 @@
 }
 ```
 
-数据值保持浅结构：
+数据值直接使用 `RuntimeScalar`，不再重复包装：
 
 ```ts
-{ playTimeSeconds: number }
+120.5
 ```
 
-只有 `GameTimeController` 持有的模块 Handle 可以修改它。其他模块可以通过公共读取入口取得副本：
+只有 `GameTimeController` 持有的模块 Handle 可以修改它。其他模块可以通过公共读取入口取得数字副本：
 
 ```ts
 const playTime = context.runtime.publicData.read(
