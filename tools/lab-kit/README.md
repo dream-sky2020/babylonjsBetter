@@ -34,14 +34,14 @@ const host = await createLab({
 
 ```text
 lab:ready / 用户选择地牢
-  → DungeonSessionController.switchDungeon(key)
-  → 完整创建 DungeonSession
-  → 原子提交 WorldRuntime.activeDungeonSession
-  → dungeon:session-changed
+  → DungeonLabMapLoader.switchDungeon(key)
+  → 分别创建地图场景、Spawn、Runtime 与阻碍
+  → 提交 WorldRuntime 当前地图字段与独立服务
+  → dungeon:map-changed
   → dungeon:runtime-changed（运行期可重复）
 ```
 
-地图 Debug、出生点、Runtime、阻碍和移动模块必须消费同一个 `dungeon:session-changed`，不得自行串联创建状态或持有另一条权威装载链。
+地图 Debug、出生点、Runtime、阻碍和移动模块消费同一个 `dungeon:map-changed`，并从各自服务读取数据，不得自行创建另一条地图装载链。
 
 ## UI 与样式
 

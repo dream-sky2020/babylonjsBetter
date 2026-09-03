@@ -21,6 +21,8 @@ const cloneJson = <T>(value: T): T => {
   return JSON.parse(JSON.stringify(value)) as T;
 };
 
+const jsonEqual = (left: unknown, right: unknown): boolean => JSON.stringify(left) === JSON.stringify(right);
+
 /** 快速一致性指纹，不承担安全哈希用途。 */
 export const createDungeonMapDefinitionRefsFingerprint = (map: DungeonMapDefinitionRefsData): string => {
   const json = JSON.stringify(map);
@@ -45,6 +47,156 @@ export const createEmptyDungeonMapDefinitionRefsDelta = (
     baseFingerprint: createDungeonMapDefinitionRefsFingerprint(base),
     baseDefinitionCount: base.dataDefinitions.length,
     dataDefinitions: [],
+  };
+};
+
+const requireSameDeltaTopology = (
+  base: DungeonMapDefinitionRefsData,
+  current: DungeonMapDefinitionRefsData,
+): void => {
+  if (base.id !== current.id
+    || base.width !== current.width
+    || base.height !== current.height
+    || base.topologyMode !== current.topologyMode) {
+    throw new Error('地图 ID、尺寸或 topologyMode 已改变，无法用当前稀疏 Delta 表示。');
+  }
+  const tileCount = base.width * base.height;
+  [base, current].forEach((map) => {
+    if (map.tileDataDefinitionRefs.length !== tileCount
+      || map.tileEdgeDataDefinitionRefs.some((layer) => layer.length !== tileCount)
+      || map.connections?.some((layer) => layer.length !== tileCount)) {
+      throw new Error(`地图 ${map.id} 的格子、单格边或联通引用数组长度不正确。`);
+    }
+  });
+};
+
+const createPropertyChanges = <T>(
+  base: readonly (readonly [number, T])[] | undefined,
+  current: readonly (readonly [number, T])[] | undefined,
+): [number, T | null][] | undefined => {
+  const baseValues = new Map(base ?? []);
+  const currentValues = new Map(current ?? []);
+  const indices = [...new Set([...baseValues.keys(), ...currentValues.keys()])].sort((a, b) => a - b);
+  const changes = indices.flatMap((index): [number, T | null][] => {
+    const before = baseValues.get(index);
+    const after = currentValues.get(index);
+    if (after === undefined) return before === undefined ? [] : [[index, null]];
+    return jsonEqual(before, after) ? [] : [[index, cloneJson(after)]];
+  });
+  return changes.length ? changes : undefined;
+};
+
+const createKeyedChanges = <T extends DungeonMapStoredSharedEdge | DungeonMapStoredSharedPoint>(
+  base: readonly T[],
+  current: readonly T[],
+): { remove?: string[]; upsert?: T[] } | undefined => {
+  const baseValues = new Map(base.map((item) => [item[0], item]));
+  const currentValues = new Map(current.map((item) => [item[0], item]));
+  const remove = base.filter((item) => !currentValues.has(item[0])).map((item) => item[0]);
+  const upsert = current.filter((item) => !jsonEqual(baseValues.get(item[0]), item)).map(cloneJson);
+  return remove.length || upsert.length
+    ? { ...(remove.length ? { remove } : {}), ...(upsert.length ? { upsert } : {}) }
+    : undefined;
+};
+
+/**
+ * 比较完整基础地图与当前运行地图，生成可持久化的稀疏引用 Delta。
+ * Definition 按内容复用基础池；当前地图中新出现且确实被引用的 Definition 才会写入 Delta。
+ */
+export const createDungeonMapDefinitionRefsDelta = (
+  basePresetKey: string,
+  baseMap: DungeonMapStoredData,
+  currentMap: DungeonMapStoredData,
+): DungeonMapDefinitionRefsDelta => {
+  const base = isDungeonMapDefinitionRefsData(baseMap) ? baseMap : encodeDungeonMapData(baseMap);
+  const current = isDungeonMapDefinitionRefsData(currentMap) ? currentMap : encodeDungeonMapData(currentMap);
+  requireSameDeltaTopology(base, current);
+
+  const delta = createEmptyDungeonMapDefinitionRefsDelta(basePresetKey, base);
+  const baseDefinitionRefs = new Map<string, number>();
+  base.dataDefinitions.forEach((definition, ref) => {
+    const key = JSON.stringify(definition);
+    if (!baseDefinitionRefs.has(key)) baseDefinitionRefs.set(key, ref);
+  });
+  const appendedDefinitionRefs = new Map<string, number>();
+  const dataDefinitions: DungeonMapDefinitionRefsDelta['dataDefinitions'][number][] = [];
+  const remapDefinitionRef = (currentRef: number): number => {
+    if (currentRef === NO_DUNGEON_MAP_DATA_DEFINITION_REF) return currentRef;
+    requireDefinitionRef(currentRef, current.dataDefinitions.length, '当前地图');
+    const definition = current.dataDefinitions[currentRef];
+    const key = JSON.stringify(definition);
+    const baseRef = baseDefinitionRefs.get(key);
+    if (baseRef !== undefined) return baseRef;
+    const existing = appendedDefinitionRefs.get(key);
+    if (existing !== undefined) return existing;
+    const ref = base.dataDefinitions.length + dataDefinitions.length;
+    dataDefinitions.push(cloneJson(definition));
+    appendedDefinitionRefs.set(key, ref);
+    return ref;
+  };
+  const refChange = (currentRef: number, baseRef: number): number | null | undefined => {
+    const remapped = remapDefinitionRef(currentRef);
+    if (remapped === baseRef) return undefined;
+    return remapped === NO_DUNGEON_MAP_DATA_DEFINITION_REF ? null : remapped;
+  };
+
+  const tileDataDefinitionRefChanges = current.tileDataDefinitionRefs.flatMap((ref, index) => {
+    const change = refChange(ref, base.tileDataDefinitionRefs[index]);
+    return change === undefined ? [] : [[index, change] as const];
+  });
+  const tileEdgeDataDefinitionRefChanges = current.tileEdgeDataDefinitionRefs.map((layer, directionIndex) => (
+    layer.flatMap((ref, index) => {
+      const change = refChange(ref, base.tileEdgeDataDefinitionRefs[directionIndex][index]);
+      return change === undefined ? [] : [[index, change] as const];
+    })
+  )) as unknown as DungeonMapSparseDefinitionRefLayers;
+
+  const remapSharedEdge = (item: DungeonMapStoredSharedEdge): DungeonMapStoredSharedEdge => {
+    const copy = cloneJson(item) as unknown as unknown[];
+    copy[3] = remapDefinitionRef(item[3]);
+    return copy as unknown as DungeonMapStoredSharedEdge;
+  };
+  const remapSharedPoint = (item: DungeonMapStoredSharedPoint): DungeonMapStoredSharedPoint => {
+    const copy = cloneJson(item) as unknown as unknown[];
+    copy[5] = remapDefinitionRef(item[5]);
+    return copy as unknown as DungeonMapStoredSharedPoint;
+  };
+  const currentSharedEdges = current.sharedEdges.map(remapSharedEdge);
+  const currentSharedPoints = current.sharedPoints.map(remapSharedPoint);
+
+  let connectionChanges: DungeonMapSparseConnectionLayers | null | undefined;
+  if (!jsonEqual(base.connections, current.connections)) {
+    if (!current.connections) connectionChanges = null;
+    else {
+      const layers = current.connections.map((layer, directionIndex) => layer.flatMap((target, index) => (
+        target === (base.connections?.[directionIndex][index] ?? -1) ? [] : [[index, target] as const]
+      ))) as unknown as DungeonMapSparseConnectionLayers;
+      connectionChanges = layers;
+    }
+  }
+
+  const mapDataDefinitionRef = refChange(current.mapDataDefinitionRef, base.mapDataDefinitionRef);
+  const sharedEdgeChanges = createKeyedChanges(base.sharedEdges, currentSharedEdges);
+  const sharedPointChanges = createKeyedChanges(base.sharedPoints, currentSharedPoints);
+  const tilePropertyChanges = createPropertyChanges(base.tileProperties, current.tileProperties);
+  const tileEdgePropertyChanges = createPropertyChanges(base.tileEdgeProperties, current.tileEdgeProperties);
+
+  return {
+    ...delta,
+    dataDefinitions,
+    ...(mapDataDefinitionRef !== undefined ? { mapDataDefinitionRef } : {}),
+    ...(tileDataDefinitionRefChanges.length ? { tileDataDefinitionRefChanges } : {}),
+    ...(tileEdgeDataDefinitionRefChanges.some((layer) => layer.length)
+      ? { tileEdgeDataDefinitionRefChanges } : {}),
+    ...(sharedEdgeChanges ? { sharedEdgeChanges } : {}),
+    ...(sharedPointChanges ? { sharedPointChanges } : {}),
+    ...(connectionChanges !== undefined ? { connectionChanges } : {}),
+    ...(tilePropertyChanges ? { tilePropertyChanges } : {}),
+    ...(tileEdgePropertyChanges ? { tileEdgePropertyChanges } : {}),
+    ...(!jsonEqual(base.markers, current.markers)
+      ? { markers: current.markers ? cloneJson(current.markers) : null } : {}),
+    ...(!jsonEqual(base.metadata, current.metadata)
+      ? { metadata: current.metadata ? cloneJson(current.metadata) : null } : {}),
   };
 };
 

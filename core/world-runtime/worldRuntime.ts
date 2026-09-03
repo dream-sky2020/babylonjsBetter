@@ -8,7 +8,10 @@ export const createWorldRuntime = (worldPresetKey: string): WorldRuntime => {
     worldPresetKey: key,
     playTimeSeconds: 0,
     playTimeRunning: false,
-    activeDungeonSession: null,
+    activeDungeonPresetKey: null,
+    activeDungeonMap: null,
+    activeDungeonRuntime: null,
+    activeDungeonSpawn: null,
     dungeonSaveStates: {},
   };
 };

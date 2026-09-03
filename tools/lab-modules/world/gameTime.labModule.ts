@@ -8,13 +8,11 @@ import {
   registerGameTime,
 } from '@/core/game-time';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
-import { WORLD_LAB_SERVICES } from './worldLab.types';
 
 export const gameTimeLabModule: LabModule = {
   id: 'game-time',
   setup(context) {
     const controller = registerGameTime(context.runtime, context.runtimeScopes.game);
-    context.services.set(WORLD_LAB_SERVICES.gameTime, controller);
 
     const panel = context.ui.addPanel('game-time', '时间');
     const playTime = document.createElement('input');

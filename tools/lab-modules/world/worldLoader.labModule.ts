@@ -1,16 +1,12 @@
 import { loadConfig } from '@/core/config';
 import { parseWorldPresetLibrary, resolveInitialDungeon, type WorldPreset, type WorldPresetLibrary } from '@/core/world';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
-import {
-  DUNGEON_LAB_SERVICES,
-  type DungeonLabLibraries,
-  type DungeonLabSessionController,
-} from '@/tools/lab-modules/dungeon';
-import { WORLD_LAB_SERVICES, type WorldRequestedEvent } from './worldLab.types';
+import { dungeonMapCatalogRequest, dungeonMapSwitchRequest } from '@/tools/lab-modules/dungeon';
+import { gameRuntimeActivateWorldRequest } from './worldLab.types';
 
 export const worldLoaderLabModule: LabModule = {
   id: 'world-loader',
-  dependencies: ['dungeon-session'],
+  dependencies: ['dungeon-map-loader'],
   setup(context) {
     const panel = context.ui.addPanel('world-loader', '世界加载');
     const select = document.createElement('select');
@@ -42,21 +38,24 @@ export const worldLoaderLabModule: LabModule = {
     const loadSelectedWorld = async () => {
       const worldPreset = worlds?.[select.value];
       if (!worldPreset) return;
-      const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
       const initialDungeon = resolveInitialDungeon(worldPreset);
-      const dungeonPreset = libraries.maps[initialDungeon.dungeonPresetKey];
+      const catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
+      const dungeonPreset = catalog.find(({ presetKey }) => presetKey === initialDungeon.dungeonPresetKey);
       if (!dungeonPreset) {
         throw new Error(`世界“${worldPreset.presetKey}”引用的首次地牢预设“${initialDungeon.dungeonPresetKey}”不存在。`);
       }
       loadButton.disabled = true;
-      status.textContent = `正在加载世界“${worldPreset.name}”的首次地牢 Session……`;
-      context.services.set(WORLD_LAB_SERVICES.preset, worldPreset);
+      status.textContent = `正在加载世界“${worldPreset.name}”的首次地牢……`;
       try {
-        const worldEvent: WorldRequestedEvent = { preset: worldPreset, initialDungeonPreset: dungeonPreset };
-        await context.events.emit('world:requested', worldEvent);
-        const controller = context.services.get<DungeonLabSessionController>(DUNGEON_LAB_SERVICES.sessionController);
-        const session = await controller.switchDungeon(dungeonPreset.presetKey);
-        status.textContent = session
+        if (context.communication.hasHandler(gameRuntimeActivateWorldRequest)) {
+          await context.communication.request(gameRuntimeActivateWorldRequest, {
+            worldPresetKey: worldPreset.presetKey,
+          });
+        }
+        const result = await context.communication.request(dungeonMapSwitchRequest, {
+          presetKey: dungeonPreset.presetKey,
+        });
+        status.textContent = result.loaded
           ? `世界“${worldPreset.name}”已原子加载首次地牢“${dungeonPreset.name}”。`
           : '首次地牢装载已被更新请求取代。';
       } catch (error) {
@@ -72,17 +71,18 @@ export const worldLoaderLabModule: LabModule = {
       syncSelectedWorld();
       void loadSelectedWorld();
     });
-    return context.events.on('lab:ready', async () => {
-      worlds = parseWorldPresetLibrary(await loadConfig<unknown>('worldPresets.json'));
-      context.services.set(WORLD_LAB_SERVICES.library, worlds);
-      select.replaceChildren(...Object.values(worlds).map((preset: WorldPreset) => {
-        const option = document.createElement('option');
-        option.value = preset.presetKey;
-        option.textContent = `${preset.name} · ${preset.presetKey}`;
-        return option;
-      }));
-      syncSelectedWorld();
-      await loadSelectedWorld();
-    });
+    return {
+      async start() {
+        worlds = parseWorldPresetLibrary(await loadConfig<unknown>('worldPresets.json'));
+        select.replaceChildren(...Object.values(worlds).map((preset: WorldPreset) => {
+          const option = document.createElement('option');
+          option.value = preset.presetKey;
+          option.textContent = `${preset.name} · ${preset.presetKey}`;
+          return option;
+        }));
+        syncSelectedWorld();
+        await loadSelectedWorld();
+      },
+    };
   },
 };

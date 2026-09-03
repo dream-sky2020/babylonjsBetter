@@ -4,8 +4,22 @@ import {
   setDungeonObstacleActive,
   type DungeonObstacleBinding,
 } from '@/core/dungeon-obstacle';
+import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
+import type { DungeonRuntime } from '@/core/dungeon-runtime';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
-import type { DungeonLabSession, DungeonSessionChangedEvent } from './dungeonLab.types';
+import {
+  DUNGEON_LAB_SERVICES,
+  dungeonMapChangedEvent,
+  dungeonRuntimeCommitRequest,
+} from './dungeonLab.types';
+
+type ObstacleView = {
+  loadId: number;
+  presetKey: string;
+  runtime: DungeonRuntime;
+  spawn: DungeonPlayerSpawnBinding;
+  obstacles: readonly DungeonObstacleBinding[];
+};
 
 const placementLabel = (binding: DungeonObstacleBinding): string => {
   const placement = binding.placement;
@@ -16,7 +30,7 @@ const placementLabel = (binding: DungeonObstacleBinding): string => {
 
 export const dungeonObstacleLabModule: LabModule = {
   id: 'dungeon-obstacle',
-  dependencies: ['dungeon-session'],
+  dependencies: ['dungeon-map-loader'],
   setup(context) {
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
     const debugToggle = createLabSwitch('显示阻碍 Debug 盒');
@@ -24,7 +38,7 @@ export const dungeonObstacleLabModule: LabModule = {
     list.className = 'lab-obstacle-list';
     const runtimeJson = createLabJson();
     panel.content.append(debugToggle.row, list, runtimeJson);
-    let current: DungeonLabSession | null = null;
+    let current: ObstacleView | null = null;
     let debugRoot: TransformNode | null = null;
     const disposeDebug = () => {
       debugRoot?.dispose(false, true);
@@ -33,8 +47,8 @@ export const dungeonObstacleLabModule: LabModule = {
     const refreshJson = () => {
       runtimeJson.textContent = current
         ? JSON.stringify({
-          sessionId: current.sessionId,
-          dungeonPresetKey: current.dungeonPresetKey,
+          loadId: current.loadId,
+          dungeonPresetKey: current.presetKey,
           obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
         }, null, 2)
         : '尚未加载';
@@ -42,26 +56,26 @@ export const dungeonObstacleLabModule: LabModule = {
     const renderDebug = () => {
       disposeDebug();
       if (!debugToggle.input.checked || !current) return;
-      const session = current;
-      const activeMaterial = new StandardMaterial(`obstacle_active_${session.sessionId}`, context.scene);
+      const loaded = current;
+      const activeMaterial = new StandardMaterial(`obstacle_active_${loaded.loadId}`, context.scene);
       activeMaterial.diffuseColor = Color3.FromHexString('#e24c3d');
       activeMaterial.emissiveColor = Color3.FromHexString('#7c211b');
       activeMaterial.alpha = 0.42;
-      const inactiveMaterial = new StandardMaterial(`obstacle_inactive_${session.sessionId}`, context.scene);
+      const inactiveMaterial = new StandardMaterial(`obstacle_inactive_${loaded.loadId}`, context.scene);
       inactiveMaterial.diffuseColor = Color3.FromHexString('#71808c');
       inactiveMaterial.emissiveColor = Color3.FromHexString('#273039');
       inactiveMaterial.alpha = 0.14;
       inactiveMaterial.wireframe = true;
-      debugRoot = new TransformNode(`obstacle_debug_${session.sessionId}`, context.scene);
-      session.obstacles.forEach((binding) => {
-        const active = session.runtime.obstacleStates.get(binding.entity.id) === true;
+      debugRoot = new TransformNode(`obstacle_debug_${loaded.loadId}`, context.scene);
+      loaded.obstacles.forEach((binding) => {
+        const active = loaded.runtime.obstacleStates.get(binding.entity.id) === true;
         const layout = resolveDungeonObstacleDebugLayout(
           binding,
-          session.spawn.sceneEnvironmentComponent,
-          session.runtime.map.width,
-          session.runtime.map.height,
+          loaded.spawn.sceneEnvironmentComponent,
+          loaded.runtime.map.width,
+          loaded.runtime.map.height,
         );
-        const box = MeshBuilder.CreateBox(`obstacle_${session.sessionId}_${binding.entity.id}`, {
+        const box = MeshBuilder.CreateBox(`obstacle_${loaded.loadId}_${binding.entity.id}`, {
           width: layout.size[0], height: layout.size[1], depth: layout.size[2],
         }, context.scene);
         box.position.set(...layout.center);
@@ -75,8 +89,8 @@ export const dungeonObstacleLabModule: LabModule = {
     };
     const renderList = () => {
       if (!current) { list.textContent = '尚未加载'; return; }
-      const session = current;
-      list.replaceChildren(...session.obstacles.map((binding) => {
+      const loaded = current;
+      list.replaceChildren(...loaded.obstacles.map((binding) => {
         const item = document.createElement('div');
         item.className = 'lab-obstacle-item';
         const label = document.createElement('label');
@@ -84,16 +98,12 @@ export const dungeonObstacleLabModule: LabModule = {
         text.textContent = binding.entity.name ?? binding.entity.id;
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.checked = session.runtime.obstacleStates.get(binding.entity.id) === true;
+        checkbox.checked = loaded.runtime.obstacleStates.get(binding.entity.id) === true;
         checkbox.addEventListener('change', () => {
-          setDungeonObstacleActive(session.runtime, binding.entity.id, checkbox.checked);
+          setDungeonObstacleActive(loaded.runtime, binding.entity.id, checkbox.checked);
           refreshJson();
           renderDebug();
-          void context.events.emit('dungeon:runtime-changed', {
-            reason: 'obstacle-state',
-            sessionId: session.sessionId,
-            runtime: session.runtime,
-          });
+          void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'obstacle-state' });
         });
         const detail = document.createElement('small');
         detail.textContent = `${placementLabel(binding)} · ${binding.entity.id}`;
@@ -103,8 +113,14 @@ export const dungeonObstacleLabModule: LabModule = {
       }));
     };
     debugToggle.input.addEventListener('change', renderDebug);
-    const off = context.events.on<DungeonSessionChangedEvent>('dungeon:session-changed', ({ current: next }) => {
-      current = next;
+    const off = context.communication.on(dungeonMapChangedEvent, (next) => {
+      current = {
+        loadId: next.loadId,
+        presetKey: next.presetKey,
+        runtime: context.services.get(DUNGEON_LAB_SERVICES.runtime),
+        spawn: context.services.get(DUNGEON_LAB_SERVICES.spawn),
+        obstacles: context.services.get(DUNGEON_LAB_SERVICES.obstacles),
+      };
       renderList();
       refreshJson();
       renderDebug();

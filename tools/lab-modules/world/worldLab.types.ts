@@ -1,24 +1,26 @@
-import type { GameRuntime } from '@/core/game-runtime';
-import type { WorldPreset, WorldPresetLibrary } from '@/core/world';
-import type { WorldRuntime } from '@/core/world-runtime';
-import type { DungeonMapPreset } from '@/core/map';
+import type { WorldPresetLibrary } from '@/core/world';
+import { createLabEvent, createLabRequest } from '@/tools/lab-kit';
 
-export type WorldRequestedEvent = {
-  preset: WorldPreset;
-  initialDungeonPreset: DungeonMapPreset;
+export type GameRuntimeActivateWorldRequest = {
+  worldPresetKey: string;
 };
 
-export type GameRuntimeReadyEvent = WorldRequestedEvent & {
-  gameRuntime: GameRuntime;
-  worldRuntime: WorldRuntime;
+export type GameRuntimeActivateWorldResult = {
+  activated: boolean;
+  worldPresetKey: string;
 };
 
-export const WORLD_LAB_SERVICES = {
-  library: 'world:library',
-  preset: 'world:preset',
-  gameRuntime: 'game:runtime',
-  gameTime: 'game:time',
-  runtime: 'world:runtime',
-} as const;
+export type GameRuntimeReadyEvent = {
+  worldPresetKey: string;
+};
+
+export const gameRuntimeActivateWorldRequest = createLabRequest<
+  GameRuntimeActivateWorldRequest,
+  GameRuntimeActivateWorldResult
+>('game.runtime.activate-world');
+
+export const gameRuntimeReadyEvent = createLabEvent<GameRuntimeReadyEvent>('game.runtime.ready');
+
+export const WORLD_LAB_SERVICES = { runtime: 'world:runtime' } as const;
 
 export type WorldLabPresetLibrary = WorldPresetLibrary;

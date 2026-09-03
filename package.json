@@ -12,6 +12,7 @@
     "test:batch": "node --experimental-strip-types --test core/entity/batch-edit.test.ts",
     "test:dungeon-map-definition": "node --experimental-strip-types --test core/map/dungeonMap.definition.test.ts",
     "test:dungeon-map-delta": "node --experimental-strip-types --test core/map/dungeonMap.delta.test.ts",
+    "test:lab-communication": "node --experimental-strip-types --test tools/lab-kit/labCommunication.test.ts",
     "migrate:dungeon-map-definitions": "node --experimental-strip-types scripts/migrateDungeonMapDefinitions.ts",
     "preview": "vite preview",
     "verify:file": "electron scripts/verifyFileProtocol.cjs",

@@ -35,17 +35,17 @@ export const updateGameRuntime = (runtime: GameRuntime, deltaSeconds: number): v
 export const createGameRuntimeSnapshot = (runtime: GameRuntime): GameRuntimeSnapshot => {
   const world = runtime.activeWorld;
   const dungeonSaveStates = structuredClone(world.dungeonSaveStates);
-  const session = world.activeDungeonSession;
-  if (session) {
-    const saveState = createDungeonRuntimeSaveState(session.dungeonPresetKey, session.runtime, session.spawn);
-    if (saveState) dungeonSaveStates[session.dungeonPresetKey] = saveState;
-    else delete dungeonSaveStates[session.dungeonPresetKey];
+  const activeKey = world.activeDungeonPresetKey;
+  if (activeKey && world.activeDungeonRuntime && world.activeDungeonSpawn) {
+    const saveState = createDungeonRuntimeSaveState(activeKey, world.activeDungeonRuntime, world.activeDungeonSpawn);
+    if (saveState) dungeonSaveStates[activeKey] = saveState;
+    else delete dungeonSaveStates[activeKey];
   }
   return {
     version: 2,
     worldPresetKey: world.worldPresetKey,
     playTimeSeconds: Math.round(world.playTimeSeconds * 1000) / 1000,
-    activeDungeonPresetKey: session?.dungeonPresetKey ?? null,
+    activeDungeonPresetKey: activeKey,
     dungeonSaveStates,
   };
 };
