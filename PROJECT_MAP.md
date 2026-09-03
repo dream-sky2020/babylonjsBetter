@@ -1,4 +1,10 @@
 # Babylon.js Better 项目地图
+## 2026-09-03：删除 DungeonSession
+
+`core/dungeon-session/`、`DungeonSession`、`DungeonSessionController`、`WorldRuntime.activeDungeonSession` 与 `dungeon:session-changed` 已全部删除。`WorldRuntime` 只分别保存 `activeDungeonPresetKey / activeDungeonMap / activeDungeonRuntime / activeDungeonSpawn`；它不再持有把地图、Babylon 实例、Spawn、Runtime 和阻碍打包在一起的聚合对象。
+
+组合式 Lab 使用无 Session 返回值的 `dungeon-map-loader`：切换成功后分别注册 preset、scene binding/instance、spawn、runtime、obstacles 服务，并发送只含 `loadId / previousPresetKey / presetKey / map` 的 `dungeon:map-changed`。各消费者读取自己需要的服务。Babylon 地图实例仅由 loader 内部持有和释放，不进入 WorldRuntime；地图切换仍使用 generation 丢弃过期异步结果。
+
 ## 2026-09-03：地图 Definition 引用数组稀疏 Delta 核心
 
 `core/map/dungeonMap.delta.types.ts` 定义真正作用于地图数据的 `definition-refs-delta` v1。Delta 固定引用 `basePresetKey`、基础 Definition 数量和基础地图指纹，只保存新增 `dataDefinitions` 以及地图、格子、east/south/west/north 单格边引用数组的稀疏覆盖；缺失项继承基础地图，`null` 清除数据引用。公用边、公用点以稳定 ID 执行 remove/upsert，联通层和迁移期属性同样采用稀疏下标覆盖，markers/metadata 采用整段可选替换。
@@ -25,7 +31,7 @@ Vite 对地图目录内所有 JSON 写回禁用 HMR，并通过动态 `import.me
 
 `core/game-time/` 是第一个迁入中央 `RuntimeDataStore` 的业务模块。它以 ModuleID `game-time` 在 game Scope 注册 `playTimeSeconds(number)`、`isRunning(boolean)`、`realTime(string)` 和 `recentBattleTimes(RuntimeFlatRecordArray)` 四份 Public 数据。最近战斗记录只包含 `startedAt / endedAt / durationSeconds / battleDataSequence` 四个标量字段并限制为最近 20 条。所有写入统一经过 `GameTimeController`，其他模块只能通过数据定义与 RuntimePublicReader 读取副本。
 
-`createLab()` 现在同时创建唯一的 `context.runtimeScopes.game`，供同页所有模块绑定同一个游戏级 Scope。`tools/lab-modules/world/gameTime.labModule.ts` 显示“时间”面板并负责 Engine 帧计时；旧 `game-runtime` Lab Module 已降为无界面的 `WorldRuntime / DungeonSession` 兼容装配器，不再读写旧时间字段。旧 `WorldRuntime.playTimeSeconds / playTimeRunning` 与旧快照字段暂未删除，但不能再作为组合式 Lab 的时间权威来源。
+`createLab()` 现在同时创建唯一的 `context.runtimeScopes.game`，供同页所有模块绑定同一个游戏级 Scope。`tools/lab-modules/world/gameTime.labModule.ts` 显示“时间”面板并负责 Engine 帧计时；旧 `game-runtime` Lab Module 已降为无界面的 `WorldRuntime` 兼容装配器，不再读写旧时间字段。旧 `WorldRuntime.playTimeSeconds / playTimeRunning` 与旧快照字段暂未删除，但不能再作为组合式 Lab 的时间权威来源。
 ## 2026-09-01：Runtime Store 骨架
 
 `RuntimeDataValue` 允许 `RuntimeScalar / RuntimeFlatRecord / RuntimeScalarArray / RuntimeFlatRecordArray`；禁止数组嵌套、记录嵌套及标量与记录混合数组。`null` 是合法值，缺失或删除统一使用 `undefined`。
@@ -44,14 +50,14 @@ Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同�
 ## 2026-09-01：地图预设保存不重载编辑器
 
 `tools/dungeon-map-canvas-lab/` 保存 `config/dungeonMapPresets/` 后继续使用当前 React 编辑状态，不重新读取预设。`vite.config.ts` 的 `shared-config-public-bridge.hotUpdate` post hook 对该目录内的变更返回空更新列表，避免配置写回触发 Vite HMR、重建整个地图编辑器界面。其他配置文件的热更新行为保持不变。
-## 2026-09-01：DungeonSession 原子地牢切换
+## 2026-09-01：地图加载器
 
-`core/dungeon-session/` 现在是唯一正式地牢装载入口。`DungeonSessionController.switchDungeon()` 在提交前完整创建目标地牢的预设引用、场景实例、场景 Binding、玩家出生点、`DungeonRuntime`、阻碍 Binding，并恢复已有 `DungeonRuntimeSaveState`。只有完整 Session 创建成功且仍是最新 generation 时，才会一次性替换 `WorldRuntime.activeDungeonSession`。
+`tools/lab-modules/dungeon/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并恢复已有 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才分别提交各项服务与 WorldRuntime 当前字段。
 
-旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除，`tools/lab-modules/dungeon/dungeonScene.labModule.ts` 也已删除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:session-changed`，不再各自创建或扫描权威数据。旧 Session 在新 Session 的消费者完成重建后统一释放；过期的异步装载结果会立即释放且不会提交。
+旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:map-changed`，再从各自服务读取数据。旧 Babylon 地图实例在新地图消费者完成重建后释放；过期的异步装载结果会立即释放且不会提交。
 ## 2026-09-01：GameRuntime、WorldRuntime 与地牢运行时存档
 
-`core/game-runtime/` 是游戏级入口和存档快照所有者；`core/world-runtime/` 持有当前完整 `DungeonSession` 及按地牢预设 Key 保存的 `dungeonSaveStates`。`DungeonRuntime` 是 Session 内的瞬时逻辑状态，由 `WorldRuntime.activeDungeonSession.runtime` 间接所有。
+`core/game-runtime/` 是游戏级入口和存档快照所有者；`core/world-runtime/` 分别持有当前地图 Key、活地图、`DungeonRuntime`、Spawn 及按地图 Key 保存的 `dungeonSaveStates`。
 
 `core/dungeon-runtime-save/` 只保存玩家格子位置、朝向与阻碍状态等动态存档。`createDungeonRuntime()` 直接从预设的 `activeByDefault` 建立完整阻碍状态，Lab 不再负责初始化。切换地牢时先保存旧地牢的动态运行态，再从目标预设创建全新 Runtime 并恢复已有存档；该过程不修改地图数据。
 
@@ -63,17 +69,17 @@ Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同�
 
 `tools/lab-kit/` 提供统一 Lab Host。Host 根据模块的 `dependencies` 做拓扑排序、自动补齐和去重，共享一个 Engine、Scene、Camera、事件总线、服务注册表和面板容器，并按逆初始化顺序释放模块。具体 Lab 不得从另一个 Lab 目录复制或导入实现。
 
-当前 Dungeon Lab、World Loader Lab 与 Dungeon Runtime Save Switching Lab 已改为组合式入口：普通 Dungeon Lab 显式组合 `dungeon-config` 地图选择器；World Loader 从 `worldPresets.json` 的世界数据容器解析唯一的 `initial-dungeon / initial-dungeon-load` 实体组件，再通过 `DungeonSessionController + dungeon-grid-debug` 加载首次地牢。世界预设只保存地牢 Key 引用，不持有或解释地牢内容，地牢预设也不依赖世界容器。`dungeon-map-canvas-lab` 和 `world-preset-editor-lab` 是平行的 React 编辑 Lab，不属于 Babylon.js 模块链。
+当前 Dungeon Lab、World Loader Lab 与 Dungeon Runtime Save Switching Lab 已改为组合式入口：普通 Dungeon Lab 显式组合 `dungeon-config` 地图选择器；World Loader 从 `worldPresets.json` 解析首次地牢组件，再通过 `dungeon-map-loader + dungeon-grid-debug` 加载地图。世界预设只保存地图 Key 引用，不持有或解释地图内容。
 
 截至本次更新，源码中有以下六个页面使用 `tools/lab-kit` 和组合模块；其他 Monster、Sprite、Model、Scene、UI Lab 尚未接入组合式框架：
 
 | Lab 页面 | 入口声明的顶层模块 | Host 自动补齐的间接模块 |
 | --- | --- | --- |
-| `tools/dungeon-scene-loader-lab/` | `dungeon-config`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-session` |
-| `tools/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-session` |
-| `tools/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-session`、`player-spawn` |
-| `tools/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-session`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
-| `tools/world-loader-lab/` | `world-loader`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-session` |
+| `tools/dungeon-scene-loader-lab/` | `dungeon-config`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-map-loader` |
+| `tools/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-map-loader` |
+| `tools/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-map-loader`、`player-spawn` |
+| `tools/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-map-loader`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
+| `tools/world-loader-lab/` | `world-loader`、`dungeon-grid-debug` | `dungeon-libraries`、`dungeon-map-loader` |
 | `tools/dungeon-runtime-save-switching-lab/` | `dungeon-runtime-save-switch` | `game-runtime`、`world-loader`、`dungeon-runtime`、`dungeon-obstacle`、`player-movement` 及其地牢装载依赖 |
 
 这里的“使用”分为两层：页面负责调用 `createLab()` 并选择顶层模块；`tools/lab-modules/dungeon/` 与 `tools/lab-modules/world/` 共同使用 `lab-kit` 提供的模块契约、UI 控件、事件总线和服务注册表。
@@ -293,19 +299,19 @@ config/monsterDisplayConfigs.json
 | 模块 ID | 直接依赖 | 装配职责 |
 | --- | --- | --- |
 | `dungeon-libraries` | 无 | 只读加载地图、场景环境和阴影配置库 |
-| `dungeon-session` | `dungeon-libraries` | 装配正式 `DungeonSessionController`，原子提交 Session，并注册统一服务 |
-| `dungeon-config` | `dungeon-session` | 普通 Dungeon Lab 的地图选择器，直接调用控制器切换 Session |
-| `dungeon-grid-debug` | `dungeon-session` | 只消费当前 Session，完整重建全部格子的 3D Debug |
-| `player-spawn` | `dungeon-session` | 只展示 Session 中已解析的出生点与出生格 Debug |
-| `dungeon-runtime` | `dungeon-session` | 只浏览 Session 中唯一的 `DungeonRuntime` |
-| `dungeon-obstacle` | `dungeon-session` | 只消费 Session 中的阻碍 Binding 与状态，提供启停面板和 Debug |
+| `dungeon-map-loader` | `dungeon-libraries` | 组合地图场景、Spawn、Runtime 与阻碍 Core，分别提交服务 |
+| `dungeon-config` | `dungeon-map-loader` | 普通 Dungeon Lab 的地图选择器，调用 loader 切换地图 |
+| `dungeon-grid-debug` | `dungeon-map-loader` | 消费活地图与 Scene Binding，重建全部格子的 3D Debug |
+| `player-spawn` | `dungeon-map-loader` | 读取 Spawn 服务并展示出生格 Debug |
+| `dungeon-runtime` | `dungeon-map-loader` | 读取当前 `DungeonRuntime` 服务 |
+| `dungeon-obstacle` | `dungeon-map-loader` | 读取阻碍、Runtime 和 Spawn 服务，提供启停面板和 Debug |
 | `player-movement` | `dungeon-grid-debug`、`dungeon-obstacle` | 操作当前 Session 的 Runtime，并在 Session 切换时重建玩家 Debug |
 | `dungeon-runtime-save-switch` | `game-runtime`、`dungeon-obstacle`、`player-movement` | 人工切换地牢并查看 `dungeonSaveStates` |
 
 依赖自动展开的主链：
 
 ```text
-dungeon-libraries → dungeon-session
+dungeon-libraries → dungeon-map-loader
                          ├→ dungeon-config
                          ├→ dungeon-grid-debug
                          ├→ player-spawn
@@ -313,16 +319,16 @@ dungeon-libraries → dungeon-session
                          └→ dungeon-obstacle → player-movement
 ```
 
-`tools/lab-modules/world/world-loader` 依赖 `dungeon-session`，解析世界首次地牢后直接调用同一个 `DungeonSessionController`。`tools/lab-modules/world/game-runtime` 创建 `GameRuntime / WorldRuntime`；`dungeon-session` 收到 `game:runtime-ready` 后将控制器绑定到真实 WorldRuntime。普通 Dungeon Lab 没有 GameRuntime 时使用临时的 `lab:standalone` WorldRuntime。
+`tools/lab-modules/world/world-loader` 依赖 `dungeon-map-loader`，解析世界首次地牢后直接调用 loader。`tools/lab-modules/world/game-runtime` 创建 `GameRuntime / WorldRuntime`；loader 收到 `game:runtime-ready` 后绑定真实 WorldRuntime。普通 Dungeon Lab 没有 GameRuntime 时使用临时的 `lab:standalone` WorldRuntime。
 
 装载只允许一个提交事件：
 
 ```text
 lab:ready / 用户选择地牢
-  → DungeonSessionController.switchDungeon(key)
-  → 完整创建目标 DungeonSession
-  → 原子替换 WorldRuntime.activeDungeonSession
-  → dungeon:session-changed
+  → DungeonLabMapLoader.switchDungeon(key)
+  → 分别创建地图场景、Spawn、Runtime 与阻碍
+  → 提交 WorldRuntime 当前地图字段与独立服务
+  → dungeon:map-changed
   → dungeon:runtime-changed（移动、转向或阻碍状态变化时重复）
 ```
 

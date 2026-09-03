@@ -11,7 +11,8 @@ import {
   type DungeonPlayerTurnTimingMode,
 } from '@/core/dungeon-player-movement';
 import type { DungeonMapDirection } from '@/core/map';
-import { setDungeonRuntimePlayerPosition } from '@/core/dungeon-runtime';
+import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
+import { setDungeonRuntimePlayerPosition, type DungeonRuntime } from '@/core/dungeon-runtime';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
   createLabField,
@@ -20,7 +21,14 @@ import {
   createLabSwitch,
   type LabModule,
 } from '@/tools/lab-kit';
-import type { DungeonLabSession, DungeonSessionChangedEvent } from './dungeonLab.types';
+import {
+  DUNGEON_LAB_SERVICES,
+  dungeonMapChangedEvent,
+  dungeonRuntimeCommitRequest,
+  dungeonRuntimeChangedEvent,
+} from './dungeonLab.types';
+
+type MovementView = { loadId: number; runtime: DungeonRuntime; spawn: DungeonPlayerSpawnBinding };
 
 const createNumberInput = (value: number, min: number, step: number): HTMLInputElement => {
   const input = document.createElement('input');
@@ -188,7 +196,7 @@ export const playerMovementLabModule: LabModule = {
       };
     };
 
-    let current: DungeonLabSession | null = null;
+    let current: MovementView | null = null;
     let markerRoot: TransformNode | null = null;
     let markerVerticalOffset = 0;
     let lastJsonUpdateTime = 0;
@@ -198,7 +206,7 @@ export const playerMovementLabModule: LabModule = {
       markerRoot = null;
     };
 
-    const createMarker = (event: DungeonLabSession) => {
+    const createMarker = (event: MovementView) => {
       disposeMarker();
       const layout = resolveDungeonMapTileWorldLayout(
         event.spawn.sceneEnvironmentComponent,
@@ -284,7 +292,7 @@ export const playerMovementLabModule: LabModule = {
       refreshRuntimeJson();
     };
 
-    const resolveWorldPosition = (event: DungeonLabSession) => (
+    const resolveWorldPosition = (event: MovementView) => (
       position: Readonly<{ tileX: number; tileY: number }>,
     ): readonly [number, number, number] => resolveDungeonMapTileWorldLayout(
       event.spawn.sceneEnvironmentComponent,
@@ -322,7 +330,7 @@ export const playerMovementLabModule: LabModule = {
         ? `玩家瞬移到 (${result.to.tileX}, ${result.to.tileY})，朝向 ${direction}。`
         : `开始移动到 (${result.to.tileX}, ${result.to.tileY})，同时转向 ${direction}。`;
       if (result.completed) {
-        void context.events.emit('dungeon:runtime-changed', { reason: 'player-movement-completed', runtime: event.runtime });
+        void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-movement-completed' });
       }
     };
 
@@ -343,7 +351,7 @@ export const playerMovementLabModule: LabModule = {
         ? `玩家原地转向完成：${result.fromFacing} → ${result.toFacing}。`
         : `开始原地转向：${result.fromFacing} → ${result.toFacing}。`;
       if (result.completed) {
-        void context.events.emit('dungeon:runtime-changed', { reason: 'player-turn-completed', runtime: event.runtime });
+        void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-turn-completed' });
       }
     };
 
@@ -376,8 +384,8 @@ export const playerMovementLabModule: LabModule = {
         ? `${movement} 瞬移完成：玩家位于 (${result.to.tileX}, ${result.to.tileY})，仍朝向 ${facingBeforeMove}。`
         : `开始 ${movement} 到 (${result.to.tileX}, ${result.to.tileY})，保持朝向 ${facingBeforeMove}。`;
       if (result.completed) {
-        void context.events.emit('dungeon:runtime-changed', {
-          reason: 'player-relative-movement-completed', runtime: event.runtime,
+        void context.communication.request(dungeonRuntimeCommitRequest, {
+          reason: 'player-relative-movement-completed',
         });
       }
     };
@@ -405,9 +413,7 @@ export const playerMovementLabModule: LabModule = {
       syncMarker();
       refreshRuntimeJson(true);
       status.textContent = `玩家已瞬移到 (${tileX}, ${tileY})，保持朝向 ${event.runtime.playerFacing}。`;
-      void context.events.emit('dungeon:runtime-changed', {
-        reason: 'player-position-teleported', runtime: event.runtime,
-      });
+      void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-position-teleported' });
     };
 
     controls.querySelectorAll<HTMLButtonElement>('[data-move]').forEach((button) => {
@@ -446,14 +452,18 @@ export const playerMovementLabModule: LabModule = {
           : movementKind === 'turn'
           ? `原地转向完成：玩家仍位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`
           : `移动完成：玩家位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`;
-        void context.events.emit('dungeon:runtime-changed', {
+        void context.communication.request(dungeonRuntimeCommitRequest, {
           reason: movementKind === 'turn' ? 'player-turn-completed'
             : movementKind === 'blocked' ? 'player-movement-blocked' : 'player-movement-completed',
-          runtime: current.runtime,
         });
       }
     });
-    const offReady = context.events.on<DungeonSessionChangedEvent>('dungeon:session-changed', ({ current: event }) => {
+    const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
+      const event: MovementView = {
+        loadId: changed.loadId,
+        runtime: context.services.get(DUNGEON_LAB_SERVICES.runtime),
+        spawn: context.services.get(DUNGEON_LAB_SERVICES.spawn),
+      };
       current = event;
       teleportXInput.max = String(event.runtime.map.width - 1);
       teleportYInput.max = String(event.runtime.map.height - 1);
@@ -464,7 +474,7 @@ export const playerMovementLabModule: LabModule = {
       refreshRuntimeJson(true);
       status.textContent = `玩家已在出生格 (${event.runtime.playerPosition.tileX}, ${event.runtime.playerPosition.tileY}) 创建，朝向 ${event.runtime.playerFacing}。`;
     });
-    const offChanged = context.events.on('dungeon:runtime-changed', () => refreshRuntimeJson(true));
+    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson(true));
     return () => {
       offReady();
       offChanged();

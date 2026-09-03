@@ -3,7 +3,7 @@ import { createLabStatus, type LabModule } from '@/tools/lab-kit';
 const NODES = [
   { id: 'game', label: 'GameRuntime', x: 0.5, y: 0.18, color: '#4fa9d8' },
   { id: 'world', label: 'WorldRuntime', x: 0.5, y: 0.42, color: '#5fc99a' },
-  { id: 'session', label: 'DungeonSession', x: 0.3, y: 0.7, color: '#d9a85d' },
+  { id: 'active-map', label: 'activeDungeonMap', x: 0.3, y: 0.7, color: '#d9a85d' },
   { id: 'runtime-saves', label: 'dungeonSaveStates', x: 0.7, y: 0.7, color: '#b989d8' },
 ] as const;
 
@@ -35,7 +35,7 @@ export const viewportLayersLabModule: LabModule = {
         draw.lineWidth = 2;
         draw.strokeStyle = '#526b7c';
         const byId = Object.fromEntries(NODES.map((node) => [node.id, node]));
-        ([['game', 'world'], ['world', 'session'], ['world', 'runtime-saves']] as const).forEach(([fromId, toId]) => {
+        ([['game', 'world'], ['world', 'active-map'], ['world', 'runtime-saves']] as const).forEach(([fromId, toId]) => {
           const from = byId[fromId];
           const to = byId[toId];
           draw.beginPath();

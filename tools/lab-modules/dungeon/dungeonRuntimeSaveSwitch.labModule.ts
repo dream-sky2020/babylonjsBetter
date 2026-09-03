@@ -2,10 +2,10 @@ import type { WorldRuntime } from '@/core/world-runtime';
 import { WORLD_LAB_SERVICES } from '@/tools/lab-modules/world/worldLab.types';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
-  DUNGEON_LAB_SERVICES,
-  type DungeonLabLibraries,
-  type DungeonLabSessionController,
-  type DungeonSessionChangedEvent,
+  dungeonMapCatalogRequest,
+  dungeonMapChangedEvent,
+  dungeonRuntimeChangedEvent,
+  dungeonMapSwitchRequest,
 } from './dungeonLab.types';
 
 export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
@@ -18,15 +18,16 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
     load.type = 'button';
     load.textContent = '原子切换到所选地牢';
     const json = createLabJson('{}');
-    const status = createLabStatus('等待 DungeonSessionController……');
+    const status = createLabStatus('等待地图加载器……');
     panel.content.append(createLabField('目标地牢', select), load, createLabField('已保存 dungeonSaveStates', json), status);
     const refresh = () => {
       const world = context.services.find<WorldRuntime>(WORLD_LAB_SERVICES.runtime);
       json.textContent = JSON.stringify(world?.dungeonSaveStates ?? {}, null, 2);
     };
-    const offReady = context.events.on('lab:ready', () => {
-      const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
-      select.replaceChildren(...Object.values(libraries.maps).map((preset) => {
+    let catalog: readonly { presetKey: string; name: string }[] = [];
+    const start = async () => {
+      catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
+      select.replaceChildren(...catalog.map((preset) => {
         const option = document.createElement('option');
         option.value = preset.presetKey;
         option.textContent = `${preset.name} · ${preset.presetKey}`;
@@ -34,18 +35,18 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
       }));
       status.textContent = '修改当前运行态后切换；返回时恢复玩家与阻碍的动态存档。';
       refresh();
-    });
+    };
     load.addEventListener('click', async () => {
-      const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
-      const preset = libraries.maps[select.value];
+      const preset = catalog.find(({ presetKey }) => presetKey === select.value);
       if (!preset) return;
-      const controller = context.services.get<DungeonLabSessionController>(DUNGEON_LAB_SERVICES.sessionController);
       load.disabled = true;
-      status.textContent = `正在构建“${preset.name}”的完整 Session……`;
+      status.textContent = `正在加载“${preset.name}”……`;
       try {
-        const session = await controller.switchDungeon(preset.presetKey);
-        status.textContent = session
-          ? `Session #${session.sessionId} 已整体切换到“${preset.name}”。`
+        const result = await context.communication.request(dungeonMapSwitchRequest, {
+          presetKey: preset.presetKey,
+        });
+        status.textContent = result.loaded
+          ? `地图已切换到“${preset.name}”。`
           : '本次切换已被更新请求取代。';
         refresh();
       } catch (error) {
@@ -54,8 +55,11 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
         load.disabled = false;
       }
     });
-    const offChanged = context.events.on('dungeon:runtime-changed', refresh);
-    const offSession = context.events.on<DungeonSessionChangedEvent>('dungeon:session-changed', refresh);
-    return () => { offReady(); offChanged(); offSession(); };
+    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, refresh);
+    const offMap = context.communication.on(dungeonMapChangedEvent, refresh);
+    return {
+      start,
+      dispose() { offChanged(); offMap(); },
+    };
   },
 };

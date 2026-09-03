@@ -6,14 +6,14 @@ import { dungeonGridDebugLabModule } from './dungeonGridDebug.labModule';
 import { dungeonLibrariesLabModule } from './dungeonLibraries.labModule';
 import { dungeonObstacleLabModule } from './dungeonObstacle.labModule';
 import { dungeonRuntimeLabModule } from './dungeonRuntime.labModule';
-import { dungeonSessionLabModule } from './dungeonSession.labModule';
+import { dungeonMapLoaderLabModule } from './dungeonMapLoader.labModule';
 import { playerMovementLabModule } from './playerMovement.labModule';
 import { playerSpawnLabModule } from './playerSpawn.labModule';
 
 export const dungeonLabModuleCatalog: LabModuleCatalog = {
   [viewportLayersLabModule.id]: viewportLayersLabModule,
   [dungeonLibrariesLabModule.id]: dungeonLibrariesLabModule,
-  [dungeonSessionLabModule.id]: dungeonSessionLabModule,
+  [dungeonMapLoaderLabModule.id]: dungeonMapLoaderLabModule,
   [dungeonConfigLabModule.id]: dungeonConfigLabModule,
   [dungeonGridDebugLabModule.id]: dungeonGridDebugLabModule,
   [playerSpawnLabModule.id]: playerSpawnLabModule,
@@ -30,6 +30,6 @@ export * from './dungeonGridDebug.labModule';
 export * from './dungeonLibraries.labModule';
 export * from './dungeonObstacle.labModule';
 export * from './dungeonRuntime.labModule';
-export * from './dungeonSession.labModule';
+export * from './dungeonMapLoader.labModule';
 export * from './playerMovement.labModule';
 export * from './playerSpawn.labModule';

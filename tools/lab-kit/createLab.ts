@@ -1,6 +1,7 @@
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
 import { createRuntimeDataStore } from '@/core/runtime';
-import { LabEventBus } from './labEventBus';
+import { LabCommunication } from './labCommunication';
+import { createLabCommunicationLogPanel } from './labCommunicationLogPanel';
 import { LabServiceRegistry } from './labServiceRegistry';
 import type { CreateLabOptions, LabContext, LabHost, LabModule } from './labKit.types';
 import { LabUi } from './labUi';
@@ -67,8 +68,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
   const viewport = new LabViewportManager(stage, canvas, camera, () => engine.resize());
   stage.append(badge);
-  const events = new LabEventBus();
+  const communication = new LabCommunication();
   const services = new LabServiceRegistry();
+  const ui = new LabUi(panels, status);
+  const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
   const runtime = createRuntimeDataStore();
   const runtimeScopes = Object.freeze({
     game: runtime.createScope({ kind: 'game', key: 'main' }),
@@ -81,28 +84,45 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     camera,
     canvas,
     viewport,
-    events,
+    communication: communication.scope('lab:host'),
+    communicationJournal: communication.journal,
     services,
-    ui: new LabUi(panels, status),
+    ui,
   };
   const modules = resolveModules(options.modules, options.catalog);
   const cleanups: Array<() => void> = [];
+  const starts: Array<() => void | Promise<void>> = [];
 
   try {
     for (const module of modules) {
-      const cleanup = await module.setup(context);
-      if (cleanup) cleanups.unshift(cleanup);
+      const moduleCommunication = communication.scope(module.id);
+      let cleanup: void | (() => void);
+      try {
+        const result = await module.setup({ ...context, communication: moduleCommunication });
+        if (typeof result === 'function') cleanup = result;
+        else if (result) {
+          cleanup = result.dispose;
+          if (result.start) starts.push(result.start);
+        }
+      } catch (error) {
+        moduleCommunication.dispose();
+        throw error;
+      }
+      cleanups.unshift(() => {
+        try { cleanup?.(); } finally { moduleCommunication.dispose(); }
+      });
     }
+    for (const start of starts) await start();
     engine.runRenderLoop(() => {
       if (!viewport.isBabylonRenderingPaused) scene.render();
     });
     context.ui.setStatus(`已组合 ${modules.length} 个 Lab 模块。`);
-    await events.emit('lab:ready', undefined);
   } catch (error) {
     cleanups.forEach((cleanup) => cleanup());
     runtime.dispose();
     viewport.dispose();
-    events.clear();
+    disposeCommunicationLogPanel();
+    communication.dispose();
     services.clear();
     scene.dispose();
     engine.dispose();
@@ -119,7 +139,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       cleanups.forEach((cleanup) => cleanup());
       runtime.dispose();
       viewport.dispose();
-      events.clear();
+      disposeCommunicationLogPanel();
+      communication.dispose();
       services.clear();
       scene.dispose();
       engine.dispose();
