@@ -3,3 +3,8 @@ export * from './dungeonMap';
 export * from './dungeonMap.physics';
 export * from './dungeonMap.create';
 export * from './dungeonMap.topology';
+export * from './dungeonMap.definition.types';
+export * from './dungeonMap.definition';
+export * from './dungeonMap.delta.types';
+export * from './dungeonMap.delta';
+export * from './dungeonMapPresetRepository';

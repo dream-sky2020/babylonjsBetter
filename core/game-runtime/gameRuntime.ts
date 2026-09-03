@@ -1,4 +1,4 @@
-import { createDungeonDelta } from '../dungeon-delta';
+import { createDungeonRuntimeSaveState } from '../dungeon-runtime-save';
 import { createWorldRuntime } from '../world-runtime';
 import type { GameRuntime, GameRuntimeSnapshot } from './gameRuntime.types';
 
@@ -34,26 +34,26 @@ export const updateGameRuntime = (runtime: GameRuntime, deltaSeconds: number): v
 
 export const createGameRuntimeSnapshot = (runtime: GameRuntime): GameRuntimeSnapshot => {
   const world = runtime.activeWorld;
-  const dungeonDeltas = structuredClone(world.dungeonDeltas);
+  const dungeonSaveStates = structuredClone(world.dungeonSaveStates);
   const session = world.activeDungeonSession;
   if (session) {
-    const delta = createDungeonDelta(session.dungeonPresetKey, session.runtime, session.spawn);
-    if (delta) dungeonDeltas[session.dungeonPresetKey] = delta;
-    else delete dungeonDeltas[session.dungeonPresetKey];
+    const saveState = createDungeonRuntimeSaveState(session.dungeonPresetKey, session.runtime, session.spawn);
+    if (saveState) dungeonSaveStates[session.dungeonPresetKey] = saveState;
+    else delete dungeonSaveStates[session.dungeonPresetKey];
   }
   return {
-    version: 1,
+    version: 2,
     worldPresetKey: world.worldPresetKey,
     playTimeSeconds: Math.round(world.playTimeSeconds * 1000) / 1000,
     activeDungeonPresetKey: session?.dungeonPresetKey ?? null,
-    dungeonDeltas,
+    dungeonSaveStates,
   };
 };
 
 export const restoreGameRuntime = (snapshot: GameRuntimeSnapshot): GameRuntime => {
-  if (snapshot.version !== 1) throw new Error(`不支持 GameRuntime 存档版本 ${String(snapshot.version)}。`);
+  if (snapshot.version !== 2) throw new Error(`不支持 GameRuntime 存档版本 ${String(snapshot.version)}。`);
   const runtime = createGameRuntime(snapshot.worldPresetKey);
   runtime.activeWorld.playTimeSeconds = requireTime(snapshot.playTimeSeconds);
-  runtime.activeWorld.dungeonDeltas = structuredClone(snapshot.dungeonDeltas);
+  runtime.activeWorld.dungeonSaveStates = structuredClone(snapshot.dungeonSaveStates);
   return runtime;
 };

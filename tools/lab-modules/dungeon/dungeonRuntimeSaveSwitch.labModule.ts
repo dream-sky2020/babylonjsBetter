@@ -8,21 +8,21 @@ import {
   type DungeonSessionChangedEvent,
 } from './dungeonLab.types';
 
-export const dungeonDeltaSwitchLabModule: LabModule = {
-  id: 'dungeon-delta-switch',
+export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
+  id: 'dungeon-runtime-save-switch',
   dependencies: ['game-runtime', 'dungeon-obstacle', 'player-movement'],
   setup(context) {
-    const panel = context.ui.addPanel('dungeon-delta-switch', '地牢切换与差分存档');
+    const panel = context.ui.addPanel('dungeon-runtime-save-switch', '地牢运行时存档切换');
     const select = document.createElement('select');
     const load = document.createElement('button');
     load.type = 'button';
     load.textContent = '原子切换到所选地牢';
     const json = createLabJson('{}');
     const status = createLabStatus('等待 DungeonSessionController……');
-    panel.content.append(createLabField('目标地牢', select), load, createLabField('已保存 dungeonDeltas', json), status);
+    panel.content.append(createLabField('目标地牢', select), load, createLabField('已保存 dungeonSaveStates', json), status);
     const refresh = () => {
       const world = context.services.find<WorldRuntime>(WORLD_LAB_SERVICES.runtime);
-      json.textContent = JSON.stringify(world?.dungeonDeltas ?? {}, null, 2);
+      json.textContent = JSON.stringify(world?.dungeonSaveStates ?? {}, null, 2);
     };
     const offReady = context.events.on('lab:ready', () => {
       const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
@@ -32,7 +32,7 @@ export const dungeonDeltaSwitchLabModule: LabModule = {
         option.textContent = `${preset.name} · ${preset.presetKey}`;
         return option;
       }));
-      status.textContent = '修改当前 Session 后切换；提交时所有地图数据、Debug 与阻碍会一起更新。';
+      status.textContent = '修改当前运行态后切换；返回时恢复玩家与阻碍的动态存档。';
       refresh();
     });
     load.addEventListener('click', async () => {

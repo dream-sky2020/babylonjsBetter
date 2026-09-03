@@ -1,5 +1,5 @@
-import { createDungeonDelta } from '../dungeon-delta';
-import { setWorldRuntimeDungeonDelta } from '../world-runtime';
+import { createDungeonRuntimeSaveState } from '../dungeon-runtime-save';
+import { setWorldRuntimeDungeonSaveState } from '../world-runtime';
 import { createDungeonSession, disposeDungeonSession } from './createDungeonSession';
 import type {
   DungeonSession,
@@ -24,18 +24,18 @@ export class DungeonSessionController {
     return () => this.listeners.delete(listener);
   }
 
-  private saveDelta(session: DungeonSession): void {
-    setWorldRuntimeDungeonDelta(
+  private saveRuntimeState(session: DungeonSession): void {
+    setWorldRuntimeDungeonSaveState(
       this.options.worldRuntime,
       session.dungeonPresetKey,
-      createDungeonDelta(session.dungeonPresetKey, session.runtime, session.spawn),
+      createDungeonRuntimeSaveState(session.dungeonPresetKey, session.runtime, session.spawn),
     );
   }
 
   async switchDungeon(dungeonPresetKey: string): Promise<DungeonSession | null> {
     const generation = ++this.generation;
     const previous = this.current;
-    if (previous) this.saveDelta(previous);
+    if (previous) this.saveRuntimeState(previous);
     const next = await createDungeonSession(this.options, dungeonPresetKey, generation);
     if (generation !== this.generation) {
       disposeDungeonSession(next);
@@ -55,7 +55,7 @@ export class DungeonSessionController {
     this.generation += 1;
     const current = this.current;
     if (current) {
-      this.saveDelta(current);
+      this.saveRuntimeState(current);
       disposeDungeonSession(current);
       this.options.worldRuntime.activeDungeonSession = null;
     }

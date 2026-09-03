@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   createDungeonMapData,
+  encodeDungeonMapPresetLibrary,
+  loadDungeonMapPresetLibrary,
   validateDungeonMapData,
   type DungeonMapData,
   type DungeonMapContainerCoordinates,
@@ -583,12 +585,10 @@ export const DungeonMapCanvasLab: React.FC = () => {
 
   useEffect(() => {
     let active = true;
-    requestDevServer(`/api/dungeon-map-presets?t=${Date.now()}`, { method: 'GET' })
-      .then(async (response) => {
-        const result = await response.json() as { success?: boolean; data?: unknown; message?: string; errors?: string[] };
-        if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
+    loadDungeonMapPresetLibrary()
+      .then((loadedLibrary) => {
         if (!active) return;
-        const library = normalizedPresetLibrary(result.data);
+        const library = normalizedPresetLibrary(loadedLibrary);
         setMapPresets(library);
         const first = Object.values(library)[0];
         if (first) {
@@ -754,13 +754,13 @@ export const DungeonMapCanvasLab: React.FC = () => {
       const response = await requestDevServer('/api/dungeon-map-presets', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(encodeDungeonMapPresetLibrary(payload)),
       });
       const result = await response.json() as { success?: boolean; message?: string; errors?: string[] };
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
       setMapPresets(payload);
       setPresetError(false);
-      setPresetMessage(`已保存 ${Object.keys(payload).length} 个地图预设到 config/dungeonMapPresets.json。`);
+      setPresetMessage(`已保存 ${Object.keys(payload).length} 个独立地图文件到 config/dungeonMapPresets/。`);
     } catch (error) {
       setPresetError(true);
       setPresetMessage(`地图预设保存失败：${error instanceof Error ? error.message : String(error)}`);

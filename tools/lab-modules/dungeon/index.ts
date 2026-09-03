@@ -1,7 +1,7 @@
 import type { LabModuleCatalog } from '@/tools/lab-kit';
 import { viewportLayersLabModule } from '@/tools/lab-modules/shared/viewportLayers.labModule';
 import { dungeonConfigLabModule } from './dungeonConfig.labModule';
-import { dungeonDeltaSwitchLabModule } from './dungeonDeltaSwitch.labModule';
+import { dungeonRuntimeSaveSwitchLabModule } from './dungeonRuntimeSaveSwitch.labModule';
 import { dungeonGridDebugLabModule } from './dungeonGridDebug.labModule';
 import { dungeonLibrariesLabModule } from './dungeonLibraries.labModule';
 import { dungeonObstacleLabModule } from './dungeonObstacle.labModule';
@@ -20,12 +20,12 @@ export const dungeonLabModuleCatalog: LabModuleCatalog = {
   [dungeonRuntimeLabModule.id]: dungeonRuntimeLabModule,
   [dungeonObstacleLabModule.id]: dungeonObstacleLabModule,
   [playerMovementLabModule.id]: playerMovementLabModule,
-  [dungeonDeltaSwitchLabModule.id]: dungeonDeltaSwitchLabModule,
+  [dungeonRuntimeSaveSwitchLabModule.id]: dungeonRuntimeSaveSwitchLabModule,
 };
 
 export * from './dungeonLab.types';
 export * from './dungeonConfig.labModule';
-export * from './dungeonDeltaSwitch.labModule';
+export * from './dungeonRuntimeSaveSwitch.labModule';
 export * from './dungeonGridDebug.labModule';
 export * from './dungeonLibraries.labModule';
 export * from './dungeonObstacle.labModule';

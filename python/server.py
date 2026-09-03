@@ -4,6 +4,7 @@ import mimetypes
 import os
 import json
 import socket
+import re
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -67,7 +68,8 @@ MODEL_SWING_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelSwingConfig
 MODEL_SHOOT_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShootConfigs.json")
 BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
 AVATAR_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "avatarConfigs.json")
-DUNGEON_MAP_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "dungeonMapPresets.json")
+DUNGEON_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dungeonMapPresets")
+DUNGEON_MAP_PRESET_INDEX_PATH = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, "index.json")
 WORLD_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "worldPresets.json")
 SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
 SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
@@ -372,9 +374,90 @@ def handle_sprite_ash_presets():
 @app.route("/api/monster-dissolve-presets", methods=["GET", "PUT"])
 def handle_monster_dissolve_presets():
     return _handle_json_config(MONSTER_DISSOLVE_PRESET_CONFIG_PATH, validate_sprite_ash_preset_payload, "monster dissolve presets")
+def _read_dungeon_map_catalog():
+    if not os.path.isfile(DUNGEON_MAP_PRESET_INDEX_PATH):
+        return {"version": 1, "presets": {}}
+    with open(DUNGEON_MAP_PRESET_INDEX_PATH, "r", encoding="utf-8") as file:
+        catalog = json.load(file)
+    if not isinstance(catalog, dict) or catalog.get("version") != 1 or not isinstance(catalog.get("presets"), dict):
+        raise ValueError("dungeon map preset index is invalid")
+    return catalog
+
+def _dungeon_map_preset_file_name(preset_key: str) -> str:
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", preset_key):
+        raise ValueError(f'dungeon map preset key "{preset_key}" is not storage-safe')
+    return f"{preset_key}.json"
+
 @app.route("/api/dungeon-map-presets", methods=["GET", "PUT"])
 def handle_dungeon_map_presets():
-    return _handle_json_config(DUNGEON_MAP_PRESET_CONFIG_PATH, validate_dungeon_map_preset_payload, "dungeon map presets")
+    if request.method == "GET":
+        try:
+            catalog = _read_dungeon_map_catalog()
+            return jsonify({"success": True, "count": len(catalog["presets"]), "data": catalog})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read dungeon map preset index: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    errors = validate_dungeon_map_preset_payload(payload)
+    if not errors and isinstance(payload, dict):
+        for preset_key in payload:
+            try: _dungeon_map_preset_file_name(preset_key)
+            except ValueError as exc: errors.append(str(exc))
+    if errors:
+        return jsonify({"success": False, "message": "dungeon map presets validation failed", "errors": errors[:50]}), 400
+    try:
+        os.makedirs(DUNGEON_MAP_PRESET_CONFIG_DIR, exist_ok=True)
+        catalog = {"version": 1, "presets": {}}
+        expected_files = {"index.json"}
+        for preset_key, preset in payload.items():
+            file_name = _dungeon_map_preset_file_name(preset_key)
+            expected_files.add(file_name)
+            catalog["presets"][preset_key] = {
+                "presetKey": preset_key,
+                "name": preset["name"],
+                "file": file_name,
+            }
+            preset_path = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, file_name)
+            temp_path = f"{preset_path}.tmp"
+            with open(temp_path, "w", encoding="utf-8") as file:
+                json.dump(preset, file, ensure_ascii=False, indent=2)
+            os.replace(temp_path, preset_path)
+
+        index_temp_path = f"{DUNGEON_MAP_PRESET_INDEX_PATH}.tmp"
+        with open(index_temp_path, "w", encoding="utf-8") as file:
+            json.dump(catalog, file, ensure_ascii=False, indent=2)
+        os.replace(index_temp_path, DUNGEON_MAP_PRESET_INDEX_PATH)
+
+        for file_name in os.listdir(DUNGEON_MAP_PRESET_CONFIG_DIR):
+            if file_name.endswith(".json") and file_name not in expected_files:
+                os.remove(os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, file_name))
+        return jsonify({
+            "success": True,
+            "count": len(payload),
+            "path": normalize_slashes(DUNGEON_MAP_PRESET_CONFIG_DIR),
+        })
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write dungeon map presets: {exc}"}), 500
+
+@app.route("/api/dungeon-map-presets/<preset_key>", methods=["GET"])
+def handle_dungeon_map_preset(preset_key: str):
+    try:
+        catalog = _read_dungeon_map_catalog()
+        entry = catalog["presets"].get(preset_key)
+        if not isinstance(entry, dict):
+            return jsonify({"success": False, "message": f'dungeon map preset "{preset_key}" does not exist'}), 404
+        file_name = entry.get("file")
+        if file_name != _dungeon_map_preset_file_name(preset_key):
+            raise ValueError(f'dungeon map preset "{preset_key}" file does not match its key')
+        preset_path = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, file_name)
+        with open(preset_path, "r", encoding="utf-8") as file:
+            preset = json.load(file)
+        errors = validate_dungeon_map_preset_payload({preset_key: preset})
+        if errors:
+            return jsonify({"success": False, "message": "dungeon map preset validation failed", "errors": errors[:50]}), 500
+        return jsonify({"success": True, "data": preset})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to read dungeon map preset: {exc}"}), 500
 
 @app.route("/api/world-presets", methods=["GET", "PUT"])
 def handle_world_presets():

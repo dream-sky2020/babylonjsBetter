@@ -58,6 +58,37 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
             errors.append(f"{path}.map.height must be a positive integer")
         if map_data.get("topologyMode", "bounded") not in valid_topologies:
             errors.append(f"{path}.map.topologyMode is invalid")
+        if map_data.get("format") == "definition-refs":
+            if map_data.get("version") != 1:
+                errors.append(f"{path}.map.version must be 1")
+            definitions = map_data.get("dataDefinitions")
+            if not isinstance(definitions, list):
+                errors.append(f"{path}.map.dataDefinitions must be an array")
+                definitions = []
+            definition_count = len(definitions)
+            def valid_ref(value): return isinstance(value, int) and not isinstance(value, bool) and -1 <= value < definition_count
+            if not valid_ref(map_data.get("mapDataDefinitionRef")):
+                errors.append(f"{path}.map.mapDataDefinitionRef is invalid")
+            tile_refs = map_data.get("tileDataDefinitionRefs")
+            expected_tiles = width * height if isinstance(width, int) and isinstance(height, int) else None
+            if not isinstance(tile_refs, list) or expected_tiles is not None and len(tile_refs) != expected_tiles:
+                errors.append(f"{path}.map.tileDataDefinitionRefs length must equal width * height")
+            elif any(not valid_ref(value) for value in tile_refs):
+                errors.append(f"{path}.map.tileDataDefinitionRefs contains an invalid reference")
+            edge_layers = map_data.get("tileEdgeDataDefinitionRefs")
+            if not isinstance(edge_layers, list) or len(edge_layers) != 4:
+                errors.append(f"{path}.map.tileEdgeDataDefinitionRefs must contain east, south, west and north arrays")
+            else:
+                for direction_index, layer in enumerate(edge_layers):
+                    if not isinstance(layer, list) or expected_tiles is not None and len(layer) != expected_tiles:
+                        errors.append(f"{path}.map.tileEdgeDataDefinitionRefs[{direction_index}] length must equal width * height")
+                    elif any(not valid_ref(value) for value in layer):
+                        errors.append(f"{path}.map.tileEdgeDataDefinitionRefs[{direction_index}] contains an invalid reference")
+            if not isinstance(map_data.get("sharedEdges"), list):
+                errors.append(f"{path}.map.sharedEdges must be an array")
+            if not isinstance(map_data.get("sharedPoints"), list):
+                errors.append(f"{path}.map.sharedPoints must be an array")
+            continue
         tiles = map_data.get("tiles")
         if not isinstance(tiles, list):
             errors.append(f"{path}.map.tiles must be an array")

@@ -26,7 +26,7 @@ export type DungeonSession = {
   readonly spawn: DungeonPlayerSpawnBinding;
   readonly runtime: DungeonRuntime;
   readonly obstacles: readonly DungeonObstacleBinding[];
-  readonly deltaWarnings: readonly string[];
+  readonly runtimeSaveWarnings: readonly string[];
 };
 
 export type DungeonSessionChanged = {
