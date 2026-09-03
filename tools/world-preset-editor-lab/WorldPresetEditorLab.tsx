@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { loadConfig } from '@/core/config';
-import type { DungeonMapPresetLibrary } from '@/core/map';
+import { loadDungeonMapPresetLibrary, type DungeonMapPresetLibrary } from '@/core/map';
 import { requestDevServer } from '@/core/network/devServerPortResolver';
 import { parseWorldPresetLibrary, resolveInitialDungeon, type WorldPreset, type WorldPresetLibrary } from '@/core/world';
 import { EntityContainerEditor, createEntityFromDefinition, entityTypeRegistry } from '@/tools/entity-container-editor';
@@ -32,7 +31,7 @@ export const WorldPresetEditorLab = () => {
         if (!response.ok || result.success === false) throw new Error(result.message ?? `HTTP ${response.status}`);
         return parseWorldPresetLibrary(result.data);
       }),
-      loadConfig<DungeonMapPresetLibrary>('dungeonMapPresets.json'),
+      loadDungeonMapPresetLibrary(),
     ]).then(([library, dungeonLibrary]) => {
       if (!mounted) return;
       setWorlds(library); setActiveKey(Object.keys(library)[0] ?? ''); setDungeons(dungeonLibrary);

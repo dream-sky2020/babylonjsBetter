@@ -1,4 +1,4 @@
-import type { DungeonDelta } from '../dungeon-delta';
+import type { DungeonRuntimeSaveState } from '../dungeon-runtime-save';
 import type { WorldRuntime } from './worldRuntime.types';
 
 export const createWorldRuntime = (worldPresetKey: string): WorldRuntime => {
@@ -9,15 +9,15 @@ export const createWorldRuntime = (worldPresetKey: string): WorldRuntime => {
     playTimeSeconds: 0,
     playTimeRunning: false,
     activeDungeonSession: null,
-    dungeonDeltas: {},
+    dungeonSaveStates: {},
   };
 };
 
-export const setWorldRuntimeDungeonDelta = (
+export const setWorldRuntimeDungeonSaveState = (
   runtime: WorldRuntime,
   dungeonPresetKey: string,
-  delta: DungeonDelta | null,
+  saveState: DungeonRuntimeSaveState | null,
 ): void => {
-  if (delta) runtime.dungeonDeltas[dungeonPresetKey] = delta;
-  else delete runtime.dungeonDeltas[dungeonPresetKey];
+  if (saveState) runtime.dungeonSaveStates[dungeonPresetKey] = saveState;
+  else delete runtime.dungeonSaveStates[dungeonPresetKey];
 };

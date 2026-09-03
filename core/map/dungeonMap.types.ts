@@ -192,6 +192,19 @@ export type DungeonMapPreset = {
 
 export type DungeonMapPresetLibrary = Record<string, DungeonMapPreset>;
 
+/** 地图预设目录只保存定位和显示所需的轻量信息，不内嵌地图内容。 */
+export type DungeonMapPresetCatalogEntry = {
+  presetKey: string;
+  name: string;
+  /** 相对于 config/dungeonMapPresets/ 的 JSON 文件名。 */
+  file: string;
+};
+
+export type DungeonMapPresetCatalog = {
+  version: 1;
+  presets: Record<string, DungeonMapPresetCatalogEntry>;
+};
+
 export type DungeonMapMarker = {
   id: string;
   x: number;

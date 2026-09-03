@@ -46,10 +46,10 @@ export const dungeonSessionLabModule: LabModule = {
           mapId: current.preset.map.id,
           mapSize: [current.preset.map.width, current.preset.map.height],
           obstacleIds: current.obstacles.map(({ entity }) => entity.id),
-          deltaWarnings: current.deltaWarnings,
+          runtimeSaveWarnings: current.runtimeSaveWarnings,
         }, null, 2);
-        status.textContent = current.deltaWarnings.length
-          ? `Session 已提交；${current.deltaWarnings.join(' ')}`
+        status.textContent = current.runtimeSaveWarnings.length
+          ? `Session 已提交；${current.runtimeSaveWarnings.join(' ')}`
           : `Session 已原子切换到“${current.preset.name}”。`;
         await context.events.emit('dungeon:session-changed', { previous, current });
       });

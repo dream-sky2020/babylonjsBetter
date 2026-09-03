@@ -26,5 +26,5 @@ export * from './game-time';
 export * from './game-runtime';
 export * from './world-runtime';
 export * from './dungeon-runtime';
-export * from './dungeon-delta';
+export * from './dungeon-runtime-save';
 export * from './dungeon-session';

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
@@ -6,7 +6,7 @@ import fsp from 'fs/promises'
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
-const DUNGEON_MAP_PRESETS_PATH = path.resolve(CONFIG_DIR, 'dungeonMapPresets.json')
+const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
 
 const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
   if (!fs.existsSync(dir)) return []
@@ -54,7 +54,7 @@ const RESOLVED_MODEL_ASSETS_MODULE_ID = '\0' + MODEL_ASSETS_MODULE_ID
 const RESOURCE_ASSETS_MODULE_ID = 'virtual:app-resource-assets'
 const RESOLVED_RESOURCE_ASSETS_MODULE_ID = '\0' + RESOURCE_ASSETS_MODULE_ID
 
-const sharedConfigPlugin = () => ({
+const sharedConfigPlugin = (): Plugin => ({
   name: 'shared-config-public-bridge',
   resolveId(id: string) {
     if (id === MODEL_ASSETS_MODULE_ID) return RESOLVED_MODEL_ASSETS_MODULE_ID
@@ -66,14 +66,19 @@ const sharedConfigPlugin = () => ({
     if (id === RESOLVED_RESOURCE_ASSETS_MODULE_ID) return `export default ${JSON.stringify(await collectResourceAssets())}`
     return null
   },
-  handleHotUpdate(context: { file: string }) {
-    // Dungeon Map Canvas Lab 会主动把当前编辑状态同步到本地 React state；
-    // 禁止该写回再次触发 Vite HMR，否则整张编辑器页面会被重新创建。
-    if (path.resolve(context.file) === DUNGEON_MAP_PRESETS_PATH) return []
-    return undefined
+  hotUpdate: {
+    // Vite 8 的 import.meta.glob 会在文件 create/delete 后追加受影响模块；
+    // 使用 post hook 才能在内置 glob hook 之后阻止整页刷新。
+    order: 'post',
+    handler({ file }) {
+      const changedPath = path.resolve(file)
+      if (changedPath === DUNGEON_MAP_PRESETS_DIR
+        || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
+      return undefined
+    },
   },
-  configureServer(server: any) {
-    server.middlewares.use((req: any, res: any, next: any) => {
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
       const url = req.url ?? ''
       if (url.split('?')[0] === '/api/model-assets') {
         void collectModelAssets().then((assets) => {
@@ -115,7 +120,7 @@ const sharedConfigPlugin = () => ({
       fs.createReadStream(absPath).pipe(res)
     })
   },
-  async writeBundle(options: any) {
+  async writeBundle(options) {
     const outDir = options.dir ?? path.resolve(__dirname, 'dist')
     if (fs.existsSync(CONFIG_DIR)) {
       const outDataDir = path.join(outDir, 'config')
@@ -191,7 +196,7 @@ export default defineConfig({
         worldPresetEditorLab: path.resolve(__dirname, 'tools/world-preset-editor-lab/index.html'),
         dungeonSceneLoaderLab: path.resolve(__dirname, 'tools/dungeon-scene-loader-lab/index.html'),
         worldLoaderLab: path.resolve(__dirname, 'tools/world-loader-lab/index.html'),
-        dungeonDeltaSwitchingLab: path.resolve(__dirname, 'tools/dungeon-delta-switching-lab/index.html'),
+        dungeonRuntimeSaveSwitchingLab: path.resolve(__dirname, 'tools/dungeon-runtime-save-switching-lab/index.html'),
         dungeonObstacleLab: path.resolve(__dirname, 'tools/dungeon-obstacle-lab/index.html'),
         dungeonPlayerSpawnLab: path.resolve(__dirname, 'tools/dungeon-player-spawn-lab/index.html'),
         dungeonPlayerMovementLab: path.resolve(__dirname, 'tools/dungeon-player-movement-lab/index.html'),

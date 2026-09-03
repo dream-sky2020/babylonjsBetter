@@ -1,4 +1,4 @@
-import { applyDungeonDelta } from '../dungeon-delta';
+import { applyDungeonRuntimeSaveState } from '../dungeon-runtime-save';
 import { scanDungeonObstacles } from '../dungeon-obstacle';
 import { resolveDungeonPlayerSpawn } from '../dungeon-player-spawn';
 import { createDungeonRuntime } from '../dungeon-runtime';
@@ -26,9 +26,9 @@ export const createDungeonSession = async (
   try {
     const spawn = resolveDungeonPlayerSpawn(preset.map, options.libraries.environments);
     const runtime = createDungeonRuntime(preset.map, spawn);
-    const delta = options.worldRuntime.dungeonDeltas[dungeonPresetKey];
-    const deltaWarnings = delta
-      ? applyDungeonDelta(runtime, delta, (position) => resolveDungeonMapTileWorldLayout(
+    const saveState = options.worldRuntime.dungeonSaveStates[dungeonPresetKey];
+    const runtimeSaveWarnings = saveState
+      ? applyDungeonRuntimeSaveState(runtime, saveState, (position) => resolveDungeonMapTileWorldLayout(
         spawn.sceneEnvironmentComponent,
         preset.map.width,
         preset.map.height,
@@ -46,7 +46,7 @@ export const createDungeonSession = async (
       spawn,
       runtime,
       obstacles,
-      deltaWarnings,
+      runtimeSaveWarnings,
     };
   } catch (error) {
     instance.dispose();
