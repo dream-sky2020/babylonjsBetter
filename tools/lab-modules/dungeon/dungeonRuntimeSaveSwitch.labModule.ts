@@ -1,16 +1,15 @@
-import type { WorldRuntime } from '@/core/world-runtime';
-import { WORLD_LAB_SERVICES } from '@/tools/lab-modules/world/worldLab.types';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapCatalogRequest,
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
+  dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
 } from './dungeonLab.types';
 
 export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
   id: 'dungeon-runtime-save-switch',
-  dependencies: ['game-runtime', 'dungeon-obstacle', 'player-movement'],
+  dependencies: ['dungeon-obstacle', 'player-movement'],
   setup(context) {
     const panel = context.ui.addPanel('dungeon-runtime-save-switch', '地牢运行时存档切换');
     const select = document.createElement('select');
@@ -20,9 +19,9 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
     const json = createLabJson('{}');
     const status = createLabStatus('等待地图加载器……');
     panel.content.append(createLabField('目标地牢', select), load, createLabField('已保存 dungeonSaveStates', json), status);
-    const refresh = () => {
-      const world = context.services.find<WorldRuntime>(WORLD_LAB_SERVICES.runtime);
-      json.textContent = JSON.stringify(world?.dungeonSaveStates ?? {}, null, 2);
+    const refresh = async () => {
+      const saveStates = await context.communication.request(dungeonRuntimeSaveStatesRequest, undefined);
+      json.textContent = JSON.stringify(saveStates, null, 2);
     };
     let catalog: readonly { presetKey: string; name: string }[] = [];
     const start = async () => {
@@ -34,7 +33,7 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
         return option;
       }));
       status.textContent = '修改当前运行态后切换；返回时恢复玩家与阻碍的动态存档。';
-      refresh();
+      await refresh();
     };
     load.addEventListener('click', async () => {
       const preset = catalog.find(({ presetKey }) => presetKey === select.value);
@@ -48,15 +47,15 @@ export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
         status.textContent = result.loaded
           ? `地图已切换到“${preset.name}”。`
           : '本次切换已被更新请求取代。';
-        refresh();
+        await refresh();
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : String(error);
       } finally {
         load.disabled = false;
       }
     });
-    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, refresh);
-    const offMap = context.communication.on(dungeonMapChangedEvent, refresh);
+    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => { void refresh(); });
+    const offMap = context.communication.on(dungeonMapChangedEvent, () => { void refresh(); });
     return {
       start,
       dispose() { offChanged(); offMap(); },

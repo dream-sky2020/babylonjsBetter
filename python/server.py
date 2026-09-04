@@ -26,7 +26,7 @@ from utils import (
     validate_monster_special_status_position_payload, validate_monster_battlefield_formation_payload,
     validate_monster_battlefield_stripe_rule_payload, validate_monster_movement_config_payload,
     validate_monster_attack_config_payload, validate_monster_death_config_payload, validate_sprite_ash_preset_payload, validate_monster_status_particle_config_payload,
-    validate_avatar_config_payload, validate_dungeon_map_preset_payload, validate_world_preset_payload
+    validate_avatar_config_payload, validate_dungeon_map_preset_payload
 )
 
 app = Flask(__name__)
@@ -70,7 +70,6 @@ BULLET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "bulletConfigs.json")
 AVATAR_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "avatarConfigs.json")
 DUNGEON_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dungeonMapPresets")
 DUNGEON_MAP_PRESET_INDEX_PATH = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, "index.json")
-WORLD_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "worldPresets.json")
 SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
 SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
@@ -458,10 +457,6 @@ def handle_dungeon_map_preset(preset_key: str):
         return jsonify({"success": True, "data": preset})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to read dungeon map preset: {exc}"}), 500
-
-@app.route("/api/world-presets", methods=["GET", "PUT"])
-def handle_world_presets():
-    return _handle_json_config(WORLD_PRESET_CONFIG_PATH, validate_world_preset_payload, "world presets")
 
 @app.route("/api/scene-environment-presets", methods=["GET"])
 def handle_scene_environment_presets():

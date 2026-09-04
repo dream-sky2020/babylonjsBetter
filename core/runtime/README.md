@@ -1,7 +1,7 @@
 # Runtime Store
 
 `core/runtime/` 是业务无关的中央浅数据容器。目前不会自动替代
-`GameRuntime`、`WorldRuntime` 或 `DungeonRuntime`。
+`DungeonRuntime` 或其他业务模块私有状态。
 
 组合式 Lab 不应自行调用 `createRuntimeDataStore()`；`createLab()` 已为每个页面创建独立实例，并通过 `context.runtime` 提供给所有模块。
 
