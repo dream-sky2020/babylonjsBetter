@@ -1,11 +1,13 @@
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapCatalogRequest,
+} from '../dungeon-libraries/dungeonLibraries.protocol';
+import {
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
   dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
-} from './dungeonLab.types';
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
 
 export const dungeonRuntimeSaveSwitchLabModule: LabModule = {
   id: 'dungeon-runtime-save-switch',

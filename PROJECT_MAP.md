@@ -1,4 +1,14 @@
 # Babylon.js Better 项目地图
+## 2026-09-04：Lab Module 独立目录
+
+`tools/lab-modules/dungeon/` 下每个可独立引用的模块均拥有与 Module ID 对应的独立目录和公开 `index.ts`；目录内部暂时保留原 `.labModule.ts` 文件名。Dungeon catalog 只从各模块目录入口导入，页面继续只引用总 catalog。共享的 `viewport-layers` 同样完成目录化。
+
+原集中式 `dungeonLab.types.ts` 已删除。地图目录协议及 Libraries 服务 Key 归 `dungeon-libraries/dungeonLibraries.protocol.ts`；地图切换、地图与 Runtime 变化、Runtime commit 和存档查询归 `dungeon-map-loader/dungeonMapLoader.protocol.ts`；Loader 的活引用与对应服务 Key 归 `dungeon-map-loader/dungeonMapLoader.references.ts`。消费者直接导入所有者文件，各模块目录的 `index.ts` 统一公开本模块 API。
+
+`dungeon-map-loader` 通过 `dungeonMapLoader.references.ts` 注册唯一、稳定、只读的 `DungeonMapLoaderReferences`。Loader 在地图完全装载成功后原子替换 `current`，一次提交 map、scene binding、spawn、runtime 和 obstacles；各消费模块只在 `setup()` 时从 Service Registry 获取一次 Reader，后续直接读取该引用。Babylon 场景实例仍是 Loader 私有生命周期资源。阻碍 Debug 盒布局已从 `core/dungeon-obstacle` 移至 `tools/lab-modules/dungeon/dungeon-obstacle/`，Core 只保留正式阻碍规则。
+
+`tools/lab-modules/coreLabBoundary.test.ts` 保护当前参与组合式 Dungeon Lab 的 Core 依赖，禁止其反向导入 Lab、访问 Lab 通信/服务/UI、直接操作 DOM，或自行注册中央 Runtime 内存；`core/dungeon-runtime` 自身的运行态数据与更新逻辑继续保留。
+
 ## 2026-09-03：移除 World 抽象与兼容运行时
 
 `WorldPreset`、`WorldRuntime`、旧 `GameRuntime` 兼容层、World Loader Lab 与 World Preset Editor Lab 已删除。组合式 Lab 本身负责选择模块和初始地图；`dungeon-map-loader` 直接持有当前地图、`DungeonRuntime`、Spawn 与按地图 Key 保存的 `DungeonRuntimeSaveState`，并通过 `dungeon.runtime-save-states.get` 提供只读存档查询。
@@ -9,7 +19,7 @@
 
 `core/dungeon-session/`、`DungeonSession`、`DungeonSessionController` 与旧 session 事件已全部删除。
 
-组合式 Lab 使用无 Session 返回值的 `dungeon-map-loader`：切换成功后分别注册 scene binding、spawn、runtime、obstacles 服务，并发送轻量 `dungeon.map.changed`。Babylon 地图实例仅由 loader 内部持有和释放；地图切换仍使用 generation 丢弃过期异步结果。
+组合式 Lab 使用无 Session 返回值的 `dungeon-map-loader`：切换成功后原子提交包含 map、scene binding、spawn、runtime、obstacles 的只读引用快照，并发送轻量 `dungeon.map.changed`。Babylon 地图实例仅由 loader 内部持有和释放；地图切换仍使用 generation 丢弃过期异步结果。
 
 ## 2026-09-03：地图 Definition 引用数组稀疏 Delta 核心
 
@@ -58,7 +68,7 @@ Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同�
 `tools/dungeon-map-canvas-lab/` 保存 `config/dungeonMapPresets/` 后继续使用当前 React 编辑状态，不重新读取预设。`vite.config.ts` 的 `shared-config-public-bridge.hotUpdate` post hook 对该目录内的变更返回空更新列表，避免配置写回触发 Vite HMR、重建整个地图编辑器界面。其他配置文件的热更新行为保持不变。
 ## 2026-09-01：地图加载器
 
-`tools/lab-modules/dungeon/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并直接恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才提交各项服务与当前引用。
+`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并直接恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才提交各项服务与当前引用。
 
 旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:map-changed`，再从各自服务读取数据。旧 Babylon 地图实例在新地图消费者完成重建后释放；过期的异步装载结果会立即释放且不会提交。
 ## 2026-09-01：地牢运行时存档
@@ -281,7 +291,7 @@ config/monsterDisplayConfigs.json
 - `core/dungeon-player-spawn/`：从地图容器读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
 - `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置、离散朝向、支持小数的连续 3D 世界位置/Y 轴旋转、当前移动过渡与 `obstacleStates` 启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
 - `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
-- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停，并计算仅供开发观察的近似 3D Debug 盒；独立边盒沿所属格子的内侧边缘放置，长度约为对应格子边的 72%、厚度约为格子短边的 12%；公用边盒仍以完整边长和约 4% 的细线位于格子间隔边界，避免两类数据在 Debug 视图中混淆。
+- `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停并判断跨格移动阻碍。仅供开发观察的近似 3D Debug 盒布局归 `tools/lab-modules/dungeon/dungeon-obstacle/dungeonObstacleDebugLayout.ts`：独立边盒位于所属格子内侧，公用边盒位于格子间隔边界。
 - `core/entity/entity-types/spawn-point.entity-type.ts`：只能创建在地图数据容器中的出生点 Entity；默认附带 `actor-spawn`。`actor-spawn` 只能挂载到 `spawn-point` Entity，并以 `tileX/tileY` 保存出生格坐标；加载时无需扫描全部格子。
 - `core/entity/entity-types/obstacle.entity-type.ts`：只能创建在格子、独立边或公用边数据容器中的阻碍 Entity；默认且必须附带 `movement-obstacle`，其 `activeByDefault` 决定 Runtime 初始启停状态。
 - `core/tracking/`：UI 与 3D 世界位置跟踪。
@@ -298,7 +308,7 @@ config/monsterDisplayConfigs.json
 | 模块 ID | 直接依赖 | 装配职责 |
 | --- | --- | --- |
 | `dungeon-libraries` | 无 | 只读加载地图、场景环境和阴影配置库 |
-| `dungeon-map-loader` | `dungeon-libraries` | 组合地图场景、Spawn、Runtime 与阻碍 Core，分别提交服务 |
+| `dungeon-map-loader` | `dungeon-libraries` | 组合地图场景、Spawn、Runtime 与阻碍 Core，原子提交只读活引用快照 |
 | `dungeon-config` | `dungeon-map-loader` | 普通 Dungeon Lab 的地图选择器，调用 loader 切换地图 |
 | `dungeon-grid-debug` | `dungeon-map-loader` | 消费活地图与 Scene Binding，重建全部格子的 3D Debug |
 | `player-spawn` | `dungeon-map-loader` | 读取 Spawn 服务并展示出生格 Debug |
@@ -324,12 +334,12 @@ dungeon-libraries → dungeon-map-loader
 lab:ready / 用户选择地牢
   → DungeonLabMapLoader.switchDungeon(key)
   → 分别创建地图场景、Spawn、Runtime 与阻碍
-  → DungeonMapLoader 提交当前地图引用与独立服务
+  → DungeonMapLoader 原子替换当前 LoadedDungeonReferences
   → dungeon:map-changed
   → dungeon:runtime-changed（移动、转向或阻碍状态变化时重复）
 ```
 
-跨模块长期对象以 `DUNGEON_LAB_SERVICES` 的稳定 Key 存入服务注册表。所有消费者必须使用同一个 Session，不能自行创建场景、出生点、Runtime 或阻碍 Binding。
+跨模块长期对象使用所有者定义的稳定 Key 存入服务注册表：Libraries 使用 `DUNGEON_LIBRARIES_SERVICE_KEY`；Loader 使用 `DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY` 注册一个稳定 Reader。所有消费者在 `setup()` 时取得一次 Reader，并使用 Loader 原子提交的同一份 `current`，不能自行创建另一套地图、场景 Binding、出生点、Runtime 或阻碍 Binding。
 
 ## 5. Monster Lab 职责
 

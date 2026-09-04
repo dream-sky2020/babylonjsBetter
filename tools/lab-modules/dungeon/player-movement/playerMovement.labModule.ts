@@ -22,11 +22,14 @@ import {
   type LabModule,
 } from '@/tools/lab-kit';
 import {
-  DUNGEON_LAB_SERVICES,
   dungeonMapChangedEvent,
   dungeonRuntimeCommitRequest,
   dungeonRuntimeChangedEvent,
-} from './dungeonLab.types';
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+  type DungeonMapLoaderReferences,
+} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 type MovementView = { loadId: number; runtime: DungeonRuntime; spawn: DungeonPlayerSpawnBinding };
 
@@ -59,6 +62,9 @@ export const playerMovementLabModule: LabModule = {
   id: 'player-movement',
   dependencies: ['dungeon-grid-debug', 'dungeon-obstacle'],
   setup(context) {
+    const references = context.services.get<DungeonMapLoaderReferences>(
+      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+    );
     const panel = context.ui.addPanel('player-movement', '玩家移动');
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
@@ -459,10 +465,12 @@ export const playerMovementLabModule: LabModule = {
       }
     });
     const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
+      const loaded = references.current;
+      if (!loaded || loaded.loadId !== changed.loadId) return;
       const event: MovementView = {
         loadId: changed.loadId,
-        runtime: context.services.get(DUNGEON_LAB_SERVICES.runtime),
-        spawn: context.services.get(DUNGEON_LAB_SERVICES.spawn),
+        runtime: loaded.runtime,
+        spawn: loaded.spawn,
       };
       current = event;
       teleportXInput.max = String(event.runtime.map.width - 1);

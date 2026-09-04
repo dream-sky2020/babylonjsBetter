@@ -1,13 +1,5 @@
-import type { DungeonMapPresetLibrary } from '@/core/map';
 import type { DungeonRuntimeSaveState } from '@/core/dungeon-runtime-save';
-import type { SceneEnvironmentPresetLibrary, ShadowQualityPresetLibrary } from '@/core/scene';
 import { createLabEvent, createLabRequest } from '@/tools/lab-kit';
-
-export type DungeonLabLibraries = {
-  maps: DungeonMapPresetLibrary;
-  environments: SceneEnvironmentPresetLibrary;
-  shadows: ShadowQualityPresetLibrary;
-};
 
 export type DungeonMapChangedEvent = {
   loadId: number;
@@ -18,6 +10,8 @@ export type DungeonMapChangedEvent = {
   width: number;
   height: number;
 };
+
+export const dungeonMapChangedEvent = createLabEvent<DungeonMapChangedEvent>('dungeon.map.changed');
 
 export type DungeonRuntimeChangedReason =
   | 'obstacle-state'
@@ -34,7 +28,6 @@ export type DungeonRuntimeChangedEvent = {
   presetKey: string;
 };
 
-export const dungeonMapChangedEvent = createLabEvent<DungeonMapChangedEvent>('dungeon.map.changed');
 export const dungeonRuntimeChangedEvent = createLabEvent<DungeonRuntimeChangedEvent>('dungeon.runtime.changed');
 
 export type DungeonRuntimeCommitRequest = { reason: DungeonRuntimeChangedReason };
@@ -44,6 +37,7 @@ export type DungeonRuntimeCommitResult = {
   revision: number;
   presetKey: string | null;
 };
+
 export const dungeonRuntimeCommitRequest = createLabRequest<DungeonRuntimeCommitRequest, DungeonRuntimeCommitResult>(
   'dungeon.runtime.commit',
 );
@@ -53,40 +47,14 @@ export const dungeonRuntimeSaveStatesRequest = createLabRequest<
   Readonly<Record<string, DungeonRuntimeSaveState>>
 >('dungeon.runtime-save-states.get');
 
-export type DungeonMapCatalogEntry = {
-  presetKey: string;
-  name: string;
-  mapId: string;
-  width: number;
-  height: number;
-};
-export const dungeonMapCatalogRequest = createLabRequest<void, readonly DungeonMapCatalogEntry[]>(
-  'dungeon.map.catalog',
-);
-
 export type DungeonLabMapLoader = {
   switchDungeon(presetKey: string): Promise<boolean>;
   dispose(): void;
 };
 
-export type DungeonMapSwitchRequest = {
-  presetKey: string;
-};
+export type DungeonMapSwitchRequest = { presetKey: string };
+export type DungeonMapSwitchResult = { loaded: boolean; presetKey: string };
 
-export type DungeonMapSwitchResult = {
-  loaded: boolean;
-  presetKey: string;
-};
-
-/** 地图切换的类型化 Lab API；调用方不再需要直接取得 Loader 实例。 */
 export const dungeonMapSwitchRequest = createLabRequest<DungeonMapSwitchRequest, DungeonMapSwitchResult>(
   'dungeon.map.switch',
 );
-
-export const DUNGEON_LAB_SERVICES = {
-  libraries: 'dungeon:libraries',
-  sceneBinding: 'dungeon:scene-binding',
-  spawn: 'dungeon:spawn',
-  runtime: 'dungeon:runtime',
-  obstacles: 'dungeon:obstacles',
-} as const;

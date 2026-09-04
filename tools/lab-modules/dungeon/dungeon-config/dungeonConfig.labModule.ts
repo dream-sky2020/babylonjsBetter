@@ -1,8 +1,10 @@
 import { createLabField, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapCatalogRequest,
+} from '../dungeon-libraries/dungeonLibraries.protocol';
+import {
   dungeonMapSwitchRequest,
-} from './dungeonLab.types';
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
 
 export const dungeonConfigLabModule: LabModule = {
   id: 'dungeon-config',

@@ -1,14 +1,14 @@
 import type { LabModuleCatalog } from '@/tools/lab-kit';
-import { viewportLayersLabModule } from '@/tools/lab-modules/shared/viewportLayers.labModule';
-import { dungeonConfigLabModule } from './dungeonConfig.labModule';
-import { dungeonRuntimeSaveSwitchLabModule } from './dungeonRuntimeSaveSwitch.labModule';
-import { dungeonGridDebugLabModule } from './dungeonGridDebug.labModule';
-import { dungeonLibrariesLabModule } from './dungeonLibraries.labModule';
-import { dungeonObstacleLabModule } from './dungeonObstacle.labModule';
-import { dungeonRuntimeLabModule } from './dungeonRuntime.labModule';
-import { dungeonMapLoaderLabModule } from './dungeonMapLoader.labModule';
-import { playerMovementLabModule } from './playerMovement.labModule';
-import { playerSpawnLabModule } from './playerSpawn.labModule';
+import { viewportLayersLabModule } from '@/tools/lab-modules/shared/viewport-layers';
+import { dungeonConfigLabModule } from './dungeon-config';
+import { dungeonRuntimeSaveSwitchLabModule } from './dungeon-runtime-save-switch';
+import { dungeonGridDebugLabModule } from './dungeon-grid-debug';
+import { dungeonLibrariesLabModule } from './dungeon-libraries';
+import { dungeonObstacleLabModule } from './dungeon-obstacle';
+import { dungeonRuntimeLabModule } from './dungeon-runtime';
+import { dungeonMapLoaderLabModule } from './dungeon-map-loader';
+import { playerMovementLabModule } from './player-movement';
+import { playerSpawnLabModule } from './player-spawn';
 
 export const dungeonLabModuleCatalog: LabModuleCatalog = {
   [viewportLayersLabModule.id]: viewportLayersLabModule,
@@ -23,13 +23,12 @@ export const dungeonLabModuleCatalog: LabModuleCatalog = {
   [dungeonRuntimeSaveSwitchLabModule.id]: dungeonRuntimeSaveSwitchLabModule,
 };
 
-export * from './dungeonLab.types';
-export * from './dungeonConfig.labModule';
-export * from './dungeonRuntimeSaveSwitch.labModule';
-export * from './dungeonGridDebug.labModule';
-export * from './dungeonLibraries.labModule';
-export * from './dungeonObstacle.labModule';
-export * from './dungeonRuntime.labModule';
-export * from './dungeonMapLoader.labModule';
-export * from './playerMovement.labModule';
-export * from './playerSpawn.labModule';
+export * from './dungeon-config';
+export * from './dungeon-runtime-save-switch';
+export * from './dungeon-grid-debug';
+export * from './dungeon-libraries';
+export * from './dungeon-obstacle';
+export * from './dungeon-runtime';
+export * from './dungeon-map-loader';
+export * from './player-movement';
+export * from './player-spawn';
