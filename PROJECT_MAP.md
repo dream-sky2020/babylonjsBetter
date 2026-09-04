@@ -1,4 +1,32 @@
 # Babylon.js Better 项目地图
+## 2026-09-04：组合式 Lab 两阶段启动契约
+
+`tools/lab-kit/execution-plan/` 将组合式 Lab 的依赖解析提取为纯 `LabExecutionPlan`。页面仍只声明顶层 Module ID；Host 自动补齐间接依赖、菱形去重、检查 Catalog Key、缺失依赖、重复依赖和精确循环路径，并计算 `depth`。执行顺序先按 depth、再按首次发现顺序稳定排列；`setupOrder / startOrder` 使用该顺序，`disposeOrder` 自动反转，不接受手写 order。
+
+组合式 Lab 固定执行“生成并校验计划 → 全部 `setup()` → 恢复 LabState/afterRestore → 全部 `start()` → ready → 反向 `dispose()`”。内置 `Lab Execution` 面板显示直接声明/自动依赖、depth、依赖列表、实时生命周期状态及 setup/start 耗时。初始化错误会附带失败阶段和从页面模块到失败模块的依赖链；已经 setup 的模块仍按计划倒序回滚，单个清理错误不会阻止后续清理。
+
+`LabServiceRegistry` 现在为每个模块创建所有权作用域并感知生命周期阶段。Service 只能在 owner 的 setup 阶段首次注册稳定引用；模块只能读取自己或依赖链所有者的 Service，也不能删除其他模块的 Service。这样延迟注册、重复 Key 和漏写 dependencies 会在靠近根因的位置直接失败。
+
+`dungeon-libraries` 已改为在 setup 注册 `DungeonLabLibrariesReference`，并同时把该引用登记到 LabState 供 Debug；异步配置加载仍留在 start。`dungeon-map-loader` 在 setup 获取并长期持有 Reference，只在切换地图时调用 `require()` 读取已提交的库。该契约覆盖目前全部五个组合式 Dungeon Lab，修复 Loader setup 早于 Libraries start 时出现的 `dungeon:libraries 尚未注册`。
+
+## 2026-09-04：Runtime 更名并重构为 LabState
+
+旧 `core/runtime/` 与 `RuntimeDataStore` 已删除。组合式 Lab 现在由 `createLab()` 创建唯一的 `context.labState`；它不是业务状态的中转 Store，而是模块活数据引用的登记中心。每个 Lab Module 自己创建、持有并直接高频访问数据，同时把同一个引用注册给 LabState。原地更新可按需 `markChanged()` 刷新 Debug，整体替换引用必须通过 Registration 的 `replace()` 同步登记。
+
+`tools/lab-kit/lab-state/` 提供引用注册、统一只读 Debug 视图、带模块/数据版本的 JSON Snapshot、全量预校验和原地恢复。`createLab({ initialState })` 在所有模块完成 setup 后、执行 start 前恢复存档；异步 `afterRestore` 在全部引用恢复后重建派生资源。LabState 面板是每个组合式 Lab 的内置系统面板，支持查看、复制、导出和导入存档；运行中导入后 Loader 会重新装载当前地图，使 Delta 与动态状态立即反映到活场景。不可持久化的场景引用只能进入 Debug，不会写入 Snapshot。
+
+`dungeon-map-loader` 当前登记三项数据：组合后的地牢引用仅供 Debug；地图结构 Delta Store 与按地图 Key 保存的 `DungeonRuntimeSaveState` 可持久化。生成 Snapshot 前会先结算当前地图 Delta 和动态 Runtime，从而保证切换地图或保存整个 Lab 时不会漏掉当前活场景的变化。
+
+`core/game-time/` 已退回纯 Core 状态控制器：模块直接持有 `GameTimeState`，Core 不再知道 LabState、UI 或生命周期。未来组合式时间模块应由自己的 Lab Module 适配器注册这一个状态引用。
+
+## 2026-09-04：Dungeon Map Loader 管理地图 Delta
+
+`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.deltaStore.ts` 按地图预设 Key 在 Loader 内存中保存 `DungeonMapDefinitionRefsDelta`。地图基础预设始终只读；首次进入时克隆为独立 `liveMap`，再次进入时执行“基础地图 + 已保存 Delta → liveMap”。Scene、Spawn、DungeonRuntime、Obstacle 和 `LoadedDungeonReferences.map` 全部使用该 liveMap。
+
+切出地图时 Loader 先计算并保存地图结构 Delta，再单独保存 `DungeonRuntimeSaveState`；切回时先恢复地图 Delta，再恢复玩家位置、朝向和阻碍启停状态。两类数据不会混合。无结构变化时对应 Delta 会被删除；基础指纹不匹配或尺寸/拓扑发生不可表示的变化时继续拒绝应用或切换，不静默丢弃。
+
+Loader 面板显示当前地图即时 Delta、已经保存 Delta 的地图 Key 和完整稀疏数据，并提供“结算并刷新当前地图 Delta”按钮。其他地图修改模块可以请求 `dungeon.map-delta.commit` 主动结算，调试模块可以通过 `dungeon.map-deltas.get` 获取只读快照；即使没有主动请求，地图切换和 Loader 销毁也会自动结算。
+
 ## 2026-09-04：Lab Module 独立目录
 
 `tools/lab-modules/dungeon/` 下每个可独立引用的模块均拥有与 Module ID 对应的独立目录和公开 `index.ts`；目录内部暂时保留原 `.labModule.ts` 文件名。Dungeon catalog 只从各模块目录入口导入，页面继续只引用总 catalog。共享的 `viewport-layers` 同样完成目录化。
@@ -7,7 +35,7 @@
 
 `dungeon-map-loader` 通过 `dungeonMapLoader.references.ts` 注册唯一、稳定、只读的 `DungeonMapLoaderReferences`。Loader 在地图完全装载成功后原子替换 `current`，一次提交 map、scene binding、spawn、runtime 和 obstacles；各消费模块只在 `setup()` 时从 Service Registry 获取一次 Reader，后续直接读取该引用。Babylon 场景实例仍是 Loader 私有生命周期资源。阻碍 Debug 盒布局已从 `core/dungeon-obstacle` 移至 `tools/lab-modules/dungeon/dungeon-obstacle/`，Core 只保留正式阻碍规则。
 
-`tools/lab-modules/coreLabBoundary.test.ts` 保护当前参与组合式 Dungeon Lab 的 Core 依赖，禁止其反向导入 Lab、访问 Lab 通信/服务/UI、直接操作 DOM，或自行注册中央 Runtime 内存；`core/dungeon-runtime` 自身的运行态数据与更新逻辑继续保留。
+`tools/lab-modules/coreLabBoundary.test.ts` 保护当前参与组合式 Dungeon Lab 的 Core 依赖，禁止其反向导入 Lab、访问 Lab 通信/服务/UI、直接操作 DOM，或自行注册 LabState；`core/dungeon-runtime` 自身的运行态数据与更新逻辑继续保留。
 
 ## 2026-09-03：移除 World 抽象与兼容运行时
 
@@ -25,7 +53,7 @@
 
 `core/map/dungeonMap.delta.types.ts` 定义真正作用于地图数据的 `definition-refs-delta` v1。Delta 固定引用 `basePresetKey`、基础 Definition 数量和基础地图指纹，只保存新增 `dataDefinitions` 以及地图、格子、east/south/west/north 单格边引用数组的稀疏覆盖；缺失项继承基础地图，`null` 清除数据引用。公用边、公用点以稳定 ID 执行 remove/upsert，联通层和迁移期属性同样采用稀疏下标覆盖，markers/metadata 采用整段可选替换。
 
-`applyDungeonMapDefinitionRefsDelta()` 在解码前合并紧凑引用数据，并拒绝基础 Key、Definition 数量或指纹不匹配的过期 Delta；`applyDungeonMapDelta()` 提供“完整地图 + 稀疏 Delta → 标准 DungeonMapData”的直接入口，且不修改任一输入。v1 有意禁止 Delta 改变地图 ID、尺寸和拓扑。`npm run test:dungeon-map-delta` 覆盖新增 Definition、格子覆盖、方向边清除、输入不可变与过期基础拒绝。当前阶段尚未把 Delta 文件接入预设 Repository 或 Canvas Lab 的生成/保存界面。
+`applyDungeonMapDefinitionRefsDelta()` 在解码前合并紧凑引用数据，并拒绝基础 Key、Definition 数量或指纹不匹配的过期 Delta；`applyDungeonMapDelta()` 提供“完整地图 + 稀疏 Delta → 标准 DungeonMapData”的直接入口，且不修改任一输入。v1 有意禁止 Delta 改变地图 ID、尺寸和拓扑。`npm run test:dungeon-map-delta` 覆盖新增 Definition、格子覆盖、方向边清除、输入不可变与过期基础拒绝。Delta 已接入组合式 Dungeon Map Loader 的页面内存生命周期；尚未接入预设 Repository 的磁盘持久化或 Canvas Lab 的生成/保存界面。
 
 ## 2026-09-03：运行时存档退出 DungeonDelta 命名空间
 
@@ -43,20 +71,9 @@
 
 Vite 对地图目录内所有 JSON 写回禁用 HMR，并通过动态 `import.meta.glob` 将单地图文件作为按需模块收录进构建；`config/` 的构建复制仍保留。Vite 8 的旧 `handleHotUpdate` 不覆盖文件 create/delete，插件因此使用顺序为 `post` 的 `hotUpdate`，在内置 import-glob hook 之后清空地图目录的 HMR 模块，保存、新建或删除预设均不得刷新 Dungeon Map Canvas Lab。
 
-## 2026-09-01：首个 Runtime 数据模块——游戏时间
+## 2026-09-01：旧 Runtime Store（已于 2026-09-04 移除）
 
-`core/game-time/` 是第一个迁入中央 `RuntimeDataStore` 的业务模块。它以 ModuleID `game-time` 在 game Scope 注册 `playTimeSeconds(number)`、`isRunning(boolean)`、`realTime(string)` 和 `recentBattleTimes(RuntimeFlatRecordArray)` 四份 Public 数据。最近战斗记录只包含 `startedAt / endedAt / durationSeconds / battleDataSequence` 四个标量字段并限制为最近 20 条。所有写入统一经过 `GameTimeController`，其他模块只能通过数据定义与 RuntimePublicReader 读取副本。
-
-`createLab()` 创建唯一的 `context.runtimeScopes.game`，供同页所有模块绑定同一个游戏级 Scope。旧 world/game 兼容装配器已经删除，时间权威数据只属于 `core/game-time` 和 Runtime Store。
-## 2026-09-01：Runtime Store 骨架
-
-`RuntimeDataValue` 允许 `RuntimeScalar / RuntimeFlatRecord / RuntimeScalarArray / RuntimeFlatRecordArray`；禁止数组嵌套、记录嵌套及标量与记录混合数组。`null` 是合法值，缺失或删除统一使用 `undefined`。
-
-`core/runtime/` 提供尚未接管现有业务数据的中央 Runtime Store 骨架。模块通过稳定的 ModuleID 注册并取得不可伪造的能力 Handle；数据由模块自己的 `RuntimeDataDefinition` 描述 Key、Scope、可见性、存储策略和版本。Store 当前支持 `game / world / dungeon / session` Scope、Public/Private 读权限、所有者写权限、浅数据运行时校验、读写防引用泄漏、变化订阅以及对 Private 值脱敏的只读枚举。
-
-当前 `DungeonRuntime` 与地图加载器维护的运行时存档尚未迁入 Store。`persistence: none / full / delta` 在这一阶段只是定义元数据，不负责生成或恢复存档。
-
-所有调用 createLab() 的组合式 Lab 现在都会由 Host 创建一份页面独占的 RuntimeDataStore，并通过 LabContext.runtime 共享给该页全部模块。不同页面和不同标签页互不共享 Store；Host 初始化失败或销毁时，会在模块清理完成后统一释放 Store。模块不得自行创建同页第二份 Store。
+这一版中央值容器曾要求业务通过 Store 读写，并提供 game/world/dungeon/session Scope。它与当前“模块持有高频引用、LabState 旁路登记”的目标冲突，因此实现、Scope、数据定义和 `context.runtime` 接口已经完整删除，不保留兼容层。历史上的 `game-time` 注册式实现也已改成纯 Core 控制器。
 
 ## 2026-09-01：通用 Lab Viewport
 
@@ -68,9 +85,9 @@ Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同�
 `tools/dungeon-map-canvas-lab/` 保存 `config/dungeonMapPresets/` 后继续使用当前 React 编辑状态，不重新读取预设。`vite.config.ts` 的 `shared-config-public-bridge.hotUpdate` post hook 对该目录内的变更返回空更新列表，避免配置写回触发 Vite HMR、重建整个地图编辑器界面。其他配置文件的热更新行为保持不变。
 ## 2026-09-01：地图加载器
 
-`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并直接恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才提交各项服务与当前引用。
+`tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.labModule.ts` 组合已有 Core 能力，先从只读基础预设和 Loader Delta Store 创建独立 liveMap，再创建目标地图的场景实例、Binding、玩家出生点、`DungeonRuntime` 和阻碍 Binding，并恢复自己维护的 `DungeonRuntimeSaveState`。只有完整加载成功且仍是最新 generation 时才原子提交当前引用。
 
-旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:map-changed`，再从各自服务读取数据。旧 Babylon 地图实例在新地图消费者完成重建后释放；过期的异步装载结果会立即释放且不会提交。
+旧的 `map-requested → scene-ready → spawn-ready → runtime-ready → obstacles-ready` 级联事件已经移除。所有地图 Debug、出生点、Runtime、阻碍和玩家移动 Lab 统一消费 `dungeon:map-changed`，再读取稳定 `DungeonMapLoaderReferences.current`。旧 Babylon 地图实例在新地图消费者完成重建后释放；过期的异步装载结果会立即释放且不会提交。
 ## 2026-09-01：地牢运行时存档
 
 `core/dungeon-runtime-save/` 只保存玩家格子位置、朝向与阻碍状态等动态存档。`createDungeonRuntime()` 直接从预设的 `activeByDefault` 建立完整阻碍状态，Lab 不再负责初始化。切换地牢时先保存旧地牢的动态运行态，再从目标预设创建全新 Runtime 并恢复已有存档；该过程不修改地图数据。

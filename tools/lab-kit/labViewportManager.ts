@@ -3,7 +3,6 @@ import type {
   LabCanvasRenderContext,
   LabViewportCanvasLayerHandle,
   LabViewportHtmlLayerHandle,
-  LabViewportLayerHandle,
   LabViewportLayerMode,
   OpenLabCanvasLayerOptions,
   OpenLabHtmlLayerOptions,
