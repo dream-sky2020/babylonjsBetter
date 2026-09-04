@@ -1,393 +1,155 @@
-import { Vector3 } from '@babylonjs/core';
-import type {
-  CameraLabController,
-  CameraLabMode,
-  CameraLockPlaneAxis,
-  CameraPositionAxis
-} from '@/core/camera/cameraLabController.ts';
+import type { CameraLabController, CameraLabMode, CameraLockPlaneAxis, CameraPositionAxis } from '@/core/camera/cameraLabController.ts';
 import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
 
 export interface FloatingCameraControlPanel {
   element: HTMLDivElement;
+  /** 兼容旧调用：有未应用草稿时不会覆盖输入框。 */
   syncFromController: () => void;
   updateStatus: () => void;
   dispose: () => void;
 }
 
-const panelStyle = `
-  position:absolute;
-  left:16px;
-  top:16px;
-  z-index:20;
-  width:360px;
-  max-height:calc(100% - 32px);
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  border:1px solid rgba(148,163,184,.35);
-  border-radius:12px;
-  background:rgba(15,19,26,.72);
-  color:#e8edf2;
-  box-shadow:0 18px 40px rgba(0,0,0,.35);
-  backdrop-filter:blur(8px);
-  font-family:"Segoe UI","Microsoft YaHei",sans-serif;
-  font-size:12px;
-`;
+const panelStyle = `position:absolute;left:16px;top:16px;z-index:20;width:380px;max-height:calc(100% - 32px);overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(148,163,184,.35);border-radius:12px;background:rgba(15,19,26,.78);color:#e8edf2;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(8px);font-family:"Segoe UI","Microsoft YaHei",sans-serif;font-size:12px;`;
+const nativeLabel = (property: string, title: string): string => `<label><code>${property}</code><span>${title}</span></label>`;
 
 const html = `
-  <div data-role="header" style="flex:0 0 auto;">
-    <div data-role="drag" style="box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;cursor:move;padding:7px 9px 7px 13px;border-bottom:1px solid rgba(148,163,184,.24);background:rgba(18,25,34,.82);font-weight:700;">
-    <span data-role="title" style="white-space:nowrap;line-height:1;letter-spacing:.02em;">摄像机控制</span>
-    <button data-role="toggle" type="button" title="折叠摄像机控制" aria-label="折叠摄像机控制">折叠</button>
-    </div>
-  </div>
+  <div data-role="header" style="flex:0 0 auto;"><div data-role="drag" style="box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;cursor:move;padding:7px 9px 7px 13px;border-bottom:1px solid rgba(148,163,184,.24);background:rgba(18,25,34,.82);font-weight:700;"><span>摄像机控制</span><button data-role="toggle" type="button">折叠</button></div></div>
   <div data-role="body" style="flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:12px;">
-    <label>预览模式</label>
-    <select data-field="mode"></select>
-    <label data-custom-look-only>鼠标视角方式</label>
-    <select data-field="lookControlMode" data-custom-look-only>
-      <option value="pointerLock">点击画布锁定鼠标</option>
-      <option value="drag">按住左键拖拽调整视野</option>
-    </select>
-    <div data-role="camera-position">
-      <label>摄像机位置</label>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-        <div data-position-axis="x"><label>X</label><input data-field="position.x" type="number" step="0.1" /></div>
-        <div data-position-axis="y"><label>Y</label><input data-field="position.y" type="number" step="0.1" /></div>
-        <div data-position-axis="z"><label>Z</label><input data-field="position.z" type="number" step="0.1" /></div>
+    <label><span>预览模式</span></label><select data-field="mode"></select>
+    <div data-role="camera-position">${nativeLabel('position', '相机位置')}<div class="camera-vector"><div data-position-axis="x"><small>X</small><input data-field="position.x" type="number" step="0.1" /></div><div data-position-axis="y"><small>Y</small><input data-field="position.y" type="number" step="0.1" /></div><div data-position-axis="z"><small>Z</small><input data-field="position.z" type="number" step="0.1" /></div></div></div>
+
+    <section data-orbit-only>
+      <div class="camera-grid">
+        <div>${nativeLabel('alpha', '水平环绕角 °')}<input data-field="orbitAlphaDeg" type="number" step="1" /></div>
+        <div>${nativeLabel('beta', '垂直环绕角 °')}<input data-field="orbitBetaDeg" type="number" min="1" max="179" step="1" /></div>
+        <div>${nativeLabel('radius', '环绕半径')}<input data-field="orbitRadius" type="number" min="1" max="300" step="0.5" /></div>
+        <div>${nativeLabel('inertia', '旋转/缩放惯性')}<input data-field="orbitInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+        <div>${nativeLabel('panningInertia', '平移惯性')}<input data-field="orbitPanningInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+        <div>${nativeLabel('wheelPrecision', '滚轮精度（小=快）')}<input data-field="orbitWheelPrecision" type="number" min="0.01" step="0.1" /></div>
+        <div>${nativeLabel('angularSensibilityX', '水平灵敏度（小=快）')}<input data-field="orbitAngularSensibilityX" type="number" min="1" step="10" /></div>
+        <div>${nativeLabel('angularSensibilityY', '垂直灵敏度（小=快）')}<input data-field="orbitAngularSensibilityY" type="number" min="1" step="10" /></div>
+        <div>${nativeLabel('panningSensibility', '平移灵敏度（小=快）')}<input data-field="orbitPanningSensibility" type="number" min="1" step="10" /></div>
       </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div data-lock-only><label>锁定平面移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
-      <div data-lock-only><label>锁定平面移动加速度</label><input data-field="moveAcceleration" type="number" min="0" max="1000" step="1" /></div>
-      <div data-lock-only><label>锁定平面移动减速度</label><input data-field="moveDeceleration" type="number" min="0" max="1000" step="1" /></div>
-      <div data-lock-only><label>锁定平面视角平滑</label><input data-field="lookSmoothing" type="number" min="0" max="60" step="1" /></div>
-      <div data-lock-only><label>拖拽平移灵敏度</label><input data-field="panSensitivity" type="number" min="0.001" max="2" step="0.005" /></div>
-      <div data-orbit-only><label>原生旋转/缩放惯性</label><input data-field="orbitInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
-      <div data-orbit-only><label>原生平移惯性</label><input data-field="orbitPanningInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
-      <div data-orbit-only><label>原生水平旋转灵敏度</label><input data-field="orbitAngularSensibilityX" type="number" min="1" step="10" /></div>
-      <div data-orbit-only><label>原生垂直旋转灵敏度</label><input data-field="orbitAngularSensibilityY" type="number" min="1" step="10" /></div>
-      <div data-orbit-only><label>原生平移灵敏度</label><input data-field="orbitPanningSensibility" type="number" min="1" step="10" /></div>
-      <div data-orbit-only><label>原生滚轮精度</label><input data-field="orbitWheelPrecision" type="number" min="0.01" step="0.1" /></div>
-      <div data-first-person-only><label>原生第一人称移动速度</label><input data-field="firstPersonMoveSpeed" type="number" min="0.01" step="0.1" /></div>
-      <div data-first-person-only><label>原生第一人称惯性</label><input data-field="firstPersonInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
-      <div data-first-person-only><label>原生第一人称鼠标灵敏度</label><input data-field="firstPersonAngularSensibility" type="number" min="1" step="10" /></div>
-      <div data-drone-only><label>原生无人机移动速度</label><input data-field="droneMoveSpeed" type="number" min="0.01" step="0.1" /></div>
-      <div data-drone-only><label>原生无人机惯性</label><input data-field="droneInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
-      <div data-drone-only><label>原生无人机鼠标灵敏度</label><input data-field="droneAngularSensibility" type="number" min="1" step="10" /></div>
-      <div><label>垂直视场角（°）</label><input data-field="fovDeg" type="number" min="1" max="179" step="0.1" /></div>
-      <div><label>水平视场角 HFOV（°）</label><input data-field="horizontalFovDeg" type="number" min="1" max="179" step="0.1" /></div>
-      <div><label>近裁剪面</label><input data-field="minZ" type="number" min="0.001" step="0.01" /></div>
-      <div><label>远裁剪面</label><input data-field="maxZ" type="number" min="0.01" step="10" /></div>
-      <div data-first-person-only><label>第一人称高度</label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
-      <div data-lock-only>
-        <label>锁定平面</label>
-        <select data-field="lockPlaneAxis">
-          <option value="x">X（YZ 平面）</option>
-          <option value="y">Y（XZ 平面）</option>
-          <option value="z">Z（XY 平面）</option>
-        </select>
-      </div>
-      <div data-lock-only><label>锁定平面坐标</label><input data-field="lockPlaneValue" type="number" step="0.1" /></div>
-      <div data-orbit-only><label>环绕半径</label><input data-field="orbitRadius" type="number" min="1" max="300" step="0.5" /></div>
-      <div data-orbit-only><label>环绕方位角（°）</label><input data-field="orbitYawDeg" type="number" step="1" /></div>
-      <div data-orbit-only><label>环绕俯仰角（°）</label><input data-field="orbitPitchDeg" type="number" min="-80" max="80" step="1" /></div>
-    </div>
-    <div data-orbit-only>
-      <label>环绕中心 XYZ</label>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-        <input data-field="orbitCenter.x" type="number" step="0.1" />
-        <input data-field="orbitCenter.y" type="number" step="0.1" />
-        <input data-field="orbitCenter.z" type="number" step="0.1" />
-      </div>
-    </div>
-    <div data-lock-only>
-      <label>终点锁定目标 XYZ</label>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-        <input data-field="lockTarget.x" type="number" step="0.1" />
-        <input data-field="lockTarget.y" type="number" step="0.1" />
-        <input data-field="lockTarget.z" type="number" step="0.1" />
-      </div>
-    </div>
-    <button data-role="reset" type="button">恢复默认摄像机</button>
+      ${nativeLabel('target', '环绕目标 XYZ')}<div class="camera-vector"><input data-field="orbitCenter.x" type="number" step="0.1" /><input data-field="orbitCenter.y" type="number" step="0.1" /><input data-field="orbitCenter.z" type="number" step="0.1" /></div>
+    </section>
+
+    <section data-first-person-only><div class="camera-grid">
+      <div>${nativeLabel('speed', '移动速度')}<input data-field="firstPersonMoveSpeed" type="number" min="0.01" step="0.1" /></div>
+      <div>${nativeLabel('inertia', '移动惯性')}<input data-field="firstPersonInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div>${nativeLabel('angularSensibility', '鼠标灵敏度（小=快）')}<input data-field="firstPersonAngularSensibility" type="number" min="1" step="10" /></div>
+      <div>${nativeLabel('rotation.x', '俯仰角 °')}<input data-field="freeRotationXDeg" type="number" min="-85" max="85" step="1" /></div>
+      <div>${nativeLabel('rotation.y', '朝向角 °')}<input data-field="freeRotationYDeg" type="number" step="1" /></div>
+      <div><label><code>约束</code><span>第一人称高度</span></label><input data-field="firstPersonHeight" type="number" step="0.1" /></div>
+    </div></section>
+
+    <section data-drone-only><div class="camera-grid">
+      <div>${nativeLabel('speed', '移动速度')}<input data-field="droneMoveSpeed" type="number" min="0.01" step="0.1" /></div>
+      <div>${nativeLabel('inertia', '移动惯性')}<input data-field="droneInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div>${nativeLabel('angularSensibility', '鼠标灵敏度（小=快）')}<input data-field="droneAngularSensibility" type="number" min="1" step="10" /></div>
+      <div>${nativeLabel('rotation.x', '俯仰角 °')}<input data-field="freeRotationXDeg" type="number" min="-85" max="85" step="1" /></div>
+      <div>${nativeLabel('rotation.y', '朝向角 °')}<input data-field="freeRotationYDeg" type="number" step="1" /></div>
+    </div></section>
+
+    <section data-lock-only><div class="camera-note">此模式是项目自定义约束，不是 Babylon 原生相机类型。</div><div class="camera-grid">
+      <div><label><span>锁定平面</span></label><select data-field="lockPlaneAxis"><option value="x">X（YZ 平面）</option><option value="y">Y（XZ 平面）</option><option value="z">Z（XY 平面）</option></select></div>
+      <div><label><span>锁定坐标</span></label><input data-field="lockPlaneValue" type="number" step="0.1" /></div>
+      <div><label><span>移动速度</span></label><input data-field="moveSpeed" type="number" min="0.1" step="0.1" /></div><div><label><span>移动加速度</span></label><input data-field="moveAcceleration" type="number" min="0" step="1" /></div>
+      <div><label><span>移动减速度</span></label><input data-field="moveDeceleration" type="number" min="0" step="1" /></div><div><label><span>拖拽响应</span></label><input data-field="lookSmoothing" type="number" min="0" step="1" /></div>
+      <div><label><span>拖拽平移灵敏度</span></label><input data-field="panSensitivity" type="number" min="0.001" step="0.005" /></div>
+    </div><label><span>锁定目标 XYZ</span></label><div class="camera-vector"><input data-field="lockTarget.x" type="number" step="0.1" /><input data-field="lockTarget.y" type="number" step="0.1" /><input data-field="lockTarget.z" type="number" step="0.1" /></div></section>
+
+    <div class="camera-grid camera-common"><div>${nativeLabel('fov', '垂直视场角 °')}<input data-field="fovDeg" type="number" min="1" max="179" step="0.1" /></div><div>${nativeLabel('minZ', '近裁剪面')}<input data-field="minZ" type="number" min="0.001" step="0.01" /></div><div>${nativeLabel('maxZ', '远裁剪面')}<input data-field="maxZ" type="number" min="0.01" step="10" /></div></div>
+    <div data-role="draft-state" class="camera-note">面板值已与当前相机同步。</div>
+    <div class="camera-actions"><button data-role="refresh" type="button">从当前相机刷新</button><button data-role="apply" type="button">应用到相机</button><button data-role="native-defaults" type="button">恢复原生参数</button><button data-role="initial-pose" type="button">恢复初始姿态</button></div>
     <textarea data-role="status" readonly></textarea>
-  </div>
-`;
+  </div>`;
 
-const applyControlStyles = (panel: HTMLDivElement): void => {
-  panel.querySelectorAll('label').forEach((label) => {
-    (label as HTMLElement).style.cssText = 'display:block;margin:8px 0 4px;color:#9fb0c5;';
-  });
-  panel.querySelectorAll('input,select,button,textarea').forEach((node) => {
-    (node as HTMLElement).style.cssText = 'width:100%;box-sizing:border-box;border:1px solid rgba(148,163,184,.38);border-radius:6px;background:rgba(15,19,26,.92);color:#e8edf2;padding:6px 8px;';
-  });
-  const textarea = panel.querySelector('textarea');
-  if (textarea) {
-    textarea.style.marginTop = '10px';
-    textarea.style.minHeight = '150px';
-    textarea.style.fontFamily = 'Consolas, "Courier New", monospace';
-    textarea.style.resize = 'vertical';
-  }
-  const resetButton = panel.querySelector<HTMLButtonElement>('button[data-role="reset"]');
-  if (resetButton) {
-    resetButton.style.marginTop = '10px';
-    resetButton.style.background = 'rgba(47,111,237,.75)';
-    resetButton.style.cursor = 'pointer';
-  }
-};
+const clamp = (value: number, min: number, max: number): number => Math.max(min, Math.min(max, value));
+const radToDeg = (value: number): number => value * 180 / Math.PI;
+const degToRad = (value: number): number => value * Math.PI / 180;
 
-const readNumber = (input: HTMLInputElement, fallback: number): number => {
-  const value = Number(input.value);
-  return Number.isFinite(value) ? value : fallback;
-};
-
-const radiansToDegrees = (value: number): number => value * 180 / Math.PI;
-const degreesToRadians = (value: number): number => value * Math.PI / 180;
-
-export const createFloatingCameraControlPanel = (
-  host: HTMLElement,
-  controller: CameraLabController
-): FloatingCameraControlPanel => {
+export const createFloatingCameraControlPanel = (host: HTMLElement, controller: CameraLabController): FloatingCameraControlPanel => {
   const panel = document.createElement('div');
   panel.style.cssText = panelStyle;
   panel.innerHTML = html;
-  applyControlStyles(panel);
+  panel.querySelectorAll('label').forEach((node) => (node as HTMLElement).style.cssText = 'display:flex;align-items:baseline;gap:7px;margin:8px 0 4px;color:#9fb0c5;');
+  panel.querySelectorAll('label code').forEach((node) => (node as HTMLElement).style.cssText = 'color:#7dd3fc;font-size:11px;');
+  panel.querySelectorAll<HTMLElement>('input,select,button,textarea').forEach((node) => node.style.cssText = 'width:100%;box-sizing:border-box;border:1px solid rgba(148,163,184,.38);border-radius:6px;background:rgba(15,19,26,.92);color:#e8edf2;padding:6px 8px;');
+  const toggleButton = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]');
+  if (toggleButton) toggleButton.style.cssText = 'flex:0 0 auto;width:auto;min-width:52px;height:28px;box-sizing:border-box;border:1px solid rgba(148,163,184,.4);border-radius:6px;background:rgba(71,85,105,.48);color:#e8edf2;padding:0 10px;cursor:pointer;';
+  panel.querySelectorAll<HTMLElement>('.camera-grid').forEach((node) => node.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:0 8px;');
+  panel.querySelectorAll<HTMLElement>('.camera-vector').forEach((node) => node.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:8px;');
+  panel.querySelectorAll<HTMLElement>('.camera-note').forEach((node) => node.style.cssText = 'margin-top:9px;padding:7px 8px;border-radius:6px;background:rgba(30,41,59,.64);color:#aebdce;');
+  panel.querySelectorAll<HTMLElement>('.camera-actions').forEach((node) => node.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;');
+  panel.querySelectorAll<HTMLButtonElement>('.camera-actions button').forEach((node) => node.style.cursor = 'pointer');
+  const applyButton = panel.querySelector<HTMLButtonElement>('button[data-role="apply"]'); if (applyButton) applyButton.style.background = 'rgba(37,99,235,.82)';
+  const status = panel.querySelector<HTMLTextAreaElement>('textarea[data-role="status"]'); if (status) status.style.cssText += 'margin-top:10px;min-height:125px;font-family:Consolas,"Courier New",monospace;resize:vertical;';
   host.appendChild(panel);
 
-  const toggleButton = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]');
-  if (!toggleButton) throw new Error('摄像机控制面板缺少折叠按钮。');
-  toggleButton.style.cssText = `
-    position:static;
-    flex:0 0 auto;
-    width:52px;
-    height:28px;
-    border:1px solid rgba(148,163,184,.4);
-    border-radius:6px;
-    background:rgba(71,85,105,.48);
-    color:#e8edf2;
-    padding:0 10px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    line-height:1;
-    cursor:pointer;
-  `;
-
-  let isCollapsed = false;
-  const panelBody = panel.querySelector<HTMLElement>('[data-role="body"]');
-  const setCollapsed = (collapsed: boolean) => {
-    if (collapsed === isCollapsed) return;
-    isCollapsed = collapsed;
-    if (panelBody) panelBody.style.display = collapsed ? 'none' : '';
-    toggleButton.textContent = collapsed ? '展开' : '折叠';
-    toggleButton.title = collapsed ? '展开摄像机控制' : '折叠摄像机控制';
-    toggleButton.setAttribute('aria-label', collapsed ? '展开摄像机控制' : '折叠摄像机控制');
-  };
-  toggleButton.addEventListener('pointerdown', (event) => {
-    event.stopPropagation();
-  });
-  toggleButton.addEventListener('click', (event) => {
-    event.stopPropagation();
-    setCollapsed(!isCollapsed);
-  });
-
   const modeSelect = panel.querySelector<HTMLSelectElement>('select[data-field="mode"]');
-  if (modeSelect) {
-    modeSelect.innerHTML = Object.entries(CAMERA_LAB_MODE_LABELS)
-      .map(([value, label]) => `<option value="${value}">${label}</option>`)
-      .join('');
-  }
-
-  const status = panel.querySelector<HTMLTextAreaElement>('textarea[data-role="status"]');
-
-  const syncPositionVisibility = () => {
-    const editableAxes = new Set(controller.getEditablePositionAxes());
-    const positionGroup = panel.querySelector<HTMLElement>('[data-role="camera-position"]');
-    if (positionGroup) positionGroup.style.display = editableAxes.size ? '' : 'none';
-    panel.querySelectorAll<HTMLElement>('[data-position-axis]').forEach((element) => {
-      element.style.display = editableAxes.has(element.dataset.positionAxis as CameraPositionAxis) ? '' : 'none';
-    });
-    panel.querySelectorAll<HTMLElement>('[data-orbit-only]').forEach((element) => {
-      element.style.display = controller.state.mode === 'orbit' ? '' : 'none';
-    });
-    panel.querySelectorAll<HTMLElement>('[data-first-person-only]').forEach((element) => {
-      element.style.display = controller.state.mode === 'firstPerson' ? '' : 'none';
-    });
-    panel.querySelectorAll<HTMLElement>('[data-drone-only]').forEach((element) => {
-      element.style.display = controller.state.mode === 'drone' ? '' : 'none';
-    });
-    panel.querySelectorAll<HTMLElement>('[data-lock-only]').forEach((element) => {
-      element.style.display = controller.state.mode === 'lockPan' ? '' : 'none';
-    });
-    panel.querySelectorAll<HTMLElement>('[data-non-orbit-only], [data-custom-look-only]').forEach((element) => {
-      element.style.display = controller.state.mode === 'orbit' ? 'none' : '';
-    });
+  if (modeSelect) modeSelect.innerHTML = Object.entries(CAMERA_LAB_MODE_LABELS).map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
+  const draftState = panel.querySelector<HTMLElement>('[data-role="draft-state"]');
+  let dirty = false;
+  const find = (field: string): HTMLInputElement | HTMLSelectElement | null => panel.querySelector(`[data-field="${field}"]`);
+  const read = (field: string, fallback: number): number => { const value = Number(find(field)?.value); return Number.isFinite(value) ? value : fallback; };
+  const write = (field: string, value: string | number): void => { panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(`[data-field="${field}"]`).forEach((node) => node.value = String(value)); };
+  const updateDraftState = (): void => { if (!draftState) return; draftState.textContent = dirty ? '有尚未应用的面板修改。刷新会放弃这些修改。' : '面板值已与当前相机同步。'; draftState.style.color = dirty ? '#fbbf24' : '#aebdce'; };
+  const syncVisibility = (): void => {
+    const mode = controller.state.mode; const axes = new Set(controller.getEditablePositionAxes());
+    const positionGroup = panel.querySelector<HTMLElement>('[data-role="camera-position"]'); if (positionGroup) positionGroup.style.display = axes.size ? '' : 'none';
+    panel.querySelectorAll<HTMLElement>('[data-position-axis]').forEach((node) => node.style.display = axes.has(node.dataset.positionAxis as CameraPositionAxis) ? '' : 'none');
+    panel.querySelectorAll<HTMLElement>('[data-orbit-only]').forEach((node) => node.style.display = mode === 'orbit' ? '' : 'none');
+    panel.querySelectorAll<HTMLElement>('[data-first-person-only]').forEach((node) => node.style.display = mode === 'firstPerson' ? '' : 'none');
+    panel.querySelectorAll<HTMLElement>('[data-drone-only]').forEach((node) => node.style.display = mode === 'drone' ? '' : 'none');
+    panel.querySelectorAll<HTMLElement>('[data-lock-only]').forEach((node) => node.style.display = mode === 'lockPan' ? '' : 'none');
+    const button = panel.querySelector<HTMLButtonElement>('button[data-role="native-defaults"]'); if (button) { button.disabled = mode === 'lockPan'; button.title = mode === 'lockPan' ? '自定义模式没有对应的 Babylon 原生参数' : ''; }
+  };
+  const updateStatus = (): void => { if (status) status.value = controller.getStatusText(); };
+  const populate = (force = false): void => {
+    if (dirty && !force) { updateStatus(); return; }
+    const state = controller.state; const position = controller.getPosition();
+    write('mode', state.mode); write('position.x', position.x); write('position.y', position.y); write('position.z', position.z);
+    write('orbitAlphaDeg', radToDeg(Math.PI / 2 - state.orbitYaw)); write('orbitBetaDeg', 90 - state.orbitPitchDeg); write('orbitRadius', state.orbitRadius);
+    write('orbitInertia', state.orbitInertia); write('orbitPanningInertia', state.orbitPanningInertia); write('orbitAngularSensibilityX', state.orbitAngularSensibilityX); write('orbitAngularSensibilityY', state.orbitAngularSensibilityY); write('orbitPanningSensibility', state.orbitPanningSensibility); write('orbitWheelPrecision', state.orbitWheelPrecision);
+    write('orbitCenter.x', state.orbitCenter.x); write('orbitCenter.y', state.orbitCenter.y); write('orbitCenter.z', state.orbitCenter.z);
+    write('firstPersonMoveSpeed', state.firstPersonMoveSpeed); write('firstPersonInertia', state.firstPersonInertia); write('firstPersonAngularSensibility', state.firstPersonAngularSensibility);
+    write('droneMoveSpeed', state.droneMoveSpeed); write('droneInertia', state.droneInertia); write('droneAngularSensibility', state.droneAngularSensibility);
+    write('freeRotationXDeg', radToDeg(-state.pitch)); write('freeRotationYDeg', radToDeg(state.yaw)); write('firstPersonHeight', state.firstPersonHeight);
+    write('lockPlaneAxis', state.lockPlaneAxis); write('lockPlaneValue', state.lockPlaneValue); write('moveSpeed', state.moveSpeed); write('moveAcceleration', state.moveAcceleration); write('moveDeceleration', state.moveDeceleration); write('lookSmoothing', state.lookSmoothing); write('panSensitivity', state.panSensitivity);
+    write('lockTarget.x', state.lockTarget.x); write('lockTarget.y', state.lockTarget.y); write('lockTarget.z', state.lockTarget.z);
+    write('fovDeg', state.fovDeg); write('minZ', state.minZ); write('maxZ', state.maxZ);
+    dirty = false; syncVisibility(); updateDraftState(); updateStatus();
   };
 
-  const syncFromController = () => {
-    const position = controller.getPosition();
-    panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-field]').forEach((input) => {
-      const field = input.dataset.field || '';
-      const state = controller.state;
-      if (field === 'mode') input.value = state.mode;
-      else if (field === 'lookControlMode') input.value = state.lookControlMode;
-      else if (field === 'moveSpeed') input.value = String(state.moveSpeed);
-      else if (field === 'moveAcceleration') input.value = String(state.moveAcceleration);
-      else if (field === 'moveDeceleration') input.value = String(state.moveDeceleration);
-      else if (field === 'mouseSensitivity') input.value = String(state.mouseSensitivity);
-      else if (field === 'lookSmoothing') input.value = String(state.lookSmoothing);
-      else if (field === 'panSensitivity') input.value = String(state.panSensitivity);
-      else if (field === 'orbitInertia') input.value = String(state.orbitInertia);
-      else if (field === 'orbitPanningInertia') input.value = String(state.orbitPanningInertia);
-      else if (field === 'orbitAngularSensibilityX') input.value = String(state.orbitAngularSensibilityX);
-      else if (field === 'orbitAngularSensibilityY') input.value = String(state.orbitAngularSensibilityY);
-      else if (field === 'orbitPanningSensibility') input.value = String(state.orbitPanningSensibility);
-      else if (field === 'orbitWheelPrecision') input.value = String(state.orbitWheelPrecision);
-      else if (field === 'firstPersonMoveSpeed') input.value = String(state.firstPersonMoveSpeed);
-      else if (field === 'firstPersonInertia') input.value = String(state.firstPersonInertia);
-      else if (field === 'firstPersonAngularSensibility') input.value = String(state.firstPersonAngularSensibility);
-      else if (field === 'droneMoveSpeed') input.value = String(state.droneMoveSpeed);
-      else if (field === 'droneInertia') input.value = String(state.droneInertia);
-      else if (field === 'droneAngularSensibility') input.value = String(state.droneAngularSensibility);
-      else if (field === 'fovDeg') input.value = String(state.fovDeg);
-      else if (field === 'horizontalFovDeg') input.value = String(state.horizontalFovDeg);
-      else if (field === 'minZ') input.value = String(state.minZ);
-      else if (field === 'maxZ') input.value = String(state.maxZ);
-      else if (field === 'firstPersonHeight') input.value = String(state.firstPersonHeight);
-      else if (field === 'position.x') input.value = String(position.x);
-      else if (field === 'position.y') input.value = String(position.y);
-      else if (field === 'position.z') input.value = String(position.z);
-      else if (field === 'lockPlaneAxis') input.value = state.lockPlaneAxis;
-      else if (field === 'lockPlaneValue') input.value = String(state.lockPlaneValue);
-      else if (field === 'orbitRadius') input.value = String(state.orbitRadius);
-      else if (field === 'orbitYawDeg') input.value = String(radiansToDegrees(state.orbitYaw));
-      else if (field === 'orbitPitchDeg') input.value = String(state.orbitPitchDeg);
-      else if (field === 'orbitCenter.x') input.value = String(state.orbitCenter.x);
-      else if (field === 'orbitCenter.y') input.value = String(state.orbitCenter.y);
-      else if (field === 'orbitCenter.z') input.value = String(state.orbitCenter.z);
-      else if (field === 'lockTarget.x') input.value = String(state.lockTarget.x);
-      else if (field === 'lockTarget.y') input.value = String(state.lockTarget.y);
-      else if (field === 'lockTarget.z') input.value = String(state.lockTarget.z);
-    });
-    syncPositionVisibility();
+  const applyDraft = (): void => {
+    const state = controller.state; const position = controller.getPosition();
+    for (const axis of controller.getEditablePositionAxes()) position[axis] = read(`position.${axis}`, position[axis]);
+    state.orbitYaw = Math.PI / 2 - degToRad(read('orbitAlphaDeg', radToDeg(Math.PI / 2 - state.orbitYaw))); state.orbitPitchDeg = 90 - read('orbitBetaDeg', 90 - state.orbitPitchDeg); state.orbitRadius = clamp(read('orbitRadius', state.orbitRadius), 1, 300);
+    state.orbitCenter.set(read('orbitCenter.x', state.orbitCenter.x), read('orbitCenter.y', state.orbitCenter.y), read('orbitCenter.z', state.orbitCenter.z));
+    state.orbitInertia = clamp(read('orbitInertia', state.orbitInertia), 0, .9999); state.orbitPanningInertia = clamp(read('orbitPanningInertia', state.orbitPanningInertia), 0, .9999); state.orbitAngularSensibilityX = Math.max(1, read('orbitAngularSensibilityX', state.orbitAngularSensibilityX)); state.orbitAngularSensibilityY = Math.max(1, read('orbitAngularSensibilityY', state.orbitAngularSensibilityY)); state.orbitPanningSensibility = Math.max(1, read('orbitPanningSensibility', state.orbitPanningSensibility)); state.orbitWheelPrecision = Math.max(.01, read('orbitWheelPrecision', state.orbitWheelPrecision));
+    state.firstPersonMoveSpeed = Math.max(.01, read('firstPersonMoveSpeed', state.firstPersonMoveSpeed)); state.firstPersonInertia = clamp(read('firstPersonInertia', state.firstPersonInertia), 0, .9999); state.firstPersonAngularSensibility = Math.max(1, read('firstPersonAngularSensibility', state.firstPersonAngularSensibility));
+    state.droneMoveSpeed = Math.max(.01, read('droneMoveSpeed', state.droneMoveSpeed)); state.droneInertia = clamp(read('droneInertia', state.droneInertia), 0, .9999); state.droneAngularSensibility = Math.max(1, read('droneAngularSensibility', state.droneAngularSensibility));
+    state.pitch = -degToRad(clamp(read('freeRotationXDeg', radToDeg(-state.pitch)), -85, 85)); state.yaw = degToRad(read('freeRotationYDeg', radToDeg(state.yaw))); state.firstPersonHeight = read('firstPersonHeight', state.firstPersonHeight);
+    state.lockPlaneAxis = (find('lockPlaneAxis')?.value || state.lockPlaneAxis) as CameraLockPlaneAxis; state.lockPlaneValue = read('lockPlaneValue', state.lockPlaneValue); state.moveSpeed = Math.max(0, read('moveSpeed', state.moveSpeed)); state.moveAcceleration = Math.max(0, read('moveAcceleration', state.moveAcceleration)); state.moveDeceleration = Math.max(0, read('moveDeceleration', state.moveDeceleration)); state.lookSmoothing = Math.max(0, read('lookSmoothing', state.lookSmoothing)); state.panSensitivity = Math.max(0, read('panSensitivity', state.panSensitivity));
+    state.lockTarget.set(read('lockTarget.x', state.lockTarget.x), read('lockTarget.y', state.lockTarget.y), read('lockTarget.z', state.lockTarget.z));
+    state.fovDeg = clamp(read('fovDeg', state.fovDeg), 1, 179); state.fovReference = 'vertical'; state.minZ = Math.max(.001, read('minZ', state.minZ)); state.maxZ = Math.max(state.minZ + .001, read('maxZ', state.maxZ));
+    controller.applyStateToActiveCamera(); dirty = false; populate(true);
   };
 
-  const updateStatus = () => {
-    if (status) status.value = controller.getStatusText();
-  };
+  panel.addEventListener('input', (event) => { const target = event.target; if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return; if (target.dataset.field === 'mode') return; dirty = true; updateDraftState(); });
+  modeSelect?.addEventListener('change', () => { controller.setMode(modeSelect.value as CameraLabMode); dirty = false; controller.refreshStateFromActiveCamera(); populate(true); });
+  panel.querySelector('button[data-role="refresh"]')?.addEventListener('click', () => { controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
+  panel.querySelector('button[data-role="apply"]')?.addEventListener('click', applyDraft);
+  panel.querySelector('button[data-role="native-defaults"]')?.addEventListener('click', () => { controller.resetActiveCameraToNativeDefaults(); controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
+  panel.querySelector('button[data-role="initial-pose"]')?.addEventListener('click', () => { controller.resetInitialPose(); controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
 
-  const applyField = (input: HTMLInputElement | HTMLSelectElement) => {
-    const field = input.dataset.field || '';
-    const state = controller.state;
-    if (field === 'mode') controller.setMode(input.value as CameraLabMode);
-    else if (field === 'lookControlMode') state.lookControlMode = input.value === 'drag' ? 'drag' : 'pointerLock';
-    else if (field === 'moveSpeed') state.moveSpeed = readNumber(input as HTMLInputElement, state.moveSpeed);
-    else if (field === 'moveAcceleration') state.moveAcceleration = Math.max(0, readNumber(input as HTMLInputElement, state.moveAcceleration));
-    else if (field === 'moveDeceleration') state.moveDeceleration = Math.max(0, readNumber(input as HTMLInputElement, state.moveDeceleration));
-    else if (field === 'mouseSensitivity') state.mouseSensitivity = readNumber(input as HTMLInputElement, state.mouseSensitivity);
-    else if (field === 'lookSmoothing') state.lookSmoothing = Math.max(0, readNumber(input as HTMLInputElement, state.lookSmoothing));
-    else if (field === 'panSensitivity') state.panSensitivity = Math.max(0, readNumber(input as HTMLInputElement, state.panSensitivity));
-    else if (field === 'orbitInertia') state.orbitInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.orbitInertia)));
-    else if (field === 'orbitPanningInertia') state.orbitPanningInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.orbitPanningInertia)));
-    else if (field === 'orbitAngularSensibilityX') state.orbitAngularSensibilityX = Math.max(1, readNumber(input as HTMLInputElement, state.orbitAngularSensibilityX));
-    else if (field === 'orbitAngularSensibilityY') state.orbitAngularSensibilityY = Math.max(1, readNumber(input as HTMLInputElement, state.orbitAngularSensibilityY));
-    else if (field === 'orbitPanningSensibility') state.orbitPanningSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.orbitPanningSensibility));
-    else if (field === 'orbitWheelPrecision') state.orbitWheelPrecision = Math.max(0.01, readNumber(input as HTMLInputElement, state.orbitWheelPrecision));
-    else if (field === 'firstPersonMoveSpeed') state.firstPersonMoveSpeed = Math.max(0.01, readNumber(input as HTMLInputElement, state.firstPersonMoveSpeed));
-    else if (field === 'firstPersonInertia') state.firstPersonInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.firstPersonInertia)));
-    else if (field === 'firstPersonAngularSensibility') state.firstPersonAngularSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.firstPersonAngularSensibility));
-    else if (field === 'droneMoveSpeed') state.droneMoveSpeed = Math.max(0.01, readNumber(input as HTMLInputElement, state.droneMoveSpeed));
-    else if (field === 'droneInertia') state.droneInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.droneInertia)));
-    else if (field === 'droneAngularSensibility') state.droneAngularSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.droneAngularSensibility));
-    else if (field === 'fovDeg') controller.setVerticalFovDeg(readNumber(input as HTMLInputElement, state.fovDeg));
-    else if (field === 'horizontalFovDeg') controller.setHorizontalFovDeg(readNumber(input as HTMLInputElement, state.horizontalFovDeg));
-    else if (field === 'minZ') state.minZ = Math.max(0.001, readNumber(input as HTMLInputElement, state.minZ));
-    else if (field === 'maxZ') state.maxZ = Math.max(state.minZ + 0.001, readNumber(input as HTMLInputElement, state.maxZ));
-    else if (field === 'firstPersonHeight') state.firstPersonHeight = readNumber(input as HTMLInputElement, state.firstPersonHeight);
-    else if (field.startsWith('position.')) {
-      const axis = field.slice(-1) as CameraPositionAxis;
-      controller.setPositionAxis(axis, readNumber(input as HTMLInputElement, controller.getPosition()[axis]));
-    }
-    else if (field === 'lockPlaneAxis') {
-      const axis = (input.value === 'x' || input.value === 'z' ? input.value : 'y') as CameraLockPlaneAxis;
-      state.lockPlaneAxis = axis;
-      state.lockPlaneValue = state.lockPosition[axis];
-      const valueInput = panel.querySelector<HTMLInputElement>('input[data-field="lockPlaneValue"]');
-      if (valueInput) valueInput.value = String(state.lockPlaneValue);
-    }
-    else if (field === 'lockPlaneValue') {
-      state.lockPlaneValue = readNumber(input as HTMLInputElement, state.lockPlaneValue);
-    }
-    else if (field === 'orbitRadius') state.orbitRadius = readNumber(input as HTMLInputElement, state.orbitRadius);
-    else if (field === 'orbitYawDeg') state.orbitYaw = degreesToRadians(readNumber(input as HTMLInputElement, radiansToDegrees(state.orbitYaw)));
-    else if (field === 'orbitPitchDeg') state.orbitPitchDeg = readNumber(input as HTMLInputElement, state.orbitPitchDeg);
-    else if (field.startsWith('orbitCenter.')) state.orbitCenter = new Vector3(
-      field.endsWith('.x') ? readNumber(input as HTMLInputElement, state.orbitCenter.x) : state.orbitCenter.x,
-      field.endsWith('.y') ? readNumber(input as HTMLInputElement, state.orbitCenter.y) : state.orbitCenter.y,
-      field.endsWith('.z') ? readNumber(input as HTMLInputElement, state.orbitCenter.z) : state.orbitCenter.z
-    );
-    else if (field.startsWith('lockTarget.')) state.lockTarget = new Vector3(
-      field.endsWith('.x') ? readNumber(input as HTMLInputElement, state.lockTarget.x) : state.lockTarget.x,
-      field.endsWith('.y') ? readNumber(input as HTMLInputElement, state.lockTarget.y) : state.lockTarget.y,
-      field.endsWith('.z') ? readNumber(input as HTMLInputElement, state.lockTarget.z) : state.lockTarget.z
-    );
-    controller.applyPose();
-    if (field === 'fovDeg' || field === 'horizontalFovDeg') syncFromController();
-    if (field === 'mode' || field === 'lockPlaneAxis') syncFromController();
-    updateStatus();
-  };
+  const toggle = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]'); const body = panel.querySelector<HTMLElement>('[data-role="body"]'); let collapsed = false;
+  toggle?.addEventListener('pointerdown', (event) => event.stopPropagation()); toggle?.addEventListener('click', (event) => { event.stopPropagation(); collapsed = !collapsed; if (body) body.style.display = collapsed ? 'none' : ''; toggle.textContent = collapsed ? '展开' : '折叠'; });
+  const handle = panel.querySelector<HTMLElement>('[data-role="drag"]'); let dragging = false; let startX = 0; let startY = 0; let startLeft = 0; let startTop = 0;
+  const onMove = (event: PointerEvent): void => { if (!dragging) return; panel.style.left = `${Math.max(0, startLeft + event.clientX - startX)}px`; panel.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`; };
+  const onUp = (): void => { dragging = false; window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); };
+  handle?.addEventListener('pointerdown', (event) => { if ((event.target as HTMLElement).closest('button')) return; dragging = true; startX = event.clientX; startY = event.clientY; startLeft = panel.offsetLeft; startTop = panel.offsetTop; window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); });
 
-  const onInput = (event: Event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return;
-    applyField(target);
-  };
-  panel.addEventListener('input', onInput);
-  panel.addEventListener('change', onInput);
-  panel.querySelector('button[data-role="reset"]')?.addEventListener('click', () => {
-    controller.reset();
-    syncFromController();
-    updateStatus();
-  });
-
-  const dragHandle = panel.querySelector<HTMLElement>('[data-role="drag"]');
-  let dragging = false;
-  let startX = 0;
-  let startY = 0;
-  let startLeft = 0;
-  let startTop = 0;
-  const onPointerMove = (event: PointerEvent) => {
-    if (!dragging) return;
-    panel.style.left = `${Math.max(0, startLeft + event.clientX - startX)}px`;
-    panel.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`;
-  };
-  const onPointerUp = () => {
-    dragging = false;
-    window.removeEventListener('pointermove', onPointerMove);
-    window.removeEventListener('pointerup', onPointerUp);
-  };
-  dragHandle?.addEventListener('pointerdown', (event) => {
-    dragging = true;
-    startX = event.clientX;
-    startY = event.clientY;
-    startLeft = panel.offsetLeft;
-    startTop = panel.offsetTop;
-    window.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
-  });
-
-  syncFromController();
-  updateStatus();
-
-  return {
-    element: panel,
-    syncFromController,
-    updateStatus,
-    dispose: () => {
-      panel.remove();
-      window.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
-    }
-  };
+  populate(true);
+  return { element: panel, syncFromController: () => populate(false), updateStatus, dispose: () => { panel.remove(); window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); } };
 };

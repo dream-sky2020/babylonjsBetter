@@ -82,6 +82,14 @@ export interface CameraLabController {
   setPositionAxis: (axis: CameraPositionAxis, value: number) => boolean;
   setVerticalFovDeg: (value: number) => boolean;
   setHorizontalFovDeg: (value: number) => boolean;
+  /** 从当前 Babylon 相机读取真实姿态、投影和输入参数。 */
+  refreshStateFromActiveCamera: () => void;
+  /** 将控制器中的面板草稿一次性应用到当前相机。 */
+  applyStateToActiveCamera: () => void;
+  /** 恢复当前相机在创建时捕获的 Babylon 原生参数，不改变姿态。 */
+  resetActiveCameraToNativeDefaults: () => void;
+  /** 恢复各模式的项目初始姿态，不覆盖当前调校参数。 */
+  resetInitialPose: () => void;
   getStatusText: () => string;
 }
 
@@ -190,6 +198,7 @@ export const createCameraLabController = (
     ...CAMERA_LAB_DEFAULT_STATE,
     ...initialState
   });
+  const initialPoseState = cloneState(state);
   const keys = new Set<string>();
   const movementVelocity = Vector3.Zero();
   let pendingPointerX = 0;
@@ -205,6 +214,44 @@ export const createCameraLabController = (
     state.dronePosition.clone(),
     scene
   );
+  const ensureNativeOrbitInputs = (): void => {
+    if (!camera.inputs.attached.keyboard) camera.inputs.addKeyboard();
+    if (!camera.inputs.attached.mousewheel) camera.inputs.addMouseWheel();
+    if (!camera.inputs.attached.pointers) camera.inputs.addPointers();
+  };
+
+  // 有些场景会先调用 camera.inputs.clear()。必须先恢复原生 Input，
+  // 再读取代理属性，否则 angularSensibility / wheelPrecision 等会读成 0。
+  ensureNativeOrbitInputs();
+  const nativeDefaults = {
+    orbit: {
+      inertia: camera.inertia,
+      panningInertia: camera.panningInertia,
+      angularSensibilityX: camera.angularSensibilityX,
+      angularSensibilityY: camera.angularSensibilityY,
+      panningSensibility: camera.panningSensibility,
+      wheelPrecision: camera.wheelPrecision,
+      fov: camera.fov,
+      minZ: camera.minZ,
+      maxZ: camera.maxZ
+    },
+    firstPerson: {
+      speed: firstPersonCamera.speed,
+      inertia: firstPersonCamera.inertia,
+      angularSensibility: firstPersonCamera.angularSensibility,
+      fov: firstPersonCamera.fov,
+      minZ: firstPersonCamera.minZ,
+      maxZ: firstPersonCamera.maxZ
+    },
+    drone: {
+      speed: droneCamera.speed,
+      inertia: droneCamera.inertia,
+      angularSensibility: droneCamera.angularSensibility,
+      fov: droneCamera.fov,
+      minZ: droneCamera.minZ,
+      maxZ: droneCamera.maxZ
+    }
+  };
   let attachedNativeCamera: ArcRotateCamera | UniversalCamera | null = null;
 
   firstPersonCamera.keysUp = [87];
@@ -223,12 +270,6 @@ export const createCameraLabController = (
     // UniversalCamera 会按仰角带入垂直位移；第一人称模式保留既有的固定视点高度语义。
     firstPersonCamera.position.y = state.firstPersonHeight;
   });
-
-  const ensureNativeOrbitInputs = (): void => {
-    if (!camera.inputs.attached.keyboard) camera.inputs.addKeyboard();
-    if (!camera.inputs.attached.mousewheel) camera.inputs.addMouseWheel();
-    if (!camera.inputs.attached.pointers) camera.inputs.addPointers();
-  };
 
   const applyNativeOrbitOptions = (): void => {
     camera.inertia = clamp(state.orbitInertia, 0, 0.9999);
@@ -372,6 +413,96 @@ export const createCameraLabController = (
     activeCamera.fov = degToRad(clamp(state.fovDeg, 1, 179));
     activeCamera.minZ = Math.max(0.001, state.minZ);
     activeCamera.maxZ = Math.max(activeCamera.minZ + 0.001, state.maxZ);
+  };
+
+  const syncProjectionStateFromCamera = (): void => {
+    const activeCamera = scene.activeCamera ?? camera;
+    const engine = camera.getEngine();
+    const aspectRatio = Math.max(0.0001, engine.getRenderWidth() / Math.max(1, engine.getRenderHeight()));
+    state.fovDeg = clamp(radToDeg(activeCamera.fov), 1, 179);
+    state.horizontalFovDeg = verticalToHorizontalFov(state.fovDeg, aspectRatio);
+    state.fovReference = 'vertical';
+    state.minZ = activeCamera.minZ;
+    state.maxZ = activeCamera.maxZ;
+  };
+
+  const refreshStateFromActiveCamera = (): void => {
+    if (state.mode === 'orbit') {
+      syncOrbitStateFromCamera();
+      state.orbitInertia = camera.inertia;
+      state.orbitPanningInertia = camera.panningInertia;
+      state.orbitAngularSensibilityX = camera.angularSensibilityX;
+      state.orbitAngularSensibilityY = camera.angularSensibilityY;
+      state.orbitPanningSensibility = camera.panningSensibility;
+      state.orbitWheelPrecision = camera.wheelPrecision;
+    } else if (state.mode === 'firstPerson' || state.mode === 'drone') {
+      const nativeCamera = state.mode === 'firstPerson' ? firstPersonCamera : droneCamera;
+      syncFreeCameraState(nativeCamera, state.mode);
+      if (state.mode === 'firstPerson') {
+        state.firstPersonMoveSpeed = nativeCamera.speed;
+        state.firstPersonInertia = nativeCamera.inertia;
+        state.firstPersonAngularSensibility = nativeCamera.angularSensibility;
+      } else {
+        state.droneMoveSpeed = nativeCamera.speed;
+        state.droneInertia = nativeCamera.inertia;
+        state.droneAngularSensibility = nativeCamera.angularSensibility;
+      }
+    } else {
+      state.lockPosition.copyFrom(camera.position);
+      state.lockTarget.copyFrom(camera.getTarget());
+      state.lockPlaneValue = state.lockPosition[state.lockPlaneAxis];
+    }
+    syncProjectionStateFromCamera();
+  };
+
+  const resetActiveCameraToNativeDefaults = (): void => {
+    const defaults = state.mode === 'firstPerson'
+      ? nativeDefaults.firstPerson
+      : state.mode === 'drone'
+        ? nativeDefaults.drone
+        : nativeDefaults.orbit;
+    state.fovDeg = radToDeg(defaults.fov);
+    state.fovReference = 'vertical';
+    state.minZ = defaults.minZ;
+    state.maxZ = defaults.maxZ;
+    if (state.mode === 'orbit') {
+      state.orbitInertia = nativeDefaults.orbit.inertia;
+      state.orbitPanningInertia = nativeDefaults.orbit.panningInertia;
+      state.orbitAngularSensibilityX = nativeDefaults.orbit.angularSensibilityX;
+      state.orbitAngularSensibilityY = nativeDefaults.orbit.angularSensibilityY;
+      state.orbitPanningSensibility = nativeDefaults.orbit.panningSensibility;
+      state.orbitWheelPrecision = nativeDefaults.orbit.wheelPrecision;
+    } else if (state.mode === 'firstPerson') {
+      state.firstPersonMoveSpeed = nativeDefaults.firstPerson.speed;
+      state.firstPersonInertia = nativeDefaults.firstPerson.inertia;
+      state.firstPersonAngularSensibility = nativeDefaults.firstPerson.angularSensibility;
+    } else if (state.mode === 'drone') {
+      state.droneMoveSpeed = nativeDefaults.drone.speed;
+      state.droneInertia = nativeDefaults.drone.inertia;
+      state.droneAngularSensibility = nativeDefaults.drone.angularSensibility;
+    }
+    applyPose();
+  };
+
+  const resetInitialPose = (): void => {
+    state.yaw = initialPoseState.yaw;
+    state.pitch = initialPoseState.pitch;
+    state.firstPersonHeight = initialPoseState.firstPersonHeight;
+    state.firstPersonPosition.copyFrom(initialPoseState.firstPersonPosition);
+    state.dronePosition.copyFrom(initialPoseState.dronePosition);
+    state.orbitCenter.copyFrom(initialPoseState.orbitCenter);
+    state.orbitYaw = initialPoseState.orbitYaw;
+    state.orbitPitchDeg = initialPoseState.orbitPitchDeg;
+    state.orbitRadius = initialPoseState.orbitRadius;
+    state.lockPlaneAxis = initialPoseState.lockPlaneAxis;
+    state.lockPlaneValue = initialPoseState.lockPlaneValue;
+    state.lockPosition.copyFrom(initialPoseState.lockPosition);
+    state.lockTarget.copyFrom(initialPoseState.lockTarget);
+    keys.clear();
+    movementVelocity.setAll(0);
+    pendingPointerX = 0;
+    pendingPointerY = 0;
+    applyPose();
   };
 
   const applyPose = (): void => {
@@ -523,21 +654,29 @@ export const createCameraLabController = (
   const getStatusText = (): string => {
     const activeCamera = scene.activeCamera ?? camera;
     const target = activeCamera.getTarget();
-    return [
+    const commonLines = [
       `模式: ${CAMERA_LAB_MODE_LABELS[state.mode]}`,
       `position: x=${formatNumber(activeCamera.position.x)}, y=${formatNumber(activeCamera.position.y)}, z=${formatNumber(activeCamera.position.z)}`,
       `target:   x=${formatNumber(target.x)}, y=${formatNumber(target.y)}, z=${formatNumber(target.z)}`,
-      `yaw/pitch: ${formatNumber(radToDeg(state.yaw))}° / ${formatNumber(radToDeg(state.pitch))}°`,
-      `lookControl: ${state.lookControlMode === 'drag' ? '按住左键拖拽' : '点击画布锁定鼠标'}`,
-      `orbit: center=(${formatNumber(state.orbitCenter.x)}, ${formatNumber(state.orbitCenter.y)}, ${formatNumber(state.orbitCenter.z)}), radius=${formatNumber(state.orbitRadius)}, pitch=${formatNumber(state.orbitPitchDeg)}°`,
-      `firstPersonHeight=${formatNumber(state.firstPersonHeight)}, lockPlane=${state.lockPlaneAxis.toUpperCase()}@${formatNumber(state.lockPlaneValue)}`,
-      `speed=${formatNumber(state.moveSpeed)}, acceleration=${formatNumber(state.moveAcceleration)}, deceleration=${formatNumber(state.moveDeceleration)}`,
-      `sensitivity=${state.mouseSensitivity}, lookSmoothing=${formatNumber(state.lookSmoothing)}`,
-      `nativeOrbit: inertia=${formatNumber(state.orbitInertia)}, panInertia=${formatNumber(state.orbitPanningInertia)}, angular=${formatNumber(state.orbitAngularSensibilityX)}/${formatNumber(state.orbitAngularSensibilityY)}, pan=${formatNumber(state.orbitPanningSensibility)}, wheel=${formatNumber(state.orbitWheelPrecision)}`,
-      `nativeFirstPerson: speed=${formatNumber(state.firstPersonMoveSpeed)}, inertia=${formatNumber(state.firstPersonInertia)}, angular=${formatNumber(state.firstPersonAngularSensibility)}`,
-      `nativeDrone: speed=${formatNumber(state.droneMoveSpeed)}, inertia=${formatNumber(state.droneInertia)}, angular=${formatNumber(state.droneAngularSensibility)}`,
       `vfov=${formatNumber(state.fovDeg)}°, hfov=${formatNumber(state.horizontalFovDeg)}° (${state.fovReference}), clip=${formatNumber(state.minZ)}..${formatNumber(state.maxZ)}`
-    ].join('\n');
+    ];
+    if (state.mode === 'orbit') commonLines.push(
+      `alpha=${formatNumber(radToDeg(camera.alpha))}°, beta=${formatNumber(radToDeg(camera.beta))}°, radius=${formatNumber(camera.radius)}`,
+      `inertia=${formatNumber(camera.inertia)}, panningInertia=${formatNumber(camera.panningInertia)}`,
+      `angularSensibility=${formatNumber(camera.angularSensibilityX)}/${formatNumber(camera.angularSensibilityY)}, wheelPrecision=${formatNumber(camera.wheelPrecision)}`
+    );
+    else if (state.mode === 'firstPerson' || state.mode === 'drone') {
+      const nativeCamera = state.mode === 'firstPerson' ? firstPersonCamera : droneCamera;
+      commonLines.push(
+        `rotation: x=${formatNumber(radToDeg(nativeCamera.rotation.x))}°, y=${formatNumber(radToDeg(nativeCamera.rotation.y))}°`,
+        `speed=${formatNumber(nativeCamera.speed)}, inertia=${formatNumber(nativeCamera.inertia)}, angularSensibility=${formatNumber(nativeCamera.angularSensibility)}`
+      );
+      if (state.mode === 'firstPerson') commonLines.push(`项目高度约束: y=${formatNumber(state.firstPersonHeight)}`);
+    } else commonLines.push(
+      `自定义锁定平面: ${state.lockPlaneAxis.toUpperCase()}=${formatNumber(state.lockPlaneValue)}`,
+      `speed=${formatNumber(state.moveSpeed)}, acceleration=${formatNumber(state.moveAcceleration)}, deceleration=${formatNumber(state.moveDeceleration)}`
+    );
+    return commonLines.join('\n');
   };
 
   const controller: CameraLabController = {
@@ -553,6 +692,10 @@ export const createCameraLabController = (
     setPositionAxis,
     setVerticalFovDeg,
     setHorizontalFovDeg,
+    refreshStateFromActiveCamera,
+    applyStateToActiveCamera: applyPose,
+    resetActiveCameraToNativeDefaults,
+    resetInitialPose,
     setMode: (mode) => {
       if (state.mode !== mode) detachActiveNativeCamera();
       state.mode = mode;
