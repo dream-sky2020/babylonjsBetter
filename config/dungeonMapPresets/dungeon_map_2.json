@@ -17,13 +17,13 @@
             "enabled": true,
             "components": [
               {
-                "type": "legacy-data",
-                "version": 1,
                 "data": {
                   "legacy": {
                     "kind": "floor"
                   }
                 },
+                "type": "legacy-data",
+                "version": 1,
                 "localId": "legacy"
               }
             ]
@@ -38,13 +38,13 @@
             "enabled": true,
             "components": [
               {
-                "type": "legacy-data",
-                "version": 1,
                 "data": {
                   "legacy": {
                     "kind": "open"
                   }
                 },
+                "type": "legacy-data",
+                "version": 1,
                 "localId": "legacy"
               }
             ]
@@ -59,14 +59,14 @@
             "enabled": true,
             "components": [
               {
-                "type": "legacy-data",
-                "version": 1,
                 "data": {
                   "legacy": {
                     "kind": "open",
                     "label": "$dungeon-map:generated-label"
                   }
                 },
+                "type": "legacy-data",
+                "version": 1,
                 "localId": "legacy"
               }
             ]
@@ -81,13 +81,13 @@
             "enabled": true,
             "components": [
               {
-                "type": "legacy-data",
-                "version": 1,
                 "data": {
                   "legacy": {
                     "label": "$dungeon-map:generated-label"
                   }
                 },
+                "type": "legacy-data",
+                "version": 1,
                 "localId": "legacy"
               }
             ]
@@ -103,27 +103,44 @@
             "enabled": true,
             "components": [
               {
-                "type": "scene-environment",
-                "version": 3,
                 "enabled": true,
-                "presetKey": "",
-                "mapAnchorMode": "first-tile",
+                "mapAnchorMode": "map-center",
                 "mapOffset": [
                   0,
                   0,
                   0
                 ],
-                "tileSpacing": [
-                  8,
-                  8
-                ],
+                "presetKey": "local-model-loading-test",
                 "tileSize": [
                   7.5,
                   0.5,
                   7.5
                 ],
+                "tileSpacing": [
+                  8,
+                  8
+                ],
+                "type": "scene-environment",
+                "version": 3,
                 "localId": "component:03066eef-b4ca-4463-9964-84f76a8be34e",
                 "absoluteId": "component:03066eef-b4ca-4463-9964-84f76a8be34e"
+              }
+            ]
+          },
+          {
+            "localId": "entity:28c19b69-10f2-4b9d-b5c4-f30aa776b1e7",
+            "absoluteId": "entity:28c19b69-10f2-4b9d-b5c4-f30aa776b1e7",
+            "entityType": "spawn-point",
+            "name": "出生点实体",
+            "enabled": true,
+            "components": [
+              {
+                "type": "actor-spawn",
+                "version": 1,
+                "tileX": 0,
+                "tileY": 0,
+                "localId": "component:bb2a536e-057f-4393-b903-7e6f5922fb4a",
+                "absoluteId": "component:bb2a536e-057f-4393-b903-7e6f5922fb4a"
               }
             ]
           }
