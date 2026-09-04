@@ -1,25 +1,19 @@
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
-  resolveDungeonObstacleDebugLayout,
   setDungeonObstacleActive,
   type DungeonObstacleBinding,
 } from '@/core/dungeon-obstacle';
-import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
-import type { DungeonRuntime } from '@/core/dungeon-runtime';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import {
-  DUNGEON_LAB_SERVICES,
   dungeonMapChangedEvent,
   dungeonRuntimeCommitRequest,
-} from './dungeonLab.types';
-
-type ObstacleView = {
-  loadId: number;
-  presetKey: string;
-  runtime: DungeonRuntime;
-  spawn: DungeonPlayerSpawnBinding;
-  obstacles: readonly DungeonObstacleBinding[];
-};
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+  type DungeonMapLoaderReferences,
+  type LoadedDungeonReferences,
+} from '../dungeon-map-loader/dungeonMapLoader.references';
+import { resolveDungeonObstacleDebugLayout } from './dungeonObstacleDebugLayout';
 
 const placementLabel = (binding: DungeonObstacleBinding): string => {
   const placement = binding.placement;
@@ -32,13 +26,16 @@ export const dungeonObstacleLabModule: LabModule = {
   id: 'dungeon-obstacle',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
+    const references = context.services.get<DungeonMapLoaderReferences>(
+      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+    );
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
     const debugToggle = createLabSwitch('显示阻碍 Debug 盒');
     const list = document.createElement('div');
     list.className = 'lab-obstacle-list';
     const runtimeJson = createLabJson();
     panel.content.append(debugToggle.row, list, runtimeJson);
-    let current: ObstacleView | null = null;
+    let current: LoadedDungeonReferences | null = null;
     let debugRoot: TransformNode | null = null;
     const disposeDebug = () => {
       debugRoot?.dispose(false, true);
@@ -114,13 +111,9 @@ export const dungeonObstacleLabModule: LabModule = {
     };
     debugToggle.input.addEventListener('change', renderDebug);
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
-      current = {
-        loadId: next.loadId,
-        presetKey: next.presetKey,
-        runtime: context.services.get(DUNGEON_LAB_SERVICES.runtime),
-        spawn: context.services.get(DUNGEON_LAB_SERVICES.spawn),
-        obstacles: context.services.get(DUNGEON_LAB_SERVICES.obstacles),
-      };
+      const loaded = references.current;
+      if (!loaded || loaded.loadId !== next.loadId) return;
+      current = loaded;
       renderList();
       refreshJson();
       renderDebug();

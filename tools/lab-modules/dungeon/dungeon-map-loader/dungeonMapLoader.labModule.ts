@@ -16,20 +16,29 @@ import {
 } from '@/core/scene';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
-  DUNGEON_LAB_SERVICES,
+  DUNGEON_LIBRARIES_SERVICE_KEY,
+  type DungeonLabLibraries,
+} from '../dungeon-libraries/dungeonLibraries.protocol';
+import {
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
   dungeonRuntimeCommitRequest,
   dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
-  type DungeonLabLibraries,
   type DungeonLabMapLoader,
-} from './dungeonLab.types';
+} from './dungeonMapLoader.protocol';
+import {
+  createDungeonMapLoaderReferences,
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+} from './dungeonMapLoader.references';
 
 export const dungeonMapLoaderLabModule: LabModule = {
   id: 'dungeon-map-loader',
   dependencies: ['dungeon-libraries'],
   setup(context) {
+    const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LIBRARIES_SERVICE_KEY);
+    const referenceController = createDungeonMapLoaderReferences();
+    context.services.set(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, referenceController.references);
     const panel = context.ui.addPanel('dungeon-map-loader', '当前地图');
     const mapKey = document.createElement('input');
     mapKey.readOnly = true;
@@ -56,7 +65,6 @@ export const dungeonMapLoaderLabModule: LabModule = {
 
     const loader: DungeonLabMapLoader = {
       async switchDungeon(presetKey) {
-        const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
         const preset = libraries.maps[presetKey];
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
         saveActiveRuntime();
@@ -85,10 +93,15 @@ export const dungeonMapLoaderLabModule: LabModule = {
           activeSpawn = spawn;
           activeLoadId = loadId;
           runtimeRevision = 0;
-          context.services.set(DUNGEON_LAB_SERVICES.sceneBinding, binding);
-          context.services.set(DUNGEON_LAB_SERVICES.spawn, spawn);
-          context.services.set(DUNGEON_LAB_SERVICES.runtime, runtime);
-          context.services.set(DUNGEON_LAB_SERVICES.obstacles, obstacles);
+          referenceController.commit({
+            loadId,
+            presetKey,
+            map: preset.map,
+            sceneBinding: binding,
+            spawn,
+            runtime,
+            obstacles,
+          });
           mapKey.value = presetKey;
           sceneKey.value = binding.component.presetKey;
           json.textContent = JSON.stringify({ loadId, presetKey, mapId: preset.map.id,
@@ -112,6 +125,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         activePresetKey = null;
         activeRuntime = null;
         activeSpawn = null;
+        referenceController.clear();
       },
     };
     context.communication.handle(dungeonMapSwitchRequest, async ({ presetKey }) => ({

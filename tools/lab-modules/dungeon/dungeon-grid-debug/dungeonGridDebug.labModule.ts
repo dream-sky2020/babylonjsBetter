@@ -1,19 +1,27 @@
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import { createLabSwitch, type LabModule } from '@/tools/lab-kit';
-import type { DungeonMapSceneEnvironmentBinding } from '@/core/scene';
-import { DUNGEON_LAB_SERVICES, dungeonMapChangedEvent, type DungeonMapChangedEvent } from './dungeonLab.types';
+import {
+  dungeonMapChangedEvent,
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+  type DungeonMapLoaderReferences,
+  type LoadedDungeonReferences,
+} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 export const dungeonGridDebugLabModule: LabModule = {
   id: 'dungeon-grid-debug',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
+    const references = context.services.get<DungeonMapLoaderReferences>(
+      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+    );
     const panel = context.ui.addPanel('dungeon-grid-debug', '地图 Debug');
     const toggle = createLabSwitch('显示全部格子 Debug 盒');
     panel.content.append(toggle.row);
     let root: TransformNode | null = null;
-    let current: DungeonMapChangedEvent | null = null;
-    let binding: DungeonMapSceneEnvironmentBinding | null = null;
+    let current: LoadedDungeonReferences | null = null;
     const dispose = () => {
       root?.dispose(false, true);
       root = null;
@@ -22,8 +30,6 @@ export const dungeonGridDebugLabModule: LabModule = {
       dispose();
       if (!toggle.input.checked || !current) return;
       const loaded = current;
-      const activeBinding = binding;
-      if (!activeBinding) return;
       root = new TransformNode(`dungeon_grid_debug_${loaded.loadId}`, context.scene);
       const material = new StandardMaterial(`dungeon_grid_debug_material_${loaded.loadId}`, context.scene);
       material.diffuseColor = Color3.FromHexString('#36bff2');
@@ -32,7 +38,7 @@ export const dungeonGridDebugLabModule: LabModule = {
       material.wireframe = true;
       loaded.map.tiles.forEach((tile) => {
         const layout = resolveDungeonMapTileWorldLayout(
-          activeBinding.component,
+          loaded.sceneBinding.component,
           loaded.map.width,
           loaded.map.height,
           tile.x,
@@ -52,8 +58,9 @@ export const dungeonGridDebugLabModule: LabModule = {
     };
     toggle.input.addEventListener('change', render);
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
-      current = next;
-      binding = context.services.get(DUNGEON_LAB_SERVICES.sceneBinding);
+      const loaded = references.current;
+      if (!loaded || loaded.loadId !== next.loadId) return;
+      current = loaded;
       render();
     });
     return () => { off(); dispose(); };

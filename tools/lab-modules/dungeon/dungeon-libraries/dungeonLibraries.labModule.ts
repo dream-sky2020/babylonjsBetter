@@ -2,7 +2,11 @@ import { loadConfig } from '@/core/config';
 import { loadDungeonMapPresetLibrary } from '@/core/map';
 import { parseSceneEnvironmentPresetLibrary, parseShadowQualityPresetLibrary } from '@/core/scene';
 import type { LabModule } from '@/tools/lab-kit';
-import { DUNGEON_LAB_SERVICES, dungeonMapCatalogRequest, type DungeonLabLibraries } from './dungeonLab.types';
+import {
+  DUNGEON_LIBRARIES_SERVICE_KEY,
+  dungeonMapCatalogRequest,
+  type DungeonLabLibraries,
+} from './dungeonLibraries.protocol';
 
 const selectDevData = (payload: unknown) => (payload as Record<string, unknown>).data;
 
@@ -28,7 +32,7 @@ export const dungeonLibrariesLabModule: LabModule = {
           environments: parseSceneEnvironmentPresetLibrary(environments),
           shadows: parseShadowQualityPresetLibrary(shadows),
         };
-        context.services.set(DUNGEON_LAB_SERVICES.libraries, libraries);
+        context.services.set(DUNGEON_LIBRARIES_SERVICE_KEY, libraries);
       },
     };
   },

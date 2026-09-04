@@ -1,17 +1,26 @@
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
-import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
-import { DUNGEON_LAB_SERVICES, dungeonMapChangedEvent } from './dungeonLab.types';
+import {
+  dungeonMapChangedEvent,
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+  type DungeonMapLoaderReferences,
+  type LoadedDungeonReferences,
+} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 export const playerSpawnLabModule: LabModule = {
   id: 'player-spawn',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
+    const references = context.services.get<DungeonMapLoaderReferences>(
+      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+    );
     const panel = context.ui.addPanel('player-spawn', '玩家出生点');
     const toggle = createLabSwitch('显示玩家出生格 Debug 盒');
     const json = createLabJson();
     panel.content.append(toggle.row, json);
-    let current: { loadId: number; presetKey: string; spawn: DungeonPlayerSpawnBinding } | null = null;
+    let current: LoadedDungeonReferences | null = null;
     let root: TransformNode | null = null;
     const dispose = () => {
       root?.dispose(false, true);
@@ -40,8 +49,10 @@ export const playerSpawnLabModule: LabModule = {
     };
     toggle.input.addEventListener('change', render);
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
-      const spawn = context.services.get<DungeonPlayerSpawnBinding>(DUNGEON_LAB_SERVICES.spawn);
-      current = { loadId: next.loadId, presetKey: next.presetKey, spawn };
+      const loaded = references.current;
+      if (!loaded || loaded.loadId !== next.loadId) return;
+      current = loaded;
+      const { spawn } = loaded;
       json.textContent = JSON.stringify({
         dungeonPresetKey: next.presetKey,
         spawnPointEntity: spawn.spawnPointEntity,

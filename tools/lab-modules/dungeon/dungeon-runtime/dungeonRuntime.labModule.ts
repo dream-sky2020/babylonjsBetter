@@ -1,6 +1,13 @@
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
-import type { DungeonRuntime } from '@/core/dungeon-runtime';
-import { DUNGEON_LAB_SERVICES, dungeonMapChangedEvent, dungeonRuntimeChangedEvent } from './dungeonLab.types';
+import {
+  dungeonMapChangedEvent,
+  dungeonRuntimeChangedEvent,
+} from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import {
+  DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+  type DungeonMapLoaderReferences,
+  type LoadedDungeonReferences,
+} from '../dungeon-map-loader/dungeonMapLoader.references';
 
 const readonlyInput = () => {
   const input = document.createElement('input');
@@ -12,6 +19,9 @@ export const dungeonRuntimeLabModule: LabModule = {
   id: 'dungeon-runtime',
   dependencies: ['dungeon-map-loader'],
   setup(context) {
+    const references = context.services.get<DungeonMapLoaderReferences>(
+      DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
+    );
     const panel = context.ui.addPanel('dungeon-runtime', '当前地牢运行时');
     const mapId = readonlyInput();
     const position = readonlyInput();
@@ -27,7 +37,7 @@ export const dungeonRuntimeLabModule: LabModule = {
       json,
       status,
     );
-    let current: { loadId: number; presetKey: string; runtime: DungeonRuntime } | null = null;
+    let current: LoadedDungeonReferences | null = null;
     const refresh = () => {
       if (!current) return;
       const { runtime } = current;
@@ -47,8 +57,9 @@ export const dungeonRuntimeLabModule: LabModule = {
       }, null, 2);
     };
     const offMap = context.communication.on(dungeonMapChangedEvent, (next) => {
-      const runtime = context.services.get<DungeonRuntime>(DUNGEON_LAB_SERVICES.runtime);
-      current = { loadId: next.loadId, presetKey: next.presetKey, runtime };
+      const loaded = references.current;
+      if (!loaded || loaded.loadId !== next.loadId) return;
+      current = loaded;
       status.textContent = `正在显示地图加载 #${next.loadId} 的 Runtime。`;
       refresh();
     });
