@@ -1,21 +1,26 @@
 import { scanDungeonObstacles } from '@/core/dungeon-obstacle';
 import { resolveDungeonPlayerSpawn } from '@/core/dungeon-player-spawn';
 import { createDungeonRuntime } from '@/core/dungeon-runtime';
-import { applyDungeonRuntimeSaveState, createDungeonRuntimeSaveState } from '@/core/dungeon-runtime-save';
+import {
+  applyDungeonRuntimeSaveState,
+  createDungeonRuntimeSaveState,
+  type DungeonRuntimeSaveState,
+} from '@/core/dungeon-runtime-save';
+import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
+import type { DungeonRuntime } from '@/core/dungeon-runtime';
 import {
   createDungeonMapSceneEnvironmentAsync,
   resolveDungeonMapSceneEnvironment,
   resolveDungeonMapTileWorldLayout,
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
-import { createWorldRuntime, setWorldRuntimeDungeonSaveState, type WorldRuntime } from '@/core/world-runtime';
-import { WORLD_LAB_SERVICES, gameRuntimeReadyEvent } from '@/tools/lab-modules/world/worldLab.types';
 import { createLabField, createLabJson, createLabStatus, type LabModule } from '@/tools/lab-kit';
 import {
   DUNGEON_LAB_SERVICES,
   dungeonMapChangedEvent,
   dungeonRuntimeChangedEvent,
   dungeonRuntimeCommitRequest,
+  dungeonRuntimeSaveStatesRequest,
   dungeonMapSwitchRequest,
   type DungeonLabLibraries,
   type DungeonLabMapLoader,
@@ -31,27 +36,26 @@ export const dungeonMapLoaderLabModule: LabModule = {
     const sceneKey = document.createElement('input');
     sceneKey.readOnly = true;
     const json = createLabJson('尚未加载地图。');
-    const status = createLabStatus('等待 WorldRuntime 与地图装载……');
+    const status = createLabStatus('等待地图装载……');
     panel.content.append(createLabField('地图预设', mapKey), createLabField('场景预设', sceneKey), json, status);
 
     let generation = 0;
     let activeLoadId = 0;
     let runtimeRevision = 0;
-    let worldRuntime: WorldRuntime | null = null;
+    let activePresetKey: string | null = null;
+    let activeRuntime: DungeonRuntime | null = null;
+    let activeSpawn: DungeonPlayerSpawnBinding | null = null;
+    const dungeonSaveStates: Record<string, DungeonRuntimeSaveState> = {};
     let activeInstance: DungeonMapSceneEnvironmentInstance | null = null;
     const saveActiveRuntime = () => {
-      if (!worldRuntime?.activeDungeonPresetKey || !worldRuntime.activeDungeonRuntime || !worldRuntime.activeDungeonSpawn) return;
-      const key = worldRuntime.activeDungeonPresetKey;
-      setWorldRuntimeDungeonSaveState(
-        worldRuntime,
-        key,
-        createDungeonRuntimeSaveState(key, worldRuntime.activeDungeonRuntime, worldRuntime.activeDungeonSpawn),
-      );
+      if (!activePresetKey || !activeRuntime || !activeSpawn) return;
+      const saveState = createDungeonRuntimeSaveState(activePresetKey, activeRuntime, activeSpawn);
+      if (saveState) dungeonSaveStates[activePresetKey] = saveState;
+      else delete dungeonSaveStates[activePresetKey];
     };
 
     const loader: DungeonLabMapLoader = {
       async switchDungeon(presetKey) {
-        if (!worldRuntime) throw new Error('WorldRuntime 尚未就绪。');
         const libraries = context.services.get<DungeonLabLibraries>(DUNGEON_LAB_SERVICES.libraries);
         const preset = libraries.maps[presetKey];
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
@@ -65,7 +69,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         try {
           const spawn = resolveDungeonPlayerSpawn(preset.map, libraries.environments);
           const runtime = createDungeonRuntime(preset.map, spawn);
-          const saved = worldRuntime.dungeonSaveStates[presetKey];
+          const saved = dungeonSaveStates[presetKey];
           const warnings = saved
             ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
               spawn.sceneEnvironmentComponent, preset.map.width, preset.map.height,
@@ -73,13 +77,12 @@ export const dungeonMapLoaderLabModule: LabModule = {
             ).center).warnings
             : [];
           const obstacles = scanDungeonObstacles(preset.map);
-          const previousPresetKey = worldRuntime.activeDungeonPresetKey;
+          const previousPresetKey = activePresetKey;
           const previousInstance = activeInstance;
           activeInstance = instance;
-          worldRuntime.activeDungeonPresetKey = presetKey;
-          worldRuntime.activeDungeonMap = preset.map;
-          worldRuntime.activeDungeonRuntime = runtime;
-          worldRuntime.activeDungeonSpawn = spawn;
+          activePresetKey = presetKey;
+          activeRuntime = runtime;
+          activeSpawn = spawn;
           activeLoadId = loadId;
           runtimeRevision = 0;
           context.services.set(DUNGEON_LAB_SERVICES.sceneBinding, binding);
@@ -106,12 +109,9 @@ export const dungeonMapLoaderLabModule: LabModule = {
         saveActiveRuntime();
         activeInstance?.dispose();
         activeInstance = null;
-        if (worldRuntime) {
-          worldRuntime.activeDungeonPresetKey = null;
-          worldRuntime.activeDungeonMap = null;
-          worldRuntime.activeDungeonRuntime = null;
-          worldRuntime.activeDungeonSpawn = null;
-        }
+        activePresetKey = null;
+        activeRuntime = null;
+        activeSpawn = null;
       },
     };
     context.communication.handle(dungeonMapSwitchRequest, async ({ presetKey }) => ({
@@ -119,8 +119,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
       presetKey,
     }));
     context.communication.handle(dungeonRuntimeCommitRequest, async ({ reason }) => {
-      const presetKey = worldRuntime?.activeDungeonPresetKey ?? null;
-      if (!presetKey || !worldRuntime?.activeDungeonRuntime) {
+      const presetKey = activePresetKey;
+      if (!presetKey || !activeRuntime) {
         return { committed: false, loadId: activeLoadId, revision: runtimeRevision, presetKey };
       }
       const revision = ++runtimeRevision;
@@ -129,22 +129,9 @@ export const dungeonMapLoaderLabModule: LabModule = {
       });
       return { committed: true, loadId: activeLoadId, revision, presetKey };
     });
-    const install = (runtime: WorldRuntime) => {
-      if (worldRuntime && worldRuntime !== runtime) loader.dispose();
-      worldRuntime = runtime;
-    };
-    const offGame = context.communication.on(gameRuntimeReadyEvent, () => {
-      install(context.services.get<WorldRuntime>(WORLD_LAB_SERVICES.runtime));
-    });
-    const start = () => {
-      if (worldRuntime) return;
-      const standalone = createWorldRuntime('lab:standalone');
-      context.services.set(WORLD_LAB_SERVICES.runtime, standalone);
-      install(standalone);
-    };
+    context.communication.handle(dungeonRuntimeSaveStatesRequest, () => structuredClone(dungeonSaveStates));
     return {
-      start,
-      dispose() { offGame(); loader.dispose(); },
+      dispose() { loader.dispose(); },
     };
   },
 };

@@ -35,8 +35,8 @@ const battleTimes = context.runtime.publicData.read(
 );
 ```
 
-新增战斗计时项必须继续由本模块注册，不能写回 `GameRuntime` 或 `WorldRuntime`。
+新增战斗计时项必须继续由本模块注册，不能写入地图加载器或 `DungeonRuntime`。
 
 ## 兼容边界
 
-组合式 Lab 已不再读写 `WorldRuntime.playTimeSeconds` 和 `playTimeRunning`。旧字段和旧 `GameRuntimeSnapshot` 暂时保留，等待中央 Runtime 存档能力实现后单独迁移，当前不能作为新时间数据的权威来源。
+旧的游戏/世界运行时兼容层已经删除；组合式 Lab 的时间权威数据只存在于 Runtime Store。

@@ -1,4 +1,5 @@
 import type { DungeonMapPresetLibrary } from '@/core/map';
+import type { DungeonRuntimeSaveState } from '@/core/dungeon-runtime-save';
 import type { SceneEnvironmentPresetLibrary, ShadowQualityPresetLibrary } from '@/core/scene';
 import { createLabEvent, createLabRequest } from '@/tools/lab-kit';
 
@@ -46,6 +47,11 @@ export type DungeonRuntimeCommitResult = {
 export const dungeonRuntimeCommitRequest = createLabRequest<DungeonRuntimeCommitRequest, DungeonRuntimeCommitResult>(
   'dungeon.runtime.commit',
 );
+
+export const dungeonRuntimeSaveStatesRequest = createLabRequest<
+  void,
+  Readonly<Record<string, DungeonRuntimeSaveState>>
+>('dungeon.runtime-save-states.get');
 
 export type DungeonMapCatalogEntry = {
   presetKey: string;

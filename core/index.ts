@@ -23,7 +23,5 @@ export * from './entity';
 export * from './runtime';
 export * from './game-time';
 
-export * from './game-runtime';
-export * from './world-runtime';
 export * from './dungeon-runtime';
 export * from './dungeon-runtime-save';

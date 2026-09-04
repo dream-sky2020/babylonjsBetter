@@ -1,10 +1,10 @@
 import { createLabStatus, type LabModule } from '@/tools/lab-kit';
 
 const NODES = [
-  { id: 'game', label: 'GameRuntime', x: 0.5, y: 0.18, color: '#4fa9d8' },
-  { id: 'world', label: 'WorldRuntime', x: 0.5, y: 0.42, color: '#5fc99a' },
-  { id: 'active-map', label: 'activeDungeonMap', x: 0.3, y: 0.7, color: '#d9a85d' },
-  { id: 'runtime-saves', label: 'dungeonSaveStates', x: 0.7, y: 0.7, color: '#b989d8' },
+  { id: 'lab', label: 'Lab Host', x: 0.5, y: 0.18, color: '#4fa9d8' },
+  { id: 'loader', label: 'DungeonMapLoader', x: 0.5, y: 0.42, color: '#5fc99a' },
+  { id: 'active-map', label: 'Active Dungeon', x: 0.3, y: 0.7, color: '#d9a85d' },
+  { id: 'runtime-saves', label: 'Runtime Saves', x: 0.7, y: 0.7, color: '#b989d8' },
 ] as const;
 
 export const viewportLayersLabModule: LabModule = {
@@ -23,7 +23,7 @@ export const viewportLayersLabModule: LabModule = {
     const status = createLabStatus('覆盖层关闭；Babylon 场景可交互。');
     panel.content.append(openCanvas, openHtml, closeAll, status);
 
-    let selectedId = 'world';
+    let selectedId = 'loader';
     const canvasLayer = context.viewport.openCanvasLayer({
       id: 'viewport-demo-canvas',
       title: 'Canvas · 运行时数据关系',
@@ -35,7 +35,7 @@ export const viewportLayersLabModule: LabModule = {
         draw.lineWidth = 2;
         draw.strokeStyle = '#526b7c';
         const byId = Object.fromEntries(NODES.map((node) => [node.id, node]));
-        ([['game', 'world'], ['world', 'active-map'], ['world', 'runtime-saves']] as const).forEach(([fromId, toId]) => {
+        ([['lab', 'loader'], ['loader', 'active-map'], ['loader', 'runtime-saves']] as const).forEach(([fromId, toId]) => {
           const from = byId[fromId];
           const to = byId[toId];
           draw.beginPath();

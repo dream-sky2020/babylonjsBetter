@@ -36,7 +36,7 @@ const host = await createLab({
 lab:ready / 用户选择地牢
   → DungeonLabMapLoader.switchDungeon(key)
   → 分别创建地图场景、Spawn、Runtime 与阻碍
-  → 提交 WorldRuntime 当前地图字段与独立服务
+  → 提交 DungeonMapLoader 当前地图引用与独立服务
   → dungeon:map-changed
   → dungeon:runtime-changed（运行期可重复）
 ```
