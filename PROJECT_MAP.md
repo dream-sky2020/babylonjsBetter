@@ -301,8 +301,8 @@ config/monsterDisplayConfigs.json
 
 - `core/model/`：GLB/GLTF 模型实体、AssetContainer 预制体缓存、动画控制、共享材质透明策略，以及展示/场景/摇晃/挥动预设；`config/modelAssetProfiles.json` 保存模型资产级统一缩放、旋转、原点偏移与透明策略，`createModelEntity()` 默认应用到内层 `normalizationRoot`，外层 `root` 保留给场景实例变换。
 - `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体、光源和本地 GLB/GLTF 模型声明，异步环境接口通过 `core/model.createModelEntity()` 复用模型缓存、材质、动画和释放能力；`createDungeonMapSceneEnvironment` 负责从地图 map Entity 的 `scene-environment` 组件解析预设并创建大场景，`dungeonMapSceneLayout` 根据组件中的地图偏移、格子间隔、格子尺寸和固定锚定枚举将 2D 格子映射到 3D 世界位置；锚定模式支持偏移对应 `(0,0)` 格子底面中心或对应整张格子布局的 3D 中心。`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体与加载模型分别声明投射/接收阴影。
-- `core/camera/`：战斗相机和多模式相机控制器。`cameraLabController.ts` 支持第一人称、无人机、环绕和锁定平面四种模式；环绕模式使用 Babylon `ArcRotateCamera`，第一人称与无人机模式分别使用原生 `UniversalCamera`，由控制器切换 `scene.activeCamera` 并保存各模式姿态；锁定平面模式保留自定义的帧率无关移动加减速与平面拖拽。控制器统一管理 FOV 与近远裁剪面。虽然文件名仍保留 `Lab`，该控制器已被多个正式 Core 场景与 Lab 共享。
-- `core/ui/`：共享 React UI 和浮动相机面板；`FloatingCameraControlPanel.ts` 可实时编辑相机模式、位置、Babylon 原生环绕/第一人称/无人机输入与惯性参数、锁定平面自定义移动参数、FOV、裁剪面及各模式专属参数；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
+- `core/camera/`：战斗相机和多模式相机控制器。`cameraLabController.ts` 支持第一人称、无人机、环绕和锁定平面四种模式；环绕模式使用 Babylon `ArcRotateCamera`，第一人称与无人机模式分别使用原生 `UniversalCamera`，由控制器切换 `scene.activeCamera` 并保存各模式姿态；锁定平面模式保留自定义的帧率无关移动加减速与平面拖拽。控制器统一管理 FOV 与近远裁剪面，并提供“从真实相机读取、显式应用、恢复创建时原生参数、恢复项目初始姿态”四个独立动作。虽然文件名仍保留 `Lab`，该控制器已被多个正式 Core 场景与 Lab 共享。
+- `core/ui/`：共享 React UI 和浮动相机面板；`FloatingCameraControlPanel.ts` 使用 Babylon 属性名展示各原生相机参数，输入先保存在面板草稿中，点击“应用到相机”才统一写入；“从当前相机刷新”可读取鼠标/键盘操作后的真实值，外部高频同步不会覆盖未应用草稿。面板另提供恢复原生参数和恢复初始姿态，并明确标出锁定平面是项目自定义模式；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
 - `core/ui/DungeonMapCanvas.tsx`：纯数据驱动的 2D Canvas 地牢地图；绘制格子四边的墙/门、地图、玩家朝向与标记，并将 DRPG 格步操作作为事件向外派发。
 - `core/map/`：地牢地图的稳定数据契约、坐标/格子访问、四边通行规则与结构校验；每个格子独立保存 `north/east/south/west` 四条边，不存在相邻格子的公用边，也不要求两侧边配置一致。每条边可独立携带 `enter/leave/cross/interact` 事件。
 - `core/dungeon-player-spawn/`：从地图容器读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
