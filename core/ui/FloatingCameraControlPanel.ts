@@ -44,8 +44,8 @@ const html = `
   <div data-role="body" style="flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:12px;">
     <label>预览模式</label>
     <select data-field="mode"></select>
-    <label>鼠标视角方式</label>
-    <select data-field="lookControlMode">
+    <label data-custom-look-only>鼠标视角方式</label>
+    <select data-field="lookControlMode" data-custom-look-only>
       <option value="pointerLock">点击画布锁定鼠标</option>
       <option value="drag">按住左键拖拽调整视野</option>
     </select>
@@ -58,14 +58,23 @@ const html = `
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-      <div><label>移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
-      <div><label>移动加速度</label><input data-field="moveAcceleration" type="number" min="0" max="1000" step="1" /></div>
-      <div><label>移动减速度</label><input data-field="moveDeceleration" type="number" min="0" max="1000" step="1" /></div>
-      <div><label>鼠标灵敏度</label><input data-field="mouseSensitivity" type="number" min="0.0005" max="0.02" step="0.0005" /></div>
-      <div><label>视角平滑（响应/秒）</label><input data-field="lookSmoothing" type="number" min="0" max="60" step="1" /></div>
+      <div data-lock-only><label>锁定平面移动速度</label><input data-field="moveSpeed" type="number" min="0.1" max="200" step="0.1" /></div>
+      <div data-lock-only><label>锁定平面移动加速度</label><input data-field="moveAcceleration" type="number" min="0" max="1000" step="1" /></div>
+      <div data-lock-only><label>锁定平面移动减速度</label><input data-field="moveDeceleration" type="number" min="0" max="1000" step="1" /></div>
+      <div data-lock-only><label>锁定平面视角平滑</label><input data-field="lookSmoothing" type="number" min="0" max="60" step="1" /></div>
       <div data-lock-only><label>拖拽平移灵敏度</label><input data-field="panSensitivity" type="number" min="0.001" max="2" step="0.005" /></div>
-      <div data-orbit-only><label>滚轮缩放速度</label><input data-field="orbitZoomSpeed" type="number" min="0.1" max="50" step="0.1" /></div>
-      <div data-orbit-only><label>缩放平滑（响应/秒）</label><input data-field="zoomSmoothing" type="number" min="0" max="60" step="1" /></div>
+      <div data-orbit-only><label>原生旋转/缩放惯性</label><input data-field="orbitInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div data-orbit-only><label>原生平移惯性</label><input data-field="orbitPanningInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div data-orbit-only><label>原生水平旋转灵敏度</label><input data-field="orbitAngularSensibilityX" type="number" min="1" step="10" /></div>
+      <div data-orbit-only><label>原生垂直旋转灵敏度</label><input data-field="orbitAngularSensibilityY" type="number" min="1" step="10" /></div>
+      <div data-orbit-only><label>原生平移灵敏度</label><input data-field="orbitPanningSensibility" type="number" min="1" step="10" /></div>
+      <div data-orbit-only><label>原生滚轮精度</label><input data-field="orbitWheelPrecision" type="number" min="0.01" step="0.1" /></div>
+      <div data-first-person-only><label>原生第一人称移动速度</label><input data-field="firstPersonMoveSpeed" type="number" min="0.01" step="0.1" /></div>
+      <div data-first-person-only><label>原生第一人称惯性</label><input data-field="firstPersonInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div data-first-person-only><label>原生第一人称鼠标灵敏度</label><input data-field="firstPersonAngularSensibility" type="number" min="1" step="10" /></div>
+      <div data-drone-only><label>原生无人机移动速度</label><input data-field="droneMoveSpeed" type="number" min="0.01" step="0.1" /></div>
+      <div data-drone-only><label>原生无人机惯性</label><input data-field="droneInertia" type="number" min="0" max="0.9999" step="0.01" /></div>
+      <div data-drone-only><label>原生无人机鼠标灵敏度</label><input data-field="droneAngularSensibility" type="number" min="1" step="10" /></div>
       <div><label>垂直视场角（°）</label><input data-field="fovDeg" type="number" min="1" max="179" step="0.1" /></div>
       <div><label>水平视场角 HFOV（°）</label><input data-field="horizontalFovDeg" type="number" min="1" max="179" step="0.1" /></div>
       <div><label>近裁剪面</label><input data-field="minZ" type="number" min="0.001" step="0.01" /></div>
@@ -205,8 +214,14 @@ export const createFloatingCameraControlPanel = (
     panel.querySelectorAll<HTMLElement>('[data-first-person-only]').forEach((element) => {
       element.style.display = controller.state.mode === 'firstPerson' ? '' : 'none';
     });
+    panel.querySelectorAll<HTMLElement>('[data-drone-only]').forEach((element) => {
+      element.style.display = controller.state.mode === 'drone' ? '' : 'none';
+    });
     panel.querySelectorAll<HTMLElement>('[data-lock-only]').forEach((element) => {
       element.style.display = controller.state.mode === 'lockPan' ? '' : 'none';
+    });
+    panel.querySelectorAll<HTMLElement>('[data-non-orbit-only], [data-custom-look-only]').forEach((element) => {
+      element.style.display = controller.state.mode === 'orbit' ? 'none' : '';
     });
   };
 
@@ -223,8 +238,18 @@ export const createFloatingCameraControlPanel = (
       else if (field === 'mouseSensitivity') input.value = String(state.mouseSensitivity);
       else if (field === 'lookSmoothing') input.value = String(state.lookSmoothing);
       else if (field === 'panSensitivity') input.value = String(state.panSensitivity);
-      else if (field === 'orbitZoomSpeed') input.value = String(state.orbitZoomSpeed);
-      else if (field === 'zoomSmoothing') input.value = String(state.zoomSmoothing);
+      else if (field === 'orbitInertia') input.value = String(state.orbitInertia);
+      else if (field === 'orbitPanningInertia') input.value = String(state.orbitPanningInertia);
+      else if (field === 'orbitAngularSensibilityX') input.value = String(state.orbitAngularSensibilityX);
+      else if (field === 'orbitAngularSensibilityY') input.value = String(state.orbitAngularSensibilityY);
+      else if (field === 'orbitPanningSensibility') input.value = String(state.orbitPanningSensibility);
+      else if (field === 'orbitWheelPrecision') input.value = String(state.orbitWheelPrecision);
+      else if (field === 'firstPersonMoveSpeed') input.value = String(state.firstPersonMoveSpeed);
+      else if (field === 'firstPersonInertia') input.value = String(state.firstPersonInertia);
+      else if (field === 'firstPersonAngularSensibility') input.value = String(state.firstPersonAngularSensibility);
+      else if (field === 'droneMoveSpeed') input.value = String(state.droneMoveSpeed);
+      else if (field === 'droneInertia') input.value = String(state.droneInertia);
+      else if (field === 'droneAngularSensibility') input.value = String(state.droneAngularSensibility);
       else if (field === 'fovDeg') input.value = String(state.fovDeg);
       else if (field === 'horizontalFovDeg') input.value = String(state.horizontalFovDeg);
       else if (field === 'minZ') input.value = String(state.minZ);
@@ -263,8 +288,18 @@ export const createFloatingCameraControlPanel = (
     else if (field === 'mouseSensitivity') state.mouseSensitivity = readNumber(input as HTMLInputElement, state.mouseSensitivity);
     else if (field === 'lookSmoothing') state.lookSmoothing = Math.max(0, readNumber(input as HTMLInputElement, state.lookSmoothing));
     else if (field === 'panSensitivity') state.panSensitivity = Math.max(0, readNumber(input as HTMLInputElement, state.panSensitivity));
-    else if (field === 'orbitZoomSpeed') state.orbitZoomSpeed = Math.max(0, readNumber(input as HTMLInputElement, state.orbitZoomSpeed));
-    else if (field === 'zoomSmoothing') state.zoomSmoothing = Math.max(0, readNumber(input as HTMLInputElement, state.zoomSmoothing));
+    else if (field === 'orbitInertia') state.orbitInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.orbitInertia)));
+    else if (field === 'orbitPanningInertia') state.orbitPanningInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.orbitPanningInertia)));
+    else if (field === 'orbitAngularSensibilityX') state.orbitAngularSensibilityX = Math.max(1, readNumber(input as HTMLInputElement, state.orbitAngularSensibilityX));
+    else if (field === 'orbitAngularSensibilityY') state.orbitAngularSensibilityY = Math.max(1, readNumber(input as HTMLInputElement, state.orbitAngularSensibilityY));
+    else if (field === 'orbitPanningSensibility') state.orbitPanningSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.orbitPanningSensibility));
+    else if (field === 'orbitWheelPrecision') state.orbitWheelPrecision = Math.max(0.01, readNumber(input as HTMLInputElement, state.orbitWheelPrecision));
+    else if (field === 'firstPersonMoveSpeed') state.firstPersonMoveSpeed = Math.max(0.01, readNumber(input as HTMLInputElement, state.firstPersonMoveSpeed));
+    else if (field === 'firstPersonInertia') state.firstPersonInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.firstPersonInertia)));
+    else if (field === 'firstPersonAngularSensibility') state.firstPersonAngularSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.firstPersonAngularSensibility));
+    else if (field === 'droneMoveSpeed') state.droneMoveSpeed = Math.max(0.01, readNumber(input as HTMLInputElement, state.droneMoveSpeed));
+    else if (field === 'droneInertia') state.droneInertia = Math.min(0.9999, Math.max(0, readNumber(input as HTMLInputElement, state.droneInertia)));
+    else if (field === 'droneAngularSensibility') state.droneAngularSensibility = Math.max(1, readNumber(input as HTMLInputElement, state.droneAngularSensibility));
     else if (field === 'fovDeg') controller.setVerticalFovDeg(readNumber(input as HTMLInputElement, state.fovDeg));
     else if (field === 'horizontalFovDeg') controller.setHorizontalFovDeg(readNumber(input as HTMLInputElement, state.horizontalFovDeg));
     else if (field === 'minZ') state.minZ = Math.max(0.001, readNumber(input as HTMLInputElement, state.minZ));
