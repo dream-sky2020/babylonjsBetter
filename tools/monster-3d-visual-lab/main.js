@@ -1597,6 +1597,8 @@ const bindEvents = () => {
 
   el.preview.addEventListener('pointerdown', (event) => {
     if (event.button !== 0) return;
+    // 环绕模式完全交给 ArcRotateCamera 原生输入，避免双重拖拽与高频 UI 同步。
+    if (state.babylon.cameraController?.state.mode === 'orbit') return;
     state.babylon.drag.active = true;
     state.babylon.drag.pointerId = event.pointerId;
     state.babylon.drag.lastClientX = event.clientX;
@@ -1611,6 +1613,7 @@ const bindEvents = () => {
   });
 
   el.preview.addEventListener('pointermove', (event) => {
+    if (state.babylon.cameraController?.state.mode === 'orbit') return;
     if (!state.babylon.drag.active || event.pointerId !== state.babylon.drag.pointerId) return;
     const dx = event.clientX - state.babylon.drag.lastClientX;
     const dy = event.clientY - state.babylon.drag.lastClientY;
@@ -1649,17 +1652,6 @@ const bindEvents = () => {
   window.addEventListener('keyup', (event) => {
     state.babylon.cameraControl.keys.delete(event.code);
   });
-  el.preview.addEventListener('wheel', (event) => {
-    const controller = state.babylon.cameraController;
-    if (!controller || controller.state.mode !== 'orbit') return;
-    event.preventDefault();
-    controller.handleWheel(event.deltaY);
-    syncCameraControlInputs();
-    updateCameraStatus();
-    state.babylon.cameraPanel?.syncFromController();
-    state.babylon.cameraPanel?.updateStatus();
-  }, { passive: false });
-
   window.addEventListener('resize', () => {
     if (!state.babylon.engine) return;
     state.babylon.engine.resize();
