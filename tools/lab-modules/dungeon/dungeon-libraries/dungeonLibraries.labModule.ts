@@ -5,17 +5,33 @@ import type { LabModule } from '@/tools/lab-kit';
 import {
   DUNGEON_LIBRARIES_SERVICE_KEY,
   dungeonMapCatalogRequest,
-  type DungeonLabLibraries,
 } from './dungeonLibraries.protocol';
+import { createDungeonLabLibrariesReference } from './dungeonLibraries.references';
 
 const selectDevData = (payload: unknown) => (payload as Record<string, unknown>).data;
 
 export const dungeonLibrariesLabModule: LabModule = {
   id: 'dungeon-libraries',
   setup(context) {
-    let libraries: DungeonLabLibraries | null = null;
+    const controller = createDungeonLabLibrariesReference();
+    context.services.set(DUNGEON_LIBRARIES_SERVICE_KEY, controller.reference);
+    const stateRegistration = context.labState.registerReference({
+      moduleId: 'dungeon-libraries',
+      key: 'loaded-libraries',
+      version: 1,
+      value: controller.reference,
+      inspect: (reference) => {
+        const libraries = reference.current;
+        return libraries ? {
+          loaded: true,
+          mapPresetKeys: Object.keys(libraries.maps),
+          environmentPresetCount: Object.keys(libraries.environments).length,
+          shadowPresetCount: Object.keys(libraries.shadows).length,
+        } : { loaded: false };
+      },
+    });
     context.communication.handle(dungeonMapCatalogRequest, () => {
-      if (!libraries) throw new Error('地牢预设目录尚未加载。');
+      const libraries = controller.reference.require();
       return Object.values(libraries.maps).map(({ presetKey, name, map }) => ({
         presetKey, name, mapId: map.id, width: map.width, height: map.height,
       }));
@@ -27,12 +43,17 @@ export const dungeonLibrariesLabModule: LabModule = {
           loadConfig<unknown>('sceneEnvironmentPresets.json', { devApiPath: '/api/scene-environment-presets', selectDevPayload: selectDevData }),
           loadConfig<unknown>('shadowQualityPresets.json', { devApiPath: '/api/shadow-quality-presets', selectDevPayload: selectDevData }),
         ]);
-        libraries = {
+        controller.commit({
           maps,
           environments: parseSceneEnvironmentPresetLibrary(environments),
           shadows: parseShadowQualityPresetLibrary(shadows),
-        };
-        context.services.set(DUNGEON_LIBRARIES_SERVICE_KEY, libraries);
+        });
+        stateRegistration.markChanged();
+      },
+      dispose() {
+        controller.clear();
+        stateRegistration.unregister();
+        context.services.delete(DUNGEON_LIBRARIES_SERVICE_KEY);
       },
     };
   },

@@ -1,18 +1,15 @@
 import type { ArcRotateCamera, Engine, Scene } from '@babylonjs/core';
-import type { RuntimeDataStore, RuntimeScopeToken } from '@/core/runtime';
+import type { LabState, LabStateSnapshot } from './lab-state';
 import type { LabCommunicationScope } from './labCommunication';
 import type { LabCommunicationJournalReader } from './labCommunicationJournal';
-import type { LabServiceRegistry } from './labServiceRegistry';
+import type { LabServiceScope } from './labServiceRegistry';
+import type { LabExecutionPlan } from './execution-plan';
 import type { LabUi } from './labUi';
 import type { LabViewportManager } from './labViewportManager';
 
 export type LabContext = {
-  /** 当前 Lab 独占的中央 Runtime；同一页面内所有模块共享。 */
-  runtime: RuntimeDataStore;
-  /** Host 创建的稳定基础 Scope；模块不要自行创建第二个 game Scope。 */
-  runtimeScopes: {
-    readonly game: RuntimeScopeToken;
-  };
+  /** 当前 Lab 独占的活数据引用注册中心；模块仍直接使用自己持有的引用。 */
+  labState: LabState;
   engine: Engine;
   scene: Scene;
   camera: ArcRotateCamera;
@@ -23,7 +20,8 @@ export type LabContext = {
   communication: LabCommunicationScope;
   /** 当前 Lab 必备的只读通信日志仓库。 */
   communicationJournal: LabCommunicationJournalReader;
-  services: LabServiceRegistry;
+  /** 当前模块的服务作用域；只能在 setup 注册服务，并只能读取依赖模块拥有的服务。 */
+  services: LabServiceScope;
   ui: LabUi;
 };
 
@@ -50,10 +48,13 @@ export type CreateLabOptions = {
   badge: string;
   modules: readonly string[];
   catalog: LabModuleCatalog;
+  /** 在全部模块 setup 并注册引用后、所有 start 执行前恢复。 */
+  initialState?: LabStateSnapshot;
 };
 
 export type LabHost = {
   context: LabContext;
+  executionPlan: LabExecutionPlan;
   moduleIds: readonly string[];
   dispose(): void;
 };

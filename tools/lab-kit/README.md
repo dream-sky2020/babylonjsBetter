@@ -17,16 +17,26 @@ const host = await createLab({
 
 不要从另一个具体 Lab 目录导入代码。共享能力必须先提取成 `tools/lab-modules/` 下的模块。
 
+## 自动执行计划
+
+页面声明的 `modules` 只表示需要哪些顶层能力，不表示手写加载顺序。Host 从 `dependencies` 自动生成 `LabExecutionPlan`，补齐间接依赖、去重、检查缺失和循环，并计算每个模块的 `depth`。同一 depth 按首次发现顺序稳定执行；setup/start 正序，dispose 严格倒序。左侧内置 `Lab Execution` 面板会显示最终计划、生命周期状态和耗时。
+
+固定阶段为：`prepare → setup → restore → start → ready → dispose`。初始化失败时只回滚已经完成 setup 的模块，并继续清理剩余模块。
+
 ## 模块职责
 
 - `id` 必须全局稳定，作为依赖和面板命名依据。
 - `dependencies` 只声明直接依赖；Lab Host 会拓扑排序、去重并自动补齐间接依赖。
 - `setup()` 只创建本模块的 UI、事件监听和 Debug 对象，并返回清理函数。
+- 依赖模块需要读取的 Service 必须在 `setup()` 注册稳定引用；异步 `start()` 只能向该引用提交数据，不能延迟到 start 才首次注册 Service。
 - 游戏规则只能位于 `core/`；Lab Module 只负责装配、输入、状态展示和 Debug 可视化。
-- 跨模块长期对象放入 `context.services`，状态变化通过 `context.events` 通知。
-- 每个 `createLab()` Host 自动创建一份独立的 `context.runtime`；同页所有模块共享，模块禁止自行创建第二份 `RuntimeDataStore`。
-- 不同 Lab 页面或浏览器标签页拥有不同 Store，可以同时运行而不共享内存状态。
-- Host 同时提供唯一的 context.runtimeScopes.game；游戏级模块必须复用该 Scope，不得使用自定 Key 再创建 game Scope。
+- 跨模块长期对象放入 `context.services`，请求和状态变化通过 `context.communication` 的类型化协议传递。
+- Service 具有模块所有权；模块只能读取自己或依赖链模块注册的 Service，不能删除其他模块的 Service。遗漏 `dependencies` 会立即报错。
+- 每个 `createLab()` Host 自动创建一份独立的 `context.labState`，用于登记模块拥有的活数据引用。
+- 模块始终保留并直接使用自己的引用；高频访问不得绕道 LabState。LabState 只负责统一 Debug、生成存档和读取恢复。
+- 原地修改无需逐次通知；需要刷新 Debug UI 时调用 Registration 的 `markChanged()`。模块整体替换引用时调用 `replace()`，并把返回值同时保存为自己的新引用。
+- 可持久化数据必须声明版本、序列化、校验和原地恢复逻辑；Host 会在全部模块 setup 后、start 前应用 `initialState`。
+- 不同 Lab 页面或浏览器标签页拥有不同 LabState，可以同时运行而不共享内存状态。
 - 禁止模块查询或修改另一个模块的私有 DOM。
 - Babylon.js 对象、窗口事件与订阅必须在模块清理函数中释放。
 

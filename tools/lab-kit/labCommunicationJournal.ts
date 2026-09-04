@@ -132,7 +132,7 @@ export const createLabCommunicationLogError = (error: unknown): LabCommunication
   return { name: 'UnknownError', message: String(error) };
 };
 
-/** Lab 生命周期内的有界通信日志；不依赖 RuntimeDataStore。 */
+/** Lab 生命周期内的有界通信日志；与 LabState 数据注册彼此独立。 */
 export class LabCommunicationJournal implements LabCommunicationJournalReader {
   readonly capacity: number;
   private readonly entries: LabCommunicationLogEntry[] = [];
@@ -182,4 +182,3 @@ export class LabCommunicationJournal implements LabCommunicationJournalReader {
     this.listeners.forEach((listener) => listener());
   }
 }
-

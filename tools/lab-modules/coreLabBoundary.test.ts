@@ -38,7 +38,8 @@ const forbiddenPatterns: ReadonlyArray<readonly [RegExp, string]> = [
   [/\b(?:LabContext|LabModule|LabCommunication|LabServiceRegistry)\b/, '不得声明或消费 Lab 契约'],
   [/\bcontext\.(?:communication|services|ui|panels|viewport)\b/, '不得访问 LabContext 服务'],
   [/\b(?:document|window)\./, '不得直接操作 DOM 或浏览器生命周期'],
-  [/\b(?:RuntimeDataStore|registerModule|createScope|releaseScope)\b/, '业务 Core 不得注册中央 Runtime 内存'],
+  [/\b(?:LabState|registerReference|RuntimeDataStore|registerModule|createScope|releaseScope)\b/,
+    '业务 Core 不得注册 LabState 或旧 Runtime 内存'],
 ];
 
 test('composable Dungeon Lab core dependencies remain independent from Lab infrastructure', () => {

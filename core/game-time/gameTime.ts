@@ -1,89 +1,15 @@
-import {
-  defineRuntimeData,
-  isRuntimeFlatRecord,
-  type RuntimeDataStore,
-  type RuntimeModuleScopeAccess,
-  type RuntimeScopeToken,
-} from '../runtime';
 import type {
   GameTimeController,
-  GameTimeRunning,
+  GameTimeListener,
+  GameTimeState,
   PlayTimeSeconds,
   RealTime,
   RecentBattleTimeRecord,
   RecentBattleTimes,
 } from './gameTime.types';
 
-export const GAME_TIME_RUNTIME_MODULE_ID = 'game-time';
-export const PLAY_TIME_SECONDS_DATA_KEY = 'playTimeSeconds';
-export const GAME_TIME_RUNNING_DATA_KEY = 'isRunning';
-export const REAL_TIME_DATA_KEY = 'realTime';
-export const RECENT_BATTLE_TIMES_DATA_KEY = 'recentBattleTimes';
+export const GAME_TIME_MODULE_ID = 'game-time';
 export const RECENT_BATTLE_TIMES_LIMIT = 20;
-
-export const playTimeSecondsData = defineRuntimeData<PlayTimeSeconds>({
-  key: PLAY_TIME_SECONDS_DATA_KEY,
-  moduleId: GAME_TIME_RUNTIME_MODULE_ID,
-  scope: 'game',
-  visibility: 'public',
-  persistence: 'full',
-  version: 1,
-  createDefault: () => 0,
-  validate: (value): value is PlayTimeSeconds => (
-    typeof value === 'number' && Number.isFinite(value) && value >= 0
-  ),
-});
-
-export const gameTimeRunningData = defineRuntimeData<GameTimeRunning>({
-  key: GAME_TIME_RUNNING_DATA_KEY,
-  moduleId: GAME_TIME_RUNTIME_MODULE_ID,
-  scope: 'game',
-  visibility: 'public',
-  persistence: 'none',
-  version: 1,
-  createDefault: () => false,
-  validate: (value): value is GameTimeRunning => typeof value === 'boolean',
-});
-
-export const realTimeData = defineRuntimeData<RealTime>({
-  key: REAL_TIME_DATA_KEY,
-  moduleId: GAME_TIME_RUNTIME_MODULE_ID,
-  scope: 'game',
-  visibility: 'public',
-  persistence: 'none',
-  version: 1,
-  createDefault: () => formatRealTime(new Date()),
-  validate: (value): value is RealTime => typeof value === 'string' && !Number.isNaN(Date.parse(value)),
-});
-
-const isRecentBattleTimeRecord = (value: unknown): value is RecentBattleTimeRecord => {
-  if (!isRuntimeFlatRecord(value)) return false;
-  return typeof value.startedAt === 'string'
-    && !Number.isNaN(Date.parse(value.startedAt))
-    && typeof value.endedAt === 'string'
-    && !Number.isNaN(Date.parse(value.endedAt))
-    && typeof value.durationSeconds === 'number'
-    && Number.isFinite(value.durationSeconds)
-    && value.durationSeconds >= 0
-    && typeof value.battleDataSequence === 'number'
-    && Number.isSafeInteger(value.battleDataSequence)
-    && value.battleDataSequence >= 0;
-};
-
-export const recentBattleTimesData = defineRuntimeData<RecentBattleTimes>({
-  key: RECENT_BATTLE_TIMES_DATA_KEY,
-  moduleId: GAME_TIME_RUNTIME_MODULE_ID,
-  scope: 'game',
-  visibility: 'public',
-  persistence: 'full',
-  version: 1,
-  createDefault: () => [],
-  validate: (value): value is RecentBattleTimes => (
-    Array.isArray(value)
-    && value.length <= RECENT_BATTLE_TIMES_LIMIT
-    && value.every(isRecentBattleTimeRecord)
-  ),
-});
 
 const requireDeltaSeconds = (value: number): number => {
   if (!Number.isFinite(value) || value < 0) throw new RangeError('时间增量必须是非负有限数字。');
@@ -95,9 +21,48 @@ const requireBattleDataSequence = (value: number): number => {
   return value;
 };
 
-const formatRealTime = (date: Date): string => {
+export const formatRealTime = (date: Date): string => {
   if (Number.isNaN(date.getTime())) throw new RangeError('现实时间无效。');
   return date.toISOString().replace(/\.\d{3}Z$/, 'Z');
+};
+
+const isValidRealTime = (value: unknown): value is RealTime => (
+  typeof value === 'string' && !Number.isNaN(Date.parse(value))
+);
+
+export const isRecentBattleTimeRecord = (value: unknown): value is RecentBattleTimeRecord => {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const record = value as Partial<RecentBattleTimeRecord>;
+  return isValidRealTime(record.startedAt)
+    && isValidRealTime(record.endedAt)
+    && typeof record.durationSeconds === 'number'
+    && Number.isFinite(record.durationSeconds)
+    && record.durationSeconds >= 0
+    && typeof record.battleDataSequence === 'number'
+    && Number.isSafeInteger(record.battleDataSequence)
+    && record.battleDataSequence >= 0;
+};
+
+export const createGameTimeState = (initial: Partial<GameTimeState> = {}): GameTimeState => {
+  const playTimeSeconds = initial.playTimeSeconds ?? 0;
+  if (!Number.isFinite(playTimeSeconds) || playTimeSeconds < 0) {
+    throw new RangeError('游戏时间必须是非负有限数字。');
+  }
+  if (initial.isRunning !== undefined && typeof initial.isRunning !== 'boolean') {
+    throw new TypeError('游戏时间运行状态必须是布尔值。');
+  }
+  const realTime = initial.realTime ?? formatRealTime(new Date());
+  if (!isValidRealTime(realTime)) throw new RangeError('现实时间无效。');
+  const recentBattleTimes = initial.recentBattleTimes ?? [];
+  if (recentBattleTimes.length > RECENT_BATTLE_TIMES_LIMIT || !recentBattleTimes.every(isRecentBattleTimeRecord)) {
+    throw new TypeError(`最近战斗时间必须是最多 ${RECENT_BATTLE_TIMES_LIMIT} 条的有效记录。`);
+  }
+  return {
+    playTimeSeconds,
+    isRunning: initial.isRunning ?? false,
+    realTime,
+    recentBattleTimes: recentBattleTimes.map((record) => ({ ...record })),
+  };
 };
 
 type ActiveBattle = {
@@ -106,20 +71,17 @@ type ActiveBattle = {
   readonly startedAtMilliseconds: number;
 };
 
-class RegisteredGameTimeController implements GameTimeController {
-  private readonly data: RuntimeModuleScopeAccess;
+class DirectGameTimeController implements GameTimeController {
+  readonly state: GameTimeState;
   private activeBattle: ActiveBattle | null = null;
+  private readonly listeners = new Set<GameTimeListener>();
 
-  constructor(data: RuntimeModuleScopeAccess) {
-    this.data = data;
-    data.ensure(playTimeSecondsData);
-    data.ensure(gameTimeRunningData);
-    data.ensure(realTimeData);
-    data.ensure(recentBattleTimesData);
+  constructor(initial?: Partial<GameTimeState>) {
+    this.state = createGameTimeState(initial);
   }
 
   get running(): boolean {
-    return this.data.read(gameTimeRunningData) ?? false;
+    return this.state.isRunning;
   }
 
   get activeBattleDataSequence(): number | null {
@@ -127,44 +89,42 @@ class RegisteredGameTimeController implements GameTimeController {
   }
 
   readPlayTime(): PlayTimeSeconds {
-    return this.data.read(playTimeSecondsData) ?? 0;
+    return this.state.playTimeSeconds;
   }
 
   readRealTime(): RealTime {
-    return this.data.read(realTimeData) ?? formatRealTime(new Date());
+    return this.state.realTime;
   }
 
   readRecentBattleTimes(): RecentBattleTimes {
-    return this.data.read(recentBattleTimesData) ?? [];
+    return this.state.recentBattleTimes;
   }
 
   start(): void {
-    this.data.write(gameTimeRunningData, true);
+    this.state.isRunning = true;
   }
 
   pause(): void {
-    this.data.write(gameTimeRunningData, false);
+    this.state.isRunning = false;
   }
 
   reset(): void {
-    this.data.write(playTimeSecondsData, 0);
+    this.setPlayTime(0);
   }
 
   update(deltaSeconds: number, now = new Date()): void {
     const delta = requireDeltaSeconds(deltaSeconds);
-    const realTime = formatRealTime(now);
-    if (this.readRealTime() !== realTime) this.data.write(realTimeData, realTime);
+    this.state.realTime = formatRealTime(now);
     if (!this.running || delta === 0) return;
-    this.data.update(playTimeSecondsData, (current) => (current ?? 0) + delta);
+    this.setPlayTime(this.state.playTimeSeconds + delta);
   }
 
   startBattle(battleDataSequence: number, now = new Date()): void {
     if (this.activeBattle) throw new Error(`战斗数据 #${this.activeBattle.battleDataSequence} 尚未结束。`);
     const sequence = requireBattleDataSequence(battleDataSequence);
-    const startedAt = formatRealTime(now);
     this.activeBattle = {
       battleDataSequence: sequence,
-      startedAt,
+      startedAt: formatRealTime(now),
       startedAtMilliseconds: now.getTime(),
     };
   }
@@ -180,30 +140,30 @@ class RegisteredGameTimeController implements GameTimeController {
       durationSeconds: Math.round(durationSeconds * 1000) / 1000,
       battleDataSequence: active.battleDataSequence,
     };
-    this.data.update(recentBattleTimesData, (current) => (
-      [...(current ?? []), record].slice(-RECENT_BATTLE_TIMES_LIMIT) as RecentBattleTimes
-    ));
+    this.state.recentBattleTimes.push(record);
+    if (this.state.recentBattleTimes.length > RECENT_BATTLE_TIMES_LIMIT) {
+      this.state.recentBattleTimes.splice(0, this.state.recentBattleTimes.length - RECENT_BATTLE_TIMES_LIMIT);
+    }
     this.activeBattle = null;
     return record;
   }
 
-  subscribe(listener: Parameters<GameTimeController['subscribe']>[0]): () => void {
-    return this.data.subscribe(playTimeSecondsData, listener);
+  subscribe(listener: GameTimeListener): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private setPlayTime(current: number): void {
+    const previous = this.state.playTimeSeconds;
+    if (previous === current) return;
+    this.state.playTimeSeconds = current;
+    this.listeners.forEach((listener) => listener({ previous, current }));
   }
 }
 
-export const registerGameTime = (
-  runtime: RuntimeDataStore,
-  gameScope: RuntimeScopeToken,
-): GameTimeController => {
-  if (gameScope.address.kind !== 'game') throw new Error('GameTime 必须注册到 game Scope。');
-  const module = runtime.registerModule(GAME_TIME_RUNTIME_MODULE_ID);
-  module.registerData(playTimeSecondsData);
-  module.registerData(gameTimeRunningData);
-  module.registerData(realTimeData);
-  module.registerData(recentBattleTimesData);
-  return new RegisteredGameTimeController(module.openScope(gameScope));
-};
+export const createGameTime = (initial?: Partial<GameTimeState>): GameTimeController => (
+  new DirectGameTimeController(initial)
+);
 
 export const formatPlayTime = (seconds: number): string => {
   const value = Math.floor(requireDeltaSeconds(seconds));

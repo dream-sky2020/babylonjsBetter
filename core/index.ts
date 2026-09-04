@@ -20,7 +20,6 @@ export * from './special-status';
 export * from './battlefield';
 export * from './map';
 export * from './entity';
-export * from './runtime';
 export * from './game-time';
 
 export * from './dungeon-runtime';
