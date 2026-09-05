@@ -1,4 +1,14 @@
 # Babylon.js Better 项目地图
+## 2026-09-05：组合式 Lab Host 统一键盘与默认相机
+
+`tools/lab-kit/keyboard/` 已成为每个 `createLab()` 无条件加载的 Host 基础设施，与 Communication、Lab Execution、LabState 和 Viewport 同级，不作为 Catalog 中的可选 Lab Module。模块通过 `context.keyboard` 注册消费者，声明按键集合、启用状态、优先级、处理后拦截和浏览器默认行为；Router 按“优先级 → 稳定注册顺序”分发，编辑控件默认隔离业务按键。左侧内置 `Keyboard Input` Debug 面板显示当前焦点、按键、消费者所有权和最近路由路径；用户设置登记为可持久化的 `lab:host/keyboard-settings`。
+
+逐键输入留在 Router 内同步分发，不占用 Communication 日志；全局启用、消费者设置和冲突变化才通过类型化 Communication 事件广播。`player-movement` 已移除直接的 Window 键盘监听，并以默认优先级 75 接入仲裁器；面板可单独设置键盘启用、优先级、拦截和 preventDefault。
+
+`tools/lab-kit/camera/` 现在为所有组合式 Lab 创建默认 Camera System。它从 Host 初始 ArcRotateCamera 的真实参数和姿态建立 `cameraLabController`，左侧 `Camera` 系统面板可打开已有浮动相机参数面板，并控制鼠标/滚轮与相机键盘消费者。环绕、第一人称、无人机使用 Babylon 原生相机输入，锁定平面保留项目控制；相机键盘默认关闭、优先级 50。Router 在内部决定低优先级分发和 DOM 拦截，同时允许获准的原生相机输入继续到 Babylon。可交互 Viewport Layer 会临时暂停相机输入，关闭后恢复用户选择。
+
+`LabUi` 统一持久化左侧面板的折叠状态，存储作用域按 Lab 页面路径隔离，不进入 LabState 游戏/实验 Snapshot。`addPanel()` 支持声明 `defaultCollapsed`，本地已保存状态拥有更高优先级；左侧顶部提供全部展开、全部折叠和重置布局。Keyboard Input 的默认收起状态已从私有 DOM 操作迁移到这一公共接口。
+
 ## 2026-09-04：组合式 Lab 两阶段启动契约
 
 `tools/lab-kit/execution-plan/` 将组合式 Lab 的依赖解析提取为纯 `LabExecutionPlan`。页面仍只声明顶层 Module ID；Host 自动补齐间接依赖、菱形去重、检查 Catalog Key、缺失依赖、重复依赖和精确循环路径，并计算 `depth`。执行顺序先按 depth、再按首次发现顺序稳定排列；`setupOrder / startOrder` 使用该顺序，`disposeOrder` 自动反转，不接受手写 order。

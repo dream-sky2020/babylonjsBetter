@@ -8,6 +8,9 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-description, .lab-global-status, .lab-inline-status { color: #91a7b8; font-size: 12px; line-height: 1.55; }
 .lab-global-status { margin-top: 10px; color: #e4ca79; }
 .lab-global-status[data-error="true"] { color: #ff9d9d; }
+.lab-panel-layout-actions { position: sticky; top: -18px; z-index: 20; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 12px -4px 0; padding: 9px 4px; border-bottom: 1px solid #273747; background: rgba(16, 24, 32, .96); backdrop-filter: blur(6px); }
+.lab-panel-layout-actions button { min-width: 0; height: 30px; padding: 0 5px; border: 1px solid #40596d; background: #172630; color: #bcd0de; cursor: pointer; font-size: 11px; }
+.lab-panel-layout-actions button:hover { background: #243b49; color: #edf8ff; }
 .lab-card { margin-top: 15px; padding: 13px; border: 1px solid #314659; background: #14212b; }
 .lab-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .lab-card h2 { min-width: 0; margin: 0; color: #d9e9f4; font-size: 13px; }
@@ -78,6 +81,11 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
   gap: 8px;
 }
 .lab-system-panel { border-color: #5b526f; background: #191d2a; }
+.lab-keyboard-consumers { display: grid; gap: 8px; }
+.lab-keyboard-consumer { display: grid; gap: 7px; padding: 9px; border: 1px solid #39475b; background: #101724; }
+.lab-keyboard-consumer > strong { color: #d9e9f4; font-size: 12px; }
+.lab-keyboard-consumer > small { color: #8399aa; font: 10px/1.45 Consolas, monospace; overflow-wrap: anywhere; }
+.lab-keyboard-routes { max-height: 300px; }
 .lab-execution-list { display: grid; gap: 6px; }
 .lab-execution-entry { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 8px; padding: 7px; border: 1px solid #314659; background: #0b141c; }
 .lab-execution-entry > strong { min-width: 0; overflow: hidden; color: #d9e9f4; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }

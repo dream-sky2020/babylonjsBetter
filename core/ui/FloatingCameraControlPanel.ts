@@ -3,6 +3,8 @@ import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
 
 export interface FloatingCameraControlPanel {
   element: HTMLDivElement;
+  readonly visible: boolean;
+  setVisible: (visible: boolean) => void;
   /** 兼容旧调用：有未应用草稿时不会覆盖输入框。 */
   syncFromController: () => void;
   updateStatus: () => void;
@@ -90,6 +92,7 @@ export const createFloatingCameraControlPanel = (host: HTMLElement, controller: 
   if (modeSelect) modeSelect.innerHTML = Object.entries(CAMERA_LAB_MODE_LABELS).map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
   const draftState = panel.querySelector<HTMLElement>('[data-role="draft-state"]');
   let dirty = false;
+  let visible = true;
   const find = (field: string): HTMLInputElement | HTMLSelectElement | null => panel.querySelector(`[data-field="${field}"]`);
   const read = (field: string, fallback: number): number => { const value = Number(find(field)?.value); return Number.isFinite(value) ? value : fallback; };
   const write = (field: string, value: string | number): void => { panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(`[data-field="${field}"]`).forEach((node) => node.value = String(value)); };
@@ -151,5 +154,16 @@ export const createFloatingCameraControlPanel = (host: HTMLElement, controller: 
   handle?.addEventListener('pointerdown', (event) => { if ((event.target as HTMLElement).closest('button')) return; dragging = true; startX = event.clientX; startY = event.clientY; startLeft = panel.offsetLeft; startTop = panel.offsetTop; window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp); });
 
   populate(true);
-  return { element: panel, syncFromController: () => populate(false), updateStatus, dispose: () => { panel.remove(); window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); } };
+  return {
+    element: panel,
+    get visible() { return visible; },
+    setVisible: (nextVisible) => {
+      visible = nextVisible;
+      panel.style.display = visible ? 'flex' : 'none';
+      if (visible) populate(false);
+    },
+    syncFromController: () => populate(false),
+    updateStatus,
+    dispose: () => { panel.remove(); window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); },
+  };
 };

@@ -6,6 +6,8 @@ import type { LabServiceScope } from './labServiceRegistry';
 import type { LabExecutionPlan } from './execution-plan';
 import type { LabUi } from './labUi';
 import type { LabViewportManager } from './labViewportManager';
+import type { LabKeyboardRouter } from './keyboard';
+import type { CameraLabController } from '@/core/camera/cameraLabController.ts';
 
 export type LabContext = {
   /** 当前 Lab 独占的活数据引用注册中心；模块仍直接使用自己持有的引用。 */
@@ -13,9 +15,13 @@ export type LabContext = {
   engine: Engine;
   scene: Scene;
   camera: ArcRotateCamera;
+  /** 当前活动相机及其模式、姿态和输入控制。 */
+  cameraController: CameraLabController;
   /** Babylon.js 底层 Canvas；业务可视化覆盖层应通过 viewport 创建。 */
   canvas: HTMLCanvasElement;
   viewport: LabViewportManager;
+  /** Host 必备的同步键盘输入仲裁器。 */
+  keyboard: LabKeyboardRouter;
   /** 类型化的请求/事件通信端点；每个模块获得独立作用域并由 Host 自动清理。 */
   communication: LabCommunicationScope;
   /** 当前 Lab 必备的只读通信日志仓库。 */

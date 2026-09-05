@@ -13,11 +13,24 @@ import { LabServiceRegistry } from './labServiceRegistry';
 import type { CreateLabOptions, LabContext, LabHost, LabModuleLifecycle } from './labKit.types';
 import { LabUi } from './labUi';
 import { LabViewportManager } from './labViewportManager';
+import {
+  LabKeyboardRouter,
+  createLabKeyboardDebugPanel,
+  labKeyboardConflictDetectedEvent,
+  labKeyboardConsumerSettingsChangedEvent,
+  labKeyboardGlobalEnabledChangedEvent,
+} from './keyboard';
+import { createLabCameraSystem } from './camera';
 
 type ActiveModule = {
   readonly entry: LabExecutionPlanEntry;
   readonly communication: ReturnType<LabCommunication['scope']>;
   readonly lifecycle: LabModuleLifecycle;
+};
+
+type KeyboardSettingsState = {
+  globalEnabled: boolean;
+  consumers: Record<string, { enabled: boolean; priority: number; intercept: boolean; preventDefault: boolean }>;
 };
 
 const collectDependencyIds = (
@@ -122,26 +135,89 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   camera.lowerRadiusLimit = 3;
   camera.upperRadiusLimit = 500;
   camera.wheelPrecision = 8;
-  camera.attachControl(canvas, true);
-
-  const viewport = new LabViewportManager(stage, canvas, camera, () => engine.resize());
-  stage.append(badge);
   const communication = new LabCommunication();
+  const hostCommunication = communication.scope('lab:host');
+  const keyboardSettings: KeyboardSettingsState = { globalEnabled: true, consumers: {} };
+  let markKeyboardSettingsChanged = (): void => {};
+  const keyboard = new LabKeyboardRouter(window, {
+    onGlobalEnabledChanged: (enabled) => {
+      keyboardSettings.globalEnabled = enabled;
+      markKeyboardSettingsChanged();
+      void hostCommunication.publish(labKeyboardGlobalEnabledChangedEvent, { enabled });
+    },
+    onSettingsChanged: (consumer) => {
+      keyboardSettings.consumers[consumer.id] = {
+        enabled: consumer.enabled,
+        priority: consumer.priority,
+        intercept: consumer.intercept,
+        preventDefault: consumer.preventDefault,
+      };
+      markKeyboardSettingsChanged();
+      void hostCommunication.publish(labKeyboardConsumerSettingsChangedEvent, { consumer });
+    },
+    onConflictChanged: (code, consumerIds) => {
+      void hostCommunication.publish(labKeyboardConflictDetectedEvent, { code, consumerIds });
+    },
+  });
   const services = new LabServiceRegistry();
   const ui = new LabUi(panels, status);
   const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
   const labState = createLabState();
+  const keyboardStateRegistration = labState.registerReference<KeyboardSettingsState, KeyboardSettingsState>({
+    moduleId: 'lab:host',
+    key: 'keyboard-settings',
+    version: 1,
+    value: keyboardSettings,
+    inspect: (value) => structuredClone(value),
+    save: {
+      serialize: (value) => structuredClone(value),
+      validate: (saved) => {
+        if (!saved || typeof saved !== 'object' || Array.isArray(saved)) throw new Error('Keyboard Settings 存档无效。');
+        const source = saved as Record<string, unknown>;
+        if (typeof source.globalEnabled !== 'boolean' || !source.consumers || typeof source.consumers !== 'object' || Array.isArray(source.consumers)) {
+          throw new Error('Keyboard Settings 存档字段无效。');
+        }
+        const consumers: KeyboardSettingsState['consumers'] = {};
+        Object.entries(source.consumers as Record<string, unknown>).forEach(([id, raw]) => {
+          if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error(`Keyboard 消费者“${id}”设置无效。`);
+          const value = raw as Record<string, unknown>;
+          if (typeof value.enabled !== 'boolean' || typeof value.priority !== 'number' || !Number.isFinite(value.priority)
+            || typeof value.intercept !== 'boolean' || typeof value.preventDefault !== 'boolean') {
+            throw new Error(`Keyboard 消费者“${id}”设置字段无效。`);
+          }
+          consumers[id] = { enabled: value.enabled, priority: value.priority, intercept: value.intercept, preventDefault: value.preventDefault };
+        });
+        return { globalEnabled: source.globalEnabled, consumers };
+      },
+      restore: (current, saved) => {
+        current.globalEnabled = saved.globalEnabled;
+        current.consumers = structuredClone(saved.consumers);
+        keyboard.setGlobalEnabled(saved.globalEnabled);
+        keyboard.getConsumers().forEach((consumer) => {
+          const restored = saved.consumers[consumer.id];
+          if (restored) keyboard.configureConsumer(consumer.id, restored);
+        });
+      },
+    },
+  });
+  markKeyboardSettingsChanged = keyboardStateRegistration.markChanged;
   const disposeLabStatePanel = createLabStatePanel(ui, labState);
+  const disposeKeyboardPanel = createLabKeyboardDebugPanel(ui, keyboard);
+  const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard);
+  const viewport = new LabViewportManager(stage, canvas, cameraSystem, () => engine.resize());
+  stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
     labState,
     engine,
     scene,
     camera,
+    cameraController: cameraSystem.controller,
     canvas,
     viewport,
-    communication: communication.scope('lab:host'),
+    keyboard,
+    communication: hostCommunication,
     communicationJournal: communication.journal,
     services: services.scope('lab:host', allModuleIds),
     ui,
@@ -206,14 +282,18 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
     services.setPhase('ready');
     engine.runRenderLoop(() => {
+      cameraSystem.update(engine.getDeltaTime() / 1000);
       if (!viewport.isBabylonRenderingPaused) scene.render();
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
     const cleanupErrors = disposeModules();
     disposeLabStatePanel();
-    labState.dispose();
+    disposeKeyboardPanel();
     viewport.dispose();
+    cameraSystem.dispose();
+    keyboard.dispose();
+    labState.dispose();
     disposeCommunicationLogPanel();
     disposeExecutionPlanPanel();
     communication.dispose();
@@ -236,8 +316,11 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposed = true;
       const cleanupErrors = disposeModules();
       disposeLabStatePanel();
-      labState.dispose();
+      disposeKeyboardPanel();
       viewport.dispose();
+      cameraSystem.dispose();
+      keyboard.dispose();
+      labState.dispose();
       disposeCommunicationLogPanel();
       disposeExecutionPlanPanel();
       communication.dispose();
