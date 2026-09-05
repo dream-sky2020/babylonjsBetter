@@ -70,6 +70,7 @@ export interface CameraLabControllerState {
 
 export interface CameraLabController {
   state: CameraLabControllerState;
+  readonly activeCamera: ArcRotateCamera | UniversalCamera;
   keys: Set<string>;
   applyPose: () => void;
   reset: () => void;
@@ -90,6 +91,11 @@ export interface CameraLabController {
   resetActiveCameraToNativeDefaults: () => void;
   /** 恢复各模式的项目初始姿态，不覆盖当前调校参数。 */
   resetInitialPose: () => void;
+  /** Viewport 覆盖层使用；关闭后不会因模式更新而重新挂载输入。 */
+  setInputEnabled: (enabled: boolean) => void;
+  /** 设置当前由相机消费者赢得的键盘按键。 */
+  setOwnedKeyboardCodes: (codes: ReadonlySet<string>) => void;
+  dispose: () => void;
   getStatusText: () => string;
 }
 
@@ -253,6 +259,9 @@ export const createCameraLabController = (
     }
   };
   let attachedNativeCamera: ArcRotateCamera | UniversalCamera | null = null;
+  let inputEnabled = true;
+  let disposed = false;
+  let ownedKeyboardCodes: ReadonlySet<string> = new Set();
 
   firstPersonCamera.keysUp = [87];
   firstPersonCamera.keysDown = [83];
@@ -291,6 +300,24 @@ export const createCameraLabController = (
       1,
       firstPerson ? state.firstPersonAngularSensibility : state.droneAngularSensibility
     );
+  };
+
+  const applyOwnedKeyboardCodes = (): void => {
+    const owns = (code: string): boolean => ownedKeyboardCodes.has(code);
+    camera.keysUp = owns('ArrowUp') ? [38] : [];
+    camera.keysDown = owns('ArrowDown') ? [40] : [];
+    camera.keysLeft = owns('ArrowLeft') ? [37] : [];
+    camera.keysRight = owns('ArrowRight') ? [39] : [];
+    for (const nativeCamera of [firstPersonCamera, droneCamera]) {
+      nativeCamera.keysUp = owns('KeyW') ? [87] : [];
+      nativeCamera.keysDown = owns('KeyS') ? [83] : [];
+      nativeCamera.keysLeft = owns('KeyA') ? [65] : [];
+      nativeCamera.keysRight = owns('KeyD') ? [68] : [];
+    }
+    firstPersonCamera.keysUpward = [];
+    firstPersonCamera.keysDownward = [];
+    droneCamera.keysUpward = owns('KeyE') ? [69] : [];
+    droneCamera.keysDownward = owns('KeyQ') ? [81] : [];
   };
 
   const syncOrbitStateFromCamera = (): void => {
@@ -342,8 +369,10 @@ export const createCameraLabController = (
     if (attachedNativeCamera !== nativeCamera) {
       detachActiveNativeCamera();
       scene.activeCamera = nativeCamera;
-      nativeCamera.attachControl(true);
-      attachedNativeCamera = nativeCamera;
+      if (inputEnabled) {
+        nativeCamera.attachControl(true);
+        attachedNativeCamera = nativeCamera;
+      }
     }
   };
 
@@ -681,6 +710,11 @@ export const createCameraLabController = (
 
   const controller: CameraLabController = {
     state,
+    get activeCamera() {
+      return scene.activeCamera === firstPersonCamera || scene.activeCamera === droneCamera
+        ? scene.activeCamera
+        : camera;
+    },
     keys,
     applyPose,
     reset,
@@ -696,6 +730,23 @@ export const createCameraLabController = (
     applyStateToActiveCamera: applyPose,
     resetActiveCameraToNativeDefaults,
     resetInitialPose,
+    setInputEnabled: (enabled) => {
+      if (inputEnabled === enabled) return;
+      inputEnabled = enabled;
+      if (!enabled) detachActiveNativeCamera();
+      else applyPose();
+    },
+    setOwnedKeyboardCodes: (codes) => {
+      ownedKeyboardCodes = new Set(codes);
+      applyOwnedKeyboardCodes();
+    },
+    dispose: () => {
+      if (disposed) return;
+      disposed = true;
+      detachActiveNativeCamera();
+      firstPersonCamera.dispose();
+      droneCamera.dispose();
+    },
     setMode: (mode) => {
       if (state.mode !== mode) detachActiveNativeCamera();
       state.mode = mode;

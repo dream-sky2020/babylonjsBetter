@@ -1,5 +1,9 @@
 export type LabViewportLayerMode = 'overlay' | 'exclusive';
 
+export type LabViewportInputGate = {
+  setInputEnabled(enabled: boolean): void;
+};
+
 export type LabViewportLayerOptions = {
   id: string;
   title: string;

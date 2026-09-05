@@ -1,4 +1,3 @@
-import type { ArcRotateCamera } from '@babylonjs/core';
 import type {
   LabCanvasRenderContext,
   LabViewportCanvasLayerHandle,
@@ -6,6 +5,7 @@ import type {
   LabViewportLayerMode,
   OpenLabCanvasLayerOptions,
   OpenLabHtmlLayerOptions,
+  LabViewportInputGate,
 } from './labViewport.types';
 
 type LayerEntry = {
@@ -35,7 +35,7 @@ export class LabViewportManager {
   constructor(
     readonly root: HTMLElement,
     readonly babylonCanvas: HTMLCanvasElement,
-    private readonly camera: ArcRotateCamera,
+    private readonly inputGate: LabViewportInputGate,
     private readonly resizeBabylon: () => void,
   ) {
     this.overlayHost = document.createElement('div');
@@ -108,8 +108,7 @@ export class LabViewportManager {
 
   private syncBabylonInput(): void {
     const locked = [...this.layers.values()].some((entry) => entry.visible && entry.interactive);
-    if (locked) this.camera.detachControl();
-    else this.camera.attachControl(this.babylonCanvas, true);
+    this.inputGate.setInputEnabled(!locked);
   }
 
   private show(id: string): void {
@@ -258,7 +257,7 @@ export class LabViewportManager {
     this.disposed = true;
     this.resizeObserver.disconnect();
     [...this.layers.keys()].forEach((id) => this.disposeLayer(id));
-    this.camera.detachControl();
+    this.inputGate.setInputEnabled(false);
     this.overlayHost.remove();
   }
 }

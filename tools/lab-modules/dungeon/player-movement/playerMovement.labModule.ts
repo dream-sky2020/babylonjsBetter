@@ -69,6 +69,11 @@ export const playerMovementLabModule: LabModule = {
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
     const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
+    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true);
+    const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
+    const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
+    const keyboardPriorityInput = createNumberInput(75, undefined, 1);
+    const keyboardOwnershipStatus = createLabStatus('键盘消费者尚未注册。');
     const movementTimingSelect = createModeSelect<DungeonPlayerMovementTimingMode>([
       ['world-units-per-second', '每秒移动多少世界单位'],
       ['seconds-per-tile', '移动一格需要多少秒'],
@@ -169,6 +174,11 @@ export const playerMovementLabModule: LabModule = {
       boundsToggle.row,
       obstacleToggle.row,
       teleportToggle.row,
+      keyboardToggle.row,
+      createLabField('键盘输入优先级', keyboardPriorityInput),
+      keyboardInterceptToggle.row,
+      keyboardPreventDefaultToggle.row,
+      keyboardOwnershipStatus,
       createLabField('移动计时模式', movementTimingSelect),
       movementTimingField,
       createLabField('转向计时模式', turnTimingSelect),
@@ -308,8 +318,8 @@ export const playerMovementLabModule: LabModule = {
       position.tileY,
     ).center;
 
-    const move = (direction: DungeonMapDirection) => {
-      if (!current) return;
+    const move = (direction: DungeonMapDirection): boolean => {
+      if (!current) return false;
       const event = current;
       const result = startDungeonPlayerMovement(event.runtime, direction, {
         restrictToMapBounds: boundsToggle.input.checked,
@@ -324,7 +334,7 @@ export const playerMovementLabModule: LabModule = {
           : result.blockedReason === 'movement-in-progress'
             ? '玩家仍在上一次移动过程中。'
             : `移动被地图边界阻挡：目标格 (${result.to.tileX}, ${result.to.tileY})。`;
-        return;
+        return true;
       }
       syncMarker();
       refreshRuntimeJson(true);
@@ -338,6 +348,7 @@ export const playerMovementLabModule: LabModule = {
       if (result.completed) {
         void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'player-movement-completed' });
       }
+      return true;
     };
 
     const turnPlayer = (turn: DungeonPlayerTurn) => {
@@ -433,18 +444,42 @@ export const playerMovementLabModule: LabModule = {
     });
     teleportPositionButton.addEventListener('click', teleportToPosition);
     const keyDirections: Readonly<Record<string, DungeonMapDirection>> = {
-      ArrowUp: 'north', w: 'north', W: 'north', ArrowRight: 'east', d: 'east', D: 'east',
-      ArrowDown: 'south', s: 'south', S: 'south', ArrowLeft: 'west', a: 'west', A: 'west',
+      ArrowUp: 'north', KeyW: 'north', ArrowRight: 'east', KeyD: 'east',
+      ArrowDown: 'south', KeyS: 'south', ArrowLeft: 'west', KeyA: 'west',
     };
-    const keyHandler = (event: KeyboardEvent) => {
-      const target = event.target;
-      if (target instanceof HTMLInputElement || target instanceof HTMLSelectElement || target instanceof HTMLTextAreaElement) return;
-      const direction = keyDirections[event.key];
-      if (!direction) return;
-      event.preventDefault();
-      move(direction);
+    const keyboardRegistration = context.keyboard.register({
+      id: 'player-movement',
+      label: 'Dungeon 玩家移动',
+      keys: Object.keys(keyDirections),
+      enabled: keyboardToggle.input.checked,
+      priority: Number(keyboardPriorityInput.value),
+      intercept: keyboardInterceptToggle.input.checked,
+      preventDefault: keyboardPreventDefaultToggle.input.checked,
+      onKeyDown: (event) => {
+        const direction = keyDirections[event.code];
+        return direction && move(direction) ? 'handled' : 'ignored';
+      },
+      onOwnershipChanged: (ownedCodes) => {
+        keyboardOwnershipStatus.textContent = `当前优先拥有：${[...ownedCodes].join('、') || '无'}。`;
+      },
+    });
+    keyboardToggle.input.addEventListener('change', () => keyboardRegistration.setEnabled(keyboardToggle.input.checked));
+    keyboardPriorityInput.addEventListener('input', () => {
+      const value = Number(keyboardPriorityInput.value);
+      if (Number.isFinite(value)) keyboardRegistration.setPriority(value);
+    });
+    keyboardInterceptToggle.input.addEventListener('change', () => keyboardRegistration.setIntercept(keyboardInterceptToggle.input.checked));
+    keyboardPreventDefaultToggle.input.addEventListener('change', () => keyboardRegistration.setPreventDefault(keyboardPreventDefaultToggle.input.checked));
+    const syncKeyboardControls = () => {
+      const settings = context.keyboard.getConsumer(keyboardRegistration.id);
+      if (!settings) return;
+      keyboardToggle.input.checked = settings.enabled;
+      keyboardPriorityInput.value = String(settings.priority);
+      keyboardInterceptToggle.input.checked = settings.intercept;
+      keyboardPreventDefaultToggle.input.checked = settings.preventDefault;
     };
-    window.addEventListener('keydown', keyHandler);
+    const offKeyboardChanged = context.keyboard.subscribe(syncKeyboardControls);
+    syncKeyboardControls();
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       if (!current?.runtime.playerMovement) return;
@@ -487,7 +522,8 @@ export const playerMovementLabModule: LabModule = {
       offReady();
       offChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
-      window.removeEventListener('keydown', keyHandler);
+      keyboardRegistration.dispose();
+      offKeyboardChanged();
       disposeMarker();
     };
   },
