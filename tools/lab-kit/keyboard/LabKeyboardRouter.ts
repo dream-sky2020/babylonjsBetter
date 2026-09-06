@@ -3,6 +3,8 @@ import type {
   LabKeyboardConsumerOptions,
   LabKeyboardConsumerSnapshot,
   LabKeyboardEvent,
+  LabKeyboardLockHandle,
+  LabKeyboardLockSnapshot,
   LabKeyboardPhase,
   LabKeyboardRouteDecision,
   LabKeyboardRouteRecord,
@@ -18,6 +20,13 @@ type Consumer = {
   intercept: boolean;
   preventDefault: boolean;
   allowWhenEditing: boolean;
+};
+
+type KeyboardLock = {
+  id: number;
+  ownerId: string;
+  label: string;
+  allowConsumers: Set<string>;
 };
 
 export type LabKeyboardRouterOptions = {
@@ -60,10 +69,12 @@ export class LabKeyboardRouter {
   private readonly listeners = new Set<() => void>();
   private readonly records: LabKeyboardRouteRecord[] = [];
   private readonly pressedCodes = new Set<string>();
+  private readonly locks = new Map<number, KeyboardLock>();
   private readonly conflicts = new Map<string, string>();
   private readonly recordCapacity: number;
   private order = 0;
   private sequence = 0;
+  private lockSequence = 0;
   private disposed = false;
   private enabled = true;
 
@@ -82,6 +93,43 @@ export class LabKeyboardRouter {
   get globalEnabled(): boolean { return this.enabled; }
   get pressed(): ReadonlySet<string> { return this.pressedCodes; }
   get routeRecords(): readonly LabKeyboardRouteRecord[] { return this.records; }
+
+  getLocks(): readonly LabKeyboardLockSnapshot[] {
+    return [...this.locks.values()].map((lock) => Object.freeze({
+      id: lock.id,
+      ownerId: lock.ownerId,
+      label: lock.label,
+      allowConsumers: Object.freeze([...lock.allowConsumers]),
+    }));
+  }
+
+  acquireLock(options: Readonly<{
+    ownerId: string;
+    label?: string;
+    allowConsumers?: readonly string[];
+  }>): LabKeyboardLockHandle {
+    this.requireActive();
+    const ownerId = normalizeId(options.ownerId);
+    const lock: KeyboardLock = {
+      id: ++this.lockSequence,
+      ownerId,
+      label: options.label?.trim() || ownerId,
+      allowConsumers: new Set(options.allowConsumers ?? []),
+    };
+    this.locks.set(lock.id, lock);
+    this.pressedCodes.clear();
+    this.recalculateOwnership();
+    let active = true;
+    return Object.freeze({
+      id: lock.id,
+      release: () => {
+        if (!active) return;
+        active = false;
+        this.locks.delete(lock.id);
+        this.recalculateOwnership();
+      },
+    });
+  }
 
   setGlobalEnabled(enabled: boolean): void {
     this.requireActive();
@@ -172,7 +220,9 @@ export class LabKeyboardRouter {
 
   getOwner(code: string): LabKeyboardConsumerSnapshot | null {
     this.requireActive();
-    const consumer = this.sortedConsumers().find((candidate) => candidate.enabled && candidate.keys.has(code));
+    const consumer = this.sortedConsumers().find((candidate) => (
+      candidate.enabled && this.isAllowedByLocks(candidate.options.id) && candidate.keys.has(code)
+    ));
     return consumer ? this.snapshotOf(consumer) : null;
   }
 
@@ -192,7 +242,9 @@ export class LabKeyboardRouter {
     this.requireActive();
     if (input.phase === 'keydown') this.pressedCodes.add(input.code);
     else this.pressedCodes.delete(input.code);
-    const candidates = this.sortedConsumers().filter((consumer) => consumer.enabled && consumer.keys.has(input.code));
+    const candidates = this.sortedConsumers().filter((consumer) => (
+      consumer.enabled && this.isAllowedByLocks(consumer.options.id) && consumer.keys.has(input.code)
+    ));
     const decisions: LabKeyboardRouteDecision[] = [];
     const handledBy: string[] = [];
     let interceptedBy: string | undefined;
@@ -251,6 +303,7 @@ export class LabKeyboardRouter {
     this.eventTarget?.removeEventListener('keyup', this.onKeyUp, { capture: true });
     this.eventTarget?.removeEventListener('blur', this.onBlur);
     this.consumers.clear();
+    this.locks.clear();
     this.pressedCodes.clear();
     this.records.length = 0;
     this.listeners.clear();
@@ -281,9 +334,13 @@ export class LabKeyboardRouter {
     return [...this.consumers.values()].sort((left, right) => right.priority - left.priority || left.order - right.order);
   }
 
+  private isAllowedByLocks(consumerId: string): boolean {
+    return [...this.locks.values()].every((lock) => lock.allowConsumers.has(consumerId));
+  }
+
   private snapshotOf(consumer: Consumer): LabKeyboardConsumerSnapshot {
     const ownedCodes = [...consumer.keys].filter((code) => this.sortedConsumers()
-      .find((candidate) => candidate.enabled && candidate.keys.has(code)) === consumer);
+      .find((candidate) => candidate.enabled && this.isAllowedByLocks(candidate.options.id) && candidate.keys.has(code)) === consumer);
     return Object.freeze({
       id: consumer.options.id,
       label: consumer.options.label,

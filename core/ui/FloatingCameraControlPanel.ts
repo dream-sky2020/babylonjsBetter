@@ -4,12 +4,18 @@ import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
 export interface FloatingCameraControlPanel {
   element: HTMLDivElement;
   readonly visible: boolean;
+  readonly collapsed: boolean;
   setVisible: (visible: boolean) => void;
   /** 兼容旧调用：有未应用草稿时不会覆盖输入框。 */
   syncFromController: () => void;
   updateStatus: () => void;
   dispose: () => void;
 }
+
+export type FloatingCameraControlPanelOptions = Readonly<{
+  initialCollapsed?: boolean;
+  onCollapsedChanged?: (collapsed: boolean) => void;
+}>;
 
 const panelStyle = `position:absolute;left:16px;top:16px;z-index:20;width:380px;max-height:calc(100% - 32px);overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(148,163,184,.35);border-radius:12px;background:rgba(15,19,26,.78);color:#e8edf2;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(8px);font-family:"Segoe UI","Microsoft YaHei",sans-serif;font-size:12px;`;
 const nativeLabel = (property: string, title: string): string => `<label><code>${property}</code><span>${title}</span></label>`;
@@ -70,7 +76,11 @@ const clamp = (value: number, min: number, max: number): number => Math.max(min,
 const radToDeg = (value: number): number => value * 180 / Math.PI;
 const degToRad = (value: number): number => value * Math.PI / 180;
 
-export const createFloatingCameraControlPanel = (host: HTMLElement, controller: CameraLabController): FloatingCameraControlPanel => {
+export const createFloatingCameraControlPanel = (
+  host: HTMLElement,
+  controller: CameraLabController,
+  options: FloatingCameraControlPanelOptions = {},
+): FloatingCameraControlPanel => {
   const panel = document.createElement('div');
   panel.style.cssText = panelStyle;
   panel.innerHTML = html;
@@ -146,8 +156,15 @@ export const createFloatingCameraControlPanel = (host: HTMLElement, controller: 
   panel.querySelector('button[data-role="native-defaults"]')?.addEventListener('click', () => { controller.resetActiveCameraToNativeDefaults(); controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
   panel.querySelector('button[data-role="initial-pose"]')?.addEventListener('click', () => { controller.resetInitialPose(); controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
 
-  const toggle = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]'); const body = panel.querySelector<HTMLElement>('[data-role="body"]'); let collapsed = false;
-  toggle?.addEventListener('pointerdown', (event) => event.stopPropagation()); toggle?.addEventListener('click', (event) => { event.stopPropagation(); collapsed = !collapsed; if (body) body.style.display = collapsed ? 'none' : ''; toggle.textContent = collapsed ? '展开' : '折叠'; });
+  const toggle = panel.querySelector<HTMLButtonElement>('button[data-role="toggle"]'); const body = panel.querySelector<HTMLElement>('[data-role="body"]'); let collapsed = options.initialCollapsed === true;
+  const setCollapsed = (nextCollapsed: boolean, notify: boolean): void => {
+    collapsed = nextCollapsed;
+    if (body) body.style.display = collapsed ? 'none' : '';
+    if (toggle) toggle.textContent = collapsed ? '展开' : '折叠';
+    if (notify) options.onCollapsedChanged?.(collapsed);
+  };
+  toggle?.addEventListener('pointerdown', (event) => event.stopPropagation()); toggle?.addEventListener('click', (event) => { event.stopPropagation(); setCollapsed(!collapsed, true); });
+  setCollapsed(collapsed, false);
   const handle = panel.querySelector<HTMLElement>('[data-role="drag"]'); let dragging = false; let startX = 0; let startY = 0; let startLeft = 0; let startTop = 0;
   const onMove = (event: PointerEvent): void => { if (!dragging) return; panel.style.left = `${Math.max(0, startLeft + event.clientX - startX)}px`; panel.style.top = `${Math.max(0, startTop + event.clientY - startY)}px`; };
   const onUp = (): void => { dragging = false; window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); };
@@ -157,6 +174,7 @@ export const createFloatingCameraControlPanel = (host: HTMLElement, controller: 
   return {
     element: panel,
     get visible() { return visible; },
+    get collapsed() { return collapsed; },
     setVisible: (nextVisible) => {
       visible = nextVisible;
       panel.style.display = visible ? 'flex' : 'none';

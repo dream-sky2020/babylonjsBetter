@@ -69,7 +69,9 @@ export const playerMovementLabModule: LabModule = {
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
     const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
-    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true);
+    const keyboardToggle = createLabSwitch('启用玩家键盘输入', true, {
+      preference: { ui: context.ui, key: 'player-movement/keyboard-enabled' },
+    });
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
     const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
     const keyboardPriorityInput = createNumberInput(75, undefined, 1);

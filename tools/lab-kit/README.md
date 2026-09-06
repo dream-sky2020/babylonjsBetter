@@ -29,6 +29,7 @@ const host = await createLab({
 
 - `context.keyboard` 是唯一的键盘输入入口。模块不得直接监听 `window` 的 `keydown`/`keyup`；应注册稳定的消费者 ID，并声明按键、启用状态、优先级、处理后是否拦截低优先级输入，以及是否阻止浏览器默认行为。
 - Router 先按优先级、再按注册顺序分发。只有消费者返回 `handled` 且启用拦截时，才停止传给更低优先级消费者；输入框、下拉框和可编辑区域默认屏蔽业务键盘输入。
+- 短暂的原子流程可调用 `context.keyboard.acquireLock()`。锁默认暂停所有消费者，也可通过 `allowConsumers` 只放行指定消费者；多个锁同时存在时取允许集合的交集。流程结束和模块销毁时必须释放锁。
 - 左侧 `Keyboard Input` 系统面板统一修改消费者设置，并报告焦点、按下按键、所有权和最近路由路径。设置由 Host 登记到 LabState，可随 Lab Snapshot 保存与恢复。
 - `context.cameraController` 是 Host 默认相机。左侧 `Camera` 面板负责显示浮动参数面板、鼠标输入和相机键盘消费者设置；环绕、第一人称与无人机模式尽量交给 Babylon 原生相机输入，锁定平面保留项目自定义控制。
 - Keyboard Router 的逐键分发和相机逐帧更新走直接调用，不经过 Communication。Communication 只广播全局启用、消费者设置和冲突变化等低频事件，供日志、联动和外部 Debug 使用。
@@ -72,6 +73,9 @@ lab:ready / 用户选择地牢
 - 需要默认收起时使用 `addPanel(id, title, { defaultCollapsed: true })`。已保存状态优先于默认值；左侧统一提供“全部展开”“全部折叠”和“重置布局”。
 - 面板 ID 同时是布局偏好的稳定 Key；发布后不要仅因标题变化而修改 ID。
 - 使用 `createLabSwitch()`、`createLabField()`、`createLabJson()` 和 `createLabStatus()` 创建公共控件。
+- 纯显示类开关可通过 `createLabSwitch(label, defaultValue, { preference: { ui: context.ui, key } })` 绑定页面级偏好；Key 在当前 Lab 页面内必须稳定且唯一。模块不得为此自行访问 `localStorage`。
+- 非 Switch 的二态 UI（例如浮动面板内部折叠按钮）使用 `context.ui.createBooleanPreference(key, defaultValue)` 读取初始值并在变化时调用 `set()`；它与 Switch 共享同一套 Key 冲突检查和页面级存储。
+- Switch 偏好与面板折叠状态共享当前页面路径作用域，但“重置布局”只重置面板折叠，不会悄悄重置显示开关。不要把玩家状态、规则开关或正式配置存入 Switch 偏好。
 - 通用样式进入 `tools/lab-kit/styles.css`；模块专属样式使用 `lab-<module-id>-*` 前缀。
 - 具体 Lab 的 `index.html` 只保留 `#root` 与入口脚本。
 ## Lab Viewport

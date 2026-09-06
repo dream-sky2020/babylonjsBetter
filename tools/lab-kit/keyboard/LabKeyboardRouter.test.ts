@@ -64,3 +64,19 @@ test('相同优先级保持注册顺序', () => {
   assert.equal(router.getOwner('KeyE')?.id, 'first');
   router.dispose();
 });
+
+test('可释放输入锁阻止未获准消费者，并在释放后恢复原所有权', () => {
+  const router = new LabKeyboardRouter(null);
+  let calls = 0;
+  router.register({ id: 'player', label: 'Player', keys: ['KeyW'], onKeyDown: () => { calls += 1; return 'handled'; } });
+  const lock = router.acquireLock({ ownerId: 'transition', label: '地图传送' });
+  assert.equal(router.getOwner('KeyW'), null);
+  router.route(keyboardEvent('KeyW'));
+  assert.equal(calls, 0);
+  assert.equal(router.getLocks()[0]?.ownerId, 'transition');
+  lock.release();
+  assert.equal(router.getOwner('KeyW')?.id, 'player');
+  router.route(keyboardEvent('KeyW'));
+  assert.equal(calls, 1);
+  router.dispose();
+});

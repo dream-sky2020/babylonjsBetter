@@ -2,6 +2,7 @@ export * from './dungeonMap.types';
 export * from './dungeonMap';
 export * from './dungeonMap.physics';
 export * from './dungeonMap.create';
+export * from './dungeonMap.structureEdit';
 export * from './dungeonMap.topology';
 export * from './dungeonMap.definition.types';
 export * from './dungeonMap.definition';

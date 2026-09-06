@@ -198,6 +198,8 @@ export default defineConfig({
         dungeonObstacleLab: path.resolve(__dirname, 'tools/dungeon-obstacle-lab/index.html'),
         dungeonPlayerSpawnLab: path.resolve(__dirname, 'tools/dungeon-player-spawn-lab/index.html'),
         dungeonPlayerMovementLab: path.resolve(__dirname, 'tools/dungeon-player-movement-lab/index.html'),
+        dungeonFirstPersonCameraLab: path.resolve(__dirname, 'tools/dungeon-first-person-camera-lab/index.html'),
+        dungeonTransitionLab: path.resolve(__dirname, 'tools/dungeon-transition-lab/index.html'),
         sceneEnvironmentLab: path.resolve(__dirname, 'tools/scene-environment-lab/index.html'),
         dbGameSelfstatusLab: path.resolve(__dirname, 'tools/db-game-selfstatus-lab/index.html'),
         battleSkillSlotsLab: path.resolve(__dirname, 'tools/battle-skill-slots-lab/index.html'),

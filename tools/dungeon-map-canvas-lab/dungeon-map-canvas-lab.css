@@ -36,9 +36,25 @@ h1 { margin: 0; font-size: 23px; }
 .preset-key-row button:disabled { cursor: not-allowed; opacity: .48; }
 .create-preset-button { border-color: rgba(110,231,183,.45); background: #1a513d; }
 .save-preset-button { border-color: rgba(102,195,255,.28); background: #143647; }
-.save-preset-button:disabled { cursor: not-allowed; opacity: .48; }
+.reload-preset-button { border-color: rgba(251,191,36,.3); color: #fde68a; background: #3b3217; }
+.preset-save-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.preset-save-actions button { min-width: 0; padding-inline: 7px; font-size: 11px; }
+.save-preset-button:disabled, .reload-preset-button:disabled { cursor: not-allowed; opacity: .48; }
+.preset-dirty-state { padding: 7px 9px; border: 1px solid rgba(110,231,183,.14); border-radius: 7px; color: #83bda6; background: rgba(6,20,15,.42); font-size: 10px; }
+.preset-dirty-state.is-dirty { border-color: rgba(251,191,36,.22); color: #f7d878; background: rgba(77,57,12,.24); }
 .preset-status { padding: 8px 9px; border-radius: 7px; color: #8fd9bb; background: rgba(6,20,15,.65); font-size: 10px; line-height: 1.45; }
 .preset-status.is-error { color: #ffb4b4; background: rgba(80,20,20,.32); }
+.map-structure-target { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px 9px; padding: 9px 10px; border: 1px solid rgba(77,208,225,.17); border-radius: 8px; background: rgba(9,41,42,.28); }
+.map-structure-target span { color: #78aaa7; font-size: 10px; }
+.map-structure-target strong { color: #c9fff2; font-size: 11px; text-align: right; }
+.map-structure-target small { grid-column: 1 / -1; color: #6f9486; font-size: 9px; }
+.map-structure-group { display: grid; gap: 7px; }
+.map-structure-group > span { color: #8fffc1; font-size: 10px; font-weight: 700; }
+.map-structure-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.map-structure-actions button { min-width: 0; padding: 7px 6px; font-size: 10px; }
+.map-structure-actions .danger-button { grid-column: 1 / -1; }
+.map-structure-actions button:disabled { cursor: not-allowed; opacity: .42; }
+.map-structure-note { padding: 8px 9px; border-radius: 7px; color: #a9a36d; background: rgba(67,57,17,.2); font-size: 9px; line-height: 1.5; }
 .controls .check { grid-template-columns: 18px 1fr; align-items: center; gap: 8px; }
 .controls .check input { accent-color: #34d399; }
 .reset-button { margin-top: 3px; background: transparent; }

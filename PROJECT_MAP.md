@@ -1,4 +1,30 @@
 # Babylon.js Better 项目地图
+## 2026-09-06：Dungeon Map Canvas 整行 / 整列结构编辑
+
+`core/map/dungeonMap.structureEdit.ts` 提供不修改输入地图的整行、整列插入与删除函数。操作会重建合法矩形拓扑，迁移仍然存在的格子、单向边、公用边、公用点、Marker 与地图级 Spawn 坐标；新出现或因接缝变化而无法保持原语义的空间容器使用编辑器默认的地板 / 开放边数据。删除含玩家 Spawn 的行或列会直接拒绝，入口、出口、阻碍、Marker 等被移除或接缝 Entity 被重建时会返回影响摘要。
+
+`tools/dungeon-map-canvas-lab/` 新增“地图结构”面板，可按 Canvas 当前选中坐标在上 / 下插入或删除整行，在左 / 右插入或删除整列；没有格子选择时可手动输入目标行列。修改只进入当前页面内存，继续由既有“保存全部地图预设”统一写入 config。地图预设面板新增“重新加载当前预设”，只从 config 重新获取当前 Key；检测到未保存修改时先确认，并清理当前编辑历史。此次没有为结构操作增加撤销 / 重做，也没有扩展运行时地图 Delta，因为尺寸与拓扑编辑属于预设创作而不是游戏运行态修改。
+
+## 2026-09-06：Lab `createLabSwitch()` 页面偏好
+
+`tools/lab-kit/labUi.ts` 的 `createLabSwitch()` 支持可选 `preference`，统一复用按 Lab 页面路径隔离的 `LabUi` 本地偏好，而不是由各模块直接访问 `localStorage`。非 Switch 二态 UI 通过同源的 `createBooleanPreference()` 接入；稳定 Key 在同一页面内不能重复。当前持久化入口/出口、阻碍、格子和玩家 Spawn Debug 显示，Camera 浮动参数面板的显示与内部折叠，以及全局、玩家、摄像机三个键盘输入总开关。键盘优先级、处理后拦截、preventDefault、传送规则和移动规则没有纳入这一自动偏好。
+
+恢复值在 Keyboard Router 消费者注册前生效，因此玩家与摄像机消费者第一次注册就使用正确的启用状态；全局键盘偏好则在 Host Keyboard Debug 面板创建时立即同步到 Router。“重置布局”只重置左侧面板折叠，不清除 Switch/Boolean 偏好。这些偏好不进入游戏存档，也不写入正式配置文件。
+
+## 2026-09-06：DRPG 跨地图传送 Core 与组合 Lab
+
+`core/dungeon-transition/` 定义地图无关的跨地图传送规则。`DungeonEntranceComponent` 只能位于格子的 `dungeon-entrance` Entity，`entranceId` 在单张地图内唯一并声明抵达朝向；`DungeonExitComponent` 只能位于格子、单向边或公用边的 `dungeon-exit` Entity，直接保存目标地图预设 Key、目标入口 ID 和 `enter / interact` 触发方式。出口 Entity 自身 ID 即来源标识，不额外维护 `exitId`；多个出口允许引用同一个入口，入口不反向引用出口。
+
+地图 Canvas 编辑器自动发现以上 Entity/Component 定义，并把传送结构校验并入保存前检查。Dungeon Libraries 在加载完整目录后校验跨地图引用；Dungeon Map Loader 在应用地图 Delta 后再次校验实际 live map，并在公开新地图引用前原子应用入口格子、世界位置、正式朝向和世界旋转，目标入口失效时保留原地图。`dungeon-transition` Lab Module 依赖 `player-movement`，在移动完成后匹配 `enter` 出口，或以 E 键/按钮查找当前位置与面前边上的 `interact` 出口；切换期间通过 Host Keyboard Router 输入锁暂停其他消费者。
+
+`tools/dungeon-transition-lab/` 独立组合地图选择、DRPG 第一人称相机和传送模块。传送面板可显示入口和出口 Debug 盒：入口使用缩小的格子盒，格子出口、单向边出口和公用边出口复用阻碍 Debug 的三类空间布局，并以不同颜色区分。切图时盒子随新地图重建，关闭开关或销毁模块时释放。当前模块只发布 started/completed/failed 低频事件并执行逻辑切换，不创建淡入淡出、加载遮罩、镜头动画或音效；这些表现留给后续专门的传送表现 Lab。
+
+## 2026-09-05：DRPG 第一人称相机组合 Lab
+
+`tools/dungeon-first-person-camera-lab/` 是独立的组合式入口，不修改原 `dungeon-player-movement-lab`。页面只声明 `dungeon-config` 与 `dungeon-first-person-camera`，Host 通过后者对 `player-movement` 的依赖自动补齐地图、Runtime、Spawn、阻碍和格步移动链。
+
+`tools/lab-modules/dungeon/dungeon-first-person-camera/` 只读取 `DungeonMapLoaderReferences` 中的玩家连续世界位置和 `playerWorldRotationY`，通过 `CameraLabController.bindFirstPersonPose()` 驱动现有 Babylon `UniversalCamera`；它不注册键盘移动、不写玩家位置或朝向。相机姿态由“玩家正式朝向 + 水平观察偏移”和“基础俯仰角 + 垂直观察偏移”组成。Canvas 左键拖拽可在配置范围内自由观察，松开可选自动平滑回正，并提供手动平滑回正和立即回正；所有回正只清理相机观察偏移，不触发玩家转向。
+
 ## 2026-09-05：组合式 Lab Host 统一键盘与默认相机
 
 `tools/lab-kit/keyboard/` 已成为每个 `createLab()` 无条件加载的 Host 基础设施，与 Communication、Lab Execution、LabState 和 Viewport 同级，不作为 Catalog 中的可选 Lab Module。模块通过 `context.keyboard` 注册消费者，声明按键集合、启用状态、优先级、处理后拦截和浏览器默认行为；Router 按“优先级 → 稳定注册顺序”分发，编辑控件默认隔离业务按键。左侧内置 `Keyboard Input` Debug 面板显示当前焦点、按键、消费者所有权和最近路由路径；用户设置登记为可持久化的 `lab:host/keyboard-settings`。
@@ -7,7 +33,7 @@
 
 `tools/lab-kit/camera/` 现在为所有组合式 Lab 创建默认 Camera System。它从 Host 初始 ArcRotateCamera 的真实参数和姿态建立 `cameraLabController`，左侧 `Camera` 系统面板可打开已有浮动相机参数面板，并控制鼠标/滚轮与相机键盘消费者。环绕、第一人称、无人机使用 Babylon 原生相机输入，锁定平面保留项目控制；相机键盘默认关闭、优先级 50。Router 在内部决定低优先级分发和 DOM 拦截，同时允许获准的原生相机输入继续到 Babylon。可交互 Viewport Layer 会临时暂停相机输入，关闭后恢复用户选择。
 
-`LabUi` 统一持久化左侧面板的折叠状态，存储作用域按 Lab 页面路径隔离，不进入 LabState 游戏/实验 Snapshot。`addPanel()` 支持声明 `defaultCollapsed`，本地已保存状态拥有更高优先级；左侧顶部提供全部展开、全部折叠和重置布局。Keyboard Input 的默认收起状态已从私有 DOM 操作迁移到这一公共接口。
+`LabUi` 统一持久化左侧面板的折叠状态和显式声明的 Boolean 偏好，存储作用域按 Lab 页面路径隔离，不进入 LabState 游戏/实验 Snapshot。`addPanel()` 支持声明 `defaultCollapsed`，本地已保存状态拥有更高优先级；`createLabSwitch()` 可通过稳定 Key 选择绑定同一偏好存储，非 Switch 二态 UI 使用 `createBooleanPreference()`。当前持久化入口/出口 Debug 盒、阻碍 Debug 盒、地牢格子 Debug、玩家 Spawn Debug、Camera 浮动参数面板的显示与内部折叠，以及全局、玩家和摄像机键盘输入总开关；传送、移动规则和键盘高级参数不自动保存。左侧顶部提供全部展开、全部折叠和重置布局，其中重置布局只影响左侧面板折叠。Keyboard Input 的默认收起状态已从私有 DOM 操作迁移到这一公共接口。
 
 ## 2026-09-04：组合式 Lab 两阶段启动契约
 
@@ -120,6 +146,7 @@ Viewport 统一负责 Layer 显隐、独占层切换、高清 Canvas 尺寸同�
 | `tools/dungeon-player-spawn-lab/` | `dungeon-config`、`dungeon-grid-debug`、`player-spawn`、`dungeon-runtime` | `dungeon-libraries`、`dungeon-map-loader` |
 | `tools/dungeon-obstacle-lab/` | `dungeon-config`、`dungeon-grid-debug`、`dungeon-runtime`、`dungeon-obstacle` | `dungeon-libraries`、`dungeon-map-loader`、`player-spawn` |
 | `tools/dungeon-player-movement-lab/` | `dungeon-config`、`dungeon-runtime`、`player-movement` | `dungeon-libraries`、`dungeon-map-loader`、`dungeon-grid-debug`、`player-spawn`、`dungeon-obstacle` |
+| `tools/dungeon-first-person-camera-lab/` | `dungeon-config`、`dungeon-first-person-camera` | `player-movement` 及其地牢装载、Runtime、Spawn、阻碍依赖 |
 | `tools/dungeon-runtime-save-switching-lab/` | `dungeon-runtime-save-switch` | `dungeon-runtime`、`dungeon-obstacle`、`player-movement` 及其地牢装载依赖 |
 
 这里的“使用”分为两层：页面负责调用 `createLab()` 并选择顶层模块；`tools/lab-modules/dungeon/` 使用 `lab-kit` 提供的模块契约、UI 控件、类型化通信和服务注册表。
@@ -342,6 +369,8 @@ config/monsterDisplayConfigs.json
 | `dungeon-runtime` | `dungeon-map-loader` | 读取当前 `DungeonRuntime` 服务 |
 | `dungeon-obstacle` | `dungeon-map-loader` | 读取阻碍、Runtime 和 Spawn 服务，提供启停面板和 Debug |
 | `player-movement` | `dungeon-grid-debug`、`dungeon-obstacle` | 操作当前 Session 的 Runtime，并在 Session 切换时重建玩家 Debug |
+| `dungeon-first-person-camera` | `player-movement` | 将玩家连续世界姿态绑定到默认 Camera System，并提供不改变玩家朝向的自由观察与回正 |
+| `dungeon-transition` | `player-movement` | 解析 enter/interact 出口、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
 | `dungeon-runtime-save-switch` | `dungeon-obstacle`、`player-movement` | 人工切换地牢并查询 Loader 保存的运行态 |
 
 依赖自动展开的主链：
@@ -406,6 +435,8 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `dungeon-obstacle-lab/`：显式组合 `dungeon-runtime + dungeon-obstacle + dungeon-grid-debug`，集中浏览 Runtime，并测试阻碍状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug。
 - `dungeon-player-spawn-lab/`：显式组合 `player-spawn + dungeon-runtime + dungeon-grid-debug`，验证出生点只提供初始化信息，再由 Runtime 模块唯一创建地牢动态数据。
 - `dungeon-player-movement-lab/`：入口声明 `dungeon-config + dungeon-runtime + player-movement`，独立 Runtime 卡片集中显示权威格子位置、连续世界位置、朝向、移动过程和阻碍状态。移动面板分别提供东南西北绝对移动、相对朝向的前进/后退/左右横移、原地左转/后转/右转；移动与转向均可切换速度或单次耗时模式，并保留各模式的手动值和瞬移开关。
+- `dungeon-first-person-camera-lab/`：在不修改玩家格步与正式朝向规则的前提下，把默认 Camera System 绑定为 DRPG 第一人称视角，并测试自由观察、松开回正与手动回正。
+- `dungeon-transition-lab/`：组合第一人称相机、格步移动和地图传送，验证格子/单向边/公用边出口到目标地图唯一入口的无表现切换流程。
 - `dungeon-runtime-save-switching-lab/`：直接通过 DungeonMapLoader 切换地牢；离开地牢时保存玩家位置、朝向和阻碍运行态，返回时从只读预设重建并恢复运行态。
 - `scene-environment-lab/`：通过 Map Entity 的 `SceneEnvironmentComponent.presetKey` 从开发 API 或静态配置读取并渲染场景环境预设；复用 Camera Lab Controller 与浮动摄像机控制面板测试多种视角，并默认选择 `local-model-loading-test` 验证本地 GLB 模型加载。
 - `special-status-visual-lab/`

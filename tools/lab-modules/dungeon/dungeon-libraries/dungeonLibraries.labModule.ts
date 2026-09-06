@@ -1,4 +1,5 @@
 import { loadConfig } from '@/core/config';
+import { validateDungeonTransitionLibrary } from '@/core/dungeon-transition';
 import { loadDungeonMapPresetLibrary } from '@/core/map';
 import { parseSceneEnvironmentPresetLibrary, parseShadowQualityPresetLibrary } from '@/core/scene';
 import type { LabModule } from '@/tools/lab-kit';
@@ -43,6 +44,10 @@ export const dungeonLibrariesLabModule: LabModule = {
           loadConfig<unknown>('sceneEnvironmentPresets.json', { devApiPath: '/api/scene-environment-presets', selectDevPayload: selectDevData }),
           loadConfig<unknown>('shadowQualityPresets.json', { devApiPath: '/api/shadow-quality-presets', selectDevPayload: selectDevData }),
         ]);
+        const transitionIssues = validateDungeonTransitionLibrary(maps);
+        if (transitionIssues.length) {
+          throw new Error(`地牢入口/出口配置无效：\n${transitionIssues.map(({ message }) => `- ${message}`).join('\n')}`);
+        }
         controller.commit({
           maps,
           environments: parseSceneEnvironmentPresetLibrary(environments),

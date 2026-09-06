@@ -18,6 +18,7 @@ const collectTypeScriptFiles = (relativePath: string): string[] => {
 const guardedFiles = [
   ...collectTypeScriptFiles('core/map'),
   ...collectTypeScriptFiles('core/dungeon-obstacle'),
+  ...collectTypeScriptFiles('core/dungeon-transition'),
   ...collectTypeScriptFiles('core/dungeon-player-movement'),
   ...collectTypeScriptFiles('core/dungeon-player-spawn'),
   ...collectTypeScriptFiles('core/dungeon-runtime'),

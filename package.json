@@ -12,6 +12,8 @@
     "test:batch": "node --experimental-strip-types --test core/entity/batch-edit.test.ts",
     "test:dungeon-map-definition": "node --experimental-strip-types --test core/map/dungeonMap.definition.test.ts",
     "test:dungeon-map-delta": "node --experimental-strip-types --test core/map/dungeonMap.delta.test.ts",
+    "test:dungeon-map-structure-edit": "node --experimental-strip-types --test core/map/dungeonMap.structureEdit.test.ts",
+    "test:dungeon-transition": "node --experimental-strip-types --test core/dungeon-transition/dungeonTransition.test.ts",
     "test:lab-communication": "node --experimental-strip-types --test tools/lab-kit/labCommunication.test.ts",
     "test:lab-execution-plan": "node --experimental-strip-types --test tools/lab-kit/execution-plan/resolveLabExecutionPlan.test.ts",
     "test:lab-services": "node --experimental-strip-types --test tools/lab-kit/labServiceRegistry.test.ts",

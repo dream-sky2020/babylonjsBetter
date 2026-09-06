@@ -5,7 +5,7 @@
     "format": "definition-refs",
     "version": 1,
     "id": "dungeon-map:dungeon_map",
-    "width": 1,
+    "width": 3,
     "height": 11,
     "topologyMode": "bounded",
     "dataDefinitions": [
@@ -14,6 +14,50 @@
           {
             "localId": "entity",
             "entityType": "tile",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "entity",
+            "entityType": "tile-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,0:entity",
+            "absoluteId": "tile:0,0:entity",
+            "entityType": "tile",
+            "name": "格子 0,0",
             "enabled": true,
             "components": [
               {
@@ -27,14 +71,32 @@
                 "localId": "legacy"
               }
             ]
+          },
+          {
+            "localId": "tile:0,0:transition:entrance:main",
+            "absoluteId": "tile:0,0:transition:entrance:main",
+            "entityType": "dungeon-entrance",
+            "name": "入口 · 长廊起点",
+            "enabled": true,
+            "components": [
+              {
+                "entranceId": "corridor-main",
+                "facing": "south",
+                "type": "dungeon-entrance",
+                "version": 1,
+                "localId": "entrance"
+              }
+            ]
           }
         ]
       },
       {
         "entities": [
           {
-            "localId": "entity",
+            "localId": "tile:0,0:east:entity",
+            "absoluteId": "tile:0,0:east:entity",
             "entityType": "tile-edge",
+            "name": "单格边 0,0,east",
             "enabled": true,
             "components": [
               {
@@ -54,8 +116,470 @@
       {
         "entities": [
           {
-            "localId": "entity",
+            "localId": "tile:0,0:south:entity",
+            "absoluteId": "tile:0,0:south:entity",
             "entityType": "tile-edge",
+            "name": "单格边 0,0,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,0:west:entity",
+            "absoluteId": "tile:0,0:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,0,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,0:north:entity",
+            "absoluteId": "tile:0,0:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,0,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,0:entity",
+            "absoluteId": "tile:1,0:entity",
+            "entityType": "tile",
+            "name": "格子 1,0",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,0:east:entity",
+            "absoluteId": "tile:1,0:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,0,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,0:south:entity",
+            "absoluteId": "tile:1,0:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,0,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,0:west:entity",
+            "absoluteId": "tile:1,0:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,0,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,0:north:entity",
+            "absoluteId": "tile:1,0:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,0,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,1:entity",
+            "absoluteId": "tile:0,1:entity",
+            "entityType": "tile",
+            "name": "格子 0,1",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,1:east:entity",
+            "absoluteId": "tile:0,1:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,1,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,1:south:entity",
+            "absoluteId": "tile:0,1:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,1,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,1:west:entity",
+            "absoluteId": "tile:0,1:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,1,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,1:north:entity",
+            "absoluteId": "tile:0,1:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,1,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,1:entity",
+            "absoluteId": "tile:1,1:entity",
+            "entityType": "tile",
+            "name": "格子 1,1",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,1:east:entity",
+            "absoluteId": "tile:1,1:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,1,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,1:south:entity",
+            "absoluteId": "tile:1,1:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,1,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,1:west:entity",
+            "absoluteId": "tile:1,1:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,1,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,1:north:entity",
+            "absoluteId": "tile:1,1:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,1,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,2:entity",
+            "absoluteId": "tile:0,2:entity",
+            "entityType": "tile",
+            "name": "格子 0,2",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,2:east:entity",
+            "absoluteId": "tile:0,2:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,2,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,2:south:entity",
+            "absoluteId": "tile:0,2:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,2,south",
             "enabled": true,
             "components": [
               {
@@ -91,8 +615,10 @@
       {
         "entities": [
           {
-            "localId": "entity",
+            "localId": "tile:0,2:west:entity",
+            "absoluteId": "tile:0,2:west:entity",
             "entityType": "tile-edge",
+            "name": "单格边 0,2,west",
             "enabled": true,
             "components": [
               {
@@ -128,8 +654,148 @@
       {
         "entities": [
           {
-            "localId": "entity",
+            "localId": "tile:0,2:north:entity",
+            "absoluteId": "tile:0,2:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,2,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,2:entity",
+            "absoluteId": "tile:1,2:entity",
             "entityType": "tile",
+            "name": "格子 1,2",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,2:east:entity",
+            "absoluteId": "tile:1,2:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,2,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,2:south:entity",
+            "absoluteId": "tile:1,2:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,2,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,2:west:entity",
+            "absoluteId": "tile:1,2:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,2,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,2:north:entity",
+            "absoluteId": "tile:1,2:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,2,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,3:entity",
+            "absoluteId": "tile:0,3:entity",
+            "entityType": "tile",
+            "name": "格子 0,3",
             "enabled": true,
             "components": [
               {
@@ -164,8 +830,503 @@
       {
         "entities": [
           {
-            "localId": "entity",
+            "localId": "tile:0,3:east:entity",
+            "absoluteId": "tile:0,3:east:entity",
             "entityType": "tile-edge",
+            "name": "单格边 0,3,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,3:south:entity",
+            "absoluteId": "tile:0,3:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,3,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,3:west:entity",
+            "absoluteId": "tile:0,3:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,3,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,3:north:entity",
+            "absoluteId": "tile:0,3:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,3,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,3:entity",
+            "absoluteId": "tile:1,3:entity",
+            "entityType": "tile",
+            "name": "格子 1,3",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,3:east:entity",
+            "absoluteId": "tile:1,3:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,3,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,3:south:entity",
+            "absoluteId": "tile:1,3:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,3,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,3:west:entity",
+            "absoluteId": "tile:1,3:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,3,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,3:north:entity",
+            "absoluteId": "tile:1,3:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,3,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,4:entity",
+            "absoluteId": "tile:0,4:entity",
+            "entityType": "tile",
+            "name": "格子 0,4",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,4:east:entity",
+            "absoluteId": "tile:0,4:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,4,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "tile:0,4:east:transition:exit:tile-edge",
+            "absoluteId": "tile:0,4:east:transition:exit:tile-edge",
+            "entityType": "dungeon-exit",
+            "name": "出口 · 单向边传送到广场侧门",
+            "enabled": true,
+            "components": [
+              {
+                "activation": "interact",
+                "targetEntranceId": "plaza-side",
+                "targetMapPresetKey": "dungeon_map_2",
+                "type": "dungeon-exit",
+                "version": 1,
+                "localId": "exit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,4:south:entity",
+            "absoluteId": "tile:0,4:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,4,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,4:west:entity",
+            "absoluteId": "tile:0,4:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,4,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,4:north:entity",
+            "absoluteId": "tile:0,4:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,4,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,4:entity",
+            "absoluteId": "tile:1,4:entity",
+            "entityType": "tile",
+            "name": "格子 1,4",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,4:east:entity",
+            "absoluteId": "tile:1,4:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,4,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,4:south:entity",
+            "absoluteId": "tile:1,4:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,4,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,4:west:entity",
+            "absoluteId": "tile:1,4:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,4,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,4:north:entity",
+            "absoluteId": "tile:1,4:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,4,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,5:entity",
+            "absoluteId": "tile:0,5:entity",
+            "entityType": "tile",
+            "name": "格子 0,5",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "tile:0,5:transition:entrance:side",
+            "absoluteId": "tile:0,5:transition:entrance:side",
+            "entityType": "dungeon-entrance",
+            "name": "入口 · 长廊中段",
+            "enabled": true,
+            "components": [
+              {
+                "entranceId": "corridor-side",
+                "facing": "north",
+                "type": "dungeon-entrance",
+                "version": 1,
+                "localId": "entrance"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,5:east:entity",
+            "absoluteId": "tile:0,5:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,5,east",
             "enabled": true,
             "components": [
               {
@@ -200,19 +1361,1348 @@
       {
         "entities": [
           {
-            "localId": "entity",
-            "entityType": "shared-edge",
+            "localId": "tile:0,5:south:entity",
+            "absoluteId": "tile:0,5:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,5,south",
             "enabled": true,
             "components": [
               {
                 "data": {
                   "legacy": {
-                    "kind": "open",
-                    "label": "$dungeon-map:generated-label"
+                    "kind": "open"
                   }
                 },
                 "type": "legacy-data",
                 "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,5:west:entity",
+            "absoluteId": "tile:0,5:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,5,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,5:north:entity",
+            "absoluteId": "tile:0,5:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,5,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,5:entity",
+            "absoluteId": "tile:1,5:entity",
+            "entityType": "tile",
+            "name": "格子 1,5",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,5:east:entity",
+            "absoluteId": "tile:1,5:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,5,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,5:south:entity",
+            "absoluteId": "tile:1,5:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,5,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,5:west:entity",
+            "absoluteId": "tile:1,5:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,5,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,5:north:entity",
+            "absoluteId": "tile:1,5:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,5,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,6:entity",
+            "absoluteId": "tile:0,6:entity",
+            "entityType": "tile",
+            "name": "格子 0,6",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,6:east:entity",
+            "absoluteId": "tile:0,6:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,6,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,6:south:entity",
+            "absoluteId": "tile:0,6:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,6,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,6:west:entity",
+            "absoluteId": "tile:0,6:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,6,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,6:north:entity",
+            "absoluteId": "tile:0,6:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,6,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,6:entity",
+            "absoluteId": "tile:1,6:entity",
+            "entityType": "tile",
+            "name": "格子 1,6",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,6:east:entity",
+            "absoluteId": "tile:1,6:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,6,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,6:south:entity",
+            "absoluteId": "tile:1,6:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,6,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,6:west:entity",
+            "absoluteId": "tile:1,6:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,6,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,6:north:entity",
+            "absoluteId": "tile:1,6:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,6,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,7:entity",
+            "absoluteId": "tile:0,7:entity",
+            "entityType": "tile",
+            "name": "格子 0,7",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,7:east:entity",
+            "absoluteId": "tile:0,7:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,7,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,7:south:entity",
+            "absoluteId": "tile:0,7:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,7,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,7:west:entity",
+            "absoluteId": "tile:0,7:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,7,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,7:north:entity",
+            "absoluteId": "tile:0,7:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,7,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,7:entity",
+            "absoluteId": "tile:1,7:entity",
+            "entityType": "tile",
+            "name": "格子 1,7",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,7:east:entity",
+            "absoluteId": "tile:1,7:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,7,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,7:south:entity",
+            "absoluteId": "tile:1,7:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,7,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,7:west:entity",
+            "absoluteId": "tile:1,7:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,7,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,7:north:entity",
+            "absoluteId": "tile:1,7:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,7,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,8:entity",
+            "absoluteId": "tile:0,8:entity",
+            "entityType": "tile",
+            "name": "格子 0,8",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,8:east:entity",
+            "absoluteId": "tile:0,8:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,8,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,8:south:entity",
+            "absoluteId": "tile:0,8:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,8,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,8:west:entity",
+            "absoluteId": "tile:0,8:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,8,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,8:north:entity",
+            "absoluteId": "tile:0,8:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,8,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,8:entity",
+            "absoluteId": "tile:1,8:entity",
+            "entityType": "tile",
+            "name": "格子 1,8",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,8:east:entity",
+            "absoluteId": "tile:1,8:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,8,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,8:south:entity",
+            "absoluteId": "tile:1,8:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,8,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,8:west:entity",
+            "absoluteId": "tile:1,8:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,8,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,8:north:entity",
+            "absoluteId": "tile:1,8:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,8,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,9:entity",
+            "absoluteId": "tile:0,9:entity",
+            "entityType": "tile",
+            "name": "格子 0,9",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,9:east:entity",
+            "absoluteId": "tile:0,9:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,9,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,9:south:entity",
+            "absoluteId": "tile:0,9:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,9,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,9:west:entity",
+            "absoluteId": "tile:0,9:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,9,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,9:north:entity",
+            "absoluteId": "tile:0,9:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,9,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,9:entity",
+            "absoluteId": "tile:1,9:entity",
+            "entityType": "tile",
+            "name": "格子 1,9",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,9:east:entity",
+            "absoluteId": "tile:1,9:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,9,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,9:south:entity",
+            "absoluteId": "tile:1,9:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,9,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,9:west:entity",
+            "absoluteId": "tile:1,9:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,9,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,9:north:entity",
+            "absoluteId": "tile:1,9:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,9,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,10:entity",
+            "absoluteId": "tile:0,10:entity",
+            "entityType": "tile",
+            "name": "格子 0,10",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "tile:0,10:transition:exit:tile",
+            "absoluteId": "tile:0,10:transition:exit:tile",
+            "entityType": "dungeon-exit",
+            "name": "出口 · 格子传送到广场",
+            "enabled": true,
+            "components": [
+              {
+                "activation": "enter",
+                "targetEntranceId": "plaza-main",
+                "targetMapPresetKey": "dungeon_map_2",
+                "type": "dungeon-exit",
+                "version": 1,
+                "localId": "exit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,10:east:entity",
+            "absoluteId": "tile:0,10:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,10,east",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,10:south:entity",
+            "absoluteId": "tile:0,10:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,10,south",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,10:west:entity",
+            "absoluteId": "tile:0,10:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,10,west",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:0,10:north:entity",
+            "absoluteId": "tile:0,10:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 0,10,north",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,10:entity",
+            "absoluteId": "tile:1,10:entity",
+            "entityType": "tile",
+            "name": "格子 1,10",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "floor"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,10:east:entity",
+            "absoluteId": "tile:1,10:east:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,10,east",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,10:south:entity",
+            "absoluteId": "tile:1,10:south:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,10,south",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,10:west:entity",
+            "absoluteId": "tile:1,10:west:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,10,west",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "tile:1,10:north:entity",
+            "absoluteId": "tile:1,10:north:entity",
+            "entityType": "tile-edge",
+            "name": "单格边 1,10,north",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open"
+                  }
+                },
                 "localId": "legacy"
               }
             ]
@@ -227,10 +2717,556 @@
             "enabled": true,
             "components": [
               {
+                "type": "legacy-data",
+                "version": 1,
                 "data": {
                   "legacy": {
                     "kind": "open",
                     "label": "$dungeon-map:generated-label"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,0:east:entity",
+            "absoluteId": "shared:0,0:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,0,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,0:south:entity",
+            "absoluteId": "shared:0,0:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,0,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,0:south:entity",
+            "absoluteId": "shared:1,0:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,0,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,1:east:entity",
+            "absoluteId": "shared:0,1:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,1,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,1:south:entity",
+            "absoluteId": "shared:0,1:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,1,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,1:south:entity",
+            "absoluteId": "shared:1,1:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,1,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,2:east:entity",
+            "absoluteId": "shared:0,2:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,2,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,2:south:entity",
+            "absoluteId": "shared:0,2:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,2,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,2:south:entity",
+            "absoluteId": "shared:1,2:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,2,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,3:east:entity",
+            "absoluteId": "shared:0,3:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,3,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,3:south:entity",
+            "absoluteId": "shared:0,3:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,3,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,3:south:entity",
+            "absoluteId": "shared:1,3:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,3,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,4:east:entity",
+            "absoluteId": "shared:0,4:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,4,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,4:south:entity",
+            "absoluteId": "shared:0,4:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,4,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,4:south:entity",
+            "absoluteId": "shared:1,4:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,4,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,5:east:entity",
+            "absoluteId": "shared:0,5:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,5,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,5:south:entity",
+            "absoluteId": "shared:0,5:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,5,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,5:south:entity",
+            "absoluteId": "shared:1,5:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,5,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,6:east:entity",
+            "absoluteId": "shared:0,6:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,6,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,6:south:entity",
+            "absoluteId": "shared:0,6:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,6,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "shared:0,6:south:transition:exit:shared-edge",
+            "absoluteId": "shared:0,6:south:transition:exit:shared-edge",
+            "entityType": "dungeon-exit",
+            "name": "出口 · 公用边传送到广场",
+            "enabled": true,
+            "components": [
+              {
+                "activation": "interact",
+                "targetEntranceId": "plaza-main",
+                "targetMapPresetKey": "dungeon_map_2",
+                "type": "dungeon-exit",
+                "version": 1,
+                "localId": "exit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,6:south:entity",
+            "absoluteId": "shared:1,6:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,6,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,7:east:entity",
+            "absoluteId": "shared:0,7:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,7,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,7:south:entity",
+            "absoluteId": "shared:0,7:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,7,south"
                   }
                 },
                 "type": "legacy-data",
@@ -259,18 +3295,1075 @@
       {
         "entities": [
           {
-            "localId": "entity",
-            "entityType": "shared-point",
+            "localId": "shared:1,7:south:entity",
+            "absoluteId": "shared:1,7:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,7,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,8:east:entity",
+            "absoluteId": "shared:0,8:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,8,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,8:south:entity",
+            "absoluteId": "shared:0,8:south:entity",
+            "entityType": "shared-edge",
             "enabled": true,
             "components": [
               {
                 "data": {
                   "legacy": {
-                    "label": "$dungeon-map:generated-label"
+                    "kind": "open",
+                    "label": "公用边 0,8,south"
                   }
                 },
                 "type": "legacy-data",
                 "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,8:south:entity",
+            "absoluteId": "shared:1,8:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,8,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,9:east:entity",
+            "absoluteId": "shared:0,9:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,9,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,9:south:entity",
+            "absoluteId": "shared:0,9:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,9,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:1,9:south:entity",
+            "absoluteId": "shared:1,9:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,9,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared:0,10:east:entity",
+            "absoluteId": "shared:0,10:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,10,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,0:east:entity",
+            "absoluteId": "shared-boundary:1,0:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,0,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,1:east:entity",
+            "absoluteId": "shared-boundary:1,1:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,1,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,2:east:entity",
+            "absoluteId": "shared-boundary:1,2:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,2,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,3:east:entity",
+            "absoluteId": "shared-boundary:1,3:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,3,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,4:east:entity",
+            "absoluteId": "shared-boundary:1,4:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,4,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,5:east:entity",
+            "absoluteId": "shared-boundary:1,5:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,5,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,6:east:entity",
+            "absoluteId": "shared-boundary:1,6:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,6,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,7:east:entity",
+            "absoluteId": "shared-boundary:1,7:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,7,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,8:east:entity",
+            "absoluteId": "shared-boundary:1,8:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,8,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,9:east:entity",
+            "absoluteId": "shared-boundary:1,9:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,9,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,10:east:entity",
+            "absoluteId": "shared-boundary:1,10:east:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,10,east"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:0,0:north:entity",
+            "absoluteId": "shared-boundary:0,0:north:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,0,north"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:0,10:south:entity",
+            "absoluteId": "shared-boundary:0,10:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,10,south"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,0:north:entity",
+            "absoluteId": "shared-boundary:1,0:north:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,0,north"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "shared-boundary:1,10:south:entity",
+            "absoluteId": "shared-boundary:1,10:south:entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 1,10,south"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "$dungeon-map:generated-label"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,0:entity",
+            "absoluteId": "point:1,0:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,0"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,0:entity",
+            "absoluteId": "point:2,0:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,0"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,1:entity",
+            "absoluteId": "point:1,1:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,1"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,1:entity",
+            "absoluteId": "point:2,1:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,1"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,2:entity",
+            "absoluteId": "point:1,2:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,2"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,2:entity",
+            "absoluteId": "point:2,2:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,2"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,3:entity",
+            "absoluteId": "point:1,3:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,3"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,3:entity",
+            "absoluteId": "point:2,3:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,3"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,4:entity",
+            "absoluteId": "point:1,4:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,4"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,4:entity",
+            "absoluteId": "point:2,4:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,4"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,5:entity",
+            "absoluteId": "point:1,5:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,5"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,5:entity",
+            "absoluteId": "point:2,5:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,5"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,6:entity",
+            "absoluteId": "point:1,6:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,6"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,6:entity",
+            "absoluteId": "point:2,6:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,6"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,7:entity",
+            "absoluteId": "point:1,7:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,7"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,7:entity",
+            "absoluteId": "point:2,7:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,7"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,8:entity",
+            "absoluteId": "point:1,8:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,8"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,8:entity",
+            "absoluteId": "point:2,8:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,8"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,9:entity",
+            "absoluteId": "point:1,9:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,9"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,9:entity",
+            "absoluteId": "point:2,9:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,9"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,10:entity",
+            "absoluteId": "point:1,10:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,10"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,10:entity",
+            "absoluteId": "point:2,10:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,10"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:1,11:entity",
+            "absoluteId": "point:1,11:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 1,11"
+                  }
+                },
+                "localId": "legacy"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "point:2,11:entity",
+            "absoluteId": "point:2,11:entity",
+            "entityType": "shared-point",
+            "enabled": true,
+            "components": [
+              {
+                "type": "legacy-data",
+                "version": 1,
+                "data": {
+                  "legacy": {
+                    "label": "公用点 2,11"
+                  }
+                },
                 "localId": "legacy"
               }
             ]
@@ -317,7 +4410,7 @@
             "enabled": true,
             "components": [
               {
-                "tileX": 0,
+                "tileX": 1,
                 "tileY": 0,
                 "type": "actor-spawn",
                 "version": 1,
@@ -329,75 +4422,199 @@
         ]
       }
     ],
-    "mapDataDefinitionRef": 9,
+    "mapDataDefinitionRef": 184,
     "tileDataDefinitionRefs": [
       0,
+      2,
+      7,
       0,
+      12,
+      17,
       0,
-      4,
+      22,
+      27,
       0,
+      32,
+      37,
       0,
+      42,
+      47,
       0,
+      52,
+      57,
       0,
+      62,
+      67,
       0,
+      72,
+      77,
       0,
-      0
+      82,
+      87,
+      0,
+      92,
+      97,
+      0,
+      102,
+      107
     ],
     "tileEdgeDataDefinitionRefs": [
       [
         1,
+        3,
+        8,
         1,
+        13,
+        18,
         1,
+        23,
+        28,
         1,
+        33,
+        38,
+        1,
+        43,
+        48,
+        1,
+        53,
+        58,
+        1,
+        63,
+        68,
+        1,
+        73,
+        78,
+        1,
+        83,
+        88,
+        1,
+        93,
+        98,
+        1,
+        103,
+        108
+      ],
+      [
+        1,
+        4,
+        9,
+        1,
+        14,
+        19,
+        1,
+        24,
+        29,
+        1,
+        34,
+        39,
+        1,
+        44,
+        49,
+        1,
+        54,
+        59,
+        1,
+        64,
+        69,
+        1,
+        74,
+        79,
+        1,
+        84,
+        89,
+        1,
+        94,
+        99,
+        1,
+        104,
+        109
+      ],
+      [
         1,
         5,
+        10,
         1,
+        15,
+        20,
         1,
+        25,
+        30,
         1,
+        35,
+        40,
         1,
-        1
+        45,
+        50,
+        1,
+        55,
+        60,
+        1,
+        65,
+        70,
+        1,
+        75,
+        80,
+        1,
+        85,
+        90,
+        1,
+        95,
+        100,
+        1,
+        105,
+        110
       ],
       [
         1,
+        6,
+        11,
         1,
-        2,
+        16,
+        21,
         1,
+        26,
+        31,
         1,
+        36,
+        41,
         1,
+        46,
+        51,
         1,
+        56,
+        61,
         1,
+        66,
+        71,
         1,
+        76,
+        81,
         1,
-        1
-      ],
-      [
+        86,
+        91,
         1,
+        96,
+        101,
         1,
-        3,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      [
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
+        106,
+        111
       ]
     ],
     "sharedEdges": [
+      [
+        "shared:0,0:east",
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        112
+      ],
       [
         "shared:0,0:south",
         [
@@ -410,7 +4627,63 @@
           1,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,0:east",
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          2
+        ],
+        113
+      ],
+      [
+        "shared:1,0:south",
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          3
+        ],
+        114
+      ],
+      [
+        "shared:2,0:south",
+        [
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          1,
+          3
+        ],
+        115
+      ],
+      [
+        "shared:0,1:east",
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          2
+        ],
+        112
       ],
       [
         "shared:0,1:south",
@@ -424,7 +4697,63 @@
           2,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,1:east",
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          2
+        ],
+        116
+      ],
+      [
+        "shared:1,1:south",
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3
+        ],
+        117
+      ],
+      [
+        "shared:2,1:south",
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          3
+        ],
+        118
+      ],
+      [
+        "shared:0,2:east",
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        112
       ],
       [
         "shared:0,2:south",
@@ -438,7 +4767,63 @@
           3,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,2:east",
+        [
+          1,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          2
+        ],
+        119
+      ],
+      [
+        "shared:1,2:south",
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          3,
+          3
+        ],
+        120
+      ],
+      [
+        "shared:2,2:south",
+        [
+          2,
+          2,
+          1
+        ],
+        [
+          2,
+          3,
+          3
+        ],
+        121
+      ],
+      [
+        "shared:0,3:east",
+        [
+          0,
+          3,
+          0
+        ],
+        [
+          1,
+          3,
+          2
+        ],
+        112
       ],
       [
         "shared:0,3:south",
@@ -452,7 +4837,63 @@
           4,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,3:east",
+        [
+          1,
+          3,
+          0
+        ],
+        [
+          2,
+          3,
+          2
+        ],
+        122
+      ],
+      [
+        "shared:1,3:south",
+        [
+          1,
+          3,
+          1
+        ],
+        [
+          1,
+          4,
+          3
+        ],
+        123
+      ],
+      [
+        "shared:2,3:south",
+        [
+          2,
+          3,
+          1
+        ],
+        [
+          2,
+          4,
+          3
+        ],
+        124
+      ],
+      [
+        "shared:0,4:east",
+        [
+          0,
+          4,
+          0
+        ],
+        [
+          1,
+          4,
+          2
+        ],
+        112
       ],
       [
         "shared:0,4:south",
@@ -466,7 +4907,63 @@
           5,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,4:east",
+        [
+          1,
+          4,
+          0
+        ],
+        [
+          2,
+          4,
+          2
+        ],
+        125
+      ],
+      [
+        "shared:1,4:south",
+        [
+          1,
+          4,
+          1
+        ],
+        [
+          1,
+          5,
+          3
+        ],
+        126
+      ],
+      [
+        "shared:2,4:south",
+        [
+          2,
+          4,
+          1
+        ],
+        [
+          2,
+          5,
+          3
+        ],
+        127
+      ],
+      [
+        "shared:0,5:east",
+        [
+          0,
+          5,
+          0
+        ],
+        [
+          1,
+          5,
+          2
+        ],
+        112
       ],
       [
         "shared:0,5:south",
@@ -480,7 +4977,63 @@
           6,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,5:east",
+        [
+          1,
+          5,
+          0
+        ],
+        [
+          2,
+          5,
+          2
+        ],
+        128
+      ],
+      [
+        "shared:1,5:south",
+        [
+          1,
+          5,
+          1
+        ],
+        [
+          1,
+          6,
+          3
+        ],
+        129
+      ],
+      [
+        "shared:2,5:south",
+        [
+          2,
+          5,
+          1
+        ],
+        [
+          2,
+          6,
+          3
+        ],
+        130
+      ],
+      [
+        "shared:0,6:east",
+        [
+          0,
+          6,
+          0
+        ],
+        [
+          1,
+          6,
+          2
+        ],
+        112
       ],
       [
         "shared:0,6:south",
@@ -494,7 +5047,63 @@
           7,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,6:east",
+        [
+          1,
+          6,
+          0
+        ],
+        [
+          2,
+          6,
+          2
+        ],
+        131
+      ],
+      [
+        "shared:1,6:south",
+        [
+          1,
+          6,
+          1
+        ],
+        [
+          1,
+          7,
+          3
+        ],
+        132
+      ],
+      [
+        "shared:2,6:south",
+        [
+          2,
+          6,
+          1
+        ],
+        [
+          2,
+          7,
+          3
+        ],
+        133
+      ],
+      [
+        "shared:0,7:east",
+        [
+          0,
+          7,
+          0
+        ],
+        [
+          1,
+          7,
+          2
+        ],
+        112
       ],
       [
         "shared:0,7:south",
@@ -508,7 +5117,63 @@
           8,
           3
         ],
-        7
+        112
+      ],
+      [
+        "shared:1,7:east",
+        [
+          1,
+          7,
+          0
+        ],
+        [
+          2,
+          7,
+          2
+        ],
+        134
+      ],
+      [
+        "shared:1,7:south",
+        [
+          1,
+          7,
+          1
+        ],
+        [
+          1,
+          8,
+          3
+        ],
+        135
+      ],
+      [
+        "shared:2,7:south",
+        [
+          2,
+          7,
+          1
+        ],
+        [
+          2,
+          8,
+          3
+        ],
+        136
+      ],
+      [
+        "shared:0,8:east",
+        [
+          0,
+          8,
+          0
+        ],
+        [
+          1,
+          8,
+          2
+        ],
+        112
       ],
       [
         "shared:0,8:south",
@@ -522,7 +5187,63 @@
           9,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,8:east",
+        [
+          1,
+          8,
+          0
+        ],
+        [
+          2,
+          8,
+          2
+        ],
+        137
+      ],
+      [
+        "shared:1,8:south",
+        [
+          1,
+          8,
+          1
+        ],
+        [
+          1,
+          9,
+          3
+        ],
+        138
+      ],
+      [
+        "shared:2,8:south",
+        [
+          2,
+          8,
+          1
+        ],
+        [
+          2,
+          9,
+          3
+        ],
+        139
+      ],
+      [
+        "shared:0,9:east",
+        [
+          0,
+          9,
+          0
+        ],
+        [
+          1,
+          9,
+          2
+        ],
+        112
       ],
       [
         "shared:0,9:south",
@@ -536,7 +5257,77 @@
           10,
           3
         ],
-        6
+        112
+      ],
+      [
+        "shared:1,9:east",
+        [
+          1,
+          9,
+          0
+        ],
+        [
+          2,
+          9,
+          2
+        ],
+        140
+      ],
+      [
+        "shared:1,9:south",
+        [
+          1,
+          9,
+          1
+        ],
+        [
+          1,
+          10,
+          3
+        ],
+        141
+      ],
+      [
+        "shared:2,9:south",
+        [
+          2,
+          9,
+          1
+        ],
+        [
+          2,
+          10,
+          3
+        ],
+        142
+      ],
+      [
+        "shared:0,10:east",
+        [
+          0,
+          10,
+          0
+        ],
+        [
+          1,
+          10,
+          2
+        ],
+        112
+      ],
+      [
+        "shared:1,10:east",
+        [
+          1,
+          10,
+          0
+        ],
+        [
+          2,
+          10,
+          2
+        ],
+        143
       ],
       [
         "shared-boundary:0,0:west",
@@ -546,17 +5337,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,0:east",
+        "shared-boundary:2,0:east",
         [
-          0,
+          2,
           0,
           0
         ],
         null,
-        6
+        144
       ],
       [
         "shared-boundary:0,1:west",
@@ -566,17 +5357,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,1:east",
+        "shared-boundary:2,1:east",
         [
-          0,
+          2,
           1,
           0
         ],
         null,
-        6
+        145
       ],
       [
         "shared-boundary:0,2:west",
@@ -586,17 +5377,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,2:east",
+        "shared-boundary:2,2:east",
         [
-          0,
+          2,
           2,
           0
         ],
         null,
-        6
+        146
       ],
       [
         "shared-boundary:0,3:west",
@@ -606,17 +5397,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,3:east",
+        "shared-boundary:2,3:east",
         [
-          0,
+          2,
           3,
           0
         ],
         null,
-        6
+        147
       ],
       [
         "shared-boundary:0,4:west",
@@ -626,17 +5417,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,4:east",
+        "shared-boundary:2,4:east",
         [
-          0,
+          2,
           4,
           0
         ],
         null,
-        6
+        148
       ],
       [
         "shared-boundary:0,5:west",
@@ -646,17 +5437,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,5:east",
+        "shared-boundary:2,5:east",
         [
-          0,
+          2,
           5,
           0
         ],
         null,
-        6
+        149
       ],
       [
         "shared-boundary:0,6:west",
@@ -666,17 +5457,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,6:east",
+        "shared-boundary:2,6:east",
         [
-          0,
+          2,
           6,
           0
         ],
         null,
-        6
+        150
       ],
       [
         "shared-boundary:0,7:west",
@@ -686,17 +5477,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,7:east",
+        "shared-boundary:2,7:east",
         [
-          0,
+          2,
           7,
           0
         ],
         null,
-        6
+        151
       ],
       [
         "shared-boundary:0,8:west",
@@ -706,17 +5497,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,8:east",
+        "shared-boundary:2,8:east",
         [
-          0,
+          2,
           8,
           0
         ],
         null,
-        6
+        152
       ],
       [
         "shared-boundary:0,9:west",
@@ -726,17 +5517,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,9:east",
+        "shared-boundary:2,9:east",
         [
-          0,
+          2,
           9,
           0
         ],
         null,
-        6
+        153
       ],
       [
         "shared-boundary:0,10:west",
@@ -746,17 +5537,17 @@
           2
         ],
         null,
-        6
+        112
       ],
       [
-        "shared-boundary:0,10:east",
+        "shared-boundary:2,10:east",
         [
-          0,
+          2,
           10,
           0
         ],
         null,
-        6
+        154
       ],
       [
         "shared-boundary:0,0:north",
@@ -766,7 +5557,7 @@
           3
         ],
         null,
-        6
+        112
       ],
       [
         "shared-boundary:0,10:south",
@@ -776,7 +5567,47 @@
           1
         ],
         null,
-        6
+        112
+      ],
+      [
+        "shared-boundary:1,0:north",
+        [
+          1,
+          0,
+          3
+        ],
+        null,
+        155
+      ],
+      [
+        "shared-boundary:1,10:south",
+        [
+          1,
+          10,
+          1
+        ],
+        null,
+        156
+      ],
+      [
+        "shared-boundary:2,0:north",
+        [
+          2,
+          0,
+          3
+        ],
+        null,
+        157
+      ],
+      [
+        "shared-boundary:2,10:south",
+        [
+          2,
+          10,
+          1
+        ],
+        null,
+        158
       ]
     ],
     "sharedPoints": [
@@ -797,7 +5628,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,0",
@@ -811,12 +5642,60 @@
         ],
         [
           [
+            1,
+            0,
+            0
+          ],
+          [
             0,
             0,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,0",
+        2,
+        0,
+        [
+          [
+            2,
+            0
+          ]
+        ],
+        [
+          [
+            2,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        160
+      ],
+      [
+        "point:3,0",
+        3,
+        0,
+        [
+          [
+            3,
+            0
+          ]
+        ],
+        [
+          [
+            2,
+            0,
+            1
+          ]
+        ],
+        161
       ],
       [
         "point:0,1",
@@ -840,7 +5719,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,1",
@@ -859,12 +5738,80 @@
             2
           ],
           [
+            1,
+            0,
+            3
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
             0,
             1,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,1",
+        2,
+        1,
+        [
+          [
+            2,
+            1
+          ]
+        ],
+        [
+          [
+            1,
+            0,
+            2
+          ],
+          [
+            2,
+            0,
+            3
+          ],
+          [
+            2,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        162
+      ],
+      [
+        "point:3,1",
+        3,
+        1,
+        [
+          [
+            3,
+            1
+          ]
+        ],
+        [
+          [
+            2,
+            0,
+            2
+          ],
+          [
+            2,
+            1,
+            1
+          ]
+        ],
+        163
       ],
       [
         "point:0,2",
@@ -888,7 +5835,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,2",
@@ -907,12 +5854,80 @@
             2
           ],
           [
+            1,
+            1,
+            3
+          ],
+          [
+            1,
+            2,
+            0
+          ],
+          [
             0,
             2,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,2",
+        2,
+        2,
+        [
+          [
+            2,
+            2
+          ]
+        ],
+        [
+          [
+            1,
+            1,
+            2
+          ],
+          [
+            2,
+            1,
+            3
+          ],
+          [
+            2,
+            2,
+            0
+          ],
+          [
+            1,
+            2,
+            1
+          ]
+        ],
+        164
+      ],
+      [
+        "point:3,2",
+        3,
+        2,
+        [
+          [
+            3,
+            2
+          ]
+        ],
+        [
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            2,
+            2,
+            1
+          ]
+        ],
+        165
       ],
       [
         "point:0,3",
@@ -936,7 +5951,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,3",
@@ -955,12 +5970,80 @@
             2
           ],
           [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            3,
+            0
+          ],
+          [
             0,
             3,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,3",
+        2,
+        3,
+        [
+          [
+            2,
+            3
+          ]
+        ],
+        [
+          [
+            1,
+            2,
+            2
+          ],
+          [
+            2,
+            2,
+            3
+          ],
+          [
+            2,
+            3,
+            0
+          ],
+          [
+            1,
+            3,
+            1
+          ]
+        ],
+        166
+      ],
+      [
+        "point:3,3",
+        3,
+        3,
+        [
+          [
+            3,
+            3
+          ]
+        ],
+        [
+          [
+            2,
+            2,
+            2
+          ],
+          [
+            2,
+            3,
+            1
+          ]
+        ],
+        167
       ],
       [
         "point:0,4",
@@ -984,7 +6067,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,4",
@@ -1003,12 +6086,80 @@
             2
           ],
           [
+            1,
+            3,
+            3
+          ],
+          [
+            1,
+            4,
+            0
+          ],
+          [
             0,
             4,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,4",
+        2,
+        4,
+        [
+          [
+            2,
+            4
+          ]
+        ],
+        [
+          [
+            1,
+            3,
+            2
+          ],
+          [
+            2,
+            3,
+            3
+          ],
+          [
+            2,
+            4,
+            0
+          ],
+          [
+            1,
+            4,
+            1
+          ]
+        ],
+        168
+      ],
+      [
+        "point:3,4",
+        3,
+        4,
+        [
+          [
+            3,
+            4
+          ]
+        ],
+        [
+          [
+            2,
+            3,
+            2
+          ],
+          [
+            2,
+            4,
+            1
+          ]
+        ],
+        169
       ],
       [
         "point:0,5",
@@ -1032,7 +6183,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,5",
@@ -1051,12 +6202,80 @@
             2
           ],
           [
+            1,
+            4,
+            3
+          ],
+          [
+            1,
+            5,
+            0
+          ],
+          [
             0,
             5,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,5",
+        2,
+        5,
+        [
+          [
+            2,
+            5
+          ]
+        ],
+        [
+          [
+            1,
+            4,
+            2
+          ],
+          [
+            2,
+            4,
+            3
+          ],
+          [
+            2,
+            5,
+            0
+          ],
+          [
+            1,
+            5,
+            1
+          ]
+        ],
+        170
+      ],
+      [
+        "point:3,5",
+        3,
+        5,
+        [
+          [
+            3,
+            5
+          ]
+        ],
+        [
+          [
+            2,
+            4,
+            2
+          ],
+          [
+            2,
+            5,
+            1
+          ]
+        ],
+        171
       ],
       [
         "point:0,6",
@@ -1080,7 +6299,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,6",
@@ -1099,12 +6318,80 @@
             2
           ],
           [
+            1,
+            5,
+            3
+          ],
+          [
+            1,
+            6,
+            0
+          ],
+          [
             0,
             6,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,6",
+        2,
+        6,
+        [
+          [
+            2,
+            6
+          ]
+        ],
+        [
+          [
+            1,
+            5,
+            2
+          ],
+          [
+            2,
+            5,
+            3
+          ],
+          [
+            2,
+            6,
+            0
+          ],
+          [
+            1,
+            6,
+            1
+          ]
+        ],
+        172
+      ],
+      [
+        "point:3,6",
+        3,
+        6,
+        [
+          [
+            3,
+            6
+          ]
+        ],
+        [
+          [
+            2,
+            5,
+            2
+          ],
+          [
+            2,
+            6,
+            1
+          ]
+        ],
+        173
       ],
       [
         "point:0,7",
@@ -1128,7 +6415,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,7",
@@ -1147,12 +6434,80 @@
             2
           ],
           [
+            1,
+            6,
+            3
+          ],
+          [
+            1,
+            7,
+            0
+          ],
+          [
             0,
             7,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,7",
+        2,
+        7,
+        [
+          [
+            2,
+            7
+          ]
+        ],
+        [
+          [
+            1,
+            6,
+            2
+          ],
+          [
+            2,
+            6,
+            3
+          ],
+          [
+            2,
+            7,
+            0
+          ],
+          [
+            1,
+            7,
+            1
+          ]
+        ],
+        174
+      ],
+      [
+        "point:3,7",
+        3,
+        7,
+        [
+          [
+            3,
+            7
+          ]
+        ],
+        [
+          [
+            2,
+            6,
+            2
+          ],
+          [
+            2,
+            7,
+            1
+          ]
+        ],
+        175
       ],
       [
         "point:0,8",
@@ -1176,7 +6531,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,8",
@@ -1195,12 +6550,80 @@
             2
           ],
           [
+            1,
+            7,
+            3
+          ],
+          [
+            1,
+            8,
+            0
+          ],
+          [
             0,
             8,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,8",
+        2,
+        8,
+        [
+          [
+            2,
+            8
+          ]
+        ],
+        [
+          [
+            1,
+            7,
+            2
+          ],
+          [
+            2,
+            7,
+            3
+          ],
+          [
+            2,
+            8,
+            0
+          ],
+          [
+            1,
+            8,
+            1
+          ]
+        ],
+        176
+      ],
+      [
+        "point:3,8",
+        3,
+        8,
+        [
+          [
+            3,
+            8
+          ]
+        ],
+        [
+          [
+            2,
+            7,
+            2
+          ],
+          [
+            2,
+            8,
+            1
+          ]
+        ],
+        177
       ],
       [
         "point:0,9",
@@ -1224,7 +6647,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,9",
@@ -1243,12 +6666,80 @@
             2
           ],
           [
+            1,
+            8,
+            3
+          ],
+          [
+            1,
+            9,
+            0
+          ],
+          [
             0,
             9,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,9",
+        2,
+        9,
+        [
+          [
+            2,
+            9
+          ]
+        ],
+        [
+          [
+            1,
+            8,
+            2
+          ],
+          [
+            2,
+            8,
+            3
+          ],
+          [
+            2,
+            9,
+            0
+          ],
+          [
+            1,
+            9,
+            1
+          ]
+        ],
+        178
+      ],
+      [
+        "point:3,9",
+        3,
+        9,
+        [
+          [
+            3,
+            9
+          ]
+        ],
+        [
+          [
+            2,
+            8,
+            2
+          ],
+          [
+            2,
+            9,
+            1
+          ]
+        ],
+        179
       ],
       [
         "point:0,10",
@@ -1272,7 +6763,7 @@
             0
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,10",
@@ -1291,12 +6782,80 @@
             2
           ],
           [
+            1,
+            9,
+            3
+          ],
+          [
+            1,
+            10,
+            0
+          ],
+          [
             0,
             10,
             1
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,10",
+        2,
+        10,
+        [
+          [
+            2,
+            10
+          ]
+        ],
+        [
+          [
+            1,
+            9,
+            2
+          ],
+          [
+            2,
+            9,
+            3
+          ],
+          [
+            2,
+            10,
+            0
+          ],
+          [
+            1,
+            10,
+            1
+          ]
+        ],
+        180
+      ],
+      [
+        "point:3,10",
+        3,
+        10,
+        [
+          [
+            3,
+            10
+          ]
+        ],
+        [
+          [
+            2,
+            9,
+            2
+          ],
+          [
+            2,
+            10,
+            1
+          ]
+        ],
+        181
       ],
       [
         "point:0,11",
@@ -1315,7 +6874,7 @@
             3
           ]
         ],
-        8
+        159
       ],
       [
         "point:1,11",
@@ -1332,10 +6891,59 @@
             0,
             10,
             2
+          ],
+          [
+            1,
+            10,
+            3
           ]
         ],
-        8
+        159
+      ],
+      [
+        "point:2,11",
+        2,
+        11,
+        [
+          [
+            2,
+            11
+          ]
+        ],
+        [
+          [
+            1,
+            10,
+            2
+          ],
+          [
+            2,
+            10,
+            3
+          ]
+        ],
+        182
+      ],
+      [
+        "point:3,11",
+        3,
+        11,
+        [
+          [
+            3,
+            11
+          ]
+        ],
+        [
+          [
+            2,
+            10,
+            2
+          ]
+        ],
+        183
       ]
-    ]
+    ],
+    "markers": []
   }
 }

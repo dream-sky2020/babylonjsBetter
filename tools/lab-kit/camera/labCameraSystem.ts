@@ -44,14 +44,25 @@ export const createLabCameraSystem = (
     minZ: camera.minZ,
     maxZ: camera.maxZ,
   });
-  const floatingPanel = createFloatingCameraControlPanel(stage, controller);
+  const floatingPanelCollapsedPreference = ui.createBooleanPreference(
+    'lab:host/camera-floating-panel-collapsed',
+    false,
+  );
+  const floatingPanel = createFloatingCameraControlPanel(stage, controller, {
+    initialCollapsed: floatingPanelCollapsedPreference.value,
+    onCollapsedChanged: floatingPanelCollapsedPreference.set,
+  });
   floatingPanel.setVisible(false);
 
   const panel = ui.addPanel('system-camera', 'Camera');
   panel.root.classList.add('lab-system-panel');
-  const floatingToggle = createLabSwitch('显示摄像机参数面板', false);
+  const floatingToggle = createLabSwitch('显示摄像机参数面板', false, {
+    preference: { ui, key: 'lab:host/camera-floating-panel' },
+  });
   const pointerToggle = createLabSwitch('启用鼠标与滚轮输入', true);
-  const keyboardToggle = createLabSwitch('启用摄像机键盘输入', false);
+  const keyboardToggle = createLabSwitch('启用摄像机键盘输入', false, {
+    preference: { ui, key: 'lab:host/camera-keyboard-enabled' },
+  });
   const interceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
   const preventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
   const priority = document.createElement('input');
@@ -107,6 +118,7 @@ export const createLabCameraSystem = (
   });
 
   floatingToggle.input.addEventListener('change', () => floatingPanel.setVisible(floatingToggle.input.checked));
+  floatingPanel.setVisible(floatingToggle.input.checked);
   pointerToggle.input.addEventListener('change', syncInput);
   keyboardToggle.input.addEventListener('change', () => {
     keyboardDesiredEnabled = keyboardToggle.input.checked;

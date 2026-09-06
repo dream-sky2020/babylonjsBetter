@@ -8,7 +8,7 @@ export type DungeonObstacleDebugLayout = {
   size: readonly [number, number, number];
 };
 
-const resolveEdgeDebugLayout = (
+export const resolveDungeonEdgeDebugLayout = (
   component: ISceneEnvironmentComponent,
   mapWidth: number,
   mapHeight: number,
@@ -45,6 +45,25 @@ const resolveEdgeDebugLayout = (
   };
 };
 
+export const resolveDungeonTileDebugLayout = (
+  component: ISceneEnvironmentComponent,
+  mapWidth: number,
+  mapHeight: number,
+  tileX: number,
+  tileY: number,
+): DungeonObstacleDebugLayout => {
+  const tile = resolveDungeonMapTileWorldLayout(component, mapWidth, mapHeight, tileX, tileY);
+  const height = Math.max(0.8, tile.size[1]);
+  return {
+    center: [
+      tile.center[0],
+      tile.center[1] + tile.size[1] / 2 + height / 2,
+      tile.center[2],
+    ],
+    size: [tile.size[0] * 0.65, height, tile.size[2] * 0.65],
+  };
+};
+
 /** 计算组合式 Lab 中阻碍 Debug 盒的布局，不参与正式碰撞规则。 */
 export const resolveDungeonObstacleDebugLayout = (
   binding: DungeonObstacleBinding,
@@ -53,21 +72,16 @@ export const resolveDungeonObstacleDebugLayout = (
   mapHeight: number,
 ): DungeonObstacleDebugLayout => {
   if (binding.placement.kind === 'tile') {
-    const tile = resolveDungeonMapTileWorldLayout(
-      component, mapWidth, mapHeight, binding.placement.tileX, binding.placement.tileY,
+    return resolveDungeonTileDebugLayout(
+      component,
+      mapWidth,
+      mapHeight,
+      binding.placement.tileX,
+      binding.placement.tileY,
     );
-    const height = Math.max(0.8, tile.size[1]);
-    return {
-      center: [
-        tile.center[0],
-        tile.center[1] + tile.size[1] / 2 + height / 2,
-        tile.center[2],
-      ],
-      size: [tile.size[0] * 0.65, height, tile.size[2] * 0.65],
-    };
   }
   if (binding.placement.kind === 'tile-edge') {
-    return resolveEdgeDebugLayout(
+    return resolveDungeonEdgeDebugLayout(
       component,
       mapWidth,
       mapHeight,
@@ -77,7 +91,7 @@ export const resolveDungeonObstacleDebugLayout = (
       true,
     );
   }
-  return resolveEdgeDebugLayout(
+  return resolveDungeonEdgeDebugLayout(
     component,
     mapWidth,
     mapHeight,

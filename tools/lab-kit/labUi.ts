@@ -10,7 +10,18 @@ export type LabPanelOptions = {
 type LabUiPreferences = {
   version: 1;
   panels: Record<string, { collapsed: boolean }>;
+  switches: Record<string, boolean>;
 };
+
+export type LabSwitchOptions = {
+  /** 仅用于显示类 UI 偏好；key 在当前 Lab 页面内必须稳定且唯一。 */
+  preference?: Readonly<{ ui: LabUi; key: string }>;
+};
+
+export type LabBooleanPreference = Readonly<{
+  value: boolean;
+  set(value: boolean): void;
+}>;
 
 type PanelEntry = LabPanel & {
   id: string;
@@ -19,10 +30,11 @@ type PanelEntry = LabPanel & {
   defaultCollapsed: boolean;
 };
 
-const createDefaultPreferences = (): LabUiPreferences => ({ version: 1, panels: {} });
+const createDefaultPreferences = (): LabUiPreferences => ({ version: 1, panels: {}, switches: {} });
 
 export class LabUi {
   private readonly panels = new Map<string, PanelEntry>();
+  private readonly boundBooleanPreferenceKeys = new Set<string>();
   private readonly storageKey: string;
   private preferences: LabUiPreferences;
 
@@ -82,6 +94,31 @@ export class LabUi {
     this.status.dataset.error = String(error);
   }
 
+  createBooleanPreference(key: string, defaultValue: boolean): LabBooleanPreference {
+    const normalizedKey = key.trim();
+    if (!normalizedKey) throw new Error('Lab Boolean 偏好 Key 不能为空。');
+    if (this.boundBooleanPreferenceKeys.has(normalizedKey)) {
+      throw new Error(`Lab Boolean 偏好 Key 重复：“${normalizedKey}”。`);
+    }
+    this.boundBooleanPreferenceKeys.add(normalizedKey);
+    const value = this.preferences.switches[normalizedKey] ?? defaultValue;
+    return Object.freeze({
+      value,
+      set: (nextValue: boolean) => {
+        this.preferences.switches[normalizedKey] = nextValue;
+        this.writePreferences();
+      },
+    });
+  }
+
+  bindSwitchPreference(key: string, input: HTMLInputElement, defaultValue: boolean): void {
+    const preference = this.createBooleanPreference(key, defaultValue);
+    input.checked = preference.value;
+    input.addEventListener('change', () => {
+      preference.set(input.checked);
+    });
+  }
+
   private setPanelCollapsed(entry: PanelEntry, collapsed: boolean, persist: boolean): void {
     entry.root.classList.toggle('is-collapsed', collapsed);
     entry.content.hidden = collapsed;
@@ -103,8 +140,8 @@ export class LabUi {
   }
 
   private resetLayout(): void {
-    this.preferences = createDefaultPreferences();
-    try { localStorage.removeItem(this.storageKey); } catch { /* 浏览器可能禁止本地存储。 */ }
+    this.preferences.panels = {};
+    this.writePreferences();
     this.panels.forEach((entry) => this.setPanelCollapsed(entry, entry.defaultCollapsed, false));
   }
 
@@ -135,12 +172,18 @@ export class LabUi {
         return createDefaultPreferences();
       }
       const panels: LabUiPreferences['panels'] = {};
+      const switches: LabUiPreferences['switches'] = {};
       Object.entries(parsed.panels).forEach(([id, value]) => {
         if (value && typeof value === 'object' && 'collapsed' in value && typeof value.collapsed === 'boolean') {
           panels[id] = { collapsed: value.collapsed };
         }
       });
-      return { version: 1, panels };
+      if (parsed.switches && typeof parsed.switches === 'object' && !Array.isArray(parsed.switches)) {
+        Object.entries(parsed.switches).forEach(([key, value]) => {
+          if (typeof value === 'boolean') switches[key] = value;
+        });
+      }
+      return { version: 1, panels, switches };
     } catch {
       return createDefaultPreferences();
     }
@@ -163,10 +206,14 @@ export const createLabField = (labelText: string, control: HTMLElement): HTMLLab
 export const createLabSwitch = (
   labelText: string,
   checked = false,
+  options: LabSwitchOptions = {},
 ): { row: HTMLLabelElement; input: HTMLInputElement } => {
   const input = document.createElement('input');
   input.type = 'checkbox';
   input.checked = checked;
+  if (options.preference) {
+    options.preference.ui.bindSwitchPreference(options.preference.key, input, checked);
+  }
   const row = createLabField(labelText, input);
   row.classList.add('lab-switch');
   return { row, input };

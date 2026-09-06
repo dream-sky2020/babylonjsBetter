@@ -18,7 +18,9 @@ export const dungeonGridDebugLabModule: LabModule = {
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
     const panel = context.ui.addPanel('dungeon-grid-debug', '地图 Debug');
-    const toggle = createLabSwitch('显示全部格子 Debug 盒');
+    const toggle = createLabSwitch('显示全部格子 Debug 盒', false, {
+      preference: { ui: context.ui, key: 'dungeon-grid-debug/all-tiles' },
+    });
     panel.content.append(toggle.row);
     let root: TransformNode | null = null;
     let current: LoadedDungeonReferences | null = null;
