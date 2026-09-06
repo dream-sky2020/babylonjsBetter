@@ -58,6 +58,44 @@ export type DungeonPlayerMovementResult = {
   blockedObstacleIds?: readonly string[];
 };
 
+export type DungeonPlayerMovementInspectionOptions = Pick<
+  DungeonPlayerMovementOptions,
+  'restrictToMapBounds' | 'restrictMovementObstacles'
+>;
+
+/** 无副作用地检查一次移动意图，供上层在阻挡动画开始前接管该操作。 */
+export const inspectDungeonPlayerMovement = (
+  runtime: DungeonRuntime,
+  direction: DungeonMapDirection,
+  options: DungeonPlayerMovementInspectionOptions = {},
+): DungeonPlayerMovementResult => {
+  const from = { ...runtime.playerPosition };
+  const offset = DIRECTION_OFFSETS[direction];
+  const to = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
+  if (runtime.playerMovement) {
+    return { started: false, completed: false, direction, from, to, blockedReason: 'movement-in-progress' };
+  }
+  const outside = to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height;
+  if ((options.restrictToMapBounds ?? true) && outside) {
+    return { started: false, completed: false, direction, from, to, blockedReason: 'map-boundary' };
+  }
+  if (options.restrictMovementObstacles ?? true) {
+    const obstacles = findDungeonMovementObstacles(runtime, from, to, direction);
+    if (obstacles.length > 0) {
+      return {
+        started: false,
+        completed: false,
+        direction,
+        from,
+        to,
+        blockedReason: 'movement-obstacle',
+        blockedObstacleIds: obstacles.map(({ entity }) => entity.id),
+      };
+    }
+  }
+  return { started: false, completed: false, direction, from, to };
+};
+
 export type DungeonPlayerMovementUpdateResult = {
   active: boolean;
   completed: boolean;
@@ -130,12 +168,9 @@ export const startDungeonPlayerMovement = (
   direction: DungeonMapDirection,
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => {
-  const from = { ...runtime.playerPosition };
-  const offset = DIRECTION_OFFSETS[direction];
-  const to = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
-  if (runtime.playerMovement) {
-    return { started: false, completed: false, direction, from, to, blockedReason: 'movement-in-progress' };
-  }
+  const inspection = inspectDungeonPlayerMovement(runtime, direction, options);
+  const { from, to } = inspection;
+  if (inspection.blockedReason === 'movement-in-progress') return inspection;
   const startBlockedAttempt = (
     blockedReason: 'map-boundary' | 'movement-obstacle',
     blockedObstacleIds?: readonly string[],
@@ -174,16 +209,8 @@ export const startDungeonPlayerMovement = (
     };
     return { started: true, completed: false, direction, from, to, blockedReason, blockedObstacleIds };
   };
-  const outside = to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height;
-  if ((options.restrictToMapBounds ?? true) && outside) {
-    return startBlockedAttempt('map-boundary');
-  }
-  if (options.restrictMovementObstacles ?? true) {
-    const obstacles = findDungeonMovementObstacles(runtime, from, to, direction);
-    if (obstacles.length > 0) {
-      const blockedObstacleIds = obstacles.map(({ entity }) => entity.id);
-      return startBlockedAttempt('movement-obstacle', blockedObstacleIds);
-    }
+  if (inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle') {
+    return startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds);
   }
   const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
   const resolvedTarget = options.resolveWorldPosition(to);
@@ -299,7 +326,7 @@ export const moveDungeonPlayer = (
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => startDungeonPlayerMovement(runtime, direction, { ...options, teleport: true });
 
-const resolveRelativeMovementDirection = (
+export const resolveDungeonPlayerRelativeMovementDirection = (
   facing: DungeonMapDirection,
   movement: DungeonPlayerRelativeMovement,
 ): DungeonMapDirection => {
@@ -315,6 +342,6 @@ export const startDungeonPlayerRelativeMovement = (
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => startDungeonPlayerMovement(
   runtime,
-  resolveRelativeMovementDirection(runtime.playerFacing, movement),
+  resolveDungeonPlayerRelativeMovementDirection(runtime.playerFacing, movement),
   { ...options, faceMovementDirection: false },
 );

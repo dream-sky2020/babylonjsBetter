@@ -84,6 +84,22 @@
                 "localId": "entrance"
               }
             ]
+          },
+          {
+            "localId": "verification:exit:side-tile-interact",
+            "entityType": "dungeon-exit",
+            "name": "验证出口 · 侧门格按 E",
+            "enabled": true,
+            "components": [
+              {
+                "triggers": ["interact"],
+                "targetEntranceId": "corridor-side",
+                "targetMapPresetKey": "dungeon_map",
+                "type": "dungeon-exit",
+                "version": 2,
+                "localId": "exit"
+              }
+            ]
           }
         ]
       },
@@ -113,11 +129,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "enter",
+                "triggers": ["enter"],
                 "targetEntranceId": "corridor-main",
                 "targetMapPresetKey": "dungeon_map",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -186,11 +202,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "interact",
+                "triggers": ["interact", "move-attempt"],
                 "targetEntranceId": "corridor-side",
                 "targetMapPresetKey": "dungeon_map",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -7971,11 +7987,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "interact",
+                "triggers": ["enter"],
                 "targetEntranceId": "corridor-main",
                 "targetMapPresetKey": "dungeon_map",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -10679,6 +10695,44 @@
                 "version": 1,
                 "localId": "component:bb2a536e-057f-4393-b903-7e6f5922fb4a",
                 "absoluteId": "component:bb2a536e-057f-4393-b903-7e6f5922fb4a"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "entities": [
+          {
+            "localId": "entity",
+            "entityType": "shared-edge",
+            "enabled": true,
+            "components": [
+              {
+                "data": {
+                  "legacy": {
+                    "kind": "open",
+                    "label": "公用边 0,0,north"
+                  }
+                },
+                "type": "legacy-data",
+                "version": 1,
+                "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "verification:exit:spawn-north-boundary",
+            "entityType": "dungeon-exit",
+            "name": "验证出口 · 广场出生点向北撞边界",
+            "enabled": true,
+            "components": [
+              {
+                "triggers": ["move-attempt"],
+                "targetEntranceId": "corridor-main",
+                "targetMapPresetKey": "dungeon_map",
+                "type": "dungeon-exit",
+                "version": 2,
+                "localId": "exit"
               }
             ]
           }
@@ -14981,7 +15035,7 @@
           3
         ],
         null,
-        283
+        463
       ],
       [
         "shared-boundary:0,11:south",

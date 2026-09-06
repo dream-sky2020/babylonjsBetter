@@ -1,4 +1,12 @@
 # Babylon.js Better 项目地图
+## 2026-09-06：Dungeon Exit 三层边与受阻移动触发
+
+`core/map/dungeonMap.ts` 现在可以分别解析一次跨格移动接触的离开侧单向边、进入侧单向边和对应公用边，同时保留原有“公用边接管通行判定”的有效边 API。`core/dungeon-transition/` 不再从权威有效边反推容器类型：`enter` 会独立检查目标格子及三层边数据，`interact` 会独立检查当前位置格子、面前单向边和面前公用边，`move-attempt` 则只在移动被地图边界或阻碍拒绝时检查玩家撞向的离开侧单向边与公用边；同一 Entity/Component 被多层重复引用时去重，不同出口同时命中时仍报告配置冲突。循环地图接缝使用同一套解析。
+
+出口触发配置已从单值 `activation` 升级为可组合的 `triggers` 数组，支持 `enter / interact / move-attempt` 任意组合。`enter` 只处理成功移动，`interact` 处理当前位置或面前出口的 E 键交互，`move-attempt` 只处理被地图边界或正式阻碍拒绝的移动意图；命中后在撞墙动画创建前由传送模块接管，不伪造“移动完成”。旧版 `activation: enter / interact / both` 仍可读取和迁移。
+
+传送 Debug 继续使用绿色、粉色、橙色和紫色区分入口、格子出口、单向边出口和公用边出口，并用 `AUTO / E / PUSH / ALL` 或组合标签区分触发方式；包含 `PUSH` 的出口使用更粗边框。出口上方只显示紧凑触发标签，目标地图和入口保留在面板 Debug JSON，避免远处多个长标签互相遮挡。
+
 ## 2026-09-06：Dungeon Map Canvas 整行 / 整列结构编辑
 
 `core/map/dungeonMap.structureEdit.ts` 提供不修改输入地图的整行、整列插入与删除函数。操作会重建合法矩形拓扑，迁移仍然存在的格子、单向边、公用边、公用点、Marker 与地图级 Spawn 坐标；新出现或因接缝变化而无法保持原语义的空间容器使用编辑器默认的地板 / 开放边数据。删除含玩家 Spawn 的行或列会直接拒绝，入口、出口、阻碍、Marker 等被移除或接缝 Entity 被重建时会返回影响摘要。
@@ -13,11 +21,13 @@
 
 ## 2026-09-06：DRPG 跨地图传送 Core 与组合 Lab
 
-`core/dungeon-transition/` 定义地图无关的跨地图传送规则。`DungeonEntranceComponent` 只能位于格子的 `dungeon-entrance` Entity，`entranceId` 在单张地图内唯一并声明抵达朝向；`DungeonExitComponent` 只能位于格子、单向边或公用边的 `dungeon-exit` Entity，直接保存目标地图预设 Key、目标入口 ID 和 `enter / interact` 触发方式。出口 Entity 自身 ID 即来源标识，不额外维护 `exitId`；多个出口允许引用同一个入口，入口不反向引用出口。
+`core/dungeon-transition/` 定义地图无关的跨地图传送规则。`DungeonEntranceComponent` 只能位于格子的 `dungeon-entrance` Entity，`entranceId` 在单张地图内唯一并声明抵达朝向；`DungeonExitComponent` 只能位于格子、单向边或公用边的 `dungeon-exit` Entity，直接保存目标地图预设 Key、目标入口 ID 和可组合的 `triggers: ['enter' | 'interact' | 'move-attempt']`。v1 的 `activation: enter / interact / both` 仍可读取并可迁移。出口 Entity 自身 ID 即来源标识，不额外维护 `exitId`；多个出口允许引用同一个入口，入口不反向引用出口。
 
-地图 Canvas 编辑器自动发现以上 Entity/Component 定义，并把传送结构校验并入保存前检查。Dungeon Libraries 在加载完整目录后校验跨地图引用；Dungeon Map Loader 在应用地图 Delta 后再次校验实际 live map，并在公开新地图引用前原子应用入口格子、世界位置、正式朝向和世界旋转，目标入口失效时保留原地图。`dungeon-transition` Lab Module 依赖 `player-movement`，在移动完成后匹配 `enter` 出口，或以 E 键/按钮查找当前位置与面前边上的 `interact` 出口；切换期间通过 Host Keyboard Router 输入锁暂停其他消费者。
+地图 Canvas 编辑器自动发现以上 Entity/Component 定义，并把传送结构校验并入保存前检查；组件字段支持多选勾选控件来编辑出口触发组合。Dungeon Libraries 在加载完整目录后校验跨地图引用；Dungeon Map Loader 在应用地图 Delta 后再次校验实际 live map，并在公开新地图引用前原子应用入口格子、世界位置、正式朝向和世界旋转，目标入口失效时保留原地图。`player-movement` 提供同步的受阻移动拦截服务，先无副作用预检边界与阻碍；`dungeon-transition` 依赖它并在阻挡动画前接管命中的 `move-attempt` 出口，未命中才保留原撞墙反馈。移动完成后仍匹配 `enter` 出口，E 键/按钮仍匹配 `interact` 出口；切换期间通过 Host Keyboard Router 输入锁暂停其他消费者。
 
-`tools/dungeon-transition-lab/` 独立组合地图选择、DRPG 第一人称相机和传送模块。传送面板可显示入口和出口 Debug 盒：入口使用缩小的格子盒，格子出口、单向边出口和公用边出口复用阻碍 Debug 的三类空间布局，并以不同颜色区分。切图时盒子随新地图重建，关闭开关或销毁模块时释放。当前模块只发布 started/completed/failed 低频事件并执行逻辑切换，不创建淡入淡出、加载遮罩、镜头动画或音效；这些表现留给后续专门的传送表现 Lab。
+`tools/dungeon-transition-lab/` 独立组合地图选择、DRPG 第一人称相机和传送模块。传送面板可显示入口和出口 Debug 盒：入口使用缩小的格子盒，格子出口、单向边出口和公用边出口复用阻碍 Debug 的三类空间布局，并以不同颜色区分；标签使用 `AUTO / E / PUSH / ALL` 或组合文本标明触发方式，`PUSH` 的边框更粗。切图时盒子随新地图重建，关闭开关或销毁模块时释放。当前模块只发布 started/completed/failed 低频事件并执行逻辑切换，不创建淡入淡出、加载遮罩、镜头动画或音效；这些表现留给后续专门的传送表现 Lab。
+
+`config/dungeonMapPresets/dungeon_map.json` 与 `dungeon_map_2.json` 保留一组命名为“验证出口”的近距离回归点。长廊出生点 `(1,0)` 北侧公用边提供 `interact + move-attempt`，长廊 `(1,2)` 南侧单向边与默认启用的阻碍组合验证 `move-attempt`；广场出生点 `(0,0)` 北侧公用边验证边界 `move-attempt`，广场 `(1,1)` 格子验证当前位置 `interact`。两张地图原有的格子、单向边和公用边出口继续用于验证 `enter` 与其他组合。修改这些预设后应同时运行单图结构校验和完整 Library 跨地图入口引用校验。
 
 ## 2026-09-05：DRPG 第一人称相机组合 Lab
 
@@ -370,7 +380,7 @@ config/monsterDisplayConfigs.json
 | `dungeon-obstacle` | `dungeon-map-loader` | 读取阻碍、Runtime 和 Spawn 服务，提供启停面板和 Debug |
 | `player-movement` | `dungeon-grid-debug`、`dungeon-obstacle` | 操作当前 Session 的 Runtime，并在 Session 切换时重建玩家 Debug |
 | `dungeon-first-person-camera` | `player-movement` | 将玩家连续世界姿态绑定到默认 Camera System，并提供不改变玩家朝向的自由观察与回正 |
-| `dungeon-transition` | `player-movement` | 解析 enter/interact 出口、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
+| `dungeon-transition` | `player-movement` | 解析 enter/interact/move-attempt 出口、在阻挡反馈前接管移动意图、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
 | `dungeon-runtime-save-switch` | `dungeon-obstacle`、`player-movement` | 人工切换地牢并查询 Loader 保存的运行态 |
 
 依赖自动展开的主链：

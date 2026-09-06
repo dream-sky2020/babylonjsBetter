@@ -3,12 +3,18 @@ import {
   isEntityContainer,
 } from '../entity/entity.utils.ts';
 import type { IDungeonEntranceComponent } from '../entity/components/dungeon-entrance.component.ts';
-import type { IDungeonExitComponent } from '../entity/components/dungeon-exit.component.ts';
+import {
+  DUNGEON_EXIT_TRIGGERS,
+  resolveDungeonExitTriggers,
+  type DungeonExitTrigger,
+  type IDungeonExitComponent,
+} from '../entity/components/dungeon-exit.component.ts';
 import type { IEntity, IEntityContainer } from '../entity/entity.types.ts';
 import {
-  getDungeonMapEdge,
+  getDungeonMapSharedEdge,
   getDungeonMapTile,
   getDungeonMapTraversalEdges,
+  getDungeonMapTraversalSurfaces,
 } from '../map/dungeonMap.ts';
 import type {
   DungeonMapData,
@@ -98,12 +104,12 @@ const requireSingleExit = (matches: DungeonExitBinding[], description: string): 
 
 const exitsInData = (
   data: unknown,
-  activation: IDungeonExitComponent['activation'],
+  trigger: DungeonExitTrigger,
   location: DungeonExitLocation,
 ): DungeonExitBinding[] => !isEntityContainer(data) ? [] : data.entities
   .filter((entity) => entity.entityType === 'dungeon-exit' && entity.enabled !== false)
   .flatMap((entity) => enabledComponents<IDungeonExitComponent>(entity, 'dungeon-exit')
-    .filter((component) => component.activation === activation)
+    .filter((component) => resolveDungeonExitTriggers(component).includes(trigger))
     .map((component) => ({ entity, component, location })));
 
 const directionBetween = (
@@ -128,15 +134,20 @@ export const findDungeonExitAfterMovement = (
     ? exitsInData(destinationTile.data, 'enter', { kind: 'tile', tileX: to.tileX, tileY: to.tileY })
     : [];
   const direction = directionBetween(map, from, to);
-  const traversal = direction ? getDungeonMapTraversalEdges(map, from.tileX, from.tileY, direction) : undefined;
-  if (traversal) {
-    for (const candidate of [traversal.leaving, traversal.entering]) {
-      const edge = candidate.edge;
-      const shared = map.sharedEdges?.find(({ edge: sharedEdge }) => sharedEdge === edge);
-      const location: DungeonExitLocation = shared
-        ? { kind: 'shared-edge', sides: shared.sides, edge }
-        : { kind: 'tile-edge', tileX: candidate.tileX, tileY: candidate.tileY, direction: candidate.direction, edge };
-      matches.push(...exitsInData(edge.data, 'enter', location));
+  const surfaces = direction
+    ? getDungeonMapTraversalSurfaces(map, from.tileX, from.tileY, direction)
+    : undefined;
+  if (surfaces) {
+    for (const candidate of [surfaces.leaving, surfaces.entering]) {
+      matches.push(...exitsInData(candidate.edge.data, 'enter', {
+        kind: 'tile-edge', tileX: candidate.tileX, tileY: candidate.tileY,
+        direction: candidate.direction, edge: candidate.edge,
+      }));
+    }
+    if (surfaces.shared) {
+      matches.push(...exitsInData(surfaces.shared.edge.data, 'enter', {
+        kind: 'shared-edge', sides: surfaces.shared.sides, edge: surfaces.shared.edge,
+      }));
     }
   }
   return requireSingleExit(matches, `玩家移动到 (${to.tileX}, ${to.tileY}) 时`);
@@ -151,15 +162,42 @@ export const findDungeonExitForInteraction = (
   const matches = tile
     ? exitsInData(tile.data, 'interact', { kind: 'tile', tileX: position.tileX, tileY: position.tileY })
     : [];
-  const edge = getDungeonMapEdge(map, position.tileX, position.tileY, facing);
-  if (edge) {
-    const shared = map.sharedEdges?.find(({ edge: sharedEdge }) => sharedEdge === edge);
-    const location: DungeonExitLocation = shared
-      ? { kind: 'shared-edge', sides: shared.sides, edge }
-      : { kind: 'tile-edge', tileX: position.tileX, tileY: position.tileY, direction: facing, edge };
-    matches.push(...exitsInData(edge.data, 'interact', location));
+  const tileEdge = tile?.edges[facing];
+  if (tileEdge) {
+    matches.push(...exitsInData(tileEdge.data, 'interact', {
+      kind: 'tile-edge', tileX: position.tileX, tileY: position.tileY, direction: facing, edge: tileEdge,
+    }));
+  }
+  const sharedEdge = getDungeonMapSharedEdge(map, position.tileX, position.tileY, facing);
+  if (sharedEdge) {
+    matches.push(...exitsInData(sharedEdge.edge.data, 'interact', {
+      kind: 'shared-edge', sides: sharedEdge.sides, edge: sharedEdge.edge,
+    }));
   }
   return requireSingleExit(matches, `玩家在 (${position.tileX}, ${position.tileY}) 面向 ${facing} 交互时`);
+};
+
+/**
+ * 查询一次被边界或阻碍拒绝的移动意图。只匹配玩家离开当前格时撞向的单向边和公用边，
+ * 不检查目标格或进入侧边，因为这次移动并未实际发生。
+ */
+export const findDungeonExitForMoveAttempt = (
+  map: DungeonMapData,
+  position: Readonly<{ tileX: number; tileY: number }>,
+  direction: DungeonMapDirection,
+): DungeonExitBinding | null => {
+  const tile = getDungeonMapTile(map, position.tileX, position.tileY);
+  const tileEdge = tile?.edges[direction];
+  const matches = tileEdge ? exitsInData(tileEdge.data, 'move-attempt', {
+    kind: 'tile-edge', tileX: position.tileX, tileY: position.tileY, direction, edge: tileEdge,
+  }) : [];
+  const sharedEdge = getDungeonMapSharedEdge(map, position.tileX, position.tileY, direction);
+  if (sharedEdge) {
+    matches.push(...exitsInData(sharedEdge.edge.data, 'move-attempt', {
+      kind: 'shared-edge', sides: sharedEdge.sides, edge: sharedEdge.edge,
+    }));
+  }
+  return requireSingleExit(matches, `玩家在 (${position.tileX}, ${position.tileY}) 尝试向 ${direction} 移动时`);
 };
 
 export const validateDungeonTransitionMap = (map: DungeonMapData): DungeonMapValidationIssue[] => {
@@ -196,8 +234,16 @@ export const validateDungeonTransitionMap = (map: DungeonMapData): DungeonMapVal
         if (typeof component.targetEntranceId !== 'string' || !component.targetEntranceId.trim()) {
           issues.push({ code: 'invalid-dungeon-exit-target-entrance', message: `出口实体“${entity.id}”的目标入口 ID 不能为空。` });
         }
-        if (component.activation !== 'enter' && component.activation !== 'interact') {
-          issues.push({ code: 'invalid-dungeon-exit-activation', message: `出口实体“${entity.id}”的 activation 无效。` });
+        const triggers = resolveDungeonExitTriggers(component);
+        const rawTriggers = component.triggers as unknown;
+        const invalidTriggers = Array.isArray(rawTriggers)
+          ? rawTriggers.length === 0 || rawTriggers.some((trigger) => !DUNGEON_EXIT_TRIGGERS.includes(trigger))
+          : !['enter', 'interact', 'both'].includes(component.activation ?? '');
+        if (invalidTriggers) {
+          issues.push({ code: 'invalid-dungeon-exit-triggers', message: `出口实体“${entity.id}”的 triggers 无效或为空。` });
+        }
+        if (triggers.includes('move-attempt') && container.kind === 'tile') {
+          issues.push({ code: 'invalid-dungeon-exit-move-attempt-placement', message: `出口实体“${entity.id}”的 move-attempt 只能用于单向边或公用边。` });
         }
       });
     });

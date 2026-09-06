@@ -227,6 +227,16 @@ export type DungeonMapTraversalEdges = {
   entering: DungeonMapTraversalEdge;
 };
 
+/**
+ * 一次跨格移动实际接触的三个数据层。
+ * 单格边始终保留两侧各自的数据；公用边作为独立的第三层返回。
+ */
+export type DungeonMapTraversalSurfaces = {
+  leaving: DungeonMapTraversalEdge;
+  entering: DungeonMapTraversalEdge;
+  shared?: DungeonMapSharedEdge;
+};
+
 export type DungeonMapValidationIssue = { code: string; message: string };
 
 
