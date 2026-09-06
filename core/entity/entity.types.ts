@@ -61,6 +61,7 @@ export type EntityTypeDefinition = {
 
 export type ComponentFieldControl =
   | 'checkbox'
+  | 'multi-select'
   | 'select'
   | 'tags'
   | 'text'

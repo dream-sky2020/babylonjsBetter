@@ -2,8 +2,10 @@ import type {
   DungeonMapData,
   DungeonMapDirection,
   DungeonMapEdge,
+  DungeonMapSharedEdge,
   DungeonMapTile,
   DungeonMapTraversalEdges,
+  DungeonMapTraversalSurfaces,
   DungeonMapValidationIssue
 } from './dungeonMap.types.ts';
 import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology.ts';
@@ -39,18 +41,24 @@ export const isDungeonMapEdgePassable = (edge: DungeonMapEdge | undefined): bool
   return edge.passable ?? (edge.kind === 'open' || edge.kind === 'door');
 };
 
+/** 返回包含指定格子边端点的公用边。 */
+export const getDungeonMapSharedEdge = (
+  map: DungeonMapData,
+  x: number,
+  y: number,
+  direction: DungeonMapDirection
+): DungeonMapSharedEdge | undefined => map.sharedEdges?.find(({ sides }) => sides.some((side) => (
+    side.x === x && side.y === y && side.direction === direction
+  )));
+
 /** 优先返回接管该位置的公用边，否则返回格子自身保存的单格边。 */
 export const getDungeonMapEdge = (
   map: DungeonMapData,
   x: number,
   y: number,
   direction: DungeonMapDirection
-): DungeonMapEdge | undefined => {
-  const shared = map.sharedEdges?.find(({ sides }) => sides.some((side) => (
-    side.x === x && side.y === y && side.direction === direction
-  )));
-  return shared?.edge ?? getDungeonMapTile(map, x, y)?.edges[direction];
-};
+): DungeonMapEdge | undefined => getDungeonMapSharedEdge(map, x, y, direction)?.edge
+  ?? getDungeonMapTile(map, x, y)?.edges[direction];
 
 export const canTraverseDungeonMap = (
   map: DungeonMapData,
@@ -67,14 +75,14 @@ export const canTraverseDungeonMap = (
   return isDungeonMapEdgePassable(traversal.leaving.edge) && isDungeonMapEdgePassable(traversal.entering.edge);
 };
 
-/** 返回一次移动分别接触的两条独立边；不会合并或规范化这两条边。 */
-export const getDungeonMapTraversalEdges = (
+/** 返回一次移动接触的离开单格边、进入单格边和对应公用边。 */
+export const getDungeonMapTraversalSurfaces = (
   map: DungeonMapData,
   fromX: number,
   fromY: number,
   direction: DungeonMapDirection,
   destination?: Readonly<{ x: number; y: number }>
-): DungeonMapTraversalEdges | undefined => {
+): DungeonMapTraversalSurfaces | undefined => {
   const vector = DIRECTION_VECTOR[direction];
   const rawToX = destination?.x ?? fromX + vector.x;
   const rawToY = destination?.y ?? fromY + vector.y;
@@ -84,13 +92,31 @@ export const getDungeonMapTraversalEdges = (
   const toY = destination || !dungeonMapWrapsY(map.topologyMode)
     ? rawToY
     : wrapDungeonMapCoordinate(rawToY, map.height);
-  const leavingEdge = getDungeonMapEdge(map, fromX, fromY, direction);
+  const leavingEdge = getDungeonMapTile(map, fromX, fromY)?.edges[direction];
   const enteringDirection = OPPOSITE_DIRECTION[direction];
-  const enteringEdge = getDungeonMapEdge(map, toX, toY, enteringDirection);
+  const enteringEdge = getDungeonMapTile(map, toX, toY)?.edges[enteringDirection];
   if (!leavingEdge || !enteringEdge) return undefined;
   return {
     leaving: { tileX: fromX, tileY: fromY, direction, edge: leavingEdge },
-    entering: { tileX: toX, tileY: toY, direction: enteringDirection, edge: enteringEdge }
+    entering: { tileX: toX, tileY: toY, direction: enteringDirection, edge: enteringEdge },
+    shared: getDungeonMapSharedEdge(map, fromX, fromY, direction)
+  };
+};
+
+/** 返回通行判定使用的两条权威有效边；公用边存在时会接管两侧。 */
+export const getDungeonMapTraversalEdges = (
+  map: DungeonMapData,
+  fromX: number,
+  fromY: number,
+  direction: DungeonMapDirection,
+  destination?: Readonly<{ x: number; y: number }>
+): DungeonMapTraversalEdges | undefined => {
+  const surfaces = getDungeonMapTraversalSurfaces(map, fromX, fromY, direction, destination);
+  if (!surfaces) return undefined;
+  const effectiveEdge = surfaces.shared?.edge;
+  return {
+    leaving: { ...surfaces.leaving, edge: effectiveEdge ?? surfaces.leaving.edge },
+    entering: { ...surfaces.entering, edge: effectiveEdge ?? surfaces.entering.edge },
   };
 };
 

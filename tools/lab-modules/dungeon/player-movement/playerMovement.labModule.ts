@@ -1,5 +1,7 @@
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
+  inspectDungeonPlayerMovement,
+  resolveDungeonPlayerRelativeMovementDirection,
   startDungeonPlayerMovement,
   startDungeonPlayerRelativeMovement,
   startDungeonPlayerTurn,
@@ -30,6 +32,11 @@ import {
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
   type DungeonMapLoaderReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
+import {
+  createDungeonPlayerBlockedAttemptService,
+  PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
+  type DungeonPlayerBlockedAttempt,
+} from './playerMovement.blockedAttempt';
 
 type MovementView = { loadId: number; runtime: DungeonRuntime; spawn: DungeonPlayerSpawnBinding };
 
@@ -65,6 +72,8 @@ export const playerMovementLabModule: LabModule = {
     const references = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
+    const blockedAttemptService = createDungeonPlayerBlockedAttemptService();
+    context.services.set(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY, blockedAttemptService);
     const panel = context.ui.addPanel('player-movement', '玩家移动');
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
@@ -320,9 +329,26 @@ export const playerMovementLabModule: LabModule = {
       position.tileY,
     ).center;
 
+    const interceptBlockedAttempt = (
+      event: MovementView,
+      direction: DungeonMapDirection,
+    ): boolean => {
+      const inspection = inspectDungeonPlayerMovement(event.runtime, direction, {
+        restrictToMapBounds: boundsToggle.input.checked,
+        restrictMovementObstacles: obstacleToggle.input.checked,
+      });
+      if (inspection.blockedReason !== 'map-boundary'
+        && inspection.blockedReason !== 'movement-obstacle') return false;
+      return blockedAttemptService.tryHandle(inspection as DungeonPlayerBlockedAttempt);
+    };
+
     const move = (direction: DungeonMapDirection): boolean => {
       if (!current) return false;
       const event = current;
+      if (interceptBlockedAttempt(event, direction)) {
+        status.textContent = `向 ${direction} 的受阻移动已由其他模块接管。`;
+        return true;
+      }
       const result = startDungeonPlayerMovement(event.runtime, direction, {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
@@ -378,6 +404,11 @@ export const playerMovementLabModule: LabModule = {
       if (!current) return;
       const event = current;
       const facingBeforeMove = event.runtime.playerFacing;
+      const direction = resolveDungeonPlayerRelativeMovementDirection(facingBeforeMove, movement);
+      if (interceptBlockedAttempt(event, direction)) {
+        status.textContent = `${movement} 的受阻移动已由其他模块接管。`;
+        return;
+      }
       const result = startDungeonPlayerRelativeMovement(event.runtime, movement, {
         restrictToMapBounds: boundsToggle.input.checked,
         restrictMovementObstacles: obstacleToggle.input.checked,
@@ -526,6 +557,7 @@ export const playerMovementLabModule: LabModule = {
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       keyboardRegistration.dispose();
       offKeyboardChanged();
+      context.services.delete(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
       disposeMarker();
     };
   },

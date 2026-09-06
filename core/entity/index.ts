@@ -9,7 +9,13 @@ export type { IStateComponent } from './components/state.component';
 export type { IActorSpawnComponent } from './components/actor-spawn.component';
 export type { IMovementObstacleComponent } from './components/movement-obstacle.component';
 export type { IDungeonEntranceComponent } from './components/dungeon-entrance.component';
-export type { DungeonExitActivation, IDungeonExitComponent } from './components/dungeon-exit.component';
+export {
+  DUNGEON_EXIT_TRIGGERS,
+  resolveDungeonExitTriggers,
+  type DungeonExitActivation,
+  type DungeonExitTrigger,
+  type IDungeonExitComponent,
+} from './components/dungeon-exit.component';
 export {
   DEFAULT_SCENE_ENVIRONMENT_MAP_ANCHOR_MODE,
   DEFAULT_SCENE_ENVIRONMENT_MAP_OFFSET,

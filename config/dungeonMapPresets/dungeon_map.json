@@ -609,6 +609,22 @@
                 "absoluteId": "component:1a29599d-5677-4007-a239-c9700471602d"
               }
             ]
+          },
+          {
+            "localId": "verification:exit:blocked-tile-edge",
+            "entityType": "dungeon-exit",
+            "name": "验证出口 · 撞南侧障碍触发",
+            "enabled": true,
+            "components": [
+              {
+                "triggers": ["move-attempt"],
+                "targetEntranceId": "plaza-side",
+                "targetMapPresetKey": "dungeon_map_2",
+                "type": "dungeon-exit",
+                "version": 2,
+                "localId": "exit"
+              }
+            ]
           }
         ]
       },
@@ -1086,11 +1102,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "interact",
+                "triggers": ["enter"],
                 "targetEntranceId": "plaza-side",
                 "targetMapPresetKey": "dungeon_map_2",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -2491,11 +2507,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "enter",
+                "triggers": ["enter"],
                 "targetEntranceId": "plaza-main",
                 "targetMapPresetKey": "dungeon_map_2",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -3197,11 +3213,11 @@
             "enabled": true,
             "components": [
               {
-                "activation": "interact",
+                "triggers": ["enter", "interact", "move-attempt"],
                 "targetEntranceId": "plaza-main",
                 "targetMapPresetKey": "dungeon_map_2",
                 "type": "dungeon-exit",
-                "version": 1,
+                "version": 2,
                 "localId": "exit"
               }
             ]
@@ -3747,6 +3763,22 @@
                 "type": "legacy-data",
                 "version": 1,
                 "localId": "legacy"
+              }
+            ]
+          },
+          {
+            "localId": "verification:exit:spawn-north-boundary",
+            "entityType": "dungeon-exit",
+            "name": "验证出口 · 出生点北侧 PUSH + E",
+            "enabled": true,
+            "components": [
+              {
+                "triggers": ["interact", "move-attempt"],
+                "targetEntranceId": "plaza-main",
+                "targetMapPresetKey": "dungeon_map_2",
+                "type": "dungeon-exit",
+                "version": 2,
+                "localId": "exit"
               }
             ]
           }

@@ -99,6 +99,8 @@ h1 { margin: 0; font-size: 23px; }
 .physics-fields input:not([type="checkbox"]), .physics-fields select, .physics-fields textarea { width: 100%; min-width: 0; border: 1px solid rgba(110,231,183,.18); border-radius: 7px; padding: 7px 8px; color: #d8f5e8; background: #0c211a; font: inherit; resize: vertical; }
 .physics-fields input:not([type="checkbox"]), .physics-fields select { height: 34px; }
 .physics-fields textarea:invalid { border-color: #ff8f8f; }
+.physics-fields .component-multi-select { min-width: 0; display: grid; gap: 7px; margin: 0; padding: 9px; border: 1px solid rgba(110,231,183,.16); border-radius: 8px; }
+.physics-fields .component-multi-select legend { padding: 0 5px; color: #9fc2b4; font-size: 11px; }
 .entity-component-editor { display: grid; gap: 8px; }
 .batch-edit-placeholder { display: grid; gap: 5px; padding: 11px; border: 1px solid rgba(77,208,225,.2); border-radius: 8px; background: rgba(9,41,42,.3); }
 .batch-edit-placeholder strong { color: #9affe0; font-size: 11px; }
