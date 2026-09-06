@@ -1,4 +1,9 @@
 import { scanDungeonObstacles } from '@/core/dungeon-obstacle';
+import {
+  applyDungeonEntranceToRuntime,
+  findDungeonEntrance,
+  validateDungeonTransitionMap,
+} from '@/core/dungeon-transition';
 import { resolveDungeonPlayerSpawn } from '@/core/dungeon-player-spawn';
 import { createDungeonRuntime } from '@/core/dungeon-runtime';
 import {
@@ -222,7 +227,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
     });
 
     const loader: DungeonLabMapLoader = {
-      async switchDungeon(presetKey) {
+      async switchDungeon(presetKey, options) {
         const libraries = librariesReference.require();
         const preset = libraries.maps[presetKey];
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
@@ -233,6 +238,10 @@ export const dungeonMapLoaderLabModule: LabModule = {
         const loadId = ++generation;
         const baseMap = preset.map;
         const liveMap = dungeonMapDeltaStore.restore(presetKey, baseMap);
+        const transitionIssues = validateDungeonTransitionMap(liveMap);
+        if (transitionIssues.length) {
+          throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
+        }
         const binding = resolveDungeonMapSceneEnvironment(liveMap, libraries.environments);
         const instance = await createDungeonMapSceneEnvironmentAsync(
           context.scene, liveMap, libraries.environments, { shadowQualityPresets: libraries.shadows },
@@ -248,6 +257,10 @@ export const dungeonMapLoaderLabModule: LabModule = {
               position.tileX, position.tileY,
             ).center).warnings
             : [];
+          if (options?.entranceId) {
+            const entrance = findDungeonEntrance(liveMap, options.entranceId);
+            applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
+          }
           const obstacles = scanDungeonObstacles(liveMap);
           const previousPresetKey = activePresetKey;
           const previousInstance = activeInstance;
@@ -300,8 +313,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
         loadedStateRegistration.markChanged();
       },
     };
-    context.communication.handle(dungeonMapSwitchRequest, async ({ presetKey }) => ({
-      loaded: await loader.switchDungeon(presetKey),
+    context.communication.handle(dungeonMapSwitchRequest, async ({ presetKey, entranceId }) => ({
+      loaded: await loader.switchDungeon(presetKey, { entranceId }),
       presetKey,
     }));
     context.communication.handle(dungeonRuntimeCommitRequest, async ({ reason }) => {

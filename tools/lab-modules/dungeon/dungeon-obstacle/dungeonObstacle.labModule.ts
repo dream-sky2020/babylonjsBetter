@@ -30,7 +30,9 @@ export const dungeonObstacleLabModule: LabModule = {
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
-    const debugToggle = createLabSwitch('显示阻碍 Debug 盒');
+    const debugToggle = createLabSwitch('显示阻碍 Debug 盒', false, {
+      preference: { ui: context.ui, key: 'dungeon-obstacle/debug-boxes' },
+    });
     const list = document.createElement('div');
     list.className = 'lab-obstacle-list';
     const runtimeJson = createLabJson();

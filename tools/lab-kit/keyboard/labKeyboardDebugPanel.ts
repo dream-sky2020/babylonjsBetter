@@ -15,7 +15,10 @@ const focusDescription = (): string => {
 export const createLabKeyboardDebugPanel = (ui: LabUi, keyboard: LabKeyboardRouter): (() => void) => {
   const panel = ui.addPanel('system-keyboard-input', 'Keyboard Input', { defaultCollapsed: true });
   panel.root.classList.add('lab-system-panel');
-  const globalToggle = createLabSwitch('全局键盘输入', keyboard.globalEnabled);
+  const globalToggle = createLabSwitch('全局键盘输入', keyboard.globalEnabled, {
+    preference: { ui, key: 'lab:host/keyboard-global-enabled' },
+  });
+  keyboard.setGlobalEnabled(globalToggle.input.checked);
   const summary = document.createElement('div');
   summary.className = 'lab-inline-status';
   const consumers = document.createElement('div');
@@ -29,7 +32,8 @@ export const createLabKeyboardDebugPanel = (ui: LabUi, keyboard: LabKeyboardRout
 
   const render = (): void => {
     globalToggle.input.checked = keyboard.globalEnabled;
-    summary.textContent = `焦点：${focusDescription()} · 当前按下：${[...keyboard.pressed].join(', ') || '无'} · 消费者：${keyboard.getConsumers().length}`;
+    const locks = keyboard.getLocks();
+    summary.textContent = `焦点：${focusDescription()} · 当前按下：${[...keyboard.pressed].join(', ') || '无'} · 消费者：${keyboard.getConsumers().length} · 输入锁：${locks.map(({ label }) => label).join('、') || '无'}`;
     consumers.replaceChildren();
     keyboard.getConsumers().forEach((consumer) => {
       const card = document.createElement('div');

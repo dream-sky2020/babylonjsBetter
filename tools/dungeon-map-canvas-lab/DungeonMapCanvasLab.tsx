@@ -1,7 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
 import {
   createDungeonMapData,
+  deleteDungeonMapColumn,
+  deleteDungeonMapRow,
+  encodeDungeonMapData,
   encodeDungeonMapPresetLibrary,
+  insertDungeonMapColumn,
+  insertDungeonMapRow,
+  loadDungeonMapPreset,
   loadDungeonMapPresetLibrary,
   validateDungeonMapData,
   type DungeonMapData,
@@ -12,6 +19,8 @@ import {
   type DungeonMapPresetLibrary,
   type DungeonMapSharedEdge,
   type DungeonMapSharedPoint,
+  type DungeonMapStructureDefaults,
+  type DungeonMapStructureEditResult,
   type DungeonMapTile,
   type DungeonMapTopologyMode,
 } from '@/core/map';
@@ -228,6 +237,30 @@ const createBlankPresetMap = (
   ),
 });
 
+const STRUCTURE_EDIT_DEFAULTS: DungeonMapStructureDefaults = {
+  createTileData: ({ x, y }) => legacyEntityContainer(
+    `tile:${x},${y}:entity`, `格子 ${x},${y}`, { legacy: { kind: 'floor' } }, 'tile',
+  ),
+  createTileEdgeData: ({ x, y, direction }) => legacyEntityContainer(
+    `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`,
+    { legacy: { kind: 'open' } }, 'tile-edge',
+  ),
+  createSharedEdgeData: ({ id, first }) => legacyEntityContainer(
+    `${id}:entity`, '公用边实体',
+    { legacy: { kind: 'open', label: `公用边 ${first.x},${first.y},${first.direction}` } },
+    'shared-edge',
+  ),
+  createSharedPointData: ({ id, gridX, gridY }) => legacyEntityContainer(
+    `${id}:entity`, '公用点实体', { legacy: { label: `公用点 ${gridX},${gridY}` } }, 'shared-point',
+  ),
+};
+
+const presetFingerprint = (preset: DungeonMapPreset): string => JSON.stringify({
+  presetKey: preset.presetKey,
+  name: preset.name,
+  map: encodeDungeonMapData(preset.map),
+});
+
 const normalizedPresetLibrary = (value: unknown): DungeonMapPresetLibrary => {
   if (!value || typeof value !== 'object') return {};
   return Object.fromEntries(Object.entries(value as Record<string, unknown>).flatMap(([key, raw]) => {
@@ -292,6 +325,10 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [presetMessage, setPresetMessage] = useState('正在连接 Python 服务…');
   const [presetError, setPresetError] = useState(false);
   const [presetSaving, setPresetSaving] = useState(false);
+  const [presetReloading, setPresetReloading] = useState(false);
+  const [savedPresetFingerprints, setSavedPresetFingerprints] = useState<Record<string, string>>({});
+  const [structureRowIndex, setStructureRowIndex] = useState(0);
+  const [structureColumnIndex, setStructureColumnIndex] = useState(0);
   const [mapScale, setMapScale] = useState(1);
   const mapViewportRef = useRef<HTMLDivElement>(null);
   const [mapViewportSize, setMapViewportSize] = useState({ width: 0, height: 0 });
@@ -590,6 +627,9 @@ export const DungeonMapCanvasLab: React.FC = () => {
         if (!active) return;
         const library = normalizedPresetLibrary(loadedLibrary);
         setMapPresets(library);
+        setSavedPresetFingerprints(Object.fromEntries(
+          Object.entries(library).map(([key, preset]) => [key, presetFingerprint(preset)]),
+        ));
         const first = Object.values(library)[0];
         if (first) {
           loadPresetIntoEditor(first);
@@ -759,6 +799,9 @@ export const DungeonMapCanvasLab: React.FC = () => {
       const result = await response.json() as { success?: boolean; message?: string; errors?: string[] };
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
       setMapPresets(payload);
+      setSavedPresetFingerprints(Object.fromEntries(
+        Object.entries(payload).map(([key, preset]) => [key, presetFingerprint(preset)]),
+      ));
       setPresetError(false);
       setPresetMessage(`已保存 ${Object.keys(payload).length} 个独立地图文件到 config/dungeonMapPresets/。`);
     } catch (error) {
@@ -769,7 +812,104 @@ export const DungeonMapCanvasLab: React.FC = () => {
     }
   };
 
-  const validationIssues = useMemo(() => validateDungeonMapData(map), [map]);
+  const activePreset = activePresetKey ? mapPresets[activePresetKey] : undefined;
+  const hasUnsavedCurrentPreset = !!activePreset && savedPresetFingerprints[activePresetKey]
+    !== presetFingerprint({ ...activePreset, map });
+
+  const reloadCurrentPreset = async () => {
+    if (!activePresetKey) return;
+    if (hasUnsavedCurrentPreset
+      && !window.confirm('重新加载会丢弃当前地图尚未保存的全部修改，确定继续吗？')) return;
+    setPresetReloading(true);
+    try {
+      const loaded = await loadDungeonMapPreset(activePresetKey);
+      setMapPresets((current) => ({ ...current, [activePresetKey]: loaded }));
+      setSavedPresetFingerprints((current) => ({
+        ...current,
+        [activePresetKey]: presetFingerprint(loaded),
+      }));
+      loadPresetIntoEditor(loaded);
+      setPresetError(false);
+      setPresetMessage(`已从 config 重新加载地图预设：${loaded.name}`);
+    } catch (error) {
+      setPresetError(true);
+      setPresetMessage(`重新加载失败：${error instanceof Error ? error.message : String(error)}`);
+    } finally {
+      setPresetReloading(false);
+    }
+  };
+
+  const structureSelection = canvasSelection?.mode === 'map' ? null : canvasSelection;
+  const targetRow = structureSelection
+    ? Math.max(0, Math.min(map.height - 1, structureSelection.y))
+    : Math.max(0, Math.min(map.height - 1, structureRowIndex));
+  const targetColumn = structureSelection
+    ? Math.max(0, Math.min(map.width - 1, structureSelection.x))
+    : Math.max(0, Math.min(map.width - 1, structureColumnIndex));
+
+  const describeStructureImpact = (result: DungeonMapStructureEditResult): string => {
+    const { impact } = result;
+    const details = [
+      impact.removedTiles ? `格子 ${impact.removedTiles} 个` : '',
+      impact.removedEntities ? `Entity ${impact.removedEntities} 个` : '',
+      impact.removedEntranceIds.length ? `入口：${impact.removedEntranceIds.join('、')}` : '',
+      impact.removedExitEntityIds.length ? `出口：${impact.removedExitEntityIds.join('、')}` : '',
+      impact.removedObstacleEntityIds.length ? `阻碍：${impact.removedObstacleEntityIds.join('、')}` : '',
+      impact.removedMarkerIds.length ? `Marker：${impact.removedMarkerIds.join('、')}` : '',
+    ].filter(Boolean);
+    return details.join('\n');
+  };
+
+  const commitStructureEdit = (
+    label: string,
+    createResult: () => DungeonMapStructureEditResult,
+    nextSelection: (nextMap: DungeonMapData) => Readonly<{ x: number; y: number }>,
+  ) => {
+    try {
+      const result = createResult();
+      const impact = describeStructureImpact(result);
+      if (impact && !window.confirm(`${label}会移除或重建以下数据：\n${impact}\n\n确定继续吗？`)) return;
+      const selection = nextSelection(result.map);
+      clearMapEdits();
+      setPresetBaseMap(result.map);
+      setMapWidth(result.map.width);
+      setMapHeight(result.map.height);
+      setDraftMapWidth(result.map.width);
+      setDraftMapHeight(result.map.height);
+      setCanvasSelections([{ mode: 'tile', x: selection.x, y: selection.y }]);
+      if (activePresetKey && activePreset) {
+        setMapPresets((current) => {
+          const preset = current[activePresetKey];
+          return preset ? {
+            ...current,
+            [activePresetKey]: { ...preset, map: result.map },
+          } : current;
+        });
+      }
+      setPresetError(false);
+      setPresetMessage(`${label}完成；当前地图为 ${result.map.width} × ${result.map.height}，点击“保存全部地图预设”写入 config。`);
+    } catch (error) {
+      setPresetError(true);
+      setPresetMessage(`${label}失败：${error instanceof Error ? error.message : String(error)}`);
+    }
+  };
+
+  const structureSelectionX = Math.max(0, Math.min(map.width - 1, structureSelection?.x ?? targetColumn));
+  const structureSelectionY = Math.max(0, Math.min(map.height - 1, structureSelection?.y ?? targetRow));
+  const runStructureEdit = (
+    label: string,
+    createResult: () => DungeonMapStructureEditResult,
+    nextX: (nextMap: DungeonMapData) => number,
+    nextY: (nextMap: DungeonMapData) => number,
+  ) => commitStructureEdit(label, createResult, (nextMap) => ({
+    x: Math.max(0, Math.min(nextMap.width - 1, nextX(nextMap))),
+    y: Math.max(0, Math.min(nextMap.height - 1, nextY(nextMap))),
+  }));
+
+  const validationIssues = useMemo(() => [
+    ...validateDungeonMapData(map),
+    ...validateDungeonTransitionMap(map),
+  ], [map]);
   const canvasSelectedTile = canvasSelection
     ? map.tiles[canvasSelection.y * map.width + canvasSelection.x]
     : undefined;
@@ -1404,8 +1544,43 @@ export const DungeonMapCanvasLab: React.FC = () => {
             <label>显示名称<input value={newPresetName} onChange={(event) => setNewPresetName(event.target.value)} /></label>
           </div>
           <button type="button" className="create-preset-button" onClick={createMapPreset}>新建地图预设</button>
-          <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
+          <div className="preset-save-actions">
+            <button type="button" className="reload-preset-button" disabled={!activePresetKey || presetReloading} onClick={() => void reloadCurrentPreset()}>{presetReloading ? '正在重新加载…' : '重新加载当前预设'}</button>
+            <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
+          </div>
+          {activePreset ? <div className={`preset-dirty-state${hasUnsavedCurrentPreset ? ' is-dirty' : ''}`}>{hasUnsavedCurrentPreset ? '当前预设存在尚未保存到 config 的修改' : '当前预设与最近加载 / 保存的版本一致'}</div> : null}
           <div className={`preset-status${presetError ? ' is-error' : ''}`}>{presetMessage}</div>
+          </div> : null}
+        </section>
+        <section className="control-card controls map-structure-controls">
+          <div className="map-editor__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('map-structure')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'map-structure')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('map-structure') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图结构</strong><small>整行 / 整列修改仅保存在当前页面</small></span></button><strong>{map.width} × {map.height}</strong></div>
+          {!collapsedPanelIds.has('map-structure') ? <div className="collapsible-panel-body">
+            <div className="map-structure-target">
+              <span>操作基准</span>
+              <strong>第 {targetRow + 1} 行 · 第 {targetColumn + 1} 列</strong>
+              <small>{structureSelection ? '跟随 Canvas 当前选中坐标' : 'Canvas 未选中格子，使用下方手动坐标'}</small>
+            </div>
+            {!structureSelection ? <div className="map-size-fields">
+              <label>目标行（从 1 开始）<input type="number" min="1" max={map.height} value={targetRow + 1} onChange={(event) => setStructureRowIndex(Math.max(0, Math.min(map.height - 1, Number(event.target.value) - 1 || 0)))} /></label>
+              <label>目标列（从 1 开始）<input type="number" min="1" max={map.width} value={targetColumn + 1} onChange={(event) => setStructureColumnIndex(Math.max(0, Math.min(map.width - 1, Number(event.target.value) - 1 || 0)))} /></label>
+            </div> : null}
+            <div className="map-structure-group">
+              <span>行操作</span>
+              <div className="map-structure-actions">
+                <button type="button" onClick={() => runStructureEdit('在上方插入一行', () => insertDungeonMapRow(map, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY + 1)}>上方插入一行</button>
+                <button type="button" onClick={() => runStructureEdit('在下方插入一行', () => insertDungeonMapRow(map, targetRow + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>下方插入一行</button>
+                <button type="button" className="danger-button" disabled={map.height <= 1} onClick={() => runStructureEdit('删除当前行', () => deleteDungeonMapRow(map, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, (nextMap) => Math.min(targetRow, nextMap.height - 1))}>删除当前行</button>
+              </div>
+            </div>
+            <div className="map-structure-group">
+              <span>列操作</span>
+              <div className="map-structure-actions">
+                <button type="button" onClick={() => runStructureEdit('在左侧插入一列', () => insertDungeonMapColumn(map, targetColumn, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX + 1, () => structureSelectionY)}>左侧插入一列</button>
+                <button type="button" onClick={() => runStructureEdit('在右侧插入一列', () => insertDungeonMapColumn(map, targetColumn + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>右侧插入一列</button>
+                <button type="button" className="danger-button" disabled={map.width <= 1} onClick={() => runStructureEdit('删除当前列', () => deleteDungeonMapColumn(map, targetColumn, STRUCTURE_EDIT_DEFAULTS), (nextMap) => Math.min(targetColumn, nextMap.width - 1), () => structureSelectionY)}>删除当前列</button>
+              </div>
+            </div>
+            <div className="map-structure-note">删除含玩家 Spawn 的行或列会被阻止；删除入口、出口、阻碍或 Marker 前会先列出影响并请求确认。</div>
           </div> : null}
         </section>
         <section className="control-card controls visual-controls">

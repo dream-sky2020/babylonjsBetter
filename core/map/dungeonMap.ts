@@ -5,8 +5,8 @@ import type {
   DungeonMapTile,
   DungeonMapTraversalEdges,
   DungeonMapValidationIssue
-} from './dungeonMap.types';
-import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology';
+} from './dungeonMap.types.ts';
+import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology.ts';
 
 const DEFAULT_WALKABLE_KINDS = new Set(['floor', 'door', 'stairs-up', 'stairs-down']);
 const DIRECTION_VECTOR: Record<DungeonMapDirection, { x: number; y: number }> = {

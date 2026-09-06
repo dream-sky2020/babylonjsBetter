@@ -20,7 +20,8 @@ export type DungeonRuntimeChangedReason =
   | 'player-movement-blocked'
   | 'player-turn-completed'
   | 'player-relative-movement-completed'
-  | 'player-position-teleported';
+  | 'player-position-teleported'
+  | 'dungeon-transition-arrived';
 
 export type DungeonRuntimeChangedEvent = {
   reason: DungeonRuntimeChangedReason;
@@ -70,11 +71,11 @@ export const dungeonMapDeltasRequest = createLabRequest<void, DungeonMapDeltaSna
 );
 
 export type DungeonLabMapLoader = {
-  switchDungeon(presetKey: string): Promise<boolean>;
+  switchDungeon(presetKey: string, options?: Readonly<{ entranceId?: string }>): Promise<boolean>;
   dispose(): void;
 };
 
-export type DungeonMapSwitchRequest = { presetKey: string };
+export type DungeonMapSwitchRequest = { presetKey: string; entranceId?: string };
 export type DungeonMapSwitchResult = { loaded: boolean; presetKey: string };
 
 export const dungeonMapSwitchRequest = createLabRequest<DungeonMapSwitchRequest, DungeonMapSwitchResult>(

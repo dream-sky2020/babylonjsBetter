@@ -6,6 +6,16 @@ export type CameraLockPlaneAxis = 'x' | 'y' | 'z';
 export type CameraPositionAxis = 'x' | 'y' | 'z';
 export type CameraFovReference = 'vertical' | 'horizontal';
 
+export type CameraFirstPersonPose = Readonly<{
+  position: Vector3;
+  yaw: number;
+  pitch: number;
+}>;
+
+export type CameraFirstPersonPoseBinding = Readonly<{
+  readPose: () => CameraFirstPersonPose | null;
+}>;
+
 export interface CameraLabControllerState {
   mode: CameraLabMode;
   lookControlMode: CameraLookControlMode;
@@ -95,6 +105,8 @@ export interface CameraLabController {
   setInputEnabled: (enabled: boolean) => void;
   /** 设置当前由相机消费者赢得的键盘按键。 */
   setOwnedKeyboardCodes: (codes: ReadonlySet<string>) => void;
+  /** 由角色/运行时提供第一人称姿态；绑定后相机不再自行决定位置与朝向。 */
+  bindFirstPersonPose: (binding: CameraFirstPersonPoseBinding | null) => void;
   dispose: () => void;
   getStatusText: () => string;
 }
@@ -262,6 +274,7 @@ export const createCameraLabController = (
   let inputEnabled = true;
   let disposed = false;
   let ownedKeyboardCodes: ReadonlySet<string> = new Set();
+  let firstPersonPoseBinding: CameraFirstPersonPoseBinding | null = null;
 
   firstPersonCamera.keysUp = [87];
   firstPersonCamera.keysDown = [83];
@@ -275,8 +288,22 @@ export const createCameraLabController = (
   droneCamera.keysRight = [68];
   droneCamera.keysUpward = [69];
   droneCamera.keysDownward = [81];
+  const applyBoundFirstPersonPose = (): boolean => {
+    const pose = firstPersonPoseBinding?.readPose();
+    if (!pose) return false;
+    state.firstPersonPosition.copyFrom(pose.position);
+    state.yaw = pose.yaw;
+    state.pitch = clamp(pose.pitch, degToRad(-85), degToRad(85));
+    firstPersonCamera.position.copyFrom(pose.position);
+    firstPersonCamera.setTarget(pose.position.add(lookForwardFromYawPitch(state.yaw, state.pitch)));
+    firstPersonCamera.cameraDirection.setAll(0);
+    firstPersonCamera.cameraRotation.setAll(0);
+    return true;
+  };
+
   firstPersonCamera.onAfterCheckInputsObservable.add(() => {
-    // UniversalCamera 会按仰角带入垂直位移；第一人称模式保留既有的固定视点高度语义。
+    if (applyBoundFirstPersonPose()) return;
+    // 未绑定角色时继续保留原生漫游模式的固定视点高度语义。
     firstPersonCamera.position.y = state.firstPersonHeight;
   });
 
@@ -550,10 +577,12 @@ export const createCameraLabController = (
       const nativeCamera = state.mode === 'firstPerson' ? firstPersonCamera : droneCamera;
       if (attachedNativeCamera !== nativeCamera) detachActiveNativeCamera();
       const position = state.mode === 'firstPerson' ? state.firstPersonPosition : state.dronePosition;
-      if (state.mode === 'firstPerson') position.y = state.firstPersonHeight;
-      nativeCamera.position.copyFrom(position);
-      state.pitch = clamp(state.pitch, degToRad(-85), degToRad(85));
-      nativeCamera.setTarget(position.add(lookForwardFromYawPitch(state.yaw, state.pitch)));
+      if (state.mode !== 'firstPerson' || !applyBoundFirstPersonPose()) {
+        if (state.mode === 'firstPerson') position.y = state.firstPersonHeight;
+        nativeCamera.position.copyFrom(position);
+        state.pitch = clamp(state.pitch, degToRad(-85), degToRad(85));
+        nativeCamera.setTarget(position.add(lookForwardFromYawPitch(state.yaw, state.pitch)));
+      }
       attachNativeFreeCamera(nativeCamera, state.mode);
       applyProjection();
       return;
@@ -644,7 +673,7 @@ export const createCameraLabController = (
 
   const getEditablePositionAxes = (): CameraPositionAxis[] => {
     if (state.mode === 'drone') return ['x', 'y', 'z'];
-    if (state.mode === 'firstPerson') return ['x', 'z'];
+    if (state.mode === 'firstPerson') return firstPersonPoseBinding ? [] : ['x', 'z'];
     if (state.mode === 'lockPan') return (['x', 'y', 'z'] as CameraPositionAxis[])
       .filter((axis) => axis !== state.lockPlaneAxis);
     return [];
@@ -700,7 +729,9 @@ export const createCameraLabController = (
         `rotation: x=${formatNumber(radToDeg(nativeCamera.rotation.x))}°, y=${formatNumber(radToDeg(nativeCamera.rotation.y))}°`,
         `speed=${formatNumber(nativeCamera.speed)}, inertia=${formatNumber(nativeCamera.inertia)}, angularSensibility=${formatNumber(nativeCamera.angularSensibility)}`
       );
-      if (state.mode === 'firstPerson') commonLines.push(`项目高度约束: y=${formatNumber(state.firstPersonHeight)}`);
+      if (state.mode === 'firstPerson') commonLines.push(firstPersonPoseBinding
+        ? '姿态来源: 外部第一人称绑定'
+        : `项目高度约束: y=${formatNumber(state.firstPersonHeight)}`);
     } else commonLines.push(
       `自定义锁定平面: ${state.lockPlaneAxis.toUpperCase()}=${formatNumber(state.lockPlaneValue)}`,
       `speed=${formatNumber(state.moveSpeed)}, acceleration=${formatNumber(state.moveAcceleration)}, deceleration=${formatNumber(state.moveDeceleration)}`
@@ -739,6 +770,10 @@ export const createCameraLabController = (
     setOwnedKeyboardCodes: (codes) => {
       ownedKeyboardCodes = new Set(codes);
       applyOwnedKeyboardCodes();
+    },
+    bindFirstPersonPose: (binding) => {
+      firstPersonPoseBinding = binding;
+      if (state.mode === 'firstPerson') applyPose();
     },
     dispose: () => {
       if (disposed) return;

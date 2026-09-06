@@ -49,6 +49,18 @@ export type LabKeyboardRouteDecision = Readonly<{
   decision: 'handled' | 'ignored' | 'intercepted' | 'editing-blocked';
 }>;
 
+export type LabKeyboardLockSnapshot = Readonly<{
+  id: number;
+  ownerId: string;
+  label: string;
+  allowConsumers: readonly string[];
+}>;
+
+export interface LabKeyboardLockHandle {
+  readonly id: number;
+  release(): void;
+}
+
 export type LabKeyboardRouteRecord = Readonly<{
   sequence: number;
   timestamp: number;

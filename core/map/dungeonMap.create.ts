@@ -5,9 +5,9 @@ import type {
   DungeonMapPointEndpoint,
   DungeonMapSharedPointSides,
   DungeonMapTopologyMode,
-} from './dungeonMap.types';
-import type { IEntityContainer } from '../entity';
-import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology';
+} from './dungeonMap.types.ts';
+import type { IEntityContainer } from '../entity/entity.types.ts';
+import { dungeonMapWrapsX, dungeonMapWrapsY, wrapDungeonMapCoordinate } from './dungeonMap.topology.ts';
 
 export type DungeonMapTileFactoryContext = Readonly<{ x: number; y: number }>;
 export type DungeonMapTileEdgeFactoryContext = Readonly<{

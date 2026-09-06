@@ -17,7 +17,9 @@ export const playerSpawnLabModule: LabModule = {
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
     const panel = context.ui.addPanel('player-spawn', '玩家出生点');
-    const toggle = createLabSwitch('显示玩家出生格 Debug 盒');
+    const toggle = createLabSwitch('显示玩家出生格 Debug 盒', false, {
+      preference: { ui: context.ui, key: 'player-spawn/debug-box' },
+    });
     const json = createLabJson();
     panel.content.append(toggle.row, json);
     let current: LoadedDungeonReferences | null = null;
