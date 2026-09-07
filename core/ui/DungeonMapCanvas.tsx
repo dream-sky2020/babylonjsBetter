@@ -29,6 +29,14 @@ export type DungeonMapSelection = {
 
 export type DungeonMapSelectionMode = DungeonMapSelection['mode'] | 'all';
 
+type DungeonMapDragBox = {
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+  operation: 'select' | 'deselect';
+};
+
 const selectionIdentity = (selection: DungeonMapSelection): string => {
   if (selection.mode === 'shared' && selection.sharedEdgeId) return `shared:${selection.sharedEdgeId}`;
   if (selection.mode === 'point' && selection.sharedPointId) return `point:${selection.sharedPointId}`;
@@ -261,17 +269,13 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   style,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dragOverlayRef = useRef<HTMLDivElement>(null);
   const suppressClickRef = useRef(false);
   const suppressContextMenuRef = useRef(false);
   const imagesRef = useRef<Record<string, HTMLImageElement>>({});
+  const dragBoxRef = useRef<DungeonMapDragBox>();
+  const dragFrameRef = useRef<number>();
   const [imageRevision, setImageRevision] = useState(0);
-  const [dragBox, setDragBox] = useState<{
-    startX: number;
-    startY: number;
-    endX: number;
-    endY: number;
-    operation: 'select' | 'deselect';
-  }>();
   const cell = Math.max(8, cellSize);
   const sharedThickness = Math.max(0, cell * sharedEdgeThicknessRatio);
   const edgeThickness = Math.min(cell / 2, Math.max(0, cell * edgeThicknessRatio));
@@ -290,6 +294,42 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   const height = Math.max(naturalHeight, Math.max(0, minCanvasHeight));
   const originX = topologyMargin + canvasPadding + (width - naturalWidth) / 2;
   const originY = topologyMargin + canvasPadding + (height - naturalHeight) / 2;
+  const updateDragOverlay = useCallback(() => {
+    const overlay = dragOverlayRef.current;
+    if (!overlay) return;
+    const dragBox = dragBoxRef.current;
+    if (!dragBox) {
+      overlay.style.display = 'none';
+      return;
+    }
+    const left = Math.min(dragBox.startX, dragBox.endX);
+    const top = Math.min(dragBox.startY, dragBox.endY);
+    const boxWidth = Math.abs(dragBox.endX - dragBox.startX);
+    const boxHeight = Math.abs(dragBox.endY - dragBox.startY);
+    const isDeselecting = dragBox.operation === 'deselect';
+    overlay.style.display = 'block';
+    overlay.style.left = `${(left / width) * 100}%`;
+    overlay.style.top = `${(top / height) * 100}%`;
+    overlay.style.width = `${(boxWidth / width) * 100}%`;
+    overlay.style.height = `${(boxHeight / height) * 100}%`;
+    overlay.style.background = isDeselecting ? 'rgba(255, 107, 122, .12)' : 'rgba(77, 208, 225, .12)';
+    overlay.style.borderColor = isDeselecting ? '#ff6b7a' : '#4dd0e1';
+  }, [height, width]);
+  const scheduleDragOverlay = useCallback(() => {
+    if (dragFrameRef.current !== undefined) return;
+    dragFrameRef.current = window.requestAnimationFrame(() => {
+      dragFrameRef.current = undefined;
+      updateDragOverlay();
+    });
+  }, [updateDragOverlay]);
+  const clearDragBox = useCallback(() => {
+    dragBoxRef.current = undefined;
+    if (dragFrameRef.current !== undefined) {
+      window.cancelAnimationFrame(dragFrameRef.current);
+      dragFrameRef.current = undefined;
+    }
+    updateDragOverlay();
+  }, [updateDragOverlay]);
   const getSharedEdgeVisualSides = useCallback((edge: NonNullable<DungeonMapData['sharedEdges']>[number]) => {
     const seen = new Set<string>();
     return edge.sides.filter((side) => {
@@ -318,6 +358,16 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       active = false;
     };
   }, [patterns]);
+
+  useEffect(() => {
+    updateDragOverlay();
+    return () => {
+      if (dragFrameRef.current !== undefined) {
+        window.cancelAnimationFrame(dragFrameRef.current);
+        dragFrameRef.current = undefined;
+      }
+    };
+  }, [updateDragOverlay]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -462,26 +512,10 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     // fallback for consumers that have not migrated to the list API yet.
     const drawableSelections = selections ?? (selection ? [selection] : []);
     drawableSelections.forEach((item) => drawResolvedSelection(item));
-    if (dragBox) {
-      const left = Math.min(dragBox.startX, dragBox.endX);
-      const top = Math.min(dragBox.startY, dragBox.endY);
-      const boxWidth = Math.abs(dragBox.endX - dragBox.startX);
-      const boxHeight = Math.abs(dragBox.endY - dragBox.startY);
-      context.save();
-      const isDeselecting = dragBox.operation === 'deselect';
-      context.fillStyle = isDeselecting ? 'rgba(255, 107, 122, .12)' : 'rgba(77, 208, 225, .12)';
-      context.strokeStyle = isDeselecting ? '#ff6b7a' : '#4dd0e1';
-      context.lineWidth = 1.5;
-      context.setLineDash([5, 3]);
-      context.fillRect(left, top, boxWidth, boxHeight);
-      context.strokeRect(left, top, boxWidth, boxHeight);
-      context.restore();
-    }
   }, [
     map,
     selection,
     selections,
-    dragBox,
     cell,
     width,
     height,
@@ -499,7 +533,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     getSharedEdgeVisualSides,
   ]);
 
-  const canvasPoint = (event: React.PointerEvent<HTMLCanvasElement> | React.MouseEvent<HTMLCanvasElement>) => {
+  const canvasPoint = (event: React.PointerEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
     const bounds = event.currentTarget.getBoundingClientRect();
     return {
       x: ((event.clientX - bounds.left) / bounds.width) * width,
@@ -507,7 +541,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     };
   };
 
-  const selectionsInBox = (box: NonNullable<typeof dragBox>) => {
+  const selectionsInBox = (box: DungeonMapDragBox) => {
     const left = Math.min(box.startX, box.endX);
     const right = Math.max(box.startX, box.endX);
     const top = Math.min(box.startY, box.endY);
@@ -625,9 +659,40 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   };
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
       className={className}
+      style={{
+        display: 'block',
+        width: width * displayScale,
+        height: height * displayScale,
+        maxWidth: 'none',
+        flex: 'none',
+        ...style,
+        position: style?.position && style.position !== 'static' ? style.position : 'relative',
+      }}
+    >
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        style={{
+          display: 'block',
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        ref={dragOverlayRef}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          display: 'none',
+          boxSizing: 'border-box',
+          border: '1.5px dashed',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
       onPointerDown={(event) => {
         if (event.button !== 0 && event.button !== 2) return;
         // A drag does not consistently emit a trailing click in every browser.
@@ -635,26 +700,31 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
         suppressClickRef.current = false;
         const point = canvasPoint(event);
         event.currentTarget.setPointerCapture(event.pointerId);
-        setDragBox({
+        dragBoxRef.current = {
           startX: point.x,
           startY: point.y,
           endX: point.x,
           endY: point.y,
           operation: event.button === 2 ? 'deselect' : 'select',
-        });
+        };
+        scheduleDragOverlay();
       }}
       onPointerMove={(event) => {
+        const dragBox = dragBoxRef.current;
         if (!dragBox || !event.currentTarget.hasPointerCapture(event.pointerId)) return;
         const point = canvasPoint(event);
-        setDragBox((current) => current ? { ...current, endX: point.x, endY: point.y } : current);
+        dragBox.endX = point.x;
+        dragBox.endY = point.y;
+        scheduleDragOverlay();
       }}
-      onPointerCancel={() => setDragBox(undefined)}
+      onPointerCancel={clearDragBox}
       onPointerUp={(event) => {
+        const dragBox = dragBoxRef.current;
         if (!dragBox) return;
         const point = canvasPoint(event);
         const finished = { ...dragBox, endX: point.x, endY: point.y };
         const distance = Math.hypot(finished.endX - finished.startX, finished.endY - finished.startY);
-        setDragBox(undefined);
+        clearDragBox();
         if (finished.operation === 'deselect') {
           suppressContextMenuRef.current = true;
           window.setTimeout(() => {
@@ -684,7 +754,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       }}
       onContextMenu={(event) => {
         event.preventDefault();
-        if (suppressContextMenuRef.current || dragBox?.operation === 'deselect') return;
+        if (suppressContextMenuRef.current || dragBoxRef.current?.operation === 'deselect') return;
         const point = canvasPoint(event);
         deselectAtPoint(point.x, point.y);
       }}
@@ -809,12 +879,14 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
         onTileClick?.(x, y, map.tiles[y * map.width + x]);
       }}
       style={{
+        position: 'absolute',
+        inset: 0,
         display: 'block',
-        width: width * displayScale,
-        height: height * displayScale,
-        maxWidth: 'none',
-        ...style,
+        width: '100%',
+        height: '100%',
+        touchAction: 'none',
       }}
-    />
+      />
+    </div>
   );
 };
