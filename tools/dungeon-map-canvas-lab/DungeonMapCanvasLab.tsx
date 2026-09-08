@@ -53,6 +53,10 @@ import { requestDevServer } from '@/core/network/devServerPortResolver';
 import { readBundledResourceAssetPaths } from '@/core/resources';
 import './dungeon-map-canvas-lab.css';
 
+const ENTITY_TYPE_COLORS = Object.fromEntries(
+  ENTITY_TYPE_DEFINITIONS.map((definition) => [definition.type, definition.labAppearance.color]),
+) as Readonly<Record<string, string>>;
+
 const PATTERN_MODULES = Object.fromEntries(
   readBundledResourceAssetPaths()
     .filter((path) => path.startsWith('/resources/dungeon-map/') && path.toLowerCase().endsWith('.svg'))
@@ -1799,6 +1803,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
               showGrid={showGrid}
               showCoordinates={showCoordinates}
               patterns={patterns}
+              entityTypeColors={ENTITY_TYPE_COLORS}
               edgeThicknessRatio={edgeThicknessRatio}
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
@@ -1809,6 +1814,18 @@ export const DungeonMapCanvasLab: React.FC = () => {
               }}
               keyboardEnabled={false}
             />
+          </div>
+          <div className="map-frame__footer entity-color-legend" aria-label="Entity 类型颜色图例">
+            <span className="entity-color-legend__title">Entity 数据</span>
+            {ENTITY_TYPE_DEFINITIONS.map((definition) => (
+              <span className="entity-color-legend__item" key={definition.type} title={definition.type}>
+                <i style={{ background: definition.labAppearance.color }} />
+                {definition.label}
+              </span>
+            ))}
+            <span className="entity-color-legend__item" title="没有注册 Entity 类型或尚未迁移的数据">
+              <i style={{ background: '#94a3b8' }} />未注册数据
+            </span>
           </div>
         </div>
       </main>

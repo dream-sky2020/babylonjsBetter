@@ -19,6 +19,7 @@
     "test:lab-services": "node --experimental-strip-types --test tools/lab-kit/labServiceRegistry.test.ts",
     "test:lab-state": "node --experimental-strip-types --test tools/lab-kit/lab-state/LabState.test.ts",
     "test:lab-keyboard": "node --experimental-strip-types --test tools/lab-kit/keyboard/LabKeyboardRouter.test.ts",
+    "test:dungeon-map-svg-tint": "node --experimental-strip-types --test core/ui/dungeon-map-svg-tint/DungeonMapSvgTintCache.test.ts",
     "test:dungeon-libraries-references": "node --experimental-strip-types --test tools/lab-modules/dungeon/dungeon-libraries/dungeonLibraries.references.test.ts",
     "test:dungeon-map-loader-references": "node --experimental-strip-types --test tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.references.test.ts",
     "test:dungeon-map-loader-delta": "node --experimental-strip-types --test tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.deltaStore.test.ts",

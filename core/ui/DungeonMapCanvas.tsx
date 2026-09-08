@@ -4,6 +4,11 @@ import type {
   DungeonMapDirection,
   DungeonMapTileContainer,
 } from '@/core/map';
+import {
+  DungeonMapSvgTintCache,
+  resolveDungeonMapEntityAppearance,
+  type DungeonMapEntityTypeColors,
+} from './dungeon-map-svg-tint';
 
 export type DungeonMapPatterns = {
   wall?: string;
@@ -53,6 +58,8 @@ export type DungeonMapCanvasProps = {
   showGrid?: boolean;
   showCoordinates?: boolean;
   patterns?: DungeonMapPatterns;
+  /** Entity Type Registry 提供的 Lab 主色；存在时启用数据着色。 */
+  entityTypeColors?: DungeonMapEntityTypeColors;
   edgeThicknessRatio?: number;
   sharedEdgeThicknessRatio?: number;
   selectionMode?: DungeonMapSelectionMode;
@@ -91,7 +98,11 @@ const patternKey = {
 const hasData = (value: unknown) =>
   value != null &&
   (!Array.isArray(value) || value.length > 0) &&
-  (typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length > 0);
+  (typeof value !== 'object' || Array.isArray(value) || (
+    Array.isArray((value as { entities?: unknown }).entities)
+      ? (value as { entities: unknown[] }).entities.length > 0
+      : Object.keys(value).length > 0
+  ));
 
 const loadImage = (source: string) =>
   new Promise<HTMLImageElement>((resolve, reject) => {
@@ -257,6 +268,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   showGrid = true,
   showCoordinates = false,
   patterns,
+  entityTypeColors,
   edgeThicknessRatio = 0.12,
   sharedEdgeThicknessRatio = 0.24,
   selectionMode = 'tile',
@@ -276,6 +288,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   const dragBoxRef = useRef<DungeonMapDragBox>();
   const dragFrameRef = useRef<number>();
   const [imageRevision, setImageRevision] = useState(0);
+  const [tintCache] = useState(() => new DungeonMapSvgTintCache());
   const cell = Math.max(8, cellSize);
   const sharedThickness = Math.max(0, cell * sharedEdgeThicknessRatio);
   const edgeThickness = Math.min(cell / 2, Math.max(0, cell * edgeThicknessRatio));
@@ -360,6 +373,33 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   }, [patterns]);
 
   useEffect(() => {
+    if (!entityTypeColors) return;
+    let active = true;
+    const requests = new Map<string, Promise<HTMLImageElement>>();
+    const requestTint = (data: unknown, source: string | undefined) => {
+      if (!source) return;
+      const appearance = resolveDungeonMapEntityAppearance(data, entityTypeColors);
+      if (!appearance) return;
+      const key = `${source}|${appearance.mixedColor}`;
+      if (!requests.has(key)) requests.set(key, tintCache.load(source, appearance.mixedColor));
+    };
+    map.tiles.forEach((tile) => {
+      requestTint(tile.data, patterns?.floor);
+      directions.forEach((direction) => requestTint(tile.edges[direction].data, patterns?.[patternKey[direction]]));
+    });
+    map.sharedEdges?.forEach((edge) => requestTint(edge.edge.data, patterns?.sharedEdge));
+    map.sharedPoints?.forEach((point) => requestTint(point.point.data, patterns?.sharedPoint));
+    void Promise.allSettled(requests.values()).then(() => {
+      if (active && requests.size > 0) setImageRevision((value) => value + 1);
+    });
+    return () => {
+      active = false;
+    };
+  }, [entityTypeColors, map, patterns, tintCache]);
+
+  useEffect(() => () => tintCache.clear(), [tintCache]);
+
+  useEffect(() => {
     updateDragOverlay();
     return () => {
       if (dragFrameRef.current !== undefined) {
@@ -380,16 +420,40 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
     context.fillStyle = '#07100d';
     context.fillRect(0, 0, width, height);
+    const resolveAppearance = (data: unknown) => entityTypeColors
+      ? resolveDungeonMapEntityAppearance(data, entityTypeColors)
+      : undefined;
+    const resolveImage = (
+      data: unknown,
+      source: string | undefined,
+      fallback: HTMLImageElement | undefined,
+    ) => {
+      const appearance = resolveAppearance(data);
+      return appearance && source ? tintCache.get(source, appearance.mixedColor) ?? fallback : fallback;
+    };
 
     for (let y = 0; y < map.height; y += 1) {
       for (let x = 0; x < map.width; x += 1) {
         const tile = map.tiles[y * map.width + x];
         const left = originX + x * pitch;
         const top = originY + y * pitch;
+        const appearance = resolveAppearance(tile?.data);
         context.fillStyle = hasData(tile?.data) ? '#294c3f' : '#0b1713';
         context.fillRect(left, top, cell, cell);
         if (hasData(tile?.data) && imagesRef.current.floor) {
-          context.drawImage(imagesRef.current.floor, left, top, cell, cell);
+          context.drawImage(
+            resolveImage(tile.data, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
+            left,
+            top,
+            cell,
+            cell,
+          );
+        } else if (appearance) {
+          context.save();
+          context.globalAlpha = 0.42;
+          context.fillStyle = appearance.mixedColor;
+          context.fillRect(left, top, cell, cell);
+          context.restore();
         }
         if (showGrid) {
           context.strokeStyle = '#35584b';
@@ -410,7 +474,10 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
             !tile ||
             !hasData(tile.edges[direction].data)
           ) return;
-          const image = imagesRef.current[patternKey[direction]];
+          const data = tile.edges[direction].data;
+          const appearance = resolveAppearance(data);
+          const source = patterns?.[patternKey[direction]];
+          const image = resolveImage(data, source, imagesRef.current[patternKey[direction]]);
           context.save();
           context.translate(originX + x * pitch + cell / 2, originY + y * pitch + cell / 2);
           context.rotate(directionAngle[direction] + Math.PI / 2);
@@ -425,7 +492,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
               edgeThickness,
             );
           } else {
-            context.fillStyle = '#8fb9a8';
+            context.fillStyle = appearance?.mixedColor ?? '#8fb9a8';
             context.fillRect(-cell / 2, -cell / 2, cell, edgeThickness);
           }
           context.restore();
@@ -435,7 +502,8 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
 
     if (hasSharedLayer) (map.sharedEdges ?? []).forEach((edge) => {
       if (!hasData(edge.edge.data)) return;
-      const image = imagesRef.current.sharedEdge;
+      const appearance = resolveAppearance(edge.edge.data);
+      const image = resolveImage(edge.edge.data, patterns?.sharedEdge, imagesRef.current.sharedEdge);
       const length = cell + gap;
       getSharedEdgeVisualSides(edge).forEach((side) => {
         context.save();
@@ -445,7 +513,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
         if (image) {
           drawThreeSlice(context, image, -length / 2, y, length, sharedThickness, sharedThickness / 2);
         } else {
-          context.fillStyle = '#7ee8bb';
+          context.fillStyle = appearance?.mixedColor ?? '#7ee8bb';
           context.fillRect(-length / 2, y, length, sharedThickness);
         }
         context.restore();
@@ -454,14 +522,15 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
 
     if (hasSharedLayer) (map.sharedPoints ?? []).forEach((sharedPoint) => {
       if (!hasData(sharedPoint.point.data)) return;
-      const image = imagesRef.current.sharedPoint;
+      const appearance = resolveAppearance(sharedPoint.point.data);
+      const image = resolveImage(sharedPoint.point.data, patterns?.sharedPoint, imagesRef.current.sharedPoint);
       sharedPoint.positions.forEach((position) => {
         const centerX = originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch);
         const centerY = originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch);
         if (image) {
           context.drawImage(image, centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
         } else {
-          context.fillStyle = '#9af2cd';
+          context.fillStyle = appearance?.mixedColor ?? '#9af2cd';
           context.fillRect(centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
         }
       });
@@ -531,6 +600,9 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     showCoordinates,
     imageRevision,
     getSharedEdgeVisualSides,
+    entityTypeColors,
+    patterns,
+    tintCache,
   ]);
 
   const canvasPoint = (event: React.PointerEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {

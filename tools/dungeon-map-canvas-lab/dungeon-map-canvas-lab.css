@@ -261,13 +261,17 @@ h1 { margin: 0; font-size: 23px; }
 .edge-mode-switch button.is-active { color: #dffff0; background: #1b4938; box-shadow: inset 0 0 0 1px rgba(110, 231, 183, .18); }
 .event-log div { padding: 5px 0; border-top: 1px solid rgba(110, 231, 183, .08); color: #96b7aa; font: 11px/1.35 monospace; }
 .dungeon-lab__stage { min-width: 0; width: 100%; height: 100vh; height: 100dvh; overflow: hidden; }
-.map-frame { width: 100%; height: 100%; min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); background: rgba(4, 13, 10, .72); overflow: hidden; }
+.map-frame { width: 100%; height: 100%; min-width: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: rgba(4, 13, 10, .72); overflow: hidden; }
 .map-frame__header, .map-frame__footer { display: flex; align-items: center; gap: 8px; padding: 11px 14px; color: #82a99a; font-size: 11px; letter-spacing: .08em; }
 .map-frame__header { min-height: 48px; justify-content: space-between; border-bottom: 1px solid rgba(143, 255, 193, .14); }
 .map-zoom { display: inline-grid; grid-template-columns: 28px 54px 28px; gap: 3px; }
 .map-zoom button { min-width: 0; padding: 4px; border-radius: 6px; font-size: 11px; }
 .map-zoom .map-zoom__value { color: #8fffc1; background: rgba(52, 211, 153, .08); }
 .map-frame__footer { border-top: 1px solid rgba(143, 255, 193, .14); }
+.entity-color-legend { flex-wrap: wrap; row-gap: 6px; letter-spacing: 0; }
+.entity-color-legend__title { margin-right: 4px; color: #b8d8cc; font-weight: 700; }
+.entity-color-legend__item { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.entity-color-legend__item i { width: 9px; height: 9px; border: 1px solid rgba(255, 255, 255, .38); border-radius: 2px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .32); }
 .map-scroll { min-width: 0; min-height: 0; padding: 0; overflow: auto; display: grid; place-items: safe center; }
 .map-scroll canvas { flex: none; }
 .map-scroll canvas:focus { outline: 2px solid #6ee7b7 !important; outline-offset: 2px; }

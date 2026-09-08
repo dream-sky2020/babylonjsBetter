@@ -48,10 +48,17 @@ export type BatchOperationPolicy = {
   delete?: boolean;
 };
 
+/** 供 Lab、Debug 视图和编辑器统一识别 Entity 类型的声明式外观。 */
+export type EntityTypeLabAppearance = {
+  /** 六位十六进制主色；不参与正式游戏渲染语义。 */
+  color: `#${string}`;
+};
+
 export type EntityTypeDefinition = {
   type: string;
   label: string;
   description?: string;
+  labAppearance: EntityTypeLabAppearance;
   allowedContainers: readonly EntityContainerKind[];
   batch?: BatchOperationPolicy;
   defaultComponents?: readonly string[];
