@@ -33,6 +33,7 @@ export type DungeonMapSelection = {
 };
 
 export type DungeonMapSelectionMode = DungeonMapSelection['mode'] | 'all';
+export type DungeonMapPatternRendering = 'canvas' | 'svg';
 
 type DungeonMapDragBox = {
   startX: number;
@@ -58,6 +59,8 @@ export type DungeonMapCanvasProps = {
   showGrid?: boolean;
   showCoordinates?: boolean;
   patterns?: DungeonMapPatterns;
+  /** `canvas` 使用程序化几何；`svg` 使用并按 Entity 数据染色素材。 */
+  patternRendering?: DungeonMapPatternRendering;
   /** Entity Type Registry 提供的 Lab 主色；存在时启用数据着色。 */
   entityTypeColors?: DungeonMapEntityTypeColors;
   edgeThicknessRatio?: number;
@@ -183,6 +186,27 @@ const drawThreeSlice = (
   );
 };
 
+/**
+ * 描出位于单格北侧的梯形边。调用方只需先按方向旋转画布。
+ * 四个方向复用同一组尺寸，因此相邻梯形会共享完全一致的角点。
+ */
+const traceTileEdgeTrapezoid = (
+  context: CanvasRenderingContext2D,
+  cell: number,
+  edgeThickness: number,
+) => {
+  const half = cell / 2;
+  const depth = Math.min(half, Math.max(0, edgeThickness));
+  const outerY = -half;
+  const innerY = outerY + depth;
+  context.beginPath();
+  context.moveTo(-half, outerY);
+  context.lineTo(half, outerY);
+  context.lineTo(half - depth, innerY);
+  context.lineTo(-half + depth, innerY);
+  context.closePath();
+};
+
 const drawSelection = (
   context: CanvasRenderingContext2D,
   selection: DungeonMapSelection,
@@ -234,16 +258,7 @@ const drawSelection = (
   context.rotate(directionAngle[selection.direction ?? 'north'] + Math.PI / 2);
 
   if (selection.mode === 'edge') {
-    // Four copies of this exact 45-degree trapezoid surround a hollow square.
-    const depth = Math.min(cell / 2, Math.max(0, edgeThickness));
-    const outerY = -cell / 2;
-    const innerY = outerY + depth;
-    context.beginPath();
-    context.moveTo(-cell / 2, outerY);
-    context.lineTo(cell / 2, outerY);
-    context.lineTo(cell / 2 - depth, innerY);
-    context.lineTo(-cell / 2 + depth, innerY);
-    context.closePath();
+    traceTileEdgeTrapezoid(context, cell, edgeThickness);
     context.fill();
     context.stroke();
   } else {
@@ -268,6 +283,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   showGrid = true,
   showCoordinates = false,
   patterns,
+  patternRendering = 'canvas',
   entityTypeColors,
   edgeThicknessRatio = 0.12,
   sharedEdgeThicknessRatio = 0.24,
@@ -357,6 +373,10 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   }, [cell, gap, originX, originY, pitch]);
 
   useEffect(() => {
+    if (patternRendering !== 'svg') {
+      imagesRef.current = {};
+      return;
+    }
     let active = true;
     imagesRef.current = {};
     Object.entries(patterns ?? {}).forEach(([key, source]) => {
@@ -370,10 +390,10 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     return () => {
       active = false;
     };
-  }, [patterns]);
+  }, [patternRendering, patterns]);
 
   useEffect(() => {
-    if (!entityTypeColors) return;
+    if (patternRendering !== 'svg' || !entityTypeColors) return;
     let active = true;
     const requests = new Map<string, Promise<HTMLImageElement>>();
     const requestTint = (data: unknown, source: string | undefined) => {
@@ -395,7 +415,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     return () => {
       active = false;
     };
-  }, [entityTypeColors, map, patterns, tintCache]);
+  }, [entityTypeColors, map, patternRendering, patterns, tintCache]);
 
   useEffect(() => () => tintCache.clear(), [tintCache]);
 
@@ -428,6 +448,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       source: string | undefined,
       fallback: HTMLImageElement | undefined,
     ) => {
+      if (patternRendering !== 'svg') return undefined;
       const appearance = resolveAppearance(data);
       return appearance && source ? tintCache.get(source, appearance.mixedColor) ?? fallback : fallback;
     };
@@ -440,7 +461,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
         const appearance = resolveAppearance(tile?.data);
         context.fillStyle = hasData(tile?.data) ? '#294c3f' : '#0b1713';
         context.fillRect(left, top, cell, cell);
-        if (hasData(tile?.data) && imagesRef.current.floor) {
+        if (patternRendering === 'svg' && hasData(tile?.data) && imagesRef.current.floor) {
           context.drawImage(
             resolveImage(tile.data, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
             left,
@@ -481,7 +502,9 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
           context.save();
           context.translate(originX + x * pitch + cell / 2, originY + y * pitch + cell / 2);
           context.rotate(directionAngle[direction] + Math.PI / 2);
+          traceTileEdgeTrapezoid(context, cell, edgeThickness);
           if (image) {
+            context.clip();
             drawThreeSlice(
               context,
               image,
@@ -493,7 +516,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
             );
           } else {
             context.fillStyle = appearance?.mixedColor ?? '#8fb9a8';
-            context.fillRect(-cell / 2, -cell / 2, cell, edgeThickness);
+            context.fill();
           }
           context.restore();
         });
@@ -602,6 +625,7 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     getSharedEdgeVisualSides,
     entityTypeColors,
     patterns,
+    patternRendering,
     tintCache,
   ]);
 

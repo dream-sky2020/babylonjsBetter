@@ -48,7 +48,12 @@ import {
   entityTypeDefinitions as ENTITY_TYPE_DEFINITIONS,
   entityTypeRegistry as ENTITY_TYPE_REGISTRY,
 } from '@/tools/entity-container-editor';
-import { DungeonMapCanvas, type DungeonMapSelection, type DungeonMapSelectionMode } from '@/core/ui/DungeonMapCanvas';
+import {
+  DungeonMapCanvas,
+  type DungeonMapPatternRendering,
+  type DungeonMapSelection,
+  type DungeonMapSelectionMode,
+} from '@/core/ui/DungeonMapCanvas';
 import { requestDevServer } from '@/core/network/devServerPortResolver';
 import { readBundledResourceAssetPaths } from '@/core/resources';
 import './dungeon-map-canvas-lab.css';
@@ -344,6 +349,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const suites = useMemo(() => patternSuites(), []);
   const minimalSuite = suites.find((suite) => suite.name === '极简');
   const [selectedSuite, setSelectedSuite] = useState(minimalSuite?.name ?? '');
+  const [patternRendering, setPatternRendering] = useState<DungeonMapPatternRendering>('canvas');
   const [patterns, setPatterns] = useState(() => ({
     wall: minimalSuite?.wall ?? patternOptions('walls')[0]?.url ?? '', floor: minimalSuite?.floor ?? patternOptions('tiles')[0]?.url ?? '',
     player: patternOptions('characters')[0]?.url ?? '', event: patternOptions('events')[0]?.url ?? '',
@@ -1713,6 +1719,14 @@ export const DungeonMapCanvasLab: React.FC = () => {
         <section className="control-card pattern-controls">
           <div className="pattern-controls__header"><button type="button" className="panel-collapse-button" aria-expanded={!collapsedPanelIds.has('patterns')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'patterns')}><span className="panel-collapse-button__icon">{collapsedPanelIds.has('patterns') ? '▸' : '▾'}</span><span className="panel-collapse-button__text"><strong>地图图案</strong><small>资源自动扫描自 public</small></span></button><span>{Object.keys(PATTERN_MODULES).length} 个</span></div>
           {!collapsedPanelIds.has('patterns') ? <div className="collapsible-panel-body">
+          <div className="pattern-rendering-control">
+            <span>地图渲染方式</span>
+            <div className="edge-mode-switch" role="group" aria-label="地图渲染方式">
+              <button type="button" className={patternRendering === 'canvas' ? 'is-active' : ''} onClick={() => setPatternRendering('canvas')}>Canvas 简洁模式</button>
+              <button type="button" className={patternRendering === 'svg' ? 'is-active' : ''} onClick={() => setPatternRendering('svg')}>SVG 素材模式</button>
+            </div>
+            <small>{patternRendering === 'canvas' ? '不加载 SVG，使用程序化格子、边和点' : '加载当前素材套装，并按业务 Entity 数据染色'}</small>
+          </div>
           <label className="pattern-field"><span>成套主题</span><span className="pattern-select pattern-select--without-preview">
             <select value={selectedSuite} onChange={(event) => {
               const name = event.target.value;
@@ -1803,6 +1817,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
               showGrid={showGrid}
               showCoordinates={showCoordinates}
               patterns={patterns}
+              patternRendering={patternRendering}
               entityTypeColors={ENTITY_TYPE_COLORS}
               edgeThicknessRatio={edgeThicknessRatio}
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
