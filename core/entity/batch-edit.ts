@@ -1,4 +1,4 @@
-import { canAttachComponentDefinitionToEntityType } from './component.registry';
+import { canAttachComponentDefinitionToEntityType } from './component.registry.ts';
 import type {
   BatchEditScope,
   ComponentDefinition,
@@ -8,7 +8,7 @@ import type {
   IComponent,
   IEntity,
   IEntityContainer,
-} from './entity.types';
+} from './entity.types.ts';
 
 export type BatchOperation = 'create' | 'edit' | 'delete';
 
@@ -182,6 +182,9 @@ export const listBatchComponentDefinitions = (
   operation: BatchOperation,
 ): ComponentDefinition[] => {
   const entityTypes = targets.map((target) => target.entity.entityType);
+  const editableGroups = operation === 'edit'
+    ? resolveBatchComponentGroups(targets).filter((group) => group.compatible)
+    : [];
   return definitions.filter((definition) => {
     const policy = definition.batch;
     if (!policy?.[operation] || !supportsScope(policy.scope, entityTypes)) return false;
@@ -193,7 +196,7 @@ export const listBatchComponentDefinitions = (
       return definition.allowMultiple === true || instances.every((items) => items.length === 0);
     }
     if (operation === 'edit') {
-      return resolveBatchComponentGroups(targets).some((group) => (
+      return editableGroups.some((group) => (
         group.componentType === definition.type && group.compatible
       ));
     }

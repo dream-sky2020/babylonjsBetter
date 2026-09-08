@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type {
   DungeonMapData,
   DungeonMapDirection,
@@ -273,7 +273,7 @@ const drawSelection = (
   context.restore();
 };
 
-export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
+const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
   map,
   cellSize = 42,
   displayScale = 1,
@@ -296,7 +296,8 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   className,
   style,
 }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mapCanvasRef = useRef<HTMLCanvasElement>(null);
+  const selectionCanvasRef = useRef<HTMLCanvasElement>(null);
   const dragOverlayRef = useRef<HTMLDivElement>(null);
   const suppressClickRef = useRef(false);
   const suppressContextMenuRef = useRef(false);
@@ -305,6 +306,12 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   const dragFrameRef = useRef<number>();
   const [imageRevision, setImageRevision] = useState(0);
   const [tintCache] = useState(() => new DungeonMapSvgTintCache());
+  const sharedEdgeById = useMemo(() => new Map(
+    (map.sharedEdges ?? []).map((edge) => [edge.id, edge]),
+  ), [map.sharedEdges]);
+  const sharedPointById = useMemo(() => new Map(
+    (map.sharedPoints ?? []).map((point) => [point.id, point]),
+  ), [map.sharedPoints]);
   const cell = Math.max(8, cellSize);
   const sharedThickness = Math.max(0, cell * sharedEdgeThicknessRatio);
   const edgeThickness = Math.min(cell / 2, Math.max(0, cell * edgeThicknessRatio));
@@ -430,11 +437,13 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
   }, [updateDragOverlay]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = mapCanvasRef.current;
     if (!canvas) return;
     const ratio = Math.max(1, devicePixelRatio || 1);
-    canvas.width = width * ratio;
-    canvas.height = height * ratio;
+    const pixelWidth = Math.ceil(width * ratio);
+    const pixelHeight = Math.ceil(height * ratio);
+    if (canvas.width !== pixelWidth) canvas.width = pixelWidth;
+    if (canvas.height !== pixelHeight) canvas.height = pixelHeight;
     const context = canvas.getContext('2d');
     if (!context) return;
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -559,55 +568,8 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       });
     });
 
-    const drawResolvedSelection = (item: DungeonMapSelection) => {
-      let drawableSelection = !hasSharedLayer && (item.mode === 'shared' || item.mode === 'point') ? undefined : item;
-      if (hasSharedLayer && item.mode === 'shared') {
-      const selectedSharedEdge = map.sharedEdges?.find((edge) => edge.id === item.sharedEdgeId);
-      if (selectedSharedEdge) getSharedEdgeVisualSides(selectedSharedEdge).forEach((side) => {
-        drawSelection(context, {
-          mode: 'shared', x: side.x, y: side.y, direction: side.direction,
-          sharedEdgeId: selectedSharedEdge?.id,
-        }, cell, gap, pitch, edgeThickness, sharedThickness, pointSize, originX, originY, map.width, map.height);
-      });
-      drawableSelection = undefined;
-      } else if (hasSharedLayer && item.mode === 'point') {
-      const selectedSharedPoint = map.sharedPoints?.find(
-        (point) => point.id === item.sharedPointId,
-      );
-      selectedSharedPoint?.positions.forEach((position) => {
-        drawSelection(context, {
-          mode: 'point', x: position.gridX, y: position.gridY,
-          sharedPointId: selectedSharedPoint.id,
-        }, cell, gap, pitch, edgeThickness, sharedThickness, pointSize, originX, originY, map.width, map.height);
-      });
-      drawableSelection = undefined;
-    }
-    if (drawableSelection) {
-      drawSelection(
-        context,
-        drawableSelection,
-        cell,
-        gap,
-        pitch,
-        edgeThickness,
-        sharedThickness,
-        pointSize,
-        originX,
-        originY,
-        map.width,
-        map.height,
-      );
-      }
-    };
-    // One list represents both states: one item is a single selection, while
-    // multiple items are a box selection. `selection` remains only as a legacy
-    // fallback for consumers that have not migrated to the list API yet.
-    const drawableSelections = selections ?? (selection ? [selection] : []);
-    drawableSelections.forEach((item) => drawResolvedSelection(item));
   }, [
     map,
-    selection,
-    selections,
     cell,
     width,
     height,
@@ -627,6 +589,83 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     patterns,
     patternRendering,
     tintCache,
+  ]);
+
+  useEffect(() => {
+    const canvas = selectionCanvasRef.current;
+    if (!canvas) return;
+    const ratio = Math.max(1, devicePixelRatio || 1);
+    const pixelWidth = Math.ceil(width * ratio);
+    const pixelHeight = Math.ceil(height * ratio);
+    if (canvas.width !== pixelWidth) canvas.width = pixelWidth;
+    if (canvas.height !== pixelHeight) canvas.height = pixelHeight;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    context.clearRect(0, 0, width, height);
+
+    const drawResolvedSelection = (item: DungeonMapSelection) => {
+      let drawableSelection = !hasSharedLayer && (item.mode === 'shared' || item.mode === 'point') ? undefined : item;
+      if (hasSharedLayer && item.mode === 'shared') {
+        const selectedSharedEdge = item.sharedEdgeId ? sharedEdgeById.get(item.sharedEdgeId) : undefined;
+        if (selectedSharedEdge) getSharedEdgeVisualSides(selectedSharedEdge).forEach((side) => {
+          drawSelection(context, {
+            mode: 'shared', x: side.x, y: side.y, direction: side.direction,
+            sharedEdgeId: selectedSharedEdge.id,
+          }, cell, gap, pitch, edgeThickness, sharedThickness, pointSize, originX, originY, map.width, map.height);
+        });
+        drawableSelection = undefined;
+      } else if (hasSharedLayer && item.mode === 'point') {
+        const selectedSharedPoint = item.sharedPointId ? sharedPointById.get(item.sharedPointId) : undefined;
+        selectedSharedPoint?.positions.forEach((position) => {
+          drawSelection(context, {
+            mode: 'point', x: position.gridX, y: position.gridY,
+            sharedPointId: selectedSharedPoint.id,
+          }, cell, gap, pitch, edgeThickness, sharedThickness, pointSize, originX, originY, map.width, map.height);
+        });
+        drawableSelection = undefined;
+      }
+      if (drawableSelection) {
+        drawSelection(
+          context,
+          drawableSelection,
+          cell,
+          gap,
+          pitch,
+          edgeThickness,
+          sharedThickness,
+          pointSize,
+          originX,
+          originY,
+          map.width,
+          map.height,
+        );
+      }
+    };
+    // One list represents both states: one item is a single selection, while
+    // multiple items are a box selection. `selection` remains only as a legacy
+    // fallback for consumers that have not migrated to the list API yet.
+    const drawableSelections = selections ?? (selection ? [selection] : []);
+    drawableSelections.forEach((item) => drawResolvedSelection(item));
+  }, [
+    selection,
+    selections,
+    cell,
+    width,
+    height,
+    pitch,
+    gap,
+    sharedThickness,
+    hasSharedLayer,
+    pointSize,
+    originX,
+    originY,
+    edgeThickness,
+    getSharedEdgeVisualSides,
+    sharedEdgeById,
+    sharedPointById,
+    map.height,
+    map.width,
   ]);
 
   const canvasPoint = (event: React.PointerEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
@@ -704,15 +743,15 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       return localX >= left && localX <= left + cell && localY >= top && localY <= top + cell;
     }
     if (item.mode === 'point') {
-      const sharedPoint = map.sharedPoints?.find((point) => point.id === item.sharedPointId);
+      const sharedPoint = item.sharedPointId ? sharedPointById.get(item.sharedPointId) : undefined;
       return Boolean(sharedPoint?.positions.some((position) => Math.hypot(
         localX - (originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch)),
         localY - (originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch)),
       ) <= pointSize / 2 + 5));
     }
     const visualSides = item.mode === 'shared'
-      ? map.sharedEdges?.find((edge) => edge.id === item.sharedEdgeId)
-        ? getSharedEdgeVisualSides(map.sharedEdges.find((edge) => edge.id === item.sharedEdgeId)!)
+      ? item.sharedEdgeId && sharedEdgeById.has(item.sharedEdgeId)
+        ? getSharedEdgeVisualSides(sharedEdgeById.get(item.sharedEdgeId)!)
         : []
       : [{ x: item.x, y: item.y, direction: item.direction ?? 'north' }];
     return visualSides.some((side) => {
@@ -768,9 +807,23 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
       }}
     >
       <canvas
-        ref={canvasRef}
+        ref={mapCanvasRef}
+        data-dungeon-map-canvas-layer="map"
         aria-hidden="true"
         style={{
+          display: 'block',
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+        }}
+      />
+      <canvas
+        ref={selectionCanvasRef}
+        data-dungeon-map-canvas-layer="selection"
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
           display: 'block',
           width: '100%',
           height: '100%',
@@ -986,3 +1039,5 @@ export const DungeonMapCanvas: React.FC<DungeonMapCanvasProps> = ({
     </div>
   );
 };
+
+export const DungeonMapCanvas = React.memo(DungeonMapCanvasComponent);
