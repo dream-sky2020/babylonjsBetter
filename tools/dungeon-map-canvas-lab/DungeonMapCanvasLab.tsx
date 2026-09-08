@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
 import {
   createDungeonMapData,
@@ -34,6 +34,7 @@ import {
   resolveBatchEntityGroups,
   resolveBatchFieldValue,
   type BatchContainerTarget,
+  type BatchEntityTarget,
   type MutationPlan,
   type ComponentFieldSchema,
   type EntityContainerKind,
@@ -157,6 +158,10 @@ const selectionObjectLabel = (selection: DungeonMapSelection): string => {
 const selectionObjectId = (selection: DungeonMapSelection): string => (
   selection.sharedEdgeId ?? selection.sharedPointId ?? selectionIdentity(selection)
 );
+const SELECTION_LIST_PREVIEW_LIMIT = 100;
+const SELECTION_JSON_WARNING_LIMIT = 500;
+const EMPTY_BATCH_CONTAINER_TARGETS: readonly BatchContainerTarget[] = [];
+const EMPTY_BATCH_ENTITY_TARGETS: readonly BatchEntityTarget[] = [];
 type LabMutationPlan = {
   plan: MutationPlan;
   selections: Record<string, DungeonMapSelection>;
@@ -369,7 +374,11 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [sharedPointEdits, setSharedPointEdits] = useState<Record<string, DungeonMapSharedPoint>>({});
   const [selectionMode, setSelectionMode] = useState<DungeonMapSelectionMode>('tile');
   const [canvasSelections, setCanvasSelections] = useState<DungeonMapSelection[]>([{ mode: 'tile', x: 1, y: 1 }]);
-  const [selectionJsonMessage, setSelectionJsonMessage] = useState<{ source: string; message: string }>();
+  const [selectionJsonMessage, setSelectionJsonMessage] = useState('');
+  const [loadedLargeSelectionJson, setLoadedLargeSelectionJson] = useState<{
+    selection: object;
+    text: string;
+  }>();
   const canvasSelection = canvasSelections[0];
   const [selectedEntityId, setSelectedEntityId] = useState('');
   const [selectedComponentId, setSelectedComponentId] = useState('');
@@ -920,17 +929,23 @@ export const DungeonMapCanvasLab: React.FC = () => {
     ...validateDungeonMapData(map),
     ...validateDungeonTransitionMap(map),
   ], [map]);
+  const sharedEdgeById = useMemo(() => new Map(
+    (map.sharedEdges ?? []).map((edge) => [edge.id, edge]),
+  ), [map.sharedEdges]);
+  const sharedPointById = useMemo(() => new Map(
+    (map.sharedPoints ?? []).map((point) => [point.id, point]),
+  ), [map.sharedPoints]);
   const canvasSelectedTile = canvasSelection
     ? map.tiles[canvasSelection.y * map.width + canvasSelection.x]
     : undefined;
   const canvasSelectionDirection = canvasSelection?.direction ?? selectedDirection;
   // 公用边编辑只认 Canvas 精确命中后返回的 ID，禁止按附近格子猜测目标。
-  const canvasSelectedSharedEdge = map.sharedEdges?.find(
-    (edge) => edge.id === canvasSelection?.sharedEdgeId,
-  );
-  const canvasSelectedSharedPoint = map.sharedPoints?.find(
-    (point) => point.id === canvasSelection?.sharedPointId,
-  );
+  const canvasSelectedSharedEdge = canvasSelection?.sharedEdgeId
+    ? sharedEdgeById.get(canvasSelection.sharedEdgeId)
+    : undefined;
+  const canvasSelectedSharedPoint = canvasSelection?.sharedPointId
+    ? sharedPointById.get(canvasSelection.sharedPointId)
+    : undefined;
   const rawSelectedContainerData = canvasSelection ? (
     canvasSelection.mode === 'map'
       ? map.data
@@ -972,11 +987,11 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const selectedContainerData = selectionHasTarget
     ? normalizeEntityContainer(rawSelectedContainerData, `${selectionHostId}:entity`, '地图实体', selectedContainerKind)
     : undefined;
-  const resolveSelectionTarget = (selection: DungeonMapSelection): ResolvedMapContainerTarget | undefined => {
+  const resolveSelectionTarget = useCallback((selection: DungeonMapSelection): ResolvedMapContainerTarget | undefined => {
     const tile = map.tiles[selection.y * map.width + selection.x];
     const direction = selection.direction ?? selectedDirection;
-    const sharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
-    const sharedPoint = map.sharedPoints?.find((point) => point.id === selection.sharedPointId);
+    const sharedEdge = selection.sharedEdgeId ? sharedEdgeById.get(selection.sharedEdgeId) : undefined;
+    const sharedPoint = selection.sharedPointId ? sharedPointById.get(selection.sharedPointId) : undefined;
     const hasTarget = selection.mode === 'map'
       || selection.mode === 'shared' && Boolean(sharedEdge)
       || selection.mode === 'point' && Boolean(sharedPoint)
@@ -1025,15 +1040,27 @@ export const DungeonMapCanvasLab: React.FC = () => {
       coordinates,
       container: normalizeEntityContainer(rawData, `${hostId}:entity`, '地图实体', kind),
     };
-  };
-  const resolvedBatchSelections = canvasSelections.flatMap((selection) => {
-    const target = resolveSelectionTarget(selection);
-    return target ? [{ selection, target }] : [];
-  });
-  const uniqueBatchSelections = [...new Map(
-    resolvedBatchSelections.map((item) => [item.target.id, item]),
-  ).values()];
-  const selectedContainersJson = {
+  }, [map, selectedDirection, sharedEdgeById, sharedPointById]);
+  const { uniqueBatchSelections, batchContainerTargets } = useMemo(() => {
+    const unique = new Map<string, { selection: DungeonMapSelection; target: ResolvedMapContainerTarget }>();
+    canvasSelections.forEach((selection) => {
+      const target = resolveSelectionTarget(selection);
+      if (target) unique.set(target.id, { selection, target });
+    });
+    const selections = [...unique.values()];
+    return {
+      uniqueBatchSelections: selections,
+      batchContainerTargets: dedupeBatchContainerTargets(selections.map((item) => item.target)),
+    };
+  }, [canvasSelections, resolveSelectionTarget]);
+  const currentLoadedLargeSelectionJson = loadedLargeSelectionJson?.selection === uniqueBatchSelections
+    ? loadedLargeSelectionJson
+    : undefined;
+  const largeSelectionJsonRequiresConfirmation = uniqueBatchSelections.length > SELECTION_JSON_WARNING_LIMIT
+    && !currentLoadedLargeSelectionJson;
+  const selectionJsonCollapsed = collapsedPanelIds.has('selection-json')
+    || largeSelectionJsonRequiresConfirmation;
+  const buildSelectedContainersJsonText = useCallback(() => JSON.stringify({
     format: 'dungeon-map-container-selection',
     version: 1,
     mapId: map.id,
@@ -1043,23 +1070,29 @@ export const DungeonMapCanvasLab: React.FC = () => {
       coordinates: target.coordinates,
       data: target.container,
     })),
-  } as const;
-  const selectedContainersJsonText = JSON.stringify(selectedContainersJson, null, 2);
-  const visibleSelectionJsonMessage = selectionJsonMessage?.source === selectedContainersJsonText
-    ? selectionJsonMessage.message
-    : '';
+  }, null, 2), [map.id, uniqueBatchSelections]);
+  const selectionJsonExpanded = !collapsedPanelIds.has('selection')
+    && !selectionJsonCollapsed;
+  const selectedContainersJsonText = useMemo(
+    () => selectionJsonExpanded
+      ? currentLoadedLargeSelectionJson?.text ?? buildSelectedContainersJsonText()
+      : '',
+    [buildSelectedContainersJsonText, currentLoadedLargeSelectionJson, selectionJsonExpanded],
+  );
 
   const copySelectedContainersJson = async () => {
+    const text = currentLoadedLargeSelectionJson?.text ?? buildSelectedContainersJsonText();
     try {
-      await navigator.clipboard.writeText(selectedContainersJsonText);
-      setSelectionJsonMessage({ source: selectedContainersJsonText, message: `已复制 ${selectedContainersJson.count} 个数据容器` });
+      await navigator.clipboard.writeText(text);
+      setSelectionJsonMessage(`已复制 ${uniqueBatchSelections.length} 个数据容器`);
     } catch {
-      setSelectionJsonMessage({ source: selectedContainersJsonText, message: '复制失败：当前环境不允许访问剪贴板' });
+      setSelectionJsonMessage('复制失败：当前环境不允许访问剪贴板');
     }
   };
 
   const downloadSelectedContainersJson = () => {
-    const blob = new Blob([selectedContainersJsonText], { type: 'application/json;charset=utf-8' });
+    const text = currentLoadedLargeSelectionJson?.text ?? buildSelectedContainersJsonText();
+    const blob = new Blob([text], { type: 'application/json;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
@@ -1068,17 +1101,15 @@ export const DungeonMapCanvasLab: React.FC = () => {
     anchor.click();
     anchor.remove();
     URL.revokeObjectURL(url);
-    setSelectionJsonMessage({ source: selectedContainersJsonText, message: `已下载 ${selectedContainersJson.count} 个数据容器` });
+    setSelectionJsonMessage(`已下载 ${uniqueBatchSelections.length} 个数据容器`);
   };
 
   const removeSelectedContainer = (containerId: string) => {
+    setSelectionJsonMessage('');
     setCanvasSelections((current) => current.filter(
       (selection) => resolveSelectionTarget(selection)?.id !== containerId,
     ));
   };
-  const batchContainerTargets = dedupeBatchContainerTargets(
-    uniqueBatchSelections.map((item) => item.target),
-  );
   const availableEntityDefinitions = ENTITY_TYPE_REGISTRY.listForContainer(selectedContainerKind);
   const effectiveEntityTypeToAdd = availableEntityDefinitions.some((definition) => definition.type === entityTypeToAdd)
     ? entityTypeToAdd
@@ -1272,50 +1303,93 @@ export const DungeonMapCanvasLab: React.FC = () => {
     clearMapEdits();
   };
 
+  const handleCanvasSelectionsChange = useCallback((next: DungeonMapSelection[]) => {
+    setSelectionJsonMessage('');
+    setCanvasSelections(next);
+    if (next[0]?.direction) setSelectedDirection(next[0].direction);
+  }, []);
+
   const visibleEntities = entityViewMode === 'all'
     ? selectedContainerData?.entities ?? []
     : selectedEntity ? [selectedEntity] : [];
 
-  const selectionCounts = canvasSelections.reduce<Record<DungeonMapSelection['mode'], number>>(
-    (counts, item) => ({ ...counts, [item.mode]: counts[item.mode] + 1 }),
+  const selectionCounts = useMemo(() => canvasSelections.reduce<Record<DungeonMapSelection['mode'], number>>(
+    (counts, item) => {
+      counts[item.mode] += 1;
+      return counts;
+    },
     { map: 0, tile: 0, edge: 0, shared: 0, point: 0 },
-  );
-  const selectionCountSummary = (['map', 'tile', 'edge', 'shared', 'point'] as const)
+  ), [canvasSelections]);
+  const selectionCountSummary = useMemo(() => (['map', 'tile', 'edge', 'shared', 'point'] as const)
     .filter((mode) => selectionCounts[mode] > 0)
     .map((mode) => `${SELECTION_MODE_LABEL[mode]} ${selectionCounts[mode]}`)
-    .join(' · ');
+    .join(' · '), [selectionCounts]);
+  const batchAnalysisTargets = canvasSelections.length > 1
+    && !collapsedPanelIds.has('entity-component')
+    ? batchContainerTargets
+    : EMPTY_BATCH_CONTAINER_TARGETS;
 
-  const batchEntityDefinitions = listBatchEntityDefinitions(
-    ENTITY_TYPE_DEFINITIONS,
-    batchContainerTargets,
-    'create',
-  );
+  const {
+    batchEntityDefinitions,
+    batchEntityGroups,
+    compatibleBatchEntityGroups,
+  } = useMemo(() => {
+    const definitions = listBatchEntityDefinitions(
+      ENTITY_TYPE_DEFINITIONS,
+      batchAnalysisTargets,
+      'create',
+    );
+    const groups = resolveBatchEntityGroups(batchAnalysisTargets);
+    return {
+      batchEntityDefinitions: definitions,
+      batchEntityGroups: groups,
+      compatibleBatchEntityGroups: groups.filter((group) => group.compatible),
+    };
+  }, [batchAnalysisTargets]);
   const effectiveBatchEntityTypeToCreate = batchEntityDefinitions.some(
     (definition) => definition.type === batchEntityTypeToCreate,
   ) ? batchEntityTypeToCreate : batchEntityDefinitions[0]?.type ?? '';
-  const batchEntityGroups = resolveBatchEntityGroups(batchContainerTargets);
-  const compatibleBatchEntityGroups = batchEntityGroups.filter((group) => group.compatible);
   const effectiveBatchEntityGroupType = compatibleBatchEntityGroups.some(
     (group) => group.key === batchEntityGroupType,
   ) ? batchEntityGroupType : compatibleBatchEntityGroups[0]?.key ?? '';
   const activeBatchEntityGroup = compatibleBatchEntityGroups.find(
     (group) => group.key === effectiveBatchEntityGroupType,
   );
-  const batchEntityTargets = activeBatchEntityGroup?.targets ?? [];
-  const batchComponentCreateDefinitions = listBatchComponentDefinitions(
-    COMPONENT_DEFINITIONS,
-    batchEntityTargets,
-    'create',
-  );
+  const batchEntityTargets = activeBatchEntityGroup?.targets ?? EMPTY_BATCH_ENTITY_TARGETS;
+  const {
+    batchComponentCreateDefinitions,
+    batchComponentEditDefinitions,
+    batchComponentGroups,
+    batchComponentDeleteDefinitions,
+  } = useMemo(() => {
+    const createDefinitions = listBatchComponentDefinitions(
+      COMPONENT_DEFINITIONS,
+      batchEntityTargets,
+      'create',
+    );
+    const editDefinitions = listBatchComponentDefinitions(
+      COMPONENT_DEFINITIONS,
+      batchEntityTargets,
+      'edit',
+    );
+    const groups = resolveBatchComponentGroups(batchEntityTargets);
+    const deleteDefinitions = listBatchComponentDefinitions(
+      COMPONENT_DEFINITIONS,
+      batchEntityTargets,
+      'delete',
+    ).filter((definition) => batchEntityTargets.every((target) => !(
+      ENTITY_TYPE_REGISTRY.get(target.entity.entityType)?.requiredComponents ?? []
+    ).includes(definition.type)));
+    return {
+      batchComponentCreateDefinitions: createDefinitions,
+      batchComponentEditDefinitions: editDefinitions,
+      batchComponentGroups: groups,
+      batchComponentDeleteDefinitions: deleteDefinitions,
+    };
+  }, [batchEntityTargets]);
   const effectiveBatchComponentTypeToCreate = batchComponentCreateDefinitions.some(
     (definition) => definition.type === batchComponentTypeToCreate,
   ) ? batchComponentTypeToCreate : batchComponentCreateDefinitions[0]?.type ?? '';
-  const batchComponentEditDefinitions = listBatchComponentDefinitions(
-    COMPONENT_DEFINITIONS,
-    batchEntityTargets,
-    'edit',
-  );
-  const batchComponentGroups = resolveBatchComponentGroups(batchEntityTargets);
   const editableBatchComponentGroups = batchComponentGroups.filter((group) => (
     group.compatible && batchComponentEditDefinitions.some(
       (definition) => definition.type === group.componentType,
@@ -1333,13 +1407,6 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const activeBatchComponents = activeBatchComponentGroup?.targets.map(
     (target) => target.component,
   ) ?? [];
-  const batchComponentDeleteDefinitions = listBatchComponentDefinitions(
-    COMPONENT_DEFINITIONS,
-    batchEntityTargets,
-    'delete',
-  ).filter((definition) => batchEntityTargets.every((target) => !(
-    ENTITY_TYPE_REGISTRY.get(target.entity.entityType)?.requiredComponents ?? []
-  ).includes(definition.type)));
 
   const queueBatchPlan = (
     label: string,
@@ -1479,6 +1546,27 @@ export const DungeonMapCanvasLab: React.FC = () => {
     else next.add(id);
     return next;
   });
+
+  const toggleSelectionJson = () => {
+    if (!selectionJsonCollapsed) {
+      setCollapsedPanelIds((ids) => new Set(ids).add('selection-json'));
+      return;
+    }
+    if (largeSelectionJsonRequiresConfirmation && !window.confirm(
+      `当前选择包含 ${uniqueBatchSelections.length} 个数据容器。展开完整 JSON 可能造成短暂卡顿，确定继续吗？`,
+    )) return;
+    if (largeSelectionJsonRequiresConfirmation) {
+      setLoadedLargeSelectionJson({
+        selection: uniqueBatchSelections,
+        text: buildSelectedContainersJsonText(),
+      });
+    }
+    setCollapsedPanelIds((ids) => {
+      const next = new Set(ids);
+      next.delete('selection-json');
+      return next;
+    });
+  };
 
   const renderComponentCard = (entity: IEntity, component: IComponent) => {
     const definition = COMPONENT_REGISTRY.get(component.type);
@@ -1624,18 +1712,19 @@ export const DungeonMapCanvasLab: React.FC = () => {
             <div className="selection-overview"><strong>已选择 {uniqueBatchSelections.length} 个数据容器</strong><span>{selectionCountSummary}</span></div>
             <div className="selection-object-list">
               <div className="selection-object-list__header"><strong>选中对象列表</strong><span>已按真实容器 ID 去重</span></div>
-              {uniqueBatchSelections.map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
+              {uniqueBatchSelections.slice(0, SELECTION_LIST_PREVIEW_LIMIT).map(({ selection: item, target }) => <div className="selection-object-list__item" key={target.id}><span className="selection-object-list__marker">●</span><span className="selection-object-list__text"><strong>{selectionObjectLabel(item)}</strong><small>{selectionObjectId(item)}</small></span><button type="button" className="selection-object-list__remove" title={`取消选择 ${selectionObjectLabel(item)}`} aria-label={`取消选择 ${selectionObjectLabel(item)}`} onClick={() => removeSelectedContainer(target.id)}>−</button></div>)}
+              {uniqueBatchSelections.length > SELECTION_LIST_PREVIEW_LIMIT ? <div className="selection-object-list__overflow">仅预览前 {SELECTION_LIST_PREVIEW_LIMIT} 项，另有 {uniqueBatchSelections.length - SELECTION_LIST_PREVIEW_LIMIT} 项仍参与批量操作与导出。</div> : null}
             </div>
             <div className="selection-multi-hint">下方 JSON 包含全部选中数据容器；循环拓扑的重复画布位置只导出一次。</div>
           </> : <div className="selection-summary"><span>类型：{SELECTION_MODE_LABEL[canvasSelection!.mode]}</span>{canvasSelection!.direction&&canvasSelection!.mode!=='point'?<span>方向：{DIRECTION_LABEL[canvasSelection!.direction]}</span>:null}</div>}
           <div className="selection-data-panel">
-            <button type="button" className="selection-data-panel__header" aria-expanded={!collapsedPanelIds.has('selection-json')} onClick={() => toggleCollapsedId(setCollapsedPanelIds, 'selection-json')}>
-              <span>{collapsedPanelIds.has('selection-json') ? '▸' : '▾'}</span>
+            <button type="button" className="selection-data-panel__header" aria-expanded={!selectionJsonCollapsed} onClick={toggleSelectionJson}>
+              <span>{selectionJsonCollapsed ? '▸' : '▾'}</span>
               <strong>全部选中容器 JSON</strong>
-              <small>{selectedContainersJson.count} 个容器</small>
+              <small>{uniqueBatchSelections.length} 个容器{currentLoadedLargeSelectionJson ? ' · 已加载' : largeSelectionJsonRequiresConfirmation ? ' · 展开需确认' : ''}</small>
             </button>
-            {!collapsedPanelIds.has('selection-json') ? <>
-              <div className="selection-json-actions"><div><button type="button" onClick={copySelectedContainersJson}>复制 JSON</button><button type="button" onClick={downloadSelectedContainersJson}>下载 JSON</button></div><span>{visibleSelectionJsonMessage}</span></div>
+            {!selectionJsonCollapsed ? <>
+              <div className="selection-json-actions"><div><button type="button" onClick={copySelectedContainersJson}>复制 JSON</button><button type="button" onClick={downloadSelectedContainersJson}>下载 JSON</button></div><span>{selectionJsonMessage}</span></div>
               <pre className="selection-data">{selectedContainersJsonText}</pre>
             </> : null}
           </div>
@@ -1823,10 +1912,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
               selections={canvasSelections}
-              onSelectionsChange={(next) => {
-                setCanvasSelections(next);
-                if (next[0]?.direction) setSelectedDirection(next[0].direction);
-              }}
+              onSelectionsChange={handleCanvasSelectionsChange}
               keyboardEnabled={false}
             />
           </div>

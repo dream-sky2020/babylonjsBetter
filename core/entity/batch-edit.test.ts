@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   createMutationPlan,
   dedupeBatchContainerTargets,
+  listBatchComponentDefinitions,
   listBatchEntityDefinitions,
   resolveBatchComponentGroups,
   resolveBatchEntityGroups,
@@ -10,7 +11,13 @@ import {
   type BatchContainerTarget,
   type BatchEntityTarget,
 } from './batch-edit.ts';
-import type { EntityTypeDefinition, IComponent, IEntity, IEntityContainer } from './entity.types.ts';
+import type {
+  ComponentDefinition,
+  EntityTypeDefinition,
+  IComponent,
+  IEntity,
+  IEntityContainer,
+} from './entity.types.ts';
 
 const component = (id: string, type: string, slot?: string, value?: unknown): IComponent => ({
   id, type, slot, version: 1, value,
@@ -97,4 +104,30 @@ test('MutationPlan 保存修改前后快照并排除无变化目标', () => {
   assert.equal(plan.changes[0].targetId, 'a');
   assert.equal(plan.changes[0].before.entities.length, 0);
   assert.equal(plan.changes[0].after.entities.length, 1);
+});
+
+test('5000 个 Entity 的批量 Component 分析保持结果完整', () => {
+  const targets: BatchEntityTarget[] = Array.from({ length: 5_000 }, (_, index) => ({
+    containerId: `tile:${index},0`,
+    entity: entity(`tile-entity-${index}`, 'tile', undefined, [
+      component(`state-${index}`, 'state', undefined, 'open'),
+    ]),
+  }));
+  const definitions: ComponentDefinition[] = Array.from({ length: 32 }, (_, index) => ({
+    type: index === 0 ? 'state' : `unused-${index}`,
+    version: 1,
+    label: `组件 ${index}`,
+    allowedEntityTypes: ['tile'],
+    batch: { scope: 'compatible', edit: true },
+    fields: [],
+    createDefault: () => component(`default-${index}`, index === 0 ? 'state' : `unused-${index}`),
+  }));
+
+  const groups = resolveBatchComponentGroups(targets);
+  const editableDefinitions = listBatchComponentDefinitions(definitions, targets, 'edit');
+
+  assert.equal(groups.length, 1);
+  assert.equal(groups[0].compatible, true);
+  assert.equal(groups[0].targets.length, 5_000);
+  assert.deepEqual(editableDefinitions.map((definition) => definition.type), ['state']);
 });
