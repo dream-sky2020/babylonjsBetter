@@ -5,6 +5,7 @@ export const entityTypeDefinition: EntityTypeDefinition = {
   type: 'spawn-point',
   label: '出生点实体',
   description: '声明地图中的角色出生位置；只能创建在地图数据容器中。',
+  labAppearance: { color: '#f59e0b' },
   allowedContainers: ['map'],
   batch: { scope: 'same-kind', create: true, delete: true },
   defaultComponents: ['actor-spawn'],

@@ -1,4 +1,12 @@
 # Babylon.js Better 项目地图
+## 2026-09-08：Entity Lab 颜色与地图 SVG 染色规范
+
+所有 `EntityTypeDefinition` 现在必须声明 `labAppearance.color`，由 Entity Type Registry 校验为六位十六进制颜色；该颜色只为 Lab、Debug 和编辑器提供稳定的 Entity 类型身份，不改变正式游戏渲染语义。现有地图、格子、单格边、公用边、公用点、阻碍、入口、出口和出生点类型均已配置不同颜色。
+
+地牢地图可染色 SVG 使用 `data-tint-schema="dungeon-map-v1"` 声明规范版本，并以 `data-tint-role="base|primary|highlight|outline"` 标注由 Entity 颜色派生的图元；未标注图元保留素材原色，原有 `fill/stroke` 继续作为不支持染色时的默认表现。当前地图 Canvas 默认选择的“极简套装”五类素材已完成标注，完整约定记录在 `public/resources/dungeon-map/SVG_TINTING.md`。
+
+`core/ui/dungeon-map-svg-tint/` 负责从 Entity 容器解析唯一类型颜色、在线性 RGB 中生成稳定混色，并按“SVG URL + 混合色”在页面内存维护有上限的染色图片缓存；规范 SVG 根据角色将混合色柔和叠入原始暗底、主色、高光和轮廓，非规范素材安全回退原图。只有 `legacy-data` 的 tile / tile-edge / shared-edge / shared-point 基础结构 Entity 不算需要高亮的业务数据；结构 Entity 挂载正式 Component 或容器含入口、出口、阻碍等业务 Entity 时才着色。`DungeonMapCanvas` 对格子、单格边、公用边和公用点预热并复用染色结果，不再额外绘制色条；`dungeon-map-canvas-lab` 从 Entity Registry 传入颜色表并自动生成图例。缓存是可重建的渲染派生物，不进入 LabState、存档或磁盘。
+
 ## 2026-09-06：Dungeon Exit 三层边与受阻移动触发
 
 `core/map/dungeonMap.ts` 现在可以分别解析一次跨格移动接触的离开侧单向边、进入侧单向边和对应公用边，同时保留原有“公用边接管通行判定”的有效边 API。`core/dungeon-transition/` 不再从权威有效边反推容器类型：`enter` 会独立检查目标格子及三层边数据，`interact` 会独立检查当前位置格子、面前单向边和面前公用边，`move-attempt` 则只在移动被地图边界或阻碍拒绝时检查玩家撞向的离开侧单向边与公用边；同一 Entity/Component 被多层重复引用时去重，不同出口同时命中时仍报告配置冲突。循环地图接缝使用同一套解析。

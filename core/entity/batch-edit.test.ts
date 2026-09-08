@@ -64,11 +64,11 @@ test('Component 使用 type + slot 匹配，多实例缺少 slot 时保持不兼
 
 test('批量 Entity 定义必须同时满足范围、容器兼容和操作开关', () => {
   const compatible: EntityTypeDefinition = {
-    type: 'terrain', label: '地形', allowedContainers: ['tile'],
+    type: 'terrain', label: '地形', labAppearance: { color: '#22c55e' }, allowedContainers: ['tile'],
     batch: { scope: 'same-kind', create: true },
   };
   const disabled: EntityTypeDefinition = {
-    type: 'hidden', label: '隐藏', allowedContainers: ['tile'],
+    type: 'hidden', label: '隐藏', labAppearance: { color: '#64748b' }, allowedContainers: ['tile'],
   };
   assert.deepEqual(listBatchEntityDefinitions([compatible, disabled], [target('a', []), target('b', [])], 'create'), [compatible]);
 });

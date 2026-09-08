@@ -8,3 +8,4 @@ export * from './ConfigurableAvatar.types';
 export * from './SpecialStatusBadge';
 export * from './FloatingCameraControlPanel';
 export * from './DungeonMapCanvas';
+export * from './dungeon-map-svg-tint';

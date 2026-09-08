@@ -7,6 +7,9 @@ export class EntityTypeRegistry {
     if (this.definitions.has(definition.type)) {
       throw new Error(`Entity type definition already registered: ${definition.type}`);
     }
+    if (!definition.labAppearance || !/^#[0-9a-f]{6}$/i.test(definition.labAppearance.color)) {
+      throw new Error(`Entity type definition has invalid lab color: ${definition.type}`);
+    }
     this.definitions.set(definition.type, definition);
   }
 

@@ -4,6 +4,7 @@ export const entityTypeDefinition: EntityTypeDefinition = {
   type: 'obstacle',
   label: '移动阻碍实体',
   description: '可放置在格子、独立边或公用边上的移动阻碍。',
+  labAppearance: { color: '#fb7185' },
   allowedContainers: ['tile', 'tile-edge', 'shared-edge'],
   batch: { scope: 'compatible', create: true, delete: true },
   defaultComponents: ['movement-obstacle'],
