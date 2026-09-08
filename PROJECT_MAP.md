@@ -7,6 +7,8 @@
 
 `core/ui/dungeon-map-svg-tint/` 负责从 Entity 容器解析唯一类型颜色、在线性 RGB 中生成稳定混色，并按“SVG URL + 混合色”在页面内存维护有上限的染色图片缓存；规范 SVG 根据角色将混合色柔和叠入原始暗底、主色、高光和轮廓，非规范素材安全回退原图。只有 `legacy-data` 的 tile / tile-edge / shared-edge / shared-point 基础结构 Entity 不算需要高亮的业务数据；结构 Entity 挂载正式 Component 或容器含入口、出口、阻碍等业务 Entity 时才着色。`DungeonMapCanvas` 对格子、单格边、公用边和公用点预热并复用染色结果，不再额外绘制色条；`dungeon-map-canvas-lab` 从 Entity Registry 传入颜色表并自动生成图例。缓存是可重建的渲染派生物，不进入 LabState、存档或磁盘。
 
+`DungeonMapCanvas` 的素材渲染模式为 `canvas | svg`，默认 `canvas`：Canvas 模式完全跳过 SVG 加载与染色缓存，直接使用程序化格子、边和点，并只对真正的业务 Entity 应用颜色；SVG 模式保留当前素材选择并启用上述规范染色。单格边的实际绘制、SVG 素材裁剪和选择高亮统一复用同一条梯形路径，四个方向共享外角与内角，三段式只负责素材拉伸、不再决定边的几何；`public/resources/dungeon-map/edges/` 中的默认单格边 SVG 已统一为覆盖完整 viewBox 的矩形材质条，不再内置透明梯形。地图 Canvas Lab 在“地图图案”面板提供两种模式切换，切换不会清空已选素材。
+
 ## 2026-09-06：Dungeon Exit 三层边与受阻移动触发
 
 `core/map/dungeonMap.ts` 现在可以分别解析一次跨格移动接触的离开侧单向边、进入侧单向边和对应公用边，同时保留原有“公用边接管通行判定”的有效边 API。`core/dungeon-transition/` 不再从权威有效边反推容器类型：`enter` 会独立检查目标格子及三层边数据，`interact` 会独立检查当前位置格子、面前单向边和面前公用边，`move-attempt` 则只在移动被地图边界或阻碍拒绝时检查玩家撞向的离开侧单向边与公用边；同一 Entity/Component 被多层重复引用时去重，不同出口同时命中时仍报告配置冲突。循环地图接缝使用同一套解析。
