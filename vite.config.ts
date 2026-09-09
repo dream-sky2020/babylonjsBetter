@@ -72,6 +72,7 @@ const sharedConfigPlugin = (): Plugin => ({
     order: 'post',
     handler({ file }) {
       const changedPath = path.resolve(file)
+      if (changedPath === path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')) return []
       if (changedPath === DUNGEON_MAP_PRESETS_DIR
         || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
       return undefined

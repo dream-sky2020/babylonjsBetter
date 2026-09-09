@@ -1,0 +1,1619 @@
+{
+  "right-hand-slash": {
+    "version": 1,
+    "name": "右手横斩",
+    "duration": 0.82,
+    "loop": false,
+    "playbackSpeed": 1,
+    "proxy": {
+      "shape": "box",
+      "size": {
+        "x": 0.12,
+        "y": 0.06,
+        "z": 1.5
+      },
+      "center": {
+        "x": 0,
+        "y": 0,
+        "z": 0.55
+      },
+      "grip": {
+        "x": 0,
+        "y": 0,
+        "z": -0.1
+      },
+      "tip": {
+        "x": 0,
+        "y": 0,
+        "z": 1.3
+      }
+    },
+    "asset": {
+      "path": "",
+      "name": "武器代理体",
+      "scale": 1,
+      "offset": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "keyframes": [
+      {
+        "id": "ready",
+        "time": 0,
+        "label": "预备",
+        "position": {
+          "x": 0.43,
+          "y": -0.38,
+          "z": 0.82
+        },
+        "rotation": {
+          "x": -12,
+          "y": 8,
+          "z": -7
+        }
+      },
+      {
+        "id": "windup",
+        "time": 0.18,
+        "label": "蓄力",
+        "position": {
+          "x": 0.54,
+          "y": -0.3,
+          "z": 0.72
+        },
+        "rotation": {
+          "x": -25,
+          "y": 35,
+          "z": 25
+        }
+      },
+      {
+        "id": "contact",
+        "time": 0.4,
+        "label": "命中",
+        "position": {
+          "x": -0.18,
+          "y": -0.19,
+          "z": 0.64
+        },
+        "rotation": {
+          "x": 12,
+          "y": -52,
+          "z": -64
+        }
+      },
+      {
+        "id": "follow",
+        "time": 0.56,
+        "label": "随挥",
+        "position": {
+          "x": -0.42,
+          "y": -0.34,
+          "z": 0.78
+        },
+        "rotation": {
+          "x": 24,
+          "y": -70,
+          "z": -82
+        }
+      },
+      {
+        "id": "recover",
+        "time": 0.82,
+        "label": "复位",
+        "position": {
+          "x": 0.43,
+          "y": -0.38,
+          "z": 0.82
+        },
+        "rotation": {
+          "x": -12,
+          "y": 8,
+          "z": -7
+        }
+      }
+    ]
+  },
+  "dual-alternating-slash": {
+    "version": 2,
+    "name": "双持 · 左右交替斩",
+    "duration": 1.4,
+    "loop": false,
+    "playbackSpeed": 1,
+    "weapons": {
+      "right": {
+        "enabled": true,
+        "proxy": {
+          "shape": "box",
+          "size": {
+            "x": 0.12,
+            "y": 0.06,
+            "z": 1.5
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.55
+          },
+          "grip": {
+            "x": 0,
+            "y": 0,
+            "z": -0.1
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 1.3
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "预备",
+            "position": {
+              "x": 0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": 8,
+              "z": -7
+            }
+          },
+          {
+            "id": "windup",
+            "time": 0.18,
+            "label": "蓄力",
+            "position": {
+              "x": 0.54,
+              "y": -0.24,
+              "z": 0.72
+            },
+            "rotation": {
+              "x": -25,
+              "y": 35,
+              "z": 25
+            }
+          },
+          {
+            "id": "contact",
+            "time": 0.4,
+            "label": "命中",
+            "position": {
+              "x": -0.18,
+              "y": -0.19,
+              "z": 0.64
+            },
+            "rotation": {
+              "x": 12,
+              "y": -52,
+              "z": -64
+            }
+          },
+          {
+            "id": "follow",
+            "time": 0.56,
+            "label": "随挥",
+            "position": {
+              "x": -0.42,
+              "y": -0.28,
+              "z": 0.78
+            },
+            "rotation": {
+              "x": 24,
+              "y": -70,
+              "z": -82
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.82,
+            "label": "复位",
+            "position": {
+              "x": 0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": 8,
+              "z": -7
+            }
+          },
+          {
+            "id": "hold-end",
+            "time": 1.4,
+            "label": "等待左手收势",
+            "position": {
+              "x": 0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": 8,
+              "z": -7
+            }
+          }
+        ]
+      },
+      "left": {
+        "enabled": true,
+        "proxy": {
+          "shape": "box",
+          "size": {
+            "x": 0.12,
+            "y": 0.06,
+            "z": 1.5
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.55
+          },
+          "grip": {
+            "x": 0,
+            "y": 0,
+            "z": -0.1
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 1.3
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "hold",
+            "time": 0,
+            "label": "等待另一手",
+            "position": {
+              "x": -0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          },
+          {
+            "id": "ready",
+            "time": 0.45,
+            "label": "预备",
+            "position": {
+              "x": -0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          },
+          {
+            "id": "windup",
+            "time": 0.63,
+            "label": "蓄力",
+            "position": {
+              "x": -0.54,
+              "y": -0.24,
+              "z": 0.72
+            },
+            "rotation": {
+              "x": -25,
+              "y": -35,
+              "z": -25
+            }
+          },
+          {
+            "id": "contact",
+            "time": 0.85,
+            "label": "命中",
+            "position": {
+              "x": 0.18,
+              "y": -0.19,
+              "z": 0.64
+            },
+            "rotation": {
+              "x": 12,
+              "y": 52,
+              "z": 64
+            }
+          },
+          {
+            "id": "follow",
+            "time": 1.01,
+            "label": "随挥",
+            "position": {
+              "x": 0.42,
+              "y": -0.28,
+              "z": 0.78
+            },
+            "rotation": {
+              "x": 24,
+              "y": 70,
+              "z": 82
+            }
+          },
+          {
+            "id": "recover",
+            "time": 1.27,
+            "label": "复位",
+            "position": {
+              "x": -0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          },
+          {
+            "id": "end",
+            "time": 1.4,
+            "label": "复位保持",
+            "position": {
+              "x": -0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          }
+        ]
+      }
+    }
+  },
+  "dual-cross-slash": {
+    "version": 2,
+    "name": "双持 · 交叉斩",
+    "duration": 0.82,
+    "loop": false,
+    "playbackSpeed": 1,
+    "weapons": {
+      "right": {
+        "enabled": true,
+        "proxy": {
+          "shape": "box",
+          "size": {
+            "x": 0.12,
+            "y": 0.06,
+            "z": 1.5
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.55
+          },
+          "grip": {
+            "x": 0,
+            "y": 0,
+            "z": -0.1
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 1.3
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "预备",
+            "position": {
+              "x": 0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": 8,
+              "z": -7
+            }
+          },
+          {
+            "id": "windup",
+            "time": 0.18,
+            "label": "蓄力",
+            "position": {
+              "x": 0.54,
+              "y": -0.24,
+              "z": 0.72
+            },
+            "rotation": {
+              "x": -25,
+              "y": 35,
+              "z": 25
+            }
+          },
+          {
+            "id": "contact",
+            "time": 0.4,
+            "label": "命中",
+            "position": {
+              "x": -0.08,
+              "y": -0.1,
+              "z": 0.64
+            },
+            "rotation": {
+              "x": 12,
+              "y": -52,
+              "z": -64
+            }
+          },
+          {
+            "id": "follow",
+            "time": 0.56,
+            "label": "随挥",
+            "position": {
+              "x": -0.42,
+              "y": -0.28,
+              "z": 0.78
+            },
+            "rotation": {
+              "x": 24,
+              "y": -70,
+              "z": -82
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.82,
+            "label": "复位",
+            "position": {
+              "x": 0.43,
+              "y": -0.3,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": 8,
+              "z": -7
+            }
+          }
+        ]
+      },
+      "left": {
+        "enabled": true,
+        "proxy": {
+          "shape": "box",
+          "size": {
+            "x": 0.12,
+            "y": 0.06,
+            "z": 1.5
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.55
+          },
+          "grip": {
+            "x": 0,
+            "y": 0,
+            "z": -0.1
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 1.3
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "预备",
+            "position": {
+              "x": -0.43,
+              "y": -0.4,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          },
+          {
+            "id": "windup",
+            "time": 0.18,
+            "label": "蓄力",
+            "position": {
+              "x": -0.54,
+              "y": -0.33999999999999997,
+              "z": 0.72
+            },
+            "rotation": {
+              "x": -25,
+              "y": -35,
+              "z": -25
+            }
+          },
+          {
+            "id": "contact",
+            "time": 0.4,
+            "label": "命中",
+            "position": {
+              "x": 0.08,
+              "y": -0.2,
+              "z": 0.64
+            },
+            "rotation": {
+              "x": 12,
+              "y": 52,
+              "z": 64
+            }
+          },
+          {
+            "id": "follow",
+            "time": 0.56,
+            "label": "随挥",
+            "position": {
+              "x": 0.42,
+              "y": -0.38,
+              "z": 0.78
+            },
+            "rotation": {
+              "x": 24,
+              "y": 70,
+              "z": 82
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.82,
+            "label": "复位",
+            "position": {
+              "x": -0.43,
+              "y": -0.4,
+              "z": 0.82
+            },
+            "rotation": {
+              "x": -12,
+              "y": -8,
+              "z": 7
+            }
+          }
+        ]
+      }
+    }
+  },
+  "pistol-single-shot": {
+    "version": 2,
+    "name": "枪械 · 单发后坐",
+    "duration": 0.48,
+    "loop": false,
+    "playbackSpeed": 1,
+    "weapons": {
+      "right": {
+        "enabled": true,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.08,
+            "label": "射击 1",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.115,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": 0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": 1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.21,
+            "label": "回落",
+            "position": {
+              "x": 0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": -0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.48,
+            "label": "恢复瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      },
+      "left": {
+        "enabled": false,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.08,
+            "label": "射击 1",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.115,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": -0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": -1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.21,
+            "label": "回落",
+            "position": {
+              "x": -0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": 0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.48,
+            "label": "恢复瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "rifle-three-round-burst": {
+    "version": 2,
+    "name": "枪械 · 三连发",
+    "duration": 0.8,
+    "loop": false,
+    "playbackSpeed": 1,
+    "weapons": {
+      "right": {
+        "enabled": true,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.08,
+            "label": "射击 1",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.115,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": 0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": 1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.21,
+            "label": "回落",
+            "position": {
+              "x": 0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": -0.5
+            }
+          },
+          {
+            "id": "fire-1",
+            "time": 0.28,
+            "label": "射击 2",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-1",
+            "time": 0.315,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": 0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": 1.5
+            }
+          },
+          {
+            "id": "settle-1",
+            "time": 0.41,
+            "label": "回落",
+            "position": {
+              "x": 0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": -0.5
+            }
+          },
+          {
+            "id": "fire-2",
+            "time": 0.48000000000000004,
+            "label": "射击 3",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-2",
+            "time": 0.515,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": 0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": 1.5
+            }
+          },
+          {
+            "id": "settle-2",
+            "time": 0.61,
+            "label": "回落",
+            "position": {
+              "x": 0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": -0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.8,
+            "label": "恢复瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      },
+      "left": {
+        "enabled": false,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.08,
+            "label": "射击 1",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.115,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": -0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": -1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.21,
+            "label": "回落",
+            "position": {
+              "x": -0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": 0.5
+            }
+          },
+          {
+            "id": "fire-1",
+            "time": 0.28,
+            "label": "射击 2",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-1",
+            "time": 0.315,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": -0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": -1.5
+            }
+          },
+          {
+            "id": "settle-1",
+            "time": 0.41,
+            "label": "回落",
+            "position": {
+              "x": -0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": 0.5
+            }
+          },
+          {
+            "id": "fire-2",
+            "time": 0.48000000000000004,
+            "label": "射击 3",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-2",
+            "time": 0.515,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": -0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": -1.5
+            }
+          },
+          {
+            "id": "settle-2",
+            "time": 0.61,
+            "label": "回落",
+            "position": {
+              "x": -0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": 0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.8,
+            "label": "恢复瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "dual-pistol-alternating": {
+    "version": 2,
+    "name": "双枪 · 交替射击",
+    "duration": 1,
+    "loop": false,
+    "playbackSpeed": 1,
+    "weapons": {
+      "right": {
+        "enabled": true,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "ready",
+            "time": 0,
+            "label": "瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.08,
+            "label": "射击 1",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.115,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": 0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": 1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.21,
+            "label": "回落",
+            "position": {
+              "x": 0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": -0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.48,
+            "label": "恢复瞄准",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "hold-end",
+            "time": 1,
+            "label": "等待左枪",
+            "position": {
+              "x": 0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      },
+      "left": {
+        "enabled": true,
+        "proxy": {
+          "shape": "gun",
+          "size": {
+            "x": 0.18,
+            "y": 0.2,
+            "z": 0.8
+          },
+          "center": {
+            "x": 0,
+            "y": 0,
+            "z": 0.25
+          },
+          "grip": {
+            "x": 0,
+            "y": -0.2,
+            "z": 0
+          },
+          "tip": {
+            "x": 0,
+            "y": 0,
+            "z": 0.65
+          }
+        },
+        "asset": {
+          "path": "",
+          "name": "武器代理体",
+          "scale": 1,
+          "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "keyframes": [
+          {
+            "id": "hold",
+            "time": 0,
+            "label": "等待另一手",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "ready",
+            "time": 0.35,
+            "label": "瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "fire-0",
+            "time": 0.43,
+            "label": "射击 1",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "kick-0",
+            "time": 0.465,
+            "label": "后坐 / 枪口上跳",
+            "position": {
+              "x": -0.3,
+              "y": -0.22,
+              "z": 0.59
+            },
+            "rotation": {
+              "x": -9,
+              "y": 0,
+              "z": -1.5
+            }
+          },
+          {
+            "id": "settle-0",
+            "time": 0.56,
+            "label": "回落",
+            "position": {
+              "x": -0.3,
+              "y": -0.25,
+              "z": 0.69
+            },
+            "rotation": {
+              "x": 1,
+              "y": 0,
+              "z": 0.5
+            }
+          },
+          {
+            "id": "recover",
+            "time": 0.83,
+            "label": "恢复瞄准",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          },
+          {
+            "id": "end",
+            "time": 1,
+            "label": "复位保持",
+            "position": {
+              "x": -0.3,
+              "y": -0.24,
+              "z": 0.7
+            },
+            "rotation": {
+              "x": 0,
+              "y": 0,
+              "z": 0
+            }
+          }
+        ]
+      }
+    }
+  }
+}
