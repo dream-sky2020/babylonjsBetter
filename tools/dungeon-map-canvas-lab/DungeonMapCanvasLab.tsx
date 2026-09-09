@@ -455,7 +455,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
 
   const fittedMapScale = useMemo(() => {
     const sharedThickness = Math.max(0, cellSize * sharedEdgeThicknessRatio);
-    const gap = sharedThickness > 0 ? sharedThickness + Math.max(2, cellSize * 0.04) : 0;
+    const gap = sharedThickness;
     const topologyMargin = sharedThickness > 0 ? gap : 0;
     const naturalWidth = mapWidth * cellSize + Math.max(0, mapWidth - 1) * gap + topologyMargin * 2 + canvasOuterPadding * 2;
     const naturalHeight = mapHeight * cellSize + Math.max(0, mapHeight - 1) * gap + topologyMargin * 2 + canvasOuterPadding * 2;

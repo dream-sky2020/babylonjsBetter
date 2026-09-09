@@ -316,7 +316,9 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
   const sharedThickness = Math.max(0, cell * sharedEdgeThicknessRatio);
   const edgeThickness = Math.min(cell / 2, Math.max(0, cell * edgeThicknessRatio));
   const hasSharedLayer = sharedThickness > 0;
-  const gap = hasSharedLayer ? sharedThickness + Math.max(2, cell * 0.04) : 0;
+  // The shared-edge slot must be exactly as wide as the rendered shared edge.
+  // Extra gutter space exposes the dark canvas between tile and shared layers.
+  const gap = hasSharedLayer ? sharedThickness : 0;
   const pointSize = hasSharedLayer ? gap : 0;
   const pitch = cell + gap;
   const contentWidth = map.width * cell + Math.max(0, map.width - 1) * gap;
