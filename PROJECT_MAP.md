@@ -482,7 +482,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
-- `model-shake-lab/`
+- `model-shake-lab/`：第一人称武器动画工作台；支持项目或本地 GLB 武器装配、模型朝向校正、相机空间关键帧编辑、时间轴预览、循环试玩、第一人称 WASD 漫游，以及浏览器项目保存和动画 JSON 导入导出。
 - `model-swing-lab/`
 - `model-shoot-lab/`
 
