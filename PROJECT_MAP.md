@@ -1,4 +1,21 @@
 # Babylon.js Better 项目地图
+
+## 2026-09-09：双武器代理体与攻击 / 射击示例
+
+第一人称预设升级为 v2：共享名称、时长、速度和循环参数，固定包含 weapons.right / weapons.left；每手单独持有 enabled、proxy、asset 安装变换和 keyframes。至少启用一手，停用保留所有参数；读取旧 v1 时无损迁入右手，并生成停用的左手镜像动作。保存使用 v2，Python 校验器同时接受两版，服务升级后需重启 python/server.py。
+
+ModelShakeLab 为两手创建独立动画节点与安装节点；useWeaponSlot 分别管理规范化模型的异步装载、过期请求释放与 Debug 生命周期。右手青色、左手紫色；编辑器切换当前手，时间轴显示两手关键帧概览，共用播放 / 暂停 / 擦洗时钟。镜像操作仅复制另一手的相机空间动作，不镜像几何体或修改模型安装参数。
+
+core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPersonWeaponExamples.ts 提供右手横斩、双持交替斩、双持交叉斩、单发后坐、三连发与双枪交替射击六种可编辑示例。新增五种示例已收录 config/firstPersonWeaponPresets.json。应用示例替换整套武器和动画配置；读取 config 则恢复用户保存版本。枪械示例只定义武器运动，不生成弹丸、命中判定或音效。
+
+验证：node --experimental-strip-types --test core/model/preset/firstPersonWeaponPreset.test.ts；Python test_weapon_preset_schema.py 验证 v1/v2 及双轨非法数据，test_weapon_presets.py 验证开发接口往返与拒绝写入。
+
+## 2026-09-09：第一人称武器安装预设（v1 历史）
+
+`core/model/preset/firstPersonWeaponPreset.ts` 定义 v1 武器预设与严格校验，`firstPersonWeaponPresetApi.ts` 通过统一 configLoader 读取 `config/firstPersonWeaponPresets.json`，通过 Python `/api/first-person-weapon-presets` GET/PUT 写回；服务端校验后原子替换文件。Vite 对该文件写回禁用热重载，保存后保留草稿与时间轴状态。正式构建只读并支持 JSON 导出。通用 `modelShakePresets.json` 与其 API 保持独立。
+
+`tools/model-shake-lab/` 节点链为相机/工作台根 → 动画姿态（挂载坐标系）→ 模型安装变换 → createModelEntity() 标准化实体。代理体 Debug 是动画节点下的独立子树，不缩放模型。+Z 为前、+Y 为上；原点是动画枢轴，握持点和攻击端为挂载局部坐标中的语义标记，不自动改变枢轴。盒体、枪械组合盒、圆柱、胶囊和椭球尺寸及中心可编辑。预设保存一个模型资源路径、安装变换、代理体及动画；不同模型可另存为不同 Key。项目规范化参数不进入该文件，不再自动包围盒居中或二次缩放。旧浏览器草稿/无持久资源路径的本地 GLB 不自动迁移。
+
 ## 2026-09-08：Dungeon Map Canvas 静态底图与选择层分离
 
 `core/ui/DungeonMapCanvas.tsx` 现在使用两张尺寸一致的高 DPI Canvas：底层只绘制地图背景、格子、坐标、单格边、公用边、公用点、SVG 素材和 Entity 染色；上层保持透明，只绘制当前选择高亮。选区变化只清理并重绘选择层，不再重新扫描地图或重绘/重新混合素材；地图、尺寸、图案或显示参数变化时才更新底图。两层继续共享同一套几何参数、视觉边解析和 DOM 指针交互层，因此命中、框选、右键取消和循环拓扑语义不变。Canvas 像素尺寸没有变化时不会重新分配位图，只清理选择层。
@@ -482,7 +499,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
-- `model-shake-lab/`：第一人称武器动画工作台；支持项目或本地 GLB 武器装配、模型朝向校正、相机空间关键帧编辑、时间轴预览、循环试玩、第一人称 WASD 漫游，以及浏览器项目保存和动画 JSON 导入导出。
+- `model-shake-lab/`：第一人称武器代理体与动画编辑器；使用项目规范化模型，只编辑安装位置、旋转、缩放。支持代理体模板、自定义形状、原点/方向/握持点/攻击端标记、关键帧预览与独立 config 预设保存。
 - `model-swing-lab/`
 - `model-shoot-lab/`
 

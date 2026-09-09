@@ -1,4 +1,5 @@
 # server.py
+from weapon_presets import validate_weapon_presets
 import argparse
 import mimetypes
 import os
@@ -61,6 +62,7 @@ MONSTER_STRIPE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "monste
 POP_NUMBER_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "popNumberPresets.json")
 BURST_CAPSULE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "burstCapsulePresets.json")
 MODEL_SCENE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelScenePresets.json")
+FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "firstPersonWeaponPresets.json")
 MODEL_SHAKE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShakePresets.json")
 MODEL_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelDisplayConfigs.json")
 MODEL_ASSET_PROFILE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelAssetProfiles.json")
@@ -192,6 +194,37 @@ def handle_model_shake_presets():
         return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(MODEL_SHAKE_PRESET_CONFIG_PATH)})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to write shake presets: {exc}"}), 500
+
+@app.route("/api/first-person-weapon-presets", methods=["GET", "PUT"])
+def handle_first_person_weapon_presets():
+    if request.method == "GET":
+        if not os.path.isfile(FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH):
+            return jsonify({"success": True, "count": 0, "data": {}})
+        try:
+            with open(FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            if not isinstance(data, dict):
+                return jsonify({"success": False, "message": "config root must be an object"}), 500
+            errors = validate_weapon_presets(data)
+            return jsonify({"success": True, "count": len(data), "data": data, "valid": len(errors) == 0, "errors": errors[:50]})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read first-person weapon presets: {exc}"}), 500
+
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({"success": False, "message": "body must be a JSON object"}), 400
+    errors = validate_weapon_presets(payload)
+    if errors:
+        return jsonify({"success": False, "message": "first-person weapon preset validation failed", "errorCount": len(errors), "errors": errors[:50]}), 400
+    try:
+        os.makedirs(os.path.dirname(FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH), exist_ok=True)
+        temp_path = f"{FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH}.tmp"
+        with open(temp_path, "w", encoding="utf-8") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2)
+        os.replace(temp_path, FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH)
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write first-person weapon presets: {exc}"}), 500
 
 @app.route("/api/model-display-configs", methods=["GET", "PUT"])
 def handle_model_display_configs():
