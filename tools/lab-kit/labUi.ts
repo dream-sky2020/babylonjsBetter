@@ -65,7 +65,13 @@ export class LabUi {
     collapseButton.setAttribute('aria-label', `收起“${title}”面板`);
     collapseButton.setAttribute('aria-expanded', 'true');
     collapseButton.title = '收起';
-    collapseButton.textContent = '−';
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('viewBox', '0 0 16 16');
+    chevron.setAttribute('aria-hidden', 'true');
+    const chevronPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    chevronPath.setAttribute('d', 'm5 3 5 5-5 5');
+    chevron.append(chevronPath);
+    collapseButton.append(chevron);
     const content = document.createElement('div');
     content.className = 'lab-panel-content';
     const contentId = `lab-panel-content-${id}`;
@@ -79,7 +85,7 @@ export class LabUi {
       collapseButton,
       defaultCollapsed: options.defaultCollapsed === true,
     };
-    collapseButton.addEventListener('click', () => this.setPanelCollapsed(entry, !root.classList.contains('is-collapsed'), true));
+    header.addEventListener('click', () => this.setPanelCollapsed(entry, !root.classList.contains('is-collapsed'), true));
     header.append(heading, collapseButton);
     root.append(header, content);
     this.panels.set(id, entry);
@@ -122,7 +128,6 @@ export class LabUi {
   private setPanelCollapsed(entry: PanelEntry, collapsed: boolean, persist: boolean): void {
     entry.root.classList.toggle('is-collapsed', collapsed);
     entry.content.hidden = collapsed;
-    entry.collapseButton.textContent = collapsed ? '+' : '−';
     entry.collapseButton.title = collapsed ? '展开' : '收起';
     entry.collapseButton.setAttribute('aria-expanded', String(!collapsed));
     entry.collapseButton.setAttribute('aria-label', `${collapsed ? '展开' : '收起'}“${entry.title}”面板`);
