@@ -1,5 +1,9 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-10：LabKit 紧凑折叠面板
+
+`tools/lab-kit/LabUi.addPanel()` 的共享折叠标题栏改为 Inspector 风格的整行点击区域与 SVG 箭头，展开时旋转箭头，移除原有独立加减按钮和卡片内部的大块留白。内容仍使用原 DOM 容器，面板 ID、默认折叠、全部展开/折叠、重置布局以及按页面保存的本地折叠偏好均保持不变。该样式会统一应用到 `dungeon-player-spawn-lab` 等所有使用 LabKit 的组合式 Lab；系统面板仍保留轻微的颜色区分。
+
 ## 2026-09-10：ModelShakeLab 只读场景层级
 
 `tools/model-shake-lab/SceneHierarchyPanel.tsx` 直接读取当前 Babylon `Scene.rootNodes` 和真实父子节点，不维护第二套场景结构。左侧 Unity Hierarchy 风格面板支持搜索、展开/收起、选中、双击聚焦，以及只读右键操作（聚焦、展开/收起子级、复制节点路径）；监听相机、灯光、TransformNode 和 Mesh 的新增/移除以跟随模型装载与 Debug 对象重建。
