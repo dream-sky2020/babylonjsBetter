@@ -2,11 +2,13 @@ import { defineConfig, type Plugin } from 'vite'
 import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
+import { parseWeaponLibrary } from './core/model/preset/firstPersonWeaponPreset.ts'
 
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
+const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
 
 const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
   if (!fs.existsSync(dir)) return []
@@ -81,7 +83,45 @@ const sharedConfigPlugin = (): Plugin => ({
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
       const url = req.url ?? ''
-      if (url.split('?')[0] === '/api/model-assets') {
+      const pathname = url.split('?')[0]
+      if (pathname === '/api/first-person-weapon-presets') {
+        void (async () => {
+          const sendJson = (statusCode: number, payload: unknown) => {
+            res.statusCode = statusCode
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.end(JSON.stringify(payload))
+          }
+          try {
+            if (req.method === 'GET') {
+              const raw = JSON.parse(await fsp.readFile(FIRST_PERSON_WEAPON_PRESETS_PATH, 'utf8')) as unknown
+              parseWeaponLibrary(raw)
+              sendJson(200, { success: true, count: Object.keys(raw as object).length, data: raw, valid: true })
+              return
+            }
+            if (req.method !== 'PUT') {
+              sendJson(405, { success: false, message: 'method not allowed' })
+              return
+            }
+            const chunks: Buffer[] = []
+            let byteLength = 0
+            for await (const chunk of req) {
+              const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+              byteLength += buffer.length
+              if (byteLength > 5 * 1024 * 1024) throw new Error('payload too large')
+              chunks.push(buffer)
+            }
+            const library = parseWeaponLibrary(JSON.parse(Buffer.concat(chunks).toString('utf8')))
+            const tempPath = `${FIRST_PERSON_WEAPON_PRESETS_PATH}.tmp`
+            await fsp.writeFile(tempPath, JSON.stringify(library, null, 2) + '\n', 'utf8')
+            await fsp.rename(tempPath, FIRST_PERSON_WEAPON_PRESETS_PATH)
+            sendJson(200, { success: true, count: Object.keys(library).length, path: FIRST_PERSON_WEAPON_PRESETS_PATH })
+          } catch (error) {
+            sendJson(400, { success: false, message: error instanceof Error ? error.message : String(error) })
+          }
+        })()
+        return
+      }
+      if (pathname === '/api/model-assets') {
         void collectModelAssets().then((assets) => {
           res.statusCode = 200
           res.setHeader('Content-Type', 'application/json; charset=utf-8')

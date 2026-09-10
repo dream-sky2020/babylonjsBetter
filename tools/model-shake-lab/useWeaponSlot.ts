@@ -7,7 +7,7 @@ import { createWeaponProxyDebug } from './weaponProxyDebug.ts';
 export type WeaponLabRuntime = {
   engine: Engine; scene: Scene; firstPersonCamera: UniversalCamera; orbitCamera: ArcRotateCamera;
   viewmodelRoot: TransformNode;
-  slots: Record<WeaponHand, { weaponPose: TransformNode; weaponAsset: TransformNode }>;
+  slots: Record<WeaponHand, { weaponPose: TransformNode; weaponAsset: TransformNode; proxyAnchor: TransformNode; gripAnchor: TransformNode; attackAnchor: TransformNode; muzzleAnchor: TransformNode }>;
 };
 
 /** Each hand owns its own async model generation and debug lifecycle. */
@@ -21,6 +21,13 @@ export function useWeaponSlot(runtimeRef: RefObject<WeaponLabRuntime | null>, ha
     slot.weaponAsset.position.set(asset.offset.x, asset.offset.y, asset.offset.z);
     slot.weaponAsset.scaling.setAll(asset.scale);
     slot.weaponAsset.rotationQuaternion = Quaternion.FromEulerAngles(asset.rotation.x * Math.PI / 180, asset.rotation.y * Math.PI / 180, asset.rotation.z * Math.PI / 180);
+    const setAnchor = (node: TransformNode, position: { x: number; y: number; z: number }, rotation: { x: number; y: number; z: number }, size = { x: 1, y: 1, z: 1 }) => {
+      node.position.set(position.x, position.y, position.z); node.rotationQuaternion = Quaternion.FromEulerAngles(rotation.x * Math.PI / 180, rotation.y * Math.PI / 180, rotation.z * Math.PI / 180); node.scaling.set(size.x, size.y, size.z);
+    };
+    setAnchor(slot.proxyAnchor, track.proxy.center, track.proxy.rotation, track.proxy.size);
+    setAnchor(slot.gripAnchor, track.proxy.gripVolume.center, track.proxy.gripVolume.rotation, track.proxy.gripVolume.size);
+    setAnchor(slot.attackAnchor, track.proxy.attackVolume.center, track.proxy.attackVolume.rotation, track.proxy.attackVolume.size);
+    setAnchor(slot.muzzleAnchor, track.proxy.muzzle.position, track.proxy.muzzle.rotation);
   }, [runtimeRef, hand, track]);
   useEffect(() => {
     const runtime = runtimeRef.current; if (!runtime || !track.enabled) return;

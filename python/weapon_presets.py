@@ -59,6 +59,41 @@ def _validate_v1_presets(payload):
         return [str(exc)]
 
 
+def _legacy_proxy_from_v3(proxy):
+    def require(ok, field):
+        if not ok:
+            raise ValueError(f"invalid weapon semantic field: {field}")
+
+    def obj(value, keys, field):
+        require(isinstance(value, dict) and set(value) == set(keys.split()), field)
+
+    def vector(value, field, positive=False):
+        obj(value, "x y z", field)
+        for axis in "xyz":
+            number = value[axis]
+            require(type(number) in (int, float) and math.isfinite(number) and (not positive or number > 0), field)
+
+    require(isinstance(proxy, dict) and set(proxy) in (
+        set("shape size center gripVolume attackVolume muzzle".split()),
+        set("shape size center rotation gripVolume attackVolume muzzle".split()),
+    ), "proxy")
+    require(proxy['shape'] in ('box', 'gun', 'cylinder', 'capsule', 'sphere'), "proxy.shape")
+    vector(proxy['size'], "proxy.size", True); vector(proxy['center'], "proxy.center")
+    if 'rotation' in proxy:
+        vector(proxy['rotation'], "proxy.rotation")
+    for field in ('gripVolume', 'attackVolume'):
+        volume = proxy[field]
+        obj(volume, "enabled shape center size rotation", field)
+        require(type(volume['enabled']) is bool and volume['shape'] in ('box', 'cylinder', 'capsule', 'sphere'), field)
+        vector(volume['center'], field + '.center'); vector(volume['size'], field + '.size', True); vector(volume['rotation'], field + '.rotation')
+    muzzle = proxy['muzzle']
+    obj(muzzle, "enabled position rotation", "muzzle")
+    require(type(muzzle['enabled']) is bool, "muzzle.enabled")
+    vector(muzzle['position'], "muzzle.position"); vector(muzzle['rotation'], "muzzle.rotation")
+    tip = muzzle['position'] if muzzle['enabled'] else proxy['attackVolume']['center']
+    return {'shape': proxy['shape'], 'size': proxy['size'], 'center': proxy['center'], 'grip': proxy['gripVolume']['center'], 'tip': tip}
+
+
 def validate_weapon_presets(payload):
     if not isinstance(payload, dict):
         return ['weapon library must be an object']
@@ -72,16 +107,20 @@ def validate_weapon_presets(payload):
             if errors:
                 return errors
             continue
-        if type(project.get('version')) is not int or project['version'] != 2 or set(project) != {'version', 'name', 'duration', 'loop', 'playbackSpeed', 'weapons'}:
-            return ['invalid v2 project']
+        if type(project.get('version')) is not int or project['version'] not in (2, 3) or set(project) != {'version', 'name', 'duration', 'loop', 'playbackSpeed', 'weapons'}:
+            return ['invalid v2/v3 project']
         weapons = project['weapons']
         if not isinstance(weapons, dict) or set(weapons) != {'right', 'left'}:
             return ['v2 requires exactly right and left weapon tracks']
         for hand, track in weapons.items():
             if not isinstance(track, dict) or set(track) != {'enabled', 'proxy', 'asset', 'keyframes'} or type(track['enabled']) is not bool:
                 return ['invalid weapon track: ' + hand]
+            try:
+                proxy = track['proxy'] if project['version'] == 2 else _legacy_proxy_from_v3(track['proxy'])
+            except (ValueError, TypeError, KeyError, OverflowError) as exc:
+                return [hand + ': ' + str(exc)]
             legacy = {field: project[field] for field in ('name', 'duration', 'loop', 'playbackSpeed')}
-            legacy.update(version=1, proxy=track['proxy'], asset=track['asset'], keyframes=track['keyframes'])
+            legacy.update(version=1, proxy=proxy, asset=track['asset'], keyframes=track['keyframes'])
             errors = _validate_v1_presets({key: legacy})
             if errors:
                 return [hand + ': ' + error for error in errors]

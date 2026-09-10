@@ -35,6 +35,25 @@ class DualWeaponSchemaTests(unittest.TestCase):
         for bad in cases:
             self.assertTrue(validate_weapon_presets({'test': bad}))
 
+    def test_v3_semantic_volumes_validate_and_reject_invalid_size(self):
+        project = copy.deepcopy(self.library['dual-alternating-slash'])
+        project['version'] = 3
+        for hand, track in project['weapons'].items():
+            legacy = track['proxy']
+            track['proxy'] = {
+                'shape': legacy['shape'], 'size': legacy['size'], 'center': legacy['center'],
+                'gripVolume': {'enabled': True, 'shape': 'cylinder', 'center': legacy['grip'], 'size': {'x': .12, 'y': .12, 'z': .28}, 'rotation': {'x': 0, 'y': 0, 'z': 0}},
+                'attackVolume': {'enabled': True, 'shape': 'box', 'center': legacy['center'], 'size': {'x': .15, 'y': .1, 'z': 1.1}, 'rotation': {'x': 0, 'y': 0, 'z': 0}},
+                'muzzle': {'enabled': False, 'position': legacy['tip'], 'rotation': {'x': 0, 'y': 0, 'z': 0}},
+            }
+            if hand == 'right':
+                track['proxy']['rotation'] = {'x': 12, 'y': -24, 'z': 5}
+            else:
+                track['proxy']['attackVolume']['shape'] = 'sphere'
+        self.assertEqual(validate_weapon_presets({'semantic': project}), [])
+        project['weapons']['right']['proxy']['attackVolume']['size']['z'] = 0
+        self.assertTrue(validate_weapon_presets({'semantic': project}))
+
 
 if __name__ == '__main__':
     unittest.main()

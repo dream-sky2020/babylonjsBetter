@@ -2,7 +2,7 @@
 
 ## 2026-09-09：双武器代理体与攻击 / 射击示例
 
-第一人称预设升级为 v2：共享名称、时长、速度和循环参数，固定包含 weapons.right / weapons.left；每手单独持有 enabled、proxy、asset 安装变换和 keyframes。至少启用一手，停用保留所有参数；读取旧 v1 时无损迁入右手，并生成停用的左手镜像动作。保存使用 v2，Python 校验器同时接受两版，服务升级后需重启 python/server.py。
+第一人称预设升级为 v3：共享名称、时长、速度和循环参数，固定包含 weapons.right / weapons.left；每手单独持有 enabled、proxy、asset 安装变换和 keyframes。proxy 本体具有独立中心与旋转，并使用 gripVolume、attackVolume 与 muzzle 分别表达持握体、近战攻击体和带方向的发射端；持握体和攻击体可独立选择盒体、圆柱体、胶囊体或球体，并分别保存中心、尺寸与旋转。模型安装、代理体、持握体、攻击体和发射端统一使用 W 移动 / E 旋转 Gizmo、本地或世界坐标及吸附，面板数值与 Gizmo 双向同步；具有尺寸属性的模型安装、代理体、持握体和攻击体额外支持 R 尺寸 Gizmo，模型保持等比缩放，三个体积对象支持 XYZ 分轴或等比缩放，发射端与动画姿态不提供无意义的尺寸模式。圆柱体、胶囊体和球体使用无网格边线的半透明实体显示，缺少代理体 rotation 的早期 v3 读取为零旋转。至少启用一手，停用保留所有参数；读取旧 v1/v2 时自动迁移旧 grip/tip 点位。保存使用 v3，前端与 Python 校验器同时接受三版。
 
 ModelShakeLab 为两手创建独立动画节点与安装节点；useWeaponSlot 分别管理规范化模型的异步装载、过期请求释放与 Debug 生命周期。右手青色、左手紫色；编辑器切换当前手，时间轴显示两手关键帧概览，共用播放 / 暂停 / 擦洗时钟。镜像操作仅复制另一手的相机空间动作，不镜像几何体或修改模型安装参数。
 
@@ -12,9 +12,9 @@ core/model/preset/firstPersonWeaponAnimation.ts 提供双轨采样；firstPerson
 
 ## 2026-09-09：第一人称武器安装预设（v1 历史）
 
-`core/model/preset/firstPersonWeaponPreset.ts` 定义 v1 武器预设与严格校验，`firstPersonWeaponPresetApi.ts` 通过统一 configLoader 读取 `config/firstPersonWeaponPresets.json`，通过 Python `/api/first-person-weapon-presets` GET/PUT 写回；服务端校验后原子替换文件。Vite 对该文件写回禁用热重载，保存后保留草稿与时间轴状态。正式构建只读并支持 JSON 导出。通用 `modelShakePresets.json` 与其 API 保持独立。
+`core/model/preset/firstPersonWeaponPreset.ts` 定义 v1/v2/v3 武器预设、旧点位到语义体的迁移与严格校验，`firstPersonWeaponPresetApi.ts` 通过统一 configLoader 读取 `config/firstPersonWeaponPresets.json`。开发态优先使用当前 Vite 服务的同源 `/api/first-person-weapon-presets` GET/PUT，独立 Python 服务作为兼容后备；两端均校验完整预设后原子替换文件。保存内容包含每手代理体、持握体、攻击体、发射端、模型路径、安装缩放、相对位置、相对旋转和关键帧。Vite 对该文件写回禁用热重载，保存后保留草稿与时间轴状态。正式构建只读并支持 JSON 导出。通用 `modelShakePresets.json` 与其 API 保持独立。
 
-`tools/model-shake-lab/` 节点链为相机/工作台根 → 动画姿态（挂载坐标系）→ 模型安装变换 → createModelEntity() 标准化实体。代理体 Debug 是动画节点下的独立子树，不缩放模型。+Z 为前、+Y 为上；原点是动画枢轴，握持点和攻击端为挂载局部坐标中的语义标记，不自动改变枢轴。盒体、枪械组合盒、圆柱、胶囊和椭球尺寸及中心可编辑。预设保存一个模型资源路径、安装变换、代理体及动画；不同模型可另存为不同 Key。项目规范化参数不进入该文件，不再自动包围盒居中或二次缩放。旧浏览器草稿/无持久资源路径的本地 GLB 不自动迁移。
+`tools/model-shake-lab/` 节点链为相机/工作台根 → 动画姿态（挂载坐标系）→ 模型安装变换 → createModelEntity() 标准化实体，同时为代理体、持握体、攻击体和发射端保留稳定的 Gizmo 变换节点。代理体 Debug 是动画节点下的独立子树，不缩放模型。+Z 为前、+Y 为上；原点是动画枢轴，各语义体保留独立局部位置与旋转，不自动改变枢轴。盒体、枪械组合盒、圆柱、胶囊和椭球尺寸、中心及旋转可编辑。预设保存一个模型资源路径、安装变换、代理体及动画；不同模型可另存为不同 Key。项目规范化参数不进入该文件，不再自动包围盒居中或二次缩放。旧浏览器草稿/无持久资源路径的本地 GLB 不自动迁移。
 
 ## 2026-09-08：Dungeon Map Canvas 静态底图与选择层分离
 
