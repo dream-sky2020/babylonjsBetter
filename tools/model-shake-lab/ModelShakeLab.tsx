@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as
 import {
   ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, GizmoCoordinatesMode,
   GizmoManager, HemisphericLight, MeshBuilder, Quaternion, Scene, StandardMaterial,
-  TransformNode, UniversalCamera, Vector3,
+  TransformNode, UniversalCamera, Vector3, type Node,
 } from '@babylonjs/core';
 import { parseWeaponProject, proxyTemplates, type Vec3, type WeaponKeyframe, type AnimationProject, type WeaponPresetLibrary, type ProxyShape, type InteractionVolumeShape, type WeaponHand, type WeaponTrack, mirrorWeaponTrack } from '@/core/model/preset/firstPersonWeaponPreset.ts';
 import { loadWeaponPresets, readLiveWeaponPresets, saveWeaponPresets } from '@/core/model/preset/firstPersonWeaponPresetApi.ts';
@@ -10,6 +10,8 @@ import { useWeaponSlot, type WeaponLabRuntime as Runtime } from './useWeaponSlot
 import { sampleWeaponPoses } from '@/core/model/preset/firstPersonWeaponAnimation.ts';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
+import { SceneHierarchyPanel } from './SceneHierarchyPanel.tsx';
+import { SceneNodeInspector } from './SceneNodeInspector.tsx';
 
 type IconName = 'play' | 'pause' | 'stop' | 'restart' | 'skip-back' | 'repeat' | 'plus' | 'upload' | 'download' | 'trash' | 'move' | 'rotate' | 'scale' | 'globe' | 'magnet' | 'eye' | 'eye-off' | 'save';
 
@@ -96,6 +98,8 @@ export const ModelShakeLab = () => {
   const [saving, setSaving] = useState(false); const [presetsReady, setPresetsReady] = useState(false);
   const [showProxy, setShowProxy] = useState(true); const [showMarkers, setShowMarkers] = useState(true);
   const [status, setStatus] = useState('武器代理体已就绪'); const [savedSnapshot, setSavedSnapshot] = useState('');
+  const [hierarchyScene, setHierarchyScene] = useState<Scene | null>(null);
+  const [hierarchySelectedId, setHierarchySelectedId] = useState<number | null>(null);
   const saved = savedKey === presetKey && savedSnapshot === JSON.stringify(rig);
   const activeWeaponEnabled = rig.weapons[activeHand].enabled;
   const assetTargetName = { asset: '模型安装', proxy: '代理体', grip: '持握体', attack: '攻击体', muzzle: '发射端' }[assetEditTarget];
@@ -103,6 +107,7 @@ export const ModelShakeLab = () => {
   const effectiveGizmoMode = gizmoMode === 'scale' && !canScale ? 'position' : gizmoMode;
   const selectedFrame = useMemo(() => project.keyframes.find((frame) => frame.id === selectedId) ?? project.keyframes[0], [project, selectedId]);
   const orderedFrames = useMemo(() => [...project.keyframes].sort((a, b) => a.time - b.time), [project.keyframes]);
+  const hierarchySelectedNode = hierarchySelectedId === null ? null : hierarchyScene?.getNodes().find(node => node.uniqueId === hierarchySelectedId && !node.isDisposed()) ?? null;
 
   useEffect(() => { projectRef.current = rig; }, [rig]);
   useEffect(() => {
@@ -138,6 +143,7 @@ export const ModelShakeLab = () => {
     gizmoManager.rotationGizmoEnabled = false; gizmoManager.scaleGizmoEnabled = false;
     gizmoManagerRef.current = gizmoManager;
     scene.activeCamera = firstPersonCamera; applyProjectPose(runtimeRef.current, projectRef.current, 0);
+    queueMicrotask(() => { setHierarchyScene(scene); setHierarchySelectedId(slots.right.weaponAsset.uniqueId); });
     engine.runRenderLoop(() => {
       const runtime = runtimeRef.current; if (!runtime) return; const playState = playStateRef.current;
       if (playState.playing) {
@@ -207,7 +213,7 @@ export const ModelShakeLab = () => {
   const updateAsset = (patch: Partial<WeaponTrack['asset']>) => updateTrack(current => ({ ...current, asset: { ...current.asset, ...patch } }));
   const updateAssetVec = (channel: 'offset' | 'rotation', axis: keyof Vec3, value: number) => updateTrack(current => ({ ...current, asset: { ...current.asset, [channel]: { ...current.asset[channel], [axis]: value } } }));
   const updateFrame = (patch: Partial<WeaponKeyframe>) => updateTrack(current => ({ ...current, keyframes: current.keyframes.map(frame => frame.id === selectedFrame.id ? { ...frame, ...patch } : frame).sort((a, b) => a.time - b.time) }));
-  const selectHand = (hand: WeaponHand) => { setActiveHand(hand); setSelectedId(rig.weapons[hand].keyframes[0].id); };
+  const selectHand = (hand: WeaponHand) => { setHierarchySelectedId(null); setActiveHand(hand); setSelectedId(rig.weapons[hand].keyframes[0].id); };
   const toggleHand = (hand: WeaponHand, enabled: boolean) => {
     if (!enabled && !rig.weapons[hand === 'right' ? 'left' : 'right'].enabled) return setStatus('至少保留一个启用的代理体');
     setRig(current => ({ ...current, weapons: { ...current.weapons, [hand]: { ...current.weapons[hand], enabled } } }));
@@ -221,6 +227,23 @@ export const ModelShakeLab = () => {
     if (assetEditTarget === 'muzzle') return slot.muzzleAnchor;
     return slot.weaponAsset;
   }, [activeHand, assetEditTarget]);
+  const selectHierarchyNode = (node: Node) => {
+    stopPlayback(false); setHierarchySelectedId(node.uniqueId);
+    const runtime = runtimeRef.current; if (!runtime) return;
+    for (const hand of HANDS) {
+      const slot = runtime.slots[hand];
+      const match = ([
+        [slot.weaponPose, 'pose', 'asset', '动画姿态'], [slot.weaponAsset, 'asset', 'asset', '模型安装'],
+        [slot.proxyAnchor, 'asset', 'proxy', '代理体'], [slot.gripAnchor, 'asset', 'grip', '持握体'],
+        [slot.attackAnchor, 'asset', 'attack', '攻击体'], [slot.muzzleAnchor, 'asset', 'muzzle', '发射端'],
+      ] as const).find(([candidate]) => candidate === node);
+      if (!match) continue;
+      setActiveHand(hand); setActiveTab(match[1]); setAssetEditTarget(match[2]);
+      setStatus(`已从层级选择${handName(hand)} · ${match[3]}`); return;
+    }
+    gizmoManagerRef.current?.attachToNode(null);
+    setStatus(`${node.name} · 只读场景节点`);
+  };
   useEffect(() => {
     syncFromGizmoRef.current = () => {
       const runtime = runtimeRef.current; if (!runtime || activeTab === 'project') return;
@@ -254,10 +277,12 @@ export const ModelShakeLab = () => {
       scaleGizmo.snapDistance = gizmoSnap ? .05 : 0; scaleGizmo.incrementalSnap = true;
     }
     const targetEnabled = activeTab !== 'asset' || assetEditTarget === 'asset' || assetEditTarget === 'proxy' || (assetEditTarget === 'muzzle' ? project.proxy.muzzle.enabled : project.proxy[assetEditTarget === 'grip' ? 'gripVolume' : 'attackVolume'].enabled);
-    const visible = !playing && viewMode === 'orbit' && activeTab !== 'project' && activeWeaponEnabled && targetEnabled;
-    manager.attachToNode(visible ? (activeTab === 'asset' ? getAssetEditNode(runtime) : runtime.slots[activeHand].weaponPose) : null);
-  }, [activeHand, activeTab, activeWeaponEnabled, assetEditTarget, effectiveGizmoMode, getAssetEditNode, gizmoSnap, gizmoSpace, playing, project.proxy, viewMode]);
-  const selectFrame = (frame: WeaponKeyframe) => { stopPlayback(false); playStateRef.current.pausedAt = frame.time; setSelectedId(frame.id); setCurrentTime(frame.time); const runtime = runtimeRef.current; if (runtime) applyProjectPose(runtime, projectRef.current, frame.time); };
+    const editorTarget = activeTab === 'asset' ? getAssetEditNode(runtime) : runtime.slots[activeHand].weaponPose;
+    const hierarchyBlocksGizmo = hierarchySelectedId !== null;
+    const visible = !playing && viewMode === 'orbit' && activeTab !== 'project' && activeWeaponEnabled && targetEnabled && !hierarchyBlocksGizmo;
+    manager.attachToNode(visible ? editorTarget : null);
+  }, [activeHand, activeTab, activeWeaponEnabled, assetEditTarget, effectiveGizmoMode, getAssetEditNode, gizmoSnap, gizmoSpace, hierarchySelectedId, playing, project.proxy, viewMode]);
+  const selectFrame = (frame: WeaponKeyframe) => { setHierarchySelectedId(null); stopPlayback(false); playStateRef.current.pausedAt = frame.time; setSelectedId(frame.id); setCurrentTime(frame.time); const runtime = runtimeRef.current; if (runtime) applyProjectPose(runtime, projectRef.current, frame.time); };
   const addFrame = () => { stopPlayback(false); const time = clamp(selectedFrame.time + 0.1, 0, project.duration); const frame = { ...selectedFrame, id: makeId(), time, label: '新姿态', position: { ...selectedFrame.position }, rotation: { ...selectedFrame.rotation } }; updateTrack((current) => ({ ...current, keyframes: [...current.keyframes, frame].sort((a, b) => a.time - b.time) })); setSelectedId(frame.id); playStateRef.current.pausedAt = time; setCurrentTime(time); setStatus('已添加关键帧'); };
   const deleteFrame = () => { if (project.keyframes.length <= 2) return setStatus('动画至少需要两个关键帧'); const index = project.keyframes.findIndex((frame) => frame.id === selectedFrame.id); const next = project.keyframes.filter((frame) => frame.id !== selectedFrame.id); const fallback = next[Math.max(0, index - 1)]; updateTrack((current) => ({ ...current, keyframes: next })); selectFrame(fallback); setStatus('已删除关键帧'); };
   const scrub = (time: number) => { stopPlayback(false); playStateRef.current.pausedAt = time; setCurrentTime(time); const runtime = runtimeRef.current; if (runtime) applyProjectPose(runtime, projectRef.current, time); };
@@ -313,9 +338,18 @@ export const ModelShakeLab = () => {
     }
     setViewMode(mode); setStatus(mode === 'first-person' ? '第一人称预览机位 · 拖动鼠标可调整观察方向' : '工作台视角 · 可环绕检查武器姿态');
   };
+  const focusHierarchyNode = (node: Node) => {
+    const runtime = runtimeRef.current; if (!runtime) return;
+    switchView('orbit'); node.computeWorldMatrix(true);
+    const bounded = node as Node & { getBoundingInfo?: () => { boundingSphere: { centerWorld: Vector3; radiusWorld: number } } };
+    const sphere = bounded.getBoundingInfo?.().boundingSphere;
+    const target = sphere?.centerWorld.clone() ?? node.getWorldMatrix().getTranslation();
+    runtime.orbitCamera.setTarget(target); runtime.orbitCamera.radius = Math.max(.8, sphere ? sphere.radiusWorld * 2.8 : 1.6);
+    setStatus(`已聚焦：${node.name}`);
+  };
   const activateGizmo = (mode: 'position' | 'rotation' | 'scale') => {
     if (mode === 'scale' && !canScale) { setStatus('当前对象没有尺寸属性'); return; }
-    stopPlayback(false);
+    setHierarchySelectedId(null); stopPlayback(false);
     switchView('orbit');
     const runtime = runtimeRef.current;
     if (runtime) {
@@ -368,9 +402,10 @@ export const ModelShakeLab = () => {
       <button className="ghost" disabled={saving || !presetsReady || !import.meta.env.DEV} title="通过当前开发服务器保存到 config；正式构建请导出 JSON" onClick={() => void saveProject()}><span className={`save-dot ${saved ? 'saved' : ''}`} />{saving ? '保存中…' : saved ? '已保存' : '保存预设'}</button>
       <button className="primary icon-label" onClick={playing ? pausePlayback : startPlayback}><SvgIcon name={playing ? 'pause' : 'play'} />{playing ? '暂停' : '播放'}</button>
     </header>
+    <SceneHierarchyPanel scene={hierarchyScene} selectedId={hierarchySelectedId} onSelect={selectHierarchyNode} onFocus={focusHierarchyNode} onClearSelection={() => setHierarchySelectedId(null)} />
     <section className="viewport-shell">
       <canvas ref={canvasRef} tabIndex={0} /><div className="viewport-top"><span className="mode-badge"><i />{viewMode === 'first-person' ? 'FIRST PERSON PREVIEW' : 'POSE VIEW'}</span><span>{HANDS.filter(hand => rig.weapons[hand].enabled).map(hand => handName(hand) + ' · ' + rig.weapons[hand].asset.name).join(' / ')}</span></div>
-      {activeTab !== 'project' && <div className="gizmo-toolbar">
+      {activeTab !== 'project' && !hierarchySelectedNode && <div className="gizmo-toolbar">
         <div className="gizmo-target"><span>编辑目标</span><strong>{handName(activeHand)} · {activeTab === 'asset' ? assetTargetName : `关键帧「${selectedFrame.label}」`}</strong></div>
         <div className="gizmo-mode" role="group" aria-label="变换工具">
           <button className={`icon-label ${effectiveGizmoMode === 'position' && viewMode === 'orbit' ? 'active' : ''}`} title="移动工具（W）" onClick={() => activateGizmo('position')}><SvgIcon name="move" />移动 <kbd>W</kbd></button>
@@ -383,15 +418,15 @@ export const ModelShakeLab = () => {
         <div className="axis-legend"><i className="x" />X <i className="y" />Y <i className="z" />Z</div>
       </div>}
       <div className="reticle" aria-hidden="true"><span /><span /></div>
-      <div className="viewport-help">{viewMode === 'first-person' ? `第一人称仅预览 · W 移动 / E 旋转${canScale ? ' / R 尺寸' : ''}会进入工作台 · 空格播放/暂停` : `W 移动 · E 旋转${canScale ? ' · R 尺寸' : ''} · 拖动操纵器编辑 · 空白处拖动环绕视角`}</div><div className="status-toast">{loading && <span className="spinner" />}{status}</div>
+      <div className="viewport-help">{hierarchySelectedNode ? '对象属性只读 · 双击层级节点聚焦 · 关闭 Inspector 后继续编辑' : viewMode === 'first-person' ? `第一人称仅预览 · W 移动 / E 旋转${canScale ? ' / R 尺寸' : ''}会进入工作台 · 空格播放/暂停` : `W 移动 · E 旋转${canScale ? ' · R 尺寸' : ''} · 拖动操纵器编辑 · 空白处拖动环绕视角`}</div><div className="status-toast">{loading && <span className="spinner" />}{status}</div>
     </section>
-    <aside className="inspector">
+    {hierarchySelectedNode ? <SceneNodeInspector node={hierarchySelectedNode} activeCamera={hierarchyScene?.activeCamera ?? null} onClose={() => setHierarchySelectedId(null)} /> : <aside className="inspector">
       <div className="hand-selector">
         <div className="view-switch" role="group" aria-label="编辑武器挂载位">{HANDS.map(hand => <button key={hand} className={activeHand === hand ? 'active' : ''} onClick={() => selectHand(hand)}>{handName(hand)}{rig.weapons[hand].enabled ? '' : '（停用）'}</button>)}</div>
         <label className="toggle-row"><span>启用{handName(activeHand)}代理体</span><input type="checkbox" checked={project.enabled} onChange={event => toggleHand(activeHand, event.target.checked)} /></label>
         <small>青色：右手 · 紫色：左手。只编辑所选手，播放与擦洗同时驱动两手。</small>
       </div>
-      <div className="tabs"><button className={activeTab === 'pose' ? 'active' : ''} onClick={() => setActiveTab('pose')}>姿态</button><button className={activeTab === 'asset' ? 'active' : ''} onClick={() => setActiveTab('asset')}>模型</button><button className={activeTab === 'project' ? 'active' : ''} onClick={() => setActiveTab('project')}>项目</button></div>
+      <div className="tabs"><button className={activeTab === 'pose' ? 'active' : ''} onClick={() => { setHierarchySelectedId(null); setActiveTab('pose'); }}>姿态</button><button className={activeTab === 'asset' ? 'active' : ''} onClick={() => { setHierarchySelectedId(null); setActiveTab('asset'); }}>模型</button><button className={activeTab === 'project' ? 'active' : ''} onClick={() => { setHierarchySelectedId(null); setActiveTab('project'); }}>项目</button></div>
       {activeTab === 'pose' && <div className="panel-content">
         <div className="section-heading"><div><span>KEYFRAME</span><h2>{selectedFrame.label}</h2></div><span className="time-readout">{selectedFrame.time.toFixed(2)}s</span></div>
         <label className="wide-field"><span>关键帧名称</span><input value={selectedFrame.label} onChange={(event) => updateFrame({ label: event.target.value })} /></label>
@@ -405,7 +440,7 @@ export const ModelShakeLab = () => {
         <div className="section-heading"><div><span>VIEWMODEL</span><h2>{handName(activeHand)} · 武器模型</h2></div></div>
         <p className="asset-note">持握体和近战攻击体使用实体范围；只有枪口、法杖等发射位置使用点和方向。</p>
         <div className="semantic-targets" role="group" aria-label="编辑对象">
-          {([['asset', '模型安装'], ['proxy', '代理体'], ['grip', '持握体'], ['attack', '攻击体'], ['muzzle', '发射端']] as const).map(([target, label]) => <button key={target} className={assetEditTarget === target ? 'active' : ''} onClick={() => { setAssetEditTarget(target); setStatus(`正在编辑${label} · W 移动 / E 旋转${target === 'muzzle' ? '' : ' / R 尺寸'}`); }}>{label}</button>)}
+          {([['asset', '模型安装'], ['proxy', '代理体'], ['grip', '持握体'], ['attack', '攻击体'], ['muzzle', '发射端']] as const).map(([target, label]) => <button key={target} className={assetEditTarget === target ? 'active' : ''} onClick={() => { setHierarchySelectedId(null); setAssetEditTarget(target); setStatus(`正在编辑${label} · W 移动 / E 旋转${target === 'muzzle' ? '' : ' / R 尺寸'}`); }}>{label}</button>)}
         </div>
         <label className="wide-field"><span>代理体模板</span><select value="" onChange={event => updateProject({ proxy: structuredClone(proxyTemplates[event.target.value]) })}><option value="" disabled>选择模板（替换代理体参数）</option>{Object.keys(proxyTemplates).map(name => <option key={name}>{name}</option>)}</select></label>
         <label className="toggle-row"><span>显示半透明代理体</span><input type="checkbox" checked={showProxy} onChange={event => setShowProxy(event.target.checked)} /></label>
@@ -454,7 +489,7 @@ export const ModelShakeLab = () => {
         <div className="project-summary"><div><strong>{project.keyframes.length}</strong><span>关键帧</span></div><div><strong>{project.duration.toFixed(2)}s</strong><span>总时长</span></div><div><strong>{project.asset.path ? 'GLB' : 'PROXY'}</strong><span>模型</span></div></div>
         <button className="import-button icon-label" onClick={exportProject}><SvgIcon name="download" />导出动画 JSON</button><label className="file-button icon-label"><SvgIcon name="upload" />导入动画 JSON<input hidden type="file" accept="application/json,.json" onChange={(event) => { const file = event.target.files?.[0]; if (file) void importProject(file); }} /></label><button className="reset-button danger-text icon-label" onClick={() => replaceProject(cloneProject(DEFAULT_PROJECT), '已恢复默认横斩动画')}><SvgIcon name="restart" />恢复示例动画</button>
       </div>}
-    </aside>
+    </aside>}
     <section className="timeline-panel">
       <div className="transport"><button className="icon-only" title="回到起点" aria-label="回到起点" onClick={() => scrub(0)}><SvgIcon name="skip-back" /></button><button className="transport-play icon-only" title={playing ? '暂停' : '播放'} aria-label={playing ? '暂停' : '播放'} onClick={playing ? pausePlayback : startPlayback}><SvgIcon name={playing ? 'pause' : 'play'} /></button><button className="icon-only" title="停止" aria-label="停止" onClick={() => stopPlayback()}><SvgIcon name="stop" /></button><button className="icon-only" title="从头播放" aria-label="从头播放" onClick={replayPlayback}><SvgIcon name="restart" /></button><span className="clock">{currentTime.toFixed(2)} <i>/</i> {project.duration.toFixed(2)}s</span><button className={`loop-button icon-label ${project.loop ? 'active' : ''}`} onClick={() => updateProject({ loop: !project.loop })}><SvgIcon name="repeat" size={14} />循环</button><label>速度<select value={project.playbackSpeed} onChange={(event) => updateProject({ playbackSpeed: Number(event.target.value) })}><option value={0.5}>0.5×</option><option value={0.75}>0.75×</option><option value={1}>1×</option><option value={1.25}>1.25×</option><option value={1.5}>1.5×</option></select></label></div>
       <div className="timeline-editor">
