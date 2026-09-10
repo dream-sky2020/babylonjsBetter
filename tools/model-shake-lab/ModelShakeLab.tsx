@@ -1,19 +1,20 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import {
-  ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, HemisphericLight,
-  MeshBuilder, Quaternion, Scene, StandardMaterial,
+  ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, GizmoCoordinatesMode,
+  GizmoManager, HemisphericLight, MeshBuilder, Quaternion, Scene, StandardMaterial,
   TransformNode, UniversalCamera, Vector3,
 } from '@babylonjs/core';
-import { parseWeaponProject, proxyTemplates, type Vec3, type WeaponKeyframe, type AnimationProject, type WeaponPresetLibrary, type ProxyShape, type WeaponHand, type WeaponTrack, mirrorWeaponTrack } from '@/core/model/preset/firstPersonWeaponPreset.ts';
+import { parseWeaponProject, proxyTemplates, type Vec3, type WeaponKeyframe, type AnimationProject, type WeaponPresetLibrary, type ProxyShape, type InteractionVolumeShape, type WeaponHand, type WeaponTrack, mirrorWeaponTrack } from '@/core/model/preset/firstPersonWeaponPreset.ts';
 import { loadWeaponPresets, readLiveWeaponPresets, saveWeaponPresets } from '@/core/model/preset/firstPersonWeaponPresetApi.ts';
 import { useWeaponSlot, type WeaponLabRuntime as Runtime } from './useWeaponSlot.ts';
 import { sampleWeaponPoses } from '@/core/model/preset/firstPersonWeaponAnimation.ts';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 
-type IconName = 'play' | 'pause' | 'stop' | 'restart' | 'skip-back' | 'repeat' | 'plus' | 'upload' | 'download' | 'trash';
+type IconName = 'play' | 'pause' | 'stop' | 'restart' | 'skip-back' | 'repeat' | 'plus' | 'upload' | 'download' | 'trash' | 'move' | 'rotate' | 'scale' | 'globe' | 'magnet' | 'eye' | 'eye-off' | 'save';
 
 const rad = Math.PI / 180;
+const interactionShapeOptions: Record<InteractionVolumeShape, string> = { box: '盒体', cylinder: '圆柱体', capsule: '胶囊体', sphere: '球体 / 椭球体' };
 const makeId = () => `kf_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
 const vec = (x = 0, y = 0, z = 0): Vec3 => ({ x, y, z });
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
@@ -60,6 +61,14 @@ const SvgIcon = ({ name, size = 16 }: { name: IconName; size?: number }) => {
     {name === 'upload' && <><path d="M12 16V3" /><path d="m7 8 5-5 5 5" /><path d="M5 21h14" /></>}
     {name === 'download' && <><path d="M12 3v13" /><path d="m7 11 5 5 5-5" /><path d="M5 21h14" /></>}
     {name === 'trash' && <><path d="M4 7h16" /><path d="M10 11v6" /><path d="M14 11v6" /><path d="m6 7 1 14h10l1-14" /><path d="M9 7V4h6v3" /></>}
+    {name === 'move' && <><path d="M12 2v20" /><path d="m8 6 4-4 4 4" /><path d="m8 18 4 4 4-4" /><path d="M2 12h20" /><path d="m6 8-4 4 4 4" /><path d="m18 8 4 4-4 4" /></>}
+    {name === 'rotate' && <><path d="M21 12a9 9 0 0 1-15.5 6.2" /><path d="M3 12A9 9 0 0 1 18.5 5.8" /><path d="m18 2 .5 3.8-3.8.5" /><path d="m6 22-.5-3.8 3.8-.5" /><circle cx="12" cy="12" r="2.5" /></>}
+    {name === 'scale' && <><path d="M8 3H3v5" /><path d="m3 3 6 6" /><path d="M16 21h5v-5" /><path d="m21 21-6-6" /><path d="M16 3h5v5" /><path d="m21 3-6 6" /><path d="M8 21H3v-5" /><path d="m3 21 6-6" /></>}
+    {name === 'globe' && <><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a15 15 0 0 1 0 18" /><path d="M12 3a15 15 0 0 0 0 18" /></>}
+    {name === 'magnet' && <><path d="M6 3v7a6 6 0 0 0 12 0V3" /><path d="M6 7h4" /><path d="M14 7h4" /></>}
+    {name === 'eye' && <><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.5" /></>}
+    {name === 'eye-off' && <><path d="m3 3 18 18" /><path d="M10.6 6.2A10.6 10.6 0 0 1 12 6c6 0 9.5 6 9.5 6a15.4 15.4 0 0 1-2.2 2.8" /><path d="M6.6 6.6C4 8.3 2.5 12 2.5 12s3.5 6 9.5 6a9.8 9.8 0 0 0 3.1-.5" /><path d="M10.2 10.2a2.5 2.5 0 0 0 3.6 3.6" /></>}
+    {name === 'save' && <><path d="M4 3h13l3 3v15H4Z" /><path d="M8 3v6h8V3" /><path d="M8 21v-7h8v7" /></>}
   </svg>;
 };
 
@@ -67,6 +76,8 @@ export const ModelShakeLab = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const timelineCanvasRef = useRef<HTMLDivElement>(null);
   const runtimeRef = useRef<Runtime | null>(null);
+  const gizmoManagerRef = useRef<GizmoManager | null>(null);
+  const syncFromGizmoRef = useRef<() => void>(() => undefined);
   const playStateRef = useRef({ playing: false, startedAt: 0, pausedAt: 0 });
   const [rig, setRig] = useState<AnimationProject>(() => cloneProject(DEFAULT_PROJECT)); const projectRef = useRef(rig);
   const [activeHand, setActiveHand] = useState<WeaponHand>('right');
@@ -74,6 +85,10 @@ export const ModelShakeLab = () => {
   const [assets, setAssets] = useState<string[]>([]); const [selectedId, setSelectedId] = useState(project.keyframes[0].id);
   const [currentTime, setCurrentTime] = useState(0); const [playing, setPlaying] = useState(false);
   const [viewMode, setViewMode] = useState<'first-person' | 'orbit'>('first-person'); const [activeTab, setActiveTab] = useState<'pose' | 'asset' | 'project'>('asset');
+  const [assetEditTarget, setAssetEditTarget] = useState<'asset' | 'proxy' | 'grip' | 'attack' | 'muzzle'>('asset');
+  const [gizmoMode, setGizmoMode] = useState<'position' | 'rotation' | 'scale'>('position');
+  const [gizmoSpace, setGizmoSpace] = useState<'local' | 'world'>('local');
+  const [gizmoSnap, setGizmoSnap] = useState(false);
   const [snapEnabled, setSnapEnabled] = useState(true);
   const [library, setLibrary] = useState<WeaponPresetLibrary>({});
   const [presetKey, setPresetKey] = useState('right-hand-slash');
@@ -82,6 +97,10 @@ export const ModelShakeLab = () => {
   const [showProxy, setShowProxy] = useState(true); const [showMarkers, setShowMarkers] = useState(true);
   const [status, setStatus] = useState('武器代理体已就绪'); const [savedSnapshot, setSavedSnapshot] = useState('');
   const saved = savedKey === presetKey && savedSnapshot === JSON.stringify(rig);
+  const activeWeaponEnabled = rig.weapons[activeHand].enabled;
+  const assetTargetName = { asset: '模型安装', proxy: '代理体', grip: '持握体', attack: '攻击体', muzzle: '发射端' }[assetEditTarget];
+  const canScale = activeTab === 'asset' && assetEditTarget !== 'muzzle';
+  const effectiveGizmoMode = gizmoMode === 'scale' && !canScale ? 'position' : gizmoMode;
   const selectedFrame = useMemo(() => project.keyframes.find((frame) => frame.id === selectedId) ?? project.keyframes[0], [project, selectedId]);
   const orderedFrames = useMemo(() => [...project.keyframes].sort((a, b) => a.time - b.time), [project.keyframes]);
 
@@ -96,12 +115,28 @@ export const ModelShakeLab = () => {
     const makeSlot = (hand: WeaponHand) => {
       const weaponPose = new TransformNode(hand + '-weapon-animation-pose', scene); weaponPose.parent = viewmodelRoot;
       const weaponAsset = new TransformNode(hand + '-weapon-installation', scene); weaponAsset.parent = weaponPose;
-      return { weaponPose, weaponAsset };
+      const proxyAnchor = new TransformNode(hand + '-proxy-body', scene); proxyAnchor.parent = weaponPose;
+      const gripAnchor = new TransformNode(hand + '-grip-volume', scene); gripAnchor.parent = weaponPose;
+      const attackAnchor = new TransformNode(hand + '-attack-volume', scene); attackAnchor.parent = weaponPose;
+      const muzzleAnchor = new TransformNode(hand + '-muzzle-anchor', scene); muzzleAnchor.parent = weaponPose;
+      return { weaponPose, weaponAsset, proxyAnchor, gripAnchor, attackAnchor, muzzleAnchor };
     };
     const slots = { right: makeSlot('right'), left: makeSlot('left') };
     const hemi = new HemisphericLight('ambient-light', new Vector3(0.2, 1, 0.1), scene); hemi.intensity = 1.05;
     const key = new DirectionalLight('key-light', new Vector3(-0.35, -0.7, 0.8), scene); key.intensity = 1.8; buildEnvironment(scene);
     runtimeRef.current = { engine, scene, firstPersonCamera, orbitCamera, viewmodelRoot, slots };
+    const gizmoManager = new GizmoManager(scene, 1.15);
+    gizmoManager.enableAutoPicking = false; gizmoManager.usePointerToAttachGizmos = false; gizmoManager.clearGizmoOnEmptyPointerEvent = false; gizmoManager.scaleRatio = 1.15;
+    gizmoManager.positionGizmoEnabled = true; gizmoManager.rotationGizmoEnabled = true; gizmoManager.scaleGizmoEnabled = true; gizmoManager.attachToNode(slots.right.weaponAsset);
+    const suspendCamera = () => { firstPersonCamera.detachControl(); orbitCamera.detachControl(); };
+    const resumeCamera = () => { const active = scene.activeCamera; if (active === firstPersonCamera) firstPersonCamera.attachControl(canvas, true); else if (active === orbitCamera) orbitCamera.attachControl(canvas, true); };
+    const syncTransform = () => syncFromGizmoRef.current();
+    const positionGizmo = gizmoManager.gizmos.positionGizmo; const rotationGizmo = gizmoManager.gizmos.rotationGizmo; const scaleGizmo = gizmoManager.gizmos.scaleGizmo;
+    positionGizmo?.onDragStartObservable.add(suspendCamera); positionGizmo?.onDragObservable.add(syncTransform); positionGizmo?.onDragEndObservable.add(() => { syncTransform(); resumeCamera(); setStatus('已更新变换'); });
+    rotationGizmo?.onDragStartObservable.add(suspendCamera); rotationGizmo?.onDragObservable.add(syncTransform); rotationGizmo?.onDragEndObservable.add(() => { syncTransform(); resumeCamera(); setStatus('已更新旋转'); });
+    scaleGizmo?.onDragStartObservable.add(suspendCamera); scaleGizmo?.onDragObservable.add(syncTransform); scaleGizmo?.onDragEndObservable.add(() => { syncTransform(); resumeCamera(); setStatus('已更新尺寸'); });
+    gizmoManager.rotationGizmoEnabled = false; gizmoManager.scaleGizmoEnabled = false;
+    gizmoManagerRef.current = gizmoManager;
     scene.activeCamera = firstPersonCamera; applyProjectPose(runtimeRef.current, projectRef.current, 0);
     engine.runRenderLoop(() => {
       const runtime = runtimeRef.current; if (!runtime) return; const playState = playStateRef.current;
@@ -114,7 +149,7 @@ export const ModelShakeLab = () => {
       scene.render();
     });
     const resize = () => engine.resize(); window.addEventListener('resize', resize);
-    return () => { window.removeEventListener('resize', resize); scene.dispose(); engine.dispose(); runtimeRef.current = null; };
+    return () => { window.removeEventListener('resize', resize); gizmoManager.dispose(); gizmoManagerRef.current = null; scene.dispose(); engine.dispose(); runtimeRef.current = null; };
   }, []);
 
   useEffect(() => { loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then(setAssets).catch(() => setStatus('项目模型清单读取失败，请检查项目资源')); }, []);
@@ -135,10 +170,13 @@ export const ModelShakeLab = () => {
   };
   const replayPlayback = () => { playStateRef.current.pausedAt = 0; setCurrentTime(0); startPlayback(); setStatus('正在从头播放动画'); };
   useEffect(() => {
-    const onKey = (event: KeyboardEvent) => { if (event.code === 'Space' && event.target === document.body) { event.preventDefault(); if (playStateRef.current.playing) pausePlayback(); else startPlayback(); } };
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.matches('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.code === 'Space') { event.preventDefault(); if (playStateRef.current.playing) pausePlayback(); else startPlayback(); }
+    };
     window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey);
   });
-
   useEffect(() => {
     let cancelled = false;
     void loadWeaponPresets().then(entries => {
@@ -175,6 +213,50 @@ export const ModelShakeLab = () => {
     setRig(current => ({ ...current, weapons: { ...current.weapons, [hand]: { ...current.weapons[hand], enabled } } }));
   };
   const updateFrameVec = (channel: 'position' | 'rotation', axis: keyof Vec3, value: number) => updateFrame({ [channel]: { ...selectedFrame[channel], [axis]: value } });
+  const getAssetEditNode = useCallback((runtime: Runtime) => {
+    const slot = runtime.slots[activeHand];
+    if (assetEditTarget === 'proxy') return slot.proxyAnchor;
+    if (assetEditTarget === 'grip') return slot.gripAnchor;
+    if (assetEditTarget === 'attack') return slot.attackAnchor;
+    if (assetEditTarget === 'muzzle') return slot.muzzleAnchor;
+    return slot.weaponAsset;
+  }, [activeHand, assetEditTarget]);
+  useEffect(() => {
+    syncFromGizmoRef.current = () => {
+      const runtime = runtimeRef.current; if (!runtime || activeTab === 'project') return;
+      const node = activeTab === 'asset' ? getAssetEditNode(runtime) : runtime.slots[activeHand].weaponPose;
+      const euler = node.rotationQuaternion?.toEulerAngles() ?? node.rotation;
+      const position = { x: Number(node.position.x.toFixed(4)), y: Number(node.position.y.toFixed(4)), z: Number(node.position.z.toFixed(4)) };
+      const rotation = { x: Number((euler.x / rad).toFixed(2)), y: Number((euler.y / rad).toFixed(2)), z: Number((euler.z / rad).toFixed(2)) };
+      const size = { x: Math.max(.001, Number(Math.abs(node.scaling.x).toFixed(4))), y: Math.max(.001, Number(Math.abs(node.scaling.y).toFixed(4))), z: Math.max(.001, Number(Math.abs(node.scaling.z).toFixed(4))) };
+      setRig((current) => {
+        const track = current.weapons[activeHand];
+        if (activeTab !== 'asset') return { ...current, weapons: { ...current.weapons, [activeHand]: { ...track, keyframes: track.keyframes.map((frame) => frame.id === selectedId ? { ...frame, position, rotation } : frame) } } };
+        if (assetEditTarget === 'asset') return { ...current, weapons: { ...current.weapons, [activeHand]: { ...track, asset: { ...track.asset, scale: size.x, offset: position, rotation } } } };
+        const proxy = track.proxy;
+        if (assetEditTarget === 'proxy') return { ...current, weapons: { ...current.weapons, [activeHand]: { ...track, proxy: { ...proxy, center: position, rotation, size } } } };
+        if (assetEditTarget === 'muzzle') return { ...current, weapons: { ...current.weapons, [activeHand]: { ...track, proxy: { ...proxy, muzzle: { ...proxy.muzzle, position, rotation } } } } };
+        const field = assetEditTarget === 'grip' ? 'gripVolume' : 'attackVolume';
+        return { ...current, weapons: { ...current.weapons, [activeHand]: { ...track, proxy: { ...proxy, [field]: { ...proxy[field], center: position, rotation, size } } } } };
+      });
+    };
+  }, [activeHand, activeTab, assetEditTarget, getAssetEditNode, selectedId]);
+  useEffect(() => {
+    const manager = gizmoManagerRef.current; const runtime = runtimeRef.current; if (!manager || !runtime) return;
+    manager.positionGizmoEnabled = effectiveGizmoMode === 'position'; manager.rotationGizmoEnabled = effectiveGizmoMode === 'rotation'; manager.scaleGizmoEnabled = effectiveGizmoMode === 'scale';
+    manager.coordinatesMode = gizmoSpace === 'local' ? GizmoCoordinatesMode.Local : GizmoCoordinatesMode.World;
+    manager.scaleRatio = viewMode === 'first-person' ? 0.9 : 1.15;
+    if (manager.gizmos.positionGizmo) { manager.gizmos.positionGizmo.snapDistance = gizmoSnap ? 0.01 : 0; manager.gizmos.positionGizmo.planarGizmoEnabled = true; }
+    if (manager.gizmos.rotationGizmo) manager.gizmos.rotationGizmo.snapDistance = gizmoSnap ? 5 * rad : 0;
+    if (manager.gizmos.scaleGizmo) {
+      const uniformOnly = assetEditTarget === 'asset'; const scaleGizmo = manager.gizmos.scaleGizmo;
+      scaleGizmo.xGizmo.isEnabled = !uniformOnly; scaleGizmo.yGizmo.isEnabled = !uniformOnly; scaleGizmo.zGizmo.isEnabled = !uniformOnly; scaleGizmo.uniformScaleGizmo.isEnabled = true;
+      scaleGizmo.snapDistance = gizmoSnap ? .05 : 0; scaleGizmo.incrementalSnap = true;
+    }
+    const targetEnabled = activeTab !== 'asset' || assetEditTarget === 'asset' || assetEditTarget === 'proxy' || (assetEditTarget === 'muzzle' ? project.proxy.muzzle.enabled : project.proxy[assetEditTarget === 'grip' ? 'gripVolume' : 'attackVolume'].enabled);
+    const visible = !playing && viewMode === 'orbit' && activeTab !== 'project' && activeWeaponEnabled && targetEnabled;
+    manager.attachToNode(visible ? (activeTab === 'asset' ? getAssetEditNode(runtime) : runtime.slots[activeHand].weaponPose) : null);
+  }, [activeHand, activeTab, activeWeaponEnabled, assetEditTarget, effectiveGizmoMode, getAssetEditNode, gizmoSnap, gizmoSpace, playing, project.proxy, viewMode]);
   const selectFrame = (frame: WeaponKeyframe) => { stopPlayback(false); playStateRef.current.pausedAt = frame.time; setSelectedId(frame.id); setCurrentTime(frame.time); const runtime = runtimeRef.current; if (runtime) applyProjectPose(runtime, projectRef.current, frame.time); };
   const addFrame = () => { stopPlayback(false); const time = clamp(selectedFrame.time + 0.1, 0, project.duration); const frame = { ...selectedFrame, id: makeId(), time, label: '新姿态', position: { ...selectedFrame.position }, rotation: { ...selectedFrame.rotation } }; updateTrack((current) => ({ ...current, keyframes: [...current.keyframes, frame].sort((a, b) => a.time - b.time) })); setSelectedId(frame.id); playStateRef.current.pausedAt = time; setCurrentTime(time); setStatus('已添加关键帧'); };
   const deleteFrame = () => { if (project.keyframes.length <= 2) return setStatus('动画至少需要两个关键帧'); const index = project.keyframes.findIndex((frame) => frame.id === selectedFrame.id); const next = project.keyframes.filter((frame) => frame.id !== selectedFrame.id); const fallback = next[Math.max(0, index - 1)]; updateTrack((current) => ({ ...current, keyframes: next })); selectFrame(fallback); setStatus('已删除关键帧'); };
@@ -216,8 +298,8 @@ export const ModelShakeLab = () => {
       let min = new Vector3(Infinity, Infinity, Infinity); let max = new Vector3(-Infinity, -Infinity, -Infinity);
       for (const hand of HANDS) {
         const track = rig.weapons[hand]; if (!track.enabled) continue;
-        const { center, size, grip, tip } = track.proxy;
-        const points = [vec(), grip, tip];
+        const { center, size, gripVolume, attackVolume, muzzle } = track.proxy;
+        const points = [vec(), gripVolume.center, attackVolume.center, muzzle.position];
         for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) points.push(vec(center.x + x * size.x / 2, center.y + y * size.y / 2, center.z + z * size.z / 2));
         const matrix = runtime.slots[hand].weaponPose.computeWorldMatrix(true);
         for (const point of points) {
@@ -231,6 +313,31 @@ export const ModelShakeLab = () => {
     }
     setViewMode(mode); setStatus(mode === 'first-person' ? '第一人称预览机位 · 拖动鼠标可调整观察方向' : '工作台视角 · 可环绕检查武器姿态');
   };
+  const activateGizmo = (mode: 'position' | 'rotation' | 'scale') => {
+    if (mode === 'scale' && !canScale) { setStatus('当前对象没有尺寸属性'); return; }
+    stopPlayback(false);
+    switchView('orbit');
+    const runtime = runtimeRef.current;
+    if (runtime) {
+      const target = activeTab === 'asset' ? getAssetEditNode(runtime) : runtime.slots[activeHand].weaponPose;
+      target.computeWorldMatrix(true);
+      runtime.orbitCamera.setTarget(target.getAbsolutePosition());
+      const size = rig.weapons[activeHand].proxy.size;
+      runtime.orbitCamera.radius = Math.max(1.6, Math.hypot(size.x, size.y, size.z) * 1.35);
+    }
+    setGizmoMode(mode);
+    setStatus(mode === 'position' ? '移动模式 · 拖动红绿蓝箭头调整位置' : mode === 'rotation' ? '旋转模式 · 拖动红绿蓝旋转球调整角度' : assetEditTarget === 'asset' ? '尺寸模式 · 模型使用中央方块进行统一缩放' : '尺寸模式 · 拖动轴向方块调整 XYZ，中央方块等比缩放');
+  };
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (target?.matches('input, textarea, select, [contenteditable="true"]')) return;
+      if (event.code === 'KeyW') activateGizmo('position');
+      if (event.code === 'KeyE') activateGizmo('rotation');
+      if (event.code === 'KeyR' && canScale) activateGizmo('scale');
+    };
+    window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey);
+  });
   const replaceProject = (next: AnimationProject, message: string) => { const clean = parseWeaponProject(next); projectRef.current = clean; setRig(clean); const hand = clean.weapons.right.enabled ? 'right' : 'left'; setActiveHand(hand); setSelectedId(clean.weapons[hand].keyframes[0].id); setCurrentTime(0); playStateRef.current.pausedAt = 0; stopPlayback(false); setStatus(message); };
   const saveProject = async () => {
     if (!/^[a-zA-Z0-9_-]+$/.test(presetKey)) return setStatus('预设 Key 仅支持英文、数字、下划线和连字符');
@@ -258,13 +365,25 @@ export const ModelShakeLab = () => {
       <div className="brand"><span className="brand-mark">WS</span><div><h1>Weapon Motion Studio</h1><span>第一人称武器动画工作台</span></div></div>
       <div className="project-name"><span>动画</span><input value={project.name} onChange={(event) => updateProject({ name: event.target.value })} /></div>
       <div className="view-switch" role="group" aria-label="视角模式"><button className={viewMode === 'first-person' ? 'active' : ''} onClick={() => switchView('first-person')}>第一人称预览</button><button className={viewMode === 'orbit' ? 'active' : ''} onClick={() => switchView('orbit')}>工作台</button></div>
-      <button className="ghost" disabled={saving || !presetsReady || !import.meta.env.DEV} title="通过 Python 开发服务保存到 config；正式构建请导出 JSON" onClick={() => void saveProject()}><span className={`save-dot ${saved ? 'saved' : ''}`} />{saving ? '保存中…' : saved ? '已保存' : '保存预设'}</button>
+      <button className="ghost" disabled={saving || !presetsReady || !import.meta.env.DEV} title="通过当前开发服务器保存到 config；正式构建请导出 JSON" onClick={() => void saveProject()}><span className={`save-dot ${saved ? 'saved' : ''}`} />{saving ? '保存中…' : saved ? '已保存' : '保存预设'}</button>
       <button className="primary icon-label" onClick={playing ? pausePlayback : startPlayback}><SvgIcon name={playing ? 'pause' : 'play'} />{playing ? '暂停' : '播放'}</button>
     </header>
     <section className="viewport-shell">
       <canvas ref={canvasRef} tabIndex={0} /><div className="viewport-top"><span className="mode-badge"><i />{viewMode === 'first-person' ? 'FIRST PERSON PREVIEW' : 'POSE VIEW'}</span><span>{HANDS.filter(hand => rig.weapons[hand].enabled).map(hand => handName(hand) + ' · ' + rig.weapons[hand].asset.name).join(' / ')}</span></div>
+      {activeTab !== 'project' && <div className="gizmo-toolbar">
+        <div className="gizmo-target"><span>编辑目标</span><strong>{handName(activeHand)} · {activeTab === 'asset' ? assetTargetName : `关键帧「${selectedFrame.label}」`}</strong></div>
+        <div className="gizmo-mode" role="group" aria-label="变换工具">
+          <button className={`icon-label ${effectiveGizmoMode === 'position' && viewMode === 'orbit' ? 'active' : ''}`} title="移动工具（W）" onClick={() => activateGizmo('position')}><SvgIcon name="move" />移动 <kbd>W</kbd></button>
+          <button className={`icon-label ${effectiveGizmoMode === 'rotation' && viewMode === 'orbit' ? 'active' : ''}`} title="旋转工具（E）" onClick={() => activateGizmo('rotation')}><SvgIcon name="rotate" />旋转 <kbd>E</kbd></button>
+          {canScale && <button className={`icon-label ${effectiveGizmoMode === 'scale' && viewMode === 'orbit' ? 'active' : ''}`} title="尺寸工具（R）" onClick={() => activateGizmo('scale')}><SvgIcon name="scale" />尺寸 <kbd>R</kbd></button>}
+        </div>
+        <button className={`gizmo-option icon-label ${gizmoSpace === 'local' ? 'active' : ''}`} title="切换本地/世界坐标" onClick={() => setGizmoSpace((value) => value === 'local' ? 'world' : 'local')}><SvgIcon name="globe" />{gizmoSpace === 'local' ? '本地' : '世界'}</button>
+        <button className={`gizmo-option icon-label ${gizmoSnap ? 'active' : ''}`} title="移动吸附 0.01，旋转吸附 5°，尺寸吸附 0.05" onClick={() => setGizmoSnap((value) => !value)}><SvgIcon name="magnet" />吸附</button>
+        <button className={`gizmo-option icon-label ${showProxy ? 'active' : ''}`} aria-pressed={showProxy} title={showProxy ? '隐藏半透明代理体' : '显示半透明代理体'} onClick={() => { setShowProxy((value) => !value); setStatus(showProxy ? '已隐藏代理体' : '已显示代理体'); }}><SvgIcon name={showProxy ? 'eye' : 'eye-off'} />代理体</button>
+        <div className="axis-legend"><i className="x" />X <i className="y" />Y <i className="z" />Z</div>
+      </div>}
       <div className="reticle" aria-hidden="true"><span /><span /></div>
-      <div className="viewport-help">{viewMode === 'first-person' ? '拖动鼠标调整预览方向 · 空格播放/暂停' : '左键旋转 · 右键平移 · 滚轮缩放'}</div><div className="status-toast">{loading && <span className="spinner" />}{status}</div>
+      <div className="viewport-help">{viewMode === 'first-person' ? `第一人称仅预览 · W 移动 / E 旋转${canScale ? ' / R 尺寸' : ''}会进入工作台 · 空格播放/暂停` : `W 移动 · E 旋转${canScale ? ' · R 尺寸' : ''} · 拖动操纵器编辑 · 空白处拖动环绕视角`}</div><div className="status-toast">{loading && <span className="spinner" />}{status}</div>
     </section>
     <aside className="inspector">
       <div className="hand-selector">
@@ -284,16 +403,44 @@ export const ModelShakeLab = () => {
       </div>}
       {activeTab === 'asset' && <div className="panel-content">
         <div className="section-heading"><div><span>VIEWMODEL</span><h2>{handName(activeHand)} · 武器模型</h2></div></div>
-        <p className="asset-note">代理体使用固定挂载坐标系：原点为动画旋转中心，+Z 向前、+Y 向上。握持点和攻击端是该坐标系中的语义标记。</p>
+        <p className="asset-note">持握体和近战攻击体使用实体范围；只有枪口、法杖等发射位置使用点和方向。</p>
+        <div className="semantic-targets" role="group" aria-label="编辑对象">
+          {([['asset', '模型安装'], ['proxy', '代理体'], ['grip', '持握体'], ['attack', '攻击体'], ['muzzle', '发射端']] as const).map(([target, label]) => <button key={target} className={assetEditTarget === target ? 'active' : ''} onClick={() => { setAssetEditTarget(target); setStatus(`正在编辑${label} · W 移动 / E 旋转${target === 'muzzle' ? '' : ' / R 尺寸'}`); }}>{label}</button>)}
+        </div>
         <label className="wide-field"><span>代理体模板</span><select value="" onChange={event => updateProject({ proxy: structuredClone(proxyTemplates[event.target.value]) })}><option value="" disabled>选择模板（替换代理体参数）</option>{Object.keys(proxyTemplates).map(name => <option key={name}>{name}</option>)}</select></label>
-        <label className="wide-field"><span>自定义形状</span><select value={project.proxy.shape} onChange={event => updateProject({ proxy: { ...project.proxy, shape: event.target.value as ProxyShape } })}>{Object.entries({ box: '盒体', gun: '枪械组合盒', cylinder: '圆柱', capsule: '胶囊', sphere: '球体 / 椭球' }).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
         <label className="toggle-row"><span>显示半透明代理体</span><input type="checkbox" checked={showProxy} onChange={event => setShowProxy(event.target.checked)} /></label>
         <label className="toggle-row"><span>显示原点 / 方向 / 挂点</span><input type="checkbox" checked={showMarkers} onChange={event => setShowMarkers(event.target.checked)} /></label>
-        {(['size', 'center', 'grip', 'tip'] as const).map(field => <VectorEditor key={field} title={{ size: '尺寸 XYZ（Z 为长度）', center: '代理体中心偏移', grip: '握持点 · 橙色', tip: '枪口 / 攻击端 · 粉色' }[field]} value={project.proxy[field]} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, [field]: { ...project.proxy[field], [axis]: field === 'size' ? Math.max(.001, value) : value } } })} />)}
+        {assetEditTarget === 'proxy' && <>
+          <label className="wide-field"><span>代理体形状</span><select value={project.proxy.shape} onChange={event => updateProject({ proxy: { ...project.proxy, shape: event.target.value as ProxyShape } })}>{Object.entries({ box: '盒体', gun: '枪械组合盒', cylinder: '圆柱', capsule: '胶囊', sphere: '球体 / 椭球' }).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+          <VectorEditor title="代理体尺寸 XYZ（Z 为长度）" value={project.proxy.size} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, size: { ...project.proxy.size, [axis]: Math.max(.001, value) } } })} />
+          <VectorEditor title="代理体中心" value={project.proxy.center} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, center: { ...project.proxy.center, [axis]: value } } })} />
+          <VectorEditor title="代理体旋转" value={project.proxy.rotation} step={1} unit="°" onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, rotation: { ...project.proxy.rotation, [axis]: value } } })} />
+        </>}
+        {assetEditTarget === 'grip' && <>
+          <label className="toggle-row semantic-toggle"><span><b>启用持握体</b><small>橙色范围表示手掌抓握区域</small></span><input type="checkbox" checked={project.proxy.gripVolume.enabled} onChange={event => updateProject({ proxy: { ...project.proxy, gripVolume: { ...project.proxy.gripVolume, enabled: event.target.checked } } })} /></label>
+          <label className="wide-field"><span>持握体形状</span><select value={project.proxy.gripVolume.shape} onChange={event => updateProject({ proxy: { ...project.proxy, gripVolume: { ...project.proxy.gripVolume, shape: event.target.value as InteractionVolumeShape } } })}>{Object.entries(interactionShapeOptions).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+          <VectorEditor title="持握体中心" value={project.proxy.gripVolume.center} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, gripVolume: { ...project.proxy.gripVolume, center: { ...project.proxy.gripVolume.center, [axis]: value } } } })} />
+          <VectorEditor title="持握体尺寸" value={project.proxy.gripVolume.size} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, gripVolume: { ...project.proxy.gripVolume, size: { ...project.proxy.gripVolume.size, [axis]: Math.max(.001, value) } } } })} />
+          <VectorEditor title="持握体旋转" value={project.proxy.gripVolume.rotation} step={1} unit="°" onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, gripVolume: { ...project.proxy.gripVolume, rotation: { ...project.proxy.gripVolume.rotation, [axis]: value } } } })} />
+        </>}
+        {assetEditTarget === 'attack' && <>
+          <label className="toggle-row semantic-toggle"><span><b>启用攻击体</b><small>红色范围表示近战有效伤害区域</small></span><input type="checkbox" checked={project.proxy.attackVolume.enabled} onChange={event => updateProject({ proxy: { ...project.proxy, attackVolume: { ...project.proxy.attackVolume, enabled: event.target.checked } } })} /></label>
+          <label className="wide-field"><span>攻击体形状</span><select value={project.proxy.attackVolume.shape} onChange={event => updateProject({ proxy: { ...project.proxy, attackVolume: { ...project.proxy.attackVolume, shape: event.target.value as InteractionVolumeShape } } })}>{Object.entries(interactionShapeOptions).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
+          <VectorEditor title="攻击体中心" value={project.proxy.attackVolume.center} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, attackVolume: { ...project.proxy.attackVolume, center: { ...project.proxy.attackVolume.center, [axis]: value } } } })} />
+          <VectorEditor title="攻击体尺寸" value={project.proxy.attackVolume.size} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, attackVolume: { ...project.proxy.attackVolume, size: { ...project.proxy.attackVolume.size, [axis]: Math.max(.001, value) } } } })} />
+          <VectorEditor title="攻击体旋转" value={project.proxy.attackVolume.rotation} step={1} unit="°" onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, attackVolume: { ...project.proxy.attackVolume, rotation: { ...project.proxy.attackVolume.rotation, [axis]: value } } } })} />
+        </>}
+        {assetEditTarget === 'muzzle' && <>
+          <label className="toggle-row semantic-toggle"><span><b>启用发射端</b><small>粉色点和箭头表示生成位置与 +Z 发射方向</small></span><input type="checkbox" checked={project.proxy.muzzle.enabled} onChange={event => updateProject({ proxy: { ...project.proxy, muzzle: { ...project.proxy.muzzle, enabled: event.target.checked } } })} /></label>
+          <VectorEditor title="发射端位置" value={project.proxy.muzzle.position} step={.01} onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, muzzle: { ...project.proxy.muzzle, position: { ...project.proxy.muzzle.position, [axis]: value } } } })} />
+          <VectorEditor title="发射方向旋转" value={project.proxy.muzzle.rotation} step={1} unit="°" onChange={(axis, value) => updateProject({ proxy: { ...project.proxy, muzzle: { ...project.proxy.muzzle, rotation: { ...project.proxy.muzzle.rotation, [axis]: value } } } })} />
+        </>}
         <label className="wide-field"><span>挂载已规范化的项目模型</span><select value={project.asset.path} onChange={(event) => loadManifestModel(event.target.value)}><option value="">仅代理体</option>{[...new Set([...assets, ...(project.asset.path ? [project.asset.path] : [])])].map(path => <option key={path} value={path}>{decodeURIComponent(path.replace('/resources/', ''))}</option>)}</select></label>
         <p className="asset-note">继承 modelAssetProfiles.json。以下只调整模型相对挂载点的安装变换，不修改资产规范化。更换模型后安装变换归零，可另存为不同预设。</p>
         <NumberField label="安装缩放" value={project.asset.scale} min={0.001} step={0.05} onChange={(value) => updateAsset({ scale: Math.max(.001, value) })} />
-        <VectorEditor title="安装位置" value={project.asset.offset} step={0.01} onChange={(axis, value) => updateAssetVec('offset', axis, value)} /><VectorEditor title="安装旋转" value={project.asset.rotation} step={1} unit="°" onChange={(axis, value) => updateAssetVec('rotation', axis, value)} /><button className="reset-button" onClick={() => updateAsset({ scale: 1, offset: vec(), rotation: vec() })}>重置安装变换</button>
+        <VectorEditor title="安装位置" value={project.asset.offset} step={0.01} onChange={(axis, value) => updateAssetVec('offset', axis, value)} /><VectorEditor title="安装旋转" value={project.asset.rotation} step={1} unit="°" onChange={(axis, value) => updateAssetVec('rotation', axis, value)} />
+        <button className="import-button icon-label" disabled={saving || !presetsReady || !import.meta.env.DEV} onClick={() => void saveProject()}><SvgIcon name="save" />{saving ? '正在写入服务器…' : '保存模型与代理体关系'}</button>
+        <button className="reset-button" onClick={() => updateAsset({ scale: 1, offset: vec(), rotation: vec() })}>重置安装变换</button>
       </div>}
       {activeTab === 'project' && <div className="panel-content">
         <div className="section-heading"><div><span>PRESETS / PLAYBACK</span><h2>预设与动画</h2></div></div>

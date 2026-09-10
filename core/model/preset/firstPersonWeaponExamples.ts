@@ -7,7 +7,7 @@ const track = (template: string, keyframes: WeaponKeyframe[]): WeaponTrack => ({
   asset: { path: '', name: '武器代理体', scale: 1, offset: v(), rotation: v() }, keyframes,
 });
 const project = (name: string, duration: number, right: WeaponTrack, left = { ...mirrorWeaponTrack(right), enabled: false }): AnimationProject => ({
-  version: 2, name, duration, loop: false, playbackSpeed: 1, weapons: { right, left },
+  version: 3, name, duration, loop: false, playbackSpeed: 1, weapons: { right, left },
 });
 const slash = () => track('剑 / 刀', [
   frame('ready', 0, '预备', v(.43, -.3, .82), v(-12, 8, -7)),
