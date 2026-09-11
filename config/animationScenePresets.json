@@ -1,1 +1,7538 @@
-{}
+{
+  "right-hand-slash": {
+    "version": 1,
+    "name": "右手横斩",
+    "description": "从 model-shake-lab 迁移：右手横斩",
+    "tags": [
+      "first-person",
+      "migrated",
+      "right-hand-slash"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "预备",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "right-windup",
+        "time": 0.18,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "蓄力",
+          "hand": "right",
+          "sourceKeyframeId": "windup"
+        }
+      },
+      {
+        "id": "right-contact",
+        "time": 0.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "命中",
+          "hand": "right",
+          "sourceKeyframeId": "contact"
+        }
+      },
+      {
+        "id": "right-follow",
+        "time": 0.56,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "随挥",
+          "hand": "right",
+          "sourceKeyframeId": "follow"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.82,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.43
+              },
+              {
+                "id": "right-position-x-windup",
+                "time": 0.18,
+                "value": 0.54
+              },
+              {
+                "id": "right-position-x-contact",
+                "time": 0.4,
+                "value": -0.18
+              },
+              {
+                "id": "right-position-x-follow",
+                "time": 0.56,
+                "value": -0.42
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.82,
+                "value": 0.43
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.38
+              },
+              {
+                "id": "right-position-y-windup",
+                "time": 0.18,
+                "value": -0.3
+              },
+              {
+                "id": "right-position-y-contact",
+                "time": 0.4,
+                "value": -0.19
+              },
+              {
+                "id": "right-position-y-follow",
+                "time": 0.56,
+                "value": -0.34
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.82,
+                "value": -0.38
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.82
+              },
+              {
+                "id": "right-position-z-windup",
+                "time": 0.18,
+                "value": 0.72
+              },
+              {
+                "id": "right-position-z-contact",
+                "time": 0.4,
+                "value": 0.64
+              },
+              {
+                "id": "right-position-z-follow",
+                "time": 0.56,
+                "value": 0.78
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.82,
+                "value": 0.82
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": -12
+              },
+              {
+                "id": "right-rotation-x-windup",
+                "time": 0.18,
+                "value": -25
+              },
+              {
+                "id": "right-rotation-x-contact",
+                "time": 0.4,
+                "value": 12
+              },
+              {
+                "id": "right-rotation-x-follow",
+                "time": 0.56,
+                "value": 24
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.82,
+                "value": -12
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 8
+              },
+              {
+                "id": "right-rotation-y-windup",
+                "time": 0.18,
+                "value": 35
+              },
+              {
+                "id": "right-rotation-y-contact",
+                "time": 0.4,
+                "value": -52
+              },
+              {
+                "id": "right-rotation-y-follow",
+                "time": 0.56,
+                "value": -70
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.82,
+                "value": 8
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": -7
+              },
+              {
+                "id": "right-rotation-z-windup",
+                "time": 0.18,
+                "value": 25
+              },
+              {
+                "id": "right-rotation-z-contact",
+                "time": 0.4,
+                "value": -64
+              },
+              {
+                "id": "right-rotation-z-follow",
+                "time": 0.56,
+                "value": -82
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.82,
+                "value": -7
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 0.82,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  },
+  "dual-alternating-slash": {
+    "version": 1,
+    "name": "双持 · 左右交替斩",
+    "description": "从 model-shake-lab 迁移：双持 · 左右交替斩",
+    "tags": [
+      "first-person",
+      "migrated",
+      "dual-alternating-slash"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      },
+      {
+        "id": "left-item",
+        "objectId": "left-weapon-model-mount",
+        "name": "左手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "left"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "预备",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "left-hold",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "等待另一手",
+          "hand": "left",
+          "sourceKeyframeId": "hold"
+        }
+      },
+      {
+        "id": "right-windup",
+        "time": 0.18,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "蓄力",
+          "hand": "right",
+          "sourceKeyframeId": "windup"
+        }
+      },
+      {
+        "id": "right-contact",
+        "time": 0.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "命中",
+          "hand": "right",
+          "sourceKeyframeId": "contact"
+        }
+      },
+      {
+        "id": "left-ready",
+        "time": 0.45,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "预备",
+          "hand": "left",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "right-follow",
+        "time": 0.56,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "随挥",
+          "hand": "right",
+          "sourceKeyframeId": "follow"
+        }
+      },
+      {
+        "id": "left-windup",
+        "time": 0.63,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "蓄力",
+          "hand": "left",
+          "sourceKeyframeId": "windup"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.82,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      },
+      {
+        "id": "left-contact",
+        "time": 0.85,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "命中",
+          "hand": "left",
+          "sourceKeyframeId": "contact"
+        }
+      },
+      {
+        "id": "left-follow",
+        "time": 1.01,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "随挥",
+          "hand": "left",
+          "sourceKeyframeId": "follow"
+        }
+      },
+      {
+        "id": "left-recover",
+        "time": 1.27,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位",
+          "hand": "left",
+          "sourceKeyframeId": "recover"
+        }
+      },
+      {
+        "id": "right-hold-end",
+        "time": 1.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "等待左手收势",
+          "hand": "right",
+          "sourceKeyframeId": "hold-end"
+        }
+      },
+      {
+        "id": "left-end",
+        "time": 1.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位保持",
+          "hand": "left",
+          "sourceKeyframeId": "end"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.43
+              },
+              {
+                "id": "right-position-x-windup",
+                "time": 0.18,
+                "value": 0.54
+              },
+              {
+                "id": "right-position-x-contact",
+                "time": 0.4,
+                "value": -0.18
+              },
+              {
+                "id": "right-position-x-follow",
+                "time": 0.56,
+                "value": -0.42
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.82,
+                "value": 0.43
+              },
+              {
+                "id": "right-position-x-hold-end",
+                "time": 1.4,
+                "value": 0.43
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.3
+              },
+              {
+                "id": "right-position-y-windup",
+                "time": 0.18,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-contact",
+                "time": 0.4,
+                "value": -0.19
+              },
+              {
+                "id": "right-position-y-follow",
+                "time": 0.56,
+                "value": -0.28
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.82,
+                "value": -0.3
+              },
+              {
+                "id": "right-position-y-hold-end",
+                "time": 1.4,
+                "value": -0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.82
+              },
+              {
+                "id": "right-position-z-windup",
+                "time": 0.18,
+                "value": 0.72
+              },
+              {
+                "id": "right-position-z-contact",
+                "time": 0.4,
+                "value": 0.64
+              },
+              {
+                "id": "right-position-z-follow",
+                "time": 0.56,
+                "value": 0.78
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.82,
+                "value": 0.82
+              },
+              {
+                "id": "right-position-z-hold-end",
+                "time": 1.4,
+                "value": 0.82
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": -12
+              },
+              {
+                "id": "right-rotation-x-windup",
+                "time": 0.18,
+                "value": -25
+              },
+              {
+                "id": "right-rotation-x-contact",
+                "time": 0.4,
+                "value": 12
+              },
+              {
+                "id": "right-rotation-x-follow",
+                "time": 0.56,
+                "value": 24
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.82,
+                "value": -12
+              },
+              {
+                "id": "right-rotation-x-hold-end",
+                "time": 1.4,
+                "value": -12
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 8
+              },
+              {
+                "id": "right-rotation-y-windup",
+                "time": 0.18,
+                "value": 35
+              },
+              {
+                "id": "right-rotation-y-contact",
+                "time": 0.4,
+                "value": -52
+              },
+              {
+                "id": "right-rotation-y-follow",
+                "time": 0.56,
+                "value": -70
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.82,
+                "value": 8
+              },
+              {
+                "id": "right-rotation-y-hold-end",
+                "time": 1.4,
+                "value": 8
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": -7
+              },
+              {
+                "id": "right-rotation-z-windup",
+                "time": 0.18,
+                "value": 25
+              },
+              {
+                "id": "right-rotation-z-contact",
+                "time": 0.4,
+                "value": -64
+              },
+              {
+                "id": "right-rotation-z-follow",
+                "time": 0.56,
+                "value": -82
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.82,
+                "value": -7
+              },
+              {
+                "id": "right-rotation-z-hold-end",
+                "time": 1.4,
+                "value": -7
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.x",
+          "position": {
+            "x": 490,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-x-hold",
+                "time": 0,
+                "value": -0.43
+              },
+              {
+                "id": "left-position-x-ready",
+                "time": 0.45,
+                "value": -0.43
+              },
+              {
+                "id": "left-position-x-windup",
+                "time": 0.63,
+                "value": -0.54
+              },
+              {
+                "id": "left-position-x-contact",
+                "time": 0.85,
+                "value": 0.18
+              },
+              {
+                "id": "left-position-x-follow",
+                "time": 1.01,
+                "value": 0.42
+              },
+              {
+                "id": "left-position-x-recover",
+                "time": 1.27,
+                "value": -0.43
+              },
+              {
+                "id": "left-position-x-end",
+                "time": 1.4,
+                "value": -0.43
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.y",
+          "position": {
+            "x": 490,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-y-hold",
+                "time": 0,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-y-ready",
+                "time": 0.45,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-y-windup",
+                "time": 0.63,
+                "value": -0.24
+              },
+              {
+                "id": "left-position-y-contact",
+                "time": 0.85,
+                "value": -0.19
+              },
+              {
+                "id": "left-position-y-follow",
+                "time": 1.01,
+                "value": -0.28
+              },
+              {
+                "id": "left-position-y-recover",
+                "time": 1.27,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-y-end",
+                "time": 1.4,
+                "value": -0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.z",
+          "position": {
+            "x": 490,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-z-hold",
+                "time": 0,
+                "value": 0.82
+              },
+              {
+                "id": "left-position-z-ready",
+                "time": 0.45,
+                "value": 0.82
+              },
+              {
+                "id": "left-position-z-windup",
+                "time": 0.63,
+                "value": 0.72
+              },
+              {
+                "id": "left-position-z-contact",
+                "time": 0.85,
+                "value": 0.64
+              },
+              {
+                "id": "left-position-z-follow",
+                "time": 1.01,
+                "value": 0.78
+              },
+              {
+                "id": "left-position-z-recover",
+                "time": 1.27,
+                "value": 0.82
+              },
+              {
+                "id": "left-position-z-end",
+                "time": 1.4,
+                "value": 0.82
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.x",
+          "position": {
+            "x": 490,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-x-hold",
+                "time": 0,
+                "value": -12
+              },
+              {
+                "id": "left-rotation-x-ready",
+                "time": 0.45,
+                "value": -12
+              },
+              {
+                "id": "left-rotation-x-windup",
+                "time": 0.63,
+                "value": -25
+              },
+              {
+                "id": "left-rotation-x-contact",
+                "time": 0.85,
+                "value": 12
+              },
+              {
+                "id": "left-rotation-x-follow",
+                "time": 1.01,
+                "value": 24
+              },
+              {
+                "id": "left-rotation-x-recover",
+                "time": 1.27,
+                "value": -12
+              },
+              {
+                "id": "left-rotation-x-end",
+                "time": 1.4,
+                "value": -12
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.y",
+          "position": {
+            "x": 490,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-y-hold",
+                "time": 0,
+                "value": -8
+              },
+              {
+                "id": "left-rotation-y-ready",
+                "time": 0.45,
+                "value": -8
+              },
+              {
+                "id": "left-rotation-y-windup",
+                "time": 0.63,
+                "value": -35
+              },
+              {
+                "id": "left-rotation-y-contact",
+                "time": 0.85,
+                "value": 52
+              },
+              {
+                "id": "left-rotation-y-follow",
+                "time": 1.01,
+                "value": 70
+              },
+              {
+                "id": "left-rotation-y-recover",
+                "time": 1.27,
+                "value": -8
+              },
+              {
+                "id": "left-rotation-y-end",
+                "time": 1.4,
+                "value": -8
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.z",
+          "position": {
+            "x": 490,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-z-hold",
+                "time": 0,
+                "value": 7
+              },
+              {
+                "id": "left-rotation-z-ready",
+                "time": 0.45,
+                "value": 7
+              },
+              {
+                "id": "left-rotation-z-windup",
+                "time": 0.63,
+                "value": -25
+              },
+              {
+                "id": "left-rotation-z-contact",
+                "time": 0.85,
+                "value": 64
+              },
+              {
+                "id": "left-rotation-z-follow",
+                "time": 1.01,
+                "value": 82
+              },
+              {
+                "id": "left-rotation-z-recover",
+                "time": 1.27,
+                "value": 7
+              },
+              {
+                "id": "left-rotation-z-end",
+                "time": 1.4,
+                "value": 7
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-x",
+          "name": "left position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-y",
+          "name": "left position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-z",
+          "name": "left position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-x",
+          "name": "left rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-y",
+          "name": "left rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-z",
+          "name": "left rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-x",
+        "outputId": "left-position-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-y",
+        "outputId": "left-position-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-z",
+        "outputId": "left-position-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-x",
+        "outputId": "left-rotation-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-y",
+        "outputId": "left-rotation-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-z",
+        "outputId": "left-rotation-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 1.4,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  },
+  "dual-cross-slash": {
+    "version": 1,
+    "name": "双持 · 交叉斩",
+    "description": "从 model-shake-lab 迁移：双持 · 交叉斩",
+    "tags": [
+      "first-person",
+      "migrated",
+      "dual-cross-slash"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.55
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.06,
+          "z": 1.5
+        },
+        "config": {
+          "shape": "box",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": -0.1
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.12,
+          "y": 0.12,
+          "z": 0.28
+        },
+        "config": {
+          "shape": "cylinder",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.925
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.15,
+          "y": 0.1,
+          "z": 1.12
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 1.3
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      },
+      {
+        "id": "left-item",
+        "objectId": "left-weapon-model-mount",
+        "name": "左手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "left"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "预备",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "left-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "预备",
+          "hand": "left",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "right-windup",
+        "time": 0.18,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "蓄力",
+          "hand": "right",
+          "sourceKeyframeId": "windup"
+        }
+      },
+      {
+        "id": "left-windup",
+        "time": 0.18,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "蓄力",
+          "hand": "left",
+          "sourceKeyframeId": "windup"
+        }
+      },
+      {
+        "id": "right-contact",
+        "time": 0.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "命中",
+          "hand": "right",
+          "sourceKeyframeId": "contact"
+        }
+      },
+      {
+        "id": "left-contact",
+        "time": 0.4,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "命中",
+          "hand": "left",
+          "sourceKeyframeId": "contact"
+        }
+      },
+      {
+        "id": "right-follow",
+        "time": 0.56,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "随挥",
+          "hand": "right",
+          "sourceKeyframeId": "follow"
+        }
+      },
+      {
+        "id": "left-follow",
+        "time": 0.56,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "随挥",
+          "hand": "left",
+          "sourceKeyframeId": "follow"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.82,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      },
+      {
+        "id": "left-recover",
+        "time": 0.82,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位",
+          "hand": "left",
+          "sourceKeyframeId": "recover"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.43
+              },
+              {
+                "id": "right-position-x-windup",
+                "time": 0.18,
+                "value": 0.54
+              },
+              {
+                "id": "right-position-x-contact",
+                "time": 0.4,
+                "value": -0.08
+              },
+              {
+                "id": "right-position-x-follow",
+                "time": 0.56,
+                "value": -0.42
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.82,
+                "value": 0.43
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.3
+              },
+              {
+                "id": "right-position-y-windup",
+                "time": 0.18,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-contact",
+                "time": 0.4,
+                "value": -0.1
+              },
+              {
+                "id": "right-position-y-follow",
+                "time": 0.56,
+                "value": -0.28
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.82,
+                "value": -0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.82
+              },
+              {
+                "id": "right-position-z-windup",
+                "time": 0.18,
+                "value": 0.72
+              },
+              {
+                "id": "right-position-z-contact",
+                "time": 0.4,
+                "value": 0.64
+              },
+              {
+                "id": "right-position-z-follow",
+                "time": 0.56,
+                "value": 0.78
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.82,
+                "value": 0.82
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": -12
+              },
+              {
+                "id": "right-rotation-x-windup",
+                "time": 0.18,
+                "value": -25
+              },
+              {
+                "id": "right-rotation-x-contact",
+                "time": 0.4,
+                "value": 12
+              },
+              {
+                "id": "right-rotation-x-follow",
+                "time": 0.56,
+                "value": 24
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.82,
+                "value": -12
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 8
+              },
+              {
+                "id": "right-rotation-y-windup",
+                "time": 0.18,
+                "value": 35
+              },
+              {
+                "id": "right-rotation-y-contact",
+                "time": 0.4,
+                "value": -52
+              },
+              {
+                "id": "right-rotation-y-follow",
+                "time": 0.56,
+                "value": -70
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.82,
+                "value": 8
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": -7
+              },
+              {
+                "id": "right-rotation-z-windup",
+                "time": 0.18,
+                "value": 25
+              },
+              {
+                "id": "right-rotation-z-contact",
+                "time": 0.4,
+                "value": -64
+              },
+              {
+                "id": "right-rotation-z-follow",
+                "time": 0.56,
+                "value": -82
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.82,
+                "value": -7
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.x",
+          "position": {
+            "x": 490,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-x-ready",
+                "time": 0,
+                "value": -0.43
+              },
+              {
+                "id": "left-position-x-windup",
+                "time": 0.18,
+                "value": -0.54
+              },
+              {
+                "id": "left-position-x-contact",
+                "time": 0.4,
+                "value": 0.08
+              },
+              {
+                "id": "left-position-x-follow",
+                "time": 0.56,
+                "value": 0.42
+              },
+              {
+                "id": "left-position-x-recover",
+                "time": 0.82,
+                "value": -0.43
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.y",
+          "position": {
+            "x": 490,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-y-ready",
+                "time": 0,
+                "value": -0.4
+              },
+              {
+                "id": "left-position-y-windup",
+                "time": 0.18,
+                "value": -0.33999999999999997
+              },
+              {
+                "id": "left-position-y-contact",
+                "time": 0.4,
+                "value": -0.2
+              },
+              {
+                "id": "left-position-y-follow",
+                "time": 0.56,
+                "value": -0.38
+              },
+              {
+                "id": "left-position-y-recover",
+                "time": 0.82,
+                "value": -0.4
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.z",
+          "position": {
+            "x": 490,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-z-ready",
+                "time": 0,
+                "value": 0.82
+              },
+              {
+                "id": "left-position-z-windup",
+                "time": 0.18,
+                "value": 0.72
+              },
+              {
+                "id": "left-position-z-contact",
+                "time": 0.4,
+                "value": 0.64
+              },
+              {
+                "id": "left-position-z-follow",
+                "time": 0.56,
+                "value": 0.78
+              },
+              {
+                "id": "left-position-z-recover",
+                "time": 0.82,
+                "value": 0.82
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.x",
+          "position": {
+            "x": 490,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-x-ready",
+                "time": 0,
+                "value": -12
+              },
+              {
+                "id": "left-rotation-x-windup",
+                "time": 0.18,
+                "value": -25
+              },
+              {
+                "id": "left-rotation-x-contact",
+                "time": 0.4,
+                "value": 12
+              },
+              {
+                "id": "left-rotation-x-follow",
+                "time": 0.56,
+                "value": 24
+              },
+              {
+                "id": "left-rotation-x-recover",
+                "time": 0.82,
+                "value": -12
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.y",
+          "position": {
+            "x": 490,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-y-ready",
+                "time": 0,
+                "value": -8
+              },
+              {
+                "id": "left-rotation-y-windup",
+                "time": 0.18,
+                "value": -35
+              },
+              {
+                "id": "left-rotation-y-contact",
+                "time": 0.4,
+                "value": 52
+              },
+              {
+                "id": "left-rotation-y-follow",
+                "time": 0.56,
+                "value": 70
+              },
+              {
+                "id": "left-rotation-y-recover",
+                "time": 0.82,
+                "value": -8
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.z",
+          "position": {
+            "x": 490,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-z-ready",
+                "time": 0,
+                "value": 7
+              },
+              {
+                "id": "left-rotation-z-windup",
+                "time": 0.18,
+                "value": -25
+              },
+              {
+                "id": "left-rotation-z-contact",
+                "time": 0.4,
+                "value": 64
+              },
+              {
+                "id": "left-rotation-z-follow",
+                "time": 0.56,
+                "value": 82
+              },
+              {
+                "id": "left-rotation-z-recover",
+                "time": 0.82,
+                "value": 7
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-x",
+          "name": "left position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-y",
+          "name": "left position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-z",
+          "name": "left position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-x",
+          "name": "left rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-y",
+          "name": "left rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-z",
+          "name": "left rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-x",
+        "outputId": "left-position-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-y",
+        "outputId": "left-position-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-z",
+        "outputId": "left-position-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-x",
+        "outputId": "left-rotation-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-y",
+        "outputId": "left-rotation-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-z",
+        "outputId": "left-rotation-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 0.82,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  },
+  "pistol-single-shot": {
+    "version": 1,
+    "name": "枪械 · 单发后坐",
+    "description": "从 model-shake-lab 迁移：枪械 · 单发后坐",
+    "tags": [
+      "first-person",
+      "migrated",
+      "pistol-single-shot"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "right-fire-0",
+        "time": 0.08,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 1",
+          "hand": "right",
+          "sourceKeyframeId": "fire-0"
+        }
+      },
+      {
+        "id": "right-kick-0",
+        "time": 0.115,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "right",
+          "sourceKeyframeId": "kick-0"
+        }
+      },
+      {
+        "id": "right-settle-0",
+        "time": 0.21,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "right",
+          "sourceKeyframeId": "settle-0"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.48,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "恢复瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-fire-0",
+                "time": 0.08,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-kick-0",
+                "time": 0.115,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-settle-0",
+                "time": 0.21,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.48,
+                "value": 0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-fire-0",
+                "time": 0.08,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-kick-0",
+                "time": 0.115,
+                "value": -0.22
+              },
+              {
+                "id": "right-position-y-settle-0",
+                "time": 0.21,
+                "value": -0.25
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.48,
+                "value": -0.24
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-fire-0",
+                "time": 0.08,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-kick-0",
+                "time": 0.115,
+                "value": 0.59
+              },
+              {
+                "id": "right-position-z-settle-0",
+                "time": 0.21,
+                "value": 0.69
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.48,
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-kick-0",
+                "time": 0.115,
+                "value": -9
+              },
+              {
+                "id": "right-rotation-x-settle-0",
+                "time": 0.21,
+                "value": 1
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.48,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-kick-0",
+                "time": 0.115,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-settle-0",
+                "time": 0.21,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.48,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-kick-0",
+                "time": 0.115,
+                "value": 1.5
+              },
+              {
+                "id": "right-rotation-z-settle-0",
+                "time": 0.21,
+                "value": -0.5
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.48,
+                "value": 0
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 0.48,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  },
+  "rifle-three-round-burst": {
+    "version": 1,
+    "name": "枪械 · 三连发",
+    "description": "从 model-shake-lab 迁移：枪械 · 三连发",
+    "tags": [
+      "first-person",
+      "migrated",
+      "rifle-three-round-burst"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "right-fire-0",
+        "time": 0.08,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 1",
+          "hand": "right",
+          "sourceKeyframeId": "fire-0"
+        }
+      },
+      {
+        "id": "right-kick-0",
+        "time": 0.115,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "right",
+          "sourceKeyframeId": "kick-0"
+        }
+      },
+      {
+        "id": "right-settle-0",
+        "time": 0.21,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "right",
+          "sourceKeyframeId": "settle-0"
+        }
+      },
+      {
+        "id": "right-fire-1",
+        "time": 0.28,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 2",
+          "hand": "right",
+          "sourceKeyframeId": "fire-1"
+        }
+      },
+      {
+        "id": "right-kick-1",
+        "time": 0.315,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "right",
+          "sourceKeyframeId": "kick-1"
+        }
+      },
+      {
+        "id": "right-settle-1",
+        "time": 0.41,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "right",
+          "sourceKeyframeId": "settle-1"
+        }
+      },
+      {
+        "id": "right-fire-2",
+        "time": 0.48000000000000004,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 3",
+          "hand": "right",
+          "sourceKeyframeId": "fire-2"
+        }
+      },
+      {
+        "id": "right-kick-2",
+        "time": 0.515,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "right",
+          "sourceKeyframeId": "kick-2"
+        }
+      },
+      {
+        "id": "right-settle-2",
+        "time": 0.61,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "right",
+          "sourceKeyframeId": "settle-2"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.8,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "恢复瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-fire-0",
+                "time": 0.08,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-kick-0",
+                "time": 0.115,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-settle-0",
+                "time": 0.21,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-fire-1",
+                "time": 0.28,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-kick-1",
+                "time": 0.315,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-settle-1",
+                "time": 0.41,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-fire-2",
+                "time": 0.48000000000000004,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-kick-2",
+                "time": 0.515,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-settle-2",
+                "time": 0.61,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.8,
+                "value": 0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-fire-0",
+                "time": 0.08,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-kick-0",
+                "time": 0.115,
+                "value": -0.22
+              },
+              {
+                "id": "right-position-y-settle-0",
+                "time": 0.21,
+                "value": -0.25
+              },
+              {
+                "id": "right-position-y-fire-1",
+                "time": 0.28,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-kick-1",
+                "time": 0.315,
+                "value": -0.22
+              },
+              {
+                "id": "right-position-y-settle-1",
+                "time": 0.41,
+                "value": -0.25
+              },
+              {
+                "id": "right-position-y-fire-2",
+                "time": 0.48000000000000004,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-kick-2",
+                "time": 0.515,
+                "value": -0.22
+              },
+              {
+                "id": "right-position-y-settle-2",
+                "time": 0.61,
+                "value": -0.25
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.8,
+                "value": -0.24
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-fire-0",
+                "time": 0.08,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-kick-0",
+                "time": 0.115,
+                "value": 0.59
+              },
+              {
+                "id": "right-position-z-settle-0",
+                "time": 0.21,
+                "value": 0.69
+              },
+              {
+                "id": "right-position-z-fire-1",
+                "time": 0.28,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-kick-1",
+                "time": 0.315,
+                "value": 0.59
+              },
+              {
+                "id": "right-position-z-settle-1",
+                "time": 0.41,
+                "value": 0.69
+              },
+              {
+                "id": "right-position-z-fire-2",
+                "time": 0.48000000000000004,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-kick-2",
+                "time": 0.515,
+                "value": 0.59
+              },
+              {
+                "id": "right-position-z-settle-2",
+                "time": 0.61,
+                "value": 0.69
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.8,
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-kick-0",
+                "time": 0.115,
+                "value": -9
+              },
+              {
+                "id": "right-rotation-x-settle-0",
+                "time": 0.21,
+                "value": 1
+              },
+              {
+                "id": "right-rotation-x-fire-1",
+                "time": 0.28,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-kick-1",
+                "time": 0.315,
+                "value": -9
+              },
+              {
+                "id": "right-rotation-x-settle-1",
+                "time": 0.41,
+                "value": 1
+              },
+              {
+                "id": "right-rotation-x-fire-2",
+                "time": 0.48000000000000004,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-kick-2",
+                "time": 0.515,
+                "value": -9
+              },
+              {
+                "id": "right-rotation-x-settle-2",
+                "time": 0.61,
+                "value": 1
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.8,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-kick-0",
+                "time": 0.115,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-settle-0",
+                "time": 0.21,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-fire-1",
+                "time": 0.28,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-kick-1",
+                "time": 0.315,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-settle-1",
+                "time": 0.41,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-fire-2",
+                "time": 0.48000000000000004,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-kick-2",
+                "time": 0.515,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-settle-2",
+                "time": 0.61,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.8,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-kick-0",
+                "time": 0.115,
+                "value": 1.5
+              },
+              {
+                "id": "right-rotation-z-settle-0",
+                "time": 0.21,
+                "value": -0.5
+              },
+              {
+                "id": "right-rotation-z-fire-1",
+                "time": 0.28,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-kick-1",
+                "time": 0.315,
+                "value": 1.5
+              },
+              {
+                "id": "right-rotation-z-settle-1",
+                "time": 0.41,
+                "value": -0.5
+              },
+              {
+                "id": "right-rotation-z-fire-2",
+                "time": 0.48000000000000004,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-kick-2",
+                "time": 0.515,
+                "value": 1.5
+              },
+              {
+                "id": "right-rotation-z-settle-2",
+                "time": 0.61,
+                "value": -0.5
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.8,
+                "value": 0
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 0.8,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  },
+  "dual-pistol-alternating": {
+    "version": 1,
+    "name": "双枪 · 交替射击",
+    "description": "从 model-shake-lab 迁移：双枪 · 交替射击",
+    "tags": [
+      "first-person",
+      "migrated",
+      "dual-pistol-alternating"
+    ],
+    "objects": [
+      {
+        "id": "animation-root",
+        "parentId": null,
+        "name": "动画根节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "first-person-rig",
+        "parentId": "animation-root",
+        "name": "第一人称 Rig",
+        "factoryTypeId": "rig.first-person",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "depth": 0.65
+        }
+      },
+      {
+        "id": "right-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "右手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-model-mount",
+        "parentId": "right-weapon-pose",
+        "name": "右手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "right-weapon-proxy",
+        "parentId": "right-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "right-weapon-grip",
+        "parentId": "right-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "right-weapon-attack",
+        "parentId": "right-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "right-weapon-muzzle",
+        "parentId": "right-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      },
+      {
+        "id": "left-weapon-pose",
+        "parentId": "first-person-rig",
+        "name": "左手动作节点",
+        "factoryTypeId": "core.empty",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-model-mount",
+        "parentId": "left-weapon-pose",
+        "name": "左手模型挂载点",
+        "factoryTypeId": "core.socket",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {}
+      },
+      {
+        "id": "left-weapon-proxy",
+        "parentId": "left-weapon-pose",
+        "name": "武器代理体",
+        "factoryTypeId": "semantic.proxy",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.25
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.18,
+          "y": 0.2,
+          "z": 0.8
+        },
+        "config": {
+          "shape": "gun",
+          "color": "#35b9d1",
+          "displayMode": "xray",
+          "opacity": 0.14
+        }
+      },
+      {
+        "id": "left-weapon-grip",
+        "parentId": "left-weapon-pose",
+        "name": "持握体",
+        "factoryTypeId": "semantic.grip",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": -0.2,
+          "z": 0
+        },
+        "rotation": {
+          "x": -18,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.16,
+          "y": 0.32,
+          "z": 0.16
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e7a13e",
+          "displayMode": "xray",
+          "opacity": 0.2
+        }
+      },
+      {
+        "id": "left-weapon-attack",
+        "parentId": "left-weapon-pose",
+        "name": "攻击体",
+        "factoryTypeId": "semantic.attack",
+        "enabled": false,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.35
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 0.2,
+          "y": 0.2,
+          "z": 0.65
+        },
+        "config": {
+          "shape": "box",
+          "color": "#e05261",
+          "displayMode": "xray",
+          "opacity": 0.18
+        }
+      },
+      {
+        "id": "left-weapon-muzzle",
+        "parentId": "left-weapon-pose",
+        "name": "发射端",
+        "factoryTypeId": "semantic.muzzle",
+        "enabled": true,
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0.65
+        },
+        "rotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "scaling": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "config": {
+          "color": "#e95bb5"
+        }
+      }
+    ],
+    "mountPoints": [
+      {
+        "id": "right-item",
+        "objectId": "right-weapon-model-mount",
+        "name": "右手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "right"
+        ]
+      },
+      {
+        "id": "left-item",
+        "objectId": "left-weapon-model-mount",
+        "name": "左手道具",
+        "role": "item",
+        "tags": [
+          "first-person",
+          "left"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "right-ready",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "left-hold",
+        "time": 0,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "等待另一手",
+          "hand": "left",
+          "sourceKeyframeId": "hold"
+        }
+      },
+      {
+        "id": "right-fire-0",
+        "time": 0.08,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 1",
+          "hand": "right",
+          "sourceKeyframeId": "fire-0"
+        }
+      },
+      {
+        "id": "right-kick-0",
+        "time": 0.115,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "right",
+          "sourceKeyframeId": "kick-0"
+        }
+      },
+      {
+        "id": "right-settle-0",
+        "time": 0.21,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "right",
+          "sourceKeyframeId": "settle-0"
+        }
+      },
+      {
+        "id": "left-ready",
+        "time": 0.35,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "瞄准",
+          "hand": "left",
+          "sourceKeyframeId": "ready"
+        }
+      },
+      {
+        "id": "left-fire-0",
+        "time": 0.43,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "射击 1",
+          "hand": "left",
+          "sourceKeyframeId": "fire-0"
+        }
+      },
+      {
+        "id": "left-kick-0",
+        "time": 0.465,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "后坐 / 枪口上跳",
+          "hand": "left",
+          "sourceKeyframeId": "kick-0"
+        }
+      },
+      {
+        "id": "right-recover",
+        "time": 0.48,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "恢复瞄准",
+          "hand": "right",
+          "sourceKeyframeId": "recover"
+        }
+      },
+      {
+        "id": "left-settle-0",
+        "time": 0.56,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "回落",
+          "hand": "left",
+          "sourceKeyframeId": "settle-0"
+        }
+      },
+      {
+        "id": "left-recover",
+        "time": 0.83,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "恢复瞄准",
+          "hand": "left",
+          "sourceKeyframeId": "recover"
+        }
+      },
+      {
+        "id": "right-hold-end",
+        "time": 1,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "等待左枪",
+          "hand": "right",
+          "sourceKeyframeId": "hold-end"
+        }
+      },
+      {
+        "id": "left-end",
+        "time": 1,
+        "typeId": "animation.marker",
+        "config": {
+          "label": "复位保持",
+          "hand": "left",
+          "sourceKeyframeId": "end"
+        }
+      }
+    ],
+    "signalGraph": {
+      "version": 1,
+      "nodes": [
+        {
+          "id": "time",
+          "typeId": "core.time",
+          "version": 1,
+          "label": "Time",
+          "position": {
+            "x": 32,
+            "y": 48
+          },
+          "config": {}
+        },
+        {
+          "id": "right-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.x",
+          "position": {
+            "x": 260,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-x-ready",
+                "time": 0,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-fire-0",
+                "time": 0.08,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-kick-0",
+                "time": 0.115,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-settle-0",
+                "time": 0.21,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-recover",
+                "time": 0.48,
+                "value": 0.3
+              },
+              {
+                "id": "right-position-x-hold-end",
+                "time": 1,
+                "value": 0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.y",
+          "position": {
+            "x": 260,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-y-ready",
+                "time": 0,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-fire-0",
+                "time": 0.08,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-kick-0",
+                "time": 0.115,
+                "value": -0.22
+              },
+              {
+                "id": "right-position-y-settle-0",
+                "time": 0.21,
+                "value": -0.25
+              },
+              {
+                "id": "right-position-y-recover",
+                "time": 0.48,
+                "value": -0.24
+              },
+              {
+                "id": "right-position-y-hold-end",
+                "time": 1,
+                "value": -0.24
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right position.z",
+          "position": {
+            "x": 260,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-position-z-ready",
+                "time": 0,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-fire-0",
+                "time": 0.08,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-kick-0",
+                "time": 0.115,
+                "value": 0.59
+              },
+              {
+                "id": "right-position-z-settle-0",
+                "time": 0.21,
+                "value": 0.69
+              },
+              {
+                "id": "right-position-z-recover",
+                "time": 0.48,
+                "value": 0.7
+              },
+              {
+                "id": "right-position-z-hold-end",
+                "time": 1,
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.x",
+          "position": {
+            "x": 260,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-x-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-kick-0",
+                "time": 0.115,
+                "value": -9
+              },
+              {
+                "id": "right-rotation-x-settle-0",
+                "time": 0.21,
+                "value": 1
+              },
+              {
+                "id": "right-rotation-x-recover",
+                "time": 0.48,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-x-hold-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.y",
+          "position": {
+            "x": 260,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-y-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-kick-0",
+                "time": 0.115,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-settle-0",
+                "time": 0.21,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-recover",
+                "time": 0.48,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-y-hold-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "right-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Right rotation.z",
+          "position": {
+            "x": 260,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "right-rotation-z-ready",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-fire-0",
+                "time": 0.08,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-kick-0",
+                "time": 0.115,
+                "value": 1.5
+              },
+              {
+                "id": "right-rotation-z-settle-0",
+                "time": 0.21,
+                "value": -0.5
+              },
+              {
+                "id": "right-rotation-z-recover",
+                "time": 0.48,
+                "value": 0
+              },
+              {
+                "id": "right-rotation-z-hold-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.x",
+          "position": {
+            "x": 490,
+            "y": 24
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-x-hold",
+                "time": 0,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-ready",
+                "time": 0.35,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-fire-0",
+                "time": 0.43,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-kick-0",
+                "time": 0.465,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-settle-0",
+                "time": 0.56,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-recover",
+                "time": 0.83,
+                "value": -0.3
+              },
+              {
+                "id": "left-position-x-end",
+                "time": 1,
+                "value": -0.3
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.y",
+          "position": {
+            "x": 490,
+            "y": 142
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-y-hold",
+                "time": 0,
+                "value": -0.24
+              },
+              {
+                "id": "left-position-y-ready",
+                "time": 0.35,
+                "value": -0.24
+              },
+              {
+                "id": "left-position-y-fire-0",
+                "time": 0.43,
+                "value": -0.24
+              },
+              {
+                "id": "left-position-y-kick-0",
+                "time": 0.465,
+                "value": -0.22
+              },
+              {
+                "id": "left-position-y-settle-0",
+                "time": 0.56,
+                "value": -0.25
+              },
+              {
+                "id": "left-position-y-recover",
+                "time": 0.83,
+                "value": -0.24
+              },
+              {
+                "id": "left-position-y-end",
+                "time": 1,
+                "value": -0.24
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-position-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left position.z",
+          "position": {
+            "x": 490,
+            "y": 260
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-position-z-hold",
+                "time": 0,
+                "value": 0.7
+              },
+              {
+                "id": "left-position-z-ready",
+                "time": 0.35,
+                "value": 0.7
+              },
+              {
+                "id": "left-position-z-fire-0",
+                "time": 0.43,
+                "value": 0.7
+              },
+              {
+                "id": "left-position-z-kick-0",
+                "time": 0.465,
+                "value": 0.59
+              },
+              {
+                "id": "left-position-z-settle-0",
+                "time": 0.56,
+                "value": 0.69
+              },
+              {
+                "id": "left-position-z-recover",
+                "time": 0.83,
+                "value": 0.7
+              },
+              {
+                "id": "left-position-z-end",
+                "time": 1,
+                "value": 0.7
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-x-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.x",
+          "position": {
+            "x": 490,
+            "y": 378
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-x-hold",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-x-ready",
+                "time": 0.35,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-x-fire-0",
+                "time": 0.43,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-x-kick-0",
+                "time": 0.465,
+                "value": -9
+              },
+              {
+                "id": "left-rotation-x-settle-0",
+                "time": 0.56,
+                "value": 1
+              },
+              {
+                "id": "left-rotation-x-recover",
+                "time": 0.83,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-x-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-y-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.y",
+          "position": {
+            "x": 490,
+            "y": 496
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-y-hold",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-ready",
+                "time": 0.35,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-fire-0",
+                "time": 0.43,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-kick-0",
+                "time": 0.465,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-settle-0",
+                "time": 0.56,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-recover",
+                "time": 0.83,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-y-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        },
+        {
+          "id": "left-rotation-z-curve",
+          "typeId": "core.curve.number",
+          "version": 1,
+          "label": "Left rotation.z",
+          "position": {
+            "x": 490,
+            "y": 614
+          },
+          "config": {
+            "interpolation": "smoothstep",
+            "keys": [
+              {
+                "id": "left-rotation-z-hold",
+                "time": 0,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-z-ready",
+                "time": 0.35,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-z-fire-0",
+                "time": 0.43,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-z-kick-0",
+                "time": 0.465,
+                "value": -1.5
+              },
+              {
+                "id": "left-rotation-z-settle-0",
+                "time": 0.56,
+                "value": 0.5
+              },
+              {
+                "id": "left-rotation-z-recover",
+                "time": 0.83,
+                "value": 0
+              },
+              {
+                "id": "left-rotation-z-end",
+                "time": 1,
+                "value": 0
+              }
+            ]
+          }
+        }
+      ],
+      "connections": [
+        {
+          "id": "time-to-right-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-right-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-position-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-position-z-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-x-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-y-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "time"
+          }
+        },
+        {
+          "id": "time-to-left-rotation-z-curve",
+          "source": {
+            "nodeId": "time",
+            "portId": "time"
+          },
+          "target": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "time"
+          }
+        }
+      ],
+      "parameters": [],
+      "outputs": [
+        {
+          "id": "right-position-x",
+          "name": "right position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-y",
+          "name": "right position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-position-z",
+          "name": "right position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-x",
+          "name": "right rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-y",
+          "name": "right rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "right-rotation-z",
+          "name": "right rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "right-rotation-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-x",
+          "name": "left position.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-y",
+          "name": "left position.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-position-z",
+          "name": "left position.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-position-z-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-x",
+          "name": "left rotation.x",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-x-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-y",
+          "name": "left rotation.y",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-y-curve",
+            "portId": "value"
+          }
+        },
+        {
+          "id": "left-rotation-z",
+          "name": "left rotation.z",
+          "valueTypeId": "core.number",
+          "source": {
+            "nodeId": "left-rotation-z-curve",
+            "portId": "value"
+          }
+        }
+      ]
+    },
+    "bindings": [
+      {
+        "id": "bind-right-position-x",
+        "outputId": "right-position-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-y",
+        "outputId": "right-position-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-position-z",
+        "outputId": "right-position-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-x",
+        "outputId": "right-rotation-x",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-y",
+        "outputId": "right-rotation-y",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-right-rotation-z",
+        "outputId": "right-rotation-z",
+        "objectId": "right-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-x",
+        "outputId": "left-position-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-y",
+        "outputId": "left-position-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-position-z",
+        "outputId": "left-position-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "position.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-x",
+        "outputId": "left-rotation-x",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.x",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-y",
+        "outputId": "left-rotation-y",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.y",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      },
+      {
+        "id": "bind-left-rotation-z",
+        "outputId": "left-rotation-z",
+        "objectId": "left-weapon-pose",
+        "adapterTypeId": "babylon.transform-component.number",
+        "config": {
+          "path": "rotation.z",
+          "operation": "override",
+          "weight": 1,
+          "priority": 0,
+          "scale": 1,
+          "offset": 0,
+          "enabled": true,
+          "solo": false
+        }
+      }
+    ],
+    "transport": {
+      "duration": 1,
+      "loop": false,
+      "playbackSpeed": 1
+    }
+  }
+}

@@ -25,6 +25,7 @@
     "test:dungeon-map-loader-delta": "node --experimental-strip-types --test tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.deltaStore.test.ts",
     "test:lab-core-boundary": "node --experimental-strip-types --test tools/lab-modules/coreLabBoundary.test.ts",
     "migrate:dungeon-map-definitions": "node --experimental-strip-types scripts/migrateDungeonMapDefinitions.ts",
+    "migrate:animation-scene-presets": "node --experimental-strip-types scripts/migrateFirstPersonWeaponPresetsToAnimationScenes.ts",
     "preview": "vite preview",
     "verify:file": "electron scripts/verifyFileProtocol.cjs",
     "electron:start": "electron .",

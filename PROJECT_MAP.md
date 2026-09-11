@@ -544,7 +544,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
-- `animation-workbench-lab/`：专注动态值动画创作的独立预览工作台；Animation Objects 使用持久 UUID 和开放对象工厂，支持基础对象层级、Transform Gizmo、Signal Graph、Contribution Mixer、事件与挂载点。工作区可作为浏览器草稿或保存到通用 `animationScenePresets.json` 预设库；预设选择器也可把 `model-shake-lab` 的双手动作迁移为可继续编辑的普通曲线信号、贡献绑定与事件，而不是保留固定武器时间轴。
+- `animation-workbench-lab/`：专注动态值动画创作的独立预览工作台；Animation Objects 使用持久 UUID 和开放对象工厂，支持基础对象层级、Transform Gizmo、Signal Graph、Contribution Mixer、事件与挂载点。编辑历史覆盖工作区变更并把 Gizmo、Inspector 数值和节点拖动合并为单次事务，提供 `Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z`；时间栏的 EDIT / AUTO / REC 分别用于编辑基础值、仅给已有轨道成键、自动创建 Transform 属性曲线与 Override Contribution。Curves 可叠加显示多条属性曲线，关键帧支持 Shift 多选、跨曲线框选、成组拖动和跨曲线复制粘贴，并提供时间/数值吸附、视图适配、鼠标中心缩放与画布平移；可按关键帧段编辑 Constant / Linear / Smooth / Bezier 插值以及 Auto / Free / Broken 切线，Signal 运行时使用相同曲线采样规则。Dope Sheet 汇总当前对象的多属性关键帧，支持 Shift 多选、框选、成组拖动、FPS 吸附、复制粘贴、删除与前后关键帧跳转，拖动仍作为单次历史事务。Events 页面提供可拖动、吸附、复制粘贴和删除的事件标记，并开放编辑 `typeId + config`；播放头跨越标记时会给出触发反馈，事件编辑同样进入 Undo/Redo。工作区可作为浏览器草稿或保存到通用 `animationScenePresets.json` 预设库；预设选择器也可把 `model-shake-lab` 的双手动作迁移为可继续编辑的普通曲线信号、贡献绑定与事件，而不是保留固定武器时间轴。
 - `model-shake-lab/`：第一人称武器代理体与动画编辑器；使用项目规范化模型，只编辑安装位置、旋转、缩放。支持代理体模板、自定义形状、原点/方向/握持点/攻击端标记、关键帧预览与独立 config 预设保存。
 - `model-swing-lab/`
 - `model-shoot-lab/`
@@ -592,7 +592,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `dungeonMapPresets/index.json` 与同目录单地图 JSON | Dungeon Map Canvas、组合式 Dungeon Lab，以及 World Loader 引用的地图目录和实际地图预设 |
 | `sceneEnvironmentPresets.json` | Scene Environment Lab；由 `/api/scene-environment-presets` 只读获取 |
 | `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
-| `animationScenePresets.json` | Animation Workbench 与游戏运行时共享的通用动画场景预设；开发期由 `/api/animation-scene-presets` 校验并原子保存 |
+| `animationScenePresets.json` | Animation Workbench 与游戏运行时共享的通用动画场景预设；开发期由 `/api/animation-scene-presets` 校验并原子保存。现有 `model-shake-lab` 动作已逐项迁入，可用 `npm run migrate:animation-scene-presets` 重复同步并保留其他通用预设 |
 
 配置的稳定原则：
 
