@@ -37,7 +37,9 @@ const ObjectIcon = ({ node }: { node: Node }) => {
   </svg>;
 };
 
-export function SceneNodeInspector({ node, activeCamera, onClose }: { node: Node; activeCamera: Camera | null; onClose: () => void }) {
+export type BabylonSceneInspectorProps = { node: Node; activeCamera?: Camera | null; onClose?: () => void };
+
+export function BabylonSceneInspector({ node, activeCamera = null, onClose }: BabylonSceneInspectorProps) {
   const [, refresh] = useState(0);
   useEffect(() => {
     const timer = window.setInterval(() => refresh(value => value + 1), 160);
@@ -56,8 +58,8 @@ export function SceneNodeInspector({ node, activeCamera, onClose }: { node: Node
   const camera = node instanceof Camera ? node : null;
   const light = node instanceof Light ? node : null;
 
-  return <aside className="inspector readonly-inspector" aria-label={`${node.name} 属性`}>
-    <div className="readonly-inspector-heading"><div><span>INSPECTOR</span><strong>对象属性</strong></div><em>只读</em><button onClick={onClose} title="返回武器编辑器" aria-label="关闭对象属性"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg></button></div>
+  return <aside className="readonly-inspector" aria-label={`${node.name} 属性`}>
+    <div className={`readonly-inspector-heading ${onClose ? '' : 'without-close'}`}><div><span>INSPECTOR</span><strong>对象属性</strong></div><em>只读</em>{onClose && <button onClick={onClose} title="关闭对象属性" aria-label="关闭对象属性"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg></button>}</div>
     <div className="readonly-inspector-scroll">
       <div className="readonly-object-title"><ObjectIcon node={node} /><div><strong>{node.name}</strong><span>{node.getClassName()}</span></div><i className={node.isEnabled() ? 'enabled' : ''}>{node.isEnabled() ? '已启用' : '已停用'}</i></div>
 
@@ -108,6 +110,6 @@ export function SceneNodeInspector({ node, activeCamera, onClose }: { node: Node
         <ReadonlyField label="层遮罩" value={`0x${light.includeOnlyWithLayerMask.toString(16).padStart(8, '0')}`} />
       </InspectorSection>}
     </div>
-    <div className="readonly-inspector-footer">属性来自当前 Babylon Scene · 不会写入预设</div>
+    <div className="readonly-inspector-footer">只读显示当前 Babylon Scene 运行时数据</div>
   </aside>;
 }

@@ -1,0 +1,146 @@
+.command-menu-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  pointer-events: none;
+}
+
+.command-menu {
+  min-width: 214px;
+  padding: 3px 0;
+  border: 1px solid #4a4c50;
+  border-radius: 2px;
+  background: #2b2d30;
+  box-shadow: 0 7px 18px rgba(0, 0, 0, .46);
+  color: #e8e8e8;
+  font: 12px/1.15 "Segoe UI", "Microsoft YaHei", sans-serif;
+  pointer-events: auto;
+}
+
+.command-menu-root {
+  position: fixed;
+}
+
+.command-menu-entry {
+  position: relative;
+}
+
+.command-menu-button {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  width: calc(100% - 6px);
+  min-height: 25px;
+  margin: 0 3px;
+  padding: 0 7px 0 5px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  cursor: default;
+  font: inherit;
+  text-align: left;
+}
+
+.command-menu-button:not(:disabled):hover,
+.command-menu-entry.is-submenu-open > .command-menu-button {
+  outline: 0;
+  background: #3d3f43;
+  color: #ffffff;
+}
+
+.command-menu-layer.is-keyboard-navigation .command-menu-button:focus {
+  outline: 0;
+  background: #3d3f43;
+  color: #ffffff;
+}
+
+.command-menu-button:disabled {
+  color: #77797d;
+}
+
+.command-menu-button.is-danger:not(:disabled) {
+  color: #ffaaa5;
+}
+
+.command-menu-icon-slot {
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  color: #c1c7cd;
+}
+
+.command-menu-icon,
+.command-menu-arrow {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+}
+
+.command-menu-arrow {
+  width: 10px;
+  height: 10px;
+  margin-left: 18px;
+  color: #a1a5aa;
+}
+
+.command-menu-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.command-menu-shortcut {
+  margin-left: 28px;
+  color: #858b94;
+  font-size: 11px;
+}
+
+.command-menu-separator {
+  position: relative;
+  height: 3px;
+  margin: 0 8px;
+  background: transparent;
+}
+
+.command-menu-separator::after {
+  position: absolute;
+  top: var(--command-menu-separator-top, 1px);
+  right: 0;
+  left: 0;
+  height: var(--command-menu-hairline, 1px);
+  background: #484a4e;
+  content: "";
+}
+
+.command-submenu {
+  position: absolute;
+  top: -4px;
+  left: calc(100% - 2px);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.command-submenu.opens-left {
+  right: calc(100% - 2px);
+  left: auto;
+}
+
+.command-menu-entry.is-submenu-open > .command-submenu {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .command-submenu {
+    transition: opacity .08s ease;
+  }
+}
