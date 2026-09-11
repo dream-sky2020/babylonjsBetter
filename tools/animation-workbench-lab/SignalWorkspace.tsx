@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type Dispatch, type PointerEvent as ReactPointerEvent, type SetStateAction } from 'react';
 import { openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
 import {
   createCoreSignalNodeRegistry, evaluateSignalGraph,
@@ -8,19 +8,30 @@ import {
 import type { NumericContributionMix } from '@/core/animation/contribution';
 import type { AnimationObjectRecord, AnimationWorkspace, PreviewSignalBinding } from './animationWorkspace.ts';
 import { createPreviewContributionMix, previewTargetKey } from './previewContributionMixer.ts';
+import type { TransformRecordMode } from './transformRecording.ts';
+import { DopeSheet } from './DopeSheet.tsx';
+import { EventTrack } from './EventTrack.tsx';
+import { CurveEditor } from './CurveEditor.tsx';
 
-type WorkspaceTab = 'graph' | 'curves' | 'parameters' | 'output';
+type WorkspaceTab = 'graph' | 'dopesheet' | 'events' | 'curves' | 'parameters' | 'output';
 type PendingPort = Readonly<{ nodeId: string; portId: string; valueTypeId: string }>;
-type CurveKey = Readonly<{ id: string; time: number; value: number }>;
 type Props = Readonly<{
   graph: SignalGraphDocument;
   bindings: readonly PreviewSignalBinding[];
   objects: readonly AnimationObjectRecord[];
   selectedObjectId: string | null;
   transport: AnimationWorkspace['transport'];
+  events: AnimationWorkspace['events'];
+  time: number;
+  recordMode: TransformRecordMode;
+  onTimeChange: Dispatch<SetStateAction<number>>;
+  onRecordModeChange(mode: TransformRecordMode): void;
+  onBeginEdit(): void;
+  onEndEdit(): void;
   onGraphChange(graph: SignalGraphDocument): void;
   onBindingsChange(bindings: readonly PreviewSignalBinding[]): void;
   onTransportChange(transport: AnimationWorkspace['transport']): void;
+  onEventsChange(events: AnimationWorkspace['events']): void;
   onEvaluate(evaluation: SignalGraphEvaluation, contributionMix: NumericContributionMix): void;
 }>;
 
@@ -42,33 +53,25 @@ const MiniIcon = ({ name }: { name: 'add' | 'play' | 'pause' | 'stop' | 'delete'
   {name === 'output' && <path d="M3 10h11m-4-4 4 4-4 4m4-8h3v8h-3" />}
 </svg>;
 
-const readKeys = (node: SignalGraphNode | undefined): CurveKey[] => {
-  if (!node || !Array.isArray(node.config.keys)) return [];
-  return node.config.keys.flatMap(raw => {
-    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return [];
-    const key = raw as Partial<CurveKey>;
-    return typeof key.id === 'string' && typeof key.time === 'number' && Number.isFinite(key.time) && typeof key.value === 'number' && Number.isFinite(key.value) ? [key as CurveKey] : [];
-  }).sort((left, right) => left.time - right.time);
-};
-
 const inputDefault = (node: SignalGraphNode, port: SignalPortDefinition) => {
   const raw = node.config.inputDefaults;
   return raw && typeof raw === 'object' && !Array.isArray(raw) ? finite((raw as Record<string, unknown>)[port.id], finite(port.defaultValue)) : finite(port.defaultValue);
 };
 
-export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, transport, onGraphChange, onBindingsChange, onTransportChange, onEvaluate }: Props) {
+export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, transport, events, time, recordMode, onTimeChange, onRecordModeChange, onBeginEdit, onEndEdit, onGraphChange, onBindingsChange, onTransportChange, onEventsChange, onEvaluate }: Props) {
   const [tab, setTab] = useState<WorkspaceTab>('graph');
   const [selectedNodeId, setSelectedNodeId] = useState(graph.nodes[0]?.id ?? null);
   const [pendingPort, setPendingPort] = useState<PendingPort | null>(null);
   const [playing, setPlaying] = useState(false);
-  const [time, setTime] = useState(0);
   const { duration, loop, playbackSpeed } = transport;
   const lastFrameRef = useRef<number | null>(null);
   const onEvaluateRef = useRef(onEvaluate);
   const graphChangeRef = useRef(onGraphChange);
+  const endEditRef = useRef(onEndEdit);
   const dragRef = useRef<{ id: string; startX: number; startY: number; nodeX: number; nodeY: number } | null>(null);
   useEffect(() => { onEvaluateRef.current = onEvaluate; }, [onEvaluate]);
   useEffect(() => { graphChangeRef.current = onGraphChange; }, [onGraphChange]);
+  useEffect(() => { endEditRef.current = onEndEdit; }, [onEndEdit]);
 
   const evaluation = useMemo(() => evaluateSignalGraph(graph, registry, time), [graph, time]);
   const contributionMix = useMemo(() => createPreviewContributionMix(evaluation, bindings, objects), [evaluation, bindings, objects]);
@@ -78,7 +81,7 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
     let frame = 0;
     const tick = (now: number) => {
       const previous = lastFrameRef.current ?? now; lastFrameRef.current = now;
-      setTime(current => {
+      onTimeChange(current => {
         const next = current + Math.min(0.1, (now - previous) / 1000) * playbackSpeed;
         if (next <= duration) return next;
         if (loop) return duration > 0 ? next % duration : 0;
@@ -88,7 +91,8 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [playing, duration, loop, playbackSpeed]);
+  }, [playing, duration, loop, playbackSpeed, onTimeChange]);
+  useEffect(() => { if (time > duration) onTimeChange(duration); }, [time, duration, onTimeChange]);
 
   useEffect(() => {
     const move = (event: PointerEvent) => {
@@ -97,7 +101,7 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
       const y = Math.max(8, drag.nodeY + event.clientY - drag.startY);
       graphChangeRef.current({ ...graph, nodes: graph.nodes.map(node => node.id === drag.id ? { ...node, position: { x, y } } : node) });
     };
-    const end = () => { dragRef.current = null; };
+    const end = () => { if (dragRef.current) endEditRef.current(); dragRef.current = null; };
     window.addEventListener('pointermove', move); window.addEventListener('pointerup', end);
     return () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', end); };
   }, [graph]);
@@ -105,10 +109,10 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
   const activeNodeId = selectedNodeId && graph.nodes.some(node => node.id === selectedNodeId) ? selectedNodeId : graph.nodes[0]?.id ?? null;
 
   const updateNode = (id: string, patch: Partial<SignalGraphNode>) => onGraphChange({ ...graph, nodes: graph.nodes.map(node => node.id === id ? { ...node, ...patch } : node) });
-  const addNode = (typeId: string) => {
+  const addNode = (typeId: string, destination: WorkspaceTab = 'graph') => {
     const definition = registry.get(typeId); if (!definition) return;
     const node: SignalGraphNode = { id: makeId('node'), typeId, version: definition.version, label: definition.label, position: { x: 54 + graph.nodes.length * 24, y: 42 + graph.nodes.length * 18 }, config: definition.createConfig() };
-    onGraphChange({ ...graph, nodes: [...graph.nodes, node] }); setSelectedNodeId(node.id); setTab('graph');
+    onGraphChange({ ...graph, nodes: [...graph.nodes, node] }); setSelectedNodeId(node.id); setTab(destination);
   };
   const addNodeMenu = (event: ReactPointerEvent<HTMLButtonElement>) => {
     const categories = new Map<string, CommandMenuEntry[]>();
@@ -141,16 +145,6 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
   const removeConnectionAtInput = (nodeId: string, portId: string) => onGraphChange({ ...graph, connections: graph.connections.filter(item => !(item.target.nodeId === nodeId && item.target.portId === portId)) });
   const setNodeInputDefault = (node: SignalGraphNode, portId: string, value: number) => updateNode(node.id, { config: { ...node.config, inputDefaults: { ...(node.config.inputDefaults as Record<string, unknown> ?? {}), [portId]: value } } });
 
-  const curveNodes = graph.nodes.filter(node => node.typeId === 'core.curve.number');
-  const selectedCurve = curveNodes.find(node => node.id === activeNodeId) ?? curveNodes[0];
-  const keys = readKeys(selectedCurve);
-  const updateKeys = (next: readonly CurveKey[]) => selectedCurve && updateNode(selectedCurve.id, { config: { ...selectedCurve.config, keys: [...next].sort((a, b) => a.time - b.time) } });
-  const updateKey = (id: string, patch: Partial<CurveKey>) => updateKeys(keys.map(key => key.id === id ? { ...key, ...patch } : key));
-  const addKey = () => {
-    const currentValue = selectedCurve ? evaluation.nodeValues.get(selectedCurve.id)?.value : null;
-    updateKeys([...keys, { id: makeId('key'), time: Number(time.toFixed(3)), value: typeof currentValue === 'number' ? currentValue : 0 }]);
-  };
-
   const addParameter = () => onGraphChange({ ...graph, parameters: [...graph.parameters, { id: makeId('parameter'), name: `Parameter ${graph.parameters.length + 1}`, valueTypeId: 'core.number', value: 1 }] });
   const updateParameter = (id: string, patch: Record<string, unknown>) => onGraphChange({ ...graph, parameters: graph.parameters.map(parameter => parameter.id === id ? { ...parameter, ...patch } : parameter) });
   const deleteParameter = (id: string) => onGraphChange({ ...graph, parameters: graph.parameters.filter(parameter => parameter.id !== id) });
@@ -165,23 +159,20 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
 
   const selectedNode = graph.nodes.find(node => node.id === activeNodeId);
   const selectedDefinition = selectedNode ? registry.get(selectedNode.typeId) : undefined;
-  const curveRange = keys.reduce((range, key) => ({ min: Math.min(range.min, key.value), max: Math.max(range.max, key.value) }), { min: 0, max: 1 });
-  const rangeSize = Math.max(0.001, curveRange.max - curveRange.min);
-  const curvePoints = keys.map(key => `${clamp(key.time / duration, 0, 1) * 100},${100 - (key.value - curveRange.min) / rangeSize * 100}`).join(' ');
-
   return <section className="awb-signal-dock">
     <header>
       <div className="awb-signal-title"><b>SIGNAL WORKSPACE</b><span>{graph.nodes.length} nodes · {graph.connections.length} links · {graph.outputs.length} outputs</span></div>
       <div className="awb-transport">
+        <div className="awb-record-modes" aria-label="关键帧录制模式"><button className={recordMode === 'off' ? 'active' : ''} onClick={() => onRecordModeChange('off')} title="编辑基础值，不自动创建关键帧">EDIT</button><button className={recordMode === 'auto' ? 'active auto' : ''} onClick={() => onRecordModeChange('auto')} title="仅对已有动画属性自动成键">AUTO</button><button className={recordMode === 'record' ? 'active record' : ''} onClick={() => onRecordModeChange('record')} title="属性变化时自动创建轨道和关键帧"><i />REC</button></div>
         <button className={playing ? 'active' : ''} onClick={() => setPlaying(value => !value)} title={playing ? '暂停' : '播放'}><MiniIcon name={playing ? 'pause' : 'play'} /></button>
-        <button onClick={() => { setPlaying(false); setTime(0); }} title="停止并回到开始"><MiniIcon name="stop" /></button>
-        <label><span>TIME</span><input type="number" min="0" max={duration} step="0.001" value={Number(time.toFixed(3))} onChange={event => setTime(clamp(Number(event.target.value), 0, duration))} /></label>
-        <input className="awb-time-scrubber" aria-label="当前时间" type="range" min="0" max={duration} step="0.001" value={time} onChange={event => setTime(Number(event.target.value))} />
+        <button onClick={() => { setPlaying(false); onTimeChange(0); }} title="停止并回到开始"><MiniIcon name="stop" /></button>
+        <label><span>TIME</span><input type="number" min="0" max={duration} step="0.001" value={Number(time.toFixed(3))} onChange={event => onTimeChange(clamp(Number(event.target.value), 0, duration))} /></label>
+        <input className="awb-time-scrubber" aria-label="当前时间" type="range" min="0" max={duration} step="0.001" value={time} onChange={event => onTimeChange(Number(event.target.value))} />
         <label><span>END</span><input type="number" min="0.05" step="0.1" value={duration} onChange={event => onTransportChange({ ...transport, duration: Math.max(0.05, Number(event.target.value) || 2) })} /></label>
         <label><span>SPEED</span><input type="number" min="0.01" step="0.1" value={playbackSpeed} onChange={event => onTransportChange({ ...transport, playbackSpeed: Math.max(.01, Number(event.target.value) || 1) })} /></label>
         <label className="awb-loop"><input type="checkbox" checked={loop} onChange={event => onTransportChange({ ...transport, loop: event.target.checked })} /> LOOP</label>
       </div>
-      <nav>{([['graph', 'Graph'], ['curves', 'Curves'], ['parameters', 'Parameters'], ['output', 'Live Output']] as const).map(item => <button key={item[0]} className={tab === item[0] ? 'active' : ''} onClick={() => setTab(item[0])}>{item[1]}</button>)}</nav>
+      <nav>{([['graph', 'Graph'], ['dopesheet', 'Dope Sheet'], ['events', 'Events'], ['curves', 'Curves'], ['parameters', 'Parameters'], ['output', 'Live Output']] as const).map(item => <button key={item[0]} className={tab === item[0] ? 'active' : ''} onClick={() => setTab(item[0])}>{item[1]}</button>)}</nav>
     </header>
 
     {tab === 'graph' && <div className="awb-graph-layout">
@@ -201,7 +192,7 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
           {graph.nodes.map(node => {
             const definition = registry.get(node.typeId); if (!definition) return null;
             return <article key={node.id} className={`awb-signal-node ${activeNodeId === node.id ? 'selected' : ''}`} style={{ left: node.position.x, top: node.position.y }} onPointerDown={event => event.stopPropagation()} onClick={() => setSelectedNodeId(node.id)}>
-              <header onPointerDown={event => { if (event.button !== 0) return; dragRef.current = { id: node.id, startX: event.clientX, startY: event.clientY, nodeX: node.position.x, nodeY: node.position.y }; setSelectedNodeId(node.id); }}><i /> <input value={node.label} aria-label="节点名称" onPointerDown={event => event.stopPropagation()} onChange={event => updateNode(node.id, { label: event.target.value })} /><small>{definition.category}</small></header>
+              <header onPointerDown={event => { if (event.button !== 0) return; onBeginEdit(); dragRef.current = { id: node.id, startX: event.clientX, startY: event.clientY, nodeX: node.position.x, nodeY: node.position.y }; setSelectedNodeId(node.id); }}><i /> <input value={node.label} aria-label="节点名称" onPointerDown={event => event.stopPropagation()} onChange={event => updateNode(node.id, { label: event.target.value })} /><small>{definition.category}</small></header>
               <div className="awb-node-ports">
                 <div>{definition.inputs.map(port => {
                   const connected = graph.connections.some(item => item.target.nodeId === node.id && item.target.portId === port.id);
@@ -218,10 +209,11 @@ export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, tr
       <aside className="awb-node-inspector">{selectedNode && selectedDefinition ? <><header><strong>{selectedNode.label}</strong><small>{selectedNode.typeId}</small></header><div className="awb-node-actions"><button onClick={() => deleteNode(selectedNode.id)}><MiniIcon name="delete" />删除节点</button></div><h4>公开输出</h4>{selectedDefinition.outputs.map(port => { const exposed = graph.outputs.find(output => output.source.nodeId === selectedNode.id && output.source.portId === port.id); return <div className="awb-expose-row" key={port.id}><span>{port.label}</span>{exposed ? <button onClick={() => removeOutput(exposed.id)}>取消公开</button> : <button onClick={() => exposeOutput(selectedNode, port)}><MiniIcon name="output" />公开</button>}</div>; })}{selectedNode.typeId === 'core.curve.number' && <button className="awb-primary-row" onClick={() => setTab('curves')}>在 Curves 中编辑</button>}</> : <div className="awb-empty">选择节点查看设置</div>}</aside>
     </div>}
 
-    {tab === 'curves' && <div className="awb-curve-layout">
-      <aside className="awb-curve-list"><header><strong>NUMBER CURVES</strong><button onClick={() => addNode('core.curve.number')}><MiniIcon name="add" /></button></header>{curveNodes.map(node => <button key={node.id} className={selectedCurve?.id === node.id ? 'active' : ''} onClick={() => setSelectedNodeId(node.id)}><i />{node.label}<small>{readKeys(node).length}</small></button>)}</aside>
-      {selectedCurve ? <><div className="awb-curve-editor"><div className="awb-curve-ruler"><span>0.00s</span><span>{(duration / 2).toFixed(2)}s</span><span>{duration.toFixed(2)}s</span></div><div className="awb-curve-plot"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline points={curvePoints} /></svg>{keys.map(key => <button key={key.id} title={`${key.time.toFixed(3)}s / ${key.value.toFixed(3)}`} style={{ left: `${clamp(key.time / duration, 0, 1) * 100}%`, top: `${100 - (key.value - curveRange.min) / rangeSize * 100}%` }} onClick={() => setTime(clamp(key.time, 0, duration))} />)}<i style={{ left: `${time / duration * 100}%` }} /></div></div><aside className="awb-key-inspector"><header><strong>KEYS</strong><button onClick={addKey}><MiniIcon name="add" />当前时间添加</button></header>{keys.map(key => <div className="awb-key-row" key={key.id}><input type="number" step="0.001" value={key.time} onChange={event => updateKey(key.id, { time: Math.max(0, Number(event.target.value)) })} /><input type="number" step="0.01" value={key.value} onChange={event => updateKey(key.id, { value: Number(event.target.value) })} /><button onClick={() => updateKeys(keys.filter(item => item.id !== key.id))}><MiniIcon name="delete" /></button></div>)}</aside></> : <div className="awb-signal-empty"><strong>还没有 Number Curve</strong><button onClick={() => addNode('core.curve.number')}>创建曲线节点</button></div>}
-    </div>}
+    {tab === 'dopesheet' && <DopeSheet key={selectedObjectId ?? 'none'} graph={graph} bindings={bindings} objects={objects} selectedObjectId={selectedObjectId} time={time} duration={duration} onTimeChange={onTimeChange} onGraphChange={onGraphChange} onBeginEdit={onBeginEdit} onEndEdit={onEndEdit} />}
+
+    {tab === 'events' && <EventTrack events={events} time={time} duration={duration} playing={playing} onTimeChange={onTimeChange} onEventsChange={onEventsChange} onBeginEdit={onBeginEdit} onEndEdit={onEndEdit} />}
+
+    {tab === 'curves' && <CurveEditor graph={graph} bindings={bindings} objects={objects} selectedObjectId={selectedObjectId} selectedNodeId={activeNodeId} time={time} duration={duration} onTimeChange={onTimeChange} onSelectedNodeIdChange={setSelectedNodeId} onGraphChange={onGraphChange} onCreateCurve={() => addNode('core.curve.number', 'curves')} onBeginEdit={onBeginEdit} onEndEdit={onEndEdit} />}
 
     {tab === 'parameters' && <div className="awb-parameter-page"><header><div><strong>GRAPH PARAMETERS</strong><span>Parameter 节点按永久 ID 引用这些运行时输入。</span></div><button onClick={addParameter}><MiniIcon name="add" />添加参数</button></header><div className="awb-table-head"><span>Name</span><span>Type</span><span>Value</span><span /></div>{graph.parameters.map(parameter => <div className="awb-table-row" key={parameter.id}><input value={parameter.name} onChange={event => updateParameter(parameter.id, { name: event.target.value })} /><code>{parameter.valueTypeId}</code><input type="number" step="0.1" value={finite(parameter.value)} onChange={event => updateParameter(parameter.id, { value: Number(event.target.value) })} /><button onClick={() => deleteParameter(parameter.id)}><MiniIcon name="delete" /></button></div>)}</div>}
 
