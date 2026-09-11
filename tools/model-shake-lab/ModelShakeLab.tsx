@@ -10,8 +10,7 @@ import { useWeaponSlot, type WeaponLabRuntime as Runtime } from './useWeaponSlot
 import { sampleWeaponPoses } from '@/core/model/preset/firstPersonWeaponAnimation.ts';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
-import { SceneHierarchyPanel } from './SceneHierarchyPanel.tsx';
-import { SceneNodeInspector } from './SceneNodeInspector.tsx';
+import { BabylonSceneHierarchy, BabylonSceneInspector } from '@/core/ui/babylon-scene-inspector';
 
 type IconName = 'play' | 'pause' | 'stop' | 'restart' | 'skip-back' | 'repeat' | 'plus' | 'upload' | 'download' | 'trash' | 'move' | 'rotate' | 'scale' | 'globe' | 'magnet' | 'eye' | 'eye-off' | 'save';
 
@@ -24,6 +23,22 @@ const EXAMPLES = createWeaponAnimationExamples();
 const DEFAULT_PROJECT = EXAMPLES['right-hand-slash'];
 const HANDS = ['right', 'left'] as const;
 const handName = (hand: WeaponHand) => hand === 'right' ? '右手' : '左手';
+const weaponHierarchyNodeLabel = (node: Node) => {
+  const exact: Record<string, string> = {
+    'first-person-camera': '第一人称相机', 'workbench-camera': '工作台相机',
+    'first-person-viewmodel': '第一人称模型根', 'ambient-light': '环境光', 'key-light': '主光源',
+    'editor-floor': '编辑器地面', 'editor-backdrop': '编辑器背景',
+  };
+  if (exact[node.name]) return exact[node.name];
+  const match = /^(right|left)-(weapon-animation-pose|weapon-installation|proxy-body|grip-volume|attack-volume|muzzle-anchor)$/.exec(node.name);
+  if (!match) return node.name;
+  const hand = match[1] === 'right' ? '右手' : '左手';
+  const part: Record<string, string> = {
+    'weapon-animation-pose': '动画姿态', 'weapon-installation': '模型安装', 'proxy-body': '代理体',
+    'grip-volume': '持握体', 'attack-volume': '攻击体', 'muzzle-anchor': '发射端',
+  };
+  return `${hand} · ${part[match[2]]}`;
+};
 const cloneProject = (project: AnimationProject): AnimationProject => JSON.parse(JSON.stringify(project)) as AnimationProject;
 const applyPose = (node: TransformNode, frame: Pick<WeaponKeyframe, 'position' | 'rotation'>) => {
   node.position.set(frame.position.x, frame.position.y, frame.position.z);
@@ -402,7 +417,7 @@ export const ModelShakeLab = () => {
       <button className="ghost" disabled={saving || !presetsReady || !import.meta.env.DEV} title="通过当前开发服务器保存到 config；正式构建请导出 JSON" onClick={() => void saveProject()}><span className={`save-dot ${saved ? 'saved' : ''}`} />{saving ? '保存中…' : saved ? '已保存' : '保存预设'}</button>
       <button className="primary icon-label" onClick={playing ? pausePlayback : startPlayback}><SvgIcon name={playing ? 'pause' : 'play'} />{playing ? '暂停' : '播放'}</button>
     </header>
-    <SceneHierarchyPanel scene={hierarchyScene} selectedId={hierarchySelectedId} onSelect={selectHierarchyNode} onFocus={focusHierarchyNode} onClearSelection={() => setHierarchySelectedId(null)} />
+    <BabylonSceneHierarchy scene={hierarchyScene} selectedId={hierarchySelectedId} onSelect={selectHierarchyNode} onFocus={focusHierarchyNode} onClearSelection={() => setHierarchySelectedId(null)} getNodeLabel={weaponHierarchyNodeLabel} />
     <section className="viewport-shell">
       <canvas ref={canvasRef} tabIndex={0} /><div className="viewport-top"><span className="mode-badge"><i />{viewMode === 'first-person' ? 'FIRST PERSON PREVIEW' : 'POSE VIEW'}</span><span>{HANDS.filter(hand => rig.weapons[hand].enabled).map(hand => handName(hand) + ' · ' + rig.weapons[hand].asset.name).join(' / ')}</span></div>
       {activeTab !== 'project' && !hierarchySelectedNode && <div className="gizmo-toolbar">
@@ -420,7 +435,7 @@ export const ModelShakeLab = () => {
       <div className="reticle" aria-hidden="true"><span /><span /></div>
       <div className="viewport-help">{hierarchySelectedNode ? '对象属性只读 · 双击层级节点聚焦 · 关闭 Inspector 后继续编辑' : viewMode === 'first-person' ? `第一人称仅预览 · W 移动 / E 旋转${canScale ? ' / R 尺寸' : ''}会进入工作台 · 空格播放/暂停` : `W 移动 · E 旋转${canScale ? ' · R 尺寸' : ''} · 拖动操纵器编辑 · 空白处拖动环绕视角`}</div><div className="status-toast">{loading && <span className="spinner" />}{status}</div>
     </section>
-    {hierarchySelectedNode ? <SceneNodeInspector node={hierarchySelectedNode} activeCamera={hierarchyScene?.activeCamera ?? null} onClose={() => setHierarchySelectedId(null)} /> : <aside className="inspector">
+    {hierarchySelectedNode ? <BabylonSceneInspector node={hierarchySelectedNode} activeCamera={hierarchyScene?.activeCamera ?? null} onClose={() => setHierarchySelectedId(null)} /> : <aside className="inspector">
       <div className="hand-selector">
         <div className="view-switch" role="group" aria-label="编辑武器挂载位">{HANDS.map(hand => <button key={hand} className={activeHand === hand ? 'active' : ''} onClick={() => selectHand(hand)}>{handName(hand)}{rig.weapons[hand].enabled ? '' : '（停用）'}</button>)}</div>
         <label className="toggle-row"><span>启用{handName(activeHand)}代理体</span><input type="checkbox" checked={project.enabled} onChange={event => toggleHand(activeHand, event.target.checked)} /></label>

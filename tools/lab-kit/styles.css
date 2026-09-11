@@ -8,9 +8,11 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-description, .lab-global-status, .lab-inline-status { color: #91a7b8; font-size: 12px; line-height: 1.55; }
 .lab-global-status { margin-top: 10px; color: #e4ca79; }
 .lab-global-status[data-error="true"] { color: #ff9d9d; }
-.lab-panel-layout-actions { position: sticky; top: -18px; z-index: 20; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 12px -4px 0; padding: 9px 4px; border-bottom: 1px solid #273747; background: rgba(16, 24, 32, .96); backdrop-filter: blur(6px); }
-.lab-panel-layout-actions button { min-width: 0; height: 30px; padding: 0 5px; border: 1px solid #40596d; background: #172630; color: #bcd0de; cursor: pointer; font-size: 11px; }
+.lab-panel-layout-actions { position: sticky; top: -18px; z-index: 20; display: flex; justify-content: flex-end; margin: 12px -4px 0; padding: 9px 4px; border-bottom: 1px solid #273747; background: rgba(16, 24, 32, .96); backdrop-filter: blur(6px); }
+.lab-panel-layout-actions button { min-width: 0; height: 30px; padding: 0 8px; border: 1px solid #40596d; background: #172630; color: #bcd0de; cursor: pointer; font-size: 11px; }
 .lab-panel-layout-actions button:hover { background: #243b49; color: #edf8ff; }
+.lab-panel-layout-menu { display: grid; grid-template-columns: 15px auto 11px; align-items: center; gap: 6px; }
+.lab-panel-layout-menu svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
 .lab-card { margin-top: 7px; padding: 0; border: 1px solid #314659; background: #101a22; }
 .lab-card-header { display: grid; grid-template-columns: 17px minmax(0, 1fr); align-items: center; min-height: 35px; padding: 0 10px; background: #15212a; cursor: pointer; user-select: none; transition: background .14s, border-color .14s; }
 .lab-card-header:hover { background: #1a2a34; }

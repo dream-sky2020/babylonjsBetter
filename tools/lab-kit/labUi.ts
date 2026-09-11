@@ -1,3 +1,5 @@
+import { openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
+
 export type LabPanel = {
   root: HTMLDivElement;
   content: HTMLDivElement;
@@ -153,18 +155,42 @@ export class LabUi {
   private createLayoutToolbar(): HTMLDivElement {
     const toolbar = document.createElement('div');
     toolbar.className = 'lab-panel-layout-actions';
-    const createButton = (label: string, action: () => void): HTMLButtonElement => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = label;
-      button.addEventListener('click', action);
-      return button;
-    };
-    toolbar.append(
-      createButton('全部展开', () => this.setAllCollapsed(false)),
-      createButton('全部折叠', () => this.setAllCollapsed(true)),
-      createButton('重置布局', () => this.resetLayout()),
-    );
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'lab-panel-layout-menu';
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('viewBox', '0 0 16 16');
+    icon.setAttribute('aria-hidden', 'true');
+    const iconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    iconPath.setAttribute('d', 'M2 3h12v10H2zM6 3v10M6 7h8');
+    icon.append(iconPath);
+    const label = document.createElement('span');
+    label.textContent = '面板布局';
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('viewBox', '0 0 16 16');
+    chevron.setAttribute('aria-hidden', 'true');
+    const chevronPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    chevronPath.setAttribute('d', 'm3 6 5 5 5-5');
+    chevron.append(chevronPath);
+    button.append(icon, label, chevron);
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const items: CommandMenuEntry[] = [
+        {
+          id: 'panel-visibility',
+          label: '面板状态',
+          icon: 'layout',
+          children: [
+            { id: 'expand-panels', label: '全部展开', icon: 'expand', action: () => this.setAllCollapsed(false) },
+            { id: 'collapse-panels', label: '全部折叠', icon: 'collapse', action: () => this.setAllCollapsed(true) },
+          ],
+        },
+        { type: 'separator' },
+        { id: 'reset-panel-layout', label: '重置布局', icon: 'reset', action: () => this.resetLayout() },
+      ];
+      openCommandMenuFromElement(button, items, { align: 'start', ariaLabel: 'Lab 面板布局' });
+    });
+    toolbar.append(button);
     return toolbar;
   }
 

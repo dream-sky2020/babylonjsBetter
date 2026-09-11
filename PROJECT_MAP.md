@@ -1,16 +1,48 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-11：Animation Workbench 可配置对象与编辑器辅助视觉
+
+Animation Object 记录新增开放 `config`，读取旧工作区时自动补为空对象；对象注册项现在声明 category、layer、icon、defaultConfig、Inspector property schema、预览工厂和可选预览签名。创建菜单按结构、Rig、资源、基础几何、武器占位体、语义体积、语义标记与辅助显示分组，右侧 Inspector 根据定义生成颜色、数值、选择项和模型资源控件。对象专属配置与工作区一同保存、导入和导出；配置改变时只重建该对象的临时预览节点，并在重建前脱离持久子对象，避免误删层级。
+
+首批专用对象包括第一人称 Rig 视锥、Socket 挂点、GLB/GLTF 模型实例、剑/刀、枪械、法杖、拳套占位体、代理体、持握体、攻击体、发射端和方向射线。模型对象从统一构建期/开发期资源清单选择路径，使用 `createModelEntity` 继承项目模型规范化并停止模型自带动画；异步代次令牌负责丢弃过期加载结果。新工作区默认只提供 `第一人称 Rig → 右手挂点 → 代理体 / 持握体 / 攻击体 / 发射端` 的语义编辑结构，不擅自创建武器模型或武器占位体；四个语义对象作为挂点下的并列对象，避免代理体缩放错误传递给交互体。真实模型与可选武器占位体只能由用户从创建菜单后加。
+
+代理、持握和攻击对象共享可选 Box、Sphere、Cylinder、Capsule 的语义体积定义，并提供 Solid、X-Ray、Outline、Hidden 与颜色、透明度配置。专用辅助线不调用细分网格边缘渲染：盒体只绘制 12 条轮廓边，球体只绘制三个正交圆环，圆柱/胶囊只绘制端环和四条纵向线。视口右上角增加模型、语义体、辅助三层临时显隐；显隐只作用于该对象拥有的预览 Mesh，不禁用结构 Transform，因此隐藏 Rig/Socket 不会连带隐藏子武器。
+
+## 2026-09-11：Contribution Mixer
+
+`core/animation/contribution/` 提供与 Signal Graph、React 和 Babylon 解耦的纯数值 Contribution Mixer。贡献源通过稳定 ID 指向任意字符串目标，携带 Blend Mode、Weight、Priority、Enabled 与 Solo；混合器先按目标分组，再按优先级和 ID 稳定排序。Add 将加权贡献叠加到当前值，Set 在当前值与贡献值之间加权插值，Multiply 在单位倍率与贡献倍率之间插值后相乘；同目标出现 Solo 时只抑制该目标的非 Solo 源，不影响其他属性。
+
+Animation Workbench 的 Live Output 已升级为 Contribution Mixer 编辑区。每条预览绑定现在都是独立贡献源，可选择公开 Signal 输出、目标对象和 Transform 分量，并编辑静音、Solo、Blend、Weight、Priority、Scale 与可选 Modulation Signal。`previewContributionMixer.ts` 把编辑器绑定适配为核心贡献模型，以另一个 Signal 输出实时调制有效权重；最终每个目标属性每帧只向 Babylon 临时节点写入一个混合结果，解决旧实现中同属性后写覆盖前写的问题。左侧同时显示所有 Signal 原始输出与 Mixed Targets 最终值，贡献行显示实际有效权重、阶段结果或 Solo 抑制状态。工作区继续以通用配置保存这些字段，旧 JSON 缺失字段时使用兼容默认值。
+
+## 2026-09-11：Animation Workbench 独立入口
+
+`tools/animation-workbench-lab/` 是面向动态值动画系统的独立创作工作台，不复用 `model-shake-lab` 的左右手武器预设结构。页面使用固定 Babylon 预览舞台，左侧只管理具有持久 UUID 的 Animation Objects，支持空节点和基础几何体的创建、父子层级、选择、复制、显隐与递归删除；中间提供移动、旋转、缩放以及 Local / World Gizmo，右侧编辑对象身份和 Transform。工作区可显式保存到当前浏览器或导入/导出 JSON；Babylon Node 只是按开放 `factoryTypeId` 工厂创建的临时预览实例，不作为持久身份。
+
+`core/animation/signal/` 提供与 Babylon 预览层解耦的开放 Signal Node 注册表、可序列化 `SignalGraphDocument` 和纯求值器；内置 Time、Number、Parameter、Number Curve、Add、Multiply 与 Sine 只是首批可扩展节点，不是固定动作枚举。未连接的数值输入既可使用节点定义默认值，也可保存节点级动态覆盖值。
+
+底部 Signal Workspace 已可实际编辑和播放：Graph 支持添加、拖动、删除节点，输出端口到输入端口连线/断线，并将任意节点端口公开为命名输出；Curves 支持关键点增删、精确时间/数值编辑与播放头定位；Parameters 提供按永久 ID 引用的运行时输入；Live Output 显示逐帧求值，并通过独立 `PreviewSignalBinding` 适配器把数值输出临时绑定到任意 Animation Object 的位置、旋转或缩放分量。绑定支持 Add / Set 与倍率，且不污染对象基准 Transform，也不让 Signal Graph 依赖 Babylon。播放时钟支持暂停、停止、精确拖动、时长和循环，工作区 JSON 与浏览器保存会一并保留图、参数、公开输出和预览绑定。此输出契约为后续 Contribution Mixer 的多源叠加、权重、打断、调制和事件层预留，不引入 Unity Animator 式固定状态机。
+
+`model-shake-lab` 继续负责第一人称武器安装、语义代理体与既有 v3 动作预设，后续只消费 Animation Workbench 导出的动画资产。
+
+## 2026-09-11：共享多级操作菜单
+
+`core/ui/menu/` 提供不依赖 React 的统一操作菜单，可由鼠标坐标打开右键菜单，也可锚定任意按钮打开下拉菜单。菜单模型支持 SVG 图标、分隔线、快捷键提示、禁用/危险/勾选状态和任意层级子菜单；运行时统一处理屏幕边缘夹取与子菜单左右翻转、点击外部关闭、窗口变化关闭、焦点恢复，以及方向键、Home / End、Enter 与 Esc 键盘导航。页面只声明菜单数据和动作，不再各自维护弹层 DOM、全局监听与样式。
+
+共享 `BabylonSceneHierarchy` 已移除私有右键弹层，节点聚焦、子级展开/收起和路径复制改用统一菜单，其中子级操作作为二级菜单验证树状选择。`tools/lab-kit/LabUi` 的面板布局区改为紧凑的按钮锚定菜单，保留全部展开、全部折叠和重置布局的原能力；因此所有组合式 Lab 都会获得相同菜单入口。
+
 ## 2026-09-10：LabKit 紧凑折叠面板
 
 `tools/lab-kit/LabUi.addPanel()` 的共享折叠标题栏改为 Inspector 风格的整行点击区域与 SVG 箭头，展开时旋转箭头，移除原有独立加减按钮和卡片内部的大块留白。内容仍使用原 DOM 容器，面板 ID、默认折叠、全部展开/折叠、重置布局以及按页面保存的本地折叠偏好均保持不变。该样式会统一应用到 `dungeon-player-spawn-lab` 等所有使用 LabKit 的组合式 Lab；系统面板仍保留轻微的颜色区分。
 
-## 2026-09-10：ModelShakeLab 只读场景层级
+## 2026-09-11：共享 Babylon Scene Hierarchy / Inspector
 
-`tools/model-shake-lab/SceneHierarchyPanel.tsx` 直接读取当前 Babylon `Scene.rootNodes` 和真实父子节点，不维护第二套场景结构。左侧 Unity Hierarchy 风格面板支持搜索、展开/收起、选中、双击聚焦，以及只读右键操作（聚焦、展开/收起子级、复制节点路径）；监听相机、灯光、TransformNode 和 Mesh 的新增/移除以跟随模型装载与 Debug 对象重建。
+`core/ui/babylon-scene-inspector/` 提供可跨 React 页面复用的 `BabylonSceneHierarchy` 与 `BabylonSceneInspector`，并由目录入口自动加载其自包含样式。共享层只依赖 Babylon Node / Scene 与调用方回调，不包含武器业务；节点显示名称可注入，聚焦、清空选择与关闭能力均可选。ModelShakeLab 仅保留三栏 Grid 定位、武器节点中文名称映射，以及选中节点与现有面板/Gizmo 的业务联动。
+
+Hierarchy 直接读取当前 Babylon `Scene.rootNodes` 和真实父子节点，不维护第二套场景结构。它支持搜索、展开/收起、选中、可选双击聚焦，以及只读右键操作（聚焦、展开/收起子级、复制节点路径）；监听相机、灯光、TransformNode 和 Mesh 的新增/移除以跟随模型装载与 Debug 对象重建。
 
 稳定的左右手动画姿态、模型安装、代理体、持握体、攻击体和发射端节点会同步到现有检查面板；导入模型内部节点、环境对象和其他 Babylon 节点只允许浏览与聚焦，不会挂载 Gizmo。此次不提供拖拽改父级、创建、删除、重命名或组件编辑，也不改变第一人称武器预设 v3、节点挂载关系和后端保存内容。
 
-`SceneNodeInspector.tsx` 是与场景层级配套的通用只读 Inspector。Hierarchy 有选中对象时，右侧从领域编辑面板切换到对象属性视图；关闭对象属性或点击层级空白处后恢复原武器编辑器。Inspector 总是显示 Babylon Node 身份、父子关系和路径；可变换节点显示局部位置、欧拉角、缩放及世界位置，Mesh 追加材质、几何统计、可见/拾取/阴影和世界包围盒，Camera 与 Light 追加各自运行时属性。属性定时从真实 Scene 刷新，但所有控件只读，不写预设也不改变节点。
+`BabylonSceneInspector` 是与场景层级配套的通用只读 Inspector。ModelShakeLab 的 Hierarchy 有选中对象时，右侧从领域编辑面板切换到对象属性视图；关闭对象属性或点击层级空白处后恢复原武器编辑器。Inspector 总是显示 Babylon Node 身份、父子关系和路径；可变换节点显示局部位置、欧拉角、缩放及世界位置，Mesh 追加材质、几何统计、可见/拾取/阴影和世界包围盒，Camera 与 Light 追加各自运行时属性。属性定时从真实 Scene 刷新，但所有控件只读，不写预设也不改变节点。
 
 ## 2026-09-09：双武器代理体与攻击 / 射击示例
 
@@ -400,6 +432,7 @@ config/monsterDisplayConfigs.json
 ### Model、Scene、Camera 与 UI
 
 - `core/model/`：GLB/GLTF 模型实体、AssetContainer 预制体缓存、动画控制、共享材质透明策略，以及展示/场景/摇晃/挥动预设；`config/modelAssetProfiles.json` 保存模型资产级统一缩放、旋转、原点偏移与透明策略，`createModelEntity()` 默认应用到内层 `normalizationRoot`，外层 `root` 保留给场景实例变换。
+- `core/animation/preset/`：通用动画场景预设契约、严格校验、服务器预设库接口、无 Babylon 场景所有权的播放器，以及旧第一人称武器轨道迁移器。预设由开放对象树、Signal Graph、Contribution Binding、时间设置、事件和带 `role/tags` 的挂载点组成；不内置动作枚举或固定 Rig，第一人称只是当前模板。
 - `core/scene/`：Battle、Camera Lab、Particle Editor、Sprite Anchor Editor 场景工厂；`sceneEnvironment.*` 负责校验通用几何体、光源和本地 GLB/GLTF 模型声明，异步环境接口通过 `core/model.createModelEntity()` 复用模型缓存、材质、动画和释放能力；`createDungeonMapSceneEnvironment` 负责从地图 map Entity 的 `scene-environment` 组件解析预设并创建大场景，`dungeonMapSceneLayout` 根据组件中的地图偏移、格子间隔、格子尺寸和固定锚定枚举将 2D 格子映射到 3D 世界位置；锚定模式支持偏移对应 `(0,0)` 格子底面中心或对应整张格子布局的 3D 中心。`shadowQualityPreset.*` 负责独立阴影性能预设、档位和场景覆盖项；方向光可按 `qualityPresetKey` 创建标准 ShadowGenerator 或 CascadedShadowGenerator，点光使用标准生成器，几何体与加载模型分别声明投射/接收阴影。
 - `core/camera/`：战斗相机和多模式相机控制器。`cameraLabController.ts` 支持第一人称、无人机、环绕和锁定平面四种模式；环绕模式使用 Babylon `ArcRotateCamera`，第一人称与无人机模式分别使用原生 `UniversalCamera`，由控制器切换 `scene.activeCamera` 并保存各模式姿态；锁定平面模式保留自定义的帧率无关移动加减速与平面拖拽。控制器统一管理 FOV 与近远裁剪面，并提供“从真实相机读取、显式应用、恢复创建时原生参数、恢复项目初始姿态”四个独立动作。虽然文件名仍保留 `Lab`，该控制器已被多个正式 Core 场景与 Lab 共享。
 - `core/ui/`：共享 React UI 和浮动相机面板；`FloatingCameraControlPanel.ts` 使用 Babylon 属性名展示各原生相机参数，输入先保存在面板草稿中，点击“应用到相机”才统一写入；“从当前相机刷新”可读取鼠标/键盘操作后的真实值，外部高频同步不会覆盖未应用草稿。面板另提供恢复原生参数和恢复初始姿态，并明确标出锁定平面是项目自定义模式；`CommitNumberInput.tsx` 是提交式数字输入参考实现。
@@ -511,6 +544,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
+- `animation-workbench-lab/`：专注动态值动画创作的独立预览工作台；Animation Objects 使用持久 UUID 和开放对象工厂，支持基础对象层级、Transform Gizmo、Signal Graph、Contribution Mixer、事件与挂载点。工作区可作为浏览器草稿或保存到通用 `animationScenePresets.json` 预设库；预设选择器也可把 `model-shake-lab` 的双手动作迁移为可继续编辑的普通曲线信号、贡献绑定与事件，而不是保留固定武器时间轴。
 - `model-shake-lab/`：第一人称武器代理体与动画编辑器；使用项目规范化模型，只编辑安装位置、旋转、缩放。支持代理体模板、自定义形状、原点/方向/握持点/攻击端标记、关键帧预览与独立 config 预设保存。
 - `model-swing-lab/`
 - `model-shoot-lab/`
@@ -558,6 +592,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `dungeonMapPresets/index.json` 与同目录单地图 JSON | Dungeon Map Canvas、组合式 Dungeon Lab，以及 World Loader 引用的地图目录和实际地图预设 |
 | `sceneEnvironmentPresets.json` | Scene Environment Lab；由 `/api/scene-environment-presets` 只读获取 |
 | `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
+| `animationScenePresets.json` | Animation Workbench 与游戏运行时共享的通用动画场景预设；开发期由 `/api/animation-scene-presets` 校验并原子保存 |
 
 配置的稳定原则：
 
