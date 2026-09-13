@@ -3,7 +3,6 @@ import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
 import { parseWeaponLibrary } from './core/model/preset/firstPersonWeaponPreset.ts'
-import { parseAnimationScenePresetLibrary } from './core/animation/preset/animationScenePreset.ts'
 
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
@@ -87,43 +86,6 @@ const sharedConfigPlugin = (): Plugin => ({
     server.middlewares.use((req, res, next) => {
       const url = req.url ?? ''
       const pathname = url.split('?')[0]
-      if (pathname === '/api/animation-scene-presets') {
-        void (async () => {
-          const sendJson = (statusCode: number, payload: unknown) => {
-            res.statusCode = statusCode
-            res.setHeader('Content-Type', 'application/json; charset=utf-8')
-            res.end(JSON.stringify(payload))
-          }
-          try {
-            if (req.method === 'GET') {
-              const raw = JSON.parse(await fsp.readFile(ANIMATION_SCENE_PRESETS_PATH, 'utf8')) as unknown
-              const library = parseAnimationScenePresetLibrary(raw)
-              sendJson(200, { success: true, count: Object.keys(library).length, data: library })
-              return
-            }
-            if (req.method !== 'PUT') {
-              sendJson(405, { success: false, message: 'method not allowed' })
-              return
-            }
-            const chunks: Buffer[] = []
-            let byteLength = 0
-            for await (const chunk of req) {
-              const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
-              byteLength += buffer.length
-              if (byteLength > 10 * 1024 * 1024) throw new Error('payload too large')
-              chunks.push(buffer)
-            }
-            const library = parseAnimationScenePresetLibrary(JSON.parse(Buffer.concat(chunks).toString('utf8')))
-            const tempPath = `${ANIMATION_SCENE_PRESETS_PATH}.tmp`
-            await fsp.writeFile(tempPath, JSON.stringify(library, null, 2) + '\n', 'utf8')
-            await fsp.rename(tempPath, ANIMATION_SCENE_PRESETS_PATH)
-            sendJson(200, { success: true, count: Object.keys(library).length, path: ANIMATION_SCENE_PRESETS_PATH })
-          } catch (error) {
-            sendJson(400, { success: false, message: error instanceof Error ? error.message : String(error) })
-          }
-        })()
-        return
-      }
       if (pathname === '/api/first-person-weapon-presets') {
         void (async () => {
           const sendJson = (statusCode: number, payload: unknown) => {

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { moveCurveKeys, panCurveView, pasteCurveKeys, selectCurveKeysInRect, zoomCurveView } from './curveEditorModel.ts';
+import { moveCurveKeys, panCurveView, pasteCurveKeys, selectCurveKeysInRect, transformCurveKeys, zoomCurveView } from './curveEditorModel.ts';
 
 test('selected curve keys move together with time and value snapping', () => {
   const curves = new Map([
@@ -38,4 +38,13 @@ test('curve view zooms around an anchor and pans within the duration', () => {
   const zoomed = zoomCurveView({ timeMin: 0, timeMax: 2, valueMin: -1, valueMax: 1 }, 'time', 1, .5, 2);
   assert.deepEqual(zoomed, { timeMin: .5, timeMax: 1.5, valueMin: -1, valueMax: 1 });
   assert.deepEqual(panCurveView(zoomed, 4, .5, 2), { timeMin: 1, timeMax: 2, valueMin: -.5, valueMax: 1.5 });
+});
+
+test('batch transform scales, offsets, mirrors, and sets selected key values', () => {
+  const curves = new Map([['curve-a', [{ id: 'a', time: 1, value: 2 }, { id: 'b', time: 3, value: 6 }]]]);
+  const selection = [{ curveId: 'curve-a', keyId: 'a' }, { curveId: 'curve-a', keyId: 'b' }];
+  const scaled = transformCurveKeys(curves, selection, { timeScale: 2, valueScale: -1, timeOffset: 1 }, 10).get('curve-a')!;
+  assert.deepEqual(scaled.map(item => [item.time, item.value]), [[1, 6], [5, 2]]);
+  const set = transformCurveKeys(curves, selection, { setValue: 9 }, 10).get('curve-a')!;
+  assert.deepEqual(set.map(item => item.value), [9, 9]);
 });

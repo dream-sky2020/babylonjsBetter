@@ -16,7 +16,7 @@ import {
 } from './animationWorkspace.ts';
 import { animationObjectFactories, animationObjectFactoryById, type AnimationObjectLayer, type AnimationObjectProperty } from './animationObjectRegistry.ts';
 import { SignalWorkspace } from './SignalWorkspace.tsx';
-import { recordTransformKey, type TransformPropertyPath, type TransformRecordMode } from './transformRecording.ts';
+import { recordContributionProperty, recordTransformKey, type ContributionOperation, type ContributionRecordProperty, type TransformPropertyPath, type TransformRecordMode } from './transformRecording.ts';
 import { useWorkspaceHistory } from './useWorkspaceHistory.ts';
 import type { SignalGraphEvaluation } from '@/core/animation/signal';
 import type { NumericContributionMix } from '@/core/animation/contribution';
@@ -34,6 +34,12 @@ type Runtime = {
 };
 
 const STORAGE_KEY = 'babylonjsBetter:animation-workbench:workspace:v1';
+const createPresetBootstrap = () => Promise.all([
+  loadAnimationScenePresets().catch(() => ({} as AnimationScenePresetLibrary)),
+  loadWeaponPresets().catch(() => createWeaponAnimationExamples()),
+]);
+let presetBootstrapPromise: ReturnType<typeof createPresetBootstrap> | null = null;
+const loadPresetLibraries = () => presetBootstrapPromise ??= createPresetBootstrap();
 const DEG = 180 / Math.PI;
 const RAD = Math.PI / 180;
 const makeId = () => globalThis.crypto?.randomUUID?.() ?? `object_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
@@ -118,27 +124,30 @@ export function AnimationWorkbenchLab() {
   const [selectedPreset, setSelectedPreset] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const [recordMode, setRecordMode] = useState<TransformRecordMode>('off');
+  const [recordOperation, setRecordOperation] = useState<ContributionOperation>('override');
   const currentTimeRef = useRef(0);
   const recordModeRef = useRef<TransformRecordMode>('off');
+  const recordOperationRef = useRef<ContributionOperation>('override');
   const gizmoModeRef = useRef<GizmoMode>('position');
 
   useEffect(() => { void loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then(setModelAssets).catch(() => setStatus('模型资源清单读取失败')); }, []);
   useEffect(() => {
-    void Promise.all([
-      loadAnimationScenePresets().catch(() => ({})),
-      loadWeaponPresets().catch(() => createWeaponAnimationExamples()),
-    ]).then(([saved, legacy]) => {
+    let active = true;
+    void loadPresetLibraries().then(([saved, legacy]) => {
+      if (!active) return;
       const pendingMigrations = Object.entries(legacy).filter(([key]) => !saved[key]);
       setPresetLibrary(saved);
       setMigratedLibrary(Object.fromEntries(pendingMigrations.map(([key, project]) => [key, migrateFirstPersonWeaponPreset(project, key)])));
       setStatus(`已读取 ${Object.keys(saved).length} 个动画场景预设${pendingMigrations.length ? `，另有 ${pendingMigrations.length} 个待迁移动作` : ''}`);
     });
+    return () => { active = false; };
   }, []);
 
   useEffect(() => { workspaceRef.current = workspace; }, [workspace]);
   useEffect(() => { selectedIdRef.current = selectedId; }, [selectedId]);
   useEffect(() => { currentTimeRef.current = currentTime; }, [currentTime]);
   useEffect(() => { recordModeRef.current = recordMode; }, [recordMode]);
+  useEffect(() => { recordOperationRef.current = recordOperation; }, [recordOperation]);
   useEffect(() => { gizmoModeRef.current = gizmoMode; }, [gizmoMode]);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -161,10 +170,10 @@ export function AnimationWorkbenchLab() {
           : { x: round(node.scaling.x), y: round(node.scaling.y), z: round(node.scaling.z) };
       setWorkspace(current => {
         const source = current.objects.find(object => object.id === id); if (!source) return current;
-        let next: AnimationWorkspace = { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) };
+        let next: AnimationWorkspace = recordModeRef.current === 'off' ? { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) } : current;
         (['x', 'y', 'z'] as const).forEach(axis => {
           if (Math.abs(source[group][axis] - value[axis]) < .00001) return;
-          next = recordTransformKey(next, id, `${group}.${axis}` as TransformPropertyPath, value[axis], source[group][axis], currentTimeRef.current, recordModeRef.current);
+          next = recordTransformKey(next, id, `${group}.${axis}` as TransformPropertyPath, value[axis], source[group][axis], currentTimeRef.current, recordModeRef.current, recordOperationRef.current);
         });
         return next;
       });
@@ -192,13 +201,16 @@ export function AnimationWorkbenchLab() {
   const updateAnimatedVector = (id: string, group: 'position' | 'rotation' | 'scaling', value: WorkbenchVec3) => {
     setWorkspace(current => {
       const source = current.objects.find(object => object.id === id); if (!source) return current;
-      let next: AnimationWorkspace = { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) };
+      let next: AnimationWorkspace = recordMode === 'off' ? { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) } : current;
       (['x', 'y', 'z'] as const).forEach(axis => {
         if (Math.abs(source[group][axis] - value[axis]) < .00001) return;
-        next = recordTransformKey(next, id, `${group}.${axis}`, value[axis], source[group][axis], currentTime, recordMode);
+        next = recordTransformKey(next, id, `${group}.${axis}`, value[axis], source[group][axis], currentTime, recordMode, recordOperation);
       });
       return next;
     });
+  };
+  const updateContributionProperty = (bindingId: string, property: Exclude<ContributionRecordProperty, 'value'>, value: number) => {
+    setWorkspace(current => recordContributionProperty(current, bindingId, property, value, currentTime, recordMode));
   };
 
   useEffect(() => {
@@ -477,7 +489,7 @@ export function AnimationWorkbenchLab() {
         <button className="awb-delete" disabled={selectedObject.id === 'workspace-root'} onClick={() => deleteObject(selectedObject.id)}><Icon name="trash" />删除对象</button>
       </div> : <div className="awb-empty">从左侧选择一个动画对象</div>}
     </aside>
-    <SignalWorkspace graph={workspace.signalGraph} bindings={workspace.previewBindings} objects={workspace.objects} selectedObjectId={selectedId} transport={workspace.transport} events={workspace.events} time={currentTime} recordMode={recordMode} onTimeChange={setCurrentTime} onRecordModeChange={setRecordMode} onBeginEdit={beginTransaction} onEndEdit={endTransaction} onGraphChange={signalGraph => setWorkspace(current => ({ ...current, signalGraph }))} onBindingsChange={previewBindings => setWorkspace(current => ({ ...current, previewBindings }))} onTransportChange={transport => setWorkspace(current => ({ ...current, transport }))} onEventsChange={events => setWorkspace(current => ({ ...current, events }))} onEvaluate={applySignalPreview} />
+    <SignalWorkspace graph={workspace.signalGraph} bindings={workspace.previewBindings} objects={workspace.objects} selectedObjectId={selectedId} transport={workspace.transport} events={workspace.events} time={currentTime} recordMode={recordMode} recordOperation={recordOperation} onTimeChange={setCurrentTime} onRecordModeChange={setRecordMode} onRecordOperationChange={setRecordOperation} onRecordContributionProperty={updateContributionProperty} onBeginEdit={beginTransaction} onEndEdit={endTransaction} onGraphChange={signalGraph => setWorkspace(current => ({ ...current, signalGraph }))} onBindingsChange={previewBindings => setWorkspace(current => ({ ...current, previewBindings }))} onTransportChange={transport => setWorkspace(current => ({ ...current, transport }))} onEventsChange={events => setWorkspace(current => ({ ...current, events }))} onEvaluate={applySignalPreview} />
     <footer className="awb-status"><span>{status}</span><code>WORKSPACE v{workspace.version} · SIGNAL GRAPH v{workspace.signalGraph.version}</code></footer>
   </main>;
 }

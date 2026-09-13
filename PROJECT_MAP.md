@@ -14,6 +14,10 @@ Animation Object 记录新增开放 `config`，读取旧工作区时自动补为
 
 Animation Workbench 的 Live Output 已升级为 Contribution Mixer 编辑区。每条预览绑定现在都是独立贡献源，可选择公开 Signal 输出、目标对象和 Transform 分量，并编辑静音、Solo、Blend、Weight、Priority、Scale 与可选 Modulation Signal。`previewContributionMixer.ts` 把编辑器绑定适配为核心贡献模型，以另一个 Signal 输出实时调制有效权重；最终每个目标属性每帧只向 Babylon 临时节点写入一个混合结果，解决旧实现中同属性后写覆盖前写的问题。左侧同时显示所有 Signal 原始输出与 Mixed Targets 最终值，贡献行显示实际有效权重、阶段结果或 Solo 抑制状态。工作区继续以通用配置保存这些字段，旧 JSON 缺失字段时使用兼容默认值。
 
+Contribution 现在也是显式录制目标：同一对象属性上的来源可逐条 Arm/Disarm，Arm 新来源时自动解除该目标的旧来源，REC/AUTO 只向已 Arm 且选中的 Source Value、Weight、Scale、Offset 或 Modulation 属性写入曲线，避免多来源间误写。新建录制来源可预选 Add、Override 或 Multiply；动态 Weight/Scale/Offset/Modulation 通过各自公开的 Number Curve 输出保存，编辑器预览与 `AnimationScenePlayer` 运行时使用相同求值规则。录制 Transform 时对象基础值保持不变，Add/Override/Multiply 会反算所需的来源值。
+
+Animation Workbench 的预设开发链路已与其他 Lab 对齐：`python/server.py` 提供 `/api/animation-scene-presets` GET/PUT、Python 侧结构与引用校验以及临时文件原子替换；客户端读取、实时刷新和保存统一通过共享 `requestDevServer` 发现并复用 4550–4600 范围内的开发服务，服务不可用时初始读取才回退到构建内置配置。启动预设请求使用模块级共享 Promise，避免 React Strict Mode 重复访问同一接口。
+
 ## 2026-09-11：Animation Workbench 独立入口
 
 `tools/animation-workbench-lab/` 是面向动态值动画系统的独立创作工作台，不复用 `model-shake-lab` 的左右手武器预设结构。页面使用固定 Babylon 预览舞台，左侧只管理具有持久 UUID 的 Animation Objects，支持空节点和基础几何体的创建、父子层级、选择、复制、显隐与递归删除；中间提供移动、旋转、缩放以及 Local / World Gizmo，右侧编辑对象身份和 Transform。工作区可显式保存到当前浏览器或导入/导出 JSON；Babylon Node 只是按开放 `factoryTypeId` 工厂创建的临时预览实例，不作为持久身份。
@@ -544,7 +548,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `model-asset-normalization-lab/`：同时加载多个 GLB/GLTF 模型进行尺寸对比；手动编辑并保存资产级统一缩放、旋转、原点偏移和透明策略，自动最长边适配与底部居中仅作为显式触发的辅助工具。实例对比位置不会写入配置。
 - `model-display-lab/`
 - `model-scene-lab/`
-- `animation-workbench-lab/`：专注动态值动画创作的独立预览工作台；Animation Objects 使用持久 UUID 和开放对象工厂，支持基础对象层级、Transform Gizmo、Signal Graph、Contribution Mixer、事件与挂载点。编辑历史覆盖工作区变更并把 Gizmo、Inspector 数值和节点拖动合并为单次事务，提供 `Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z`；时间栏的 EDIT / AUTO / REC 分别用于编辑基础值、仅给已有轨道成键、自动创建 Transform 属性曲线与 Override Contribution。Curves 可叠加显示多条属性曲线，关键帧支持 Shift 多选、跨曲线框选、成组拖动和跨曲线复制粘贴，并提供时间/数值吸附、视图适配、鼠标中心缩放与画布平移；可按关键帧段编辑 Constant / Linear / Smooth / Bezier 插值以及 Auto / Free / Broken 切线，Signal 运行时使用相同曲线采样规则。Dope Sheet 汇总当前对象的多属性关键帧，支持 Shift 多选、框选、成组拖动、FPS 吸附、复制粘贴、删除与前后关键帧跳转，拖动仍作为单次历史事务。Events 页面提供可拖动、吸附、复制粘贴和删除的事件标记，并开放编辑 `typeId + config`；播放头跨越标记时会给出触发反馈，事件编辑同样进入 Undo/Redo。工作区可作为浏览器草稿或保存到通用 `animationScenePresets.json` 预设库；预设选择器也可把 `model-shake-lab` 的双手动作迁移为可继续编辑的普通曲线信号、贡献绑定与事件，而不是保留固定武器时间轴。
+- `animation-workbench-lab/`：专注动态值动画创作的独立预览工作台；Animation Objects 使用持久 UUID 和开放对象工厂，支持基础对象层级、Transform Gizmo、Signal Graph、Contribution Mixer、事件与挂载点。编辑历史覆盖工作区变更并把 Gizmo、Inspector 数值和节点拖动合并为单次事务，提供 `Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z`；时间栏的 EDIT / AUTO / REC 分别用于编辑基础值、仅给已有轨道成键、向显式 Arm 的 Contribution 属性录制或按预选 Blend 创建新来源。Curves 可叠加显示多条属性曲线，关键帧支持 Shift 多选、跨曲线框选、成组拖动和跨曲线复制粘贴，并提供时间/数值吸附、视图适配、鼠标中心缩放与画布平移；批量区支持统一设值、时间/数值偏移与缩放、时间镜像和数值镜像；可按关键帧段编辑 Constant / Linear / Smooth / Bezier 插值以及 Auto / Free / Broken 切线，Signal 运行时使用相同曲线采样规则。Dope Sheet 汇总当前对象的多属性关键帧，支持 Shift 多选、框选、成组拖动、FPS 吸附、复制粘贴、删除与前后关键帧跳转，拖动仍作为单次历史事务。Events 页面提供可拖动、吸附、复制粘贴和删除的事件标记，并开放编辑 `typeId + config`；播放头跨越标记时会给出触发反馈，事件编辑同样进入 Undo/Redo。工作区可作为浏览器草稿或保存到通用 `animationScenePresets.json` 预设库；预设选择器也可把 `model-shake-lab` 的双手动作迁移为可继续编辑的普通曲线信号、贡献绑定与事件，而不是保留固定武器时间轴。
 - `model-shake-lab/`：第一人称武器代理体与动画编辑器；使用项目规范化模型，只编辑安装位置、旋转、缩放。支持代理体模板、自定义形状、原点/方向/握持点/攻击端标记、关键帧预览与独立 config 预设保存。
 - `model-swing-lab/`
 - `model-shoot-lab/`

@@ -1,5 +1,6 @@
 # server.py
 from weapon_presets import validate_weapon_presets
+from animation_scene_presets import validate_animation_scene_presets
 import argparse
 import mimetypes
 import os
@@ -63,6 +64,7 @@ POP_NUMBER_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "popNumberP
 BURST_CAPSULE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "burstCapsulePresets.json")
 MODEL_SCENE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelScenePresets.json")
 FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "firstPersonWeaponPresets.json")
+ANIMATION_SCENE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "animationScenePresets.json")
 MODEL_SHAKE_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelShakePresets.json")
 MODEL_DISPLAY_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelDisplayConfigs.json")
 MODEL_ASSET_PROFILE_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "modelAssetProfiles.json")
@@ -225,6 +227,10 @@ def handle_first_person_weapon_presets():
         return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(FIRST_PERSON_WEAPON_PRESET_CONFIG_PATH)})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to write first-person weapon presets: {exc}"}), 500
+
+@app.route("/api/animation-scene-presets", methods=["GET", "PUT"])
+def handle_animation_scene_presets():
+    return _handle_json_config(ANIMATION_SCENE_PRESET_CONFIG_PATH, validate_animation_scene_presets, "animation scene presets")
 
 @app.route("/api/model-display-configs", methods=["GET", "PUT"])
 def handle_model_display_configs():
