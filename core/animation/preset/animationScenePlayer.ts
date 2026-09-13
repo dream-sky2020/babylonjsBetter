@@ -27,13 +27,18 @@ export function evaluateAnimationScenePreset(preset: AnimationScenePreset, time:
     const baseValue = transformBaseValue(object, binding); if (baseValue === undefined) return;
     const path = String(binding.config.path ?? ''); const targetKey = animationTargetKey(binding.objectId, path);
     const rawValue = evaluation.outputs.get(binding.outputId); if (typeof rawValue !== 'number') return;
+    const dynamic = (key: string, fallback: number) => {
+      const outputId = binding.config[key]; const value = typeof outputId === 'string' ? evaluation.outputs.get(outputId) : undefined;
+      return typeof value === 'number' ? value : fallback;
+    };
     const modulationId = typeof binding.config.modulationOutputId === 'string' ? binding.config.modulationOutputId : '';
-    const modulation = modulationId ? evaluation.outputs.get(modulationId) : 1;
+    const modulationSignal = modulationId ? evaluation.outputs.get(modulationId) : 1;
+    const modulation = dynamic('modulationValueOutputId', finite(binding.config.modulation, 1));
     baseValues.set(targetKey, baseValue);
     contributions.push({
       id: binding.id, sourceId: binding.outputId, targetKey,
-      value: rawValue * finite(binding.config.scale, 1) + finite(binding.config.offset, 0),
-      weight: finite(binding.config.weight, 1) * (typeof modulation === 'number' ? modulation : 0),
+      value: rawValue * dynamic('scaleOutputId', finite(binding.config.scale, 1)) + dynamic('offsetOutputId', finite(binding.config.offset, 0)),
+      weight: dynamic('weightOutputId', finite(binding.config.weight, 1)) * modulation * (typeof modulationSignal === 'number' ? modulationSignal : 0),
       priority: finite(binding.config.priority, 0),
       blendMode: binding.config.operation === 'override' || binding.config.operation === 'multiply' ? binding.config.operation : 'additive',
       enabled: binding.config.enabled !== false, solo: binding.config.solo === true,

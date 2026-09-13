@@ -20,13 +20,18 @@ export const createPreviewContributionMix = (evaluation: SignalGraphEvaluation, 
     const path = String(binding.config.path ?? 'position.y'); const baseValue = component(object, path); if (typeof baseValue !== 'number') return;
     const targetKey = previewTargetKey(binding.objectId, path); baseValues.set(targetKey, baseValue);
     const rawValue = evaluation.outputs.get(binding.outputId); if (typeof rawValue !== 'number') return;
+    const dynamic = (key: string, fallback: number) => {
+      const outputId = binding.config[key]; const evaluated = typeof outputId === 'string' ? evaluation.outputs.get(outputId) : undefined;
+      return typeof evaluated === 'number' ? evaluated : fallback;
+    };
     const modulationId = typeof binding.config.modulationOutputId === 'string' ? binding.config.modulationOutputId : '';
-    const modulationValue = modulationId ? evaluation.outputs.get(modulationId) : 1;
-    const weight = finite(binding.config.weight, 1) * (typeof modulationValue === 'number' ? modulationValue : 0);
+    const modulationSignal = modulationId ? evaluation.outputs.get(modulationId) : 1;
+    const modulationValue = dynamic('modulationValueOutputId', finite(binding.config.modulation, 1));
+    const weight = dynamic('weightOutputId', finite(binding.config.weight, 1)) * modulationValue * (typeof modulationSignal === 'number' ? modulationSignal : 0);
     const operation = binding.config.operation;
     contributions.push({
       id: binding.id, sourceId: binding.outputId, targetKey,
-      value: rawValue * finite(binding.config.scale, 1) + finite(binding.config.offset, 0),
+      value: rawValue * dynamic('scaleOutputId', finite(binding.config.scale, 1)) + dynamic('offsetOutputId', finite(binding.config.offset, 0)),
       weight, priority: finite(binding.config.priority, 0),
       blendMode: operation === 'override' || operation === 'multiply' ? operation : 'additive',
       enabled: binding.config.enabled !== false, solo: binding.config.solo === true,

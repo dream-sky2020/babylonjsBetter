@@ -74,3 +74,19 @@ export const panCurveView = (view: CurveView, deltaTime: number, deltaValue: num
   const timeMin = Math.min(Math.max(0, view.timeMin + deltaTime), Math.max(0, duration - timeSpan));
   return { ...view, timeMin, timeMax: timeMin + timeSpan, valueMin: view.valueMin + deltaValue, valueMax: view.valueMax + deltaValue };
 };
+
+export type CurveBatchTransform = Readonly<{ timeOffset?: number; valueOffset?: number; timeScale?: number; valueScale?: number; timePivot?: number; valuePivot?: number; setValue?: number }>;
+
+export const transformCurveKeys = (curves: ReadonlyMap<string, readonly NumberCurveKey[]>, selection: readonly CurveKeySelection[], transform: CurveBatchTransform, duration: number) => {
+  const selected = new Set(selection.map(curveSelectionId));
+  const selectedKeys = [...curves].flatMap(([curveId, keys]) => keys.filter(key => selected.has(curveSelectionId({ curveId, keyId: key.id }))));
+  const timePivot = transform.timePivot ?? (selectedKeys.length ? (Math.min(...selectedKeys.map(key => key.time)) + Math.max(...selectedKeys.map(key => key.time))) / 2 : 0);
+  const valuePivot = transform.valuePivot ?? (selectedKeys.length ? (Math.min(...selectedKeys.map(key => key.value)) + Math.max(...selectedKeys.map(key => key.value))) / 2 : 0);
+  const timeScale = transform.timeScale ?? 1; const valueScale = transform.valueScale ?? 1;
+  return new Map([...curves].map(([curveId, keys]) => [curveId, keys.map(key => {
+    if (!selected.has(curveSelectionId({ curveId, keyId: key.id }))) return key;
+    const time = Math.min(duration, Math.max(0, timePivot + (key.time - timePivot) * timeScale + (transform.timeOffset ?? 0)));
+    const value = transform.setValue ?? valuePivot + (key.value - valuePivot) * valueScale + (transform.valueOffset ?? 0);
+    return { ...key, time: Number(time.toPrecision(12)), value: Number(value.toPrecision(12)) };
+  }).sort((left, right) => left.time - right.time)]));
+};
