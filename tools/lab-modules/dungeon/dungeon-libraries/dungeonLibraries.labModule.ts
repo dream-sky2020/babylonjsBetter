@@ -1,6 +1,6 @@
 import { loadConfig } from '@/core/config';
-import { validateDungeonTransitionLibrary } from '@/core/dungeon-transition';
-import { loadDungeonMapPresetLibrary } from '@/core/map';
+import { validateDungeonTransitionDocumentLibrary } from '@/core/dungeon-transition';
+import { loadDungeonMapDocumentLibraryV2 } from '@/core/map';
 import { parseSceneEnvironmentPresetLibrary, parseShadowQualityPresetLibrary } from '@/core/scene';
 import type { LabModule } from '@/tools/lab-kit';
 import {
@@ -33,18 +33,22 @@ export const dungeonLibrariesLabModule: LabModule = {
     });
     context.communication.handle(dungeonMapCatalogRequest, () => {
       const libraries = controller.reference.require();
-      return Object.values(libraries.maps).map(({ presetKey, name, map }) => ({
-        presetKey, name, mapId: map.id, width: map.width, height: map.height,
+      return Object.values(libraries.maps).map(({ identity, grid }) => ({
+        presetKey: identity.presetKey,
+        name: identity.name,
+        mapId: identity.id,
+        width: grid.width,
+        height: grid.height,
       }));
     });
     return {
       async start() {
         const [maps, environments, shadows] = await Promise.all([
-          loadDungeonMapPresetLibrary(),
+          loadDungeonMapDocumentLibraryV2(),
           loadConfig<unknown>('sceneEnvironmentPresets.json', { devApiPath: '/api/scene-environment-presets', selectDevPayload: selectDevData }),
           loadConfig<unknown>('shadowQualityPresets.json', { devApiPath: '/api/shadow-quality-presets', selectDevPayload: selectDevData }),
         ]);
-        const transitionIssues = validateDungeonTransitionLibrary(maps);
+        const transitionIssues = validateDungeonTransitionDocumentLibrary(maps);
         if (transitionIssues.length) {
           throw new Error(`地牢入口/出口配置无效：\n${transitionIssues.map(({ message }) => `- ${message}`).join('\n')}`);
         }

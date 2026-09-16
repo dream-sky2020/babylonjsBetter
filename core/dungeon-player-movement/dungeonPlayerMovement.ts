@@ -4,7 +4,8 @@ import type {
   DungeonRuntimePlayerPosition,
   DungeonRuntimeWorldPosition,
 } from '../dungeon-runtime';
-import { findDungeonMovementObstacles } from '../dungeon-obstacle';
+import { getDungeonRuntimeNeighbor } from '../dungeon-runtime/dungeonRuntimeMap.ts';
+import { findDungeonMovementObstacles } from '../dungeon-obstacle/dungeonObstacle.ts';
 
 const DIRECTION_OFFSETS: Readonly<Record<DungeonMapDirection, Readonly<{ x: number; y: number }>>> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 },
@@ -71,11 +72,14 @@ export const inspectDungeonPlayerMovement = (
 ): DungeonPlayerMovementResult => {
   const from = { ...runtime.playerPosition };
   const offset = DIRECTION_OFFSETS[direction];
-  const to = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
+  const coordinateDestination = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
+  const topologyDestination = getDungeonRuntimeNeighbor(runtime.map, from, direction);
+  const to = topologyDestination ?? coordinateDestination;
   if (runtime.playerMovement) {
     return { started: false, completed: false, direction, from, to, blockedReason: 'movement-in-progress' };
   }
-  const outside = to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height;
+  const outside = topologyDestination === undefined
+    && (to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height);
   if ((options.restrictToMapBounds ?? true) && outside) {
     return { started: false, completed: false, direction, from, to, blockedReason: 'map-boundary' };
   }

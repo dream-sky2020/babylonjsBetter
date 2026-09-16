@@ -18,8 +18,15 @@ export type DungeonEntranceBinding = Readonly<{
 
 export type DungeonExitLocation =
   | Readonly<{ kind: 'tile'; tileX: number; tileY: number }>
-  | Readonly<{ kind: 'tile-edge'; tileX: number; tileY: number; direction: DungeonMapDirection; edge: DungeonMapEdge }>
-  | Readonly<{ kind: 'shared-edge'; sides: readonly DungeonMapEdgeEndpoint[]; edge: DungeonMapEdge }>;
+  | Readonly<{
+      kind: 'tile-edge'; tileX: number; tileY: number; direction: DungeonMapDirection;
+      /** V2 稳定地址。 */ sideId?: string; edgeId?: string;
+      /** @deprecated V1 兼容快照。 */ edge?: DungeonMapEdge;
+    }>
+  | Readonly<{
+      kind: 'shared-edge'; edgeId?: string; sides: readonly DungeonMapEdgeEndpoint[];
+      /** @deprecated V1 兼容快照。 */ edge?: DungeonMapEdge;
+    }>;
 
 export type DungeonExitBinding = Readonly<{
   entity: IEntity;

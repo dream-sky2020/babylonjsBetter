@@ -1,5 +1,39 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-15：Dungeon Map Document V2 基础层
+
+`core/map-document/` 开始承接地牢地图从嵌套容器向标准化文档迁移的基础设施。`DungeonMapDocumentV2` 将稳定 Entity 身份、按组件类型分表的 Component 数据与空间拓扑彻底分离；Entity/Component 关系只由组件的 `entityId` 表达，空间归属统一由 `spatial-attachment` 指向 map、tile、side、edge 或 point，避免在格子、边和点内部继续嵌套业务数据。
+
+V2 拓扑以行优先 `tileIds` 为格子主序，`tileSides` 固定使用 north/east/south/west 四方向数组，`tilePoints` 固定使用 north-west/north-east/south-east/south-west 四角数组。Side 保留单格单向面语义，Edge 显式连接一个外轮廓 Side 或两个相邻/循环接缝 Side，因此现有“离开侧、进入侧、公用边”三层移动与传送语义不会在扁平化后丢失。
+
+`migrateDungeonMapToDocumentV2()` 可从现有 `DungeonMapPreset` 无修改地生成 V2 文档：重复挂载的同一 Entity/Component 会去重并合并空间目标，冲突定义产生迁移警告。`DungeonMapDocumentQuery` 和派生索引提供按 Entity、组件、空间目标及方向邻接查询；`validateDungeonMapDocumentV2()` 检查 ID、引用、方向槽和双向 Edge 关系；`compileDungeonMapDocumentTopology()` 再将编辑器稳定字符串 ID 编译成供高频运行时使用的整数 TypedArray。主地图编辑器与保存格式已经切换到 V2；尚未升级的游戏消费者继续通过 Repository 的 V1 投影兼容，后续再逐个迁移到 Query 层。
+
+`DungeonMapDocumentStore` 是 V2 文档的统一编辑入口，提供结构共享的命令历史、事务合并/回滚、Undo/Redo、保存脏状态和变更订阅，并内置 Entity、Component 与空间挂载的增删改操作；删除 Entity 会级联清理组件。`projectDungeonMapDocumentToLegacyMap()` 只为尚未迁移的游戏消费者生成临时嵌套投影；投影上的修改不会写回 V2，正式编辑必须经过 Store。
+
+V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批量编辑器产生的临时 `IEntityContainer` 原子标准化回 ECS 表，用于主编辑器渐进接线。地图 Repository 现在双格式读取：V1 文件在内存迁移为 V2，V2 文件直接解析和完整引用校验；原有 `loadDungeonMapPreset()` 再投影给尚未升级的游戏消费者，新代码可使用 `loadDungeonMapDocumentV2()` / `loadDungeonMapDocumentLibraryV2()`。Python 开发服务也接受 V1/V2 混合预设库并从对应格式生成目录名称；实际地图文件尚未自动改写，只有后续编辑器显式保存才会升级。
+
+`DungeonMapCanvasLab` 已切换为以 `DungeonMapDocumentStore` 为编辑期权威状态：启动、切换和重载均读取 V2 文档（旧文件只在入口迁移），Canvas 与 Inspector 都直接读取 V2 Query。单项编辑、批量事务、结构增删、Undo/Redo 与 dirty 状态现已统一走 Store；“保存全部地图预设”会写出 V2 Library，因此用户显式保存的旧预设会完成格式升级。
+
+新建地图以及插入行列只创建拓扑，不再为每个 Tile、Side、Edge、Point 自动创建默认 Entity。V2 编码保存时会保守识别旧编辑器生成的纯 `legacy-data + spatial-attachment` 占位壳，将仍有意义的格子/边属性迁回 `legacy` 拓扑属性表后删除这些壳；具有额外组件、未知字段、非标准身份或冲突属性的 Entity 不会被清理。
+
+`dungeonMapDocument.structureEdit.ts` 提供原生 V2 行列插入/删除，不再把文档投影成 V1 后重新迁移。操作会保留未受影响 Tile/Side/Edge/Point 的稳定 ID，仅为新格与新接缝分配无冲突 ID；同步移动 `actor-spawn` 和 Marker 坐标，阻止删除 Spawn 所在行列，并过滤失效空间挂载、孤儿 Entity/Component 与旧兼容属性。Lab 六个结构按钮已直接调用这些命令，并通过 Store 将每次结构变化记录为一个可撤销步骤；旧 V1 结构算法仅作为旧调用方兼容层保留。
+
+地图 Inspector 的数据源也已切换到 V2：`DungeonMapDocumentQuery.getContainerAt()` 直接从标准化 Entity/Component 表物化指定空间目标的只读编辑快照，不再从整张 V1 地图投影中读取嵌套 `data`。单项 Entity/Component 的创建、身份字段编辑、组件字段编辑和删除直接调用 Store 的分表命令；`addEntityAt()` / `removeEntityAt()` 原子维护空间挂载，并在最后一个挂载移除时级联清理 ECS 数据。
+
+`dungeonMapDocument.mutationPlan.ts` 将批量规则生成的容器前后快照编译为 V2 原生命令序列，执行时直接调用 Entity、Component 与空间挂载命令，并把全部操作合并成一个 Store 事务。计划会拒绝已经过期的快照，以及同一个多挂载 Entity 在多个目标中产生的冲突结果；Component 使用整体替换命令，因此清空可选字段不会被旧值重新合并回来。主编辑器已经不再调用 `replaceSpatialContainer()`，该方法仅保留给外部旧调用方的兼容过渡。
+
+`core/ui/dungeon-map-canvas-view.ts` 是 Canvas 的原生 V2 渲染适配层：从 Grid 与 ECS Query 只物化绘制、染色和命中测试所需的 tile、side、edge、point 容器，不再生成整张 V1 地图。`DungeonMapCanvas` 的 `document` 分支已移除 `projectDungeonMapDocumentToLegacyMap()`；旧 `map` 输入仍由轻量适配器兼容，既有绘制与交互算法无需同时重写。
+
+`DungeonMapCanvas` 使用拓扑底图与 Entity 数据覆盖两遍绘制：Grid 中始终存在的 Tile、Side、Edge、Point 分别以中心方块、四侧梯形、公用边长方形和交汇点正方形显示，并使用不同的低饱和结构色；只有实际挂载 Entity 的目标才在对应几何槽位上覆盖纹理与类型颜色。空拓扑目标同样参与点击、框选和 Inspector 命中，因此删除占位 Entity 不会让地图结构从编辑器消失。
+
+`core/dungeon-runtime/dungeonRuntimeMap.ts` 将 V2 文档编译为玩家运行时持有的地图对象，包含地图身份、尺寸、原始文档和整数拓扑，不再让 `DungeonRuntime` 持有嵌套 `DungeonMapData`。格步移动通过 `neighborTileIndices` 解析目标格，因此普通外轮廓仍可阻挡，循环地图接缝则能直接到达另一侧。阻碍在装载时由 `scanDungeonDocumentObstacles()` 从 ECS 表与 `spatial-attachment` 扫描一次并缓存，移动检查不再反复遍历整张旧地图。当前 Dungeon Loader 仍为场景生成与 Delta 保留 V1 live map，但会在创建 Runtime 的边界迁移一次 V2；场景、入口/出口和 Delta 将在后续阶段分别迁移。
+
+`core/dungeon-transition/dungeonTransition.document.ts` 是入口/出口的 V2 原生查询层：入口、出口扫描与配置校验直接读取 Entity、Component 和 `spatial-attachment`，移动后触发通过编译拓扑定位目标 Tile、离开 Side、进入 Side 与共享 Edge，交互和受阻移动也按稳定 `sideId` / `edgeId` 查询。Dungeon Loader 使用 V2 校验器并按 V2 入口完成落点，Transition Lab 的运行中扫描、Debug、enter、interact 和 move-attempt 已全部改用 Runtime 文档；旧 `dungeonTransition.ts` 只保留给 V1 Library 预校验和外部兼容调用方。
+
+`core/scene/dungeonDocumentSceneEnvironment.ts` 与 `core/dungeon-player-spawn/dungeonPlayerSpawn.document.ts` 直接从 V2 的 map 空间挂载解析唯一 `scene-environment` 和 `actor-spawn`。Dungeon Loader 的场景预设绑定、异步场景实例创建、出生格校验及世界坐标计算已不再读取嵌套 `map.data`；旧场景/出生点解析器继续作为 V1 兼容入口。
+
+Dungeon Libraries 现在直接通过 `loadDungeonMapDocumentLibraryV2()` 提供 V2 文档库，并使用 `validateDungeonTransitionDocumentLibrary()` 完成跨地图出口引用校验。Dungeon Loader 的 base/live 权威状态均为 `DungeonMapDocumentV2`，不再在每次切图时投影、应用 Delta 后重新迁移；对旧格子 Debug 模块只公开由 `createDungeonMapCanvasView()` 生成的只读派生视图。`dungeonMapDocument.delta.ts` 定义 V2 顶层分区 Delta，只保存发生变化的 identity、grid、entities、components、metadata 或 legacy 分区；旧 DefinitionRefs Delta 仍可在恢复时临时投影、应用并迁移，下一次结算会升级为 V2 Delta。
+
 ## 2026-09-11：Animation Workbench 可配置对象与编辑器辅助视觉
 
 Animation Object 记录新增开放 `config`，读取旧工作区时自动补为空对象；对象注册项现在声明 category、layer、icon、defaultConfig、Inspector property schema、预览工厂和可选预览签名。创建菜单按结构、Rig、资源、基础几何、武器占位体、语义体积、语义标记与辅助显示分组，右侧 Inspector 根据定义生成颜色、数值、选择项和模型资源控件。对象专属配置与工作区一同保存、导入和导出；配置改变时只重建该对象的临时预览节点，并在重建前脱离持久子对象，避免误删层级。

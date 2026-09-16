@@ -1,10 +1,16 @@
 import {
   getComponents,
   isEntityContainer,
-  type IEntity,
-  type IMovementObstacleComponent,
-} from '../entity';
+} from '../entity/entity.utils.ts';
+import type { IMovementObstacleComponent } from '../entity/components/movement-obstacle.component.ts';
+import type { IEntity } from '../entity/entity.types.ts';
 import type { DungeonMapData, DungeonMapDirection, DungeonMapEdgeEndpoint } from '../map';
+import {
+  DungeonMapDocumentQuery,
+  isDungeonMapDocumentV2,
+  type DungeonMapDocumentV2,
+  type DungeonMapSpatialTarget,
+} from '../map-document/index.ts';
 import type { DungeonRuntime, DungeonRuntimePlayerPosition } from '../dungeon-runtime';
 
 export type DungeonObstaclePlacement =
@@ -61,9 +67,87 @@ export const scanDungeonObstacles = (map: DungeonMapData): DungeonObstacleBindin
   return bindings;
 };
 
+const requireTilePosition = (
+  document: DungeonMapDocumentV2,
+  query: DungeonMapDocumentQuery,
+  tileId: string,
+): Readonly<{ x: number; y: number }> => {
+  const tileIndex = query.indexes.tileIndexById.get(tileId);
+  if (tileIndex === undefined) throw new Error(`阻碍引用了不存在的格子“${tileId}”。`);
+  return { x: tileIndex % document.grid.width, y: Math.floor(tileIndex / document.grid.width) };
+};
+
+const documentObstaclePlacement = (
+  document: DungeonMapDocumentV2,
+  query: DungeonMapDocumentQuery,
+  target: DungeonMapSpatialTarget,
+): DungeonObstaclePlacement | undefined => {
+  if (target.kind === 'tile') {
+    const { x, y } = requireTilePosition(document, query, target.tileId);
+    return { kind: 'tile', tileX: x, tileY: y };
+  }
+  if (target.kind === 'side') {
+    const side = query.indexes.sideById.get(target.sideId);
+    if (!side) throw new Error(`阻碍引用了不存在的 Side“${target.sideId}”。`);
+    const { x, y } = requireTilePosition(document, query, side.tileId);
+    return { kind: 'tile-edge', tileX: x, tileY: y, direction: side.direction };
+  }
+  if (target.kind === 'edge') {
+    const edge = query.indexes.edgeById.get(target.edgeId);
+    const side = edge && query.indexes.sideById.get(edge.sideIds[0]);
+    if (!edge || !side) throw new Error(`阻碍引用了不存在的 Edge“${target.edgeId}”。`);
+    const { x, y } = requireTilePosition(document, query, side.tileId);
+    return {
+      kind: 'shared-edge',
+      sharedEdgeId: edge.id,
+      side: { x, y, direction: side.direction },
+    };
+  }
+  return undefined;
+};
+
+/** 直接从 V2 ECS 表和空间挂载扫描阻碍，不创建 V1 地图投影。 */
+export const scanDungeonDocumentObstacles = (
+  document: DungeonMapDocumentV2,
+): DungeonObstacleBinding[] => {
+  const query = new DungeonMapDocumentQuery(document);
+  const bindings: DungeonObstacleBinding[] = [];
+  document.entities
+    .filter((entity) => entity.entityType === 'obstacle' && entity.enabled !== false)
+    .forEach(({ id }) => {
+      const entity = query.getEntitySnapshot(id)!;
+      const components = getComponents<IMovementObstacleComponent>(entity, 'movement-obstacle')
+        .filter((component) => component.enabled !== false);
+      if (components.length !== 1) {
+        throw new Error(`阻碍实体“${id}”必须有且只能有一个启用的 movement-obstacle 组件。`);
+      }
+      query.getComponents(id, 'spatial-attachment').forEach((attachment) => {
+        const targets = (attachment as { targets?: DungeonMapSpatialTarget[] }).targets ?? [];
+        targets.forEach((target) => {
+          const placement = documentObstaclePlacement(document, query, target);
+          if (placement) bindings.push({ entity, component: components[0], placement });
+        });
+      });
+    });
+  const seen = new Set<string>();
+  bindings.forEach(({ entity }) => {
+    if (seen.has(entity.id)) throw new Error(`阻碍 Entity ID 重复：“${entity.id}”。`);
+    seen.add(entity.id);
+  });
+  return bindings;
+};
+
+export const createDungeonObstacleStatesFromBindings = (
+  bindings: readonly DungeonObstacleBinding[],
+): Map<string, boolean> => new Map(
+  bindings.map(({ entity, component }) => [entity.id, component.activeByDefault]),
+);
+
 /** 从只读地图预设生成完整的阻碍默认状态，不修改地图数据。 */
-export const createDungeonObstacleStates = (map: DungeonMapData): Map<string, boolean> => new Map(
-  scanDungeonObstacles(map).map(({ entity, component }) => [entity.id, component.activeByDefault]),
+export const createDungeonObstacleStates = (
+  map: DungeonMapData | DungeonMapDocumentV2,
+): Map<string, boolean> => createDungeonObstacleStatesFromBindings(
+  isDungeonMapDocumentV2(map) ? scanDungeonDocumentObstacles(map) : scanDungeonObstacles(map),
 );
 
 
@@ -96,7 +180,7 @@ export const findDungeonMovementObstacles = (
   direction: DungeonMapDirection,
 ): DungeonObstacleBinding[] => {
   const enteringDirection = OPPOSITE_DIRECTION[direction];
-  return scanDungeonObstacles(runtime.map).filter((binding) => {
+  return runtime.obstacles.filter((binding) => {
     if (runtime.obstacleStates.get(binding.entity.id) !== true) return false;
     const placement = binding.placement;
     if (placement.kind === 'tile') {

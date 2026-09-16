@@ -1,4 +1,6 @@
-import type { DungeonMapData, DungeonMapDirection } from '../map';
+import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
+import type { DungeonMapDirection } from '../map';
+import type { DungeonRuntimeMap } from './dungeonRuntimeMap.ts';
 
 /** 玩家在地牢中的权威逻辑格子位置。 */
 export type DungeonRuntimePlayerPosition = {
@@ -33,7 +35,9 @@ export type DungeonRuntimePlayerMovement = {
  * 当前只管理玩家位置；敌人、占用索引和其他动态状态后续独立扩展。
  */
 export type DungeonRuntime = {
-  readonly map: DungeonMapData;
+  readonly map: DungeonRuntimeMap;
+  /** 装载时从 V2 ECS 表建立一次，移动过程中直接复用。 */
+  readonly obstacles: readonly DungeonObstacleBinding[];
   playerPosition: DungeonRuntimePlayerPosition;
   playerFacing: DungeonMapDirection;
   /** 玩家当前连续 3D 世界位置，移动过程中允许为小数。 */

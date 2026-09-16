@@ -9,3 +9,4 @@ export * from './dungeonMap.definition';
 export * from './dungeonMap.delta.types';
 export * from './dungeonMap.delta';
 export * from './dungeonMapPresetRepository';
+export * from '../map-document/index.ts';

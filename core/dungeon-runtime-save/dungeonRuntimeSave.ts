@@ -1,7 +1,8 @@
-import { createDungeonObstacleStates } from '../dungeon-obstacle';
+import { createDungeonObstacleStatesFromBindings } from '../dungeon-obstacle';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import { setDungeonRuntimePlayerPosition, type DungeonRuntime } from '../dungeon-runtime';
-import { isDungeonMapPositionInside, type DungeonMapDirection } from '../map';
+import type { DungeonMapDirection } from '../map';
+import { isDungeonRuntimePositionInside } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import type {
   ApplyDungeonRuntimeSaveStateResult,
   DungeonRuntimeSaveState,
@@ -19,7 +20,7 @@ export const createDungeonRuntimeSaveState = (
     saveState.playerPosition = { ...runtime.playerPosition };
   }
   if (runtime.playerFacing !== DEFAULT_PLAYER_FACING) saveState.playerFacing = runtime.playerFacing;
-  const defaults = createDungeonObstacleStates(runtime.map);
+  const defaults = createDungeonObstacleStatesFromBindings(runtime.obstacles);
   const changed: Record<string, boolean> = {};
   runtime.obstacleStates.forEach((active, id) => {
     if (defaults.get(id) !== active) changed[id] = active;
@@ -38,7 +39,7 @@ export const applyDungeonRuntimeSaveState = (
   }
   const warnings: string[] = [];
   if (saveState.playerPosition) {
-    if (isDungeonMapPositionInside(runtime.map, saveState.playerPosition.tileX, saveState.playerPosition.tileY)) {
+    if (isDungeonRuntimePositionInside(runtime.map, saveState.playerPosition.tileX, saveState.playerPosition.tileY)) {
       setDungeonRuntimePlayerPosition(runtime, saveState.playerPosition);
       runtime.playerWorldPosition = [...resolveWorldPosition(saveState.playerPosition)];
     } else {

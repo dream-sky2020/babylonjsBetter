@@ -1,14 +1,17 @@
 import type { DungeonObstacleBinding } from '@/core/dungeon-obstacle';
 import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
 import type { DungeonRuntime } from '@/core/dungeon-runtime';
-import type { DungeonMapData } from '@/core/map';
+import type { DungeonMapDocumentV2 } from '@/core/map-document';
 import type { DungeonMapSceneEnvironmentBinding } from '@/core/scene';
+import type { DungeonMapCanvasView } from '@/core/ui';
 
 /** 一次地图装载成功后，对其他 Dungeon Lab Module 原子公开的完整活引用。 */
 export type LoadedDungeonReferences = Readonly<{
   loadId: number;
   presetKey: string;
-  map: DungeonMapData;
+  document: DungeonMapDocumentV2;
+  /** 仍供格子 Debug 几何使用的只读派生视图。 */
+  map: DungeonMapCanvasView;
   sceneBinding: DungeonMapSceneEnvironmentBinding;
   spawn: DungeonPlayerSpawnBinding;
   runtime: DungeonRuntime;
