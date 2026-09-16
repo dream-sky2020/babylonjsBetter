@@ -10,6 +10,8 @@ import type {
   DungeonMapTileContainer,
   DungeonMapTopologyMode,
 } from '../map/dungeonMap.types.ts';
+import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
+import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import {
   createDungeonTransitionController,
   findDungeonEntrance,
@@ -19,6 +21,16 @@ import {
   validateDungeonTransitionLibrary,
   validateDungeonTransitionMap,
 } from './dungeonTransition.ts';
+import {
+  findDungeonDocumentEntrance,
+  findDungeonDocumentExitAfterMovement,
+  findDungeonDocumentExitForInteraction,
+  findDungeonDocumentExitForMoveAttempt,
+  scanDungeonDocumentEntrances,
+  scanDungeonDocumentExits,
+  validateDungeonTransitionDocument,
+  validateDungeonTransitionDocumentLibrary,
+} from './dungeonTransition.document.ts';
 import type { DungeonExitBinding } from './dungeonTransition.types.ts';
 
 const directions: readonly DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
@@ -91,6 +103,10 @@ const sharedEdge = (
   edge: { id, coordinates: { type: 'shared-edge', sides: [first, second] }, data },
 });
 
+const runtimeMap = (source: DungeonMapData) => createDungeonRuntimeMap(
+  migrateDungeonMapToDocumentV2({ presetKey: source.id, name: source.id, map: source }).document,
+);
+
 test('entrance ids are unique within one map', () => {
   const dungeon = map('duplicate-entrances', [
     tile(0, 0, container(entrance('entrance-a', 'main'))),
@@ -112,6 +128,10 @@ test('multiple exits may target the same entrance', () => {
     target: { presetKey: 'target', name: 'Target', map: target },
   };
   assert.deepEqual(validateDungeonTransitionLibrary(library), []);
+  assert.deepEqual(validateDungeonTransitionDocumentLibrary({
+    source: runtimeMap(source).document,
+    target: runtimeMap(target).document,
+  }), []);
 });
 
 test('enter exits can be discovered on the destination tile', () => {
@@ -313,4 +333,62 @@ test('controller asks the loader to place the entrance before publishing the des
   const result = await controller.transition(binding);
   assert.equal(result.transitioned, true);
   assert.deepEqual(calls, ['target/main']);
+});
+
+test('V2 ECS 直接扫描入口、出口并解析格子触发', () => {
+  const entry = entrance('document-entry', 'main');
+  const destinationExit = exit('document-exit', 'target', 'main');
+  const runtime = runtimeMap(map('document-tile', [
+    tile(0, 0, container(entry)),
+    tile(1, 0, container(destinationExit)),
+  ]));
+  assert.equal(scanDungeonDocumentEntrances(runtime.document)[0]?.entity.id, entry.id);
+  assert.equal(scanDungeonDocumentExits(runtime.document)[0]?.entity.id, destinationExit.id);
+  assert.equal(findDungeonDocumentEntrance(runtime.document, 'main').tileX, 0);
+  assert.equal(findDungeonDocumentExitAfterMovement(
+    runtime, { tileX: 0, tileY: 0 }, { tileX: 1, tileY: 0 },
+  )?.entity.id, destinationExit.id);
+  assert.deepEqual(validateDungeonTransitionDocument(runtime.document), []);
+});
+
+test('V2 校验器直接识别重复入口 ID', () => {
+  const runtime = runtimeMap(map('document-invalid', [
+    tile(0, 0, container(entrance('document-entry-a', 'same'))),
+    tile(1, 0, container(entrance('document-entry-b', 'same'))),
+  ]));
+  assert.ok(validateDungeonTransitionDocument(runtime.document)
+    .some(({ code }) => code === 'duplicate-dungeon-entrance-id'));
+});
+
+test('V2 Side 和 Edge 查询覆盖交互、受阻尝试与循环接缝', () => {
+  const sideExit = exit('document-side-exit', 'target', 'main', ['interact', 'move-attempt']);
+  const sideRuntime = runtimeMap(map('document-side', [
+    tile(0, 0, container(), { west: container(sideExit) }),
+  ]));
+  const interaction = findDungeonDocumentExitForInteraction(
+    sideRuntime, { tileX: 0, tileY: 0 }, 'west',
+  );
+  assert.equal(interaction?.entity.id, sideExit.id);
+  assert.equal(interaction?.location.kind, 'tile-edge');
+  if (interaction?.location.kind === 'tile-edge') assert.ok(interaction.location.sideId);
+  assert.equal(findDungeonDocumentExitForMoveAttempt(
+    sideRuntime, { tileX: 0, tileY: 0 }, 'west',
+  )?.entity.id, sideExit.id);
+
+  const seamExit = exit('document-seam-exit', 'target', 'main');
+  const seam = sharedEdge(
+    'document-loop-seam',
+    { x: 0, y: 0, direction: 'west' },
+    { x: 1, y: 0, direction: 'east' },
+    container(seamExit),
+  );
+  const loopRuntime = runtimeMap(map(
+    'document-loop', [tile(0, 0), tile(1, 0)], 'loop-horizontal', [seam],
+  ));
+  const binding = findDungeonDocumentExitAfterMovement(
+    loopRuntime, { tileX: 1, tileY: 0 }, { tileX: 0, tileY: 0 },
+  );
+  assert.equal(binding?.entity.id, seamExit.id);
+  assert.equal(binding?.location.kind, 'shared-edge');
+  if (binding?.location.kind === 'shared-edge') assert.equal(binding.location.edgeId, seam.id);
 });

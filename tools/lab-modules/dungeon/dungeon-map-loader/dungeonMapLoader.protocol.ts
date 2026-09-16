@@ -1,5 +1,6 @@
 import type { DungeonRuntimeSaveState } from '@/core/dungeon-runtime-save';
 import type { DungeonMapDefinitionRefsDelta } from '@/core/map';
+import type { DungeonMapDocumentDeltaV1 } from '@/core/map-document';
 import { createLabEvent, createLabRequest } from '@/tools/lab-kit';
 
 export type DungeonMapChangedEvent = {
@@ -51,14 +52,14 @@ export const dungeonRuntimeSaveStatesRequest = createLabRequest<
 
 export type DungeonMapDeltaSnapshot = {
   activePresetKey: string | null;
-  activeDelta: DungeonMapDefinitionRefsDelta | null;
-  savedDeltas: Readonly<Record<string, DungeonMapDefinitionRefsDelta>>;
+  activeDelta: DungeonMapDocumentDeltaV1 | null;
+  savedDeltas: Readonly<Record<string, DungeonMapDocumentDeltaV1 | DungeonMapDefinitionRefsDelta>>;
 };
 
 export type DungeonMapDeltaCommitResult = {
   committed: boolean;
   presetKey: string | null;
-  delta: DungeonMapDefinitionRefsDelta | null;
+  delta: DungeonMapDocumentDeltaV1 | null;
 };
 
 /** 地图修改模块可主动结算当前活地图；切换地图时 Loader 仍会自动结算。 */

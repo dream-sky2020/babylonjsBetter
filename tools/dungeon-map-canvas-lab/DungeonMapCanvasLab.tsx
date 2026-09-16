@@ -2,16 +2,28 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { validateDungeonTransitionMap } from '@/core/dungeon-transition';
 import {
   createDungeonMapData,
-  deleteDungeonMapColumn,
-  deleteDungeonMapRow,
+  compactGeneratedDungeonMapShells,
+  createDungeonMapDocumentMutationPlan,
+  deleteDungeonMapDocumentColumn,
+  deleteDungeonMapDocumentRow,
   encodeDungeonMapData,
-  encodeDungeonMapPresetLibrary,
-  insertDungeonMapColumn,
-  insertDungeonMapRow,
-  loadDungeonMapPreset,
-  loadDungeonMapPresetLibrary,
+  encodeDungeonMapDocumentLibraryV2,
+  insertDungeonMapDocumentColumn,
+  insertDungeonMapDocumentRow,
+  loadDungeonMapDocumentLibraryV2,
+  loadDungeonMapDocumentV2,
+  migrateDungeonMapToDocumentV2,
+  projectDungeonMapDocumentToLegacyMap,
   validateDungeonMapData,
+  DungeonMapDocumentQuery,
+  DungeonMapDocumentStore,
+  dungeonMapSpatialTargetKey,
+  executeDungeonMapDocumentMutationPlan,
   type DungeonMapData,
+  type DungeonMapDocumentStructureEditResult,
+  type DungeonMapDocumentLibraryV2,
+  type DungeonMapDocumentMutationPlan,
+  type DungeonMapDocumentV2,
   type DungeonMapContainerCoordinates,
   type DungeonMapDirection,
   type DungeonMapEdge,
@@ -20,9 +32,9 @@ import {
   type DungeonMapSharedEdge,
   type DungeonMapSharedPoint,
   type DungeonMapStructureDefaults,
-  type DungeonMapStructureEditResult,
   type DungeonMapTile,
   type DungeonMapTopologyMode,
+  type DungeonMapSpatialTarget,
 } from '@/core/map';
 import {
   createMutationPlan,
@@ -164,7 +176,7 @@ const EMPTY_BATCH_CONTAINER_TARGETS: readonly BatchContainerTarget[] = [];
 const EMPTY_BATCH_ENTITY_TARGETS: readonly BatchEntityTarget[] = [];
 type LabMutationPlan = {
   plan: MutationPlan;
-  selections: Record<string, DungeonMapSelection>;
+  nativePlan: DungeonMapDocumentMutationPlan;
 };
 type LabPanelWorkspace = 'project' | 'inspector' | 'appearance';
 type ResolvedMapContainerTarget = BatchContainerTarget & {
@@ -238,37 +250,10 @@ const createBlankPresetMap = (
         .filter((component): component is IComponent => component !== undefined),
     }],
   }),
-  createTileData: ({ x, y }) => legacyEntityContainer(
-    `tile:${x},${y}:entity`, `格子 ${x},${y}`, { legacy: { kind: 'floor' } }, 'tile',
-  ),
-  createTileEdgeData: ({ x, y, direction }) => legacyEntityContainer(
-    `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`, { legacy: { kind: 'open' } }, 'tile-edge',
-  ),
-  createSharedEdgeData: ({ id, first }) => legacyEntityContainer(
-    `${id}:entity`, '公用边实体', { legacy: { kind: 'open', label: `公用边 ${first.x},${first.y},${first.direction}` } }, 'shared-edge',
-  ),
-  createSharedPointData: ({ id, gridX, gridY }) => legacyEntityContainer(
-    `${id}:entity`, '公用点实体', { legacy: { label: `公用点 ${gridX},${gridY}` } }, 'shared-point',
-  ),
 });
 
-const STRUCTURE_EDIT_DEFAULTS: DungeonMapStructureDefaults = {
-  createTileData: ({ x, y }) => legacyEntityContainer(
-    `tile:${x},${y}:entity`, `格子 ${x},${y}`, { legacy: { kind: 'floor' } }, 'tile',
-  ),
-  createTileEdgeData: ({ x, y, direction }) => legacyEntityContainer(
-    `tile:${x},${y}:${direction}:entity`, `单格边 ${x},${y},${direction}`,
-    { legacy: { kind: 'open' } }, 'tile-edge',
-  ),
-  createSharedEdgeData: ({ id, first }) => legacyEntityContainer(
-    `${id}:entity`, '公用边实体',
-    { legacy: { kind: 'open', label: `公用边 ${first.x},${first.y},${first.direction}` } },
-    'shared-edge',
-  ),
-  createSharedPointData: ({ id, gridX, gridY }) => legacyEntityContainer(
-    `${id}:entity`, '公用点实体', { legacy: { label: `公用点 ${gridX},${gridY}` } }, 'shared-point',
-  ),
-};
+// 纯拓扑位置不是业务 Entity。只有用户显式添加内容时才创建 Entity/Component。
+const STRUCTURE_EDIT_DEFAULTS: DungeonMapStructureDefaults = {};
 
 const presetFingerprint = (preset: DungeonMapPreset): string => JSON.stringify({
   presetKey: preset.presetKey,
@@ -332,6 +317,9 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [draftMapHeight, setDraftMapHeight] = useState<number>(MAP_ROWS.length);
   const [draftTopologyMode, setDraftTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
   const [mapPresets, setMapPresets] = useState<DungeonMapPresetLibrary>({});
+  const [mapDocuments, setMapDocuments] = useState<DungeonMapDocumentLibraryV2>({});
+  const [mapDocument, setMapDocument] = useState<DungeonMapDocumentV2>();
+  const [mapStore, setMapStore] = useState<DungeonMapDocumentStore>();
   const [activePresetKey, setActivePresetKey] = useState('');
   const [presetKeyDraft, setPresetKeyDraft] = useState('');
   const [presetBaseMap, setPresetBaseMap] = useState<DungeonMapData>();
@@ -392,8 +380,6 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [batchComponentSlotDraft, setBatchComponentSlotDraft] = useState('');
   const [batchComponentTypeToEdit, setBatchComponentTypeToEdit] = useState('');
   const [pendingMutationPlan, setPendingMutationPlan] = useState<LabMutationPlan>();
-  const [mutationHistoryPast, setMutationHistoryPast] = useState<LabMutationPlan[]>([]);
-  const [mutationHistoryFuture, setMutationHistoryFuture] = useState<LabMutationPlan[]>([]);
   const [collapsedPanelIds, setCollapsedPanelIds] = useState<Set<string>>(() => new Set());
   const [panelWorkspace, setPanelWorkspace] = useState<LabPanelWorkspace>('project');
   const [navigatingWorkspace, setNavigatingWorkspace] = useState<LabPanelWorkspace>();
@@ -466,6 +452,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   }, [canvasOuterPadding, cellSize, mapHeight, mapViewportSize, mapWidth, minCanvasHeight, minCanvasWidth, sharedEdgeThicknessRatio]);
 
   const map = useMemo<DungeonMapData>(() => {
+    if (mapDocument) return projectDungeonMapDocumentToLegacyMap(mapDocument);
     if (presetBaseMap) {
       return {
         ...presetBaseMap,
@@ -653,7 +640,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
       ],
       metadata: { floor: 'B1', name: '遗忘回廊' }
     };
-  }, [fogEnabled, visited, mapWidth, mapHeight, topologyMode, mapDataEdits, tileDataEdits, tileEdgeDataEdits, sharedEdgeEdits, sharedPointEdits, presetBaseMap]);
+  }, [fogEnabled, visited, mapWidth, mapHeight, topologyMode, mapDataEdits, tileDataEdits, tileEdgeDataEdits, sharedEdgeEdits, sharedPointEdits, presetBaseMap, mapDocument]);
 
   const clearMapEdits = () => {
     setMapDataEdits(undefined);
@@ -664,38 +651,66 @@ export const DungeonMapCanvasLab: React.FC = () => {
     setSelectedEntityId('');
     setSelectedComponentId('');
     setPendingMutationPlan(undefined);
-    setMutationHistoryPast([]);
-    setMutationHistoryFuture([]);
   };
 
-  const loadPresetIntoEditor = (preset: DungeonMapPreset) => {
-    const nextMode = preset.map.topologyMode ?? 'bounded';
+  const installDocumentStore = (document: DungeonMapDocumentV2) => {
+    const store = new DungeonMapDocumentStore(document);
+    setMapStore(store);
+    setMapDocument(store.getDocument());
+  };
+
+  const loadDocumentIntoEditor = (document: DungeonMapDocumentV2) => {
+    const projectedMap = projectDungeonMapDocumentToLegacyMap(document);
+    const nextMode = document.grid.topologyMode;
     clearMapEdits();
-    setActivePresetKey(preset.presetKey);
-    setPresetKeyDraft(preset.presetKey);
-    setPresetBaseMap(preset.map);
-    setMapWidth(preset.map.width);
-    setMapHeight(preset.map.height);
+    installDocumentStore(document);
+    setActivePresetKey(document.identity.presetKey);
+    setPresetKeyDraft(document.identity.presetKey);
+    setPresetBaseMap(projectedMap);
+    setMapWidth(document.grid.width);
+    setMapHeight(document.grid.height);
     setTopologyMode(nextMode);
-    setDraftMapWidth(preset.map.width);
-    setDraftMapHeight(preset.map.height);
+    setDraftMapWidth(document.grid.width);
+    setDraftMapHeight(document.grid.height);
     setDraftTopologyMode(nextMode);
     setCanvasSelections([{ mode: 'tile', x: 0, y: 0 }]);
   };
 
   useEffect(() => {
+    if (!mapStore) return undefined;
+    return mapStore.subscribe((change) => {
+      setMapDocument(change.document);
+      setMapWidth(change.document.grid.width);
+      setMapHeight(change.document.grid.height);
+      setTopologyMode(change.document.grid.topologyMode);
+      setDraftMapWidth(change.document.grid.width);
+      setDraftMapHeight(change.document.grid.height);
+      setDraftTopologyMode(change.document.grid.topologyMode);
+    });
+  }, [mapStore]);
+
+  useEffect(() => {
     let active = true;
-    loadDungeonMapPresetLibrary()
-      .then((loadedLibrary) => {
+    loadDungeonMapDocumentLibraryV2()
+      .then((loadedDocuments) => {
         if (!active) return;
-        const library = normalizedPresetLibrary(loadedLibrary);
+        const documents = Object.fromEntries(Object.entries(loadedDocuments).map(([key, document]) => [key, {
+          ...document,
+          identity: { ...document.identity, presetKey: key },
+        }])) as DungeonMapDocumentLibraryV2;
+        const library = normalizedPresetLibrary(Object.fromEntries(Object.entries(documents).map(([key, document]) => [key, {
+          presetKey: key,
+          name: document.identity.name,
+          map: projectDungeonMapDocumentToLegacyMap(document),
+        }])));
+        setMapDocuments(documents);
         setMapPresets(library);
         setSavedPresetFingerprints(Object.fromEntries(
           Object.entries(library).map(([key, preset]) => [key, presetFingerprint(preset)]),
         ));
-        const first = Object.values(library)[0];
+        const first = Object.values(documents)[0];
         if (first) {
-          loadPresetIntoEditor(first);
+          loadDocumentIntoEditor(first);
           setPresetMessage(`已从 config 载入 ${Object.keys(library).length} 个地图预设。`);
         } else {
           setPresetMessage('已连接 Python 服务，config 中暂无地图预设。');
@@ -715,13 +730,15 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const selectMapPreset = (key: string) => {
     const preset = mapPresets[key];
     if (!preset) return;
-    if (activePresetKey && mapPresets[activePresetKey]) {
+    if (activePresetKey && mapPresets[activePresetKey] && mapDocument) {
       setMapPresets((current) => ({
         ...current,
         [activePresetKey]: { ...current[activePresetKey], map },
       }));
+      setMapDocuments((current) => ({ ...current, [activePresetKey]: mapDocument }));
     }
-    loadPresetIntoEditor(preset);
+    const document = mapDocuments[key] ?? migrateDungeonMapToDocumentV2(preset).document;
+    loadDocumentIntoEditor(document);
     setPresetError(false);
     setPresetMessage(`已切换到地图预设：${preset.name}`);
   };
@@ -747,7 +764,13 @@ export const DungeonMapCanvasLab: React.FC = () => {
         : {}),
       [key]: preset,
     }));
-    loadPresetIntoEditor(preset);
+    const document = migrateDungeonMapToDocumentV2(preset).document;
+    setMapDocuments((current) => ({
+      ...current,
+      ...(activePresetKey && mapDocument ? { [activePresetKey]: mapDocument } : {}),
+      [key]: document,
+    }));
+    loadDocumentIntoEditor(document);
     setNewPresetKey(`${requestedKey}_copy`);
     setPresetError(false);
     setPresetMessage(`已新建地图预设 ${preset.name}；点击“保存全部预设”写入 config。`);
@@ -786,6 +809,18 @@ export const DungeonMapCanvasLab: React.FC = () => {
       presetKey: toKey,
       map,
     };
+    const currentDocument = mapDocument ?? migrateDungeonMapToDocumentV2(sourcePreset).document;
+    const renamedDocument: DungeonMapDocumentV2 = {
+      ...currentDocument,
+      identity: { ...currentDocument.identity, presetKey: toKey, name: sourcePreset.name },
+    };
+    setMapDocuments((current) => {
+      const next = { ...current };
+      delete next[fromKey];
+      next[toKey] = renamedDocument;
+      return next;
+    });
+    installDocumentStore(renamedDocument);
     setMapPresets(nextLibrary);
     setActivePresetKey(toKey);
     setPresetKeyDraft(toKey);
@@ -815,7 +850,22 @@ export const DungeonMapCanvasLab: React.FC = () => {
       [activePresetKey]: { ...sourcePreset, map },
       [key]: copiedPreset,
     }));
-    loadPresetIntoEditor(copiedPreset);
+    const sourceDocument = mapDocument ?? migrateDungeonMapToDocumentV2(sourcePreset).document;
+    const copiedDocument: DungeonMapDocumentV2 = structuredClone({
+      ...sourceDocument,
+      identity: {
+        ...sourceDocument.identity,
+        id: copiedMap.id,
+        presetKey: key,
+        name: copiedPreset.name,
+      },
+    });
+    setMapDocuments((current) => ({
+      ...current,
+      ...(activePresetKey && mapDocument ? { [activePresetKey]: mapDocument } : {}),
+      [key]: copiedDocument,
+    }));
+    loadDocumentIntoEditor(copiedDocument);
     setPresetError(false);
     setPresetMessage(`已复制地图预设为 ${copiedPreset.name}；点击“保存全部预设”写入 config。`);
   };
@@ -826,10 +876,17 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const nextLibrary = { ...mapPresets };
     delete nextLibrary[activePresetKey];
     setMapPresets(nextLibrary);
+    const nextDocuments = { ...mapDocuments };
+    delete nextDocuments[activePresetKey];
+    setMapDocuments(nextDocuments);
     const nextPreset = Object.values(nextLibrary)[0];
     if (nextPreset) {
-      loadPresetIntoEditor(nextPreset);
+      const nextDocument = nextDocuments[nextPreset.presetKey]
+        ?? migrateDungeonMapToDocumentV2(nextPreset).document;
+      loadDocumentIntoEditor(nextDocument);
     } else {
+      setMapStore(undefined);
+      setMapDocument(undefined);
       clearMapEdits();
       setActivePresetKey('');
       setPresetKeyDraft('');
@@ -847,26 +904,39 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const currentLibrary = activePresetKey && mapPresets[activePresetKey]
       ? { ...mapPresets, [activePresetKey]: { ...mapPresets[activePresetKey], map } }
       : mapPresets;
-    const payload = Object.fromEntries(Object.entries(currentLibrary).map(([key, preset]) => [key, {
+    const normalizedLegacyLibrary = Object.fromEntries(Object.entries(currentLibrary).map(([key, preset]) => [key, {
       ...preset,
       presetKey: key,
       name: preset.name.trim() || key,
     }])) as DungeonMapPresetLibrary;
+    const documentPayload = encodeDungeonMapDocumentLibraryV2(Object.fromEntries(
+      Object.entries(normalizedLegacyLibrary).map(([key, preset]) => {
+        const source = key === activePresetKey && mapDocument
+          ? mapDocument
+          : mapDocuments[key] ?? migrateDungeonMapToDocumentV2(preset).document;
+        return [key, {
+          ...source,
+          identity: { ...source.identity, presetKey: key, name: preset.name },
+        }];
+      }),
+    ));
     setPresetSaving(true);
     try {
       const response = await requestDevServer('/api/dungeon-map-presets', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(encodeDungeonMapPresetLibrary(payload)),
+        body: JSON.stringify(documentPayload),
       });
       const result = await response.json() as { success?: boolean; message?: string; errors?: string[] };
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
-      setMapPresets(payload);
+      setMapDocuments(documentPayload);
+      setMapPresets(normalizedLegacyLibrary);
       setSavedPresetFingerprints(Object.fromEntries(
-        Object.entries(payload).map(([key, preset]) => [key, presetFingerprint(preset)]),
+        Object.entries(normalizedLegacyLibrary).map(([key, preset]) => [key, presetFingerprint(preset)]),
       ));
+      mapStore?.markSaved();
       setPresetError(false);
-      setPresetMessage(`已保存 ${Object.keys(payload).length} 个独立地图文件到 config/dungeonMapPresets/。`);
+      setPresetMessage(`已保存 ${Object.keys(documentPayload).length} 个 V2 地图文档到 config/dungeonMapPresets/。`);
     } catch (error) {
       setPresetError(true);
       setPresetMessage(`地图预设保存失败：${error instanceof Error ? error.message : String(error)}`);
@@ -877,7 +947,36 @@ export const DungeonMapCanvasLab: React.FC = () => {
 
   const activePreset = activePresetKey ? mapPresets[activePresetKey] : undefined;
   const hasUnsavedCurrentPreset = !!activePreset && savedPresetFingerprints[activePresetKey]
-    !== presetFingerprint({ ...activePreset, map });
+    !== presetFingerprint({ ...activePreset, map }) || Boolean(mapStore?.dirty);
+
+  const topologyShellCleanupPreview = useMemo(() => {
+    if (!mapDocument) return { entityCount: 0, componentCount: 0 };
+    const compacted = compactGeneratedDungeonMapShells(mapDocument);
+    const componentCount = (document: DungeonMapDocumentV2) => Object.values(document.components)
+      .reduce((total, table) => total + table.length, 0);
+    return {
+      entityCount: mapDocument.entities.length - compacted.entities.length,
+      componentCount: componentCount(mapDocument) - componentCount(compacted),
+    };
+  }, [mapDocument]);
+
+  const cleanupGeneratedTopologyShells = () => {
+    if (!mapStore || topologyShellCleanupPreview.entityCount === 0) {
+      setPresetError(false);
+      setPresetMessage('当前地图没有可清理的自动生成拓扑占位 Entity。');
+      return;
+    }
+    const removedEntities = topologyShellCleanupPreview.entityCount;
+    const removedComponents = topologyShellCleanupPreview.componentCount;
+    mapStore.execute({
+      label: '清理自动生成的拓扑占位 Entity',
+      apply: compactGeneratedDungeonMapShells,
+    });
+    setSelectedEntityId('');
+    setSelectedComponentId('');
+    setPresetError(false);
+    setPresetMessage(`已清理 ${removedEntities} 个拓扑占位 Entity 和 ${removedComponents} 个关联 Component；可撤销，保存后写入 config。`);
+  };
 
   const reloadCurrentPreset = async () => {
     if (!activePresetKey) return;
@@ -885,13 +984,19 @@ export const DungeonMapCanvasLab: React.FC = () => {
       && !window.confirm('重新加载会丢弃当前地图尚未保存的全部修改，确定继续吗？')) return;
     setPresetReloading(true);
     try {
-      const loaded = await loadDungeonMapPreset(activePresetKey);
+      const loadedDocument = await loadDungeonMapDocumentV2(activePresetKey);
+      const loaded: DungeonMapPreset = {
+        presetKey: loadedDocument.identity.presetKey,
+        name: loadedDocument.identity.name,
+        map: projectDungeonMapDocumentToLegacyMap(loadedDocument),
+      };
+      setMapDocuments((current) => ({ ...current, [activePresetKey]: loadedDocument }));
       setMapPresets((current) => ({ ...current, [activePresetKey]: loaded }));
       setSavedPresetFingerprints((current) => ({
         ...current,
         [activePresetKey]: presetFingerprint(loaded),
       }));
-      loadPresetIntoEditor(loaded);
+      loadDocumentIntoEditor(loadedDocument);
       setPresetError(false);
       setPresetMessage(`已从 config 重新加载地图预设：${loaded.name}`);
     } catch (error) {
@@ -910,7 +1015,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
     ? Math.max(0, Math.min(map.width - 1, structureSelection.x))
     : Math.max(0, Math.min(map.width - 1, structureColumnIndex));
 
-  const describeStructureImpact = (result: DungeonMapStructureEditResult): string => {
+  const describeStructureImpact = (result: DungeonMapDocumentStructureEditResult): string => {
     const { impact } = result;
     const details = [
       impact.removedTiles ? `格子 ${impact.removedTiles} 个` : '',
@@ -925,32 +1030,36 @@ export const DungeonMapCanvasLab: React.FC = () => {
 
   const commitStructureEdit = (
     label: string,
-    createResult: () => DungeonMapStructureEditResult,
-    nextSelection: (nextMap: DungeonMapData) => Readonly<{ x: number; y: number }>,
+    createResult: () => DungeonMapDocumentStructureEditResult,
+    nextSelection: (nextDocument: DungeonMapDocumentV2) => Readonly<{ x: number; y: number }>,
   ) => {
     try {
       const result = createResult();
       const impact = describeStructureImpact(result);
       if (impact && !window.confirm(`${label}会移除或重建以下数据：\n${impact}\n\n确定继续吗？`)) return;
-      const selection = nextSelection(result.map);
+      const selection = nextSelection(result.document);
       clearMapEdits();
-      setPresetBaseMap(result.map);
-      setMapWidth(result.map.width);
-      setMapHeight(result.map.height);
-      setDraftMapWidth(result.map.width);
-      setDraftMapHeight(result.map.height);
+      const nextDocument = result.document;
+      const store = mapStore;
+      if (store) store.execute({ label, apply: () => nextDocument });
+      else installDocumentStore(nextDocument);
+      setMapWidth(nextDocument.grid.width);
+      setMapHeight(nextDocument.grid.height);
+      setDraftMapWidth(nextDocument.grid.width);
+      setDraftMapHeight(nextDocument.grid.height);
       setCanvasSelections([{ mode: 'tile', x: selection.x, y: selection.y }]);
       if (activePresetKey && activePreset) {
+        const projectedMap = projectDungeonMapDocumentToLegacyMap(nextDocument);
         setMapPresets((current) => {
           const preset = current[activePresetKey];
           return preset ? {
             ...current,
-            [activePresetKey]: { ...preset, map: result.map },
+            [activePresetKey]: { ...preset, map: projectedMap },
           } : current;
         });
       }
       setPresetError(false);
-      setPresetMessage(`${label}完成；当前地图为 ${result.map.width} × ${result.map.height}，点击“保存全部地图预设”写入 config。`);
+      setPresetMessage(`${label}完成；当前地图为 ${nextDocument.grid.width} × ${nextDocument.grid.height}，点击“保存全部地图预设”写入 config。`);
     } catch (error) {
       setPresetError(true);
       setPresetMessage(`${label}失败：${error instanceof Error ? error.message : String(error)}`);
@@ -961,12 +1070,12 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const structureSelectionY = Math.max(0, Math.min(map.height - 1, structureSelection?.y ?? targetRow));
   const runStructureEdit = (
     label: string,
-    createResult: () => DungeonMapStructureEditResult,
-    nextX: (nextMap: DungeonMapData) => number,
-    nextY: (nextMap: DungeonMapData) => number,
-  ) => commitStructureEdit(label, createResult, (nextMap) => ({
-    x: Math.max(0, Math.min(nextMap.width - 1, nextX(nextMap))),
-    y: Math.max(0, Math.min(nextMap.height - 1, nextY(nextMap))),
+    createResult: () => DungeonMapDocumentStructureEditResult,
+    nextX: (nextDocument: DungeonMapDocumentV2) => number,
+    nextY: (nextDocument: DungeonMapDocumentV2) => number,
+  ) => commitStructureEdit(label, createResult, (nextDocument) => ({
+    x: Math.max(0, Math.min(nextDocument.grid.width - 1, nextX(nextDocument))),
+    y: Math.max(0, Math.min(nextDocument.grid.height - 1, nextY(nextDocument))),
   }));
 
   const validationIssues = useMemo(() => [
@@ -979,44 +1088,33 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const sharedPointById = useMemo(() => new Map(
     (map.sharedPoints ?? []).map((point) => [point.id, point]),
   ), [map.sharedPoints]);
-  const canvasSelectedTile = canvasSelection
-    ? map.tiles[canvasSelection.y * map.width + canvasSelection.x]
+  const documentQuery = useMemo(
+    () => mapDocument ? new DungeonMapDocumentQuery(mapDocument) : undefined,
+    [mapDocument],
+  );
+  const resolveDocumentSpatialTarget = useCallback((
+    selection: DungeonMapSelection,
+  ): DungeonMapSpatialTarget | undefined => {
+    if (!documentQuery) return undefined;
+    if (selection.mode === 'map') return { kind: 'map' };
+    if (selection.mode === 'shared') return selection.sharedEdgeId
+      && documentQuery.indexes.edgeById.has(selection.sharedEdgeId)
+      ? { kind: 'edge', edgeId: selection.sharedEdgeId }
+      : undefined;
+    if (selection.mode === 'point') return selection.sharedPointId
+      && documentQuery.indexes.pointById.has(selection.sharedPointId)
+      ? { kind: 'point', pointId: selection.sharedPointId }
+      : undefined;
+    const tileId = documentQuery.getTileIdAt(selection.x, selection.y);
+    if (!tileId) return undefined;
+    if (selection.mode === 'tile') return { kind: 'tile', tileId };
+    const side = documentQuery.getSide(tileId, selection.direction ?? selectedDirection);
+    return side ? { kind: 'side', sideId: side.id } : undefined;
+  }, [documentQuery, selectedDirection]);
+  const selectedSpatialTarget = canvasSelection
+    ? resolveDocumentSpatialTarget(canvasSelection)
     : undefined;
-  const canvasSelectionDirection = canvasSelection?.direction ?? selectedDirection;
-  // 公用边编辑只认 Canvas 精确命中后返回的 ID，禁止按附近格子猜测目标。
-  const canvasSelectedSharedEdge = canvasSelection?.sharedEdgeId
-    ? sharedEdgeById.get(canvasSelection.sharedEdgeId)
-    : undefined;
-  const canvasSelectedSharedPoint = canvasSelection?.sharedPointId
-    ? sharedPointById.get(canvasSelection.sharedPointId)
-    : undefined;
-  const rawSelectedContainerData = canvasSelection ? (
-    canvasSelection.mode === 'map'
-      ? map.data
-      : canvasSelection.mode === 'tile'
-      ? canvasSelectedTile?.data
-      : canvasSelection.mode === 'edge'
-        ? canvasSelectedTile?.edges[canvasSelectionDirection]?.data
-        : canvasSelection.mode === 'shared'
-          ? canvasSelectedSharedEdge?.edge.data
-          : canvasSelectedSharedPoint?.point.data
-  ) as unknown : undefined;
-  const selectionHasTarget = !canvasSelection
-    ? false
-    : canvasSelection.mode === 'map'
-      || canvasSelection.mode === 'shared' && Boolean(canvasSelectedSharedEdge)
-      || canvasSelection.mode === 'point' && Boolean(canvasSelectedSharedPoint)
-      || canvasSelection.mode === 'tile' && Boolean(canvasSelectedTile)
-      || canvasSelection.mode === 'edge' && Boolean(canvasSelectedTile?.edges[canvasSelectionDirection]);
-  const selectionHostId = !canvasSelection
-    ? 'no-selection'
-    : canvasSelection.mode === 'map'
-    ? map.id
-    : canvasSelection.mode === 'shared'
-    ? canvasSelectedSharedEdge?.id ?? 'missing-shared-edge'
-    : canvasSelection.mode === 'point'
-      ? canvasSelectedSharedPoint?.id ?? 'missing-shared-point'
-      : `${canvasSelection.mode}:${canvasSelection.x},${canvasSelection.y}:${canvasSelectionDirection}`;
+  const selectionHasTarget = selectedSpatialTarget !== undefined;
   const selectedContainerKind: EntityContainerKind = !canvasSelection
     ? 'tile'
     : canvasSelection.mode === 'map'
@@ -1028,38 +1126,16 @@ export const DungeonMapCanvasLab: React.FC = () => {
         : canvasSelection.mode === 'shared'
           ? 'shared-edge'
           : 'shared-point';
-  const selectedContainerData = selectionHasTarget
-    ? normalizeEntityContainer(rawSelectedContainerData, `${selectionHostId}:entity`, '地图实体', selectedContainerKind)
+  const selectedContainerData = selectedSpatialTarget && documentQuery
+    ? documentQuery.getContainerAt(selectedSpatialTarget)
     : undefined;
   const resolveSelectionTarget = useCallback((selection: DungeonMapSelection): ResolvedMapContainerTarget | undefined => {
+    const spatialTarget = resolveDocumentSpatialTarget(selection);
+    if (!spatialTarget || !documentQuery) return undefined;
     const tile = map.tiles[selection.y * map.width + selection.x];
     const direction = selection.direction ?? selectedDirection;
     const sharedEdge = selection.sharedEdgeId ? sharedEdgeById.get(selection.sharedEdgeId) : undefined;
     const sharedPoint = selection.sharedPointId ? sharedPointById.get(selection.sharedPointId) : undefined;
-    const hasTarget = selection.mode === 'map'
-      || selection.mode === 'shared' && Boolean(sharedEdge)
-      || selection.mode === 'point' && Boolean(sharedPoint)
-      || selection.mode === 'tile' && Boolean(tile)
-      || selection.mode === 'edge' && Boolean(tile?.edges[direction]);
-    if (!hasTarget) return undefined;
-    const rawData = selection.mode === 'map'
-      ? map.data
-      : selection.mode === 'tile'
-        ? tile?.data
-        : selection.mode === 'edge'
-          ? tile?.edges[direction]?.data
-          : selection.mode === 'shared'
-            ? sharedEdge?.edge.data
-            : sharedPoint?.point.data;
-    const hostId = selection.mode === 'map'
-      ? map.id
-      : selection.mode === 'shared'
-        ? sharedEdge?.id ?? 'missing-shared-edge'
-        : selection.mode === 'point'
-          ? sharedPoint?.id ?? 'missing-shared-point'
-          : selection.mode === 'tile'
-            ? `tile:${selection.x},${selection.y}`
-            : `tile-edge:${selection.x},${selection.y}:${direction}`;
     const kind: EntityContainerKind = selection.mode === 'map'
       ? 'map'
       : selection.mode === 'tile'
@@ -1067,24 +1143,25 @@ export const DungeonMapCanvasLab: React.FC = () => {
         : selection.mode === 'edge'
           ? 'tile-edge'
           : selection.mode === 'shared'
-            ? 'shared-edge'
-            : 'shared-point';
+          ? 'shared-edge'
+          : 'shared-point';
     const coordinates = selection.mode === 'map'
       ? map.coordinates
       : selection.mode === 'tile'
-        ? tile!.coordinates
+        ? tile?.coordinates
         : selection.mode === 'edge'
-          ? tile!.edges[direction].coordinates
+          ? tile?.edges[direction].coordinates
           : selection.mode === 'shared'
-            ? sharedEdge!.edge.coordinates
-            : sharedPoint!.point.coordinates;
+            ? sharedEdge?.edge.coordinates
+            : sharedPoint?.point.coordinates;
+    if (!coordinates) return undefined;
     return {
-      id: hostId,
+      id: dungeonMapSpatialTargetKey(spatialTarget),
       kind,
       coordinates,
-      container: normalizeEntityContainer(rawData, `${hostId}:entity`, '地图实体', kind),
+      container: documentQuery.getContainerAt(spatialTarget),
     };
-  }, [map, selectedDirection, sharedEdgeById, sharedPointById]);
+  }, [documentQuery, map, resolveDocumentSpatialTarget, selectedDirection, sharedEdgeById, sharedPointById]);
   const { uniqueBatchSelections, batchContainerTargets } = useMemo(() => {
     const unique = new Map<string, { selection: DungeonMapSelection; target: ResolvedMapContainerTarget }>();
     canvasSelections.forEach((selection) => {
@@ -1194,91 +1271,16 @@ export const DungeonMapCanvasLab: React.FC = () => {
     });
   };
 
-  /** 底层快照写入；只供 MutationPlan 提交、撤销和重做使用。 */
-  const writeSelectionData = (
-    selection: DungeonMapSelection,
-    updater: (data: IEntityContainer) => IEntityContainer,
-  ) => {
-    const target = resolveSelectionTarget(selection);
-    if (!target) return;
-    const tile = map.tiles[selection.y * map.width + selection.x];
-    const direction = selection.direction ?? selectedDirection;
-    const sharedEdge = map.sharedEdges?.find((edge) => edge.id === selection.sharedEdgeId);
-    const sharedPoint = map.sharedPoints?.find((point) => point.id === selection.sharedPointId);
-    if (selection.mode === 'map') {
-      setMapDataEdits(updater(normalizeEntityContainer(map.data, `${map.id}:entity`, '地图实体', 'map')));
-      return;
-    }
-    if (selection.mode === 'point') {
-      if (!sharedPoint) return;
-      const next = {
-        ...sharedPoint,
-        point: {
-          ...sharedPoint.point,
-          data: updater(normalizeEntityContainer(sharedPoint.point.data, `${sharedPoint.id}:entity`, '公用点实体', 'shared-point')),
-        },
-      };
-      setSharedPointEdits((edits) => ({ ...edits, [next.id]: next }));
-      return;
-    }
-    if (selection.mode === 'shared') {
-      if (!sharedEdge) return;
-      const next = {
-        ...sharedEdge,
-        edge: {
-          ...sharedEdge.edge,
-          data: updater(normalizeEntityContainer(sharedEdge.edge.data, `${sharedEdge.id}:entity`, '公用边实体', 'shared-edge')),
-        },
-      };
-      setSharedEdgeEdits((edits) => ({ ...edits, [next.id]: next }));
-      return;
-    }
-
-    if (selection.mode === 'tile') {
-      const key = `${selection.x},${selection.y}`;
-      setTileDataEdits((edits) => ({
-        ...edits,
-        [key]: updater(normalizeEntityContainer(tile?.data, `tile:${key}:entity`, `格子 ${key}`, 'tile')),
-      }));
-      return;
-    }
-    const key = `${selection.x},${selection.y},${direction}`;
-    setTileEdgeDataEdits((edits) => ({
-      ...edits,
-      [key]: updater(normalizeEntityContainer(tile?.edges[direction]?.data, `tile-edge:${key}:entity`, `单格边 ${key}`, 'tile-edge')),
-    }));
-  };
-
-  const commitSelectionMutation = (
-    selection: DungeonMapSelection,
-    label: string,
-    operation: string,
-    updater: (data: IEntityContainer) => IEntityContainer,
-  ) => {
-    const target = resolveSelectionTarget(selection);
-    if (!target || pendingMutationPlan) return;
-    const plan = createMutationPlan(label, operation, [target], (current) => updater(current.container));
-    if (plan.blockedReasons.length > 0 || plan.changes.length === 0) return;
-    const entry: LabMutationPlan = { plan, selections: { [target.id]: selection } };
-    writeSelectionData(selection, () => plan.changes[0].after);
-    setMutationHistoryPast((history) => [...history, entry]);
-    setMutationHistoryFuture([]);
-  };
-
-  const updateCanvasSelectionData = (
-    label: string,
-    operation: string,
-    updater: (data: IEntityContainer) => IEntityContainer,
-  ) => {
-    if (!canvasSelection) return;
-    commitSelectionMutation(canvasSelection, label, operation, updater);
-  };
-
   const updateEntityById = (entityId: string, label: string, updater: (entity: IEntity) => IEntity) => {
-    updateCanvasSelectionData(label, 'entity-edit', (container) => ({
-      ...container,
-      entities: container.entities.map((entity) => entity.id === entityId ? updater(entity) : entity),
-    }));
+    const current = documentQuery?.getEntitySnapshot(entityId);
+    if (!current || !mapStore || pendingMutationPlan) return;
+    const next = updater(current);
+    mapStore.updateEntity(entityId, {
+      entityType: next.entityType,
+      name: next.name,
+      archetypeId: next.archetypeId,
+      enabled: next.enabled,
+    }, label);
   };
 
   const addEntityToSelection = () => {
@@ -1286,17 +1288,16 @@ export const DungeonMapCanvasLab: React.FC = () => {
     if (!definition || !ENTITY_TYPE_REGISTRY.canCreateIn(definition.type, selectedContainerKind)) return;
     if (definition.allowMultiplePerContainer === false
       && selectedContainerData?.entities.some((entity) => entity.entityType === definition.type)) return;
+    if (!selectedSpatialTarget || !mapStore || pendingMutationPlan) return;
     const entity = createEntityFromDefinition(definition);
-    updateCanvasSelectionData(`添加 Entity：${definition.label}`, 'entity-create', (container) => ({ ...container, entities: [...container.entities, entity] }));
+    mapStore.addEntityAt(selectedSpatialTarget, entity, `添加 Entity：${definition.label}`);
     setSelectedEntityId(entity.id);
     setSelectedComponentId('');
   };
 
   const removeEntityById = (entityId: string) => {
-    updateCanvasSelectionData('删除 Entity', 'entity-delete', (container) => ({
-      ...container,
-      entities: container.entities.filter((entity) => entity.id !== entityId),
-    }));
+    if (!selectedSpatialTarget || !mapStore || pendingMutationPlan) return;
+    mapStore.removeEntityAt(selectedSpatialTarget, entityId, '删除 Entity');
     setSelectedEntityId('');
     setSelectedComponentId('');
   };
@@ -1308,17 +1309,19 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const definition = COMPONENT_REGISTRY.get(requestedType);
     if (!definition || !COMPONENT_REGISTRY.canAttachTo(definition.type, entity.entityType)) return;
     if (!definition.allowMultiple && entity.components.some((component) => component.type === definition.type)) return;
+    if (!mapStore || pendingMutationPlan) return;
     const component = definition.createDefault();
-    updateEntityById(entityId, `添加 Component：${definition.label}`, (current) => ({ ...current, components: [...current.components, component] }));
+    mapStore.addComponent({ ...component, entityId }, `添加 Component：${definition.label}`);
     setSelectedEntityId(entityId);
     setSelectedComponentId(component.id);
   };
 
   const updateComponentById = (entityId: string, componentId: string, label: string, updater: (component: IComponent) => IComponent) => {
-    updateEntityById(entityId, label, (entity) => ({
-      ...entity,
-      components: entity.components.map((component) => component.id === componentId ? updater(component) : component),
-    }));
+    const entity = documentQuery?.getEntitySnapshot(entityId);
+    const current = entity?.components.find(({ id }) => id === componentId);
+    if (!current || !mapStore || pendingMutationPlan) return;
+    const next = updater(current);
+    mapStore.replaceComponent(componentId, next, label);
   };
 
   const removeComponentById = (entityId: string, componentId: string) => {
@@ -1326,15 +1329,15 @@ export const DungeonMapCanvasLab: React.FC = () => {
     const component = entity?.components.find((item) => item.id === componentId);
     const requiredComponents = entity ? ENTITY_TYPE_REGISTRY.get(entity.entityType)?.requiredComponents ?? [] : [];
     if (component && requiredComponents.includes(component.type)) return;
-    updateEntityById(entityId, `删除 Component：${component?.type ?? componentId}`, (entity) => ({
-      ...entity,
-      components: entity.components.filter((component) => component.id !== componentId),
-    }));
+    if (!mapStore || pendingMutationPlan) return;
+    mapStore.removeComponent(componentId, `删除 Component：${component?.type ?? componentId}`);
     setSelectedComponentId('');
   };
 
   const reset = () => {
-    clearMapEdits();
+    const document = mapDocuments[activePresetKey];
+    if (document) loadDocumentIntoEditor(document);
+    else clearMapEdits();
   };
 
   const handleCanvasSelectionsChange = useCallback((next: DungeonMapSelection[]) => {
@@ -1443,13 +1446,26 @@ export const DungeonMapCanvasLab: React.FC = () => {
     operation: string,
     updater: (target: BatchContainerTarget) => IEntityContainer,
   ) => {
-    if (pendingMutationPlan) return;
+    if (pendingMutationPlan || !mapStore) return;
     const plan = createMutationPlan(label, operation, batchContainerTargets, updater);
+    const spatialTargetById = new Map(uniqueBatchSelections.flatMap(({ selection, target }) => {
+      const spatialTarget = resolveDocumentSpatialTarget(selection);
+      return spatialTarget ? [[target.id, spatialTarget] as const] : [];
+    }));
+    const nativePlan = createDungeonMapDocumentMutationPlan(
+      mapStore.getDocument(),
+      label,
+      plan.changes.flatMap((change) => {
+        const target = spatialTargetById.get(change.targetId);
+        return target ? [{ target, before: change.before, after: change.after }] : [];
+      }),
+    );
     setPendingMutationPlan({
-      plan,
-      selections: Object.fromEntries(uniqueBatchSelections.map(
-        ({ selection, target }) => [target.id, selection],
-      )),
+      plan: {
+        ...plan,
+        blockedReasons: [...plan.blockedReasons, ...nativePlan.blockedReasons],
+      },
+      nativePlan,
     });
   };
 
@@ -1474,37 +1490,27 @@ export const DungeonMapCanvasLab: React.FC = () => {
     });
   };
 
-  const applyLabMutationPlan = (entry: LabMutationPlan, direction: 'forward' | 'backward') => {
-    entry.plan.changes.forEach((change) => {
-      const selection = entry.selections[change.targetId];
-      if (!selection) return;
-      const snapshot = direction === 'forward' ? change.after : change.before;
-      writeSelectionData(selection, () => snapshot);
-    });
-  };
-
   const confirmMutationPlan = () => {
     if (!pendingMutationPlan || pendingMutationPlan.plan.blockedReasons.length > 0 || pendingMutationPlan.plan.changes.length === 0) return;
-    applyLabMutationPlan(pendingMutationPlan, 'forward');
-    setMutationHistoryPast((history) => [...history, pendingMutationPlan]);
-    setMutationHistoryFuture([]);
-    setPendingMutationPlan(undefined);
+    const store = mapStore;
+    if (!store) return;
+    try {
+      executeDungeonMapDocumentMutationPlan(store, pendingMutationPlan.nativePlan);
+      setPendingMutationPlan(undefined);
+    } catch (error) {
+      setPresetError(true);
+      setPresetMessage(`批量修改失败：${error instanceof Error ? error.message : String(error)}`);
+    }
   };
 
   const undoMutationPlan = () => {
-    const entry = mutationHistoryPast.at(-1);
-    if (!entry || pendingMutationPlan) return;
-    applyLabMutationPlan(entry, 'backward');
-    setMutationHistoryPast((history) => history.slice(0, -1));
-    setMutationHistoryFuture((history) => [entry, ...history]);
+    if (pendingMutationPlan) return;
+    mapStore?.undo();
   };
 
   const redoMutationPlan = () => {
-    const entry = mutationHistoryFuture[0];
-    if (!entry || pendingMutationPlan) return;
-    applyLabMutationPlan(entry, 'forward');
-    setMutationHistoryFuture((history) => history.slice(1));
-    setMutationHistoryPast((history) => [...history, entry]);
+    if (pendingMutationPlan) return;
+    mapStore?.redo();
   };
 
   const batchCreateEntity = () => {
@@ -1704,6 +1710,8 @@ export const DungeonMapCanvasLab: React.FC = () => {
             <button type="button" className="reload-preset-button" disabled={!activePresetKey || presetReloading} onClick={() => void reloadCurrentPreset()}>{presetReloading ? '正在重新加载…' : '重新加载当前预设'}</button>
             <button type="button" className="save-preset-button" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '正在保存…' : '保存全部地图预设'}</button>
           </div>
+          <button type="button" disabled={!mapDocument || topologyShellCleanupPreview.entityCount === 0} onClick={cleanupGeneratedTopologyShells}>清理自动生成的拓扑占位 Entity</button>
+          <small>{topologyShellCleanupPreview.entityCount > 0 ? `当前可安全清理 ${topologyShellCleanupPreview.entityCount} 个 Entity / ${topologyShellCleanupPreview.componentCount} 个 Component；操作可撤销。` : '当前地图没有检测到自动生成的拓扑占位 Entity。'}</small>
           {activePreset ? <div className={`preset-dirty-state${hasUnsavedCurrentPreset ? ' is-dirty' : ''}`}>{hasUnsavedCurrentPreset ? '当前预设存在尚未保存到 config 的修改' : '当前预设与最近加载 / 保存的版本一致'}</div> : null}
           <div className={`preset-status${presetError ? ' is-error' : ''}`}>{presetMessage}</div>
           </div> : null}
@@ -1723,17 +1731,17 @@ export const DungeonMapCanvasLab: React.FC = () => {
             <div className="map-structure-group">
               <span>行操作</span>
               <div className="map-structure-actions">
-                <button type="button" onClick={() => runStructureEdit('在上方插入一行', () => insertDungeonMapRow(map, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY + 1)}>上方插入一行</button>
-                <button type="button" onClick={() => runStructureEdit('在下方插入一行', () => insertDungeonMapRow(map, targetRow + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>下方插入一行</button>
-                <button type="button" className="danger-button" disabled={map.height <= 1} onClick={() => runStructureEdit('删除当前行', () => deleteDungeonMapRow(map, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, (nextMap) => Math.min(targetRow, nextMap.height - 1))}>删除当前行</button>
+                <button type="button" disabled={!mapDocument} onClick={() => runStructureEdit('在上方插入一行', () => insertDungeonMapDocumentRow(mapDocument!, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY + 1)}>上方插入一行</button>
+                <button type="button" disabled={!mapDocument} onClick={() => runStructureEdit('在下方插入一行', () => insertDungeonMapDocumentRow(mapDocument!, targetRow + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>下方插入一行</button>
+                <button type="button" className="danger-button" disabled={!mapDocument || map.height <= 1} onClick={() => runStructureEdit('删除当前行', () => deleteDungeonMapDocumentRow(mapDocument!, targetRow, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, (nextDocument) => Math.min(targetRow, nextDocument.grid.height - 1))}>删除当前行</button>
               </div>
             </div>
             <div className="map-structure-group">
               <span>列操作</span>
               <div className="map-structure-actions">
-                <button type="button" onClick={() => runStructureEdit('在左侧插入一列', () => insertDungeonMapColumn(map, targetColumn, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX + 1, () => structureSelectionY)}>左侧插入一列</button>
-                <button type="button" onClick={() => runStructureEdit('在右侧插入一列', () => insertDungeonMapColumn(map, targetColumn + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>右侧插入一列</button>
-                <button type="button" className="danger-button" disabled={map.width <= 1} onClick={() => runStructureEdit('删除当前列', () => deleteDungeonMapColumn(map, targetColumn, STRUCTURE_EDIT_DEFAULTS), (nextMap) => Math.min(targetColumn, nextMap.width - 1), () => structureSelectionY)}>删除当前列</button>
+                <button type="button" disabled={!mapDocument} onClick={() => runStructureEdit('在左侧插入一列', () => insertDungeonMapDocumentColumn(mapDocument!, targetColumn, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX + 1, () => structureSelectionY)}>左侧插入一列</button>
+                <button type="button" disabled={!mapDocument} onClick={() => runStructureEdit('在右侧插入一列', () => insertDungeonMapDocumentColumn(mapDocument!, targetColumn + 1, STRUCTURE_EDIT_DEFAULTS), () => structureSelectionX, () => structureSelectionY)}>右侧插入一列</button>
+                <button type="button" className="danger-button" disabled={!mapDocument || map.width <= 1} onClick={() => runStructureEdit('删除当前列', () => deleteDungeonMapDocumentColumn(mapDocument!, targetColumn, STRUCTURE_EDIT_DEFAULTS), (nextDocument) => Math.min(targetColumn, nextDocument.grid.width - 1), () => structureSelectionY)}>删除当前列</button>
               </div>
             </div>
             <div className="map-structure-note">删除含玩家 Spawn 的行或列会被阻止；删除入口、出口、阻碍或 Marker 前会先列出影响并请求确认。</div>
@@ -1951,8 +1959,8 @@ export const DungeonMapCanvasLab: React.FC = () => {
               </div>
             </div>
             <div className="editor-command-bar__actions">
-              <button type="button" title="撤销最近一次数据修改" disabled={mutationHistoryPast.length === 0 || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>↶</button>
-              <button type="button" title="重做最近一次数据修改" disabled={mutationHistoryFuture.length === 0 || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>↷</button>
+              <button type="button" title="撤销最近一次数据修改" disabled={!mapStore?.canUndo || Boolean(pendingMutationPlan)} onClick={undoMutationPlan}>↶</button>
+              <button type="button" title="重做最近一次数据修改" disabled={!mapStore?.canRedo || Boolean(pendingMutationPlan)} onClick={redoMutationPlan}>↷</button>
               <span className={`validation-command${validationIssues.length ? ' has-errors' : ''}`} title={validationIssues[0]?.message ?? '地图校验通过'}>{validationIssues.length ? `${validationIssues.length} 项问题` : '✓ 校验通过'}</span>
               <button type="button" className="save-command" disabled={presetSaving} onClick={() => void saveMapPresets()}>{presetSaving ? '保存中…' : '保存'}</button>
               <div className="map-zoom"><button type="button" aria-label="缩小地图" onClick={() => setMapScale((scale) => Math.max(0.5, scale - 0.1))}>−</button><button type="button" className="map-zoom__value" onClick={() => setMapScale(1)} title="恢复为适配窗口">{Math.round(mapScale * 100)}%</button><button type="button" aria-label="放大地图" onClick={() => setMapScale((scale) => Math.min(2.5, scale + 0.1))}>＋</button></div>
@@ -1961,7 +1969,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
           </div>
           <div className="map-scroll" ref={mapViewportRef}>
             <DungeonMapCanvas
-              map={map}
+              {...(mapDocument ? { document: mapDocument } : { map })}
               cellSize={cellSize}
               displayScale={fittedMapScale * mapScale}
               outerPadding={canvasOuterPadding}

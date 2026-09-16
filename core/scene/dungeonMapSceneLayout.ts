@@ -1,7 +1,4 @@
-import {
-  SCENE_ENVIRONMENT_MAP_ANCHOR_MODES,
-  type ISceneEnvironmentComponent,
-} from '../entity';
+import type { ISceneEnvironmentComponent } from '../entity/components/scene-environment.component.ts';
 
 export type DungeonMapTileWorldLayout = {
   center: readonly [number, number, number];
@@ -20,7 +17,7 @@ export const resolveDungeonMapTileWorldLayout = (
   tileX: number,
   tileY: number,
 ): DungeonMapTileWorldLayout => {
-  const centered = component.mapAnchorMode === SCENE_ENVIRONMENT_MAP_ANCHOR_MODES.MAP_CENTER;
+  const centered = component.mapAnchorMode === 'map-center';
   const anchorTileX = centered ? (mapWidth - 1) / 2 : 0;
   const anchorTileY = centered ? (mapHeight - 1) / 2 : 0;
   return {

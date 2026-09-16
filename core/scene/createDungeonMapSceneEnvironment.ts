@@ -1,7 +1,9 @@
 import type { Scene } from '@babylonjs/core';
 import { getComponents, isEntityContainer, type IEntity, type ISceneEnvironmentComponent } from '../entity';
 import type { DungeonMapData } from '../map';
+import type { DungeonMapDocumentV2 } from '../map-document/index.ts';
 import { createSceneEnvironment, createSceneEnvironmentAsync, type CreateSceneEnvironmentOptions } from './createSceneEnvironment';
+import { resolveDungeonDocumentSceneEnvironment } from './dungeonDocumentSceneEnvironment.ts';
 import type {
   SceneEnvironmentInstance,
   SceneEnvironmentPreset,
@@ -82,6 +84,39 @@ export const createDungeonMapSceneEnvironmentAsync = async (
   return {
     ...instance,
     mapId: map.id,
+    mapEntityId: binding.mapEntity.id,
+    componentId: binding.component.id,
+  };
+};
+
+/** 从 V2 文档的 map 空间挂载解析场景，不创建旧地图投影。 */
+export const createDungeonDocumentSceneEnvironment = (
+  scene: Scene,
+  document: DungeonMapDocumentV2,
+  presets: SceneEnvironmentPresetLibrary,
+  options: CreateSceneEnvironmentOptions,
+): DungeonMapSceneEnvironmentInstance => {
+  const binding = resolveDungeonDocumentSceneEnvironment(document, presets);
+  const instance = createSceneEnvironment(scene, binding.preset, options);
+  return {
+    ...instance,
+    mapId: document.identity.id,
+    mapEntityId: binding.mapEntity.id,
+    componentId: binding.component.id,
+  };
+};
+
+export const createDungeonDocumentSceneEnvironmentAsync = async (
+  scene: Scene,
+  document: DungeonMapDocumentV2,
+  presets: SceneEnvironmentPresetLibrary,
+  options: CreateSceneEnvironmentOptions,
+): Promise<DungeonMapSceneEnvironmentInstance> => {
+  const binding = resolveDungeonDocumentSceneEnvironment(document, presets);
+  const instance = await createSceneEnvironmentAsync(scene, binding.preset, options);
+  return {
+    ...instance,
+    mapId: document.identity.id,
     mapEntityId: binding.mapEntity.id,
     componentId: binding.component.id,
   };

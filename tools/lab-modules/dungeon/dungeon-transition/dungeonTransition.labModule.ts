@@ -8,12 +8,12 @@ import {
 } from '@babylonjs/core';
 import {
   createDungeonTransitionController,
-  findDungeonEntrance,
-  findDungeonExitAfterMovement,
-  findDungeonExitForInteraction,
-  findDungeonExitForMoveAttempt,
-  scanDungeonEntrances,
-  scanDungeonExits,
+  findDungeonDocumentEntrance,
+  findDungeonDocumentExitAfterMovement,
+  findDungeonDocumentExitForInteraction,
+  findDungeonDocumentExitForMoveAttempt,
+  scanDungeonDocumentEntrances,
+  scanDungeonDocumentExits,
   type DungeonExitBinding,
 } from '@/core/dungeon-transition';
 import { resolveDungeonExitTriggers, type DungeonExitTrigger } from '@/core/entity';
@@ -138,8 +138,10 @@ export const dungeonTransitionLabModule: LabModule = {
       };
       debugRoot = new TransformNode(`dungeon_transition_debug_${loaded.loadId}`, context.scene);
       const targets: DungeonTransitionDebugBinding[] = [
-        ...scanDungeonEntrances(loaded.map).map((binding) => ({ kind: 'entrance' as const, binding })),
-        ...scanDungeonExits(loaded.map).map((binding) => ({ kind: 'exit' as const, binding })),
+        ...scanDungeonDocumentEntrances(loaded.runtime.map.document)
+          .map((binding) => ({ kind: 'entrance' as const, binding })),
+        ...scanDungeonDocumentExits(loaded.runtime.map.document)
+          .map((binding) => ({ kind: 'exit' as const, binding })),
       ];
       targets.forEach((target) => {
         const locationKind: DebugLocationKind = target.kind === 'entrance'
@@ -222,10 +224,11 @@ export const dungeonTransitionLabModule: LabModule = {
         presetKey: loaded.presetKey,
         playerPosition: loaded.runtime.playerPosition,
         playerFacing: loaded.runtime.playerFacing,
-        entrances: scanDungeonEntrances(loaded.map).map(({ entity, component, tileX, tileY }) => ({
+        entrances: scanDungeonDocumentEntrances(loaded.runtime.map.document)
+          .map(({ entity, component, tileX, tileY }) => ({
           entityId: entity.id, entranceId: component.entranceId, tileX, tileY, facing: component.facing,
         })),
-        exits: scanDungeonExits(loaded.map).map(({ entity, component, location }) => ({
+        exits: scanDungeonDocumentExits(loaded.runtime.map.document).map(({ entity, component, location }) => ({
           entityId: entity.id, location: location.kind, triggers: resolveDungeonExitTriggers(component),
           triggerLabel: triggerLabel(resolveDungeonExitTriggers(component)),
           targetMapPresetKey: component.targetMapPresetKey,
@@ -255,7 +258,7 @@ export const dungeonTransitionLabModule: LabModule = {
         const target = libraries.require().maps[exit.component.targetMapPresetKey];
         if (!target) throw new Error(`目标地图预设“${exit.component.targetMapPresetKey}”不存在。`);
         // 在切换并释放来源场景前完成目标入口预校验。
-        findDungeonEntrance(target.map, exit.component.targetEntranceId);
+        findDungeonDocumentEntrance(target, exit.component.targetEntranceId);
         inputLock = context.keyboard.acquireLock({ ownerId: 'dungeon-transition', label: '地牢地图传送' });
         status.textContent = `正在切换到 ${payload.targetPresetKey} / ${payload.targetEntranceId}……`;
         refreshDebug();
@@ -281,7 +284,9 @@ export const dungeonTransitionLabModule: LabModule = {
     const findInteractionExit = (): DungeonExitBinding | null => {
       const loaded = references.current;
       if (!loaded || !enabledToggle.input.checked || !interactToggle.input.checked) return null;
-      return findDungeonExitForInteraction(loaded.map, loaded.runtime.playerPosition, loaded.runtime.playerFacing);
+      return findDungeonDocumentExitForInteraction(
+        loaded.runtime.map, loaded.runtime.playerPosition, loaded.runtime.playerFacing,
+      );
     };
 
     const tryInteraction = (): boolean => {
@@ -304,7 +309,7 @@ export const dungeonTransitionLabModule: LabModule = {
       const loaded = references.current;
       if (!loaded) return false;
       try {
-        const exit = findDungeonExitForMoveAttempt(loaded.map, attempt.from, attempt.direction);
+        const exit = findDungeonDocumentExitForMoveAttempt(loaded.runtime.map, attempt.from, attempt.direction);
         if (!exit) return false;
         status.textContent = `尝试向 ${attempt.direction} 移动，命中 PUSH 出口。`;
         void executeTransition(exit);
@@ -348,7 +353,7 @@ export const dungeonTransitionLabModule: LabModule = {
       if (changed.reason !== 'player-movement-completed'
         && changed.reason !== 'player-relative-movement-completed') return;
       try {
-        const exit = findDungeonExitAfterMovement(loaded.map, previousPosition, nextPosition);
+        const exit = findDungeonDocumentExitAfterMovement(loaded.runtime.map, previousPosition, nextPosition);
         if (exit) void executeTransition(exit);
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : String(error);

@@ -1,10 +1,9 @@
-import { scanDungeonObstacles } from '@/core/dungeon-obstacle';
 import {
   applyDungeonEntranceToRuntime,
-  findDungeonEntrance,
-  validateDungeonTransitionMap,
+  findDungeonDocumentEntrance,
+  validateDungeonTransitionDocument,
 } from '@/core/dungeon-transition';
-import { resolveDungeonPlayerSpawn } from '@/core/dungeon-player-spawn';
+import { resolveDungeonDocumentPlayerSpawn } from '@/core/dungeon-player-spawn';
 import { createDungeonRuntime } from '@/core/dungeon-runtime';
 import {
   applyDungeonRuntimeSaveState,
@@ -13,13 +12,20 @@ import {
 } from '@/core/dungeon-runtime-save';
 import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
 import type { DungeonRuntime } from '@/core/dungeon-runtime';
-import { isDungeonMapDefinitionRefsDelta, type DungeonMapData, type DungeonMapDefinitionRefsDelta } from '@/core/map';
 import {
-  createDungeonMapSceneEnvironmentAsync,
-  resolveDungeonMapSceneEnvironment,
+  isDungeonMapDefinitionRefsDelta,
+} from '@/core/map';
+import {
+  isDungeonMapDocumentDeltaV1,
+  type DungeonMapDocumentV2,
+} from '@/core/map-document';
+import {
+  createDungeonDocumentSceneEnvironmentAsync,
+  resolveDungeonDocumentSceneEnvironment,
   resolveDungeonMapTileWorldLayout,
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
+import { createDungeonMapCanvasView } from '@/core/ui';
 import {
   createLabField,
   createLabJson,
@@ -46,9 +52,13 @@ import {
   createDungeonMapLoaderReferences,
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
 } from './dungeonMapLoader.references';
-import { createDungeonMapDeltaStore, type DungeonMapDeltaStore } from './dungeonMapLoader.deltaStore';
+import {
+  createDungeonMapDeltaStore,
+  type DungeonMapDeltaStore,
+  type DungeonMapSavedDelta,
+} from './dungeonMapLoader.deltaStore';
 
-type SavedDungeonMapDeltas = Readonly<Record<string, DungeonMapDefinitionRefsDelta>> & LabStateJsonValue;
+type SavedDungeonMapDeltas = Readonly<Record<string, DungeonMapSavedDelta>> & LabStateJsonValue;
 type SavedDungeonRuntimeStates = Readonly<Record<string, DungeonRuntimeSaveState>> & LabStateJsonValue;
 
 const isRecord = (value: unknown): value is Record<string, unknown> => (
@@ -58,7 +68,8 @@ const isRecord = (value: unknown): value is Record<string, unknown> => (
 const validateSavedDungeonMapDeltas = (value: unknown): SavedDungeonMapDeltas => {
   if (!isRecord(value)) throw new Error('地图 Delta 存档必须是对象。');
   Object.entries(value).forEach(([presetKey, delta]) => {
-    if (!isDungeonMapDefinitionRefsDelta(delta) || delta.basePresetKey !== presetKey) {
+    if ((!isDungeonMapDocumentDeltaV1(delta) && !isDungeonMapDefinitionRefsDelta(delta))
+      || delta.basePresetKey !== presetKey) {
       throw new Error(`地图“${presetKey}”的 Delta 存档无效。`);
     }
   });
@@ -119,8 +130,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
     let activePresetKey: string | null = null;
     let activeRuntime: DungeonRuntime | null = null;
     let activeSpawn: DungeonPlayerSpawnBinding | null = null;
-    let activeBaseMap: DungeonMapData | null = null;
-    let activeLiveMap: DungeonMapData | null = null;
+    let activeBaseDocument: DungeonMapDocumentV2 | null = null;
+    let activeLiveDocument: DungeonMapDocumentV2 | null = null;
     let restoringLabState = false;
     const dungeonSaveStates: Record<string, DungeonRuntimeSaveState> = {};
     const dungeonMapDeltaStore = createDungeonMapDeltaStore();
@@ -136,8 +147,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
     };
     const readMapDeltaSnapshot = () => ({
       activePresetKey,
-      activeDelta: activePresetKey && activeBaseMap && activeLiveMap
-        ? dungeonMapDeltaStore.preview(activePresetKey, activeBaseMap, activeLiveMap)
+      activeDelta: activePresetKey && activeBaseDocument && activeLiveDocument
+        ? dungeonMapDeltaStore.preview(activePresetKey, activeBaseDocument, activeLiveDocument)
         : null,
       savedDeltas: dungeonMapDeltaStore.readAll(),
     });
@@ -151,8 +162,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
       }, null, 2);
     };
     const captureActiveMapDelta = () => {
-      if (!activePresetKey || !activeBaseMap || !activeLiveMap) return null;
-      const delta = dungeonMapDeltaStore.capture(activePresetKey, activeBaseMap, activeLiveMap);
+      if (!activePresetKey || !activeBaseDocument || !activeLiveDocument) return null;
+      const delta = dungeonMapDeltaStore.capture(activePresetKey, activeBaseDocument, activeLiveDocument);
       refreshDeltaPanel();
       deltaStateRegistration?.markChanged();
       return delta;
@@ -168,7 +179,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         return loaded ? {
           loadId: loaded.loadId,
           presetKey: loaded.presetKey,
-          mapId: loaded.map.id,
+          mapId: loaded.document.identity.id,
           mapSize: [loaded.map.width, loaded.map.height],
           playerPosition: { ...loaded.runtime.playerPosition },
           playerFacing: loaded.runtime.playerFacing,
@@ -236,46 +247,47 @@ export const dungeonMapLoaderLabModule: LabModule = {
           captureActiveMapDelta();
         }
         const loadId = ++generation;
-        const baseMap = preset.map;
-        const liveMap = dungeonMapDeltaStore.restore(presetKey, baseMap);
-        const transitionIssues = validateDungeonTransitionMap(liveMap);
+        const baseDocument = preset;
+        const liveDocument = dungeonMapDeltaStore.restore(presetKey, baseDocument);
+        const transitionIssues = validateDungeonTransitionDocument(liveDocument);
         if (transitionIssues.length) {
           throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
         }
-        const binding = resolveDungeonMapSceneEnvironment(liveMap, libraries.environments);
-        const instance = await createDungeonMapSceneEnvironmentAsync(
-          context.scene, liveMap, libraries.environments, { shadowQualityPresets: libraries.shadows },
+        const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
+        const instance = await createDungeonDocumentSceneEnvironmentAsync(
+          context.scene, liveDocument, libraries.environments, { shadowQualityPresets: libraries.shadows },
         );
         if (loadId !== generation) { instance.dispose(); return false; }
         try {
-          const spawn = resolveDungeonPlayerSpawn(liveMap, libraries.environments);
-          const runtime = createDungeonRuntime(liveMap, spawn);
+          const spawn = resolveDungeonDocumentPlayerSpawn(liveDocument, libraries.environments);
+          const runtime = createDungeonRuntime(liveDocument, spawn);
           const saved = dungeonSaveStates[presetKey];
           const warnings = saved
             ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
-              spawn.sceneEnvironmentComponent, liveMap.width, liveMap.height,
+              spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height,
               position.tileX, position.tileY,
             ).center).warnings
             : [];
           if (options?.entranceId) {
-            const entrance = findDungeonEntrance(liveMap, options.entranceId);
+            const entrance = findDungeonDocumentEntrance(liveDocument, options.entranceId);
             applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
           }
-          const obstacles = scanDungeonObstacles(liveMap);
+          const obstacles = runtime.obstacles;
           const previousPresetKey = activePresetKey;
           const previousInstance = activeInstance;
           activeInstance = instance;
           activePresetKey = presetKey;
           activeRuntime = runtime;
           activeSpawn = spawn;
-          activeBaseMap = baseMap;
-          activeLiveMap = liveMap;
+          activeBaseDocument = baseDocument;
+          activeLiveDocument = liveDocument;
           activeLoadId = loadId;
           runtimeRevision = 0;
           referenceController.commit({
             loadId,
             presetKey,
-            map: liveMap,
+            document: liveDocument,
+            map: createDungeonMapCanvasView(liveDocument),
             sceneBinding: binding,
             spawn,
             runtime,
@@ -284,15 +296,17 @@ export const dungeonMapLoaderLabModule: LabModule = {
           loadedStateRegistration.markChanged();
           mapKey.value = presetKey;
           sceneKey.value = binding.component.presetKey;
-          json.textContent = JSON.stringify({ loadId, presetKey, mapId: liveMap.id,
-            mapSize: [liveMap.width, liveMap.height],
+          json.textContent = JSON.stringify({ loadId, presetKey, mapId: liveDocument.identity.id,
+            mapSize: [liveDocument.grid.width, liveDocument.grid.height],
             obstacleIds: obstacles.map(({ entity }) => entity.id), runtimeSaveWarnings: warnings }, null, 2);
           refreshDeltaPanel();
-          status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.name}”。`;
+          status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;
           await context.communication.publish(
             dungeonMapChangedEvent,
             { loadId, revision: runtimeRevision, previousPresetKey, presetKey,
-              mapId: liveMap.id, width: liveMap.width, height: liveMap.height },
+              mapId: liveDocument.identity.id,
+              width: liveDocument.grid.width,
+              height: liveDocument.grid.height },
           );
           previousInstance?.dispose();
           return true;
@@ -307,8 +321,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
         activePresetKey = null;
         activeRuntime = null;
         activeSpawn = null;
-        activeBaseMap = null;
-        activeLiveMap = null;
+        activeBaseDocument = null;
+        activeLiveDocument = null;
         referenceController.clear();
         loadedStateRegistration.markChanged();
       },
@@ -330,7 +344,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
     });
     context.communication.handle(dungeonRuntimeSaveStatesRequest, () => structuredClone(dungeonSaveStates));
     context.communication.handle(dungeonMapDeltaCommitRequest, () => {
-      if (!activePresetKey || !activeBaseMap || !activeLiveMap) {
+      if (!activePresetKey || !activeBaseDocument || !activeLiveDocument) {
         return { committed: false, presetKey: activePresetKey, delta: null };
       }
       const delta = captureActiveMapDelta();

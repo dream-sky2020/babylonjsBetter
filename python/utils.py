@@ -41,6 +41,53 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
         if not isinstance(preset, dict):
             errors.append(f"{path} must be an object")
             continue
+        if preset.get("schemaVersion") == 2:
+            identity = preset.get("identity")
+            grid = preset.get("grid")
+            entities = preset.get("entities")
+            components = preset.get("components")
+            if not isinstance(identity, dict):
+                errors.append(f"{path}.identity must be an object")
+                continue
+            if identity.get("presetKey") != key:
+                errors.append(f"{path}.identity.presetKey must match its object key")
+            if not isinstance(identity.get("id"), str) or not identity.get("id", "").strip():
+                errors.append(f"{path}.identity.id must be a non-empty string")
+            if not isinstance(identity.get("name"), str) or not identity.get("name", "").strip():
+                errors.append(f"{path}.identity.name must be a non-empty string")
+            if not isinstance(grid, dict):
+                errors.append(f"{path}.grid must be an object")
+                continue
+            width, height = grid.get("width"), grid.get("height")
+            if not isinstance(width, int) or isinstance(width, bool) or width < 1:
+                errors.append(f"{path}.grid.width must be a positive integer")
+            if not isinstance(height, int) or isinstance(height, bool) or height < 1:
+                errors.append(f"{path}.grid.height must be a positive integer")
+            if grid.get("topologyMode", "bounded") not in valid_topologies:
+                errors.append(f"{path}.grid.topologyMode is invalid")
+            expected_tiles = width * height if isinstance(width, int) and isinstance(height, int) else None
+            tile_sides = grid.get("tileSides")
+            tile_points = grid.get("tilePoints")
+            for field in ("tileIds", "tileSides", "tilePoints"):
+                value = grid.get(field)
+                if not isinstance(value, list):
+                    errors.append(f"{path}.grid.{field} must be an array")
+                elif expected_tiles is not None and len(value) != expected_tiles:
+                    errors.append(f"{path}.grid.{field} length must equal width * height")
+            if isinstance(tile_sides, list) and any(not isinstance(item, list) or len(item) != 4 for item in tile_sides):
+                errors.append(f"{path}.grid.tileSides entries must contain north, east, south and west")
+            if isinstance(tile_points, list) and any(not isinstance(item, list) or len(item) != 4 for item in tile_points):
+                errors.append(f"{path}.grid.tilePoints entries must contain four corners")
+            for field in ("sides", "edges", "points"):
+                if not isinstance(grid.get(field), list):
+                    errors.append(f"{path}.grid.{field} must be an array")
+            if not isinstance(entities, list):
+                errors.append(f"{path}.entities must be an array")
+            if not isinstance(components, dict):
+                errors.append(f"{path}.components must be an object")
+            elif any(not isinstance(table, list) for table in components.values()):
+                errors.append(f"{path}.components values must be arrays")
+            continue
         if preset.get("presetKey") != key:
             errors.append(f"{path}.presetKey must match its object key")
         if not isinstance(preset.get("name"), str) or not preset.get("name", "").strip():

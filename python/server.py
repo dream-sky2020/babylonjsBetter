@@ -452,7 +452,7 @@ def handle_dungeon_map_presets():
             expected_files.add(file_name)
             catalog["presets"][preset_key] = {
                 "presetKey": preset_key,
-                "name": preset["name"],
+                "name": preset["identity"]["name"] if preset.get("schemaVersion") == 2 else preset["name"],
                 "file": file_name,
             }
             preset_path = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, file_name)
