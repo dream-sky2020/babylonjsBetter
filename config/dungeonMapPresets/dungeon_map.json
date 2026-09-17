@@ -6,7 +6,7 @@
     "presetKey": "dungeon_map"
   },
   "grid": {
-    "width": 3,
+    "width": 11,
     "height": 11,
     "topologyMode": "bounded"
   },
@@ -115,6 +115,16 @@
     }
   ],
   "components": {
+    "actor-spawn": [
+      {
+        "entityId": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad",
+        "id": "component:ddbadf54-d317-4d60-91b6-283b2debfd23",
+        "tileX": 5,
+        "tileY": 0,
+        "type": "actor-spawn",
+        "version": 1
+      }
+    ],
     "agent-controller": [
       {
         "controllerId": "stationary",
@@ -151,16 +161,6 @@
           "returnToOrigin": true
         },
         "type": "agent-controller",
-        "version": 1
-      }
-    ],
-    "actor-spawn": [
-      {
-        "entityId": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad",
-        "id": "component:ddbadf54-d317-4d60-91b6-283b2debfd23",
-        "tileX": 1,
-        "tileY": 0,
-        "type": "actor-spawn",
         "version": 1
       }
     ],
@@ -369,7 +369,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,0"
+            "tileId": "tile:5,0"
           }
         ],
         "type": "spatial-attachment",
@@ -381,7 +381,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:1,2:south"
+            "sideId": "tile:5,2:south"
           }
         ],
         "type": "spatial-attachment",
@@ -393,7 +393,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:1,2:south"
+            "sideId": "tile:5,2:south"
           }
         ],
         "type": "spatial-attachment",
@@ -405,7 +405,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:1,2:west"
+            "sideId": "tile:5,2:west"
           }
         ],
         "type": "spatial-attachment",
@@ -417,7 +417,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,3"
+            "tileId": "tile:5,3"
           }
         ],
         "type": "spatial-attachment",
@@ -429,7 +429,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:1,4:east"
+            "sideId": "tile:5,4:east"
           }
         ],
         "type": "spatial-attachment",
@@ -441,7 +441,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:1,5:east"
+            "sideId": "tile:5,5:east"
           }
         ],
         "type": "spatial-attachment",
@@ -453,7 +453,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,5"
+            "tileId": "tile:5,5"
           }
         ],
         "type": "spatial-attachment",
@@ -465,7 +465,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,10"
+            "tileId": "tile:5,10"
           }
         ],
         "type": "spatial-attachment",
@@ -477,7 +477,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:1,6:south"
+            "edgeId": "shared:5,6:south"
           }
         ],
         "type": "spatial-attachment",
@@ -489,7 +489,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:1,7:south"
+            "edgeId": "shared:5,7:south"
           }
         ],
         "type": "spatial-attachment",
@@ -501,7 +501,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared-boundary:1,0:north"
+            "edgeId": "shared-boundary:5,0:north"
           }
         ],
         "type": "spatial-attachment",
@@ -513,7 +513,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:0,2"
+            "tileId": "tile:4,2"
           }
         ],
         "type": "spatial-attachment",
@@ -525,7 +525,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:2,5"
+            "tileId": "tile:6,5"
           }
         ],
         "type": "spatial-attachment",
@@ -537,7 +537,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:0,9"
+            "tileId": "tile:4,9"
           }
         ],
         "type": "spatial-attachment",
