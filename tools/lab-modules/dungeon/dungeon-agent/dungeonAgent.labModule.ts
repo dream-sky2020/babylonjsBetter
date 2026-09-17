@@ -1,9 +1,13 @@
 import type { DungeonMapDirection } from '@/core/map';
 import {
+  createDefaultDungeonAgentControllerRegistry,
   createDungeonAgentRuntimeState,
+  runDungeonAgentControllersAfterPlayerStep,
   startDungeonAgentMovement,
   startDungeonAgentTurn,
+  updateDungeonAgentControllers,
   updateDungeonAgentMovements,
+  type DungeonAgentControllerAction,
   type DungeonAgentRuntimeState,
   type DungeonAgentTurn,
   type DungeonRuntimeAgent,
@@ -19,6 +23,7 @@ import {
 } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
+  dungeonRuntimeChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import {
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
@@ -82,6 +87,9 @@ export const dungeonAgentLabModule: LabModule = {
     const debugToggle = createLabSwitch('显示 Agent Debug 模型', true, {
       preference: { ui: context.ui, key: 'dungeon-agent/debug-markers' },
     });
+    const controllerToggle = createLabSwitch('启用 Agent Controller', true, {
+      preference: { ui: context.ui, key: 'dungeon-agent/controllers-enabled' },
+    });
     const selectedAgentSelect = document.createElement('select');
     const positionInput = createReadonlyInput();
     const facingInput = createReadonlyInput();
@@ -116,6 +124,7 @@ export const dungeonAgentLabModule: LabModule = {
     const runtimeJson = createLabJson();
     panel.content.append(
       debugToggle.row,
+      controllerToggle.row,
       createLabField('选择 Agent', selectedAgentSelect),
       createLabField('当前格子', positionInput),
       createLabField('当前朝向', facingInput),
@@ -130,6 +139,7 @@ export const dungeonAgentLabModule: LabModule = {
 
     let loaded: LoadedDungeonReferences | null = null;
     let state: DungeonAgentRuntimeState | null = null;
+    const controllerRegistry = createDefaultDungeonAgentControllerRegistry();
     const markers = new Map<string, DungeonAgentDebugMarker>();
 
     const disposeMarkers = () => {
@@ -237,6 +247,7 @@ export const dungeonAgentLabModule: LabModule = {
           priority: item.binding.gridAgent.priority,
           movementProfileId: item.binding.gridAgent.movementProfileId,
           controllerId: item.binding.controller.controllerId,
+          controllerState: item.controllerState,
           factionId: item.binding.faction?.factionId ?? 'neutral',
           movement: item.movement,
         })),
@@ -264,6 +275,35 @@ export const dungeonAgentLabModule: LabModule = {
       return Number.isFinite(value) && value >= 0 ? value : 0.3;
     };
 
+    const isAgentStepBlocked = {
+      check: (_movingAgent: DungeonRuntimeAgent, fromTileIndex: number, toTileIndex: number, moveDirection: DungeonMapDirection) => {
+        if (!loaded) return true;
+        const from = tilePosition(fromTileIndex);
+        const to = tilePosition(toTileIndex);
+        return findDungeonMovementObstacles(loaded.runtime, from, to, moveDirection).length > 0;
+      },
+    };
+
+    const describeControllerActions = (actions: readonly DungeonAgentControllerAction[]): string => {
+      const moved = actions.filter((action) => action.outcome === 'move-started').length;
+      const idle = actions.filter((action) => action.outcome === 'idle').length;
+      const blocked = actions.filter((action) => action.outcome === 'blocked').length;
+      return `Controller：移动 ${moved}，等待 ${idle}，受阻 ${blocked}。`;
+    };
+
+    const publishControllerActions = (actions: readonly DungeonAgentControllerAction[]) => {
+      if (!loaded) return;
+      const entityIds = actions
+        .filter((action) => action.outcome === 'move-started')
+        .map((action) => action.entityId);
+      if (!entityIds.length) return;
+      void context.communication.publish(dungeonAgentsChangedEvent, {
+        loadId: loaded.loadId,
+        entityIds,
+        reason: 'controller-move-started',
+      });
+    };
+
     const moveSelectedAgent = (direction: DungeonMapDirection) => {
       const agent = selectedAgent();
       if (!agent || !state || !loaded) return;
@@ -274,13 +314,7 @@ export const dungeonAgentLabModule: LabModule = {
         direction,
         {
           durationSeconds: movementDuration(),
-          isStepBlocked: {
-            check: (_movingAgent, fromTileIndex, toTileIndex, moveDirection) => {
-              const from = tilePosition(fromTileIndex);
-              const to = tilePosition(toTileIndex);
-              return findDungeonMovementObstacles(loaded!.runtime, from, to, moveDirection).length > 0;
-            },
-          },
+          isStepBlocked: isAgentStepBlocked,
         },
       );
       status.textContent = result.started
@@ -322,12 +356,21 @@ export const dungeonAgentLabModule: LabModule = {
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       if (!state || !loaded) return;
-      const completed = updateDungeonAgentMovements(state, context.engine.getDeltaTime() / 1000);
+      const deltaSeconds = context.engine.getDeltaTime() / 1000;
+      const completed = updateDungeonAgentMovements(state, deltaSeconds);
+      const actions = controllerToggle.input.checked
+        ? updateDungeonAgentControllers(state, loaded.runtime.map, controllerRegistry, deltaSeconds, {
+          isStepBlocked: isAgentStepBlocked,
+        })
+        : [];
       state.agents.forEach(syncMarker);
-      if (!completed.length) return;
-      status.textContent = `${completed.length} 个 Agent 完成移动或转向。`;
+      if (!completed.length && !actions.length) return;
+      status.textContent = actions.length
+        ? describeControllerActions(actions)
+        : `${completed.length} 个 Agent 完成移动或转向。`;
       refreshPanel();
-      void context.communication.publish(dungeonAgentsChangedEvent, {
+      publishControllerActions(actions);
+      if (completed.length) void context.communication.publish(dungeonAgentsChangedEvent, {
         loadId: loaded.loadId,
         entityIds: completed,
         reason: 'movement-completed',
@@ -360,8 +403,25 @@ export const dungeonAgentLabModule: LabModule = {
       refreshPanel();
     });
 
+    const offRuntimeChanged = context.communication.on(dungeonRuntimeChangedEvent, (changed) => {
+      if (!controllerToggle.input.checked || !loaded || !state || changed.loadId !== loaded.loadId) return;
+      if (changed.reason !== 'player-movement-completed'
+        && changed.reason !== 'player-relative-movement-completed') return;
+      const actions = runDungeonAgentControllersAfterPlayerStep(
+        state,
+        loaded.runtime.map,
+        controllerRegistry,
+        { isStepBlocked: isAgentStepBlocked },
+      );
+      state.agents.forEach(syncMarker);
+      status.textContent = `玩家格步触发第 ${state.turnNumber} 回合；${describeControllerActions(actions)}`;
+      refreshPanel();
+      publishControllerActions(actions);
+    });
+
     return () => {
       offMapChanged();
+      offRuntimeChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       disposeMarkers();
       agentReferenceController.clear();

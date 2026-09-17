@@ -8,5 +8,5 @@ export const dungeonAgentsLoadedEvent = createLabEvent<Readonly<{
 export const dungeonAgentsChangedEvent = createLabEvent<Readonly<{
   loadId: number;
   entityIds: readonly string[];
-  reason: 'manual-move-started' | 'manual-turn-started' | 'movement-completed';
+  reason: 'manual-move-started' | 'manual-turn-started' | 'controller-move-started' | 'movement-completed';
 }>>('dungeon.agents.changed');
