@@ -12,6 +12,7 @@ import type {
   DungeonMapDocumentV2,
   DungeonMapSpatialTarget,
 } from '../map-document/dungeonMapDocument.types.ts';
+import { getDungeonMapTerrainProperties } from '../map-document/dungeonMapDocument.terrain.ts';
 
 /** Canvas 真正消费的最小地图视图；不包含存档、Marker 或地图级业务数据。 */
 export type DungeonMapCanvasView = Readonly<{
@@ -58,10 +59,9 @@ export const createDungeonMapCanvasView = (
           id: sideId,
           coordinates: { type: 'tile-edge' as const, x, y, direction: side.direction },
           data: containerAt(query, { kind: 'side', sideId }),
-          ...(document.legacy?.sideProperties?.[sideId] ?? {}),
         }];
       })) as DungeonMapTileContainer['edges'],
-      ...(document.legacy?.tileProperties?.[tileId] ?? {}),
+      ...(getDungeonMapTerrainProperties(document.terrain, tileId) ?? {}),
     };
   });
 
@@ -77,7 +77,6 @@ export const createDungeonMapCanvasView = (
         id: edge.id,
         coordinates: { type: 'shared-edge', sides },
         data: containerAt(query, { kind: 'edge', edgeId: edge.id }),
-        ...(document.legacy?.edgeProperties?.[edge.id] ?? {}),
       },
     };
   });

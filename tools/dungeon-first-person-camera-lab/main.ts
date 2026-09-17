@@ -7,10 +7,10 @@ if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root�
 
 const host = await createLab({
   root,
-  title: 'Dungeon 第一人称相机 Lab',
-  description: '验证现有格步移动、阻碍与转向插值驱动的 DRPG 第一人称相机。',
-  badge: 'Composable Lab · DRPG First Person',
-  modules: ['dungeon-config', 'dungeon-first-person-camera'],
+  title: 'Dungeon 玩家相机 Lab',
+  description: '验证格步移动驱动的 DRPG 第一人称与第三人称俯视跟随，并支持运行中切换。',
+  badge: 'Composable Lab · Player Camera',
+  modules: ['dungeon-config', 'dungeon-player-camera'],
   catalog: dungeonLabModuleCatalog,
 });
 

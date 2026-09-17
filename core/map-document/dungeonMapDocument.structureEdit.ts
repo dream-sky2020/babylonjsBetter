@@ -15,6 +15,7 @@ import {
   wrapDungeonMapCoordinate,
 } from '../map/dungeonMap.topology.ts';
 import { dungeonMapSpatialTargetKey } from './dungeonMapDocument.query.ts';
+import { normalizeDungeonMapTerrain } from './dungeonMapDocument.terrain.ts';
 import {
   DUNGEON_MAP_CORNER_ORDER,
   DUNGEON_MAP_DIRECTION_ORDER,
@@ -335,22 +336,8 @@ const editDungeonMapDocumentStructure = (
   const removedMarkerIds = (source.legacy?.markers ?? []).filter(
     (marker) => !mapPosition(marker.x, marker.y, edit),
   ).map(({ id }) => id);
-  const validTileIds = new Set(tileIds);
-  const validSideIds = new Set(sides.map(({ id }) => id));
-  const validEdgeIds = new Set(edges.map(({ id }) => id));
-  const legacy = source.legacy ? {
-    ...source.legacy,
-    ...(source.legacy.tileProperties ? {
-      tileProperties: Object.fromEntries(Object.entries(source.legacy.tileProperties).filter(([id]) => validTileIds.has(id))),
-    } : {}),
-    ...(source.legacy.sideProperties ? {
-      sideProperties: Object.fromEntries(Object.entries(source.legacy.sideProperties).filter(([id]) => validSideIds.has(id))),
-    } : {}),
-    ...(source.legacy.edgeProperties ? {
-      edgeProperties: Object.fromEntries(Object.entries(source.legacy.edgeProperties).filter(([id]) => validEdgeIds.has(id))),
-    } : {}),
-    ...(source.legacy.markers !== undefined ? { markers } : {}),
-  } : undefined;
+  const legacy = source.legacy?.markers !== undefined ? { markers } : undefined;
+  const terrain = normalizeDungeonMapTerrain(tileIds, source.terrain, source.legacy);
 
   let document: DungeonMapDocumentV2 = {
     ...source,
@@ -367,8 +354,11 @@ const editDungeonMapDocumentStructure = (
     },
     entities: source.entities.filter(({ id }) => !orphanEntityIds.has(id)),
     components,
+    ...(terrain ? { terrain } : {}),
     ...(legacy ? { legacy } : {}),
   };
+  if (!terrain) delete document.terrain;
+  if (!legacy) delete document.legacy;
 
   positionedTiles.filter(({ sourceIndex }) => sourceIndex === undefined).forEach(({ tileId, x, y }) => {
     document = appendContainer(document, { kind: 'tile', tileId }, defaults.createTileData?.({ x, y }));

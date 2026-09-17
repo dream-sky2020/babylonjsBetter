@@ -14,7 +14,7 @@ V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批�
 
 `DungeonMapCanvasLab` 已切换为以 `DungeonMapDocumentStore` 为编辑期权威状态：启动、切换和重载均读取 V2 文档（旧文件只在入口迁移），Canvas 与 Inspector 都直接读取 V2 Query。单项编辑、批量事务、结构增删、Undo/Redo 与 dirty 状态现已统一走 Store；“保存全部地图预设”会写出 V2 Library，因此用户显式保存的旧预设会完成格式升级。
 
-新建地图以及插入行列只创建拓扑，不再为每个 Tile、Side、Edge、Point 自动创建默认 Entity。V2 编码保存时会保守识别旧编辑器生成的纯 `legacy-data + spatial-attachment` 占位壳，将仍有意义的格子/边属性迁回 `legacy` 拓扑属性表后删除这些壳；具有额外组件、未知字段、非标准身份或冲突属性的 Entity 不会被清理。
+新建地图以及插入行列只创建拓扑，不再为每个 Tile、Side、Edge、Point 自动创建默认 Entity。V2 编码保存时会保守识别旧编辑器生成的纯 `legacy-data + spatial-attachment` 占位壳，仅将格子地形属性并入正式 `terrain` 后删除这些壳；`terrain.default` 表达整张规则网格的默认地形，`terrain.overrides` 只保存少量不同格子。旧 `legacy.tileProperties` 会在读取时自动升级，下一次保存后消失。Side/Edge 的旧 `kind/passable/events` 不属于当前数据模型，读取时不参与渲染或游戏规则，保存时直接丢弃。墙、门、阻碍和交互均由挂载在对应空间目标上的正式 Entity/Component 表达；具有额外组件、未知字段或非标准身份的 Entity 不会被清理。
 
 `dungeonMapDocument.structureEdit.ts` 提供原生 V2 行列插入/删除，不再把文档投影成 V1 后重新迁移。操作会保留未受影响 Tile/Side/Edge/Point 的稳定 ID，仅为新格与新接缝分配无冲突 ID；同步移动 `actor-spawn` 和 Marker 坐标，阻止删除 Spawn 所在行列，并过滤失效空间挂载、孤儿 Entity/Component 与旧兼容属性。Lab 六个结构按钮已直接调用这些命令，并通过 Store 将每次结构变化记录为一个可撤销步骤；旧 V1 结构算法仅作为旧调用方兼容层保留。
 
@@ -25,6 +25,14 @@ V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批�
 `core/ui/dungeon-map-canvas-view.ts` 是 Canvas 的原生 V2 渲染适配层：从 Grid 与 ECS Query 只物化绘制、染色和命中测试所需的 tile、side、edge、point 容器，不再生成整张 V1 地图。`DungeonMapCanvas` 的 `document` 分支已移除 `projectDungeonMapDocumentToLegacyMap()`；旧 `map` 输入仍由轻量适配器兼容，既有绘制与交互算法无需同时重写。
 
 `DungeonMapCanvas` 使用拓扑底图与 Entity 数据覆盖两遍绘制：Grid 中始终存在的 Tile、Side、Edge、Point 分别以中心方块、四侧梯形、公用边长方形和交汇点正方形显示，并使用不同的低饱和结构色；只有实际挂载 Entity 的目标才在对应几何槽位上覆盖纹理与类型颜色。空拓扑目标同样参与点击、框选和 Inspector 命中，因此删除占位 Entity 不会让地图结构从编辑器消失。
+
+地图磁盘持久化升级为紧凑 V3：规则矩形网格只保存 width、height 和 topologyMode，不再写入可推导的 tileIds、tileSides、sides、edges、tilePoints、points 大表。地形使用独立 `terrain.default + terrain.overrides` 稀疏结构，保存边界按坐标重映射少量覆盖项；Repository 读取 V3 后立即生成完整 V2 运行时 Grid 并执行原有引用校验，因此 Canvas、Store、移动和传送暂时无需同时改造。旧 V1/V2 文件继续可读，编辑器下一次显式保存会写成 V3。
+
+地图 ECS 新增 `dungeon-agent` 动态行动实体定义，只允许挂载在 Tile；编辑器创建时自动装配 `grid-agent`、`agent-controller` 与 `faction`。`grid-agent` 保存初始朝向、占位、行动周期、冲突优先级与开放移动规则 ID，`agent-controller` 以开放 controllerId 和 JSON 参数引用后续行动规划器，`faction` 只保存开放阵营 ID。当前阶段这些字段仍是地图静态初始配置，运行时位置、AI 状态和同时行动结算将在 DungeonRuntime 动态层实现，不回写地图文档。
+
+`core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、Tile 占位索引、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；手动移动复用现有拓扑、terrain.walkable、动态阻碍和 Agent 占位检查。`tools/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
+
+`tools/lab-modules/dungeon/dungeon-player-camera/` 统一拥有 Dungeon 玩家相机：第一人称读取 DungeonRuntime 的插值世界姿态，第三人称复用 Lab Orbit Camera，以固定地图朝向、可调仰角/距离和平滑目标跟随玩家；V 键和面板可在两者之间切换，地图传送时直接重置跟随目标。旧 `dungeon-first-person-camera` ID 只保留为兼容适配器，现有 Camera、Transition 与 Agent Lab 均改用新模块，避免多个模块逐帧争夺活动相机。
 
 `core/dungeon-runtime/dungeonRuntimeMap.ts` 将 V2 文档编译为玩家运行时持有的地图对象，包含地图身份、尺寸、原始文档和整数拓扑，不再让 `DungeonRuntime` 持有嵌套 `DungeonMapData`。格步移动通过 `neighborTileIndices` 解析目标格，因此普通外轮廓仍可阻挡，循环地图接缝则能直接到达另一侧。阻碍在装载时由 `scanDungeonDocumentObstacles()` 从 ECS 表与 `spatial-attachment` 扫描一次并缓存，移动检查不再反复遍历整张旧地图。当前 Dungeon Loader 仍为场景生成与 Delta 保留 V1 live map，但会在创建 Runtime 的边界迁移一次 V2；场景、入口/出口和 Delta 将在后续阶段分别迁移。
 
@@ -478,7 +486,7 @@ config/monsterDisplayConfigs.json
 - `core/map/`：地牢地图的稳定数据契约、坐标/格子访问、四边通行规则与结构校验；每个格子独立保存 `north/east/south/west` 四条边，不存在相邻格子的公用边，也不要求两侧边配置一致。每条边可独立携带 `enter/leave/cross/interact` 事件。
 - `core/dungeon-player-spawn/`：从地图容器读取唯一启用的 `spawn-point / actor-spawn`，结合 map Entity 的 `scene-environment` 布局把出生格坐标转换为大场景世界坐标；缺失、重复或越界均直接报错。
 - `core/dungeon-runtime/`：已加载地牢地图的轻量运行时容器；持有地图引用、玩家权威格子位置、离散朝向、支持小数的连续 3D 世界位置/Y 轴旋转、当前移动过渡与 `obstacleStates` 启停表。运行中的高频状态只更新小型 Runtime，不修改或复制 `DungeonMapData`。
-- `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
+- `core/dungeon-player-movement/`：玩家格步移动系统；`startDungeonPlayerMovement()` 执行东南西北绝对移动，`startDungeonPlayerRelativeMovement()` 根据当前朝向执行前进、后退和左右横移且保持朝向，`startDungeonPlayerTurn()` 创建左转、右转或后转的原地旋转；统一先检查地图边界与三类阻碍，再由 `updateDungeonPlayerMovement()` 按帧推进连续世界坐标与旋转并在结束后提交格子位置和朝向。更新结果会返回当前格步未消费的帧时间，玩家输入模块可在同一帧无缝续接下一格；键盘持续记录按住方向和移动期间最后按下的单个缓存方向，格子结束时最新缓存优先，否则沿仍按住的方向继续。随格步发生的朝向变化会被限制在该格位移时长内，避免位置先到终点后等待旋转；独立原地转向仍遵循自身时长。移动支持“世界单位/秒”或“秒/格”，转向支持“弧度/秒”或“秒/次转向”，同时保留瞬移参数。
 - `core/dungeon-obstacle/`：扫描格子、独立边和公用边上的 `obstacle / movement-obstacle`，初始化 `DungeonRuntime.obstacleStates`，提供运行时启停并判断跨格移动阻碍。仅供开发观察的近似 3D Debug 盒布局归 `tools/lab-modules/dungeon/dungeon-obstacle/dungeonObstacleDebugLayout.ts`：独立边盒位于所属格子内侧，公用边盒位于格子间隔边界。
 - `core/entity/entity-types/spawn-point.entity-type.ts`：只能创建在地图数据容器中的出生点 Entity；默认附带 `actor-spawn`。`actor-spawn` 只能挂载到 `spawn-point` Entity，并以 `tileX/tileY` 保存出生格坐标；加载时无需扫描全部格子。
 - `core/entity/entity-types/obstacle.entity-type.ts`：只能创建在格子、独立边或公用边数据容器中的阻碍 Entity；默认且必须附带 `movement-obstacle`，其 `activeByDefault` 决定 Runtime 初始启停状态。
@@ -488,7 +496,7 @@ config/monsterDisplayConfigs.json
 
 ### 可组合 Lab 基础设施
 
-- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期；新增模块遵循 `tools/lab-kit/README.md`。
+- `tools/lab-kit/`：页面级 Lab Host、模块依赖拓扑排序、共享 Babylon.js 场景上下文、事件总线、服务注册表、公共面板控件与统一 CSS。具体 Lab 页面只声明顶层模块，不再复制场景和 UI 生命周期；新增模块遵循 `tools/lab-kit/README.md`。Communication 日志的默认视图按新增/淘汰记录增量更新，不在高频 Runtime 事件到达时反复重建全部日志 DOM，避免调试界面干扰逐帧移动。
 - `tools/lab-modules/<domain>/`：可组合模块目录。游戏规则不能放在这里；模块只装配 `core/`、创建输入和状态面板、维护 Debug 对象，并在清理函数中释放订阅和 Babylon.js 资源。
 
 当前 `tools/lab-modules/dungeon/` 模块：

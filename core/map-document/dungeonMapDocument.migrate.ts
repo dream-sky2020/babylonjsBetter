@@ -14,14 +14,14 @@ import {
   type DungeonMapDocumentComponent,
   type DungeonMapDocumentEdge,
   type DungeonMapDocumentEntity,
-  type DungeonMapDocumentLegacyEdgeProperties,
-  type DungeonMapDocumentLegacyTileProperties,
+  type DungeonMapTerrainProperties,
   type DungeonMapDocumentPoint,
   type DungeonMapDocumentSide,
   type DungeonMapDocumentV2,
   type DungeonMapSpatialAttachmentComponent,
   type DungeonMapSpatialTarget,
 } from './dungeonMapDocument.types.ts';
+import { compactDungeonMapTerrain } from './dungeonMapDocument.terrain.ts';
 
 export type MigrateDungeonMapToDocumentResult = {
   document: DungeonMapDocumentV2;
@@ -56,9 +56,7 @@ export const migrateDungeonMapToDocumentV2 = (
   const componentsById = new Map<string, DungeonMapDocumentComponent>();
   const componentTables = new Map<string, DungeonMapDocumentComponent[]>();
   const targetsByEntityId = new Map<string, DungeonMapSpatialTarget[]>();
-  const legacyTileProperties: Record<string, DungeonMapDocumentLegacyTileProperties> = {};
-  const legacySideProperties: Record<string, DungeonMapDocumentLegacyEdgeProperties> = {};
-  const legacyEdgeProperties: Record<string, DungeonMapDocumentLegacyEdgeProperties> = {};
+  const tileTerrainProperties: Record<string, DungeonMapTerrainProperties> = {};
 
   const addTarget = (entityId: string, target: DungeonMapSpatialTarget): void => {
     const targets = targetsByEntityId.get(entityId) ?? [];
@@ -137,17 +135,13 @@ export const migrateDungeonMapToDocumentV2 = (
         edgeIdByEndpoint.set(endpointKey(tile.x, tile.y, direction), edgeId);
       }
       sides.push({ id, tileId, direction, edgeId });
-      const { kind, label, passable, events, metadata } = legacySide;
-      if (kind !== undefined || label !== undefined || passable !== undefined || events !== undefined || metadata !== undefined) {
-        legacySideProperties[id] = structuredClone({ kind, label, passable, events, metadata });
-      }
       addContainer(legacySide.data, { kind: 'side', sideId: id });
       return id;
     }) as unknown as DungeonMapDirectionTuple<string>;
     tileSides.push(ids);
     const { kind, label, walkable, discovered } = tile;
     if (kind !== undefined || label !== undefined || walkable !== undefined || discovered !== undefined) {
-      legacyTileProperties[tileId] = structuredClone({ kind, label, walkable, discovered });
+      tileTerrainProperties[tileId] = structuredClone({ kind, label, walkable, discovered });
     }
     addContainer(tile.data, { kind: 'tile', tileId });
   }
@@ -191,10 +185,6 @@ export const migrateDungeonMapToDocumentV2 = (
   ));
 
   for (const sharedEdge of map.sharedEdges ?? []) {
-    const { kind, label, passable, events, metadata } = sharedEdge.edge;
-    if (kind !== undefined || label !== undefined || passable !== undefined || events !== undefined || metadata !== undefined) {
-      legacyEdgeProperties[sharedEdge.id] = structuredClone({ kind, label, passable, events, metadata });
-    }
     addContainer(sharedEdge.edge.data, { kind: 'edge', edgeId: sharedEdge.id });
   }
   addContainer(map.data, { kind: 'map' });
@@ -211,6 +201,7 @@ export const migrateDungeonMapToDocumentV2 = (
   }
   if (attachmentTable.length > 0) componentTables.set('spatial-attachment', attachmentTable);
 
+  const terrain = compactDungeonMapTerrain(tileIds, tileTerrainProperties);
   return {
     document: {
       schemaVersion: DUNGEON_MAP_DOCUMENT_SCHEMA_VERSION,
@@ -228,17 +219,12 @@ export const migrateDungeonMapToDocumentV2 = (
       },
       entities: [...entitiesById.values()],
       components: Object.fromEntries([...componentTables.entries()]),
+      ...(terrain ? { terrain } : {}),
       ...(map.metadata ? { metadata: structuredClone(map.metadata) } : {}),
       ...(
-        Object.keys(legacyTileProperties).length > 0
-        || Object.keys(legacySideProperties).length > 0
-        || Object.keys(legacyEdgeProperties).length > 0
-        || map.markers !== undefined
+        map.markers !== undefined
           ? {
               legacy: {
-                ...(Object.keys(legacyTileProperties).length > 0 ? { tileProperties: legacyTileProperties } : {}),
-                ...(Object.keys(legacySideProperties).length > 0 ? { sideProperties: legacySideProperties } : {}),
-                ...(Object.keys(legacyEdgeProperties).length > 0 ? { edgeProperties: legacyEdgeProperties } : {}),
                 ...(map.markers !== undefined ? { markers: structuredClone(map.markers) } : {}),
               },
             }

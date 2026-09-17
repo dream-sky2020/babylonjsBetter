@@ -1,5 +1,6 @@
 import type { DungeonMapDocumentV2 } from './dungeonMapDocument.types.ts';
 import { compactGeneratedDungeonMapShells } from './dungeonMapDocument.compact.ts';
+import { normalizeDungeonMapTerrain } from './dungeonMapDocument.terrain.ts';
 import { validateDungeonMapDocumentV2 } from './dungeonMapDocument.validation.ts';
 
 const cloneJson = <T>(value: T): T => structuredClone(value);
@@ -29,6 +30,11 @@ export const parseDungeonMapDocumentV2 = (
     throw new Error(`地图 V2 文档的 presetKey 应为“${expectedPresetKey}”。`);
   }
   const document = cloneJson(candidate);
+  const terrain = normalizeDungeonMapTerrain(document.grid.tileIds, document.terrain, document.legacy);
+  if (terrain) document.terrain = terrain;
+  else delete document.terrain;
+  if (document.legacy?.markers !== undefined) document.legacy = { markers: document.legacy.markers };
+  else delete document.legacy;
   const issues = validateDungeonMapDocumentV2(document);
   if (issues.length > 0) {
     throw new Error(`地图 V2 文档校验失败：${issues[0].message}${issues.length > 1 ? `（另有 ${issues.length - 1} 项）` : ''}`);

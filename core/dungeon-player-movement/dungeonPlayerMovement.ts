@@ -105,6 +105,10 @@ export type DungeonPlayerMovementUpdateResult = {
   completed: boolean;
   movementProgress: number;
   turnProgress: number;
+  /** 本次更新实际用于当前格步的时间。 */
+  consumedSeconds: number;
+  /** 当前格步完成后尚未消费的帧时间，可立即用于续接下一格。 */
+  remainingSeconds: number;
 };
 
 export type DungeonPlayerTurnOptions = {
@@ -164,6 +168,16 @@ const resolveTurnDuration = (
 };
 
 /**
+ * 随格步发生的转向不能比位移本身更晚结束，否则玩家会先停在目标格，
+ * 再等待剩余旋转时间，破坏连续移动的匀速感。独立原地转向仍使用完整转向时长。
+ */
+const resolveStepTurnDuration = (
+  yawDelta: number,
+  movementDurationSeconds: number,
+  options: DungeonPlayerMovementOptions,
+): number => Math.min(movementDurationSeconds, resolveTurnDuration(yawDelta, options));
+
+/**
  * 验证一次格步移动并创建运行时过渡。该函数不会在非瞬移模式下立刻提交目标格，
  * 调用方需要每帧调用 updateDungeonPlayerMovement()。
  */
@@ -208,7 +222,7 @@ export const startDungeonPlayerMovement = (
       toWorldRotationY: runtime.playerWorldRotationY + yawDelta,
       elapsedSeconds: 0,
       movementDurationSeconds,
-      turnDurationSeconds: resolveTurnDuration(yawDelta, options),
+      turnDurationSeconds: resolveStepTurnDuration(yawDelta, movementDurationSeconds, options),
       blockedObstacleIds,
     };
     return { started: true, completed: false, direction, from, to, blockedReason, blockedObstacleIds };
@@ -222,7 +236,7 @@ export const startDungeonPlayerMovement = (
   const targetFacing = (options.faceMovementDirection ?? true) ? direction : runtime.playerFacing;
   const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[targetFacing]);
   const movementDurationSeconds = resolveMovementDuration(distance3d(fromWorldPosition, toWorldPosition), options);
-  const turnDurationSeconds = resolveTurnDuration(yawDelta, options);
+  const turnDurationSeconds = resolveStepTurnDuration(yawDelta, movementDurationSeconds, options);
   runtime.playerMovement = {
     kind: 'move',
     direction,
@@ -294,11 +308,25 @@ export const updateDungeonPlayerMovement = (
   deltaSeconds: number,
 ): DungeonPlayerMovementUpdateResult => {
   const movement = runtime.playerMovement;
-  if (!movement) return { active: false, completed: false, movementProgress: 1, turnProgress: 1 };
+  if (!movement) {
+    return {
+      active: false,
+      completed: false,
+      movementProgress: 1,
+      turnProgress: 1,
+      consumedSeconds: 0,
+      remainingSeconds: deltaSeconds,
+    };
+  }
   if ((!Number.isFinite(deltaSeconds) && deltaSeconds !== Number.POSITIVE_INFINITY) || deltaSeconds < 0) {
     throw new RangeError('移动帧时间必须是非负数。');
   }
-  movement.elapsedSeconds += deltaSeconds;
+  const totalDurationSeconds = Math.max(movement.movementDurationSeconds, movement.turnDurationSeconds);
+  const secondsUntilComplete = Math.max(0, totalDurationSeconds - movement.elapsedSeconds);
+  const consumedSeconds = deltaSeconds === Number.POSITIVE_INFINITY
+    ? secondsUntilComplete
+    : Math.min(deltaSeconds, secondsUntilComplete);
+  movement.elapsedSeconds += consumedSeconds;
   const movementProgress = movement.movementDurationSeconds <= 0
     ? 1 : Math.min(1, movement.elapsedSeconds / movement.movementDurationSeconds);
   const turnProgress = movement.turnDurationSeconds <= 0
@@ -320,7 +348,19 @@ export const updateDungeonPlayerMovement = (
     runtime.playerFacing = movement.targetFacing;
     runtime.playerMovement = null;
   }
-  return { active: !completed, completed, movementProgress, turnProgress };
+  const remainingSeconds = completed
+    ? deltaSeconds === Number.POSITIVE_INFINITY
+      ? 0
+      : Math.max(0, deltaSeconds - consumedSeconds)
+    : 0;
+  return {
+    active: !completed,
+    completed,
+    movementProgress,
+    turnProgress,
+    consumedSeconds,
+    remainingSeconds,
+  };
 };
 
 /** 兼容需要立即完成单步移动的调用；新运行时应使用 start + update。 */

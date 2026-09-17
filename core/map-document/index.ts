@@ -1,4 +1,5 @@
 export * from './dungeonMapDocument.types.ts';
+export * from './dungeonMapDocument.terrain.ts';
 export * from './dungeonMapDocument.migrate.ts';
 export * from './dungeonMapDocument.validation.ts';
 export * from './dungeonMapDocument.query.ts';
@@ -6,6 +7,7 @@ export * from './dungeonMapDocument.compile.ts';
 export * from './dungeonMapDocument.store.ts';
 export * from './dungeonMapDocument.projection.ts';
 export * from './dungeonMapDocument.codec.ts';
+export * from './dungeonMapDocument.storageV3.ts';
 export * from './dungeonMapDocument.compact.ts';
 export * from './dungeonMapDocument.structureEdit.ts';
 export * from './dungeonMapDocument.mutationPlan.ts';

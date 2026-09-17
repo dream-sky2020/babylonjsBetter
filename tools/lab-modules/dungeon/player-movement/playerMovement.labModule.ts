@@ -78,8 +78,14 @@ export const playerMovementLabModule: LabModule = {
     const boundsToggle = createLabSwitch('限制玩家不能移出地图', true);
     const obstacleToggle = createLabSwitch('限制玩家不能跨越障碍', true);
     const teleportToggle = createLabSwitch('瞬移（跳过逐帧过渡）');
+    const debugMarkerToggle = createLabSwitch('显示玩家 Debug 模型', true, {
+      preference: { ui: context.ui, key: 'player-movement/debug-marker' },
+    });
     const keyboardToggle = createLabSwitch('启用玩家键盘输入', true, {
       preference: { ui: context.ui, key: 'player-movement/keyboard-enabled' },
+    });
+    const continuousMovementToggle = createLabSwitch('按住方向连续移动', true, {
+      preference: { ui: context.ui, key: 'player-movement/continuous-movement' },
     });
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
     const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
@@ -98,7 +104,7 @@ export const playerMovementLabModule: LabModule = {
     const controls = document.createElement('div');
     controls.className = 'lab-movement-grid';
     const directions: ReadonlyArray<readonly [DungeonMapDirection, string]> = [
-      ['north', '↑ 北'], ['west', '← 西'], ['south', '↓ 南'], ['east', '→ 东'],
+      ['north', '↑ 北'], ['west', '→ 西'], ['south', '↓ 南'], ['east', '← 东'],
     ];
     directions.forEach(([direction, label]) => {
       const button = document.createElement('button');
@@ -185,7 +191,9 @@ export const playerMovementLabModule: LabModule = {
       boundsToggle.row,
       obstacleToggle.row,
       teleportToggle.row,
+      debugMarkerToggle.row,
       keyboardToggle.row,
+      continuousMovementToggle.row,
       createLabField('键盘输入优先级', keyboardPriorityInput),
       keyboardInterceptToggle.row,
       keyboardPreventDefaultToggle.row,
@@ -227,6 +235,31 @@ export const playerMovementLabModule: LabModule = {
     let markerRoot: TransformNode | null = null;
     let markerVerticalOffset = 0;
     let lastJsonUpdateTime = 0;
+    const heldDirections = new Map<string, Readonly<{
+      direction: DungeonMapDirection;
+      sequence: number;
+    }>>();
+    let inputSequence = 0;
+    let bufferedDirection: DungeonMapDirection | null = null;
+
+    const clearDirectionalInput = (): void => {
+      heldDirections.clear();
+      bufferedDirection = null;
+    };
+
+    const latestHeldDirection = (): DungeonMapDirection | null => {
+      let latest: Readonly<{ direction: DungeonMapDirection; sequence: number }> | null = null;
+      heldDirections.forEach((entry) => {
+        if (!latest || entry.sequence > latest.sequence) latest = entry;
+      });
+      return latest?.direction ?? null;
+    };
+
+    const consumeNextDirection = (): DungeonMapDirection | null => {
+      const direction = bufferedDirection ?? latestHeldDirection();
+      bufferedDirection = null;
+      return direction;
+    };
 
     const disposeMarker = () => {
       markerRoot?.dispose(false, true);
@@ -235,6 +268,7 @@ export const playerMovementLabModule: LabModule = {
 
     const createMarker = (event: MovementView) => {
       disposeMarker();
+      if (!debugMarkerToggle.input.checked) return;
       const layout = resolveDungeonMapTileWorldLayout(
         event.spawn.sceneEnvironmentComponent,
         event.runtime.map.width,
@@ -299,7 +333,7 @@ export const playerMovementLabModule: LabModule = {
     const refreshRuntimeJson = (force = false) => {
       if (!current) return;
       const now = performance.now();
-      if (!force && now - lastJsonUpdateTime < 80) return;
+      if (!force && now - lastJsonUpdateTime < 250) return;
       lastJsonUpdateTime = now;
       runtimeJson.textContent = JSON.stringify({
         mapId: current.runtime.map.id,
@@ -313,11 +347,23 @@ export const playerMovementLabModule: LabModule = {
     };
 
     const syncMarker = () => {
-      if (!current || !markerRoot) return;
-      markerRoot.position.set(...current.runtime.playerWorldPosition);
-      markerRoot.rotation.y = current.runtime.playerWorldRotationY;
+      if (!current) return;
+      if (markerRoot) {
+        markerRoot.position.set(...current.runtime.playerWorldPosition);
+        markerRoot.rotation.y = current.runtime.playerWorldRotationY;
+      }
       refreshRuntimeJson();
     };
+
+    const renderDebugMarker = () => {
+      if (!current) {
+        disposeMarker();
+        return;
+      }
+      createMarker(current);
+      syncMarker();
+    };
+    debugMarkerToggle.input.addEventListener('change', renderDebugMarker);
 
     const resolveWorldPosition = (event: MovementView) => (
       position: Readonly<{ tileX: number; tileY: number }>,
@@ -365,7 +411,7 @@ export const playerMovementLabModule: LabModule = {
         return true;
       }
       syncMarker();
-      refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson(true);
       status.textContent = result.blockedReason === 'movement-obstacle'
         ? `玩家尝试向 ${direction} 移动，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
@@ -391,7 +437,7 @@ export const playerMovementLabModule: LabModule = {
         return;
       }
       syncMarker();
-      refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson(true);
       status.textContent = result.completed
         ? `玩家原地转向完成：${result.fromFacing} → ${result.toFacing}。`
         : `开始原地转向：${result.fromFacing} → ${result.toFacing}。`;
@@ -425,7 +471,7 @@ export const playerMovementLabModule: LabModule = {
         return;
       }
       syncMarker();
-      refreshRuntimeJson(true);
+      if (result.completed) refreshRuntimeJson(true);
       status.textContent = result.blockedReason === 'movement-obstacle'
         ? `玩家尝试 ${movement}，即将被阻碍挡回：${result.blockedObstacleIds?.join('、') ?? '未知阻碍'}。`
         : result.blockedReason === 'map-boundary'
@@ -477,8 +523,8 @@ export const playerMovementLabModule: LabModule = {
     });
     teleportPositionButton.addEventListener('click', teleportToPosition);
     const keyDirections: Readonly<Record<string, DungeonMapDirection>> = {
-      ArrowUp: 'north', KeyW: 'north', ArrowRight: 'east', KeyD: 'east',
-      ArrowDown: 'south', KeyS: 'south', ArrowLeft: 'west', KeyA: 'west',
+      ArrowUp: 'north', KeyW: 'north', ArrowRight: 'east', KeyD: 'west',
+      ArrowDown: 'south', KeyS: 'south', ArrowLeft: 'west', KeyA: 'east',
     };
     const keyboardRegistration = context.keyboard.register({
       id: 'player-movement',
@@ -490,13 +536,30 @@ export const playerMovementLabModule: LabModule = {
       preventDefault: keyboardPreventDefaultToggle.input.checked,
       onKeyDown: (event) => {
         const direction = keyDirections[event.code];
-        return direction && move(direction) ? 'handled' : 'ignored';
+        if (!direction) return 'ignored';
+        if (!event.repeat) {
+          heldDirections.set(event.code, { direction, sequence: ++inputSequence });
+          bufferedDirection = direction;
+          if (!current?.runtime.playerMovement) {
+            const nextDirection = consumeNextDirection();
+            if (nextDirection) move(nextDirection);
+          }
+        }
+        return 'handled';
+      },
+      onKeyUp: (event) => {
+        if (!keyDirections[event.code]) return 'ignored';
+        heldDirections.delete(event.code);
+        return 'handled';
       },
       onOwnershipChanged: (ownedCodes) => {
         keyboardOwnershipStatus.textContent = `当前优先拥有：${[...ownedCodes].join('、') || '无'}。`;
       },
     });
-    keyboardToggle.input.addEventListener('change', () => keyboardRegistration.setEnabled(keyboardToggle.input.checked));
+    keyboardToggle.input.addEventListener('change', () => {
+      keyboardRegistration.setEnabled(keyboardToggle.input.checked);
+      if (!keyboardToggle.input.checked) clearDirectionalInput();
+    });
     keyboardPriorityInput.addEventListener('input', () => {
       const value = Number(keyboardPriorityInput.value);
       if (Number.isFinite(value)) keyboardRegistration.setPriority(value);
@@ -516,11 +579,14 @@ export const playerMovementLabModule: LabModule = {
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       if (!current?.runtime.playerMovement) return;
-      const movementKind = current.runtime.playerMovement.kind;
-      const result = updateDungeonPlayerMovement(current.runtime, context.engine.getDeltaTime() / 1000);
-      syncMarker();
-      if (result.completed) {
-        refreshRuntimeJson(true);
+      let remainingSeconds = context.engine.getDeltaTime() / 1000;
+      let continuationCount = 0;
+      while (current.runtime.playerMovement && continuationCount++ < 8) {
+        const movementKind = current.runtime.playerMovement.kind;
+        const result = updateDungeonPlayerMovement(current.runtime, remainingSeconds);
+        syncMarker();
+        if (!result.completed) break;
+        remainingSeconds = result.remainingSeconds;
         status.textContent = movementKind === 'blocked'
           ? `移动受阻：玩家退回 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})。`
           : movementKind === 'turn'
@@ -530,6 +596,11 @@ export const playerMovementLabModule: LabModule = {
           reason: movementKind === 'turn' ? 'player-turn-completed'
             : movementKind === 'blocked' ? 'player-movement-blocked' : 'player-movement-completed',
         });
+        if (!continuousMovementToggle.input.checked || movementKind !== 'move') break;
+        const nextDirection = consumeNextDirection();
+        if (!nextDirection) break;
+        move(nextDirection);
+        if (!current.runtime.playerMovement || remainingSeconds <= 0) break;
       }
     });
     const offReady = context.communication.on(dungeonMapChangedEvent, (changed) => {
@@ -540,6 +611,7 @@ export const playerMovementLabModule: LabModule = {
         runtime: loaded.runtime,
         spawn: loaded.spawn,
       };
+      clearDirectionalInput();
       current = event;
       teleportXInput.max = String(event.runtime.map.width - 1);
       teleportYInput.max = String(event.runtime.map.height - 1);
@@ -550,13 +622,14 @@ export const playerMovementLabModule: LabModule = {
       refreshRuntimeJson(true);
       status.textContent = `玩家已在出生格 (${event.runtime.playerPosition.tileX}, ${event.runtime.playerPosition.tileY}) 创建，朝向 ${event.runtime.playerFacing}。`;
     });
-    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson(true));
+    const offChanged = context.communication.on(dungeonRuntimeChangedEvent, () => refreshRuntimeJson());
     return () => {
       offReady();
       offChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       keyboardRegistration.dispose();
       offKeyboardChanged();
+      debugMarkerToggle.input.removeEventListener('change', renderDebugMarker);
       context.services.delete(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
       disposeMarker();
     };

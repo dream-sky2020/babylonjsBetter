@@ -34,6 +34,7 @@ const createEntryElement = (entry: LabCommunicationLogEntry): HTMLElement => {
   const details = document.createElement('details');
   details.className = 'lab-communication-log-entry';
   details.dataset.status = entry.status;
+  details.dataset.sequence = String(entry.sequence);
   const summary = document.createElement('summary');
   const sequence = document.createElement('span');
   sequence.className = 'lab-communication-log-sequence';
@@ -107,11 +108,43 @@ export const createLabCommunicationLogPanel = (
   );
 
   let renderFrame: number | null = null;
+  let defaultViewEntries = new Map<number, HTMLElement>();
+  let renderedAsDefaultView = false;
   const render = () => {
     renderFrame = null;
     const query = search.value.trim().toLocaleLowerCase();
     const mode = filter.value;
     const allEntries = journal.getEntries();
+    const defaultView = !query && mode === 'all';
+    if (defaultView) {
+      if (!renderedAsDefaultView) {
+        defaultViewEntries = new Map(allEntries.map((entry) => {
+          const element = createEntryElement(entry);
+          return [entry.sequence, element] as const;
+        }));
+        list.replaceChildren(...[...defaultViewEntries.values()].reverse());
+      } else {
+        const retainedSequences = new Set(allEntries.map(({ sequence }) => sequence));
+        defaultViewEntries.forEach((element, sequence) => {
+          if (retainedSequences.has(sequence)) return;
+          element.remove();
+          defaultViewEntries.delete(sequence);
+        });
+        allEntries.forEach((entry) => {
+          if (defaultViewEntries.has(entry.sequence)) return;
+          const element = createEntryElement(entry);
+          defaultViewEntries.set(entry.sequence, element);
+          list.prepend(element);
+        });
+      }
+      renderedAsDefaultView = true;
+      status.textContent = allEntries.length
+        ? `共保存 ${allEntries.length} 条，当前显示 ${allEntries.length} 条。`
+        : '尚无通信记录。';
+      return;
+    }
+    renderedAsDefaultView = false;
+    defaultViewEntries.clear();
     const entries = allEntries.filter((entry) => {
       if (mode === 'request' && entry.kind !== 'request') return false;
       if (mode === 'event' && entry.kind !== 'event') return false;
@@ -159,4 +192,3 @@ export const createLabCommunicationLogPanel = (
     panel.root.remove();
   };
 };
-

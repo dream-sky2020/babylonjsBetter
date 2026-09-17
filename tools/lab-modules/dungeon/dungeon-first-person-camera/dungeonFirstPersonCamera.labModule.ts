@@ -13,6 +13,14 @@ import {
   type DungeonMapLoaderReferences,
   type LoadedDungeonReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
+import {
+  dungeonPlayerCameraModeChangedEvent,
+  type DungeonPlayerCameraMode,
+} from '../dungeon-player-camera/dungeonPlayerCamera.protocol';
+import {
+  DUNGEON_PLAYER_CAMERA_SERVICE_KEY,
+  type DungeonPlayerCameraService,
+} from '../dungeon-player-camera/dungeonPlayerCamera.references';
 
 const degToRad = (value: number): number => value * Math.PI / 180;
 const radToDeg = (value: number): number => value * 180 / Math.PI;
@@ -34,15 +42,30 @@ const readClampedNumber = (input: HTMLInputElement, fallback: number): number =>
   return Math.min(Number(input.max), Math.max(Number(input.min), value));
 };
 
-export const dungeonFirstPersonCameraLabModule: LabModule = {
-  id: 'dungeon-first-person-camera',
+const createModeSelect = (): HTMLSelectElement => {
+  const select = document.createElement('select');
+  select.append(
+    new Option('DRPG 第一人称', 'first-person'),
+    new Option('第三人称俯视', 'overhead'),
+  );
+  return select;
+};
+
+export const dungeonPlayerCameraLabModule: LabModule = {
+  id: 'dungeon-player-camera',
   dependencies: ['player-movement'],
   setup(context) {
     const references = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
-    const panel = context.ui.addPanel('dungeon-first-person-camera', 'DRPG 第一人称相机');
-    const enabledToggle = createLabSwitch('绑定到玩家第一人称姿态', true);
+    const panel = context.ui.addPanel('dungeon-player-camera', 'Dungeon 玩家相机');
+    const enabledToggle = createLabSwitch('绑定相机到玩家', true, {
+      preference: { ui: context.ui, key: 'dungeon-player-camera/enabled' },
+    });
+    const modeSelect = createModeSelect();
+    const switchModeButton = document.createElement('button');
+    switchModeButton.type = 'button';
+    switchModeButton.textContent = '切换视角（V）';
     const eyeHeightInput = createNumberInput(1.65, 0.1, 10, 0.05);
     const pitchInput = createNumberInput(0, -85, 85, 1);
     const freeLookToggle = createLabSwitch('启用拖拽自由观察', true);
@@ -62,10 +85,17 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
     immediateRecenterButton.type = 'button';
     immediateRecenterButton.textContent = '立即回正';
     recenterActions.append(smoothRecenterButton, immediateRecenterButton);
+    const overheadDistanceInput = createNumberInput(32, 4, 120, 1);
+    const overheadPitchInput = createNumberInput(55, 15, 85, 1);
+    const overheadYawInput = createNumberInput(0, -180, 180, 1);
+    const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
+    const overheadFollowInput = createNumberInput(14, 0, 60, 1);
     const status = createLabStatus('等待 Dungeon Runtime。');
     const debug = createLabJson();
     panel.content.append(
       enabledToggle.row,
+      createLabField('当前玩家视角', modeSelect),
+      switchModeButton,
       createLabField('玩家脚底以上眼高（世界单位）', eyeHeightInput),
       createLabField('基础俯仰角（度）', pitchInput),
       freeLookToggle.row,
@@ -77,12 +107,18 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
       autoRecenterToggle.row,
       createLabField('回正耗时（秒）', recenterDurationInput),
       recenterActions,
+      createLabField('俯视距离', overheadDistanceInput),
+      createLabField('俯视仰角（度）', overheadPitchInput),
+      createLabField('俯视水平朝向（度，0=北朝上）', overheadYawInput),
+      createLabField('俯视目标高度', overheadTargetHeightInput),
+      createLabField('俯视跟随响应（0=立即）', overheadFollowInput),
       status,
       debug,
     );
 
     const previousMode = context.cameraController.state.mode;
     let current: LoadedDungeonReferences | null = null;
+    let activeMode = modeSelect.value as DungeonPlayerCameraMode;
     let tileTopOffset = 0;
     let lastDebugTime = 0;
     let dragPointerId: number | null = null;
@@ -97,6 +133,9 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
     let recentering = false;
     const eyePosition = Vector3.Zero();
     const pose = { position: eyePosition, yaw: 0, pitch: 0 };
+    const overheadTarget = Vector3.Zero();
+    const desiredOverheadTarget = Vector3.Zero();
+    let overheadTargetInitialized = false;
 
     const updateTileTopOffset = (): void => {
       if (!current) {
@@ -116,7 +155,7 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
 
     const binding = {
       readPose: () => {
-        if (!enabledToggle.input.checked || !current) return null;
+        if (!enabledToggle.input.checked || activeMode !== 'first-person' || !current) return null;
         const [x, y, z] = current.runtime.playerWorldPosition;
         eyePosition.set(x, y + tileTopOffset + readClampedNumber(eyeHeightInput, 1.65), z);
         pose.yaw = current.runtime.playerWorldRotationY + currentYawOffset;
@@ -161,7 +200,8 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
     };
 
     const onPointerDown = (event: PointerEvent): void => {
-      if (event.button !== 0 || !enabledToggle.input.checked || !freeLookToggle.input.checked) return;
+      if (event.button !== 0 || !enabledToggle.input.checked
+        || activeMode !== 'first-person' || !freeLookToggle.input.checked) return;
       dragPointerId = event.pointerId;
       cancelRecenter();
       context.canvas.setPointerCapture(event.pointerId);
@@ -187,28 +227,91 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
     context.canvas.addEventListener('pointercancel', onPointerUp);
     context.canvas.addEventListener('lostpointercapture', onLostPointerCapture);
 
-    const syncBinding = (): void => {
-      if (enabledToggle.input.checked) {
+    const applyOverheadPose = (deltaSeconds: number, snap = false): void => {
+      if (!current) return;
+      const [x, y, z] = current.runtime.playerWorldPosition;
+      desiredOverheadTarget.set(
+        x,
+        y + tileTopOffset + readClampedNumber(overheadTargetHeightInput, 0.8),
+        z,
+      );
+      if (snap || !overheadTargetInitialized) {
+        overheadTarget.copyFrom(desiredOverheadTarget);
+        overheadTargetInitialized = true;
+      } else {
+        const response = readClampedNumber(overheadFollowInput, 14);
+        const alpha = response <= 0 ? 1 : 1 - Math.exp(-response * deltaSeconds);
+        Vector3.LerpToRef(overheadTarget, desiredOverheadTarget, alpha, overheadTarget);
+      }
+      const cameraState = context.cameraController.state;
+      cameraState.orbitCenter.copyFrom(overheadTarget);
+      cameraState.orbitYaw = degToRad(readClampedNumber(overheadYawInput, 0));
+      cameraState.orbitPitchDeg = readClampedNumber(overheadPitchInput, 55);
+      cameraState.orbitRadius = readClampedNumber(overheadDistanceInput, 32);
+      if (cameraState.mode !== 'orbit') context.cameraController.setMode('orbit');
+      else context.cameraController.applyPose();
+    };
+
+    const syncBinding = (snapOverhead = false): void => {
+      if (enabledToggle.input.checked && activeMode === 'first-person') {
         context.cameraController.bindFirstPersonPose(binding);
         context.cameraController.setMode('firstPerson');
         status.textContent = current
           ? '已由 Dungeon Runtime 驱动位置与朝向；Camera 原生 WASD 不参与移动。'
           : '第一人称绑定已开启，等待 Dungeon Runtime。';
+      } else if (enabledToggle.input.checked) {
+        context.cameraController.bindFirstPersonPose(null);
+        applyOverheadPose(0, snapOverhead);
+        status.textContent = current
+          ? '第三人称俯视跟随玩家；移动输入仍使用地图绝对方向。'
+          : '俯视绑定已开启，等待 Dungeon Runtime。';
       } else {
         context.cameraController.bindFirstPersonPose(null);
-        status.textContent = '第一人称姿态绑定已关闭，可从 Camera 面板自由切换模式。';
+        status.textContent = '玩家相机绑定已关闭，可从 Camera 面板自由切换模式。';
       }
     };
 
+    const setPlayerCameraMode = (
+      mode: DungeonPlayerCameraMode,
+      reason: 'ui' | 'keyboard' | 'service',
+    ): void => {
+      if (activeMode === mode) return;
+      const previousPlayerMode = activeMode;
+      activeMode = mode;
+      modeSelect.value = mode;
+      if (dragPointerId !== null) finishDragging(dragPointerId);
+      recenterImmediately();
+      overheadTargetInitialized = false;
+      syncBinding(mode === 'overhead');
+      void context.communication.publish(dungeonPlayerCameraModeChangedEvent, {
+        mode,
+        previousMode: previousPlayerMode,
+        reason,
+      });
+      refreshDebug(true);
+    };
+
+    const togglePlayerCameraMode = (reason: 'ui' | 'keyboard' | 'service'): void => {
+      setPlayerCameraMode(activeMode === 'first-person' ? 'overhead' : 'first-person', reason);
+    };
+
+    const cameraService: DungeonPlayerCameraService = {
+      get mode() { return activeMode; },
+      setMode: (mode) => setPlayerCameraMode(mode, 'service'),
+      toggleMode: () => togglePlayerCameraMode('service'),
+    };
+    context.services.set(DUNGEON_PLAYER_CAMERA_SERVICE_KEY, cameraService);
+
     const refreshDebug = (force = false): void => {
       const now = performance.now();
-      if (!force && now - lastDebugTime < 100) return;
+      if (!force && now - lastDebugTime < 250) return;
       lastDebugTime = now;
       const camera = context.cameraController.activeCamera;
       debug.textContent = JSON.stringify({
         bindingEnabled: enabledToggle.input.checked,
+        playerCameraMode: activeMode,
         cameraMode: context.cameraController.state.mode,
-        mapId: current?.map.id ?? null,
+        mapId: current?.runtime.map.id ?? null,
         playerTile: current?.runtime.playerPosition ?? null,
         playerFacing: current?.runtime.playerFacing ?? null,
         playerWorldPosition: current?.runtime.playerWorldPosition ?? null,
@@ -223,6 +326,7 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
         currentPitchOffsetDeg: radToDeg(currentPitchOffset),
         targetYawOffsetDeg: radToDeg(targetYawOffset),
         targetPitchOffsetDeg: radToDeg(targetPitchOffset),
+        overheadTarget: overheadTargetInitialized ? overheadTarget.asArray() : null,
         cameraPosition: [camera.position.x, camera.position.y, camera.position.z],
         cameraYawDeg: radToDeg(camera.rotation.y),
         cameraPitchDeg: radToDeg(-camera.rotation.x),
@@ -231,9 +335,13 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
 
     enabledToggle.input.addEventListener('change', () => {
       if (!enabledToggle.input.checked && dragPointerId !== null) finishDragging(dragPointerId);
-      syncBinding();
+      syncBinding(activeMode === 'overhead');
       refreshDebug(true);
     });
+    modeSelect.addEventListener('change', () => {
+      setPlayerCameraMode(modeSelect.value as DungeonPlayerCameraMode, 'ui');
+    });
+    switchModeButton.addEventListener('click', () => togglePlayerCameraMode('ui'));
     freeLookToggle.input.addEventListener('change', () => {
       if (!freeLookToggle.input.checked) {
         if (dragPointerId !== null) finishDragging(dragPointerId);
@@ -261,6 +369,32 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
       recenterImmediately();
       status.textContent = '镜头已立即回正；玩家朝向保持不变。';
     });
+    for (const input of [
+      overheadDistanceInput,
+      overheadPitchInput,
+      overheadYawInput,
+      overheadTargetHeightInput,
+      overheadFollowInput,
+    ]) {
+      input.addEventListener('input', () => {
+        if (activeMode === 'overhead') applyOverheadPose(0);
+        refreshDebug(true);
+      });
+    }
+
+    const keyboardRegistration = context.keyboard.register({
+      id: 'dungeon-player-camera',
+      label: 'Dungeon 玩家相机切换',
+      keys: ['KeyV'],
+      enabled: true,
+      priority: 90,
+      intercept: true,
+      preventDefault: true,
+      onKeyDown: (event) => {
+        if (!event.repeat) togglePlayerCameraMode('keyboard');
+        return 'handled';
+      },
+    });
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       const deltaSeconds = Math.min(0.1, Math.max(0, context.engine.getDeltaTime() / 1000));
@@ -283,9 +417,11 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
         currentPitchOffset += (targetPitchOffset - currentPitchOffset) * alpha;
       }
       if (enabledToggle.input.checked) {
-        if (context.cameraController.state.mode !== 'firstPerson') {
-          context.cameraController.setMode('firstPerson');
-        } else context.cameraController.applyPose();
+        if (activeMode === 'first-person') {
+          if (context.cameraController.state.mode !== 'firstPerson') {
+            context.cameraController.setMode('firstPerson');
+          } else context.cameraController.applyPose();
+        } else applyOverheadPose(deltaSeconds);
       }
       refreshDebug();
     });
@@ -294,7 +430,8 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
       if (!loaded || loaded.loadId !== changed.loadId) return;
       current = loaded;
       updateTileTopOffset();
-      syncBinding();
+      overheadTargetInitialized = false;
+      syncBinding(true);
       refreshDebug(true);
     });
 
@@ -302,6 +439,7 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
     refreshDebug(true);
     return () => {
       offMapChanged();
+      keyboardRegistration.dispose();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       context.canvas.removeEventListener('pointerdown', onPointerDown);
       context.canvas.removeEventListener('pointermove', onPointerMove);
@@ -315,4 +453,10 @@ export const dungeonFirstPersonCameraLabModule: LabModule = {
       context.cameraController.setMode(previousMode);
     };
   },
+};
+
+/** @deprecated 新 Lab 应使用 dungeon-player-camera；此 ID 仅保留旧组合配置兼容。 */
+export const dungeonFirstPersonCameraLabModule: LabModule = {
+  ...dungeonPlayerCameraLabModule,
+  id: 'dungeon-first-person-camera',
 };
