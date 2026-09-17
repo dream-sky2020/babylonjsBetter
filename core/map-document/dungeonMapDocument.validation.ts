@@ -60,6 +60,23 @@ export const validateDungeonMapDocumentV2 = (
   const pointIds = unique(grid.points.map(({ id }) => id), 'grid.point-id', 'grid.points');
   const entityIds = unique(document.entities.map(({ id }) => id), 'entity.id', 'entities');
 
+  if (document.terrain) {
+    if (!document.terrain.default || typeof document.terrain.default !== 'object'
+      || Array.isArray(document.terrain.default)) {
+      add('terrain.default', 'terrain.default 必须是地形属性对象。', 'terrain.default');
+    }
+    if (document.terrain.overrides) {
+      Object.entries(document.terrain.overrides).forEach(([tileId, properties]) => {
+        if (!tileIds.has(tileId)) {
+          add('terrain.override.missing-tile', `地形覆盖引用了不存在的 Tile“${tileId}”。`, `terrain.overrides.${tileId}`);
+        }
+        if (!properties || typeof properties !== 'object' || Array.isArray(properties)) {
+          add('terrain.override.properties', `Tile“${tileId}”的地形覆盖必须是对象。`, `terrain.overrides.${tileId}`);
+        }
+      });
+    }
+  }
+
   grid.tileSides.forEach((directions, tileIndex) => {
     if (directions.length !== DUNGEON_MAP_DIRECTION_ORDER.length) {
       add('grid.tile-sides.shape', '每个 tileSides 必须包含固定的 NESW 四项。', `grid.tileSides[${tileIndex}]`);

@@ -9,8 +9,10 @@ import type {
 } from './dungeonMap.types';
 import {
   isDungeonMapDocumentV2,
+  isDungeonMapDocumentV3,
   migrateDungeonMapToDocumentV2,
   parseDungeonMapDocumentV2,
+  parseDungeonMapDocumentV3,
   projectDungeonMapDocumentToLegacyMap,
   type DungeonMapDocumentLibraryV2,
   type DungeonMapDocumentV2,
@@ -68,6 +70,7 @@ const parseStoredDungeonMapDocument = (
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     throw new Error(`地图预设“${entry.presetKey}”文件内容必须是对象。`);
   }
+  if (isDungeonMapDocumentV3(value)) return parseDungeonMapDocumentV3(value, entry.presetKey);
   if (isDungeonMapDocumentV2(value)) return parseDungeonMapDocumentV2(value, entry.presetKey);
   const preset = value as Partial<DungeonMapStoredPreset>;
   if (preset.presetKey !== entry.presetKey) {

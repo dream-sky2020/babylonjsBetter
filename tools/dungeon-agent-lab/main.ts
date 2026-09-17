@@ -7,10 +7,10 @@ if (!(root instanceof HTMLElement)) throw new Error('缺少 Lab 根节点 #root�
 
 const host = await createLab({
   root,
-  title: 'Dungeon 地图传送 Lab',
-  description: '验证格子、单向边和公用边出口到目标地图唯一入口的无表现传送流程。',
-  badge: 'Composable Lab · Dungeon Transition',
-  modules: ['dungeon-config', 'dungeon-player-camera', 'dungeon-transition'],
+  title: 'Dungeon Agent 移动 Lab',
+  description: '在地图传送完整链路上扫描 dungeon-agent，验证运行时占位、朝向、手动格步移动与 Debug 3D 模型。',
+  badge: 'Composable Lab · Dungeon Transition + Agent',
+  modules: ['dungeon-config', 'dungeon-player-camera', 'dungeon-transition', 'dungeon-agent'],
   catalog: dungeonLabModuleCatalog,
 });
 

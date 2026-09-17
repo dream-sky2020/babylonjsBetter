@@ -10,6 +10,7 @@ import {
   type DungeonMapDocumentV2,
   type DungeonMapSpatialTarget,
 } from './dungeonMapDocument.types.ts';
+import { getDungeonMapTerrainProperties } from './dungeonMapDocument.terrain.ts';
 
 const materializeContainer = (
   query: DungeonMapDocumentQuery,
@@ -42,7 +43,6 @@ export const projectDungeonMapDocumentToLegacyMap = (
         id: sideId,
         coordinates: { type: 'tile-edge' as const, x, y, direction },
         data: materializeContainer(query, { kind: 'side', sideId }),
-        ...(document.legacy?.sideProperties?.[sideId] ?? {}),
       }];
     })) as DungeonMapData['tiles'][number]['edges'];
     return {
@@ -51,7 +51,7 @@ export const projectDungeonMapDocumentToLegacyMap = (
       coordinates: { type: 'tile' as const, x, y },
       edges,
       data: materializeContainer(query, { kind: 'tile', tileId }),
-      ...(document.legacy?.tileProperties?.[tileId] ?? {}),
+      ...(getDungeonMapTerrainProperties(document.terrain, tileId) ?? {}),
     };
   });
 
@@ -69,7 +69,6 @@ export const projectDungeonMapDocumentToLegacyMap = (
         id: edge.id,
         coordinates: { type: 'shared-edge' as const, sides },
         data: materializeContainer(query, { kind: 'edge', edgeId: edge.id }),
-        ...(document.legacy?.edgeProperties?.[edge.id] ?? {}),
       },
     };
   });

@@ -41,11 +41,12 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
         if not isinstance(preset, dict):
             errors.append(f"{path} must be an object")
             continue
-        if preset.get("schemaVersion") == 2:
+        if preset.get("schemaVersion") in (2, 3):
             identity = preset.get("identity")
             grid = preset.get("grid")
             entities = preset.get("entities")
             components = preset.get("components")
+            terrain = preset.get("terrain")
             if not isinstance(identity, dict):
                 errors.append(f"{path}.identity must be an object")
                 continue
@@ -65,6 +66,25 @@ def validate_dungeon_map_preset_payload(payload: dict) -> list[str]:
                 errors.append(f"{path}.grid.height must be a positive integer")
             if grid.get("topologyMode", "bounded") not in valid_topologies:
                 errors.append(f"{path}.grid.topologyMode is invalid")
+            if terrain is not None:
+                if not isinstance(terrain, dict):
+                    errors.append(f"{path}.terrain must be an object")
+                elif not isinstance(terrain.get("default"), dict):
+                    errors.append(f"{path}.terrain.default must be an object")
+                elif "overrides" in terrain and not isinstance(terrain.get("overrides"), dict):
+                    errors.append(f"{path}.terrain.overrides must be an object")
+            if preset.get("schemaVersion") == 3:
+                forbidden_fields = ("tileIds", "tileSides", "sides", "edges", "tilePoints", "points")
+                for field in forbidden_fields:
+                    if field in grid:
+                        errors.append(f"{path}.grid.{field} must be omitted in compact V3")
+                if not isinstance(entities, list):
+                    errors.append(f"{path}.entities must be an array")
+                if not isinstance(components, dict):
+                    errors.append(f"{path}.components must be an object")
+                elif any(not isinstance(table, list) for table in components.values()):
+                    errors.append(f"{path}.components values must be arrays")
+                continue
             expected_tiles = width * height if isinstance(width, int) and isinstance(height, int) else None
             tile_sides = grid.get("tileSides")
             tile_points = grid.get("tilePoints")

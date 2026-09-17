@@ -11,6 +11,11 @@ import { compileDungeonMapDocumentTopology } from './dungeonMapDocument.compile.
 import { projectDungeonMapDocumentToLegacyMap } from './dungeonMapDocument.projection.ts';
 import { validateDungeonMapData } from '../map/dungeonMap.ts';
 import { encodeDungeonMapDocumentLibraryV2, parseDungeonMapDocumentV2 } from './dungeonMapDocument.codec.ts';
+import { compactDungeonMapTerrain, getDungeonMapTerrainProperties } from './dungeonMapDocument.terrain.ts';
+import {
+  encodeDungeonMapDocumentLibraryV3,
+  parseDungeonMapDocumentV3,
+} from './dungeonMapDocument.storageV3.ts';
 
 const entity = (id: string, componentType = 'state'): IEntity => ({
   id,
@@ -127,7 +132,76 @@ test('V2 编解码会校验并规范化 Library key', () => {
   assert.throws(() => parseDungeonMapDocumentV2(document, 'wrong-key'), /presetKey/);
 });
 
-test('保存时清理旧编辑器生成的纯拓扑 Entity，并保留地形语义', () => {
+test('V3 保存省略规则拓扑表并可无损展开为运行时 V2', () => {
+  const { document } = migrateDungeonMapToDocumentV2(createPreset());
+  document.terrain = {
+    default: { kind: 'floor' },
+    overrides: { [document.grid.tileIds[1]]: { kind: 'water', walkable: false } },
+  };
+  const stored = encodeDungeonMapDocumentLibraryV3({ compact: document }).compact;
+  assert.equal(stored.schemaVersion, 3);
+  assert.deepEqual(Object.keys(stored.grid).sort(), ['height', 'topologyMode', 'width']);
+  assert.equal('tileIds' in stored.grid, false);
+  assert.equal('sides' in stored.grid, false);
+  assert.equal('edges' in stored.grid, false);
+  assert.equal('points' in stored.grid, false);
+
+  const restored = parseDungeonMapDocumentV3(stored, 'compact');
+  assert.equal(restored.schemaVersion, 2);
+  assert.deepEqual(validateDungeonMapDocumentV2(restored), []);
+  assert.equal(restored.grid.tileIds.length, 2);
+  assert.deepEqual(getDungeonMapTerrainProperties(restored.terrain, restored.grid.tileIds[0]), { kind: 'floor' });
+  assert.deepEqual(getDungeonMapTerrainProperties(restored.terrain, restored.grid.tileIds[1]), {
+    kind: 'water',
+    walkable: false,
+  });
+  const query = new DungeonMapDocumentQuery(restored);
+  const firstTileId = query.getTileIdAt(0, 0)!;
+  assert.deepEqual(query.getEntitiesAt({ kind: 'tile', tileId: firstTileId }).map(({ id }) => id), ['tile-entity-0']);
+  assert.deepEqual(
+    query.getEntitiesAt({ kind: 'side', sideId: query.getSide(firstTileId, 'east')!.id }).map(({ id }) => id),
+    ['side-entity'],
+  );
+  assert.deepEqual(
+    query.getEntitiesAt({ kind: 'edge', edgeId: query.getEdge(firstTileId, 'east')!.id }).map(({ id }) => id),
+    ['edge-entity'],
+  );
+});
+
+test('地形使用出现次数最多的默认值，只保存不同格子的覆盖', () => {
+  const terrain = compactDungeonMapTerrain(['a', 'b', 'c', 'd'], {
+    a: { kind: 'floor' },
+    b: { kind: 'floor' },
+    c: { kind: 'water', walkable: false },
+    d: { kind: 'floor' },
+  });
+  assert.deepEqual(terrain, {
+    default: { kind: 'floor' },
+    overrides: { c: { kind: 'water', walkable: false } },
+  });
+  assert.deepEqual(getDungeonMapTerrainProperties(terrain, 'a'), { kind: 'floor' });
+  assert.deepEqual(getDungeonMapTerrainProperties(terrain, 'c'), { kind: 'water', walkable: false });
+});
+
+test('旧 legacy.tileProperties 读取时自动升级为 terrain', () => {
+  const { document } = migrateDungeonMapToDocumentV2(createPreset());
+  const raw = structuredClone(document) as unknown as Record<string, unknown>;
+  delete raw.terrain;
+  raw.legacy = {
+    tileProperties: {
+      'tile:0,0': { kind: 'floor' },
+      'tile:1,0': { kind: 'water', walkable: false },
+    },
+  };
+  const upgraded = parseDungeonMapDocumentV2(raw, 'v2-test');
+  assert.deepEqual(upgraded.terrain?.default, { kind: 'floor' });
+  assert.deepEqual(upgraded.terrain?.overrides, {
+    'tile:1,0': { kind: 'water', walkable: false },
+  });
+  assert.equal('tileProperties' in (upgraded.legacy ?? {}), false);
+});
+
+test('保存时清理旧编辑器生成的纯拓扑 Entity，只保留格子地形语义', () => {
   const shell = (id: string, name: string, entityType: string, legacy: Record<string, unknown>) => (
     normalizeEntityContainer({ legacy }, id, name, entityType)
   );
@@ -153,8 +227,9 @@ test('保存时清理旧编辑器生成的纯拓扑 Entity，并保留地形语�
   const encoded = encodeDungeonMapDocumentLibraryV2({ shells: document }).shells;
   assert.equal(encoded.entities.length, 0);
   assert.deepEqual(encoded.components, {});
-  assert.equal(encoded.legacy?.tileProperties?.['tile:0,0']?.kind, 'wall');
-  assert.ok(Object.values(encoded.legacy?.sideProperties ?? {}).every(({ kind }) => kind === 'wall'));
-  assert.ok(Object.values(encoded.legacy?.edgeProperties ?? {}).every(({ kind }) => kind === 'open'));
+  assert.deepEqual(encoded.terrain, { default: { kind: 'wall' } });
+  assert.equal('tileProperties' in (encoded.legacy ?? {}), false);
+  assert.equal('sideProperties' in (encoded.legacy ?? {}), false);
+  assert.equal('edgeProperties' in (encoded.legacy ?? {}), false);
   assert.deepEqual(validateDungeonMapDocumentV2(encoded), []);
 });

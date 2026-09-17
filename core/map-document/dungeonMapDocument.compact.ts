@@ -1,11 +1,15 @@
 import type {
   DungeonMapDocumentComponent,
-  DungeonMapDocumentLegacyEdgeProperties,
-  DungeonMapDocumentLegacyTileProperties,
+  DungeonMapTerrainProperties,
   DungeonMapDocumentV2,
   DungeonMapSpatialAttachmentComponent,
   DungeonMapSpatialTarget,
 } from './dungeonMapDocument.types.ts';
+import {
+  compactDungeonMapTerrain,
+  expandDungeonMapTerrain,
+  normalizeDungeonMapTerrain,
+} from './dungeonMapDocument.terrain.ts';
 
 const sameJson = (left: unknown, right: unknown): boolean => JSON.stringify(left) === JSON.stringify(right);
 
@@ -49,9 +53,10 @@ export const compactGeneratedDungeonMapShells = (source: DungeonMapDocumentV2): 
   });
 
   const removedEntityIds = new Set<string>();
-  const tileProperties = { ...(document.legacy?.tileProperties ?? {}) };
-  const sideProperties = { ...(document.legacy?.sideProperties ?? {}) };
-  const edgeProperties = { ...(document.legacy?.edgeProperties ?? {}) };
+  const tileProperties = expandDungeonMapTerrain(
+    document.grid.tileIds,
+    normalizeDungeonMapTerrain(document.grid.tileIds, document.terrain, document.legacy),
+  );
 
   document.entities.forEach((entity) => {
     const components = componentsByEntity.get(entity.id) ?? [];
@@ -73,21 +78,13 @@ export const compactGeneratedDungeonMapShells = (source: DungeonMapDocumentV2): 
       if (Object.keys(legacy).some((key) => !['kind', 'label', 'walkable', 'discovered'].includes(key))) return;
       const updates = attachment.targets.map((candidate) => {
         if (candidate.kind !== 'tile') return undefined;
-        const merged = mergeWithoutConflict(tileProperties[candidate.tileId], legacy as DungeonMapDocumentLegacyTileProperties);
+        const merged = mergeWithoutConflict(tileProperties[candidate.tileId], legacy as DungeonMapTerrainProperties);
         return merged ? [candidate.tileId, merged] as const : undefined;
       });
       if (updates.some((update) => !update)) return;
       updates.forEach((update) => { if (update) tileProperties[update[0]] = update[1]; });
     } else if (target.kind === 'side' || target.kind === 'edge') {
       if (Object.keys(legacy).some((key) => !['kind', 'label', 'passable', 'events', 'metadata'].includes(key))) return;
-      const table = target.kind === 'side' ? sideProperties : edgeProperties;
-      const updates = attachment.targets.map((candidate) => {
-        const id = candidate.kind === 'side' ? candidate.sideId : candidate.kind === 'edge' ? candidate.edgeId : undefined;
-        const merged = id ? mergeWithoutConflict(table[id], legacy as DungeonMapDocumentLegacyEdgeProperties) : undefined;
-        return id && merged ? [id, merged] as const : undefined;
-      });
-      if (updates.some((update) => !update)) return;
-      updates.forEach((update) => { if (update) table[update[0]] = update[1]; });
     } else if (target.kind === 'point') {
       const match = /^point:(\d+),(\d+):entity$/.exec(entity.id);
       if (!match || !sameJson(legacy, { label: `公用点 ${match[1]},${match[2]}` })) return;
@@ -96,17 +93,18 @@ export const compactGeneratedDungeonMapShells = (source: DungeonMapDocumentV2): 
     removedEntityIds.add(entity.id);
   });
 
-  if (removedEntityIds.size === 0) return document;
-  document.entities = document.entities.filter(({ id }) => !removedEntityIds.has(id));
-  document.components = Object.fromEntries(Object.entries(document.components).flatMap(([type, components]) => {
-    const retained = components.filter(({ entityId }) => !removedEntityIds.has(entityId));
-    return retained.length > 0 ? [[type, retained]] : [];
-  }));
-  document.legacy = {
-    ...(document.legacy ?? {}),
-    ...(Object.keys(tileProperties).length > 0 ? { tileProperties } : {}),
-    ...(Object.keys(sideProperties).length > 0 ? { sideProperties } : {}),
-    ...(Object.keys(edgeProperties).length > 0 ? { edgeProperties } : {}),
-  };
+  if (removedEntityIds.size > 0) {
+    document.entities = document.entities.filter(({ id }) => !removedEntityIds.has(id));
+    document.components = Object.fromEntries(Object.entries(document.components).flatMap(([type, components]) => {
+      const retained = components.filter(({ entityId }) => !removedEntityIds.has(entityId));
+      return retained.length > 0 ? [[type, retained]] : [];
+    }));
+  }
+  const terrain = compactDungeonMapTerrain(document.grid.tileIds, tileProperties);
+  if (terrain) document.terrain = terrain;
+  else delete document.terrain;
+  const markers = document.legacy?.markers;
+  if (markers !== undefined) document.legacy = { markers };
+  else delete document.legacy;
   return document;
 };

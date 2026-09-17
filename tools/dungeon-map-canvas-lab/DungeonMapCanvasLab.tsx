@@ -8,6 +8,7 @@ import {
   deleteDungeonMapDocumentRow,
   encodeDungeonMapData,
   encodeDungeonMapDocumentLibraryV2,
+  encodeDungeonMapDocumentLibraryV3,
   insertDungeonMapDocumentColumn,
   insertDungeonMapDocumentRow,
   loadDungeonMapDocumentLibraryV2,
@@ -909,7 +910,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
       presetKey: key,
       name: preset.name.trim() || key,
     }])) as DungeonMapPresetLibrary;
-    const documentPayload = encodeDungeonMapDocumentLibraryV2(Object.fromEntries(
+    const runtimeDocuments = encodeDungeonMapDocumentLibraryV2(Object.fromEntries(
       Object.entries(normalizedLegacyLibrary).map(([key, preset]) => {
         const source = key === activePresetKey && mapDocument
           ? mapDocument
@@ -920,6 +921,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
         }];
       }),
     ));
+    const documentPayload = encodeDungeonMapDocumentLibraryV3(runtimeDocuments);
     setPresetSaving(true);
     try {
       const response = await requestDevServer('/api/dungeon-map-presets', {
@@ -929,14 +931,14 @@ export const DungeonMapCanvasLab: React.FC = () => {
       });
       const result = await response.json() as { success?: boolean; message?: string; errors?: string[] };
       if (!response.ok || result.success === false) throw new Error(result.errors?.[0] ?? result.message ?? `HTTP ${response.status}`);
-      setMapDocuments(documentPayload);
+      setMapDocuments(runtimeDocuments);
       setMapPresets(normalizedLegacyLibrary);
       setSavedPresetFingerprints(Object.fromEntries(
         Object.entries(normalizedLegacyLibrary).map(([key, preset]) => [key, presetFingerprint(preset)]),
       ));
       mapStore?.markSaved();
       setPresetError(false);
-      setPresetMessage(`已保存 ${Object.keys(documentPayload).length} 个 V2 地图文档到 config/dungeonMapPresets/。`);
+      setPresetMessage(`已保存 ${Object.keys(documentPayload).length} 个紧凑 V3 地图文档到 config/dungeonMapPresets/。`);
     } catch (error) {
       setPresetError(true);
       setPresetMessage(`地图预设保存失败：${error instanceof Error ? error.message : String(error)}`);

@@ -1,5 +1,4 @@
 import type {
-  DungeonMapEdgeEvent,
   DungeonMapDirection,
   DungeonMapMarker,
   DungeonMapTileCorner,
@@ -7,6 +6,7 @@ import type {
 } from '../map/dungeonMap.types.ts';
 
 export const DUNGEON_MAP_DOCUMENT_SCHEMA_VERSION = 2 as const;
+export const DUNGEON_MAP_STORAGE_SCHEMA_VERSION = 3 as const;
 
 export const DUNGEON_MAP_DIRECTION_ORDER = ['north', 'east', 'south', 'west'] as const;
 export const DUNGEON_MAP_CORNER_ORDER = [
@@ -82,28 +82,24 @@ export type DungeonMapDocumentPoint = {
   corners: DungeonMapDocumentPointCorner[];
 };
 
-export type DungeonMapDocumentLegacyTileProperties = {
+export type DungeonMapTerrainProperties = {
   kind?: string;
   label?: string;
   walkable?: boolean;
   discovered?: boolean;
 };
 
-export type DungeonMapDocumentLegacyEdgeProperties = {
-  kind?: string;
-  label?: string;
-  passable?: boolean;
-  events?: DungeonMapEdgeEvent[];
-  metadata?: Record<string, unknown>;
+/** 默认地形覆盖整张规则网格，只有不同的格子才进入 overrides。 */
+export type DungeonMapDocumentTerrain = {
+  default: DungeonMapTerrainProperties;
+  overrides?: Record<string, DungeonMapTerrainProperties>;
 };
 
 /**
- * V1 迁移兼容区。新业务不得继续向这里写入；这些字段会在对应组件落地后移除。
+ * V1 迁移兼容区。这里只暂存旧 Marker；墙、门、阻碍及交互均由
+ * 正式 Entity/Component 表达，不允许在 Side/Edge 上保留第二套属性语义。
  */
 export type DungeonMapDocumentLegacyData = {
-  tileProperties?: Record<string, DungeonMapDocumentLegacyTileProperties>;
-  sideProperties?: Record<string, DungeonMapDocumentLegacyEdgeProperties>;
-  edgeProperties?: Record<string, DungeonMapDocumentLegacyEdgeProperties>;
   markers?: readonly DungeonMapMarker[];
 };
 
@@ -135,8 +131,25 @@ export type DungeonMapDocumentV2 = {
   entities: DungeonMapDocumentEntity[];
   /** 组件类型 → 该类型的组件表。 */
   components: Record<string, DungeonMapDocumentComponent[]>;
+  /** 稀疏地板/格子地形，不需要为每个格子创建 Entity。 */
+  terrain?: DungeonMapDocumentTerrain;
   metadata?: Record<string, unknown>;
   legacy?: DungeonMapDocumentLegacyData;
+};
+
+/**
+ * V3 是磁盘专用紧凑格式。矩形地图的完整 Tile/Side/Edge/Point 表可由这三个字段
+ * 唯一推导，因此不再重复写入 JSON；加载边界会将其展开为运行时 V2 文档。
+ */
+export type DungeonMapStorageGridV3 = {
+  width: number;
+  height: number;
+  topologyMode: DungeonMapTopologyMode;
+};
+
+export type DungeonMapDocumentV3 = Omit<DungeonMapDocumentV2, 'schemaVersion' | 'grid'> & {
+  schemaVersion: typeof DUNGEON_MAP_STORAGE_SCHEMA_VERSION;
+  grid: DungeonMapStorageGridV3;
 };
 
 export type DungeonMapDocumentValidationIssue = {
