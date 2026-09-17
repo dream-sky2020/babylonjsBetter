@@ -1,5 +1,6 @@
 import { getDungeonMapTerrainProperties } from '../map-document/index.ts';
-import { DUNGEON_MAP_DIRECTION_ORDER, type DungeonMapDirection } from '../map-document/index.ts';
+import type { DungeonMapDirection } from '../map/index.ts';
+import { DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { scanDungeonDocumentAgents } from './dungeonAgent.scan.ts';
 import type {

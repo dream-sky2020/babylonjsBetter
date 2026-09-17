@@ -32,6 +32,8 @@ V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批�
 
 `core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、Tile 占位索引、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；手动移动复用现有拓扑、terrain.walkable、动态阻碍和 Agent 占位检查。`tools/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
 
+Agent Runtime 现通过开放 Controller 注册表按 `agent-controller.controllerId` 分派独立逻辑。首批 `random-after-player-step` 在玩家成功完成格步时按 `actionPeriod` 触发，`continuous-random-walk` 则维护每个 Agent 自己的秒级等待时钟；二者均使用按 Entity 与可选 seed 初始化的可复现随机序列，并复用统一移动、地形、动态阻碍和占位检查。旧 `random-walk` 暂兼容为玩家格步触发版本。Controller 只决定行动时机和候选方向，不拥有 Babylon 表现或地图静态文档。
+
 `tools/lab-modules/dungeon/dungeon-player-camera/` 统一拥有 Dungeon 玩家相机：第一人称读取 DungeonRuntime 的插值世界姿态，第三人称复用 Lab Orbit Camera，以固定地图朝向、可调仰角/距离和平滑目标跟随玩家；V 键和面板可在两者之间切换，地图传送时直接重置跟随目标。旧 `dungeon-first-person-camera` ID 只保留为兼容适配器，现有 Camera、Transition 与 Agent Lab 均改用新模块，避免多个模块逐帧争夺活动相机。
 
 `core/dungeon-runtime/dungeonRuntimeMap.ts` 将 V2 文档编译为玩家运行时持有的地图对象，包含地图身份、尺寸、原始文档和整数拓扑，不再让 `DungeonRuntime` 持有嵌套 `DungeonMapData`。格步移动通过 `neighborTileIndices` 解析目标格，因此普通外轮廓仍可阻挡，循环地图接缝则能直接到达另一侧。阻碍在装载时由 `scanDungeonDocumentObstacles()` 从 ECS 表与 `spatial-attachment` 扫描一次并缓存，移动检查不再反复遍历整张旧地图。当前 Dungeon Loader 仍为场景生成与 Delta 保留 V1 live map，但会在创建 Runtime 的边界迁移一次 V2；场景、入口/出口和 Delta 将在后续阶段分别迁移。

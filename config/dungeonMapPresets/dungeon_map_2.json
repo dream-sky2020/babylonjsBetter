@@ -152,7 +152,7 @@
         "version": 1
       },
       {
-        "controllerId": "random-walk",
+        "controllerId": "random-after-player-step",
         "entityId": "agent:plaza:wanderer",
         "id": "agent:plaza:wanderer:controller",
         "parameters": {
@@ -178,12 +178,15 @@
         "version": 1
       },
       {
-        "controllerId": "random-walk",
+        "controllerId": "continuous-random-walk",
         "entityId": "agent:plaza:wisp",
         "id": "agent:plaza:wisp:controller",
         "parameters": {
           "ignoreGroundObstacles": true,
-          "moveWeight": 2
+          "moveWeight": 2,
+          "moveDurationSeconds": 0.45,
+          "minIdleSeconds": 0.25,
+          "maxIdleSeconds": 0.9
         },
         "type": "agent-controller",
         "version": 1
@@ -344,7 +347,7 @@
         "version": 1
       },
       {
-        "actionPeriod": 3,
+        "actionPeriod": 1,
         "blocksMovement": true,
         "entityId": "agent:plaza:wanderer",
         "id": "agent:plaza:wanderer:grid-agent",
