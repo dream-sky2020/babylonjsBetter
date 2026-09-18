@@ -30,9 +30,25 @@ V2 Store 额外提供 `replaceSpatialContainer()`，可将旧 Inspector 或批�
 
 地图 ECS 新增 `dungeon-agent` 动态行动实体定义，只允许挂载在 Tile；编辑器创建时自动装配 `grid-agent`、`agent-controller` 与 `faction`。`grid-agent` 保存初始朝向、占位、行动周期、冲突优先级与开放移动规则 ID，`agent-controller` 以开放 controllerId 和 JSON 参数引用后续行动规划器，`faction` 只保存开放阵营 ID。当前阶段这些字段仍是地图静态初始配置，运行时位置、AI 状态和同时行动结算将在 DungeonRuntime 动态层实现，不回写地图文档。
 
-`core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、Tile 占位索引、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；手动移动复用现有拓扑、terrain.walkable、动态阻碍和 Agent 占位检查。`tools/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
+`core/dungeon-agent/` 提供不依赖 Babylon 的地图扫描、运行时 Agent 表、带朝向的格步移动和原地转向。`dungeon-agent` Lab Module 在地图加载事件后从 V2 文档创建独立 Agent Runtime，通过 Service/Event 对其他模块公开，并以可关闭的圆锥身体、球形头部和朝向四棱锥 Debug 模型显示；Agent 会注册到 DungeonRuntime 共享的通行世界，不再在 Agent Runtime 中维护第二套 Tile 占位索引。`tools/dungeon-agent-lab/` 在 Dungeon Transition Lab 的完整模块链路上追加该模块，用于同时验证地图切换、玩家移动和 Agent 生命周期。
 
 Agent Runtime 现通过开放 Controller 注册表按 `agent-controller.controllerId` 分派独立逻辑。首批 `random-after-player-step` 在玩家成功完成格步时按 `actionPeriod` 触发，`continuous-random-walk` 则维护每个 Agent 自己的秒级等待时钟；二者均使用按 Entity 与可选 seed 初始化的可复现随机序列，并复用统一移动、地形、动态阻碍和占位检查。旧 `random-walk` 暂兼容为玩家格步触发版本。Controller 只决定行动时机和候选方向，不拥有 Babylon 表现或地图静态文档。
+
+Controller 定义现同时公开名称、说明和数值参数 Schema，默认注册表显式包含 `stationary`、玩家格步随机移动、连续随机移动及旧 ID 兼容项。`dungeon-agent` Lab 的 Agent 面板直接由注册表生成 Controller 下拉列表与参数表单；切换或调参会写入独立的 Runtime Override、重置该 Agent 的 Controller 状态，并可一键恢复地图初始配置，不会修改或保存地图文档。
+
+`core/dungeon-navigation/` 提供不依赖 Babylon 的运行时拓扑寻路。首版使用最低总代价搜索，并以调用方 seed 生成的稳定随机优先级打破等代价路径平局，因此不同 Agent 可选择不同的等长最短路线而不会无故绕远。Agent 实际格步与路径规划复用 `inspectDungeonAgentStepTraversal()`，统一遵守拓扑、不可行走地形、动态阻碍和阻挡型 Agent 占位。`move-to-tile`、`patrol-route` 与 `chase-player` Controller 分别支持固定目标、字符串坐标路线循环和按玩家当前格持续追踪；动态表单现支持 number、text、boolean 与 select 参数。
+
+`patrol-route` 的路线点只描述目标，不要求逐格录入。`routePlayback` 支持 loop、ping-pong、once 与随机目标；`pathPolicy` 支持 adaptive、locked 与 wait-then-repath。locked 会忽略临时 Agent 占位和预约生成一次带 seed 的最短巡逻段并缓存复用，实际下一格受阻时原地等待；adaptive 立即丢弃受阻路径；wait-then-repath 在 `blockedWaitSeconds` 到期后才重算。旧 `loop` 参数在缺少 `routePlayback` 时继续映射到 loop/once。
+
+`patrol-route.route` 现使用 `{ x, y }[]` 巡逻点列表作为正式数据格式；运行时仍兼容读取旧的 `"X,Y; X,Y"` 字符串。Controller 参数 Schema 新增 `tile-list` 类型，`dungeon-agent` Lab 会为它生成逐点 X/Y 编辑列表，支持查看、追加和删除巡逻点，而不是退化为单行文本框。内置地图中的巡逻 Agent 已迁移为多点数组，旧 `routeTileIds` 预设字段不再继续写入。
+
+规划路径作为 `DungeonRuntimeAgent.navigationPlan` 保存，不写入地图文档；Runtime 从所有 Agent 的剩余路线派生逐格预约表。路径搜索会为其他 Agent 已预约的格子增加拥挤代价，优先选择代价相近的分流路线，真正开始格步时仍由权威占位检查防止碰撞。目标变化、当前位置脱离路线或下一步受阻都会丢弃旧路线并使用新的规划序号和可复现随机序列重新规划；Lab Runtime JSON 同时展示路径计划和预约表。
+
+`core/dungeon-traversal/` 是玩家、Agent 与后续动态 Actor 共用的通行权威。`DungeonTraversalWorld` 统一查询规则拓扑、`terrain.walkable`、Tile/Side/Edge `movement-obstacle`、动态 Actor 占位和软路径预约，并拥有 Actor 注册、移动、注销与预约更新。DungeonRuntime 在创建时构造该世界并注册玩家，Dungeon Agent 装载时把每个 Agent 注册到同一实例；玩家与 Agent 因而能够双向阻挡。Controller 只提交目标与移动意图，Navigation 只消费 `inspectStep()` 和预约代价，不再由 Agent Lab 拼装静态阻碍回调。追踪玩家允许规划器把被占据的玩家格作为目标，但实际格步仍执行硬占位检查，并在配置停止距离处结束。
+
+共享通行世界同时提供无副作用的方向查询：`inspectDirection(actorId, fromTileIndex, direction, steps)` 顺着编译拓扑检查连续 X 格，返回已通过格数、完整格子序列及首个阻挡原因；`getLegalDirections(...)` 返回能够完整走满 X 格的方向集合。随机移动 Controller 先查询一格合法方向，再从结果中随机抽取，不再打乱四个方向后逐个提交失败移动。冲刺、击退和其他多格动作可复用同一接口预检整段直线。
+
+`dungeon-obstacle` Lab 继续负责调节地图静态阻碍，而不拥有通行规则。其 Debug 视图现在从共享通行世界读取三层状态：原有红色静态 Tile/Side/Edge 阻碍、橙色动态阻挡占位和黄色路径预约；运行时 JSON 同时列出 Actor、逐格占位与预约，便于检查寻路为什么通过、绕行或等待。
 
 `tools/lab-modules/dungeon/dungeon-player-camera/` 统一拥有 Dungeon 玩家相机：第一人称读取 DungeonRuntime 的插值世界姿态，第三人称复用 Lab Orbit Camera，以固定地图朝向、可调仰角/距离和平滑目标跟随玩家；V 键和面板可在两者之间切换，地图传送时直接重置跟随目标。旧 `dungeon-first-person-camera` ID 只保留为兼容适配器，现有 Camera、Transition 与 Agent Lab 均改用新模块，避免多个模块逐帧争夺活动相机。
 

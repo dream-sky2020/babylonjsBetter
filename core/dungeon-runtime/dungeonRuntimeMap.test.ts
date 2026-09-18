@@ -8,6 +8,8 @@ import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import type { DungeonMapPreset } from '../map/dungeonMap.types.ts';
 import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
 import { createDungeonRuntimeMap, getDungeonRuntimeNeighbor } from './dungeonRuntimeMap.ts';
+import { createDungeonTraversalWorld, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
+import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
 
 const documentFrom = (map: DungeonMapPreset['map']) => migrateDungeonMapToDocumentV2({
   presetKey: 'runtime-test',
@@ -15,16 +17,28 @@ const documentFrom = (map: DungeonMapPreset['map']) => migrateDungeonMapToDocume
   map,
 }).document;
 
-const runtimeFor = (map: DungeonRuntime['map']): DungeonRuntime => ({
-  map,
-  obstacles: [],
-  playerPosition: { tileX: 0, tileY: 0 },
-  playerFacing: 'east',
-  playerWorldPosition: [0, 0, 0],
-  playerWorldRotationY: 0,
-  playerMovement: null,
-  obstacleStates: new Map(),
-});
+const runtimeFor = (
+  map: DungeonRuntime['map'],
+  obstacles: readonly DungeonObstacleBinding[] = [],
+  obstacleStates: Map<string, boolean> = new Map(),
+): DungeonRuntime => {
+  const traversal = createDungeonTraversalWorld(map, obstacles, obstacleStates);
+  traversal.registerActor({
+    id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
+  return {
+    map,
+    traversal,
+    obstacles,
+    playerPosition: { tileX: 0, tileY: 0 },
+    playerFacing: 'east',
+    playerWorldPosition: [0, 0, 0],
+    playerWorldRotationY: 0,
+    playerMovement: null,
+    obstacleStates,
+  };
+};
 
 test('编译拓扑直接解析普通相邻格和循环接缝', () => {
   const bounded = createDungeonRuntimeMap(documentFrom(createDungeonMapData({
@@ -43,6 +57,7 @@ test('编译拓扑直接解析普通相邻格和循环接缝', () => {
   });
   const runtime = runtimeFor(loop);
   runtime.playerPosition = { tileX: 1, tileY: 0 };
+  runtime.traversal.moveActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, 1);
   const movement = inspectDungeonPlayerMovement(runtime, 'east');
   assert.equal(movement.blockedReason, undefined);
   assert.deepEqual(movement.to, { tileX: 0, tileY: 0 });
@@ -69,11 +84,8 @@ test('V2 ECS 阻碍扫描与旧嵌套地图产生相同绑定', () => {
   const native = scanDungeonDocumentObstacles(document);
   assert.deepEqual(native, legacy);
 
-  const runtime: DungeonRuntime = {
-    ...runtimeFor(createDungeonRuntimeMap(document)),
-    obstacles: native,
-    obstacleStates: new Map(native.map(({ entity, component }) => [entity.id, component.activeByDefault])),
-  };
+  const obstacleStates = new Map(native.map(({ entity, component }) => [entity.id, component.activeByDefault]));
+  const runtime = runtimeFor(createDungeonRuntimeMap(document), native, obstacleStates);
   const movement = inspectDungeonPlayerMovement(runtime, 'east');
   assert.equal(movement.blockedReason, 'movement-obstacle');
   assert.deepEqual(movement.blockedObstacleIds, ['obstacle:tile']);

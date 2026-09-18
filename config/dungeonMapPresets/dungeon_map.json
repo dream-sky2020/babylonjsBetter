@@ -141,13 +141,18 @@
         "entityId": "agent:corridor:patrol",
         "id": "agent:corridor:patrol:controller",
         "parameters": {
-          "pingPong": true,
-          "routeTileIds": [
-            "tile:2,5",
-            "tile:2,6",
-            "tile:2,7",
-            "tile:2,8"
-          ]
+          "route": [
+            { "x": 6, "y": 5 },
+            { "x": 6, "y": 8 },
+            { "x": 4, "y": 8 },
+            { "x": 4, "y": 5 }
+          ],
+          "routePlayback": "ping-pong",
+          "pathPolicy": "locked",
+          "blockedWaitSeconds": 1,
+          "waitAtWaypointSeconds": 0.25,
+          "moveDurationSeconds": 0.35,
+          "seed": 606
         },
         "type": "agent-controller",
         "version": 1

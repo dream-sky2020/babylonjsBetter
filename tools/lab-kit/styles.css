@@ -78,6 +78,17 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-turn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 .lab-turn-grid button { margin: 0; background: #604d7a; }
 .lab-turn-grid button:hover { background: #79609a; }
+.lab-agent-route-editor { display: grid; gap: 7px; }
+.lab-agent-route-header { display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr) 54px; gap: 5px; color: #7890a2; font-size: 10px; text-align: center; }
+.lab-agent-route-list { display: grid; gap: 6px; }
+.lab-agent-route-item { display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr) 54px; gap: 5px; align-items: center; }
+.lab-agent-route-item strong { display: grid; place-items: center; height: 32px; border: 1px solid #314659; background: #15212a; color: #91a7b8; font-size: 11px; }
+.lab-agent-route-item input { min-width: 0; height: 32px !important; padding: 0 6px !important; font: 11px Consolas, monospace; }
+.lab-agent-route-item button { min-width: 0; height: 32px; padding: 0 5px; background: #693c3c; font-size: 11px; }
+.lab-agent-route-item button:hover { background: #8a4a4a; }
+.lab-agent-route-empty { padding: 9px; border: 1px dashed #3a5163; color: #7890a2; font-size: 11px; line-height: 1.45; }
+.lab-agent-route-editor > button { height: 32px; background: #276078; font-size: 11px; }
+.lab-agent-route-editor > button:hover { background: #327b99; }
 .lab-player-movement-teleport { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 .lab-player-movement-teleport button { grid-column: 1 / -1; margin: 0; background: #80572b; }
 .lab-player-movement-teleport button:hover { background: #a47036; }

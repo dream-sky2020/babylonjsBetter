@@ -5,7 +5,7 @@ import type {
   DungeonRuntimeWorldPosition,
 } from '../dungeon-runtime';
 import { getDungeonRuntimeNeighbor } from '../dungeon-runtime/dungeonRuntimeMap.ts';
-import { findDungeonMovementObstacles } from '../dungeon-obstacle/dungeonObstacle.ts';
+import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
 
 const DIRECTION_OFFSETS: Readonly<Record<DungeonMapDirection, Readonly<{ x: number; y: number }>>> = {
   north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 },
@@ -83,9 +83,19 @@ export const inspectDungeonPlayerMovement = (
   if ((options.restrictToMapBounds ?? true) && outside) {
     return { started: false, completed: false, direction, from, to, blockedReason: 'map-boundary' };
   }
-  if (options.restrictMovementObstacles ?? true) {
-    const obstacles = findDungeonMovementObstacles(runtime, from, to, direction);
-    if (obstacles.length > 0) {
+  if (topologyDestination) {
+    const restrictStatic = options.restrictMovementObstacles ?? true;
+    const fromTileIndex = from.tileY * runtime.map.width + from.tileX;
+    const traversal = runtime.traversal.inspectStep(
+      DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+      fromTileIndex,
+      direction,
+      {
+        checkTerrain: restrictStatic,
+        checkStaticObstacles: restrictStatic,
+      },
+    );
+    if (traversal.blockedReason) {
       return {
         started: false,
         completed: false,
@@ -93,7 +103,7 @@ export const inspectDungeonPlayerMovement = (
         from,
         to,
         blockedReason: 'movement-obstacle',
-        blockedObstacleIds: obstacles.map(({ entity }) => entity.id),
+        blockedObstacleIds: traversal.blockingEntityIds,
       };
     }
   }
@@ -251,6 +261,10 @@ export const startDungeonPlayerMovement = (
     movementDurationSeconds,
     turnDurationSeconds,
   };
+  runtime.traversal.moveActor(
+    DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+    to.tileY * runtime.map.width + to.tileX,
+  );
   if (options.teleport) {
     updateDungeonPlayerMovement(runtime, Number.POSITIVE_INFINITY);
     return { started: true, completed: true, direction, from, to };

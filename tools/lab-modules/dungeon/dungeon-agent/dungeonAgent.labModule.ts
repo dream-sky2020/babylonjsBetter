@@ -1,18 +1,25 @@
 import type { DungeonMapDirection } from '@/core/map';
 import {
+  clearDungeonAgentControllerOverride,
   createDefaultDungeonAgentControllerRegistry,
+  createDefaultDungeonAgentControllerParameters,
   createDungeonAgentRuntimeState,
+  normalizeDungeonAgentControllerParameters,
+  normalizeDungeonAgentTilePointList,
+  resolveDungeonAgentControllerConfig,
   runDungeonAgentControllersAfterPlayerStep,
+  setDungeonAgentControllerOverride,
   startDungeonAgentMovement,
   startDungeonAgentTurn,
   updateDungeonAgentControllers,
   updateDungeonAgentMovements,
   type DungeonAgentControllerAction,
+  type DungeonAgentControllerParameter,
+  type DungeonAgentTilePoint,
   type DungeonAgentRuntimeState,
   type DungeonAgentTurn,
   type DungeonRuntimeAgent,
 } from '@/core/dungeon-agent';
-import { findDungeonMovementObstacles } from '@/core/dungeon-obstacle';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
   createLabField,
@@ -93,7 +100,15 @@ export const dungeonAgentLabModule: LabModule = {
     const selectedAgentSelect = document.createElement('select');
     const positionInput = createReadonlyInput();
     const facingInput = createReadonlyInput();
-    const controllerInput = createReadonlyInput();
+    const controllerSelect = document.createElement('select');
+    const controllerDescription = document.createElement('p');
+    controllerDescription.className = 'lab-hint';
+    const controllerParameters = document.createElement('div');
+    controllerParameters.className = 'lab-agent-controller-parameters';
+    const controllerSource = createReadonlyInput();
+    const resetControllerButton = document.createElement('button');
+    resetControllerButton.type = 'button';
+    resetControllerButton.textContent = '恢复地图 Controller 配置';
     const factionInput = createReadonlyInput();
     const durationInput = createDurationInput();
     const moveControls = document.createElement('div');
@@ -128,7 +143,11 @@ export const dungeonAgentLabModule: LabModule = {
       createLabField('选择 Agent', selectedAgentSelect),
       createLabField('当前格子', positionInput),
       createLabField('当前朝向', facingInput),
-      createLabField('控制器', controllerInput),
+      createLabField('控制器', controllerSelect),
+      controllerDescription,
+      createLabField('配置来源', controllerSource),
+      createLabField('Controller 参数（仅本次运行）', controllerParameters),
+      resetControllerButton,
       createLabField('阵营', factionInput),
       createLabField('移动 / 转向耗时（秒）', durationInput),
       createLabField('手动格步移动', moveControls),
@@ -141,6 +160,19 @@ export const dungeonAgentLabModule: LabModule = {
     let state: DungeonAgentRuntimeState | null = null;
     const controllerRegistry = createDefaultDungeonAgentControllerRegistry();
     const markers = new Map<string, DungeonAgentDebugMarker>();
+    type ParameterControl = Readonly<{
+      element: HTMLElement;
+      sync(value: unknown): void;
+    }>;
+    const parameterControls = new Map<string, ParameterControl>();
+    let renderedParameterKey = '';
+
+    controllerSelect.replaceChildren(...[...controllerRegistry.values()].map((controller) => {
+      const option = document.createElement('option');
+      option.value = controller.id;
+      option.textContent = controller.label;
+      return option;
+    }));
 
     const disposeMarkers = () => {
       markers.forEach((marker) => marker.dispose());
@@ -219,20 +251,238 @@ export const dungeonAgentLabModule: LabModule = {
       return index === undefined ? undefined : state.agents[index];
     };
 
+    const effectiveController = (agent: DungeonRuntimeAgent) => {
+      const config = resolveDungeonAgentControllerConfig(agent);
+      return { config, definition: controllerRegistry.get(config.controllerId) };
+    };
+
+    const applyParameterValue = (
+      agent: DungeonRuntimeAgent,
+      parameter: DungeonAgentControllerParameter,
+      value: unknown,
+    ) => {
+      const currentAgent = selectedAgent();
+      if (!currentAgent || currentAgent.binding.entity.id !== agent.binding.entity.id) return;
+      const current = effectiveController(currentAgent);
+      if (!current.definition) return;
+      const parameters = { ...current.config.parameters, [parameter.key]: value };
+      setDungeonAgentControllerOverride(
+        currentAgent,
+        current.definition,
+        normalizeDungeonAgentControllerParameters(current.definition, parameters),
+      );
+      controllerSource.value = '本次运行覆盖（不写回地图）';
+      status.textContent = `已更新 ${current.definition.label} 的“${parameter.label}”。`;
+      refreshPanel();
+    };
+
+    const createTileListControl = (
+      agent: DungeonRuntimeAgent,
+      parameter: Extract<DungeonAgentControllerParameter, { type: 'tile-list' }>,
+    ): ParameterControl => {
+      const root = document.createElement('div');
+      root.className = 'lab-agent-route-editor';
+      const header = document.createElement('div');
+      header.className = 'lab-agent-route-header';
+      header.innerHTML = '<span>#</span><span>格子 X</span><span>格子 Y</span><span>操作</span>';
+      const list = document.createElement('div');
+      list.className = 'lab-agent-route-list';
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.textContent = '＋ 添加巡逻点';
+      let points: DungeonAgentTilePoint[] = [];
+      let signature = '';
+
+      const commit = (next: readonly DungeonAgentTilePoint[]) => {
+        points = next.map((point) => ({ ...point }));
+        signature = '';
+        applyParameterValue(agent, parameter, points);
+      };
+      const render = () => {
+        if (!points.length) {
+          const empty = document.createElement('div');
+          empty.className = 'lab-agent-route-empty';
+          empty.textContent = '尚无巡逻点；Controller 将停在原地。';
+          list.replaceChildren(empty);
+          return;
+        }
+        list.replaceChildren(...points.map((point, index) => {
+          const row = document.createElement('div');
+          row.className = 'lab-agent-route-item';
+          const order = document.createElement('strong');
+          order.textContent = String(index + 1);
+          order.title = `巡逻点 ${index + 1}`;
+          const xInput = document.createElement('input');
+          xInput.type = 'number';
+          xInput.min = '0';
+          xInput.max = String(Math.max(0, (loaded?.runtime.map.width ?? 1) - 1));
+          xInput.step = '1';
+          xInput.value = String(point.x);
+          xInput.title = '格子 X';
+          xInput.setAttribute('aria-label', `巡逻点 ${index + 1} X`);
+          const yInput = document.createElement('input');
+          yInput.type = 'number';
+          yInput.min = '0';
+          yInput.max = String(Math.max(0, (loaded?.runtime.map.height ?? 1) - 1));
+          yInput.step = '1';
+          yInput.value = String(point.y);
+          yInput.title = '格子 Y';
+          yInput.setAttribute('aria-label', `巡逻点 ${index + 1} Y`);
+          const removeButton = document.createElement('button');
+          removeButton.type = 'button';
+          removeButton.textContent = '删除';
+          removeButton.title = `删除巡逻点 ${index + 1}`;
+          const updateCoordinate = () => {
+            const x = Number(xInput.value);
+            const y = Number(yInput.value);
+            const width = loaded?.runtime.map.width ?? 1;
+            const height = loaded?.runtime.map.height ?? 1;
+            if (!Number.isInteger(x) || !Number.isInteger(y)
+              || x < 0 || y < 0 || x >= width || y >= height) {
+              status.textContent = `巡逻点必须位于地图范围：X 0–${width - 1}，Y 0–${height - 1}。`;
+              return;
+            }
+            commit(points.map((item, itemIndex) => itemIndex === index ? { x, y } : item));
+          };
+          xInput.addEventListener('change', updateCoordinate);
+          yInput.addEventListener('change', updateCoordinate);
+          removeButton.addEventListener('click', () => commit(points.filter((_, itemIndex) => itemIndex !== index)));
+          row.append(order, xInput, yInput, removeButton);
+          return row;
+        }));
+      };
+      addButton.addEventListener('click', () => {
+        const last = points[points.length - 1];
+        const currentPosition = tilePosition(agent.tileIndex);
+        const width = loaded?.runtime.map.width ?? 1;
+        const next = last
+          ? { x: (last.x + 1) % width, y: last.y }
+          : { x: currentPosition.tileX, y: currentPosition.tileY };
+        commit([...points, next]);
+      });
+      root.append(header, list, addButton);
+      return {
+        element: root,
+        sync(value) {
+          if (root.contains(document.activeElement)) return;
+          const next = normalizeDungeonAgentTilePointList(value, parameter.defaultValue);
+          const nextSignature = JSON.stringify(next);
+          if (nextSignature === signature) return;
+          points = next;
+          signature = nextSignature;
+          render();
+        },
+      };
+    };
+
+    const createParameterControl = (
+      agent: DungeonRuntimeAgent,
+      parameter: DungeonAgentControllerParameter,
+    ): ParameterControl => {
+      if (parameter.type === 'tile-list') return createTileListControl(agent, parameter);
+      const control = parameter.type === 'select'
+        ? document.createElement('select')
+        : document.createElement('input');
+      if (parameter.type === 'select') {
+        control.replaceChildren(...parameter.options.map(({ value, label }) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = label;
+          return option;
+        }));
+      } else {
+        control.type = parameter.type === 'boolean' ? 'checkbox' : parameter.type;
+        if (parameter.type === 'number') {
+          if (parameter.min !== undefined) control.min = String(parameter.min);
+          if (parameter.max !== undefined) control.max = String(parameter.max);
+          if (parameter.step !== undefined) control.step = String(parameter.step);
+          if (parameter.defaultValue === undefined) control.placeholder = '自动';
+        } else if (parameter.type === 'text') {
+          control.placeholder = parameter.placeholder ?? '';
+        }
+      }
+      control.title = parameter.description ?? '';
+      control.addEventListener('change', () => {
+        let value: unknown;
+        if (parameter.type === 'boolean' && control instanceof HTMLInputElement) {
+          value = control.checked;
+        } else if (control.value.trim() === '' && parameter.defaultValue === undefined) {
+          const current = effectiveController(agent);
+          const parameters = { ...current.config.parameters };
+          delete parameters[parameter.key];
+          if (current.definition) setDungeonAgentControllerOverride(agent, current.definition, parameters);
+          refreshPanel();
+          return;
+        } else {
+          value = parameter.type === 'number' ? Number(control.value) : control.value;
+        }
+        applyParameterValue(agent, parameter, value);
+      });
+      return {
+        element: control,
+        sync(value) {
+          if (document.activeElement === control) return;
+          if (parameter.type === 'boolean' && control instanceof HTMLInputElement) control.checked = value === true;
+          else control.value = value === undefined ? '' : String(value);
+        },
+      };
+    };
+
+    const renderControllerParameters = (agent: DungeonRuntimeAgent | undefined) => {
+      const current = agent ? effectiveController(agent) : undefined;
+      const nextKey = agent && current ? `${agent.binding.entity.id}:${current.config.controllerId}` : '';
+      if (nextKey !== renderedParameterKey) {
+        renderedParameterKey = nextKey;
+        parameterControls.clear();
+        if (!agent || !current?.definition) {
+          controllerParameters.replaceChildren();
+        } else if (!current.definition.parameters.length) {
+          const empty = document.createElement('span');
+          empty.className = 'lab-hint';
+          empty.textContent = '此 Controller 没有可调参数。';
+          controllerParameters.replaceChildren(empty);
+        } else {
+          controllerParameters.replaceChildren(...current.definition.parameters.map((parameter) => {
+            const control = createParameterControl(agent, parameter);
+            parameterControls.set(parameter.key, control);
+            return createLabField(parameter.label, control.element);
+          }));
+        }
+      }
+      if (!agent || !current?.definition) return;
+      current.definition.parameters.forEach((parameter) => {
+        const control = parameterControls.get(parameter.key);
+        if (!control) return;
+        const value = current.config.parameters[parameter.key] ?? parameter.defaultValue;
+        control.sync(value);
+      });
+    };
+
     const refreshPanel = () => {
       const agent = selectedAgent();
       if (agent) {
+        const current = effectiveController(agent);
         const position = tilePosition(agent.tileIndex);
         positionInput.value = `(${position.tileX}, ${position.tileY}) · index ${agent.tileIndex}`;
         facingInput.value = agent.facing;
-        controllerInput.value = agent.binding.controller.controllerId;
+        controllerSelect.value = current.config.controllerId;
+        controllerDescription.textContent = current.definition?.description
+          ?? `未注册的 Controller：“${current.config.controllerId}”。`;
+        controllerSource.value = agent.controllerOverride
+          ? '本次运行覆盖（不写回地图）'
+          : '地图初始配置';
         factionInput.value = agent.binding.faction?.factionId ?? 'neutral';
       } else {
         positionInput.value = '';
         facingInput.value = '';
-        controllerInput.value = '';
+        controllerSelect.value = '';
+        controllerDescription.textContent = '请先选择一个 Agent。';
+        controllerSource.value = '';
         factionInput.value = '';
       }
+      controllerSelect.disabled = !agent;
+      resetControllerButton.disabled = !agent?.controllerOverride;
+      renderControllerParameters(agent);
       runtimeJson.textContent = JSON.stringify(state ? {
         loadId: loaded?.loadId,
         turnNumber: state.turnNumber,
@@ -246,12 +496,16 @@ export const dungeonAgentLabModule: LabModule = {
           actionPeriod: item.binding.gridAgent.actionPeriod,
           priority: item.binding.gridAgent.priority,
           movementProfileId: item.binding.gridAgent.movementProfileId,
-          controllerId: item.binding.controller.controllerId,
+          controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
+          controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
+          controllerSource: item.controllerOverride ? 'runtime-override' : 'map',
           controllerState: item.controllerState,
+          navigationPlan: item.navigationPlan,
           factionId: item.binding.faction?.factionId ?? 'neutral',
           movement: item.movement,
         })),
-        occupantsByTile: state.occupantsByTile.map((occupants) => [...occupants]),
+        occupantsByTile: state.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
+        pathReservationsByTile: state.traversal.reservationsByTile.map((reservations) => Object.fromEntries(reservations)),
       } : { loaded: false }, null, 2);
     };
 
@@ -273,15 +527,6 @@ export const dungeonAgentLabModule: LabModule = {
     const movementDuration = (): number => {
       const value = Number(durationInput.value);
       return Number.isFinite(value) && value >= 0 ? value : 0.3;
-    };
-
-    const isAgentStepBlocked = {
-      check: (_movingAgent: DungeonRuntimeAgent, fromTileIndex: number, toTileIndex: number, moveDirection: DungeonMapDirection) => {
-        if (!loaded) return true;
-        const from = tilePosition(fromTileIndex);
-        const to = tilePosition(toTileIndex);
-        return findDungeonMovementObstacles(loaded.runtime, from, to, moveDirection).length > 0;
-      },
     };
 
     const describeControllerActions = (actions: readonly DungeonAgentControllerAction[]): string => {
@@ -314,7 +559,6 @@ export const dungeonAgentLabModule: LabModule = {
         direction,
         {
           durationSeconds: movementDuration(),
-          isStepBlocked: isAgentStepBlocked,
         },
       );
       status.textContent = result.started
@@ -352,6 +596,27 @@ export const dungeonAgentLabModule: LabModule = {
       button.addEventListener('click', () => turnSelectedAgent(button.dataset.agentTurn as DungeonAgentTurn));
     });
     selectedAgentSelect.addEventListener('change', refreshPanel);
+    controllerSelect.addEventListener('change', () => {
+      const agent = selectedAgent();
+      const definition = controllerRegistry.get(controllerSelect.value);
+      if (!agent || !definition) return;
+      setDungeonAgentControllerOverride(
+        agent,
+        definition,
+        createDefaultDungeonAgentControllerParameters(definition),
+      );
+      renderedParameterKey = '';
+      status.textContent = `已将 ${agent.binding.entity.name ?? agent.binding.entity.id} 的 Controller 切换为“${definition.label}”；仅影响本次运行。`;
+      refreshPanel();
+    });
+    resetControllerButton.addEventListener('click', () => {
+      const agent = selectedAgent();
+      if (!agent) return;
+      clearDungeonAgentControllerOverride(agent);
+      renderedParameterKey = '';
+      status.textContent = `已恢复 ${agent.binding.entity.name ?? agent.binding.entity.id} 的地图 Controller 配置。`;
+      refreshPanel();
+    });
     debugToggle.input.addEventListener('change', renderMarkers);
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
@@ -360,7 +625,9 @@ export const dungeonAgentLabModule: LabModule = {
       const completed = updateDungeonAgentMovements(state, deltaSeconds);
       const actions = controllerToggle.input.checked
         ? updateDungeonAgentControllers(state, loaded.runtime.map, controllerRegistry, deltaSeconds, {
-          isStepBlocked: isAgentStepBlocked,
+          playerTileIndex: loaded.runtime.playerPosition.tileY * loaded.runtime.map.width
+            + loaded.runtime.playerPosition.tileX,
+          reservationPenalty: 2,
         })
         : [];
       state.agents.forEach(syncMarker);
@@ -383,7 +650,7 @@ export const dungeonAgentLabModule: LabModule = {
       loaded = next;
       disposeMarkers();
       try {
-        state = createDungeonAgentRuntimeState(next.runtime.map);
+        state = createDungeonAgentRuntimeState(next.runtime.map, next.runtime.traversal);
         agentReferenceController.commit({ loadId: next.loadId, state });
         populateAgentSelect();
         renderMarkers();
@@ -411,7 +678,11 @@ export const dungeonAgentLabModule: LabModule = {
         state,
         loaded.runtime.map,
         controllerRegistry,
-        { isStepBlocked: isAgentStepBlocked },
+        {
+          playerTileIndex: loaded.runtime.playerPosition.tileY * loaded.runtime.map.width
+            + loaded.runtime.playerPosition.tileX,
+          reservationPenalty: 2,
+        },
       );
       state.agents.forEach(syncMarker);
       status.textContent = `玩家格步触发第 ${state.turnNumber} 回合；${describeControllerActions(actions)}`;

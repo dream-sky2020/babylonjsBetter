@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "identity": {
     "id": "dungeon-map:dungeon_map_2",
-    "name": "新地图预设",
+    "name": "Agent 寻路测试广场",
     "presetKey": "dungeon_map_2"
   },
   "grid": {
@@ -91,6 +91,48 @@
     },
     {
       "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "agent:plaza:locked-patrol",
+      "name": "敌军 · 锁定路线巡逻兵"
+    },
+    {
+      "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "agent:plaza:adaptive-patrol",
+      "name": "敌军 · 自适应绕路巡逻兵"
+    },
+    {
+      "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "agent:plaza:delayed-patrol",
+      "name": "敌军 · 等待后绕路巡逻兵"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:test-wall:5,6",
+      "name": "不可移动阻挡 · 测试墙 A"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:test-wall:5,7",
+      "name": "不可移动阻挡 · 测试墙 B"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:test-wall:5,8",
+      "name": "不可移动阻挡 · 测试墙 C"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:test-wall:6,7",
+      "name": "不可移动阻挡 · 测试墙 D"
+    },
+    {
+      "enabled": true,
       "entityType": "map",
       "id": "map:dungeon_map_2:entity",
       "name": "地图实体"
@@ -129,13 +171,17 @@
         "entityId": "agent:plaza:patrol",
         "id": "agent:plaza:patrol:controller",
         "parameters": {
-          "loop": true,
-          "routeTileIds": [
-            "tile:7,3",
-            "tile:8,3",
-            "tile:8,4",
-            "tile:7,4"
-          ]
+          "route": [
+            { "x": 7, "y": 3 },
+            { "x": 9, "y": 3 },
+            { "x": 9, "y": 6 },
+            { "x": 7, "y": 6 }
+          ],
+          "routePlayback": "loop",
+          "pathPolicy": "adaptive",
+          "waitAtWaypointSeconds": 0.25,
+          "moveDurationSeconds": 0.35,
+          "seed": 101
         },
         "type": "agent-controller",
         "version": 1
@@ -145,8 +191,9 @@
         "entityId": "agent:plaza:hunter",
         "id": "agent:plaza:hunter:controller",
         "parameters": {
-          "detectionRange": 8,
-          "returnToOrigin": false
+          "stopDistance": 1,
+          "moveDurationSeconds": 0.28,
+          "seed": 202
         },
         "type": "agent-controller",
         "version": 1
@@ -187,6 +234,69 @@
           "moveDurationSeconds": 0.45,
           "minIdleSeconds": 0.25,
           "maxIdleSeconds": 0.9
+        },
+        "type": "agent-controller",
+        "version": 1
+      },
+      {
+        "controllerId": "patrol-route",
+        "entityId": "agent:plaza:locked-patrol",
+        "id": "agent:plaza:locked-patrol:controller",
+        "parameters": {
+          "route": [
+            { "x": 2, "y": 2 },
+            { "x": 8, "y": 2 },
+            { "x": 8, "y": 6 },
+            { "x": 2, "y": 6 }
+          ],
+          "routePlayback": "ping-pong",
+          "pathPolicy": "locked",
+          "blockedWaitSeconds": 1,
+          "waitAtWaypointSeconds": 0.35,
+          "moveDurationSeconds": 0.32,
+          "seed": 303
+        },
+        "type": "agent-controller",
+        "version": 1
+      },
+      {
+        "controllerId": "patrol-route",
+        "entityId": "agent:plaza:adaptive-patrol",
+        "id": "agent:plaza:adaptive-patrol:controller",
+        "parameters": {
+          "route": [
+            { "x": 2, "y": 9 },
+            { "x": 8, "y": 9 },
+            { "x": 8, "y": 4 },
+            { "x": 2, "y": 4 }
+          ],
+          "routePlayback": "loop",
+          "pathPolicy": "adaptive",
+          "blockedWaitSeconds": 0,
+          "waitAtWaypointSeconds": 0.15,
+          "moveDurationSeconds": 0.3,
+          "seed": 404
+        },
+        "type": "agent-controller",
+        "version": 1
+      },
+      {
+        "controllerId": "patrol-route",
+        "entityId": "agent:plaza:delayed-patrol",
+        "id": "agent:plaza:delayed-patrol:controller",
+        "parameters": {
+          "route": [
+            { "x": 8, "y": 9 },
+            { "x": 2, "y": 9 },
+            { "x": 2, "y": 3 },
+            { "x": 8, "y": 3 }
+          ],
+          "routePlayback": "random",
+          "pathPolicy": "wait-then-repath",
+          "blockedWaitSeconds": 1.5,
+          "waitAtWaypointSeconds": 0.4,
+          "moveDurationSeconds": 0.34,
+          "seed": 505
         },
         "type": "agent-controller",
         "version": 1
@@ -310,6 +420,27 @@
         "id": "agent:plaza:wisp:faction",
         "type": "faction",
         "version": 1
+      },
+      {
+        "entityId": "agent:plaza:locked-patrol",
+        "factionId": "hostile",
+        "id": "agent:plaza:locked-patrol:faction",
+        "type": "faction",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:adaptive-patrol",
+        "factionId": "hostile",
+        "id": "agent:plaza:adaptive-patrol:faction",
+        "type": "faction",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:delayed-patrol",
+        "factionId": "hostile",
+        "id": "agent:plaza:delayed-patrol:faction",
+        "type": "faction",
+        "version": 1
       }
     ],
     "grid-agent": [
@@ -377,6 +508,69 @@
         "movementProfileId": "flying",
         "priority": 5,
         "type": "grid-agent",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "blocksMovement": true,
+        "entityId": "agent:plaza:locked-patrol",
+        "id": "agent:plaza:locked-patrol:grid-agent",
+        "initialFacing": "east",
+        "movementProfileId": "ground",
+        "priority": 25,
+        "type": "grid-agent",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "blocksMovement": true,
+        "entityId": "agent:plaza:adaptive-patrol",
+        "id": "agent:plaza:adaptive-patrol:grid-agent",
+        "initialFacing": "east",
+        "movementProfileId": "ground",
+        "priority": 15,
+        "type": "grid-agent",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "blocksMovement": true,
+        "entityId": "agent:plaza:delayed-patrol",
+        "id": "agent:plaza:delayed-patrol:grid-agent",
+        "initialFacing": "west",
+        "movementProfileId": "ground",
+        "priority": 20,
+        "type": "grid-agent",
+        "version": 1
+      }
+    ],
+    "movement-obstacle": [
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:test-wall:5,6",
+        "id": "obstacle:plaza:test-wall:5,6:movement",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:test-wall:5,7",
+        "id": "obstacle:plaza:test-wall:5,7:movement",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:test-wall:5,8",
+        "id": "obstacle:plaza:test-wall:5,8:movement",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:test-wall:6,7",
+        "id": "obstacle:plaza:test-wall:6,7:movement",
+        "type": "movement-obstacle",
         "version": 1
       }
     ],
@@ -557,6 +751,90 @@
           {
             "kind": "tile",
             "tileId": "tile:9,10"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:locked-patrol",
+        "id": "agent:plaza:locked-patrol:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,2"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:adaptive-patrol",
+        "id": "agent:plaza:adaptive-patrol:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:2,9"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:delayed-patrol",
+        "id": "agent:plaza:delayed-patrol:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:8,9"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:test-wall:5,6",
+        "id": "obstacle:plaza:test-wall:5,6:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,6"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:test-wall:5,7",
+        "id": "obstacle:plaza:test-wall:5,7:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,7"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:test-wall:5,8",
+        "id": "obstacle:plaza:test-wall:5,8:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,8"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:test-wall:6,7",
+        "id": "obstacle:plaza:test-wall:6,7:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,7"
           }
         ],
         "type": "spatial-attachment",

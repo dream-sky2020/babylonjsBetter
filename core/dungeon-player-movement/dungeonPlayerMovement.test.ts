@@ -4,7 +4,9 @@ import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocumen
 import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import type { DungeonRuntime } from '../dungeon-runtime/dungeonRuntime.types.ts';
+import { createDungeonTraversalWorld, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
 import {
+  inspectDungeonPlayerMovement,
   startDungeonPlayerMovement,
   updateDungeonPlayerMovement,
 } from './dungeonPlayerMovement.ts';
@@ -16,8 +18,15 @@ const runtimeForLine = (): DungeonRuntime => {
     name: 'Movement Line',
     map: legacyMap,
   }).document;
+  const map = createDungeonRuntimeMap(document);
+  const traversal = createDungeonTraversalWorld(map);
+  traversal.registerActor({
+    id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
   return {
-    map: createDungeonRuntimeMap(document),
+    map,
+    traversal,
     obstacles: [],
     playerPosition: { tileX: 0, tileY: 0 },
     playerFacing: 'east',
@@ -59,6 +68,21 @@ test('没有活动格步时不会吞掉帧时间', () => {
   assert.equal(result.active, false);
   assert.equal(result.consumedSeconds, 0);
   assert.equal(result.remainingSeconds, 0.016);
+});
+
+test('玩家通过共享通行世界被阻挡型 Agent 挡住', () => {
+  const runtime = runtimeForLine();
+  runtime.traversal.registerActor({
+    id: 'agent:blocker', kind: 'agent', tileIndex: 1,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
+  const inspection = inspectDungeonPlayerMovement(runtime, 'east');
+  assert.equal(inspection.blockedReason, 'movement-obstacle');
+  assert.deepEqual(inspection.blockedObstacleIds, ['agent:blocker']);
+  assert.equal(
+    inspectDungeonPlayerMovement(runtime, 'east', { restrictMovementObstacles: false }).blockedReason,
+    'movement-obstacle',
+  );
 });
 
 test('改变朝向的第一格不会在位移完成后等待旋转', () => {

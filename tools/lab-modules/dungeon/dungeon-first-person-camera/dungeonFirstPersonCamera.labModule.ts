@@ -66,6 +66,13 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const switchModeButton = document.createElement('button');
     switchModeButton.type = 'button';
     switchModeButton.textContent = '切换视角（V）';
+    const keyboardToggle = createLabSwitch('启用 V 键切换视角', true, {
+      preference: { ui: context.ui, key: 'dungeon-player-camera/keyboard-enabled' },
+    });
+    const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
+    const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
+    const keyboardPriorityInput = createNumberInput(90, -1000, 1000, 1);
+    const keyboardOwnershipStatus = createLabStatus('V 键消费者尚未注册。');
     const eyeHeightInput = createNumberInput(1.65, 0.1, 10, 0.05);
     const pitchInput = createNumberInput(0, -85, 85, 1);
     const freeLookToggle = createLabSwitch('启用拖拽自由观察', true);
@@ -96,6 +103,11 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       enabledToggle.row,
       createLabField('当前玩家视角', modeSelect),
       switchModeButton,
+      keyboardToggle.row,
+      createLabField('V 键输入优先级', keyboardPriorityInput),
+      keyboardInterceptToggle.row,
+      keyboardPreventDefaultToggle.row,
+      keyboardOwnershipStatus,
       createLabField('玩家脚底以上眼高（世界单位）', eyeHeightInput),
       createLabField('基础俯仰角（度）', pitchInput),
       freeLookToggle.row,
@@ -386,15 +398,53 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       id: 'dungeon-player-camera',
       label: 'Dungeon 玩家相机切换',
       keys: ['KeyV'],
-      enabled: true,
-      priority: 90,
-      intercept: true,
-      preventDefault: true,
+      enabled: keyboardToggle.input.checked,
+      priority: Number(keyboardPriorityInput.value),
+      intercept: keyboardInterceptToggle.input.checked,
+      preventDefault: keyboardPreventDefaultToggle.input.checked,
+      // Controller 参数常用 number/select；这些控件聚焦时 V 仍应是全局视角快捷键。
+      // 真正的文本编辑控件仍保留 V 给用户输入。
+      allowWhenEditing: true,
       onKeyDown: (event) => {
+        const target = event.nativeEvent?.target;
+        if (target instanceof HTMLTextAreaElement
+          || (target instanceof HTMLElement && target.isContentEditable)
+          || (target instanceof HTMLInputElement
+            && !['number', 'range', 'checkbox', 'radio', 'button', 'submit', 'reset'].includes(target.type))) {
+          return 'ignored';
+        }
         if (!event.repeat) togglePlayerCameraMode('keyboard');
         return 'handled';
       },
+      onOwnershipChanged: (ownedCodes) => {
+        keyboardOwnershipStatus.textContent = ownedCodes.has('KeyV')
+          ? '当前优先拥有：KeyV。'
+          : '当前未拥有 KeyV；请检查全局键盘开关、输入锁或更高优先级消费者。';
+      },
     });
+    keyboardToggle.input.addEventListener('change', () => {
+      keyboardRegistration.setEnabled(keyboardToggle.input.checked);
+    });
+    keyboardPriorityInput.addEventListener('input', () => {
+      const value = Number(keyboardPriorityInput.value);
+      if (Number.isFinite(value)) keyboardRegistration.setPriority(value);
+    });
+    keyboardInterceptToggle.input.addEventListener('change', () => {
+      keyboardRegistration.setIntercept(keyboardInterceptToggle.input.checked);
+    });
+    keyboardPreventDefaultToggle.input.addEventListener('change', () => {
+      keyboardRegistration.setPreventDefault(keyboardPreventDefaultToggle.input.checked);
+    });
+    const syncKeyboardControls = () => {
+      const settings = context.keyboard.getConsumer(keyboardRegistration.id);
+      if (!settings) return;
+      keyboardToggle.input.checked = settings.enabled;
+      keyboardPriorityInput.value = String(settings.priority);
+      keyboardInterceptToggle.input.checked = settings.intercept;
+      keyboardPreventDefaultToggle.input.checked = settings.preventDefault;
+    };
+    const offKeyboardChanged = context.keyboard.subscribe(syncKeyboardControls);
+    syncKeyboardControls();
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       const deltaSeconds = Math.min(0.1, Math.max(0, context.engine.getDeltaTime() / 1000));
@@ -440,6 +490,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     return () => {
       offMapChanged();
       keyboardRegistration.dispose();
+      offKeyboardChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       context.canvas.removeEventListener('pointerdown', onPointerDown);
       context.canvas.removeEventListener('pointermove', onPointerMove);
