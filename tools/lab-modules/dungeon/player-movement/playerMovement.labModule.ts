@@ -106,7 +106,7 @@ export const playerMovementLabModule: LabModule = {
       ['world-units-per-second', '每秒移动多少世界单位'],
       ['seconds-per-tile', '移动一格需要多少秒'],
     ]);
-    const movementTimingInput = createNumberInput(6, 0.01, 0.1);
+    const movementTimingInput = createNumberInput(60, 0.01, 0.1);
     const turnTimingSelect = createModeSelect<DungeonPlayerTurnTimingMode>([
       ['radians-per-second', '每秒转动多少度'],
       ['seconds-per-turn', '每次转向需要多少秒'],
