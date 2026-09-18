@@ -33,6 +33,10 @@ import {
   type DungeonMapLoaderReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
 import {
+  DungeonPlayerDirectionalInput,
+  resolveDungeonPlayerContinuousHoldThreshold,
+} from './playerMovement.directionalInput';
+import {
   createDungeonPlayerBlockedAttemptService,
   PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
   type DungeonPlayerBlockedAttempt,
@@ -40,11 +44,11 @@ import {
 
 type MovementView = { loadId: number; runtime: DungeonRuntime; spawn: DungeonPlayerSpawnBinding };
 
-const createNumberInput = (value: number, min: number, step: number): HTMLInputElement => {
+const createNumberInput = (value: number, min: number | undefined, step: number): HTMLInputElement => {
   const input = document.createElement('input');
   input.type = 'number';
   input.value = String(value);
-  input.min = String(min);
+  if (min !== undefined) input.min = String(min);
   input.step = String(step);
   return input;
 };
@@ -52,6 +56,11 @@ const createNumberInput = (value: number, min: number, step: number): HTMLInputE
 const readPositiveNumber = (input: HTMLInputElement, fallback: number): number => {
   const value = Number(input.value);
   return Number.isFinite(value) && value > 0 ? value : fallback;
+};
+
+const readFiniteNumber = (input: HTMLInputElement, fallback: number): number => {
+  const value = Number(input.value);
+  return Number.isFinite(value) ? value : fallback;
 };
 
 const createModeSelect = <T extends string>(options: ReadonlyArray<readonly [T, string]>): HTMLSelectElement => {
@@ -87,6 +96,8 @@ export const playerMovementLabModule: LabModule = {
     const continuousMovementToggle = createLabSwitch('按住方向连续移动', true, {
       preference: { ui: context.ui, key: 'player-movement/continuous-movement' },
     });
+    const continuousHoldMultiplierInput = createNumberInput(0.8, 0, 0.05);
+    const continuousHoldOffsetInput = createNumberInput(0, undefined, 0.05);
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
     const keyboardPreventDefaultToggle = createLabSwitch('阻止浏览器默认行为', true);
     const keyboardPriorityInput = createNumberInput(75, undefined, 1);
@@ -194,6 +205,8 @@ export const playerMovementLabModule: LabModule = {
       debugMarkerToggle.row,
       keyboardToggle.row,
       continuousMovementToggle.row,
+      createLabField('长按阈值倍率 X', continuousHoldMultiplierInput),
+      createLabField('长按阈值偏移（秒）', continuousHoldOffsetInput),
       createLabField('键盘输入优先级', keyboardPriorityInput),
       keyboardInterceptToggle.row,
       keyboardPreventDefaultToggle.row,
@@ -235,30 +248,12 @@ export const playerMovementLabModule: LabModule = {
     let markerRoot: TransformNode | null = null;
     let markerVerticalOffset = 0;
     let lastJsonUpdateTime = 0;
-    const heldDirections = new Map<string, Readonly<{
-      direction: DungeonMapDirection;
-      sequence: number;
-    }>>();
-    let inputSequence = 0;
-    let bufferedDirection: DungeonMapDirection | null = null;
+    const directionalInput = new DungeonPlayerDirectionalInput();
+    let continuousHoldMovementDurationSeconds: number | null = null;
 
     const clearDirectionalInput = (): void => {
-      heldDirections.clear();
-      bufferedDirection = null;
-    };
-
-    const latestHeldDirection = (): DungeonMapDirection | null => {
-      let latest: Readonly<{ direction: DungeonMapDirection; sequence: number }> | null = null;
-      heldDirections.forEach((entry) => {
-        if (!latest || entry.sequence > latest.sequence) latest = entry;
-      });
-      return latest?.direction ?? null;
-    };
-
-    const consumeNextDirection = (): DungeonMapDirection | null => {
-      const direction = bufferedDirection ?? latestHeldDirection();
-      bufferedDirection = null;
-      return direction;
+      directionalInput.clear();
+      continuousHoldMovementDurationSeconds = null;
     };
 
     const disposeMarker = () => {
@@ -537,11 +532,10 @@ export const playerMovementLabModule: LabModule = {
       onKeyDown: (event) => {
         const direction = keyDirections[event.code];
         if (!direction) return 'ignored';
+        directionalInput.keyDown(event.code, direction, performance.now(), event.repeat);
         if (!event.repeat) {
-          heldDirections.set(event.code, { direction, sequence: ++inputSequence });
-          bufferedDirection = direction;
           if (!current?.runtime.playerMovement) {
-            const nextDirection = consumeNextDirection();
+            const nextDirection = directionalInput.consume(performance.now());
             if (nextDirection) move(nextDirection);
           }
         }
@@ -549,7 +543,8 @@ export const playerMovementLabModule: LabModule = {
       },
       onKeyUp: (event) => {
         if (!keyDirections[event.code]) return 'ignored';
-        heldDirections.delete(event.code);
+        directionalInput.keyUp(event.code);
+        if (!directionalInput.hasHeldDirection) continuousHoldMovementDurationSeconds = null;
         return 'handled';
       },
       onOwnershipChanged: (ownedCodes) => {
@@ -577,12 +572,37 @@ export const playerMovementLabModule: LabModule = {
     const offKeyboardChanged = context.keyboard.subscribe(syncKeyboardControls);
     syncKeyboardControls();
 
+    const resolveContinuousHoldThreshold = (movementDurationSeconds: number): number => (
+      resolveDungeonPlayerContinuousHoldThreshold(
+        movementDurationSeconds,
+        Math.max(0, readFiniteNumber(continuousHoldMultiplierInput, 0.8)),
+        readFiniteNumber(continuousHoldOffsetInput, 0),
+      )
+    );
+
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
-      if (!current?.runtime.playerMovement) return;
+      if (!current) return;
+      if (!current.runtime.playerMovement
+        && continuousMovementToggle.input.checked
+        && continuousHoldMovementDurationSeconds !== null) {
+        const nextDirection = directionalInput.consume(
+          performance.now(),
+          resolveContinuousHoldThreshold(continuousHoldMovementDurationSeconds),
+        );
+        if (nextDirection) move(nextDirection);
+      }
+      if (!current.runtime.playerMovement) return;
       let remainingSeconds = context.engine.getDeltaTime() / 1000;
       let continuationCount = 0;
       while (current.runtime.playerMovement && continuationCount++ < 8) {
         const movementKind = current.runtime.playerMovement.kind;
+        const completedMovementDurationSeconds = current.runtime.playerMovement.movementDurationSeconds;
+        const completedMovementHoldThresholdSeconds = resolveContinuousHoldThreshold(
+          completedMovementDurationSeconds,
+        );
+        if (movementKind === 'move' && directionalInput.hasHeldDirection) {
+          continuousHoldMovementDurationSeconds = completedMovementDurationSeconds;
+        }
         const result = updateDungeonPlayerMovement(current.runtime, remainingSeconds);
         syncMarker();
         if (!result.completed) break;
@@ -596,8 +616,14 @@ export const playerMovementLabModule: LabModule = {
           reason: movementKind === 'turn' ? 'player-turn-completed'
             : movementKind === 'blocked' ? 'player-movement-blocked' : 'player-movement-completed',
         });
-        if (!continuousMovementToggle.input.checked || movementKind !== 'move') break;
-        const nextDirection = consumeNextDirection();
+        if (!continuousMovementToggle.input.checked || movementKind !== 'move') {
+          continuousHoldMovementDurationSeconds = null;
+          break;
+        }
+        const nextDirection = directionalInput.consume(
+          performance.now(),
+          completedMovementHoldThresholdSeconds,
+        );
         if (!nextDirection) break;
         move(nextDirection);
         if (!current.runtime.playerMovement || remainingSeconds <= 0) break;
