@@ -178,10 +178,25 @@ export const findDungeonMovementObstacles = (
   from: DungeonRuntimePlayerPosition,
   to: DungeonRuntimePlayerPosition,
   direction: DungeonMapDirection,
+): DungeonObstacleBinding[] => findDungeonMovementObstaclesFromBindings(
+  runtime.obstacles,
+  runtime.obstacleStates,
+  from,
+  to,
+  direction,
+);
+
+/** 不依赖 DungeonRuntime 的静态阻碍查询，供共享通行世界和兼容调用方复用。 */
+export const findDungeonMovementObstaclesFromBindings = (
+  obstacles: readonly DungeonObstacleBinding[],
+  obstacleStates: ReadonlyMap<string, boolean>,
+  from: DungeonRuntimePlayerPosition,
+  to: DungeonRuntimePlayerPosition,
+  direction: DungeonMapDirection,
 ): DungeonObstacleBinding[] => {
   const enteringDirection = OPPOSITE_DIRECTION[direction];
-  return runtime.obstacles.filter((binding) => {
-    if (runtime.obstacleStates.get(binding.entity.id) !== true) return false;
+  return obstacles.filter((binding) => {
+    if (obstacleStates.get(binding.entity.id) !== true) return false;
     const placement = binding.placement;
     if (placement.kind === 'tile') {
       return placement.tileX === to.tileX && placement.tileY === to.tileY;

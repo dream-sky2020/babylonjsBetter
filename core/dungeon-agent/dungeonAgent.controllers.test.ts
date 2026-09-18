@@ -9,8 +9,15 @@ import {
   CONTINUOUS_RANDOM_WALK_CONTROLLER_ID,
   createDefaultDungeonAgentControllerRegistry,
   createDungeonAgentRuntimeState,
+  CHASE_PLAYER_CONTROLLER_ID,
+  MOVE_TO_TILE_CONTROLLER_ID,
+  normalizeDungeonAgentControllerParameters,
+  PATROL_ROUTE_CONTROLLER_ID,
+  resolveDungeonAgentControllerConfig,
   RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID,
   runDungeonAgentControllersAfterPlayerStep,
+  setDungeonAgentControllerOverride,
+  STATIONARY_CONTROLLER_ID,
   updateDungeonAgentControllers,
 } from './index.ts';
 
@@ -39,13 +46,13 @@ const agentEntity = (controllerId: string, actionPeriod = 1): IEntity => ({
   ],
 });
 
-const createRuntime = (controllerId: string, actionPeriod = 1) => {
+const createRuntime = (controllerId: string, actionPeriod = 1, width = 2) => {
   const document = migrateDungeonMapToDocumentV2({
     presetKey: 'agent-controller-test',
     name: 'Agent Controller 测试',
     map: createDungeonMapData({
       id: 'map:agent-controller-test',
-      width: 2,
+      width,
       height: 1,
       createTileData: ({ x }) => x === 0
         ? createEntityContainer(agentEntity(controllerId, actionPeriod))
@@ -95,4 +102,157 @@ test('相同 Agent 与 seed 会产生可复现的随机行动', () => {
   const firstAction = runDungeonAgentControllersAfterPlayerStep(first.state, first.map, registry)[0];
   const secondAction = runDungeonAgentControllersAfterPlayerStep(second.state, second.map, registry)[0];
   assert.deepEqual(firstAction, secondAction);
+});
+
+test('运行时可切换 Controller 和参数而不修改地图初始绑定', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const agent = state.agents[0];
+  const stationary = registry.get(STATIONARY_CONTROLLER_ID);
+  assert.ok(stationary);
+
+  setDungeonAgentControllerOverride(agent, stationary);
+  assert.equal(resolveDungeonAgentControllerConfig(agent).controllerId, STATIONARY_CONTROLLER_ID);
+  assert.equal(agent.binding.controller.controllerId, RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  assert.deepEqual(runDungeonAgentControllersAfterPlayerStep(state, map, registry), []);
+
+  const continuous = registry.get(CONTINUOUS_RANDOM_WALK_CONTROLLER_ID);
+  assert.ok(continuous);
+  setDungeonAgentControllerOverride(agent, continuous, {
+    moveDurationSeconds: 0,
+    minIdleSeconds: 0,
+    maxIdleSeconds: 0,
+    idleWeight: 0,
+    moveWeight: 1,
+    seed: 7.9,
+  });
+  assert.equal(resolveDungeonAgentControllerConfig(agent).parameters.seed, 7);
+  assert.equal(updateDungeonAgentControllers(state, map, registry, 0).length, 1);
+});
+
+test('移动到目标格 Controller 计算路径并逐格执行', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(MOVE_TO_TILE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    targetTileX: 1,
+    targetTileY: 0,
+    moveDurationSeconds: 0,
+    seed: 11,
+  });
+
+  const actions = updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(actions.length, 1);
+  assert.equal(actions[0].outcome, 'move-started');
+  assert.equal(state.agents[0].tileIndex, 1);
+  assert.deepEqual(updateDungeonAgentControllers(state, map, registry, 0), []);
+});
+
+test('路线巡逻 Controller 依次前往巡逻点并循环', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(PATROL_ROUTE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    route: [{ x: 1, y: 0 }, { x: 0, y: 0 }],
+    loop: true,
+    waitAtWaypointSeconds: 0,
+    moveDurationSeconds: 0,
+    seed: 5,
+  });
+
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 0);
+});
+
+test('巡逻点列表参数过滤无效坐标并规范化坐标值', () => {
+  const controller = createDefaultDungeonAgentControllerRegistry().get(PATROL_ROUTE_CONTROLLER_ID);
+  assert.ok(controller);
+  const normalized = normalizeDungeonAgentControllerParameters(controller, {
+    route: [{ x: 1, y: 2 }, { x: 3.5, y: 4 }, null, { x: '5', y: '6' }],
+  });
+  assert.deepEqual(normalized.route, [{ x: 1, y: 2 }, { x: 5, y: 6 }]);
+});
+
+test('巡逻 locked 策略缓存自动生成的路线，受阻时等待而不重算', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID, 1, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(PATROL_ROUTE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    route: '2,0; 0,0',
+    routePlayback: 'ping-pong',
+    pathPolicy: 'locked',
+    waitAtWaypointSeconds: 0,
+    moveDurationSeconds: 0,
+    seed: 5,
+  });
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+  const planSequence = state.agents[0].navigationPlan?.planSequence;
+  state.traversal.registerActor({
+    id: 'blocker', kind: 'dynamic', tileIndex: 2, enabled: true,
+    blocksMovement: true, movementProfileId: 'ground',
+  });
+  updateDungeonAgentControllers(state, map, registry, 0.5);
+  assert.equal(state.agents[0].tileIndex, 1);
+  assert.equal(state.agents[0].navigationPlan?.planSequence, planSequence);
+  state.traversal.unregisterActor('blocker');
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 2);
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+});
+
+test('巡逻 wait-then-repath 策略达到等待阈值后丢弃受阻路径', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID, 1, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(PATROL_ROUTE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    route: '2,0',
+    routePlayback: 'once',
+    pathPolicy: 'wait-then-repath',
+    blockedWaitSeconds: 1,
+    waitAtWaypointSeconds: 0,
+    moveDurationSeconds: 0,
+  });
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+  state.traversal.registerActor({
+    id: 'blocker', kind: 'dynamic', tileIndex: 2, enabled: true,
+    blocksMovement: true, movementProfileId: 'ground',
+  });
+  updateDungeonAgentControllers(state, map, registry, 0.4);
+  assert.ok(state.agents[0].navigationPlan);
+  updateDungeonAgentControllers(state, map, registry, 0.6);
+  assert.equal(state.agents[0].navigationPlan, undefined);
+  state.traversal.unregisterActor('blocker');
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 2);
+});
+
+test('追踪玩家 Controller 在配置的距离外追近并停止', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(CHASE_PLAYER_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    stopDistance: 1,
+    moveDurationSeconds: 0,
+    seed: 9,
+  });
+
+  updateDungeonAgentControllers(state, map, registry, 0, { playerTileIndex: 1 });
+  assert.equal(state.agents[0].tileIndex, 0);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    stopDistance: 0,
+    moveDurationSeconds: 0,
+    seed: 9,
+  });
+  updateDungeonAgentControllers(state, map, registry, 0, { playerTileIndex: 1 });
+  assert.equal(state.agents[0].tileIndex, 1);
 });

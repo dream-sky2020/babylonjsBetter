@@ -1,7 +1,6 @@
-import { getDungeonMapTerrainProperties } from '../map-document/index.ts';
 import type { DungeonMapDirection } from '../map/index.ts';
-import { DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
+import { createDungeonTraversalWorld, type DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
 import { scanDungeonDocumentAgents } from './dungeonAgent.scan.ts';
 import type {
   DungeonAgentMovementResult,
@@ -12,17 +11,12 @@ import type {
 
 export type DungeonAgentMovementOptions = Readonly<{
   durationSeconds?: number;
-  isStepBlocked?: Readonly<{
-    check(
-      agent: DungeonRuntimeAgent,
-      fromTileIndex: number,
-      toTileIndex: number,
-      direction: DungeonMapDirection,
-    ): boolean;
-  }>;
 }>;
 
-export const createDungeonAgentRuntimeState = (map: DungeonRuntimeMap): DungeonAgentRuntimeState => {
+export const createDungeonAgentRuntimeState = (
+  map: DungeonRuntimeMap,
+  traversal: DungeonTraversalWorld = createDungeonTraversalWorld(map),
+): DungeonAgentRuntimeState => {
   const bindings = scanDungeonDocumentAgents(map.document);
   const agents: DungeonRuntimeAgent[] = bindings.map((binding) => ({
     binding,
@@ -32,22 +26,35 @@ export const createDungeonAgentRuntimeState = (map: DungeonRuntimeMap): DungeonA
     actionClock: 0,
     movement: null,
   }));
-  const occupantsByTile = Array.from({ length: map.topology.tileIds.length }, () => new Set<number>());
-  agents.forEach((agent, agentIndex) => {
-    const occupants = occupantsByTile[agent.tileIndex];
-    if (agent.binding.gridAgent.blocksMovement && [...occupants].some(
-      (index) => agents[index].binding.gridAgent.blocksMovement,
-    )) {
-      throw new Error(`格子“${map.topology.tileIds[agent.tileIndex]}”存在多个阻挡移动的 dungeon-agent。`);
-    }
-    occupants.add(agentIndex);
+  agents.forEach((agent) => {
+    traversal.registerActor({
+      id: agent.binding.entity.id,
+      kind: 'agent',
+      tileIndex: agent.tileIndex,
+      enabled: agent.enabled,
+      blocksMovement: agent.binding.gridAgent.blocksMovement,
+      movementProfileId: agent.binding.gridAgent.movementProfileId,
+    });
   });
   return {
     turnNumber: 0,
     agents,
     agentIndexByEntityId: new Map(agents.map((agent, index) => [agent.binding.entity.id, index])),
-    occupantsByTile,
+    traversal,
   };
+};
+
+export const rebuildDungeonAgentPathReservations = (state: DungeonAgentRuntimeState): void => {
+  state.agents.forEach((agent) => {
+    state.traversal.clearReservations(agent.binding.entity.id);
+    const plan = agent.navigationPlan;
+    if (!agent.enabled || !plan) return;
+    state.traversal.replaceReservations(
+      agent.binding.entity.id,
+      plan.tileIndices,
+      plan.nextStepIndex + 1,
+    );
+  });
 };
 
 const requireDuration = (value: number | undefined): number => {
@@ -61,6 +68,44 @@ const getAgent = (state: DungeonAgentRuntimeState, entityId: string) => {
   return index === undefined ? undefined : { index, agent: state.agents[index] };
 };
 
+export type DungeonAgentStepTraversalResult = Readonly<{
+  toTileIndex?: number;
+  blockedReason?: Extract<DungeonAgentMovementResult['blockedReason'],
+    'map-boundary' | 'terrain' | 'movement-obstacle' | 'occupied'>;
+}>;
+
+export type DungeonAgentStepTraversalOptions = DungeonAgentMovementOptions & Readonly<{
+  /** 仅供规划固定路线；实际移动始终检查 Agent 占位。 */
+  ignoreAgentOccupancy?: boolean;
+  /** 仅供规划追踪目标；实际移动仍检查目标占位。 */
+  allowOccupiedTileIndex?: number;
+}>;
+
+/** 共享给实际格步和路径规划的单步通行检查，不修改 Agent Runtime。 */
+export const inspectDungeonAgentStepTraversal = (
+  state: DungeonAgentRuntimeState,
+  map: DungeonRuntimeMap,
+  agent: DungeonRuntimeAgent,
+  fromTileIndex: number,
+  direction: DungeonMapDirection,
+  options: DungeonAgentStepTraversalOptions = {},
+): DungeonAgentStepTraversalResult => {
+  void map;
+  const inspection = state.traversal.inspectStep(
+    agent.binding.entity.id,
+    fromTileIndex,
+    direction,
+    {
+      ignoreDynamicOccupancy: options.ignoreAgentOccupancy,
+      allowOccupiedTileIndex: options.allowOccupiedTileIndex,
+    },
+  );
+  return {
+    ...(inspection.toTileIndex === undefined ? {} : { toTileIndex: inspection.toTileIndex }),
+    ...(inspection.blockedReason ? { blockedReason: inspection.blockedReason } : {}),
+  };
+};
+
 export const startDungeonAgentMovement = (
   state: DungeonAgentRuntimeState,
   map: DungeonRuntimeMap,
@@ -70,33 +115,26 @@ export const startDungeonAgentMovement = (
 ): DungeonAgentMovementResult => {
   const resolved = getAgent(state, entityId);
   if (!resolved) return { started: false, completed: false, entityId, blockedReason: 'agent-not-found' };
-  const { index, agent } = resolved;
+  const { agent } = resolved;
   const fromTileIndex = agent.tileIndex;
   if (!agent.enabled) return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'agent-disabled' };
   if (agent.movement) return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'movement-in-progress' };
-  const directionIndex = DUNGEON_MAP_DIRECTION_ORDER.indexOf(direction);
-  const toTileIndex = map.topology.neighborTileIndices[fromTileIndex * 4 + directionIndex];
-  if (toTileIndex < 0) {
-    return { started: false, completed: false, entityId, fromTileIndex, blockedReason: 'map-boundary' };
+  const inspection = inspectDungeonAgentStepTraversal(state, map, agent, fromTileIndex, direction, options);
+  const { toTileIndex } = inspection;
+  if (inspection.blockedReason || toTileIndex === undefined) {
+    return {
+      started: false,
+      completed: false,
+      entityId,
+      fromTileIndex,
+      toTileIndex,
+      blockedReason: inspection.blockedReason ?? 'map-boundary',
+    };
   }
-  const targetTileId = map.topology.tileIds[toTileIndex];
-  if (getDungeonMapTerrainProperties(map.document.terrain, targetTileId)?.walkable === false) {
-    return { started: false, completed: false, entityId, fromTileIndex, toTileIndex, blockedReason: 'terrain' };
-  }
-  if (options.isStepBlocked?.check(agent, fromTileIndex, toTileIndex, direction)) {
-    return { started: false, completed: false, entityId, fromTileIndex, toTileIndex, blockedReason: 'movement-obstacle' };
-  }
-  const occupied = [...state.occupantsByTile[toTileIndex]].some((occupantIndex) => (
-    occupantIndex !== index
-    && state.agents[occupantIndex].enabled
-    && state.agents[occupantIndex].binding.gridAgent.blocksMovement
-  ));
-  if (occupied) return { started: false, completed: false, entityId, fromTileIndex, toTileIndex, blockedReason: 'occupied' };
 
   const durationSeconds = requireDuration(options.durationSeconds);
   const fromFacing = agent.facing;
-  state.occupantsByTile[fromTileIndex].delete(index);
-  state.occupantsByTile[toTileIndex].add(index);
+  state.traversal.moveActor(agent.binding.entity.id, toTileIndex);
   agent.tileIndex = toTileIndex;
   agent.facing = direction;
   agent.movement = durationSeconds > 0 ? {

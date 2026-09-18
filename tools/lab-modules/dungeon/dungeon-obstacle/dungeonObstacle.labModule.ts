@@ -1,4 +1,4 @@
-import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
+import { Color3, Mesh, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
   setDungeonObstacleActive,
   type DungeonObstacleBinding,
@@ -6,14 +6,19 @@ import {
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
+  dungeonRuntimeChangedEvent,
   dungeonRuntimeCommitRequest,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
+import { dungeonAgentsChangedEvent } from '../dungeon-agent/dungeonAgent.protocol';
 import {
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
   type DungeonMapLoaderReferences,
   type LoadedDungeonReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
-import { resolveDungeonObstacleDebugLayout } from './dungeonObstacleDebugLayout';
+import {
+  resolveDungeonObstacleDebugLayout,
+  resolveDungeonTileDebugLayout,
+} from './dungeonObstacleDebugLayout';
 
 const placementLabel = (binding: DungeonObstacleBinding): string => {
   const placement = binding.placement;
@@ -39,9 +44,18 @@ export const dungeonObstacleLabModule: LabModule = {
     panel.content.append(debugToggle.row, list, runtimeJson);
     let current: LoadedDungeonReferences | null = null;
     let debugRoot: TransformNode | null = null;
+    let occupancyMaterial: StandardMaterial | null = null;
+    let reservationMaterial: StandardMaterial | null = null;
+    const occupancyMarkers = new Map<string, Mesh>();
+    const reservationMarkers = new Map<number, Mesh>();
+    let jsonRefreshTimer: ReturnType<typeof setTimeout> | null = null;
     const disposeDebug = () => {
       debugRoot?.dispose(false, true);
       debugRoot = null;
+      occupancyMaterial = null;
+      reservationMaterial = null;
+      occupancyMarkers.clear();
+      reservationMarkers.clear();
     };
     const refreshJson = () => {
       runtimeJson.textContent = current
@@ -49,8 +63,89 @@ export const dungeonObstacleLabModule: LabModule = {
           loadId: current.loadId,
           dungeonPresetKey: current.presetKey,
           obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
+          traversalActors: Object.fromEntries([...current.runtime.traversal.actors].map(([id, actor]) => [id, {
+            kind: actor.kind,
+            tileIndex: actor.tileIndex,
+            blocksMovement: actor.blocksMovement,
+            movementProfileId: actor.movementProfileId,
+          }])),
+          occupantsByTile: current.runtime.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
+          reservationsByTile: current.runtime.traversal.reservationsByTile
+            .map((reservations) => Object.fromEntries(reservations)),
         }, null, 2)
         : '尚未加载';
+    };
+    const syncTraversalDebug = () => {
+      if (!debugRoot || !current || !occupancyMaterial || !reservationMaterial) return;
+      const loaded = current;
+      const visibleActorIds = new Set<string>();
+      loaded.runtime.traversal.actors.forEach((actor) => {
+        if (!actor.enabled || !actor.blocksMovement) return;
+        visibleActorIds.add(actor.id);
+        const tileX = actor.tileIndex % loaded.runtime.map.width;
+        const tileY = Math.floor(actor.tileIndex / loaded.runtime.map.width);
+        const layout = resolveDungeonTileDebugLayout(
+          loaded.spawn.sceneEnvironmentComponent,
+          loaded.runtime.map.width,
+          loaded.runtime.map.height,
+          tileX,
+          tileY,
+        );
+        let box = occupancyMarkers.get(actor.id);
+        if (!box) {
+          box = MeshBuilder.CreateBox(`occupant_${loaded.loadId}_${actor.id}`, {
+            width: layout.size[0] * 0.72,
+            height: Math.max(0.18, layout.size[1] * 0.18),
+            depth: layout.size[2] * 0.72,
+          }, context.scene);
+          box.material = occupancyMaterial;
+          box.parent = debugRoot;
+          box.isPickable = false;
+          box.enableEdgesRendering();
+          box.edgesColor.set(1, 0.66, 0.12, 0.9);
+          box.edgesWidth = 3;
+          occupancyMarkers.set(actor.id, box);
+        }
+        box.position.set(layout.center[0], layout.center[1] + layout.size[1] * 0.56, layout.center[2]);
+      });
+      occupancyMarkers.forEach((marker, actorId) => {
+        if (visibleActorIds.has(actorId)) return;
+        marker.dispose();
+        occupancyMarkers.delete(actorId);
+      });
+
+      const visibleReservationTiles = new Set<number>();
+      loaded.runtime.traversal.reservationsByTile.forEach((reservations, tileIndex) => {
+        if (!reservations.size) return;
+        visibleReservationTiles.add(tileIndex);
+        let marker = reservationMarkers.get(tileIndex);
+        if (!marker) {
+          const tileX = tileIndex % loaded.runtime.map.width;
+          const tileY = Math.floor(tileIndex / loaded.runtime.map.width);
+          const layout = resolveDungeonTileDebugLayout(
+            loaded.spawn.sceneEnvironmentComponent,
+            loaded.runtime.map.width,
+            loaded.runtime.map.height,
+            tileX,
+            tileY,
+          );
+          marker = MeshBuilder.CreateBox(`reservation_${loaded.loadId}_${tileIndex}`, {
+            width: layout.size[0] * 0.34,
+            height: 0.12,
+            depth: layout.size[2] * 0.34,
+          }, context.scene);
+          marker.position.set(layout.center[0], layout.center[1] + layout.size[1] * 0.68, layout.center[2]);
+          marker.material = reservationMaterial;
+          marker.parent = debugRoot;
+          marker.isPickable = false;
+          reservationMarkers.set(tileIndex, marker);
+        }
+      });
+      reservationMarkers.forEach((marker, tileIndex) => {
+        if (visibleReservationTiles.has(tileIndex)) return;
+        marker.dispose();
+        reservationMarkers.delete(tileIndex);
+      });
     };
     const renderDebug = () => {
       disposeDebug();
@@ -85,6 +180,16 @@ export const dungeonObstacleLabModule: LabModule = {
         box.edgesColor.set(active ? 1 : 0.45, active ? 0.25 : 0.55, active ? 0.18 : 0.62, active ? 1 : 0.5);
         box.edgesWidth = active ? 4 : 2;
       });
+      occupancyMaterial = new StandardMaterial(`occupancy_${loaded.loadId}`, context.scene);
+      occupancyMaterial.diffuseColor = Color3.FromHexString('#f59e0b');
+      occupancyMaterial.emissiveColor = Color3.FromHexString('#7c4a08');
+      occupancyMaterial.alpha = 0.24;
+      occupancyMaterial.wireframe = true;
+      reservationMaterial = new StandardMaterial(`reservation_${loaded.loadId}`, context.scene);
+      reservationMaterial.diffuseColor = Color3.FromHexString('#facc15');
+      reservationMaterial.emissiveColor = Color3.FromHexString('#6b5507');
+      reservationMaterial.alpha = 0.18;
+      syncTraversalDebug();
     };
     const renderList = () => {
       if (!current) { list.textContent = '尚未加载'; return; }
@@ -120,6 +225,26 @@ export const dungeonObstacleLabModule: LabModule = {
       refreshJson();
       renderDebug();
     });
-    return () => { off(); disposeDebug(); };
+    const refreshTraversalDebug = () => {
+      if (debugToggle.input.checked) syncTraversalDebug();
+      if (jsonRefreshTimer !== null) return;
+      jsonRefreshTimer = setTimeout(() => {
+        jsonRefreshTimer = null;
+        refreshJson();
+      }, 200);
+    };
+    const offRuntime = context.communication.on(dungeonRuntimeChangedEvent, (event) => {
+      if (current?.loadId === event.loadId) refreshTraversalDebug();
+    });
+    const offAgents = context.communication.on(dungeonAgentsChangedEvent, (event) => {
+      if (current?.loadId === event.loadId) refreshTraversalDebug();
+    });
+    return () => {
+      off();
+      offRuntime();
+      offAgents();
+      if (jsonRefreshTimer !== null) clearTimeout(jsonRefreshTimer);
+      disposeDebug();
+    };
   },
 };

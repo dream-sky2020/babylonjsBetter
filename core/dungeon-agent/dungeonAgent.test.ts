@@ -7,11 +7,13 @@ import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocumen
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import {
   createDungeonAgentRuntimeState,
+  rebuildDungeonAgentPathReservations,
   scanDungeonDocumentAgents,
   startDungeonAgentMovement,
   startDungeonAgentTurn,
   updateDungeonAgentMovements,
 } from './index.ts';
+import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
 
 const agentEntity = (): IEntity => ({
   id: 'agent:guard',
@@ -55,13 +57,13 @@ test('扫描 dungeon-agent 并解析唯一初始格和朝向', () => {
 test('Agent Runtime 建立占位并执行带朝向的格步移动', () => {
   const map = createDungeonRuntimeMap(createDocument());
   const state = createDungeonAgentRuntimeState(map);
-  assert.deepEqual([...state.occupantsByTile[0]], [0]);
+  assert.deepEqual([...state.traversal.occupantIdsByTile[0]], ['agent:guard']);
   const result = startDungeonAgentMovement(state, map, 'agent:guard', 'east', { durationSeconds: 0.3 });
   assert.equal(result.started, true);
   assert.equal(state.agents[0].tileIndex, 1);
   assert.equal(state.agents[0].facing, 'east');
-  assert.deepEqual([...state.occupantsByTile[0]], []);
-  assert.deepEqual([...state.occupantsByTile[1]], [0]);
+  assert.deepEqual([...state.traversal.occupantIdsByTile[0]], []);
+  assert.deepEqual([...state.traversal.occupantIdsByTile[1]], ['agent:guard']);
   assert.deepEqual(updateDungeonAgentMovements(state, 0.2), []);
   assert.deepEqual(updateDungeonAgentMovements(state, 0.1), ['agent:guard']);
   assert.equal(state.agents[0].movement, null);
@@ -75,6 +77,37 @@ test('Agent 支持原地转向并拒绝地图边界移动', () => {
   assert.equal(state.agents[0].facing, 'north');
   const blocked = startDungeonAgentMovement(state, map, 'agent:guard', 'north');
   assert.equal(blocked.blockedReason, 'map-boundary');
+});
+
+test('Agent 通过共享通行世界把玩家视为阻挡型占位', () => {
+  const map = createDungeonRuntimeMap(createDocument());
+  const state = createDungeonAgentRuntimeState(map);
+  state.traversal.registerActor({
+    id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 1,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
+  const result = startDungeonAgentMovement(state, map, 'agent:guard', 'east');
+  assert.equal(result.started, false);
+  assert.equal(result.blockedReason, 'occupied');
+});
+
+test('Agent Runtime 根据剩余路径建立并推进格子预约', () => {
+  const map = createDungeonRuntimeMap(createDocument());
+  const state = createDungeonAgentRuntimeState(map);
+  state.agents[0].navigationPlan = {
+    targetTileIndex: 1,
+    tileIndices: [0, 1],
+    directions: ['east'],
+    nextStepIndex: 0,
+    totalCost: 1,
+    visitedCount: 2,
+    planSequence: 1,
+  };
+  rebuildDungeonAgentPathReservations(state);
+  assert.equal(state.traversal.reservationsByTile[1].get('agent:guard'), 1);
+  state.agents[0].navigationPlan.nextStepIndex = 1;
+  rebuildDungeonAgentPathReservations(state);
+  assert.equal(state.traversal.reservationsByTile[1].has('agent:guard'), false);
 });
 
 test('扫描器拒绝缺少必需组件的 dungeon-agent', () => {
