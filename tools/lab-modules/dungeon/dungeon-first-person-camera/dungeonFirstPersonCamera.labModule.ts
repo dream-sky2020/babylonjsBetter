@@ -92,7 +92,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     immediateRecenterButton.type = 'button';
     immediateRecenterButton.textContent = '立即回正';
     recenterActions.append(smoothRecenterButton, immediateRecenterButton);
-    const overheadDistanceInput = createNumberInput(32, 4, 120, 1);
+    const overheadDistanceInput = createNumberInput(64, 4, 120, 1);
     const overheadPitchInput = createNumberInput(55, 15, 85, 1);
     const overheadYawInput = createNumberInput(0, -180, 180, 1);
     const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
