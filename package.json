@@ -25,6 +25,7 @@
     "test:lab-keyboard": "node --experimental-strip-types --test tools/lab-kit/keyboard/LabKeyboardRouter.test.ts",
     "test:dungeon-map-svg-tint": "node --experimental-strip-types --test core/ui/dungeon-map-svg-tint/DungeonMapSvgTintCache.test.ts",
     "test:dungeon-map-canvas-view": "node --experimental-strip-types --test core/ui/dungeon-map-canvas-view.test.ts",
+    "test:dialogue-map": "node --experimental-strip-types --test core/dialogue-map/dialogueMap.test.ts",
     "test:dungeon-runtime-map": "node --experimental-strip-types --test core/dungeon-runtime/dungeonRuntimeMap.test.ts",
     "test:dungeon-player-movement": "node --experimental-strip-types --test core/dungeon-player-movement/dungeonPlayerMovement.test.ts tools/lab-modules/dungeon/player-movement/playerMovement.directionalInput.test.ts",
     "test:dungeon-agent": "node --experimental-strip-types --test core/dungeon-agent/*.test.ts",

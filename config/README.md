@@ -32,6 +32,12 @@
   - 纯 Web 无法直接写本地项目目录；
   - Electron 打包后应用资源目录通常是只读。
 
+## 对话图预设
+
+- `dialogueMapPresets/index.json` 保存目录，每个对话预设单独保存为同目录 JSON。
+- `tools/dialogue-map-canvas-lab/` 通过 `/api/dialogue-map-presets` 读取和保存完整预设库。
+- 节点坐标只负责 Canvas 编辑布局；对话流由起始节点和每个出口的 `targetNodeId` 表达。
+
 ## 运行时可写数据建议
 
 ### Particle preset split
