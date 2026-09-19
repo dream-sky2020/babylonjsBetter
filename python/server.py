@@ -76,6 +76,7 @@ DUNGEON_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dungeonMap
 DUNGEON_MAP_PRESET_INDEX_PATH = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, "index.json")
 DIALOGUE_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dialogueMapPresets")
 DIALOGUE_MAP_PRESET_INDEX_PATH = os.path.join(DIALOGUE_MAP_PRESET_CONFIG_DIR, "index.json")
+DIALOGUE_MAP_GRID_SIZE = 24
 SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
 SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
@@ -513,6 +514,80 @@ def _dialogue_map_preset_file_name(preset_key: str) -> str:
         raise ValueError(f'dialogue map preset key "{preset_key}" is not storage-safe')
     return f"{preset_key}.json"
 
+def _validate_dialogue_editor_document(preset_key, preset):
+    errors = []
+    graph = preset.get("graph")
+    if not isinstance(graph, dict):
+        return [f'{preset_key}: graph must be an object']
+    nodes = graph.get("nodes")
+    edges = graph.get("edges")
+    if not isinstance(nodes, dict) or not nodes:
+        return [f'{preset_key}: graph.nodes must be a non-empty object']
+    if not isinstance(edges, dict):
+        errors.append(f'{preset_key}: graph.edges must be an object')
+        edges = {}
+    start_node_id = graph.get("startNodeId")
+    if not isinstance(start_node_id, str) or start_node_id not in nodes:
+        errors.append(f'{preset_key}: graph.startNodeId must reference an existing node')
+    for node_id, node in nodes.items():
+        if not isinstance(node, dict) or node.get("id") != node_id:
+            errors.append(f'{preset_key}/{node_id}: node id is invalid')
+            continue
+        if node.get("kind") not in ("dialogue", "choice", "end"):
+            errors.append(f'{preset_key}/{node_id}: node kind is invalid')
+        position = node.get("position")
+        if not isinstance(position, dict) or not is_finite_number(position.get("x")) or not is_finite_number(position.get("y")):
+            errors.append(f'{preset_key}/{node_id}: position is invalid')
+        elif position["x"] % DIALOGUE_MAP_GRID_SIZE != 0 or position["y"] % DIALOGUE_MAP_GRID_SIZE != 0:
+            errors.append(f'{preset_key}/{node_id}: position must align to {DIALOGUE_MAP_GRID_SIZE}px grid')
+        display = node.get("display")
+        if not isinstance(display, dict) or display.get("shape") not in ("rounded", "diamond", "hexagon", "pill", "document"):
+            errors.append(f'{preset_key}/{node_id}: display is invalid')
+        elif not isinstance(display.get("widthUnits"), int) or not isinstance(display.get("heightUnits"), int) or not 4 <= display["widthUnits"] <= 40 or not 3 <= display["heightUnits"] <= 40:
+            errors.append(f'{preset_key}/{node_id}: display size must use integer grid units')
+        lines = node.get("lines")
+        options = node.get("options")
+        ports = node.get("ports")
+        if not isinstance(lines, dict) or not isinstance(options, dict) or not isinstance(ports, dict):
+            errors.append(f'{preset_key}/{node_id}: lines, options and ports must be objects')
+            continue
+        for item_id, line in lines.items():
+            if not isinstance(line, dict) or line.get("id") != item_id:
+                errors.append(f'{preset_key}/{node_id}: line {item_id} is invalid')
+        for option_id, option in options.items():
+            if not isinstance(option, dict) or option.get("id") != option_id:
+                errors.append(f'{preset_key}/{node_id}: option {option_id} is invalid')
+                continue
+            port = ports.get(option.get("outputPortId"))
+            if not isinstance(port, dict) or port.get("direction") != "output" or port.get("optionId") != option_id:
+                errors.append(f'{preset_key}/{node_id}: option {option_id} output port is invalid')
+        for port_id, port in ports.items():
+            if not isinstance(port, dict) or port.get("id") != port_id or port.get("direction") not in ("input", "output"):
+                errors.append(f'{preset_key}/{node_id}: port {port_id} is invalid')
+    for edge_id, edge in edges.items():
+        if not isinstance(edge, dict) or edge.get("id") != edge_id:
+            errors.append(f'{preset_key}: edge {edge_id} is invalid')
+            continue
+        start = edge.get("from")
+        end = edge.get("to")
+        if not isinstance(start, dict) or not isinstance(end, dict):
+            errors.append(f'{preset_key}: edge {edge_id} endpoints are invalid')
+            continue
+        from_node = nodes.get(start.get("nodeId"))
+        to_node = nodes.get(end.get("nodeId"))
+        if not isinstance(from_node, dict) or not isinstance(to_node, dict):
+            errors.append(f'{preset_key}: edge {edge_id} node reference is invalid')
+            continue
+        from_port = from_node.get("ports", {}).get(start.get("portId"))
+        to_port = to_node.get("ports", {}).get(end.get("portId"))
+        if not isinstance(from_port, dict) or from_port.get("direction") != "output":
+            errors.append(f'{preset_key}: edge {edge_id} output port is invalid')
+        if not isinstance(to_port, dict) or to_port.get("direction") != "input":
+            errors.append(f'{preset_key}: edge {edge_id} input port is invalid')
+        if from_node.get("kind") == "end":
+            errors.append(f'{preset_key}: end node {start.get("nodeId")} cannot have output edges')
+    return errors
+
 def _validate_dialogue_map_library(payload):
     errors = []
     if not isinstance(payload, dict):
@@ -526,10 +601,13 @@ def _validate_dialogue_map_library(payload):
         if not isinstance(preset, dict):
             errors.append(f'{preset_key}: preset must be an object')
             continue
-        if preset.get("schemaVersion") != 1 or preset.get("presetKey") != preset_key:
+        if preset.get("schemaVersion") not in (1, 2) or preset.get("presetKey") != preset_key:
             errors.append(f'{preset_key}: schemaVersion or presetKey is invalid')
         if not isinstance(preset.get("name"), str) or not preset["name"].strip():
             errors.append(f'{preset_key}: name is required')
+        if preset.get("schemaVersion") == 2:
+            errors.extend(_validate_dialogue_editor_document(preset_key, preset))
+            continue
         nodes = preset.get("nodes")
         start_node_id = preset.get("startNodeId")
         if not isinstance(nodes, dict) or not nodes:
@@ -546,6 +624,8 @@ def _validate_dialogue_map_library(payload):
             position = node.get("position")
             if not isinstance(position, dict) or not is_finite_number(position.get("x")) or not is_finite_number(position.get("y")):
                 errors.append(f'{preset_key}/{node_id}: position is invalid')
+            elif position["x"] % DIALOGUE_MAP_GRID_SIZE != 0 or position["y"] % DIALOGUE_MAP_GRID_SIZE != 0:
+                errors.append(f'{preset_key}/{node_id}: position must align to {DIALOGUE_MAP_GRID_SIZE}px grid')
             choices = node.get("choices")
             if not isinstance(choices, list):
                 errors.append(f'{preset_key}/{node_id}: choices must be an array')

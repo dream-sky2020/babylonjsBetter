@@ -1,6 +1,6 @@
 import { requestDevServer } from '../network/devServerPortResolver';
-import { parseDialogueMapPreset } from './dialogueMap';
-import type { DialogueMapPresetCatalog, DialogueMapPresetLibrary } from './dialogueMap.types';
+import { encodeDialogueEditorDocumentLibrary, parseDialogueEditorDocument } from './dialogueMap';
+import type { DialogueEditorDocumentLibrary, DialogueMapPresetCatalog } from './dialogueMap.types';
 
 type JsonModuleLoader = () => Promise<unknown>;
 
@@ -19,7 +19,7 @@ const parseCatalog = (value: unknown): DialogueMapPresetCatalog => {
 
 const readBundledCatalog = (): DialogueMapPresetCatalog => parseCatalog(Object.values(bundledCatalogModules)[0]);
 
-const loadServerLibrary = async (): Promise<DialogueMapPresetLibrary> => {
+const loadServerLibrary = async (): Promise<DialogueEditorDocumentLibrary> => {
   const response = await requestDevServer(`/api/dialogue-map-presets?t=${Date.now()}`, { method: 'GET' });
   const payload = await response.json() as { success?: boolean; data?: unknown; message?: string };
   if (!response.ok || payload.success === false) throw new Error(payload.message ?? `HTTP ${response.status}`);
@@ -28,12 +28,12 @@ const loadServerLibrary = async (): Promise<DialogueMapPresetLibrary> => {
     const itemResponse = await requestDevServer(`/api/dialogue-map-presets/${encodeURIComponent(key)}?t=${Date.now()}`, { method: 'GET' });
     const itemPayload = await itemResponse.json() as { success?: boolean; data?: unknown; message?: string };
     if (!itemResponse.ok || itemPayload.success === false) throw new Error(itemPayload.message ?? `HTTP ${itemResponse.status}`);
-    return [key, parseDialogueMapPreset(itemPayload.data, key)] as const;
+    return [key, parseDialogueEditorDocument(itemPayload.data, key)] as const;
   }));
   return Object.fromEntries(entries);
 };
 
-export const loadDialogueMapPresetLibrary = async (): Promise<DialogueMapPresetLibrary> => {
+export const loadDialogueEditorDocumentLibrary = async (): Promise<DialogueEditorDocumentLibrary> => {
   if (import.meta.env.DEV) {
     try {
       return await Promise.race([
@@ -48,15 +48,18 @@ export const loadDialogueMapPresetLibrary = async (): Promise<DialogueMapPresetL
   const entries = await Promise.all(Object.entries(catalog.presets).map(async ([key, entry]) => {
     const loader = Object.entries(bundledPresetModules).find(([modulePath]) => modulePath.replace(/\\/g, '/').endsWith(`/dialogueMapPresets/${entry.file}`))?.[1];
     if (!loader) throw new Error(`打包对话预设不存在：${entry.file}`);
-    return [key, parseDialogueMapPreset(await loader(), key)] as const;
+    return [key, parseDialogueEditorDocument(await loader(), key)] as const;
   }));
   return Object.fromEntries(entries);
 };
 
-export const saveDialogueMapPresetLibrary = async (library: DialogueMapPresetLibrary): Promise<void> => {
+export const saveDialogueEditorDocumentLibrary = async (library: DialogueEditorDocumentLibrary): Promise<void> => {
   const response = await requestDevServer('/api/dialogue-map-presets', {
-    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(library),
+    method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
   });
   const payload = await response.json() as { success?: boolean; message?: string; errors?: string[] };
   if (!response.ok || payload.success === false) throw new Error(payload.errors?.join('\n') ?? payload.message ?? `HTTP ${response.status}`);
 };
+
+export const loadDialogueMapPresetLibrary = loadDialogueEditorDocumentLibrary;
+export const saveDialogueMapPresetLibrary = saveDialogueEditorDocumentLibrary;
