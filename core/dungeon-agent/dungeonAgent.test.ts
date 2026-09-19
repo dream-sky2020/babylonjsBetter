@@ -23,7 +23,7 @@ const agentEntity = (): IEntity => ({
   components: [
     {
       id: 'agent:guard:grid', type: 'grid-agent', version: 1,
-      initialFacing: 'east', blocksMovement: true, actionPeriod: 1, priority: 0,
+      initialFacing: 'east', blocksMovement: true, actionPeriod: 1, priority: 7,
       movementProfileId: 'ground',
     },
     {
@@ -50,6 +50,7 @@ test('扫描 dungeon-agent 并解析唯一初始格和朝向', () => {
   assert.equal(bindings.length, 1);
   assert.equal(bindings[0].initialTileIndex, 0);
   assert.equal(bindings[0].gridAgent.initialFacing, 'east');
+  assert.equal(bindings[0].gridAgent.priority, 7);
   assert.equal(bindings[0].controller.controllerId, 'stationary');
   assert.equal(bindings[0].faction?.factionId, 'hostile');
 });
@@ -60,11 +61,16 @@ test('Agent Runtime 建立占位并执行带朝向的格步移动', () => {
   assert.deepEqual([...state.traversal.occupantIdsByTile[0]], ['agent:guard']);
   const result = startDungeonAgentMovement(state, map, 'agent:guard', 'east', { durationSeconds: 0.3 });
   assert.equal(result.started, true);
-  assert.equal(state.agents[0].tileIndex, 1);
+  assert.equal(state.agents[0].tileIndex, 0);
   assert.equal(state.agents[0].facing, 'east');
+  assert.deepEqual([...state.traversal.occupantIdsByTile[0]], ['agent:guard']);
+  assert.deepEqual([...state.traversal.occupantIdsByTile[1]], []);
+  assert.equal(state.movementResolver.movementReservationsByTile[1].get('agent:guard'), state.agents[0].movement?.requestId);
+  assert.deepEqual(updateDungeonAgentMovements(state, 0.2), []);
+  assert.equal(state.agents[0].tileIndex, 1);
   assert.deepEqual([...state.traversal.occupantIdsByTile[0]], []);
   assert.deepEqual([...state.traversal.occupantIdsByTile[1]], ['agent:guard']);
-  assert.deepEqual(updateDungeonAgentMovements(state, 0.2), []);
+  assert.equal(state.movementResolver.movementReservationsByTile[1].has('agent:guard'), false);
   assert.deepEqual(updateDungeonAgentMovements(state, 0.1), ['agent:guard']);
   assert.equal(state.agents[0].movement, null);
 });

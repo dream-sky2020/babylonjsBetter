@@ -9,6 +9,7 @@ import type { DungeonMapPreset } from '../map/dungeonMap.types.ts';
 import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
 import { createDungeonRuntimeMap, getDungeonRuntimeNeighbor } from './dungeonRuntimeMap.ts';
 import { createDungeonTraversalWorld, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
+import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
 
 const documentFrom = (map: DungeonMapPreset['map']) => migrateDungeonMapToDocumentV2({
@@ -23,6 +24,7 @@ const runtimeFor = (
   obstacleStates: Map<string, boolean> = new Map(),
 ): DungeonRuntime => {
   const traversal = createDungeonTraversalWorld(map, obstacles, obstacleStates);
+  const movementResolver = createDungeonMovementResolver(traversal);
   traversal.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 0,
     enabled: true, blocksMovement: true, movementProfileId: 'ground',
@@ -30,6 +32,7 @@ const runtimeFor = (
   return {
     map,
     traversal,
+    movementResolver,
     obstacles,
     playerPosition: { tileX: 0, tileY: 0 },
     playerFacing: 'east',

@@ -247,8 +247,38 @@ export const startDungeonPlayerMovement = (
   const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[targetFacing]);
   const movementDurationSeconds = resolveMovementDuration(distance3d(fromWorldPosition, toWorldPosition), options);
   const turnDurationSeconds = resolveStepTurnDuration(yawDelta, movementDurationSeconds, options);
+  if (options.teleport) {
+    runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+    runtime.traversal.moveActor(
+      DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+      to.tileY * runtime.map.width + to.tileX,
+    );
+    runtime.playerPosition = { ...to };
+    runtime.playerWorldPosition = [...toWorldPosition];
+    runtime.playerFacing = targetFacing;
+    runtime.playerWorldRotationY += yawDelta;
+    runtime.playerMovement = null;
+    return { started: true, completed: true, direction, from, to };
+  }
+  const requestResult = runtime.movementResolver.requestMove({
+    actorId: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+    direction,
+    durationSeconds: movementDurationSeconds,
+    commitProgress: runtime.movementResolver.config.commitProgress,
+    basePriority: runtime.movementResolver.config.playerBasePriority,
+    progressWeight: runtime.movementResolver.config.progressWeight,
+    checkTerrain: options.restrictMovementObstacles ?? true,
+    checkStaticObstacles: options.restrictMovementObstacles ?? true,
+  });
+  if (!requestResult.accepted || !requestResult.request) {
+    return startBlockedAttempt(
+      requestResult.blockedReason === 'map-boundary' ? 'map-boundary' : 'movement-obstacle',
+      requestResult.blockingEntityIds,
+    );
+  }
   runtime.playerMovement = {
     kind: 'move',
+    requestId: requestResult.request.id,
     direction,
     targetFacing,
     from,
@@ -261,14 +291,6 @@ export const startDungeonPlayerMovement = (
     movementDurationSeconds,
     turnDurationSeconds,
   };
-  runtime.traversal.moveActor(
-    DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
-    to.tileY * runtime.map.width + to.tileX,
-  );
-  if (options.teleport) {
-    updateDungeonPlayerMovement(runtime, Number.POSITIVE_INFINITY);
-    return { started: true, completed: true, direction, from, to };
-  }
   return { started: true, completed: false, direction, from, to };
 };
 
@@ -334,6 +356,57 @@ export const updateDungeonPlayerMovement = (
   }
   if ((!Number.isFinite(deltaSeconds) && deltaSeconds !== Number.POSITIVE_INFINITY) || deltaSeconds < 0) {
     throw new RangeError('移动帧时间必须是非负数。');
+  }
+  if ((movement.kind === 'move' || movement.kind === 'rollback') && movement.requestId) {
+    if (deltaSeconds === Number.POSITIVE_INFINITY) {
+      throw new RangeError('仲裁移动不支持无限帧时间；瞬移应在开始移动时处理。');
+    }
+    const activeRequest = runtime.movementResolver.getActiveRequest(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+    if (activeRequest?.state === 'rollback') movement.kind = 'rollback';
+    const advance = movement.positionCompleted
+      ? {
+        active: false, completed: true, committed: false, rolledBack: movement.kind === 'rollback',
+        visualProgress: movement.kind === 'rollback' ? 0 : 1,
+        consumedSeconds: 0, remainingSeconds: deltaSeconds,
+      }
+      : runtime.movementResolver.advanceActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, deltaSeconds);
+    const rotationConsumedSeconds = Math.min(
+      deltaSeconds,
+      Math.max(0, movement.turnDurationSeconds - movement.elapsedSeconds),
+    );
+    const consumedSeconds = Math.max(advance.consumedSeconds, rotationConsumedSeconds);
+    movement.elapsedSeconds += consumedSeconds;
+    if (advance.state === 'rollback') movement.kind = 'rollback';
+    if (advance.committed) {
+      runtime.playerPosition = { ...movement.to };
+      runtime.playerFacing = movement.targetFacing;
+    }
+    if (advance.completed) movement.positionCompleted = true;
+    const positionProgress = movement.positionCompleted
+      ? movement.kind === 'rollback' ? 0 : 1
+      : advance.visualProgress;
+    const turnProgress = movement.turnDurationSeconds <= 0
+      ? 1 : Math.min(1, movement.elapsedSeconds / movement.turnDurationSeconds);
+    runtime.playerWorldPosition = [
+      lerp(movement.fromWorldPosition[0], movement.toWorldPosition[0], positionProgress),
+      lerp(movement.fromWorldPosition[1], movement.toWorldPosition[1], positionProgress),
+      lerp(movement.fromWorldPosition[2], movement.toWorldPosition[2], positionProgress),
+    ];
+    runtime.playerWorldRotationY = lerp(movement.fromWorldRotationY, movement.toWorldRotationY, turnProgress);
+    const completed = movement.positionCompleted === true && turnProgress >= 1;
+    if (completed) {
+      if (movement.kind === 'rollback') runtime.playerPosition = { ...movement.from };
+      runtime.playerFacing = movement.targetFacing;
+      runtime.playerMovement = null;
+    }
+    return {
+      active: !completed,
+      completed,
+      movementProgress: positionProgress,
+      turnProgress,
+      consumedSeconds,
+      remainingSeconds: completed ? Math.max(0, deltaSeconds - consumedSeconds) : 0,
+    };
   }
   const totalDurationSeconds = Math.max(movement.movementDurationSeconds, movement.turnDurationSeconds);
   const secondsUntilComplete = Math.max(0, totalDurationSeconds - movement.elapsedSeconds);

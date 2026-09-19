@@ -35,27 +35,34 @@ export const dungeonObstacleLabModule: LabModule = {
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
     const panel = context.ui.addPanel('dungeon-obstacle', '地牢阻碍');
-    const debugToggle = createLabSwitch('显示阻碍 Debug 盒', false, {
+    const debugToggle = createLabSwitch('显示阻碍与占位 Debug', false, {
       preference: { ui: context.ui, key: 'dungeon-obstacle/debug-boxes' },
     });
+    const debugLegend = document.createElement('small');
+    debugLegend.className = 'lab-hint';
+    debugLegend.textContent = '红：静态阻碍 · 橙：实占位 · 青：移动虚占位 · 黄：寻路预约';
     const list = document.createElement('div');
     list.className = 'lab-obstacle-list';
     const runtimeJson = createLabJson();
-    panel.content.append(debugToggle.row, list, runtimeJson);
+    panel.content.append(debugToggle.row, debugLegend, list, runtimeJson);
     let current: LoadedDungeonReferences | null = null;
     let debugRoot: TransformNode | null = null;
     let occupancyMaterial: StandardMaterial | null = null;
     let reservationMaterial: StandardMaterial | null = null;
+    let movementReservationMaterial: StandardMaterial | null = null;
     const occupancyMarkers = new Map<string, Mesh>();
     const reservationMarkers = new Map<number, Mesh>();
+    const movementReservationMarkers = new Map<string, Mesh>();
     let jsonRefreshTimer: ReturnType<typeof setTimeout> | null = null;
     const disposeDebug = () => {
       debugRoot?.dispose(false, true);
       debugRoot = null;
       occupancyMaterial = null;
       reservationMaterial = null;
+      movementReservationMaterial = null;
       occupancyMarkers.clear();
       reservationMarkers.clear();
+      movementReservationMarkers.clear();
     };
     const refreshJson = () => {
       runtimeJson.textContent = current
@@ -70,13 +77,15 @@ export const dungeonObstacleLabModule: LabModule = {
             movementProfileId: actor.movementProfileId,
           }])),
           occupantsByTile: current.runtime.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
-          reservationsByTile: current.runtime.traversal.reservationsByTile
+          pathReservationsByTile: current.runtime.traversal.pathReservationsByTile
             .map((reservations) => Object.fromEntries(reservations)),
+          ...current.runtime.movementResolver.debugSnapshot(),
         }, null, 2)
         : '尚未加载';
     };
     const syncTraversalDebug = () => {
-      if (!debugRoot || !current || !occupancyMaterial || !reservationMaterial) return;
+      if (!debugRoot || !current || !occupancyMaterial || !reservationMaterial
+        || !movementReservationMaterial) return;
       const loaded = current;
       const visibleActorIds = new Set<string>();
       loaded.runtime.traversal.actors.forEach((actor) => {
@@ -115,7 +124,7 @@ export const dungeonObstacleLabModule: LabModule = {
       });
 
       const visibleReservationTiles = new Set<number>();
-      loaded.runtime.traversal.reservationsByTile.forEach((reservations, tileIndex) => {
+      loaded.runtime.traversal.pathReservationsByTile.forEach((reservations, tileIndex) => {
         if (!reservations.size) return;
         visibleReservationTiles.add(tileIndex);
         let marker = reservationMarkers.get(tileIndex);
@@ -145,6 +154,43 @@ export const dungeonObstacleLabModule: LabModule = {
         if (visibleReservationTiles.has(tileIndex)) return;
         marker.dispose();
         reservationMarkers.delete(tileIndex);
+      });
+
+      const visibleMovementReservations = new Set<string>();
+      loaded.runtime.movementResolver.movementReservationsByTile.forEach((reservations, tileIndex) => {
+        reservations.forEach((_requestId, actorId) => {
+          visibleMovementReservations.add(actorId);
+          const tileX = tileIndex % loaded.runtime.map.width;
+          const tileY = Math.floor(tileIndex / loaded.runtime.map.width);
+          const layout = resolveDungeonTileDebugLayout(
+            loaded.spawn.sceneEnvironmentComponent,
+            loaded.runtime.map.width,
+            loaded.runtime.map.height,
+            tileX,
+            tileY,
+          );
+          let marker = movementReservationMarkers.get(actorId);
+          if (!marker) {
+            marker = MeshBuilder.CreateBox(`movement_reservation_${loaded.loadId}_${actorId}`, {
+              width: layout.size[0] * 0.58,
+              height: Math.max(0.1, layout.size[1] * 0.12),
+              depth: layout.size[2] * 0.58,
+            }, context.scene);
+            marker.material = movementReservationMaterial;
+            marker.parent = debugRoot;
+            marker.isPickable = false;
+            marker.enableEdgesRendering();
+            marker.edgesColor.set(0.13, 0.83, 0.93, 1);
+            marker.edgesWidth = 4;
+            movementReservationMarkers.set(actorId, marker);
+          }
+          marker.position.set(layout.center[0], layout.center[1] + layout.size[1] * 0.76, layout.center[2]);
+        });
+      });
+      movementReservationMarkers.forEach((marker, actorId) => {
+        if (visibleMovementReservations.has(actorId)) return;
+        marker.dispose();
+        movementReservationMarkers.delete(actorId);
       });
     };
     const renderDebug = () => {
@@ -189,6 +235,11 @@ export const dungeonObstacleLabModule: LabModule = {
       reservationMaterial.diffuseColor = Color3.FromHexString('#facc15');
       reservationMaterial.emissiveColor = Color3.FromHexString('#6b5507');
       reservationMaterial.alpha = 0.18;
+      movementReservationMaterial = new StandardMaterial(`movement_reservation_${loaded.loadId}`, context.scene);
+      movementReservationMaterial.diffuseColor = Color3.FromHexString('#22d3ee');
+      movementReservationMaterial.emissiveColor = Color3.FromHexString('#0e7490');
+      movementReservationMaterial.alpha = 0.3;
+      movementReservationMaterial.wireframe = true;
       syncTraversalDebug();
     };
     const renderList = () => {
@@ -239,10 +290,14 @@ export const dungeonObstacleLabModule: LabModule = {
     const offAgents = context.communication.on(dungeonAgentsChangedEvent, (event) => {
       if (current?.loadId === event.loadId) refreshTraversalDebug();
     });
+    const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
+      if (debugToggle.input.checked) syncTraversalDebug();
+    });
     return () => {
       off();
       offRuntime();
       offAgents();
+      context.scene.onBeforeRenderObservable.remove(frameObserver);
       if (jsonRefreshTimer !== null) clearTimeout(jsonRefreshTimer);
       disposeDebug();
     };

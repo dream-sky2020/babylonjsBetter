@@ -14,13 +14,26 @@
             user-select: none;
         }
 
+        :root {
+            color-scheme: dark;
+            --ui-ink: #f8fafc;
+            --ui-muted: #a8b2c3;
+            --ui-panel: rgba(12, 17, 29, 0.86);
+            --ui-panel-strong: rgba(7, 11, 20, 0.94);
+            --ui-line: rgba(255, 255, 255, 0.16);
+            --ui-accent: #8dd8ff;
+            --ui-accent-strong: #4aaee8;
+            --ui-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+        }
+
         body,
         html {
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #f0f0f0;
-            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #080b12;
+            color: var(--ui-ink);
+            font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
         }
 
         html.overlay-mode,
@@ -33,11 +46,27 @@
             position: relative;
             width: 100%;
             height: 100%;
+            isolation: isolate;
             background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
+        }
+
+        #game-container::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(4, 7, 14, 0.06) 0%, rgba(4, 7, 14, 0.12) 42%, rgba(4, 7, 14, 0.82) 100%),
+                radial-gradient(circle at 50% 30%, transparent 0%, rgba(4, 7, 14, 0.38) 100%);
         }
 
         .overlay-mode #game-container {
             background: transparent;
+        }
+
+        .overlay-mode #game-container::before {
+            display: none;
         }
 
         /* 立绘总容器 */
@@ -48,6 +77,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 2;
             /* 防止立绘层遮挡鼠标点击剧本 */
         }
 
@@ -55,7 +85,7 @@
         .chara-sprite {
             position: absolute;
             bottom: 0;
-            width: 380px;
+            width: min(30vw, 420px);
             /* 立绘默认基础宽度 */
             transform: translateX(-50%) scale(1);
             transform-origin: bottom center;
@@ -75,34 +105,57 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            padding: 32px;
+            background: rgba(4, 7, 14, 0.68);
             display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 14px;
             z-index: 40;
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(12px);
+        }
+
+        #choices-container::before {
+            content: "请选择";
+            position: absolute;
+            top: 18%;
+            color: var(--ui-muted);
+            font-size: 12px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
         }
 
         .choice-btn {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            border: 2px solid #fff;
-            border-radius: 10px;
-            padding: 15px 40px;
-            font-size: 20px;
+            position: relative;
+            max-width: 720px;
+            background: rgba(16, 25, 42, 0.94);
+            color: var(--ui-ink);
+            border: 1px solid rgba(141, 216, 255, 0.35);
+            border-radius: 12px;
+            padding: 16px 24px 16px 48px;
+            font-size: 18px;
             cursor: pointer;
             transition: all 0.2s;
-            width: 50%;
+            width: min(100%, 680px);
             text-align: center;
-            font-family: "Microsoft YaHei", sans-serif;
+            font-family: inherit;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .choice-btn::before {
+            content: "›";
+            position: absolute;
+            left: 20px;
+            color: var(--ui-accent);
+            font-size: 26px;
+            line-height: 1;
         }
 
         .choice-btn:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.02);
+            background: rgba(38, 73, 101, 0.96);
+            border-color: var(--ui-accent);
+            transform: translateX(6px);
         }
 
         /* UI 总图层 */
@@ -127,15 +180,17 @@
         /* 控制台 (右上角) */
         #custom-console {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #555;
+            top: 18px;
+            right: 18px;
+            background: rgba(8, 12, 22, 0.72);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--ui-line);
             display: flex;
             gap: 5px;
             z-index: 20;
+            box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24);
+            backdrop-filter: blur(12px);
         }
 
         .overlay-mode #custom-console {
@@ -143,19 +198,21 @@
         }
 
         #custom-console input {
-            padding: 5px;
-            border-radius: 4px;
-            border: none;
+            width: 220px;
+            padding: 8px 10px;
+            border-radius: 7px;
+            border: 1px solid var(--ui-line);
             outline: none;
-            width: 200px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--ui-ink);
         }
 
         #custom-console button {
-            padding: 5px 10px;
+            padding: 7px 12px;
             cursor: pointer;
-            border: none;
-            border-radius: 4px;
-            background: #007bff;
+            border: 1px solid rgba(141, 216, 255, 0.35);
+            border-radius: 7px;
+            background: var(--ui-accent-strong);
             color: white;
         }
 
@@ -166,75 +223,108 @@
         /* 对话框整体 (底部) */
         #dialogue-area {
             position: absolute;
-            bottom: 30px;
-            left: 10%;
-            width: 80%;
+            bottom: clamp(18px, 4vh, 42px);
+            left: 50%;
+            width: min(1120px, calc(100% - 48px));
+            transform: translateX(-50%);
+            z-index: 12;
         }
 
         /* 名字框 */
         #speaker-box {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 5px 20px;
-            border-radius: 5px 5px 0 0;
-            font-size: 20px;
+            display: inline-flex;
+            align-items: center;
+            min-width: 136px;
+            background: var(--ui-panel-strong);
+            color: var(--ui-accent);
+            padding: 9px 22px;
+            border-radius: 12px 12px 0 0;
+            font-size: 18px;
+            letter-spacing: 0.04em;
             font-weight: bold;
-            border: 2px solid #fff;
+            border: 1px solid var(--ui-line);
             border-bottom: none;
+            box-shadow: 8px -8px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        #speaker-box::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            margin-right: 10px;
+            border-radius: 50%;
+            background: var(--ui-accent);
+            box-shadow: 0 0 12px var(--ui-accent);
         }
 
         /* 文本框 */
         #text-box {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #fff;
-            border-radius: 0 10px 10px 10px;
-            padding: 20px;
-            color: #fff;
-            font-size: 24px;
-            min-height: 150px;
+            background: linear-gradient(135deg, rgba(13, 20, 35, 0.94), rgba(7, 11, 20, 0.88));
+            border: 1px solid var(--ui-line);
+            border-radius: 0 16px 16px 16px;
+            padding: clamp(18px, 2.5vw, 30px) clamp(20px, 3.2vw, 40px) 14px;
+            color: var(--ui-ink);
+            font-size: clamp(18px, 2vw, 24px);
+            min-height: clamp(154px, 20vh, 220px);
             cursor: pointer;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--ui-shadow);
             pointer-events: auto;
+            backdrop-filter: blur(18px);
         }
 
         #text-content {
             flex-grow: 1;
-            line-height: 1.5;
-            text-shadow: 1px 1px 2px #000;
+            min-height: 72px;
+            line-height: 1.75;
+            letter-spacing: 0.02em;
+            white-space: pre-wrap;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
         }
 
         /* 底部控制按钮 */
         #controls {
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 22px;
+            padding-top: 11px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        #advance-hint {
+            margin-right: auto;
+            color: rgba(168, 178, 195, 0.78);
+            font-size: 12px;
+            letter-spacing: 0.04em;
         }
 
         .control-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 5px 15px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--ui-muted);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 7px 13px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             transition: all 0.2s;
+            font-family: inherit;
         }
 
         .control-btn:hover {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(141, 216, 255, 0.14);
+            color: var(--ui-ink);
+            border-color: rgba(141, 216, 255, 0.4);
         }
 
         .control-btn.active {
-            background: #ffaa00;
-            color: #000;
-            border-color: #ffaa00;
+            background: rgba(141, 216, 255, 0.18);
+            color: var(--ui-accent);
+            border-color: var(--ui-accent);
         }
 
         /* 历史文本界面 (模态框) */
@@ -244,35 +334,43 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
+            background: rgba(5, 8, 15, 0.96);
+            color: var(--ui-ink);
             display: none;
             flex-direction: column;
-            padding: 50px;
+            padding: clamp(24px, 6vw, 72px);
             z-index: 100;
             pointer-events: auto;
         }
 
         #history-modal h2 {
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 8px;
+            font-size: 26px;
+            letter-spacing: 0.08em;
+            text-align: left;
         }
 
         #history-list {
             flex-grow: 1;
             overflow-y: auto;
-            padding-right: 20px;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 12px 24px 0;
         }
 
         .history-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.045);
+            line-height: 1.7;
         }
 
         .history-speaker {
             font-weight: bold;
-            color: #ffaa00;
+            color: var(--ui-accent);
             margin-bottom: 5px;
         }
 
@@ -282,10 +380,24 @@
             padding: 10px 30px;
             font-size: 18px;
             cursor: pointer;
-            border-radius: 5px;
-            border: none;
-            background: #fff;
-            color: #000;
+            border-radius: 8px;
+            border: 1px solid var(--ui-accent);
+            background: rgba(141, 216, 255, 0.12);
+            color: var(--ui-ink);
+            cursor: pointer;
+        }
+
+        @media (max-width: 680px) {
+            #dialogue-area { width: calc(100% - 24px); bottom: 12px; }
+            #speaker-box { min-width: 112px; padding: 8px 16px; font-size: 16px; }
+            #text-box { min-height: 170px; padding: 18px 18px 12px; }
+            #controls { justify-content: flex-start; flex-wrap: wrap; gap: 6px; }
+            #advance-hint { width: 100%; margin-bottom: 2px; }
+            .control-btn { flex: 1 1 auto; }
+            #custom-console { left: 12px; right: 12px; top: 12px; }
+            #custom-console input { min-width: 0; width: 100%; }
+            #choices-container { padding: 20px 14px; }
+            .choice-btn { font-size: 16px; }
         }
 
         /* 滚动条样式 */
@@ -318,11 +430,12 @@
                 <button id="btn-send">发送台词</button>
             </div>
 
-            <div id="dialogue-area">
-                <div id="speaker-box">系统</div>
-                <div id="text-box">
-                    <div id="text-content"></div>
+            <div id="dialogue-area" role="dialog" aria-label="对话">
+                <div id="speaker-box" aria-live="polite">系统</div>
+                <div id="text-box" tabindex="0">
+                    <div id="text-content" aria-live="polite"></div>
                     <div id="controls">
+                        <span id="advance-hint">点击对话框继续</span>
                         <button class="control-btn" id="btn-auto">自动</button>
                         <button class="control-btn" id="btn-skip">跳过</button>
                         <button class="control-btn" id="btn-speed">速度: 1x</button>

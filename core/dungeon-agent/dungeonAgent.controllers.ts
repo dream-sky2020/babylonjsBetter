@@ -6,6 +6,7 @@ import {
   inspectDungeonAgentStepTraversal,
   rebuildDungeonAgentPathReservations,
   startDungeonAgentMovement,
+  resolveDungeonAgentPriority,
 } from './dungeonAgent.runtime.ts';
 import type {
   DungeonAgentControllerConfig,
@@ -521,8 +522,7 @@ const followNavigationPlan = (
   const direction = plan.directions[plan.nextStepIndex];
   if (!direction) return null;
   const action = context.tryMove(direction, durationSeconds);
-  if (action.outcome === 'move-started') plan.nextStepIndex += 1;
-  else context.agent.navigationPlan = undefined;
+  if (action.outcome !== 'move-started') context.agent.navigationPlan = undefined;
   rebuildDungeonAgentPathReservations(context.state);
   return action;
 };
@@ -744,7 +744,7 @@ export const createDefaultDungeonAgentControllerRegistry = (): DungeonAgentContr
 
 const agentsByPriority = (state: DungeonAgentRuntimeState): DungeonRuntimeAgent[] => [...state.agents]
   .sort((left, right) => (
-    right.binding.gridAgent.priority - left.binding.gridAgent.priority
+    resolveDungeonAgentPriority(right) - resolveDungeonAgentPriority(left)
     || left.binding.entity.id.localeCompare(right.binding.entity.id)
   ));
 

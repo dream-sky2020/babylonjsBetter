@@ -6,6 +6,7 @@ import type {
 import type { DungeonMapDirection } from '../map/index.ts';
 import type { DungeonMapDocumentEntity } from '../map-document/index.ts';
 import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
+import type { DungeonMovementResolver } from '../dungeon-movement/index.ts';
 
 export type DungeonAgentBinding = Readonly<{
   entity: DungeonMapDocumentEntity;
@@ -17,19 +18,24 @@ export type DungeonAgentBinding = Readonly<{
 }>;
 
 export type DungeonAgentMovement = {
-  kind: 'move' | 'turn';
+  kind: 'move' | 'turn' | 'rollback';
+  requestId?: string;
   fromTileIndex: number;
   toTileIndex: number;
   fromFacing: DungeonMapDirection;
   toFacing: DungeonMapDirection;
   elapsedSeconds: number;
   durationSeconds: number;
+  visualProgress?: number;
+  rotationProgress?: number;
 };
 
 export type DungeonRuntimeAgent = {
   readonly binding: DungeonAgentBinding;
   tileIndex: number;
   facing: DungeonMapDirection;
+  /** Lab 或游戏流程施加的运行时移动优先级覆盖；不会回写地图文档。 */
+  priorityOverride?: number;
   enabled: boolean;
   actionClock: number;
   navigationPlan?: DungeonAgentNavigationPlan;
@@ -60,6 +66,8 @@ export type DungeonAgentRuntimeState = {
   agentIndexByEntityId: ReadonlyMap<string, number>;
   /** 与玩家和静态阻碍共享的权威通行世界。 */
   traversal: DungeonTraversalWorld;
+  /** 与玩家共享；管理实际格步的虚占位、提交和回退。 */
+  movementResolver: DungeonMovementResolver;
 };
 
 export type DungeonAgentMovementBlockedReason =

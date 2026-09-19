@@ -15,6 +15,7 @@ import {
 import type { DungeonMapDirection } from '@/core/map';
 import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
 import { setDungeonRuntimePlayerPosition, type DungeonRuntime } from '@/core/dungeon-runtime';
+import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
   createLabField,
@@ -337,6 +338,7 @@ export const playerMovementLabModule: LabModule = {
         playerWorldPosition: current.runtime.playerWorldPosition,
         playerWorldRotationY: current.runtime.playerWorldRotationY,
         playerMovement: current.runtime.playerMovement,
+        movementResolver: current.runtime.movementResolver.debugSnapshot(),
         obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
       }, null, 2);
     };
@@ -595,7 +597,10 @@ export const playerMovementLabModule: LabModule = {
       let remainingSeconds = context.engine.getDeltaTime() / 1000;
       let continuationCount = 0;
       while (current.runtime.playerMovement && continuationCount++ < 8) {
-        const movementKind = current.runtime.playerMovement.kind;
+        const movementKind = current.runtime.movementResolver
+          .getActiveRequest(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)?.state === 'rollback'
+          ? 'rollback'
+          : current.runtime.playerMovement.kind;
         const completedMovementDurationSeconds = current.runtime.playerMovement.movementDurationSeconds;
         const completedMovementHoldThresholdSeconds = resolveContinuousHoldThreshold(
           completedMovementDurationSeconds,
@@ -607,14 +612,15 @@ export const playerMovementLabModule: LabModule = {
         syncMarker();
         if (!result.completed) break;
         remainingSeconds = result.remainingSeconds;
-        status.textContent = movementKind === 'blocked'
+        status.textContent = movementKind === 'blocked' || movementKind === 'rollback'
           ? `移动受阻：玩家退回 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})。`
           : movementKind === 'turn'
           ? `原地转向完成：玩家仍位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`
           : `移动完成：玩家位于 (${current.runtime.playerPosition.tileX}, ${current.runtime.playerPosition.tileY})，朝向 ${current.runtime.playerFacing}。`;
         void context.communication.request(dungeonRuntimeCommitRequest, {
           reason: movementKind === 'turn' ? 'player-turn-completed'
-            : movementKind === 'blocked' ? 'player-movement-blocked' : 'player-movement-completed',
+            : movementKind === 'blocked' || movementKind === 'rollback'
+              ? 'player-movement-blocked' : 'player-movement-completed',
         });
         if (!continuousMovementToggle.input.checked || movementKind !== 'move') {
           continuousHoldMovementDurationSeconds = null;

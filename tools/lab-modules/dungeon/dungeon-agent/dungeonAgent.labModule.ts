@@ -6,6 +6,7 @@ import {
   createDungeonAgentRuntimeState,
   normalizeDungeonAgentControllerParameters,
   normalizeDungeonAgentTilePointList,
+  resolveDungeonAgentPriority,
   resolveDungeonAgentControllerConfig,
   runDungeonAgentControllersAfterPlayerStep,
   setDungeonAgentControllerOverride,
@@ -110,6 +111,18 @@ export const dungeonAgentLabModule: LabModule = {
     resetControllerButton.type = 'button';
     resetControllerButton.textContent = '恢复地图 Controller 配置';
     const factionInput = createReadonlyInput();
+    const priorityInput = document.createElement('input');
+    priorityInput.type = 'number';
+    priorityInput.step = '1';
+    priorityInput.title = '本次运行覆盖，不写回地图组件';
+    const progressWeightInput = document.createElement('input');
+    progressWeightInput.type = 'number';
+    progressWeightInput.min = '0';
+    progressWeightInput.step = '0.1';
+    progressWeightInput.title = '公式：Y + X × 移动进度；修改共享移动仲裁器配置';
+    const resetPriorityButton = document.createElement('button');
+    resetPriorityButton.type = 'button';
+    resetPriorityButton.textContent = '恢复地图优先级';
     const durationInput = createDurationInput();
     const moveControls = document.createElement('div');
     moveControls.className = 'lab-movement-grid';
@@ -149,6 +162,9 @@ export const dungeonAgentLabModule: LabModule = {
       createLabField('Controller 参数（仅本次运行）', controllerParameters),
       resetControllerButton,
       createLabField('阵营', factionInput),
+      createLabField('移动冲突优先级（本次运行）', priorityInput),
+      createLabField('移动进度权重 X（本次运行）', progressWeightInput),
+      resetPriorityButton,
       createLabField('移动 / 转向耗时（秒）', durationInput),
       createLabField('手动格步移动', moveControls),
       createLabField('手动原地转向', turnControls),
@@ -207,13 +223,14 @@ export const dungeonAgentLabModule: LabModule = {
         marker.setPose(tileWorldPosition(agent.tileIndex), DIRECTION_YAWS[agent.facing]);
         return;
       }
-      const progress = movement.durationSeconds <= 0
+      const progress = movement.visualProgress ?? (movement.durationSeconds <= 0
         ? 1
-        : Math.min(1, movement.elapsedSeconds / movement.durationSeconds);
+        : Math.min(1, movement.elapsedSeconds / movement.durationSeconds));
       const from = tileWorldPosition(movement.fromTileIndex);
       const to = tileWorldPosition(movement.toTileIndex);
       const fromYaw = DIRECTION_YAWS[movement.fromFacing];
-      const yaw = fromYaw + shortestAngleDelta(fromYaw, DIRECTION_YAWS[movement.toFacing]) * progress;
+      const rotationProgress = movement.rotationProgress ?? progress;
+      const yaw = fromYaw + shortestAngleDelta(fromYaw, DIRECTION_YAWS[movement.toFacing]) * rotationProgress;
       marker.setPose([
         lerp(from[0], to[0], progress),
         lerp(from[1], to[1], progress),
@@ -472,6 +489,8 @@ export const dungeonAgentLabModule: LabModule = {
           ? '本次运行覆盖（不写回地图）'
           : '地图初始配置';
         factionInput.value = agent.binding.faction?.factionId ?? 'neutral';
+        priorityInput.value = String(resolveDungeonAgentPriority(agent));
+        progressWeightInput.value = String(state?.movementResolver.config.progressWeight ?? '');
       } else {
         positionInput.value = '';
         facingInput.value = '';
@@ -479,9 +498,12 @@ export const dungeonAgentLabModule: LabModule = {
         controllerDescription.textContent = '请先选择一个 Agent。';
         controllerSource.value = '';
         factionInput.value = '';
+        priorityInput.value = '';
+        progressWeightInput.value = '';
       }
       controllerSelect.disabled = !agent;
       resetControllerButton.disabled = !agent?.controllerOverride;
+      resetPriorityButton.disabled = !agent || agent.priorityOverride === undefined;
       renderControllerParameters(agent);
       runtimeJson.textContent = JSON.stringify(state ? {
         loadId: loaded?.loadId,
@@ -495,6 +517,8 @@ export const dungeonAgentLabModule: LabModule = {
           blocksMovement: item.binding.gridAgent.blocksMovement,
           actionPeriod: item.binding.gridAgent.actionPeriod,
           priority: item.binding.gridAgent.priority,
+          effectivePriority: resolveDungeonAgentPriority(item),
+          prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
           movementProfileId: item.binding.gridAgent.movementProfileId,
           controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
           controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
@@ -505,9 +529,41 @@ export const dungeonAgentLabModule: LabModule = {
           movement: item.movement,
         })),
         occupantsByTile: state.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
-        pathReservationsByTile: state.traversal.reservationsByTile.map((reservations) => Object.fromEntries(reservations)),
+        pathReservationsByTile: state.traversal.pathReservationsByTile.map((reservations) => Object.fromEntries(reservations)),
+        movement: state.movementResolver.debugSnapshot(),
       } : { loaded: false }, null, 2);
     };
+
+    priorityInput.addEventListener('change', () => {
+      const agent = selectedAgent();
+      const value = Number(priorityInput.value);
+      if (!agent || !Number.isInteger(value)) {
+        status.textContent = '移动冲突优先级必须是整数。';
+        refreshPanel();
+        return;
+      }
+      agent.priorityOverride = value;
+      status.textContent = `已将移动冲突优先级设为 ${value}（仅本次运行）。`;
+      refreshPanel();
+    });
+    progressWeightInput.addEventListener('change', () => {
+      const value = Number(progressWeightInput.value);
+      if (!state || !Number.isFinite(value) || value < 0) {
+        status.textContent = '移动进度权重 X 必须是非负有限数。';
+        refreshPanel();
+        return;
+      }
+      state.movementResolver.updateConfig({ progressWeight: value });
+      status.textContent = `已将移动进度权重 X 设为 ${value}（仅本次运行）。`;
+      refreshPanel();
+    });
+    resetPriorityButton.addEventListener('click', () => {
+      const agent = selectedAgent();
+      if (!agent) return;
+      delete agent.priorityOverride;
+      status.textContent = '已恢复地图中的移动冲突优先级。';
+      refreshPanel();
+    });
 
     const populateAgentSelect = () => {
       const previous = selectedAgentSelect.value;
@@ -650,7 +706,11 @@ export const dungeonAgentLabModule: LabModule = {
       loaded = next;
       disposeMarkers();
       try {
-        state = createDungeonAgentRuntimeState(next.runtime.map, next.runtime.traversal);
+        state = createDungeonAgentRuntimeState(
+          next.runtime.map,
+          next.runtime.traversal,
+          next.runtime.movementResolver,
+        );
         agentReferenceController.commit({ loadId: next.loadId, state });
         populateAgentSelect();
         renderMarkers();

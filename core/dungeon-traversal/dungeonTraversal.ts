@@ -50,6 +50,9 @@ export class DungeonTraversalWorld {
   readonly obstacleStates: ReadonlyMap<string, boolean>;
   readonly actors = new Map<string, DungeonTraversalActor>();
   readonly occupantIdsByTile: ReadonlyArray<Set<string>>;
+  /** 寻路使用的软预约；不参与移动 Commit 或抢占。 */
+  readonly pathReservationsByTile: ReadonlyArray<Map<string, number>>;
+  /** @deprecated 使用 pathReservationsByTile；保留给现有调用方兼容。 */
   readonly reservationsByTile: ReadonlyArray<Map<string, number>>;
 
   constructor(
@@ -61,10 +64,11 @@ export class DungeonTraversalWorld {
     this.obstacles = obstacles;
     this.obstacleStates = obstacleStates;
     this.occupantIdsByTile = Array.from({ length: map.topology.tileIds.length }, () => new Set<string>());
-    this.reservationsByTile = Array.from(
+    this.pathReservationsByTile = Array.from(
       { length: map.topology.tileIds.length },
       () => new Map<string, number>(),
     );
+    this.reservationsByTile = this.pathReservationsByTile;
   }
 
   registerActor(actor: DungeonTraversalActor): void {
@@ -211,18 +215,18 @@ export class DungeonTraversalWorld {
   }
 
   clearReservations(actorId: string): void {
-    this.reservationsByTile.forEach((reservations) => reservations.delete(actorId));
+    this.pathReservationsByTile.forEach((reservations) => reservations.delete(actorId));
   }
 
   replaceReservations(actorId: string, tileIndices: readonly number[], startIndex: number): void {
     this.clearReservations(actorId);
     for (let index = startIndex; index < tileIndices.length; index += 1) {
-      this.reservationsByTile[tileIndices[index]]?.set(actorId, index - startIndex + 1);
+      this.pathReservationsByTile[tileIndices[index]]?.set(actorId, index - startIndex + 1);
     }
   }
 
   reservationCount(tileIndex: number, excludeActorId?: string): number {
-    return [...(this.reservationsByTile[tileIndex]?.keys() ?? [])]
+    return [...(this.pathReservationsByTile[tileIndex]?.keys() ?? [])]
       .filter((actorId) => actorId !== excludeActorId).length;
   }
 }
