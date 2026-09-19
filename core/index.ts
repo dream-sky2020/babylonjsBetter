@@ -24,4 +24,5 @@ export * from './game-time';
 
 export * from './dungeon-runtime';
 export * from './dungeon-traversal';
+export * from './dungeon-movement';
 export * from './dungeon-runtime-save';

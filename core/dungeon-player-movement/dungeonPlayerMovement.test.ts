@@ -5,6 +5,7 @@ import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import type { DungeonRuntime } from '../dungeon-runtime/dungeonRuntime.types.ts';
 import { createDungeonTraversalWorld, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
+import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 import {
   inspectDungeonPlayerMovement,
   startDungeonPlayerMovement,
@@ -20,6 +21,7 @@ const runtimeForLine = (): DungeonRuntime => {
   }).document;
   const map = createDungeonRuntimeMap(document);
   const traversal = createDungeonTraversalWorld(map);
+  const movementResolver = createDungeonMovementResolver(traversal);
   traversal.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 0,
     enabled: true, blocksMovement: true, movementProfileId: 'ground',
@@ -27,6 +29,7 @@ const runtimeForLine = (): DungeonRuntime => {
   return {
     map,
     traversal,
+    movementResolver,
     obstacles: [],
     playerPosition: { tileX: 0, tileY: 0 },
     playerFacing: 'east',
@@ -105,4 +108,32 @@ test('改变朝向的第一格不会在位移完成后等待旋转', () => {
   assert.deepEqual(runtime.playerPosition, { tileX: 1, tileY: 0 });
   assert.equal(runtime.playerFacing, 'east');
   assert.equal(runtime.playerWorldRotationY, -Math.PI * 3 / 2);
+});
+
+test('玩家的虚占位被更高优先级请求抢走时，从当前视觉位置回退到实占位', () => {
+  const runtime = runtimeForLine();
+  runtime.traversal.registerActor({
+    id: 'agent:priority', kind: 'agent', tileIndex: 2,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
+  assert.equal(startEast(runtime).started, true);
+  updateDungeonPlayerMovement(runtime, 0.3);
+  assert.equal(runtime.playerWorldPosition[0], 0.3);
+  assert.deepEqual(runtime.playerPosition, { tileX: 0, tileY: 0 });
+
+  const stolen = runtime.movementResolver.requestMove({
+    actorId: 'agent:priority', direction: 'west', durationSeconds: 1,
+    basePriority: 2000, progressWeight: 1, commitProgress: 0.5,
+  });
+  assert.equal(stolen.accepted, true);
+  const rollbackHalfway = updateDungeonPlayerMovement(runtime, 0.15);
+  assert.equal(rollbackHalfway.completed, false);
+  assert.ok(Math.abs(runtime.playerWorldPosition[0] - 0.15) < 1e-9);
+  assert.equal(runtime.playerMovement?.kind, 'rollback');
+
+  const rollbackCompleted = updateDungeonPlayerMovement(runtime, 0.15);
+  assert.equal(rollbackCompleted.completed, true);
+  assert.equal(runtime.playerWorldPosition[0], 0);
+  assert.deepEqual(runtime.playerPosition, { tileX: 0, tileY: 0 });
+  assert.deepEqual([...runtime.traversal.occupantIdsByTile[0]], [DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID]);
 });

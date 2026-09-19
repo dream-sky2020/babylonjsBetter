@@ -7,6 +7,7 @@ import {
   createDungeonTraversalWorld,
   DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
 } from '../dungeon-traversal/index.ts';
+import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 
 /** 使用已经解析并校验过的玩家出生点创建地图运行时。 */
 export const createDungeonRuntime = (
@@ -18,6 +19,7 @@ export const createDungeonRuntime = (
   const obstacles = scanDungeonDocumentObstacles(document);
   const obstacleStates = createDungeonObstacleStatesFromBindings(obstacles);
   const traversal = createDungeonTraversalWorld(map, obstacles, obstacleStates);
+  const movementResolver = createDungeonMovementResolver(traversal);
   const playerTileIndex = playerSpawn.tilePosition.y * map.width + playerSpawn.tilePosition.x;
   traversal.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
@@ -30,6 +32,7 @@ export const createDungeonRuntime = (
   return {
     map,
     traversal,
+    movementResolver,
     obstacles,
     playerPosition: {
       tileX: playerSpawn.tilePosition.x,
@@ -59,6 +62,7 @@ export const setDungeonRuntimePlayerPosition = (
       `玩家位置 (${nextPosition.tileX}, ${nextPosition.tileY}) 超出地图“${runtime.map.id}”的有效范围。`,
     );
   }
+  runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
   runtime.traversal.moveActor(
     DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
     nextPosition.tileY * runtime.map.width + nextPosition.tileX,

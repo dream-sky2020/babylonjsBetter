@@ -1,5 +1,11 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-18：Dungeon 实占位、移动虚占位与仲裁
+
+`core/dungeon-movement/` 提供玩家与 Agent 共用的格步移动仲裁器。移动申请成功后立即创建目标格移动虚占位并开始 Forward 表现，但 `DungeonTraversalWorld` 中的实占位继续留在起点；默认到动画 50% 的 Commit Point 才原子释放起点并占据目标格。Commit 前更高优先级请求可以抢占同一虚位置，失败请求会记录被中断时的视觉进度并进入 Rollback，表现层从该位置连续退回起点且不会因回退而反向转身。玩家使用高于普通 Agent 的默认基础优先级；Agent 复用 `grid-agent.priority`，移动进度权重参与动态分数。
+
+通行 Debug 现在区分橙色实占位、青色移动虚占位与黄色寻路软预约，并从 Movement Resolver 的只读快照展示活动请求、状态、进度、Commit Point 和当前优先级。原 `DungeonTraversalWorld.reservationsByTile` 仍只表示寻路软预约，不参与硬移动仲裁。
+
 ## 2026-09-15：Dungeon Map Document V2 基础层
 
 `core/map-document/` 开始承接地牢地图从嵌套容器向标准化文档迁移的基础设施。`DungeonMapDocumentV2` 将稳定 Entity 身份、按组件类型分表的 Component 数据与空间拓扑彻底分离；Entity/Component 关系只由组件的 `entityId` 表达，空间归属统一由 `spatial-attachment` 指向 map、tile、side、edge 或 point，避免在格子、边和点内部继续嵌套业务数据。
