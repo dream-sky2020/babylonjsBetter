@@ -1,61 +1,75 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "presetKey": "village_gate",
   "name": "村口守卫",
-  "startNodeId": "greeting",
-  "nodes": {
-    "greeting": {
-      "id": "greeting",
-      "kind": "dialogue",
-      "title": "守卫招呼",
-      "speaker": "村口守卫",
-      "text": "旅行者，前面的路最近不太安全。",
-      "position": { "x": 80, "y": 180 },
-      "choices": [
-        { "id": "continue", "text": "继续", "targetNodeId": "ask_reason" }
-      ]
+  "graph": {
+    "startNodeId": "greeting",
+    "nodes": {
+      "greeting": {
+        "id": "greeting", "kind": "dialogue", "title": "守卫招呼", "position": { "x": 72, "y": 168 },
+        "display": { "shape": "rectangle", "colorToken": "blue-muted", "headerColorToken": "blue-header", "widthUnits": 10, "heightUnits": 6, "showSpeakerList": true, "showPreviewText": true },
+        "lines": { "line:greeting:main": { "id": "line:greeting:main", "speaker": "村口守卫", "text": "旅行者，前面的路最近不太安全。" } },
+        "lineOrder": ["line:greeting:main"],
+        "options": { "continue": { "id": "continue", "text": "继续", "outputPortId": "port:greeting:option:continue" } },
+        "optionOrder": ["continue"],
+        "ports": {
+          "port:greeting:in": { "id": "port:greeting:in", "direction": "input", "role": "flow" },
+          "port:greeting:option:continue": { "id": "port:greeting:option:continue", "direction": "output", "role": "option", "optionId": "continue" }
+        }
+      },
+      "ask_reason": {
+        "id": "ask_reason", "kind": "choice", "title": "如何回应", "position": { "x": 384, "y": 144 },
+        "display": { "shape": "rectangle", "colorToken": "violet-muted", "headerColorToken": "violet-header", "widthUnits": 11, "heightUnits": 7, "showSpeakerList": true, "showPreviewText": true },
+        "lines": { "line:ask_reason:main": { "id": "line:ask_reason:main", "speaker": "玩家", "text": "你打算怎么回应？" } },
+        "lineOrder": ["line:ask_reason:main"],
+        "options": {
+          "ask": { "id": "ask", "text": "发生什么事了？", "outputPortId": "port:ask_reason:option:ask" },
+          "leave": { "id": "leave", "text": "我会小心的。", "outputPortId": "port:ask_reason:option:leave" }
+        },
+        "optionOrder": ["ask", "leave"],
+        "ports": {
+          "port:ask_reason:in": { "id": "port:ask_reason:in", "direction": "input", "role": "flow" },
+          "port:ask_reason:option:ask": { "id": "port:ask_reason:option:ask", "direction": "output", "role": "option", "optionId": "ask" },
+          "port:ask_reason:option:leave": { "id": "port:ask_reason:option:leave", "direction": "output", "role": "option", "optionId": "leave" }
+        }
+      },
+      "explain": {
+        "id": "explain", "kind": "dialogue", "title": "说明危险", "position": { "x": 744, "y": 48 },
+        "display": { "shape": "rectangle", "colorToken": "blue-muted", "headerColorToken": "blue-header", "widthUnits": 11, "heightUnits": 7, "showSpeakerList": true, "showPreviewText": true },
+        "lines": { "line:explain:main": { "id": "line:explain:main", "speaker": "村口守卫", "text": "北边树林里出现了魔物。若你愿意帮忙，村长会感谢你的。" } },
+        "lineOrder": ["line:explain:main"],
+        "options": {
+          "accept": { "id": "accept", "text": "我去看看。", "outputPortId": "port:explain:option:accept", "event": "quest:forest:start" },
+          "decline": { "id": "decline", "text": "还是算了。", "outputPortId": "port:explain:option:decline" }
+        },
+        "optionOrder": ["accept", "decline"],
+        "ports": {
+          "port:explain:in": { "id": "port:explain:in", "direction": "input", "role": "flow" },
+          "port:explain:option:accept": { "id": "port:explain:option:accept", "direction": "output", "role": "option", "optionId": "accept" },
+          "port:explain:option:decline": { "id": "port:explain:option:decline", "direction": "output", "role": "option", "optionId": "decline" }
+        }
+      },
+      "quest_end": {
+        "id": "quest_end", "kind": "end", "title": "接受委托", "position": { "x": 1104, "y": 24 },
+        "display": { "shape": "rectangle", "colorToken": "red-muted", "headerColorToken": "red-header", "widthUnits": 9, "heightUnits": 5, "showSpeakerList": true, "showPreviewText": true },
+        "lines": { "line:quest_end:main": { "id": "line:quest_end:main", "speaker": "系统", "text": "已接受任务：树林里的魔物。" } },
+        "lineOrder": ["line:quest_end:main"], "options": {}, "optionOrder": [],
+        "ports": { "port:quest_end:in": { "id": "port:quest_end:in", "direction": "input", "role": "flow" } }
+      },
+      "farewell": {
+        "id": "farewell", "kind": "end", "title": "结束交谈", "position": { "x": 768, "y": 312 },
+        "display": { "shape": "rectangle", "colorToken": "red-muted", "headerColorToken": "red-header", "widthUnits": 9, "heightUnits": 5, "showSpeakerList": true, "showPreviewText": true },
+        "lines": { "line:farewell:main": { "id": "line:farewell:main", "speaker": "村口守卫", "text": "一路小心。" } },
+        "lineOrder": ["line:farewell:main"], "options": {}, "optionOrder": [],
+        "ports": { "port:farewell:in": { "id": "port:farewell:in", "direction": "input", "role": "flow" } }
+      }
     },
-    "ask_reason": {
-      "id": "ask_reason",
-      "kind": "choice",
-      "title": "如何回应",
-      "speaker": "玩家",
-      "text": "你打算怎么回应？",
-      "position": { "x": 400, "y": 160 },
-      "choices": [
-        { "id": "ask", "text": "发生什么事了？", "targetNodeId": "explain" },
-        { "id": "leave", "text": "我会小心的。", "targetNodeId": "farewell" }
-      ]
-    },
-    "explain": {
-      "id": "explain",
-      "kind": "dialogue",
-      "title": "说明危险",
-      "speaker": "村口守卫",
-      "text": "北边树林里出现了魔物。若你愿意帮忙，村长会感谢你的。",
-      "position": { "x": 750, "y": 60 },
-      "choices": [
-        { "id": "accept", "text": "我去看看。", "targetNodeId": "quest_end", "event": "quest:forest:start" },
-        { "id": "decline", "text": "还是算了。", "targetNodeId": "farewell" }
-      ]
-    },
-    "quest_end": {
-      "id": "quest_end",
-      "kind": "end",
-      "title": "接受委托",
-      "speaker": "系统",
-      "text": "已接受任务：树林里的魔物。",
-      "position": { "x": 1110, "y": 20 },
-      "choices": []
-    },
-    "farewell": {
-      "id": "farewell",
-      "kind": "end",
-      "title": "结束交谈",
-      "speaker": "村口守卫",
-      "text": "一路小心。",
-      "position": { "x": 790, "y": 330 },
-      "choices": []
+    "edges": {
+      "edge:greeting:continue": { "id": "edge:greeting:continue", "from": { "nodeId": "greeting", "portId": "port:greeting:option:continue" }, "to": { "nodeId": "ask_reason", "portId": "port:ask_reason:in" } },
+      "edge:ask_reason:ask": { "id": "edge:ask_reason:ask", "from": { "nodeId": "ask_reason", "portId": "port:ask_reason:option:ask" }, "to": { "nodeId": "explain", "portId": "port:explain:in" } },
+      "edge:ask_reason:leave": { "id": "edge:ask_reason:leave", "from": { "nodeId": "ask_reason", "portId": "port:ask_reason:option:leave" }, "to": { "nodeId": "farewell", "portId": "port:farewell:in" } },
+      "edge:explain:accept": { "id": "edge:explain:accept", "from": { "nodeId": "explain", "portId": "port:explain:option:accept" }, "to": { "nodeId": "quest_end", "portId": "port:quest_end:in" } },
+      "edge:explain:decline": { "id": "edge:explain:decline", "from": { "nodeId": "explain", "portId": "port:explain:option:decline" }, "to": { "nodeId": "farewell", "portId": "port:farewell:in" } }
     }
   }
 }

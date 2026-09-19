@@ -36,7 +36,9 @@
 
 - `dialogueMapPresets/index.json` 保存目录，每个对话预设单独保存为同目录 JSON。
 - `tools/dialogue-map-canvas-lab/` 通过 `/api/dialogue-map-presets` 读取和保存完整预设库。
-- 节点坐标只负责 Canvas 编辑布局；对话流由起始节点和每个出口的 `targetNodeId` 表达。
+- 当前存储格式为 schemaVersion 2：节点、端口和连线都是独立对象，连线使用 `from/to` 的节点与端口 ID 表达。
+- 编辑期节点和连线使用 Map；JSON 边界编码为对象。旧 schemaVersion 1 的 `choices[].targetNodeId` 会在读取时迁移，并在下一次保存时升级。
+- 节点坐标对齐 24px 基础网格，显示宽高使用 `DialogueNodeDisplay.widthUnits/heightUnits` 网格单位。
 
 ## 运行时可写数据建议
 

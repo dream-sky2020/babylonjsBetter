@@ -2,9 +2,9 @@
 
 ## 2026-09-19：Dialogue Map Canvas Lab
 
-`core/dialogue-map/` 定义独立的对话图预设、解析、引用校验和开发期 Repository。对话图以稳定节点 ID、起始节点、Canvas 坐标和节点出口表达流程；出口可携带显示文本、目标节点、条件与事件。校验会发现缺失起点、无效目标、重复出口、选择节点出口不足、结束节点仍有出口和不可达节点。
+`core/dialogue-map/` 定义 V2 编辑器模型、兼容解析、引用校验和开发期 Repository。`DialogueEditorDocument` 持有 `DialogueEditorGraph`，编辑期节点与连线分别保存为 `Map<string, DialogueEditorNode>` 和 `Map<string, DialogueEditorEdge>`；连线通过稳定的节点/端口 ID 连接，节点内的对白、选项和端口也分别拥有稳定 ID。存盘边界将 Map 编码为 JSON 对象，V1 `choices[].targetNodeId` 文件读取时会用确定性 ID 迁移，下一次保存升级为 V2。
 
-`tools/dialogue-map-canvas-lab/` 提供与 Dungeon Map Canvas Lab 同类的服务器连接式编辑工作台：可创建和切换预设、创建/删除/拖动节点、编辑内容与出口、缩放平移 Canvas、检查连线及保存脏状态。开发服务通过 `/api/dialogue-map-presets` 把 `config/dialogueMapPresets/` 的目录与单预设文件读写到磁盘；构建产物只读加载同一静态数据。
+`DialogueEditorSelection` 独立表达节点、对白、选项、端口或连线选择，Canvas 会按命中类型打开对应 Inspector。`DialogueNodeDisplay` 使用网格单位保存形状、低对比度颜色 Token、宽高与折叠/预览选项；坐标继续对齐 24px 基础网格。开发服务通过 `/api/dialogue-map-presets` 读写 `config/dialogueMapPresets/`，并同时接受旧 V1 与当前 V2 数据。
 
 ## 2026-09-18：Dungeon 实占位、移动虚占位与仲裁
 
