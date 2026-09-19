@@ -1,5 +1,11 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-19：Dialogue Map Canvas Lab
+
+`core/dialogue-map/` 定义独立的对话图预设、解析、引用校验和开发期 Repository。对话图以稳定节点 ID、起始节点、Canvas 坐标和节点出口表达流程；出口可携带显示文本、目标节点、条件与事件。校验会发现缺失起点、无效目标、重复出口、选择节点出口不足、结束节点仍有出口和不可达节点。
+
+`tools/dialogue-map-canvas-lab/` 提供与 Dungeon Map Canvas Lab 同类的服务器连接式编辑工作台：可创建和切换预设、创建/删除/拖动节点、编辑内容与出口、缩放平移 Canvas、检查连线及保存脏状态。开发服务通过 `/api/dialogue-map-presets` 把 `config/dialogueMapPresets/` 的目录与单预设文件读写到磁盘；构建产物只读加载同一静态数据。
+
 ## 2026-09-18：Dungeon 实占位、移动虚占位与仲裁
 
 `core/dungeon-movement/` 提供玩家与 Agent 共用的格步移动仲裁器。移动申请成功后立即创建目标格移动虚占位并开始 Forward 表现，但 `DungeonTraversalWorld` 中的实占位继续留在起点；默认到动画 50% 的 Commit Point 才原子释放起点并占据目标格。Commit 前更高优先级请求可以抢占同一虚位置，失败请求会记录被中断时的视觉进度并进入 Rollback，表现层从该位置连续退回起点且不会因回退而反向转身。玩家使用高于普通 Agent 的默认基础优先级；Agent 复用 `grid-agent.priority`，移动进度权重参与动态分数。
@@ -597,6 +603,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `oscilloscope-ui-lab/`
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
+- `dialogue-map-canvas-lab/`：创建和编辑对话图预设，以可拖动 Canvas 节点和连接快速理解分支、条件、事件及不可达节点。
 - `dungeon-scene-loader-lab/`：由 `dungeon-grid-debug` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
 - `dungeon-obstacle-lab/`：显式组合 `dungeon-runtime + dungeon-obstacle + dungeon-grid-debug`，集中浏览 Runtime，并测试阻碍状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug。
 - `dungeon-player-spawn-lab/`：显式组合 `player-spawn + dungeon-runtime + dungeon-grid-debug`，验证出生点只提供初始化信息，再由 Runtime 模块唯一创建地牢动态数据。
@@ -660,6 +667,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `model*Configs.json`、`model*Presets.json` | 对应 Model labs |
 | `popNumberPresets.json`、`burstCapsulePresets.json` | Hit/effect labs |
 | `dungeonMapPresets/index.json` 与同目录单地图 JSON | Dungeon Map Canvas、组合式 Dungeon Lab，以及 World Loader 引用的地图目录和实际地图预设 |
+| `dialogueMapPresets/index.json` 与同目录单预设 JSON | Dialogue Map Canvas Lab 与后续对话运行时共享的节点图预设 |
 | `sceneEnvironmentPresets.json` | Scene Environment Lab；由 `/api/scene-environment-presets` 只读获取 |
 | `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
 | `animationScenePresets.json` | Animation Workbench 与游戏运行时共享的通用动画场景预设；开发期由 `/api/animation-scene-presets` 校验并原子保存。现有 `model-shake-lab` 动作已逐项迁入，可用 `npm run migrate:animation-scene-presets` 重复同步并保留其他通用预设 |

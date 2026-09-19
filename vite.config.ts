@@ -8,6 +8,7 @@ const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
+const DIALOGUE_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dialogueMapPresets')
 const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
 const ANIMATION_SCENE_PRESETS_PATH = path.resolve(CONFIG_DIR, 'animationScenePresets.json')
 
@@ -79,6 +80,8 @@ const sharedConfigPlugin = (): Plugin => ({
       if (changedPath === ANIMATION_SCENE_PRESETS_PATH) return []
       if (changedPath === DUNGEON_MAP_PRESETS_DIR
         || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
+      if (changedPath === DIALOGUE_MAP_PRESETS_DIR
+        || changedPath.startsWith(`${DIALOGUE_MAP_PRESETS_DIR}${path.sep}`)) return []
       return undefined
     },
   },
@@ -237,6 +240,7 @@ export default defineConfig({
         modelShootLab: path.resolve(__dirname, 'tools/model-shoot-lab/index.html'),
         bulletConfigLab: path.resolve(__dirname, 'tools/bullet-config-lab/index.html'),
         dungeonMapCanvasLab: path.resolve(__dirname, 'tools/dungeon-map-canvas-lab/index.html'),
+        dialogueMapCanvasLab: path.resolve(__dirname, 'tools/dialogue-map-canvas-lab/index.html'),
         dungeonSceneLoaderLab: path.resolve(__dirname, 'tools/dungeon-scene-loader-lab/index.html'),
         dungeonRuntimeSaveSwitchingLab: path.resolve(__dirname, 'tools/dungeon-runtime-save-switching-lab/index.html'),
         dungeonObstacleLab: path.resolve(__dirname, 'tools/dungeon-obstacle-lab/index.html'),
