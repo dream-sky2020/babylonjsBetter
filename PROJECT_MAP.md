@@ -1,10 +1,12 @@
 # Babylon.js Better 项目地图
 
-## 2026-09-19：Dialogue Map Canvas Lab
+## 2026-09-20：Dialogue Map V3 统一节点与运行时入口
 
-`core/dialogue-map/` 定义 V2 编辑器模型、兼容解析、引用校验和开发期 Repository。`DialogueEditorDocument` 持有 `DialogueEditorGraph`，编辑期节点与连线分别保存为 `Map<string, DialogueEditorNode>` 和 `Map<string, DialogueEditorEdge>`；连线通过稳定的节点/端口 ID 连接，节点内的对白、选项和端口也分别拥有稳定 ID。存盘边界将 Map 编码为 JSON 对象，V1 `choices[].targetNodeId` 文件读取时会用确定性 ID 迁移，下一次保存升级为 V2。
+`core/dialogue-map/` 使用 V3 统一节点模型：节点不再保存 `kind`，文档不再保存 `startNodeId`，原 `options + ports` 合并为一等 `inputs` / `outputs`。输出端口显式声明 choice、auto 或 event 激活方式，并可保存条件、优先级与效果事件；连线只表达输出端口到输入端口的引用，一个输出端口最多连接一个目标。V1 与 V2 文件会在读取边界直接迁移为 V3，编辑器和 Repository 只写出 V3。
 
-`DialogueEditorSelection` 独立表达节点、对白、选项、端口或连线选择，Canvas 会按命中类型打开对应 Inspector。`DialogueNodeDisplay` 使用网格单位保存形状、低对比度颜色 Token、宽高与折叠/预览选项；坐标继续对齐 24px 基础网格。开发服务通过 `/api/dialogue-map-presets` 读写 `config/dialogueMapPresets/`，并同时接受旧 V1 与当前 V2 数据。
+`dialogueRuntime.ts` 提供由调用方传入入口和上下文的 `startDialogue()` / `stepDialogue()`，区分等待选择、等待事件、跳转、正常结束、无可用出口和无效数据结果。校验拆为可阻断保存的结构校验、非阻断质量诊断和指定预览入口的可达性诊断；无输出节点是正常运行终点。Canvas Lab 的预览入口保存在本地工作区状态而非正式数据，支持右键节点预览、输出属性编辑和从输出端口拖拽到输入端口连线。开发服务通过 `/api/dialogue-map-presets` 继续兼容 V1/V2，并校验和保存 V3。
+
+`dialogueNodeLayout.ts` 是节点视觉几何的唯一计算层。Header、内容内缩、对白行、输入轨道、输出行、分隔线和端口锚点都先以离散网格单位求解，再统一转换为 Canvas 世界坐标；节点实际高度取用户设定高度与内容最小高度的较大值。Canvas 绘制、连线端点、端口命中、行命中和适配全部视图共同消费该布局结果，Inspector 显示设定/最小/实际高度并提供“适应内容高度”。缩放使用完整、紧凑和结构三个 LOD 层级，避免字体最小值与持续缩小的布局产生漂移。
 
 ## 2026-09-18：Dungeon 实占位、移动虚占位与仲裁
 
