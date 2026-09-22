@@ -1,5 +1,11 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-22：Dialogue Preview Canvas Lab
+
+`tools/dialogue-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
+
+通用 V2 文档模型、层级校验、V1 迁移、Definition Registry、Canvas Renderer 与带事务历史的 `UiDocumentStore` 位于 `core/ui-document/`；对话界面的内置 Definition 和默认文档位于 `core/dialogue-preview/`。V2 使用标准化 `nodes + rootIds`，节点将通用布局、Definition props 和可选数据 bindings 分离。布局同时支持旧的父级相对 `absolute` 和响应式 `rect-transform`：后者保存 anchorMin/anchorMax、pivot、anchoredPosition、sizeDelta，并可让根节点相对全画布或 safeArea 求解；拖动、缩放、对齐、成组与改父级均通过统一世界矩形转换保持视觉位置。Lab 可编辑画布分辨率和四边安全区，画布上会显示安全区及所选节点锚点。布局按预设拆分保存于 `config/dialoguePreviewPresets/`，目录由 `index.json` 管理；开发服务的 `/api/dialogue-preview-presets` 同时接受旧 V1 和新 V2，并在 Lab 下一次显式保存时写出 V2。该 UI 文档不写入 `core/dialogue-map/` 的剧情图文档。
+
 ## 2026-09-20：Dialogue Map V3 统一节点与运行时入口
 
 `core/dialogue-map/` 使用 V3 统一节点模型：节点不再保存 `kind`，文档不再保存 `startNodeId`，原 `options + ports` 合并为一等 `inputs` / `outputs`。输出端口显式声明 choice、auto 或 event 激活方式，并可保存条件、优先级与效果事件；连线只表达输出端口到输入端口的引用，一个输出端口最多连接一个目标。V1 与 V2 文件会在读取边界直接迁移为 V3，编辑器和 Repository 只写出 V3。
