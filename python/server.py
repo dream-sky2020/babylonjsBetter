@@ -76,6 +76,8 @@ DUNGEON_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dungeonMap
 DUNGEON_MAP_PRESET_INDEX_PATH = os.path.join(DUNGEON_MAP_PRESET_CONFIG_DIR, "index.json")
 DIALOGUE_MAP_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dialogueMapPresets")
 DIALOGUE_MAP_PRESET_INDEX_PATH = os.path.join(DIALOGUE_MAP_PRESET_CONFIG_DIR, "index.json")
+DIALOGUE_PREVIEW_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dialoguePreviewPresets")
+DIALOGUE_PREVIEW_PRESET_INDEX_PATH = os.path.join(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, "index.json")
 DIALOGUE_MAP_GRID_SIZE = 24
 SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
 SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
@@ -770,6 +772,135 @@ def handle_dialogue_map_preset(preset_key: str):
         return jsonify({"success": True, "data": preset})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to read dialogue map preset: {exc}"}), 500
+
+def _dialogue_preview_preset_file_name(preset_key: str) -> str:
+    if not isinstance(preset_key, str) or not re.fullmatch(r"[A-Za-z0-9_-]+", preset_key):
+        raise ValueError("dialogue preview preset key is invalid")
+    return f"{preset_key}.json"
+
+def _validate_dialogue_preview_library(payload):
+    errors = []
+    if not isinstance(payload, dict) or not payload:
+        return ["dialogue preview preset library must be a non-empty object"]
+    for preset_key, preset in payload.items():
+        try:
+            _dialogue_preview_preset_file_name(preset_key)
+        except ValueError as exc:
+            errors.append(str(exc))
+            continue
+        if not isinstance(preset, dict) or preset.get("presetKey") != preset_key or preset.get("schemaVersion") not in (1, 2):
+            errors.append(f"{preset_key}: identity or schemaVersion is invalid")
+            continue
+        if not isinstance(preset.get("name"), str) or not preset["name"].strip():
+            errors.append(f"{preset_key}: name is required")
+        canvas = preset.get("canvas")
+        if not isinstance(canvas, dict) or not all(is_finite_number(canvas.get(field)) for field in ("width", "height", "gridSize")):
+            errors.append(f"{preset_key}: canvas geometry is invalid")
+        if preset.get("schemaVersion") == 2:
+            nodes = preset.get("nodes")
+            root_ids = preset.get("rootIds")
+            if not isinstance(nodes, dict) or not isinstance(root_ids, list) or any(not isinstance(node_id, str) for node_id in root_ids):
+                errors.append(f"{preset_key}: V2 nodes or rootIds is invalid")
+                continue
+            for node_id, node in nodes.items():
+                if not isinstance(node_id, str) or not node_id.strip() or not isinstance(node, dict) or node.get("id") != node_id:
+                    errors.append(f"{preset_key}: node id is invalid")
+                    continue
+                if not isinstance(node.get("type"), str) or not node["type"].strip():
+                    errors.append(f"{preset_key}/{node_id}: type is required")
+                layout = node.get("layout")
+                absolute_layout = isinstance(layout, dict) and layout.get("mode") == "absolute" and all(is_finite_number(layout.get(field)) for field in ("x", "y", "width", "height", "zIndex"))
+                rect_layout = isinstance(layout, dict) and layout.get("mode") == "rect-transform" and is_finite_number(layout.get("zIndex")) and layout.get("relativeTo") in ("parent", "safe-area") and all(
+                    isinstance(layout.get(field), dict) and all(is_finite_number(layout[field].get(axis)) for axis in ("x", "y"))
+                    for field in ("anchorMin", "anchorMax", "pivot", "anchoredPosition", "sizeDelta")
+                )
+                if not absolute_layout and not rect_layout:
+                    errors.append(f"{preset_key}/{node_id}: layout is invalid")
+                if not is_finite_number(node.get("opacity")) or not isinstance(node.get("props"), dict) or not isinstance(node.get("childIds"), list):
+                    errors.append(f"{preset_key}/{node_id}: node properties are invalid")
+                parent_id = node.get("parentId")
+                if parent_id is not None and parent_id not in nodes:
+                    errors.append(f"{preset_key}/{node_id}: parent does not exist")
+                for child_id in node.get("childIds", []):
+                    if child_id not in nodes or nodes[child_id].get("parentId") != node_id:
+                        errors.append(f"{preset_key}/{node_id}: child relationship is invalid")
+            for root_id in root_ids:
+                if root_id not in nodes or nodes[root_id].get("parentId") is not None:
+                    errors.append(f"{preset_key}: root node is invalid: {root_id}")
+            continue
+        components = preset.get("components")
+        if not isinstance(components, list):
+            errors.append(f"{preset_key}: components must be an array")
+            continue
+        ids = set()
+        for component in components:
+            component_id = component.get("id") if isinstance(component, dict) else None
+            if not isinstance(component_id, str) or not component_id.strip() or component_id in ids:
+                errors.append(f"{preset_key}: component id is missing or duplicated")
+                continue
+            ids.add(component_id)
+            if not isinstance(component.get("kind"), str) or not component["kind"].strip():
+                errors.append(f"{preset_key}/{component_id}: kind is invalid")
+            if not all(is_finite_number(component.get(field)) for field in ("x", "y", "width", "height", "zIndex", "opacity")):
+                errors.append(f"{preset_key}/{component_id}: geometry is invalid")
+            style = component.get("style")
+            if not isinstance(style, dict) or not all(is_finite_number(style.get(field)) for field in ("strokeWidth", "cornerRadius", "fontSize")):
+                errors.append(f"{preset_key}/{component_id}: style is invalid")
+    return errors
+
+def _read_dialogue_preview_library():
+    with open(DIALOGUE_PREVIEW_PRESET_INDEX_PATH, "r", encoding="utf-8") as file:
+        catalog = json.load(file)
+    entries = catalog.get("presets") if isinstance(catalog, dict) else None
+    if not isinstance(catalog, dict) or catalog.get("version") != 1 or not isinstance(entries, dict):
+        raise ValueError("dialogue preview preset index is invalid")
+    library = {}
+    for preset_key, entry in entries.items():
+        file_name = entry.get("file") if isinstance(entry, dict) else None
+        if file_name != _dialogue_preview_preset_file_name(preset_key):
+            raise ValueError(f'dialogue preview preset "{preset_key}" file does not match its key')
+        with open(os.path.join(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, file_name), "r", encoding="utf-8") as file:
+            library[preset_key] = json.load(file)
+    errors = _validate_dialogue_preview_library(library)
+    if errors:
+        raise ValueError("; ".join(errors[:10]))
+    return library
+
+@app.route("/api/dialogue-preview-presets", methods=["GET", "PUT"])
+def handle_dialogue_preview_presets():
+    if request.method == "GET":
+        try:
+            library = _read_dialogue_preview_library()
+            return jsonify({"success": True, "count": len(library), "data": library})
+        except Exception as exc:
+            return jsonify({"success": False, "message": f"failed to read dialogue preview presets: {exc}"}), 500
+    payload = request.get_json(silent=True)
+    errors = _validate_dialogue_preview_library(payload)
+    if errors:
+        return jsonify({"success": False, "message": "dialogue preview presets validation failed", "errors": errors[:50]}), 400
+    try:
+        os.makedirs(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, exist_ok=True)
+        catalog = {"version": 1, "presets": {}}
+        expected_files = {"index.json"}
+        for preset_key, preset in payload.items():
+            file_name = _dialogue_preview_preset_file_name(preset_key)
+            expected_files.add(file_name)
+            catalog["presets"][preset_key] = {"presetKey": preset_key, "name": preset["name"], "file": file_name}
+            preset_path = os.path.join(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, file_name)
+            temp_path = f"{preset_path}.tmp"
+            with open(temp_path, "w", encoding="utf-8") as file:
+                json.dump(preset, file, ensure_ascii=False, indent=2)
+            os.replace(temp_path, preset_path)
+        index_temp_path = f"{DIALOGUE_PREVIEW_PRESET_INDEX_PATH}.tmp"
+        with open(index_temp_path, "w", encoding="utf-8") as file:
+            json.dump(catalog, file, ensure_ascii=False, indent=2)
+        os.replace(index_temp_path, DIALOGUE_PREVIEW_PRESET_INDEX_PATH)
+        for file_name in os.listdir(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR):
+            if file_name.endswith(".json") and file_name not in expected_files:
+                os.remove(os.path.join(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, file_name))
+        return jsonify({"success": True, "count": len(payload), "path": normalize_slashes(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR)})
+    except Exception as exc:
+        return jsonify({"success": False, "message": f"failed to write dialogue preview presets: {exc}"}), 500
 
 @app.route("/api/scene-environment-presets", methods=["GET"])
 def handle_scene_environment_presets():
