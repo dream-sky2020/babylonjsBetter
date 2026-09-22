@@ -1,5 +1,11 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-22：通用 Editor Inspector UI
+
+`core/ui/editor-kit/` 提供不依赖 Babylon 或具体文档模型的紧凑编辑器层级树和 Inspector 外壳。`ObjectHierarchy` 统一搜索、展开、受控选择、多选提示、状态徽标、右键入口和可选拖拽改父级；拖拽使用明确的 before、after、inside 与 root-end Drop Intent，显示插入线、Group 高亮和目标文字，支持多选拖动、非法循环拒绝、悬停展开和边缘自动滚动。具体修改仍由各领域 Store/History 执行。Animation Workbench 使用 Animation Workspace 对象适配该层级树，`babylon-scene-inspector` 保留原公共接口并在内部适配 Babylon Scene Node，Dialogue Preview Canvas 使用 UI Document 的 `nodes + rootIds` 接入同一层级树和 Inspector 外壳。
+
+Dialogue Preview Canvas 左栏最上方固定为可伸缩的 UI 对象与关系树，预设、画布安全区域和 Definition 创建区紧凑排列在其下方；右侧继续按 Definition Schema 编辑所选节点属性。树内拖放按预览位置精确提交同层顺序或 Group 父级，多选对象保持相对顺序，改父级继续通过世界矩形回写避免画布对象跳位，整次放置只产生一个 Store 历史步骤。页面视觉沿用 Animation Workbench 的紧凑、扁平分区，只在主栏、分组边界及输入焦点处保留必要分隔线；考虑 UI 文档编辑需要长时间阅读和精细操作，Dialogue Lab 在该共享紧凑基准上将字体、树行、表单和工具栏统一放大约 25%。
+
 ## 2026-09-22：Dialogue Preview Canvas Lab
 
 `tools/dialogue-preview-canvas-lab/` 是独立于剧情节点图的游戏 UI 文档编辑器入口。预览中的头像、对话框、姓名牌、文字与图标由共享 Definition Registry 分派到单一 Canvas Renderer；Lab 不再包含按组件类型分支的绘图逻辑。编辑器支持画布滚轮缩放与中键平移、单选/多选/框选、多节点整体拖动、四角尺寸调整、网格与边缘/中心智能参考线吸附、多选对齐以及 Undo/Redo；拖动、缩放和对齐均作为单个 Store 事务记录。左侧使用 `rootIds + childIds` 生成可拖拽层级树：普通节点之间拖放会在同层重排，拖到 Group 会保持世界位置并改为父级相对坐标，根层级接收区可解除父级；成组/取消 Group 同样保持节点世界位置并可撤销。Renderer 沿父链解析世界坐标，并继承父级可见性、锁定和透明度；Group 移动带动整个子树，尺寸调整按比例缩放全部后代。属性 Inspector 根据 Definition 字段 Schema 自动生成。未知 Definition 会以诊断占位框显示并原样保留参数，不阻断整个文档打开和保存。
