@@ -21,7 +21,7 @@ button { color: inherit; }
 .awb-actions button:disabled { opacity: .32; cursor: default; }
 .awb-actions svg, .awb-panel-heading svg, .awb-gizmo-toolbar svg, .awb-delete svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .awb-hierarchy, .awb-inspector { display: grid; grid-template-rows: 39px minmax(0, 1fr) 23px; min-width: 0; min-height: 0; background: var(--panel); }
-.awb-hierarchy { grid-column: 1; grid-row: 2; border-right: 1px solid var(--line); }
+.awb-hierarchy { grid-column: 1; grid-row: 2; grid-template-rows: 39px auto minmax(0, 1fr) auto; border-right: 1px solid var(--line); }
 .awb-inspector { grid-column: 3; grid-row: 2; border-left: 1px solid var(--line); }
 .awb-panel-heading { display: flex; align-items: center; justify-content: space-between; min-width: 0; padding: 0 7px 0 10px; border-bottom: 1px solid var(--line); background: #2b2d30; }
 .awb-panel-heading > div { display: flex; flex-direction: column; min-width: 0; }

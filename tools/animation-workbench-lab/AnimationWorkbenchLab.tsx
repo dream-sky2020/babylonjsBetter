@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type ChangeEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type ChangeEvent, type PointerEvent as ReactPointerEvent } from 'react';
 import {
   ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, GizmoCoordinatesMode,
   GizmoManager, HemisphericLight, MeshBuilder, PointerEventTypes, Scene, StandardMaterial,
   Vector3, type TransformNode,
 } from '@babylonjs/core';
 import { openCommandMenuAtPoint, openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
+import { ObjectHierarchy, type EditorHierarchyItem } from '@/core/ui/editor-kit';
 import { createModelEntity, type ModelEntity } from '@/core/model';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
@@ -380,19 +381,6 @@ export function AnimationWorkbenchLab() {
     openCommandMenuFromElement(event.currentTarget, factoryMenuEntries(selectedId), { ariaLabel: '创建动画对象' });
   };
 
-  const renderObject = (object: AnimationObjectRecord, depth = 0): ReactNode => {
-    const children = workspace.objects.filter(child => child.parentId === object.id);
-    const open = expanded.has(object.id);
-    return <div className="awb-tree-branch" key={object.id}>
-      <div className={`awb-tree-row ${selectedId === object.id ? 'selected' : ''} ${object.enabled ? '' : 'disabled'}`} style={{ paddingLeft: 6 + depth * 14 }} onClick={() => setSelectedId(object.id)} onContextMenu={event => { event.preventDefault(); setSelectedId(object.id); openCommandMenuAtPoint(event.clientX, event.clientY, objectMenuItems(object), `${object.name} 操作`); }}>
-        <button className={`awb-tree-chevron ${children.length ? '' : 'empty'} ${open ? 'open' : ''}`} aria-label={open ? '收起' : '展开'} onClick={event => { event.stopPropagation(); setExpanded(current => { const next = new Set(current); if (next.has(object.id)) next.delete(object.id); else next.add(object.id); return next; }); }}><svg viewBox="0 0 16 16"><path d="m5 3 5 5-5 5" /></svg></button>
-        <span className="awb-object-icon"><Icon name={animationObjectFactoryById.get(object.factoryTypeId)?.icon ?? 'object'} /></span>
-        <span>{object.name}</span><small>{factoryLabel(object.factoryTypeId)}</small>
-      </div>
-      {open && children.map(child => renderObject(child, depth + 1))}
-    </div>;
-  };
-
   const saveLocal = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(workspace)); setStatus('工作区已保存到当前浏览器');
   };
@@ -448,6 +436,16 @@ export function AnimationWorkbenchLab() {
   };
 
   const rootObjects = workspace.objects.filter(object => object.parentId === null);
+  const hierarchyItems = Object.fromEntries(workspace.objects.map((object): [string, EditorHierarchyItem] => [object.id, {
+    id: object.id,
+    label: object.name,
+    typeLabel: factoryLabel(object.factoryTypeId),
+    parentId: object.parentId,
+    childIds: workspace.objects.filter(child => child.parentId === object.id).map(child => child.id),
+    icon: <Icon name={animationObjectFactoryById.get(object.factoryTypeId)?.icon ?? 'object'} />,
+    disabled: !object.enabled,
+    searchText: object.factoryTypeId,
+  }]));
   return <main className="awb-shell">
     <header className="awb-topbar">
       <div className="awb-brand"><strong>ANIMATION WORKBENCH</strong><span>动态值动画创作工作台</span></div>
@@ -464,11 +462,14 @@ export function AnimationWorkbenchLab() {
         <input ref={importRef} type="file" accept="application/json,.json" hidden onChange={importWorkspace} />
       </div>
     </header>
-    <aside className="awb-hierarchy">
-      <div className="awb-panel-heading"><div><b>ANIMATION OBJECTS</b><span>预览对象与绑定层级</span></div><button onPointerDown={event => event.stopPropagation()} onClick={openCreateMenu} title="创建对象"><Icon name="add" /></button></div>
-      <div className="awb-tree">{rootObjects.map(object => renderObject(object))}</div>
-      <footer>{workspace.objects.length} 个动画对象</footer>
-    </aside>
+    <ObjectHierarchy className="awb-hierarchy" eyebrow="ANIMATION OBJECTS" title="预览对象与绑定层级"
+      items={hierarchyItems} rootIds={rootObjects.map(object => object.id)} selectedIds={selectedId ? [selectedId] : []}
+      expandedIds={expanded} onExpandedChange={setExpanded} searchPlaceholder="搜索动画对象"
+      action={<button onPointerDown={event => event.stopPropagation()} onClick={openCreateMenu} title="创建对象"><Icon name="add" /></button>}
+      onSelectionChange={ids => setSelectedId(ids[0] ?? null)}
+      onContextMenu={(event, id) => { const object = workspace.objects.find(item => item.id === id); if (!object) return; event.preventDefault(); setSelectedId(id); openCommandMenuAtPoint(event.clientX, event.clientY, objectMenuItems(object), `${object.name} 操作`); }}
+      footer={<span>{workspace.objects.length} 个动画对象</span>}
+    />
     <section className="awb-viewport">
       <canvas ref={canvasRef} />
       <div className="awb-gizmo-toolbar">
