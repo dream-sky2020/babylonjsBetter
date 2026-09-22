@@ -1,1 +1,167 @@
-{"schemaVersion":1,"presetKey":"default_dialogue_ui","name":"默认对话界面","canvas":{"width":1600,"height":900,"backgroundTop":"#101a35","backgroundBottom":"#24162e","gridSize":20},"components":[{"id":"portrait-left","name":"左侧头像","kind":"portrait","x":84,"y":236,"width":390,"height":560,"zIndex":1,"visible":true,"locked":false,"opacity":1,"content":"林","style":{"fill":"#243a55","stroke":"#7dd3fc","textColor":"#f8fafc","accent":"#68d5c3","strokeWidth":3,"cornerRadius":28,"fontSize":112}},{"id":"portrait-right","name":"右侧头像","kind":"portrait","x":1126,"y":236,"width":390,"height":560,"zIndex":1,"visible":true,"locked":false,"opacity":0.58,"content":"岚","style":{"fill":"#3b2947","stroke":"#7dd3fc","textColor":"#f8fafc","accent":"#ef8fa9","strokeWidth":3,"cornerRadius":28,"fontSize":112}},{"id":"dialogue-box","name":"主对话框","kind":"dialogue-box","x":170,"y":612,"width":1260,"height":226,"zIndex":10,"visible":true,"locked":false,"opacity":1,"content":"月光正好。沿着这条路走，我们会在钟声响起前抵达城门。","style":{"fill":"#101625","stroke":"#7dd3fc","textColor":"#f8fafc","accent":"#f5c96a","strokeWidth":3,"cornerRadius":26,"fontSize":34}},{"id":"speaker-name","name":"姓名牌","kind":"nameplate","x":228,"y":570,"width":226,"height":68,"zIndex":11,"visible":true,"locked":false,"opacity":1,"content":"林","style":{"fill":"#1f3550","stroke":"#68d5c3","textColor":"#f8fafc","accent":"#68d5c3","strokeWidth":3,"cornerRadius":16,"fontSize":30}},{"id":"continue-icon","name":"继续图标","kind":"icon","x":1352,"y":766,"width":42,"height":42,"zIndex":12,"visible":true,"locked":false,"opacity":1,"content":"","icon":"continue","style":{"fill":"#15243a","stroke":"#f5c96a","textColor":"#f8fafc","accent":"#f5c96a","strokeWidth":3,"cornerRadius":21,"fontSize":22}}]}
+{
+  "schemaVersion": 2,
+  "presetKey": "default_dialogue_ui",
+  "name": "默认对话界面",
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "backgroundTop": "#101a35",
+    "backgroundBottom": "#24162e",
+    "gridSize": 20
+  },
+  "rootIds": [
+    "portrait-left",
+    "portrait-right",
+    "dialogue-box",
+    "speaker-name",
+    "continue-icon"
+  ],
+  "nodes": {
+    "portrait-left": {
+      "id": "portrait-left",
+      "type": "portrait",
+      "definitionVersion": 1,
+      "name": "左侧头像",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 84,
+        "y": 236,
+        "width": 390,
+        "height": 560,
+        "zIndex": 1
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "林",
+        "accent": "#68d5c3",
+        "cornerRadius": 28,
+        "fill": "#243a55",
+        "fontSize": 112,
+        "stroke": "#7dd3fc",
+        "strokeWidth": 3,
+        "textColor": "#f8fafc"
+      }
+    },
+    "portrait-right": {
+      "id": "portrait-right",
+      "type": "portrait",
+      "definitionVersion": 1,
+      "name": "右侧头像",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 1126,
+        "y": 236,
+        "width": 390,
+        "height": 560,
+        "zIndex": 1
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 0.58,
+      "props": {
+        "content": "岚",
+        "accent": "#ef8fa9",
+        "cornerRadius": 28,
+        "fill": "#3b2947",
+        "fontSize": 112,
+        "stroke": "#7dd3fc",
+        "strokeWidth": 3,
+        "textColor": "#f8fafc"
+      }
+    },
+    "dialogue-box": {
+      "id": "dialogue-box",
+      "type": "dialogue-box",
+      "definitionVersion": 1,
+      "name": "主对话框",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 170,
+        "y": 612,
+        "width": 1260,
+        "height": 226,
+        "zIndex": 10
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "月光正好。沿着这条路走，我们会在钟声响起前抵达城门。",
+        "accent": "#f5c96a",
+        "cornerRadius": 26,
+        "fill": "#101625",
+        "fontSize": 34,
+        "stroke": "#7dd3fc",
+        "strokeWidth": 3,
+        "textColor": "#f8fafc"
+      }
+    },
+    "speaker-name": {
+      "id": "speaker-name",
+      "type": "nameplate",
+      "definitionVersion": 1,
+      "name": "姓名牌",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 228,
+        "y": 570,
+        "width": 226,
+        "height": 68,
+        "zIndex": 11
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "林",
+        "accent": "#68d5c3",
+        "cornerRadius": 16,
+        "fill": "#1f3550",
+        "fontSize": 30,
+        "stroke": "#68d5c3",
+        "strokeWidth": 3,
+        "textColor": "#f8fafc"
+      }
+    },
+    "continue-icon": {
+      "id": "continue-icon",
+      "type": "icon",
+      "definitionVersion": 1,
+      "name": "继续图标",
+      "parentId": null,
+      "childIds": [],
+      "layout": {
+        "mode": "absolute",
+        "x": 1352,
+        "y": 766,
+        "width": 42,
+        "height": 42,
+        "zIndex": 12
+      },
+      "visible": true,
+      "locked": false,
+      "opacity": 1,
+      "props": {
+        "content": "",
+        "icon": "continue",
+        "accent": "#f5c96a",
+        "cornerRadius": 21,
+        "fill": "#15243a",
+        "fontSize": 22,
+        "stroke": "#f5c96a",
+        "strokeWidth": 3,
+        "textColor": "#f8fafc"
+      }
+    }
+  }
+}
