@@ -39,6 +39,9 @@ export type DungeonRuntimeAgent = {
   enabled: boolean;
   actionClock: number;
   navigationPlan?: DungeonAgentNavigationPlan;
+  /** 最近一次同步到 Traversal 的路径版本；用于跳过无变化的预约重建。 */
+  reservationPlanSequence?: number;
+  reservationStartIndex?: number;
   /** Lab 或游戏流程施加的运行时 Controller 覆盖；不会回写地图文档。 */
   controllerOverride?: DungeonAgentControllerConfig;
   controllerState?: unknown;
@@ -53,6 +56,14 @@ export type DungeonAgentNavigationPlan = {
   totalCost: number;
   visitedCount: number;
   planSequence: number;
+  repairCount?: number;
+  blocked?: {
+    reason: DungeonAgentMovementBlockedReason;
+    fromTileIndex: number;
+    toTileIndex?: number;
+    retryRemainingSeconds: number;
+    consecutiveFailures: number;
+  };
 };
 
 export type DungeonAgentControllerConfig = Readonly<{
