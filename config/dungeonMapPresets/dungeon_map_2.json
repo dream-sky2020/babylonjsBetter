@@ -6,8 +6,8 @@
     "presetKey": "dungeon_map_2"
   },
   "grid": {
-    "width": 11,
-    "height": 12,
+    "width": 14,
+    "height": 14,
     "topologyMode": "bounded"
   },
   "entities": [
@@ -133,6 +133,24 @@
     },
     {
       "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:center-post:6,6",
+      "name": "中心占位 · 广场矮柱 A"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:plaza:center-post:9,7",
+      "name": "中心占位 · 广场矮柱 B"
+    },
+    {
+      "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "agent:plaza:full-tile-hunter",
+      "name": "敌军 · 广场整格追踪者"
+    },
+    {
+      "enabled": true,
       "entityType": "map",
       "id": "map:dungeon_map_2:entity",
       "name": "地图实体"
@@ -171,17 +189,29 @@
         "entityId": "agent:plaza:patrol",
         "id": "agent:plaza:patrol:controller",
         "parameters": {
+          "moveDurationSeconds": 0.35,
+          "pathPolicy": "adaptive",
           "route": [
-            { "x": 7, "y": 3 },
-            { "x": 9, "y": 3 },
-            { "x": 9, "y": 6 },
-            { "x": 7, "y": 6 }
+            {
+              "x": 7,
+              "y": 3
+            },
+            {
+              "x": 9,
+              "y": 3
+            },
+            {
+              "x": 9,
+              "y": 6
+            },
+            {
+              "x": 7,
+              "y": 6
+            }
           ],
           "routePlayback": "loop",
-          "pathPolicy": "adaptive",
-          "waitAtWaypointSeconds": 0.25,
-          "moveDurationSeconds": 0.35,
-          "seed": 101
+          "seed": 101,
+          "waitAtWaypointSeconds": 0.25
         },
         "type": "agent-controller",
         "version": 1
@@ -191,9 +221,9 @@
         "entityId": "agent:plaza:hunter",
         "id": "agent:plaza:hunter:controller",
         "parameters": {
-          "stopDistance": 1,
           "moveDurationSeconds": 0.28,
-          "seed": 202
+          "seed": 202,
+          "stopDistance": 1
         },
         "type": "agent-controller",
         "version": 1
@@ -230,10 +260,10 @@
         "id": "agent:plaza:wisp:controller",
         "parameters": {
           "ignoreGroundObstacles": true,
-          "moveWeight": 2,
-          "moveDurationSeconds": 0.45,
+          "maxIdleSeconds": 0.9,
           "minIdleSeconds": 0.25,
-          "maxIdleSeconds": 0.9
+          "moveDurationSeconds": 0.45,
+          "moveWeight": 2
         },
         "type": "agent-controller",
         "version": 1
@@ -243,18 +273,30 @@
         "entityId": "agent:plaza:locked-patrol",
         "id": "agent:plaza:locked-patrol:controller",
         "parameters": {
+          "blockedWaitSeconds": 1,
+          "moveDurationSeconds": 0.32,
+          "pathPolicy": "locked",
           "route": [
-            { "x": 2, "y": 2 },
-            { "x": 8, "y": 2 },
-            { "x": 8, "y": 6 },
-            { "x": 2, "y": 6 }
+            {
+              "x": 2,
+              "y": 2
+            },
+            {
+              "x": 8,
+              "y": 2
+            },
+            {
+              "x": 8,
+              "y": 6
+            },
+            {
+              "x": 2,
+              "y": 6
+            }
           ],
           "routePlayback": "ping-pong",
-          "pathPolicy": "locked",
-          "blockedWaitSeconds": 1,
-          "waitAtWaypointSeconds": 0.35,
-          "moveDurationSeconds": 0.32,
-          "seed": 303
+          "seed": 303,
+          "waitAtWaypointSeconds": 0.35
         },
         "type": "agent-controller",
         "version": 1
@@ -264,18 +306,30 @@
         "entityId": "agent:plaza:adaptive-patrol",
         "id": "agent:plaza:adaptive-patrol:controller",
         "parameters": {
+          "blockedWaitSeconds": 0,
+          "moveDurationSeconds": 0.3,
+          "pathPolicy": "adaptive",
           "route": [
-            { "x": 2, "y": 9 },
-            { "x": 8, "y": 9 },
-            { "x": 8, "y": 4 },
-            { "x": 2, "y": 4 }
+            {
+              "x": 2,
+              "y": 9
+            },
+            {
+              "x": 8,
+              "y": 9
+            },
+            {
+              "x": 8,
+              "y": 4
+            },
+            {
+              "x": 2,
+              "y": 4
+            }
           ],
           "routePlayback": "loop",
-          "pathPolicy": "adaptive",
-          "blockedWaitSeconds": 0,
-          "waitAtWaypointSeconds": 0.15,
-          "moveDurationSeconds": 0.3,
-          "seed": 404
+          "seed": 404,
+          "waitAtWaypointSeconds": 0.15
         },
         "type": "agent-controller",
         "version": 1
@@ -285,18 +339,44 @@
         "entityId": "agent:plaza:delayed-patrol",
         "id": "agent:plaza:delayed-patrol:controller",
         "parameters": {
+          "blockedWaitSeconds": 1.5,
+          "moveDurationSeconds": 0.34,
+          "pathPolicy": "wait-then-repath",
           "route": [
-            { "x": 8, "y": 9 },
-            { "x": 2, "y": 9 },
-            { "x": 2, "y": 3 },
-            { "x": 8, "y": 3 }
+            {
+              "x": 8,
+              "y": 9
+            },
+            {
+              "x": 2,
+              "y": 9
+            },
+            {
+              "x": 2,
+              "y": 3
+            },
+            {
+              "x": 8,
+              "y": 3
+            }
           ],
           "routePlayback": "random",
-          "pathPolicy": "wait-then-repath",
-          "blockedWaitSeconds": 1.5,
-          "waitAtWaypointSeconds": 0.4,
-          "moveDurationSeconds": 0.34,
-          "seed": 505
+          "seed": 505,
+          "waitAtWaypointSeconds": 0.4
+        },
+        "type": "agent-controller",
+        "version": 1
+      },
+      {
+        "controllerId": "chase-player",
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:controller",
+        "parameters": {
+          "detectionRange": 10,
+          "moveDurationSeconds": 0.3,
+          "returnToOrigin": true,
+          "seed": 707,
+          "stopDistance": 1
         },
         "type": "agent-controller",
         "version": 1
@@ -441,6 +521,13 @@
         "id": "agent:plaza:delayed-patrol:faction",
         "type": "faction",
         "version": 1
+      },
+      {
+        "entityId": "agent:plaza:full-tile-hunter",
+        "factionId": "hostile",
+        "id": "agent:plaza:full-tile-hunter:faction",
+        "type": "faction",
+        "version": 1
       }
     ],
     "grid-agent": [
@@ -542,6 +629,18 @@
         "priority": 20,
         "type": "grid-agent",
         "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "blocksMovement": true,
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:grid-agent",
+        "initialFacing": "north",
+        "movementProfileId": "ground",
+        "priority": 35,
+        "spatialFootprint": "full-tile",
+        "type": "grid-agent",
+        "version": 1
       }
     ],
     "movement-obstacle": [
@@ -570,6 +669,22 @@
         "activeByDefault": true,
         "entityId": "obstacle:plaza:test-wall:6,7",
         "id": "obstacle:plaza:test-wall:6,7:movement",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:center-post:6,6",
+        "id": "obstacle:plaza:center-post:6,6:movement",
+        "spatialFootprint": "center",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:plaza:center-post:9,7",
+        "id": "obstacle:plaza:center-post:9,7:movement",
+        "spatialFootprint": "center",
         "type": "movement-obstacle",
         "version": 1
       }
@@ -630,7 +745,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,4"
+            "tileId": "tile:7,5"
           }
         ],
         "type": "spatial-attachment",
@@ -642,7 +757,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,5"
+            "tileId": "tile:7,6"
           }
         ],
         "type": "spatial-attachment",
@@ -654,7 +769,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:10,5:east"
+            "sideId": "tile:13,6:east"
           }
         ],
         "type": "spatial-attachment",
@@ -666,7 +781,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:8,9:east"
+            "edgeId": "shared:10,10:east"
           }
         ],
         "type": "spatial-attachment",
@@ -690,7 +805,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:3,5"
+            "tileId": "tile:4,6"
           }
         ],
         "type": "spatial-attachment",
@@ -702,7 +817,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,3"
+            "tileId": "tile:9,4"
           }
         ],
         "type": "spatial-attachment",
@@ -714,7 +829,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,7"
+            "tileId": "tile:10,8"
           }
         ],
         "type": "spatial-attachment",
@@ -726,7 +841,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:3,8"
+            "tileId": "tile:4,9"
           }
         ],
         "type": "spatial-attachment",
@@ -738,7 +853,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:6,5"
+            "tileId": "tile:8,6"
           }
         ],
         "type": "spatial-attachment",
@@ -750,7 +865,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:9,10"
+            "tileId": "tile:11,11"
           }
         ],
         "type": "spatial-attachment",
@@ -762,7 +877,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:2,2"
+            "tileId": "tile:3,3"
           }
         ],
         "type": "spatial-attachment",
@@ -774,7 +889,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:2,9"
+            "tileId": "tile:3,10"
           }
         ],
         "type": "spatial-attachment",
@@ -786,7 +901,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:8,9"
+            "tileId": "tile:10,10"
           }
         ],
         "type": "spatial-attachment",
@@ -798,7 +913,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,6"
+            "tileId": "tile:7,7"
           }
         ],
         "type": "spatial-attachment",
@@ -810,7 +925,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,7"
+            "tileId": "tile:7,8"
           }
         ],
         "type": "spatial-attachment",
@@ -822,7 +937,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,8"
+            "tileId": "tile:7,9"
           }
         ],
         "type": "spatial-attachment",
@@ -834,7 +949,43 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:6,7"
+            "tileId": "tile:8,8"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:center-post:6,6",
+        "id": "obstacle:plaza:center-post:6,6:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:6,6"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:plaza:center-post:9,7",
+        "id": "obstacle:plaza:center-post:9,7:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:9,7"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "agent:plaza:full-tile-hunter",
+        "id": "agent:plaza:full-tile-hunter:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:12,12"
           }
         ],
         "type": "spatial-attachment",

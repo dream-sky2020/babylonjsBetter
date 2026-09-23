@@ -4,6 +4,7 @@ import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
 import { createDungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { createDungeonTraversalWorld } from './dungeonTraversal.ts';
+import type { DungeonObstacleBinding } from '../dungeon-obstacle/dungeonObstacle.ts';
 
 const createWorld = () => {
   const document = migrateDungeonMapToDocumentV2({
@@ -86,4 +87,58 @@ test('八方向能力按 Actor 独立生效，并只检查斜向目标格的动�
     enabled: true, blocksMovement: true, movementProfileId: 'ground',
   });
   assert.equal(world.inspectStep('agent:eight', 4, 'south-west').blockedReason, 'occupied');
+});
+
+test('中心 Actor 只阻挡目标格，整格 Actor 还会阻挡侧邻格斜向切角', () => {
+  const world = createWorld();
+  world.registerActor({
+    id: 'agent:mover', kind: 'agent', tileIndex: 0,
+    enabled: true, blocksMovement: true, spatialFootprint: 'center',
+    movementProfileId: 'ground-eight-way',
+  });
+  world.registerActor({
+    id: 'agent:blocker', kind: 'agent', tileIndex: 1,
+    enabled: true, blocksMovement: true, spatialFootprint: 'center',
+    movementProfileId: 'ground',
+  });
+  assert.equal(world.inspectStep('agent:mover', 0, 'south-east').blockedReason, undefined);
+  world.actors.get('agent:blocker')!.spatialFootprint = 'full-tile';
+  const blocked = world.inspectStep('agent:mover', 0, 'south-east');
+  assert.equal(blocked.blockedReason, 'corner-blocked');
+  assert.deepEqual(blocked.blockingEntityIds, ['agent:blocker']);
+});
+
+test('Tile 障碍按空间占位区分中心和整格，但目标格始终阻挡', () => {
+  const document = migrateDungeonMapToDocumentV2({
+    presetKey: 'traversal-obstacle-footprint-test',
+    name: 'Traversal Obstacle Footprint Test',
+    map: createDungeonMapData({ id: 'traversal-obstacle-footprint-test', width: 3, height: 3 }),
+  }).document;
+  const map = createDungeonRuntimeMap(document);
+  const obstacle = (
+    id: string,
+    tileX: number,
+    tileY: number,
+    spatialFootprint?: 'center' | 'full-tile',
+  ): DungeonObstacleBinding => ({
+    entity: { id, entityType: 'obstacle', enabled: true, components: [] },
+    component: {
+      id: `${id}:movement`, type: 'movement-obstacle', version: 1,
+      activeByDefault: true, ...(spatialFootprint ? { spatialFootprint } : {}),
+    },
+    placement: { kind: 'tile', tileX, tileY },
+  });
+  const inspect = (binding: DungeonObstacleBinding) => {
+    const world = createDungeonTraversalWorld(map, [binding], new Map([[binding.entity.id, true]]));
+    world.registerActor({
+      id: 'agent:mover', kind: 'agent', tileIndex: 0,
+      enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way',
+    });
+    return world.inspectStep('agent:mover', 0, 'south-east');
+  };
+
+  assert.equal(inspect(obstacle('center-side', 1, 0, 'center')).blockedReason, undefined);
+  assert.equal(inspect(obstacle('full-side', 1, 0, 'full-tile')).blockedReason, 'corner-blocked');
+  assert.equal(inspect(obstacle('legacy-side', 1, 0)).blockedReason, 'corner-blocked');
+  assert.equal(inspect(obstacle('center-target', 1, 1, 'center')).blockedReason, 'movement-obstacle');
 });

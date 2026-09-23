@@ -4,6 +4,11 @@ import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts'
 import { getDungeonMapTerrainProperties, DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonMapDirection } from '../map/index.ts';
 import {
+  blocksDungeonDiagonalCorner,
+  resolveDungeonSpatialFootprint,
+  type DungeonSpatialFootprint,
+} from '../dungeon-space/index.ts';
+import {
   getDungeonDiagonalAxes,
   getDungeonMovementDirectionsForMode,
   isDungeonDiagonalDirection,
@@ -19,6 +24,8 @@ export type DungeonTraversalActor = {
   tileIndex: number;
   enabled: boolean;
   blocksMovement: boolean;
+  /** 旧调用方缺省按 center；整格 Actor 还会阻挡侧邻格的斜向切角。 */
+  spatialFootprint?: DungeonSpatialFootprint;
   movementProfileId: string;
 };
 
@@ -41,6 +48,10 @@ export type DungeonTraversalInspectionOptions = Readonly<{
   allowOccupiedTileIndex?: number;
   checkTerrain?: boolean;
   checkStaticObstacles?: boolean;
+  /** 仅供斜向分解检查使用：最终目标格索引。 */
+  diagonalTargetTileIndex?: number;
+  /** 是否让侧邻格中的整格 Actor 参与切角检查。 */
+  checkDiagonalCornerOccupancy?: boolean;
 }>;
 
 export type DungeonDirectionalTraversalInspection = Readonly<{
@@ -140,19 +151,44 @@ export class DungeonTraversalWorld {
     if (options.checkStaticObstacles ?? true) {
       const from = { tileX: fromTileIndex % this.map.width, tileY: Math.floor(fromTileIndex / this.map.width) };
       const to = { tileX: toTileIndex % this.map.width, tileY: Math.floor(toTileIndex / this.map.width) };
-      const obstacles = findDungeonMovementObstaclesFromBindings(
+      const foundObstacles = findDungeonMovementObstaclesFromBindings(
         this.obstacles,
         this.obstacleStates,
         from,
         to,
         direction,
       );
+      const checkingSideTile = options.diagonalTargetTileIndex !== undefined
+        && toTileIndex !== options.diagonalTargetTileIndex;
+      const obstacles = checkingSideTile
+        ? foundObstacles.filter(({ component, placement }) => (
+          placement.kind !== 'tile'
+          || blocksDungeonDiagonalCorner(resolveDungeonSpatialFootprint(
+            component.spatialFootprint,
+            'full-tile',
+          ))
+        ))
+        : foundObstacles;
       if (obstacles.length) {
         return {
           toTileIndex,
           blockedReason: 'movement-obstacle',
           blockingEntityIds: obstacles.map(({ entity }) => entity.id),
         };
+      }
+    }
+    if (options.checkDiagonalCornerOccupancy
+      && options.diagonalTargetTileIndex !== undefined
+      && toTileIndex !== options.diagonalTargetTileIndex) {
+      const occupants = this.blockingOccupants(toTileIndex, actorId).filter((occupantId) => {
+        const occupant = this.actors.get(occupantId);
+        return blocksDungeonDiagonalCorner(resolveDungeonSpatialFootprint(
+          occupant?.spatialFootprint,
+          'center',
+        ));
+      });
+      if (occupants.length) {
+        return { toTileIndex, blockedReason: 'occupied', blockingEntityIds: occupants };
       }
     }
     if (!options.ignoreDynamicOccupancy && options.allowOccupiedTileIndex !== toTileIndex) {
@@ -180,10 +216,51 @@ export class DungeonTraversalWorld {
     }
 
     const [horizontal, vertical] = getDungeonDiagonalAxes(direction);
+    const neighbor = (tileIndex: number, cardinalDirection: DungeonMapDirection): number => (
+      this.map.topology.neighborTileIndices[
+        tileIndex * 4 + DUNGEON_MAP_DIRECTION_ORDER.indexOf(cardinalDirection)
+      ]
+    );
+    const horizontalSide = neighbor(fromTileIndex, horizontal);
+    const verticalSide = neighbor(fromTileIndex, vertical);
+    const rawHorizontalTarget = horizontalSide < 0 ? -1 : neighbor(horizontalSide, vertical);
+    const rawVerticalTarget = verticalSide < 0 ? -1 : neighbor(verticalSide, horizontal);
+    const diagonalTargetTileIndex = rawHorizontalTarget >= 0 ? rawHorizontalTarget
+      : rawVerticalTarget >= 0 ? rawVerticalTarget : undefined;
+    if (diagonalTargetTileIndex !== undefined) {
+      const targetTileId = this.map.topology.tileIds[diagonalTargetTileIndex];
+      if ((options.checkTerrain ?? true)
+        && getDungeonMapTerrainProperties(this.map.document.terrain, targetTileId)?.walkable === false) {
+        return {
+          toTileIndex: diagonalTargetTileIndex,
+          blockedReason: 'terrain',
+          blockingEntityIds: [],
+        };
+      }
+      if (options.checkStaticObstacles ?? true) {
+        const targetX = diagonalTargetTileIndex % this.map.width;
+        const targetY = Math.floor(diagonalTargetTileIndex / this.map.width);
+        const targetObstacles = this.obstacles.filter(({ entity, placement }) => (
+          this.obstacleStates.get(entity.id) === true
+          && placement.kind === 'tile'
+          && placement.tileX === targetX
+          && placement.tileY === targetY
+        ));
+        if (targetObstacles.length) {
+          return {
+            toTileIndex: diagonalTargetTileIndex,
+            blockedReason: 'movement-obstacle',
+            blockingEntityIds: targetObstacles.map(({ entity }) => entity.id),
+          };
+        }
+      }
+    }
     const staticOptions: DungeonTraversalInspectionOptions = {
       ...options,
       ignoreDynamicOccupancy: true,
       allowOccupiedTileIndex: undefined,
+      diagonalTargetTileIndex,
+      checkDiagonalCornerOccupancy: !options.ignoreDynamicOccupancy,
     };
     const inspectRoute = (
       first: DungeonMapDirection,
