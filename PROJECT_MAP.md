@@ -4,6 +4,8 @@
 
 Dungeon 地图的 Side、Edge、出口和编译拓扑继续保持 NESW 四方向；`core/dungeon-movement/dungeonMovement.direction.ts` 新增独立的八方向移动步类型和 Movement Profile。旧 `ground` 与 `ground-four-way` 默认维持四方向，`ground-eight-way` 为单个玩家或 Agent 开启斜向能力，因此同一地图可混合两种角色而不迁移地图文档。
 
+`core/dungeon-space/` 定义移动系统共享的格内空间占位属性。`center` 只阻挡进入所在目标格，`full-tile` 还会作为侧邻整格实体阻挡斜向切角；旧 Agent 缺省解析为 `center`，旧 Tile 障碍缺省解析为 `full-tile`。`grid-agent` 与 `movement-obstacle` 均可在地图 Inspector 中显式选择该属性，Side/Edge 障碍继续由空间挂载位置表达边界阻挡，不重复保存形状。
+
 `DungeonTraversalWorld.inspectStep()` 是方向能力与斜向通行的权威入口。严格禁止切角会验证斜向的两条正交分解路线，动态占位只检查最终目标格；Movement Resolver 除目标格虚占位外还预约斜向经过的共享 Point，避免目标不同的两条对角移动在中途交叉穿透。寻路器按请求的方向模式枚举四或八邻居，正交代价为 1、斜向代价为 √2，并继续叠加路径预约拥堵代价。
 
 玩家运行时可通过 Movement Profile 单独切换四/八方向；玩家 Lab 使用按键状态向量合成斜向输入，四方向模式保留原来的最近按键行为。Agent 继续以 `grid-agent.movementProfileId` 保存地图初始能力，Agent Lab 提供不写回地图的单 Agent 运行时方向模式覆盖。世界单位速度按实际斜向距离计时，每格计时和 Agent 基础格步耗时对斜向乘以 √2。地图/交互逻辑朝向仍保持四方向，八方向 Agent Debug 表现可使用精确移动朝向。

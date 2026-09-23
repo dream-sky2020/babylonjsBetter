@@ -1,10 +1,16 @@
-import { createEntityDataId } from '../entity.utils';
-import type { ComponentDefinition, IComponent } from '../entity.types';
+import { createEntityDataId } from '../entity.utils.ts';
+import type { ComponentDefinition, IComponent } from '../entity.types.ts';
+import {
+  DUNGEON_SPATIAL_FOOTPRINTS,
+  type DungeonSpatialFootprint,
+} from '../../dungeon-space/index.ts';
 
 export interface IMovementObstacleComponent extends IComponent {
   type: 'movement-obstacle';
   /** Runtime 没有覆盖状态时，阻碍是否默认生效。 */
   activeByDefault: boolean;
+  /** 仅用于 Tile 障碍；Side/Edge 障碍始终按边界阻挡。缺省为 full-tile。 */
+  spatialFootprint?: DungeonSpatialFootprint;
 }
 
 export const componentDefinition: ComponentDefinition<IMovementObstacleComponent> = {
@@ -16,14 +22,28 @@ export const componentDefinition: ComponentDefinition<IMovementObstacleComponent
   batch: { scope: 'same-kind', create: true, edit: true, delete: true },
   fields: [
     { path: 'activeByDefault', label: '默认生效', control: 'checkbox', batch: { editable: true } },
+    {
+      path: 'spatialFootprint', label: '格内空间占位', control: 'select', batch: { editable: true },
+      options: [
+        { value: 'center', label: '中心占位（只阻挡目标格）' },
+        { value: 'full-tile', label: '整格占位（同时阻挡切角）' },
+      ],
+    },
   ],
   createDefault: () => ({
     id: createEntityDataId('component'),
     type: 'movement-obstacle',
     version: 1,
     activeByDefault: true,
+    spatialFootprint: 'full-tile',
   }),
-  validate: (component) => typeof component.activeByDefault === 'boolean'
-    ? []
-    : ['activeByDefault 必须是布尔值。'],
+  validate: (component) => {
+    const errors: string[] = [];
+    if (typeof component.activeByDefault !== 'boolean') errors.push('activeByDefault 必须是布尔值。');
+    if (component.spatialFootprint !== undefined
+      && !DUNGEON_SPATIAL_FOOTPRINTS.includes(component.spatialFootprint)) {
+      errors.push('spatialFootprint 必须是 center 或 full-tile。');
+    }
+    return errors;
+  },
 };

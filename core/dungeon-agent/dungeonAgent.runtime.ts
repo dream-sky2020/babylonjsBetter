@@ -7,6 +7,7 @@ import {
   type DungeonMovementDirection,
 } from '../dungeon-movement/index.ts';
 import { scanDungeonDocumentAgents } from './dungeonAgent.scan.ts';
+import { resolveDungeonSpatialFootprint } from '../dungeon-space/index.ts';
 import type {
   DungeonAgentMovementResult,
   DungeonAgentRuntimeState,
@@ -39,6 +40,10 @@ export const createDungeonAgentRuntimeState = (
       tileIndex: agent.tileIndex,
       enabled: agent.enabled,
       blocksMovement: agent.binding.gridAgent.blocksMovement,
+      spatialFootprint: resolveDungeonSpatialFootprint(
+        agent.binding.gridAgent.spatialFootprint,
+        'center',
+      ),
       movementProfileId: agent.binding.gridAgent.movementProfileId,
     });
   });

@@ -6,8 +6,8 @@
     "presetKey": "dungeon_map"
   },
   "grid": {
-    "width": 11,
-    "height": 11,
+    "width": 15,
+    "height": 15,
     "topologyMode": "bounded"
   },
   "entities": [
@@ -103,6 +103,24 @@
     },
     {
       "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:corridor:center-post:5,4",
+      "name": "中心占位 · 长廊矮柱 A"
+    },
+    {
+      "enabled": true,
+      "entityType": "obstacle",
+      "id": "obstacle:corridor:center-post:9,7",
+      "name": "中心占位 · 长廊矮柱 B"
+    },
+    {
+      "enabled": true,
+      "entityType": "dungeon-agent",
+      "id": "agent:corridor:full-tile-hunter",
+      "name": "敌军 · 长廊整格追踪者"
+    },
+    {
+      "enabled": true,
       "entityType": "map",
       "id": "map:dungeon_map:entity",
       "name": "地图实体"
@@ -119,7 +137,7 @@
       {
         "entityId": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad",
         "id": "component:ddbadf54-d317-4d60-91b6-283b2debfd23",
-        "tileX": 5,
+        "tileX": 7,
         "tileY": 0,
         "type": "actor-spawn",
         "version": 1
@@ -141,18 +159,30 @@
         "entityId": "agent:corridor:patrol",
         "id": "agent:corridor:patrol:controller",
         "parameters": {
+          "blockedWaitSeconds": 1,
+          "moveDurationSeconds": 0.35,
+          "pathPolicy": "locked",
           "route": [
-            { "x": 6, "y": 5 },
-            { "x": 6, "y": 8 },
-            { "x": 4, "y": 8 },
-            { "x": 4, "y": 5 }
+            {
+              "x": 6,
+              "y": 5
+            },
+            {
+              "x": 6,
+              "y": 8
+            },
+            {
+              "x": 4,
+              "y": 8
+            },
+            {
+              "x": 4,
+              "y": 5
+            }
           ],
           "routePlayback": "ping-pong",
-          "pathPolicy": "locked",
-          "blockedWaitSeconds": 1,
-          "waitAtWaypointSeconds": 0.25,
-          "moveDurationSeconds": 0.35,
-          "seed": 606
+          "seed": 606,
+          "waitAtWaypointSeconds": 0.25
         },
         "type": "agent-controller",
         "version": 1
@@ -164,6 +194,19 @@
         "parameters": {
           "detectionRange": 6,
           "returnToOrigin": true
+        },
+        "type": "agent-controller",
+        "version": 1
+      },
+      {
+        "controllerId": "chase-player",
+        "entityId": "agent:corridor:full-tile-hunter",
+        "id": "agent:corridor:full-tile-hunter:controller",
+        "parameters": {
+          "detectionRange": 8,
+          "moveDurationSeconds": 0.34,
+          "returnToOrigin": true,
+          "stopDistance": 1
         },
         "type": "agent-controller",
         "version": 1
@@ -268,6 +311,13 @@
         "id": "agent:corridor:hunter:faction",
         "type": "faction",
         "version": 1
+      },
+      {
+        "entityId": "agent:corridor:full-tile-hunter",
+        "factionId": "hostile",
+        "id": "agent:corridor:full-tile-hunter:faction",
+        "type": "faction",
+        "version": 1
       }
     ],
     "grid-agent": [
@@ -301,6 +351,18 @@
         "initialFacing": "north",
         "movementProfileId": "ground",
         "priority": 30,
+        "type": "grid-agent",
+        "version": 1
+      },
+      {
+        "actionPeriod": 1,
+        "blocksMovement": true,
+        "entityId": "agent:corridor:full-tile-hunter",
+        "id": "agent:corridor:full-tile-hunter:grid-agent",
+        "initialFacing": "west",
+        "movementProfileId": "ground",
+        "priority": 35,
+        "spatialFootprint": "full-tile",
         "type": "grid-agent",
         "version": 1
       }
@@ -340,6 +402,22 @@
         "id": "obstacle:test:shared-edge:0,7:south:movement",
         "type": "movement-obstacle",
         "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:corridor:center-post:5,4",
+        "id": "obstacle:corridor:center-post:5,4:movement",
+        "spatialFootprint": "center",
+        "type": "movement-obstacle",
+        "version": 1
+      },
+      {
+        "activeByDefault": true,
+        "entityId": "obstacle:corridor:center-post:9,7",
+        "id": "obstacle:corridor:center-post:9,7:movement",
+        "spatialFootprint": "center",
+        "type": "movement-obstacle",
+        "version": 1
       }
     ],
     "scene-environment": [
@@ -374,7 +452,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,0"
+            "tileId": "tile:7,0"
           }
         ],
         "type": "spatial-attachment",
@@ -386,7 +464,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:5,2:south"
+            "sideId": "tile:7,2:south"
           }
         ],
         "type": "spatial-attachment",
@@ -398,7 +476,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:5,2:south"
+            "sideId": "tile:7,2:south"
           }
         ],
         "type": "spatial-attachment",
@@ -410,7 +488,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:5,2:west"
+            "sideId": "tile:7,2:west"
           }
         ],
         "type": "spatial-attachment",
@@ -422,7 +500,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,3"
+            "tileId": "tile:7,3"
           }
         ],
         "type": "spatial-attachment",
@@ -434,7 +512,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:5,4:east"
+            "sideId": "tile:7,4:east"
           }
         ],
         "type": "spatial-attachment",
@@ -446,7 +524,7 @@
         "targets": [
           {
             "kind": "side",
-            "sideId": "tile:5,5:east"
+            "sideId": "tile:7,5:east"
           }
         ],
         "type": "spatial-attachment",
@@ -458,7 +536,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,5"
+            "tileId": "tile:7,5"
           }
         ],
         "type": "spatial-attachment",
@@ -470,7 +548,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:5,10"
+            "tileId": "tile:7,10"
           }
         ],
         "type": "spatial-attachment",
@@ -482,7 +560,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:5,6:south"
+            "edgeId": "shared:7,6:south"
           }
         ],
         "type": "spatial-attachment",
@@ -494,7 +572,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared:5,7:south"
+            "edgeId": "shared:7,7:south"
           }
         ],
         "type": "spatial-attachment",
@@ -506,7 +584,7 @@
         "targets": [
           {
             "kind": "edge",
-            "edgeId": "shared-boundary:5,0:north"
+            "edgeId": "shared-boundary:7,0:north"
           }
         ],
         "type": "spatial-attachment",
@@ -518,7 +596,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,2"
+            "tileId": "tile:6,2"
           }
         ],
         "type": "spatial-attachment",
@@ -530,7 +608,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:6,5"
+            "tileId": "tile:8,5"
           }
         ],
         "type": "spatial-attachment",
@@ -542,7 +620,43 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:4,9"
+            "tileId": "tile:6,9"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:corridor:center-post:5,4",
+        "id": "obstacle:corridor:center-post:5,4:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:5,4"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "obstacle:corridor:center-post:9,7",
+        "id": "obstacle:corridor:center-post:9,7:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:9,7"
+          }
+        ],
+        "type": "spatial-attachment",
+        "version": 1
+      },
+      {
+        "entityId": "agent:corridor:full-tile-hunter",
+        "id": "agent:corridor:full-tile-hunter:spatial-attachment",
+        "targets": [
+          {
+            "kind": "tile",
+            "tileId": "tile:11,12"
           }
         ],
         "type": "spatial-attachment",

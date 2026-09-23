@@ -549,6 +549,9 @@ export const dungeonAgentLabModule: LabModule = {
             prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
             movementProfileId: state.traversal.actors.get(item.binding.entity.id)?.movementProfileId
               ?? item.binding.gridAgent.movementProfileId,
+            spatialFootprint: state.traversal.actors.get(item.binding.entity.id)?.spatialFootprint
+              ?? item.binding.gridAgent.spatialFootprint
+              ?? 'center',
             controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
             controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
             controllerSource: item.controllerOverride ? 'runtime-override' : 'map',

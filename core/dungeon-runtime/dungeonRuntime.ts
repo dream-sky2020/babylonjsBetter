@@ -32,6 +32,7 @@ export const createDungeonRuntime = (
     tileIndex: playerTileIndex,
     enabled: true,
     blocksMovement: true,
+    spatialFootprint: 'center',
     movementProfileId: options.playerMovementProfileId ?? 'ground',
   });
   return {

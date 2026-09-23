@@ -3,6 +3,7 @@ import {
   setDungeonObstacleActive,
   type DungeonObstacleBinding,
 } from '@/core/dungeon-obstacle';
+import { resolveDungeonSpatialFootprint } from '@/core/dungeon-space';
 import { createLabJson, createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
@@ -70,11 +71,20 @@ export const dungeonObstacleLabModule: LabModule = {
           loadId: current.loadId,
           dungeonPresetKey: current.presetKey,
           obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
+          obstacles: current.obstacles.map((binding) => ({
+            entityId: binding.entity.id,
+            placement: binding.placement,
+            spatialFootprint: binding.placement.kind === 'tile'
+              ? resolveDungeonSpatialFootprint(binding.component.spatialFootprint, 'full-tile')
+              : 'edge-boundary',
+            active: current.runtime.obstacleStates.get(binding.entity.id) === true,
+          })),
           traversalActors: Object.fromEntries([...current.runtime.traversal.actors].map(([id, actor]) => [id, {
             kind: actor.kind,
             tileIndex: actor.tileIndex,
             blocksMovement: actor.blocksMovement,
             movementProfileId: actor.movementProfileId,
+            spatialFootprint: resolveDungeonSpatialFootprint(actor.spatialFootprint, 'center'),
           }])),
           occupantsByTile: current.runtime.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
           pathReservationsByTile: current.runtime.traversal.pathReservationsByTile
@@ -102,10 +112,13 @@ export const dungeonObstacleLabModule: LabModule = {
         );
         let box = occupancyMarkers.get(actor.id);
         if (!box) {
+          const occupancyScale = resolveDungeonSpatialFootprint(actor.spatialFootprint, 'center') === 'full-tile'
+            ? 0.9
+            : 0.48;
           box = MeshBuilder.CreateBox(`occupant_${loaded.loadId}_${actor.id}`, {
-            width: layout.size[0] * 0.72,
+            width: layout.size[0] * occupancyScale,
             height: Math.max(0.18, layout.size[1] * 0.18),
-            depth: layout.size[2] * 0.72,
+            depth: layout.size[2] * occupancyScale,
           }, context.scene);
           box.material = occupancyMaterial;
           box.parent = debugRoot;
@@ -261,7 +274,12 @@ export const dungeonObstacleLabModule: LabModule = {
           void context.communication.request(dungeonRuntimeCommitRequest, { reason: 'obstacle-state' });
         });
         const detail = document.createElement('small');
-        detail.textContent = `${placementLabel(binding)} · ${binding.entity.id}`;
+        const footprintLabel = binding.placement.kind === 'tile'
+          ? resolveDungeonSpatialFootprint(binding.component.spatialFootprint, 'full-tile') === 'full-tile'
+            ? '整格占位'
+            : '中心占位'
+          : '边界阻挡';
+        detail.textContent = `${placementLabel(binding)} · ${footprintLabel} · ${binding.entity.id}`;
         label.append(text, checkbox);
         item.append(label, detail);
         return item;

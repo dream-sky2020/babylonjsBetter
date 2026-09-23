@@ -59,6 +59,7 @@ test('Agent Runtime 建立占位并执行带朝向的格步移动', () => {
   const map = createDungeonRuntimeMap(createDocument());
   const state = createDungeonAgentRuntimeState(map);
   assert.deepEqual([...state.traversal.occupantIdsByTile[0]], ['agent:guard']);
+  assert.equal(state.traversal.actors.get('agent:guard')?.spatialFootprint, 'center');
   const result = startDungeonAgentMovement(state, map, 'agent:guard', 'east', { durationSeconds: 0.3 });
   assert.equal(result.started, true);
   assert.equal(state.agents[0].tileIndex, 0);

@@ -3,6 +3,7 @@ import test from 'node:test';
 import { componentDefinition as controllerDefinition } from './components/agent-controller.component.ts';
 import { componentDefinition as factionDefinition } from './components/faction.component.ts';
 import { componentDefinition as gridAgentDefinition } from './components/grid-agent.component.ts';
+import { componentDefinition as movementObstacleDefinition } from './components/movement-obstacle.component.ts';
 import { entityTypeDefinition as dungeonAgentDefinition } from './entity-types/dungeon-agent.entity-type.ts';
 
 test('dungeon-agent 默认装配格步、控制器和阵营组件', () => {
@@ -19,6 +20,20 @@ test('可移动实体组件默认值均通过自身校验', () => {
     assert.equal(definition.allowMultiple, false);
     assert.deepEqual(definition.allowedEntityTypes, ['dungeon-agent']);
   }
+});
+
+test('Agent 与障碍使用兼容的默认空间占位', () => {
+  assert.equal(gridAgentDefinition.createDefault().spatialFootprint, 'center');
+  assert.equal(movementObstacleDefinition.createDefault().spatialFootprint, 'full-tile');
+  assert.deepEqual(movementObstacleDefinition.validate?.(movementObstacleDefinition.createDefault()), []);
+  assert.ok(gridAgentDefinition.validate?.({
+    ...gridAgentDefinition.createDefault(),
+    spatialFootprint: 'invalid' as 'center',
+  }).length);
+  assert.ok(movementObstacleDefinition.validate?.({
+    ...movementObstacleDefinition.createDefault(),
+    spatialFootprint: 'invalid' as 'center',
+  }).length);
 });
 
 test('可移动实体组件拒绝无效的关键配置', () => {
