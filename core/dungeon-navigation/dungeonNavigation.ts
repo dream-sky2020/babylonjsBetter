@@ -15,6 +15,8 @@ export type DungeonPathRequest = Readonly<{
   toTileIndex: number;
   seed?: number;
   directionMode?: DungeonMovementDirectionMode;
+  /** 搜索最多展开的格子数；用于局部修补和逐帧计算预算。 */
+  maxVisited?: number;
   canTraverse?(
     fromTileIndex: number,
     toTileIndex: number,
@@ -33,7 +35,7 @@ export type DungeonPathResult = Readonly<{
   directions: readonly DungeonMovementDirection[];
   totalCost: number;
   visitedCount: number;
-  reason?: 'invalid-start' | 'invalid-goal' | 'unreachable';
+  reason?: 'invalid-start' | 'invalid-goal' | 'unreachable' | 'search-limit' | 'budget-exhausted';
 }>;
 
 const mix = (value: number): number => {
@@ -102,6 +104,9 @@ export const findDungeonPath = (request: DungeonPathRequest): DungeonPathResult 
     return horizontalTarget >= 0 ? horizontalTarget : verticalTarget;
   };
   let visitedCount = 0;
+  const maxVisited = Number.isInteger(request.maxVisited) && request.maxVisited! > 0
+    ? request.maxVisited!
+    : Number.POSITIVE_INFINITY;
 
   while (open.length) {
     open.sort((left, right) => (
@@ -114,6 +119,9 @@ export const findDungeonPath = (request: DungeonPathRequest): DungeonPathResult 
     visited[current] = 1;
     visitedCount += 1;
     if (current === toTileIndex) break;
+    if (visitedCount >= maxVisited) {
+      return { ...invalid('search-limit'), visitedCount };
+    }
 
     const directionIndices = directions.map((_, index) => index)
       .sort((left, right) => randomPriority(seed, current, left) - randomPriority(seed, current, right));

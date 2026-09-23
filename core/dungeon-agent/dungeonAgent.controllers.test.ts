@@ -22,18 +22,18 @@ import {
   updateDungeonAgentControllers,
 } from './index.ts';
 
-const agentEntity = (controllerId: string, actionPeriod = 1): IEntity => ({
-  id: 'agent:test',
+const agentEntity = (controllerId: string, actionPeriod = 1, entityId = 'agent:test'): IEntity => ({
+  id: entityId,
   entityType: 'dungeon-agent',
   enabled: true,
   components: [
     {
-      id: 'agent:test:grid', type: 'grid-agent', version: 1,
+      id: `${entityId}:grid`, type: 'grid-agent', version: 1,
       initialFacing: 'east', blocksMovement: true, actionPeriod, priority: 0,
       movementProfileId: 'ground',
     },
     {
-      id: 'agent:test:controller', type: 'agent-controller', version: 1,
+      id: `${entityId}:controller`, type: 'agent-controller', version: 1,
       controllerId,
       parameters: {
         seed: 7,
@@ -47,15 +47,15 @@ const agentEntity = (controllerId: string, actionPeriod = 1): IEntity => ({
   ],
 });
 
-const createRuntime = (controllerId: string, actionPeriod = 1, width = 2) => {
+const createRuntime = (controllerId: string, actionPeriod = 1, width = 2, height = 1) => {
   const document = migrateDungeonMapToDocumentV2({
     presetKey: 'agent-controller-test',
     name: 'Agent Controller 测试',
     map: createDungeonMapData({
       id: 'map:agent-controller-test',
       width,
-      height: 1,
-      createTileData: ({ x }) => x === 0
+      height,
+      createTileData: ({ x, y }) => x === 0 && y === 0
         ? createEntityContainer(agentEntity(controllerId, actionPeriod))
         : undefined,
     }),
@@ -188,6 +188,119 @@ test('移动到目标格 Controller 计算路径并逐格执行', () => {
   assert.deepEqual(updateDungeonAgentControllers(state, map, registry, 0), []);
 });
 
+test('动态占用阻挡时保留原路径，冷却期间不重复预约或寻路', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID, 1, 3);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(MOVE_TO_TILE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    targetTileX: 2, targetTileY: 0, moveDurationSeconds: 0, seed: 11,
+  });
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+  state.traversal.registerActor({
+    id: 'blocker', kind: 'dynamic', tileIndex: 2, enabled: true,
+    blocksMovement: true, movementProfileId: 'ground',
+  });
+  const originalSequence = state.agents[0].navigationPlan?.planSequence;
+  const originalReplace = state.traversal.replaceReservations.bind(state.traversal);
+  let replaceCalls = 0;
+  state.traversal.replaceReservations = (actorId, tileIndices, startIndex) => {
+    replaceCalls += 1;
+    originalReplace(actorId, tileIndices, startIndex);
+  };
+  const blocked = updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(blocked[0]?.outcome, 'blocked');
+  for (let frame = 0; frame < 10; frame += 1) {
+    assert.deepEqual(updateDungeonAgentControllers(state, map, registry, 0.01), []);
+  }
+  assert.equal(state.agents[0].navigationPlan?.planSequence, originalSequence);
+  assert.equal(replaceCalls, 0);
+  state.traversal.unregisterActor('blocker');
+  updateDungeonAgentControllers(state, map, registry, 0.3);
+  assert.equal(state.agents[0].tileIndex, 2);
+});
+
+test('连续动态阻挡达到阈值后只做一次受限局部修补并复用旧路径后缀', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID, 1, 4, 2);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(MOVE_TO_TILE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    targetTileX: 3, targetTileY: 0, moveDurationSeconds: 0, seed: 11,
+  });
+  updateDungeonAgentControllers(state, map, registry, 0);
+  assert.equal(state.agents[0].tileIndex, 1);
+  state.traversal.registerActor({
+    id: 'blocker', kind: 'dynamic', tileIndex: 2, enabled: true,
+    blocksMovement: true, movementProfileId: 'ground',
+  });
+  updateDungeonAgentControllers(state, map, registry, 0);
+  updateDungeonAgentControllers(state, map, registry, 0.3);
+  updateDungeonAgentControllers(state, map, registry, 0.3);
+  updateDungeonAgentControllers(state, map, registry, 0.3);
+  assert.equal(state.agents[0].navigationPlan?.repairCount, 1);
+  assert.notEqual(state.agents[0].tileIndex, 1);
+  assert.equal(state.agents[0].navigationPlan?.targetTileIndex, 3);
+});
+
+test('完整寻路失败后进入退避，不在随后每帧重复报告和搜索', () => {
+  const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(MOVE_TO_TILE_CONTROLLER_ID);
+  assert.ok(controller);
+  setDungeonAgentControllerOverride(state.agents[0], controller, {
+    targetTileX: 1, targetTileY: 0, moveDurationSeconds: 0, seed: 11,
+  });
+  state.traversal.registerActor({
+    id: 'blocker', kind: 'dynamic', tileIndex: 1, enabled: true,
+    blocksMovement: true, movementProfileId: 'ground',
+  });
+  assert.equal(updateDungeonAgentControllers(state, map, registry, 0)[0]?.outcome, 'idle');
+  for (let frame = 0; frame < 10; frame += 1) {
+    assert.deepEqual(updateDungeonAgentControllers(state, map, registry, 0.01), []);
+  }
+});
+
+test('多个 Agent 同时需要新路径时遵守单次更新的共享寻路预算', () => {
+  const document = migrateDungeonMapToDocumentV2({
+    presetKey: 'agent-budget-test',
+    name: 'Agent Budget Test',
+    map: createDungeonMapData({
+      id: 'map:agent-budget-test',
+      width: 3,
+      height: 3,
+      createTileData: ({ x, y }) => x === 0
+        ? createEntityContainer(agentEntity(
+          RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID,
+          1,
+          `agent:${y}`,
+        ))
+        : undefined,
+    }),
+  }).document;
+  const map = createDungeonRuntimeMap(document);
+  const state = createDungeonAgentRuntimeState(map);
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  const controller = registry.get(MOVE_TO_TILE_CONTROLLER_ID);
+  assert.ok(controller);
+  state.agents.forEach((agent) => setDungeonAgentControllerOverride(agent, controller, {
+    targetTileX: 2,
+    targetTileY: Math.floor(agent.tileIndex / map.width),
+    moveDurationSeconds: 0,
+    seed: 11,
+  }));
+
+  const firstFrame = updateDungeonAgentControllers(state, map, registry, 0, {
+    maxPathSearchesPerUpdate: 1,
+  });
+  assert.equal(firstFrame.filter(({ outcome }) => outcome === 'move-started').length, 1);
+  assert.equal(state.agents.filter(({ navigationPlan }) => !!navigationPlan).length, 1);
+
+  updateDungeonAgentControllers(state, map, registry, 0, { maxPathSearchesPerUpdate: 1 });
+  assert.equal(state.agents.filter(({ navigationPlan }) => !!navigationPlan).length, 2);
+});
+
 test('路线巡逻 Controller 依次前往巡逻点并循环', () => {
   const { map, state } = createRuntime(RANDOM_AFTER_PLAYER_STEP_CONTROLLER_ID);
   const registry = createDefaultDungeonAgentControllerRegistry();
@@ -240,7 +353,7 @@ test('巡逻 locked 策略缓存自动生成的路线，受阻时等待而不重
   assert.equal(state.agents[0].tileIndex, 1);
   assert.equal(state.agents[0].navigationPlan?.planSequence, planSequence);
   state.traversal.unregisterActor('blocker');
-  updateDungeonAgentControllers(state, map, registry, 0);
+  updateDungeonAgentControllers(state, map, registry, 0.3);
   assert.equal(state.agents[0].tileIndex, 2);
   updateDungeonAgentControllers(state, map, registry, 0);
   assert.equal(state.agents[0].tileIndex, 1);
@@ -270,7 +383,7 @@ test('巡逻 wait-then-repath 策略达到等待阈值后丢弃受阻路径', ()
   updateDungeonAgentControllers(state, map, registry, 0.6);
   assert.equal(state.agents[0].navigationPlan, undefined);
   state.traversal.unregisterActor('blocker');
-  updateDungeonAgentControllers(state, map, registry, 0);
+  updateDungeonAgentControllers(state, map, registry, 0.05);
   assert.equal(state.agents[0].tileIndex, 2);
 });
 

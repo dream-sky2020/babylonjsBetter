@@ -64,3 +64,16 @@ test('八方向寻路使用对角步和根号二代价，四方向默认行为�
   assert.deepEqual(eightWay.directions, ['south-east', 'south-east']);
   assert.ok(Math.abs(eightWay.totalCost - Math.SQRT2 * 2) < 1e-9);
 });
+
+test('寻路访问上限会中止局部搜索而不是继续遍历整张地图', () => {
+  const map = createMap(8, 8);
+  const result = findDungeonPath({
+    map,
+    fromTileIndex: 0,
+    toTileIndex: 63,
+    maxVisited: 4,
+  });
+  assert.equal(result.found, false);
+  assert.equal(result.reason, 'search-limit');
+  assert.equal(result.visitedCount, 4);
+});

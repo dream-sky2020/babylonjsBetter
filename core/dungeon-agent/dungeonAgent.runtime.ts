@@ -62,10 +62,18 @@ export const syncDungeonAgentPathReservation = (
   const actorId = agent.binding.entity.id;
   const plan = agent.navigationPlan;
   if (!agent.enabled || !plan) {
+    if (agent.reservationPlanSequence === undefined) return;
     state.traversal.clearReservations(actorId);
+    agent.reservationPlanSequence = undefined;
+    agent.reservationStartIndex = undefined;
     return;
   }
-  state.traversal.replaceReservations(actorId, plan.tileIndices, plan.nextStepIndex + 1);
+  const startIndex = plan.nextStepIndex + 1;
+  if (agent.reservationPlanSequence === plan.planSequence
+    && agent.reservationStartIndex === startIndex) return;
+  state.traversal.replaceReservations(actorId, plan.tileIndices, startIndex);
+  agent.reservationPlanSequence = plan.planSequence;
+  agent.reservationStartIndex = startIndex;
 };
 
 /** 仅供初始化、恢复与兼容调用；正常帧循环必须使用单 Agent 增量同步。 */
@@ -87,7 +95,12 @@ const getAgent = (state: DungeonAgentRuntimeState, entityId: string) => {
 export type DungeonAgentStepTraversalResult = Readonly<{
   toTileIndex?: number;
   blockedReason?: Extract<DungeonAgentMovementResult['blockedReason'],
-    'map-boundary' | 'terrain' | 'movement-obstacle' | 'occupied'>;
+    | 'direction-not-supported'
+    | 'map-boundary'
+    | 'terrain'
+    | 'movement-obstacle'
+    | 'corner-blocked'
+    | 'occupied'>;
 }>;
 
 export type DungeonAgentStepTraversalOptions = DungeonAgentMovementOptions & Readonly<{
