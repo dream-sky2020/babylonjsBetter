@@ -53,3 +53,14 @@ test('额外格子代价可让路径避开拥挤路线', () => {
   assert.deepEqual(result.tileIndices, [0, 3, 4, 5, 2]);
   assert.equal(result.totalCost, 4);
 });
+
+test('八方向寻路使用对角步和根号二代价，四方向默认行为保持不变', () => {
+  const map = createMap(3, 3);
+  const fourWay = findDungeonPath({ map, fromTileIndex: 0, toTileIndex: 8, seed: 1 });
+  const eightWay = findDungeonPath({
+    map, fromTileIndex: 0, toTileIndex: 8, seed: 1, directionMode: 'eight-way',
+  });
+  assert.equal(fourWay.directions.length, 4);
+  assert.deepEqual(eightWay.directions, ['south-east', 'south-east']);
+  assert.ok(Math.abs(eightWay.totalCost - Math.SQRT2 * 2) < 1e-9);
+});

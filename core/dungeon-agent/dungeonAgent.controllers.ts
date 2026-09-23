@@ -1,10 +1,13 @@
-import type { DungeonMapDirection } from '../map/index.ts';
-import { DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
+import {
+  getDungeonMovementDirectionCost,
+  resolveDungeonMovementProfile,
+  type DungeonMovementDirection,
+} from '../dungeon-movement/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { findDungeonPath, type DungeonPathResult } from '../dungeon-navigation/index.ts';
 import {
   inspectDungeonAgentStepTraversal,
-  rebuildDungeonAgentPathReservations,
+  syncDungeonAgentPathReservation,
   startDungeonAgentMovement,
   resolveDungeonAgentPriority,
 } from './dungeonAgent.runtime.ts';
@@ -29,7 +32,7 @@ export type DungeonAgentControllerAction = Readonly<{
   controllerId: string;
   trigger: DungeonAgentControllerTrigger;
   outcome: 'move-started' | 'idle' | 'blocked';
-  direction?: DungeonMapDirection;
+  direction?: DungeonMovementDirection;
   movementResult?: DungeonAgentMovementResult;
 }>;
 
@@ -52,7 +55,7 @@ type RandomControllerState = {
   blockedElapsedSeconds?: number;
   lockedSegments?: Record<string, Readonly<{
     tileIndices: readonly number[];
-    directions: readonly DungeonMapDirection[];
+    directions: readonly DungeonMovementDirection[];
     totalCost: number;
     visitedCount: number;
   }>>;
@@ -73,7 +76,7 @@ type DungeonAgentControllerContext = Readonly<{
   playerTileIndex?: number;
   random(): number;
   findPathTo(toTileIndex: number, options?: DungeonAgentPathPlanningOptions): DungeonPathResult;
-  tryMove(direction: DungeonMapDirection, durationSeconds: number): DungeonAgentControllerAction;
+  tryMove(direction: DungeonMovementDirection, durationSeconds: number): DungeonAgentControllerAction;
   tryRandomMove(durationSeconds: number): DungeonAgentControllerAction;
   idle(): DungeonAgentControllerAction;
 }>;
@@ -234,6 +237,7 @@ export const setDungeonAgentControllerOverride = (
   agent: DungeonRuntimeAgent,
   controller: DungeonAgentController,
   parameters: Readonly<Record<string, unknown>> = createDefaultDungeonAgentControllerParameters(controller),
+  state?: DungeonAgentRuntimeState,
 ): void => {
   agent.controllerOverride = {
     controllerId: controller.id,
@@ -242,13 +246,18 @@ export const setDungeonAgentControllerOverride = (
   agent.controllerState = undefined;
   agent.navigationPlan = undefined;
   agent.actionClock = 0;
+  if (state) syncDungeonAgentPathReservation(state, agent);
 };
 
-export const clearDungeonAgentControllerOverride = (agent: DungeonRuntimeAgent): void => {
+export const clearDungeonAgentControllerOverride = (
+  agent: DungeonRuntimeAgent,
+  state?: DungeonAgentRuntimeState,
+): void => {
   agent.controllerOverride = undefined;
   agent.controllerState = undefined;
   agent.navigationPlan = undefined;
   agent.actionClock = 0;
+  if (state) syncDungeonAgentPathReservation(state, agent);
 };
 
 const numberParameter = (
@@ -320,7 +329,7 @@ const createContext = (
     runtimeState.lastAction = action;
     return action;
   };
-  const tryMove = (direction: DungeonMapDirection, durationSeconds: number) => {
+  const tryMove = (direction: DungeonMovementDirection, durationSeconds: number) => {
     const result = startDungeonAgentMovement(state, map, agent.binding.entity.id, direction, {
       durationSeconds,
     });
@@ -343,6 +352,9 @@ const createContext = (
       fromTileIndex: agent.tileIndex,
       toTileIndex,
       seed: Math.floor(random() * 0x1_0000_0000),
+      directionMode: resolveDungeonMovementProfile(
+        state.traversal.actors.get(agent.binding.entity.id)?.movementProfileId ?? 'ground',
+      ).directionMode,
       canTraverse: (fromTileIndex, _nextTileIndex, direction) => !inspectDungeonAgentStepTraversal(
         state,
         map,
@@ -354,13 +366,14 @@ const createContext = (
           allowOccupiedTileIndex: planningOptions.allowOccupiedTarget ? toTileIndex : undefined,
         },
       ).blockedReason,
-      getStepCost: (_fromTileIndex, toTileIndex) => {
-        if (planningOptions.useReservations === false) return 1;
+      getStepCost: (_fromTileIndex, toTileIndex, direction) => {
+        const baseCost = getDungeonMovementDirectionCost(direction);
+        if (planningOptions.useReservations === false) return baseCost;
         const otherReservations = state.traversal.reservationCount(toTileIndex, agent.binding.entity.id);
         const penalty = Number.isFinite(options.reservationPenalty) && (options.reservationPenalty ?? 0) >= 0
           ? options.reservationPenalty!
           : 2;
-        return 1 + otherReservations * penalty;
+        return baseCost + otherReservations * penalty;
       },
     }),
     idle: () => remember({ ...base, outcome: 'idle' }),
@@ -466,7 +479,7 @@ const ensureNavigationPlan = (
     visitedCount: result.visitedCount,
     planSequence: runtimeState.planSequence,
   } : undefined;
-  rebuildDungeonAgentPathReservations(context.state);
+  syncDungeonAgentPathReservation(context.state, context.agent);
   return !!context.agent.navigationPlan;
 };
 
@@ -502,7 +515,7 @@ const ensureLockedPatrolPlan = (
     nextStepIndex: 0,
     planSequence: state.planSequence,
   };
-  rebuildDungeonAgentPathReservations(context.state);
+  syncDungeonAgentPathReservation(context.state, context.agent);
   return true;
 };
 
@@ -514,7 +527,7 @@ const followNavigationPlan = (
 ): DungeonAgentControllerAction | null => {
   if (context.agent.tileIndex === targetTileIndex) {
     context.agent.navigationPlan = undefined;
-    rebuildDungeonAgentPathReservations(context.state);
+    syncDungeonAgentPathReservation(context.state, context.agent);
     return null;
   }
   if (!ensureNavigationPlan(context, targetTileIndex, planningOptions)) return context.idle();
@@ -523,7 +536,7 @@ const followNavigationPlan = (
   if (!direction) return null;
   const action = context.tryMove(direction, durationSeconds);
   if (action.outcome !== 'move-started') context.agent.navigationPlan = undefined;
-  rebuildDungeonAgentPathReservations(context.state);
+  syncDungeonAgentPathReservation(context.state, context.agent);
   return action;
 };
 
@@ -606,7 +619,7 @@ const followPatrolPlan = (
       state.blockedElapsedSeconds = 0;
     }
   }
-  rebuildDungeonAgentPathReservations(context.state);
+  syncDungeonAgentPathReservation(context.state, context.agent);
   return action;
 };
 
@@ -679,6 +692,7 @@ const patrolRouteController: DungeonAgentController = {
     let target = route[state.waypointIndex];
     if (context.agent.tileIndex === target) {
       context.agent.navigationPlan = undefined;
+      syncDungeonAgentPathReservation(context.state, context.agent);
       if (state.arrivedWaypointIndex !== state.waypointIndex) {
         state.arrivedWaypointIndex = state.waypointIndex;
         state.waypointWaitRemainingSeconds = numberParameter(context.agent, 'waitAtWaypointSeconds', 0.2);
@@ -719,7 +733,7 @@ const chasePlayerController: DungeonAgentController = {
     const remainingSteps = plan.directions.length - plan.nextStepIndex;
     if (remainingSteps <= Math.trunc(numberParameter(context.agent, 'stopDistance', 1))) {
       context.agent.navigationPlan = undefined;
-      rebuildDungeonAgentPathReservations(context.state);
+      syncDungeonAgentPathReservation(context.state, context.agent);
       return null;
     }
     return followNavigationPlan(
@@ -755,7 +769,6 @@ export const runDungeonAgentControllersAfterPlayerStep = (
   options: DungeonAgentControllerExecutionOptions = {},
 ): readonly DungeonAgentControllerAction[] => {
   state.turnNumber += 1;
-  rebuildDungeonAgentPathReservations(state);
   const actions: DungeonAgentControllerAction[] = [];
   agentsByPriority(state).forEach((agent) => {
     const controller = registry.get(resolveDungeonAgentControllerConfig(agent).controllerId);
@@ -766,7 +779,6 @@ export const runDungeonAgentControllersAfterPlayerStep = (
     const action = controller.onPlayerStep(createContext(state, map, agent, 'player-step', options));
     if (action) actions.push(action);
   });
-  rebuildDungeonAgentPathReservations(state);
   return actions;
 };
 
@@ -780,7 +792,6 @@ export const updateDungeonAgentControllers = (
   if (!Number.isFinite(deltaSeconds) || deltaSeconds < 0) {
     throw new RangeError('Agent Controller 帧时间必须是非负有限数。');
   }
-  rebuildDungeonAgentPathReservations(state);
   const actions: DungeonAgentControllerAction[] = [];
   agentsByPriority(state).forEach((agent) => {
     const controller = registry.get(resolveDungeonAgentControllerConfig(agent).controllerId);
@@ -788,6 +799,5 @@ export const updateDungeonAgentControllers = (
     const action = controller.update(createContext(state, map, agent, 'continuous', options), deltaSeconds);
     if (action) actions.push(action);
   });
-  rebuildDungeonAgentPathReservations(state);
   return actions;
 };

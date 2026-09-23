@@ -18,6 +18,7 @@ import {
   runDungeonAgentControllersAfterPlayerStep,
   setDungeonAgentControllerOverride,
   STATIONARY_CONTROLLER_ID,
+  rebuildDungeonAgentPathReservations,
   updateDungeonAgentControllers,
 } from './index.ts';
 
@@ -102,6 +103,44 @@ test('相同 Agent 与 seed 会产生可复现的随机行动', () => {
   const firstAction = runDungeonAgentControllersAfterPlayerStep(first.state, first.map, registry)[0];
   const secondAction = runDungeonAgentControllersAfterPlayerStep(second.state, second.map, registry)[0];
   assert.deepEqual(firstAction, secondAction);
+});
+
+test('空闲帧不会重复清理或重建 Agent 路径预约', () => {
+  const { map, state } = createRuntime(STATIONARY_CONTROLLER_ID, 1, 3);
+  const agent = state.agents[0];
+  agent.navigationPlan = {
+    targetTileIndex: 2,
+    tileIndices: [0, 1, 2],
+    directions: ['east', 'east'],
+    nextStepIndex: 0,
+    totalCost: 2,
+    visitedCount: 3,
+    planSequence: 1,
+  };
+  rebuildDungeonAgentPathReservations(state);
+  const traversal = state.traversal;
+  const originalClear = traversal.clearReservations.bind(traversal);
+  const originalReplace = traversal.replaceReservations.bind(traversal);
+  let clearCalls = 0;
+  let replaceCalls = 0;
+  traversal.clearReservations = (actorId) => {
+    clearCalls += 1;
+    originalClear(actorId);
+  };
+  traversal.replaceReservations = (actorId, tileIndices, startIndex) => {
+    replaceCalls += 1;
+    originalReplace(actorId, tileIndices, startIndex);
+  };
+
+  const registry = createDefaultDungeonAgentControllerRegistry();
+  for (let frame = 0; frame < 120; frame += 1) {
+    updateDungeonAgentControllers(state, map, registry, 1 / 60);
+  }
+
+  assert.equal(clearCalls, 0);
+  assert.equal(replaceCalls, 0);
+  assert.equal(state.traversal.reservationCount(1), 1);
+  assert.equal(state.traversal.reservationCount(2), 1);
 });
 
 test('运行时可切换 Controller 和参数而不修改地图初始绑定', () => {

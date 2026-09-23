@@ -12,9 +12,13 @@ import {
   type DungeonPlayerTurn,
   type DungeonPlayerTurnTimingMode,
 } from '@/core/dungeon-player-movement';
-import type { DungeonMapDirection } from '@/core/map';
+import type { DungeonMovementDirection, DungeonMovementDirectionMode } from '@/core/dungeon-movement';
 import type { DungeonPlayerSpawnBinding } from '@/core/dungeon-player-spawn';
-import { setDungeonRuntimePlayerPosition, type DungeonRuntime } from '@/core/dungeon-runtime';
+import {
+  setDungeonRuntimePlayerMovementProfile,
+  setDungeonRuntimePlayerPosition,
+  type DungeonRuntime,
+} from '@/core/dungeon-runtime';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '@/core/dungeon-traversal';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import {
@@ -34,6 +38,7 @@ import {
   type DungeonMapLoaderReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
 import {
+  DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS,
   DungeonPlayerDirectionalInput,
   resolveDungeonPlayerContinuousHoldThreshold,
 } from './playerMovement.directionalInput';
@@ -97,6 +102,9 @@ export const playerMovementLabModule: LabModule = {
     const continuousMovementToggle = createLabSwitch('按住方向连续移动', true, {
       preference: { ui: context.ui, key: 'player-movement/continuous-movement' },
     });
+    const eightWayToggle = createLabSwitch('启用玩家八方向移动', false, {
+      preference: { ui: context.ui, key: 'player-movement/eight-way' },
+    });
     const continuousHoldMultiplierInput = createNumberInput(0.8, 0, 0.05);
     const continuousHoldOffsetInput = createNumberInput(0, undefined, 0.05);
     const keyboardInterceptToggle = createLabSwitch('处理后拦截低优先级输入', true);
@@ -115,8 +123,10 @@ export const playerMovementLabModule: LabModule = {
     const turnTimingInput = createNumberInput(360, 0.01, 0.1);
     const controls = document.createElement('div');
     controls.className = 'lab-movement-grid';
-    const directions: ReadonlyArray<readonly [DungeonMapDirection, string]> = [
-      ['north', '↑ 北'], ['west', '→ 西'], ['south', '↓ 南'], ['east', '← 东'],
+    const directions: ReadonlyArray<readonly [DungeonMovementDirection, string]> = [
+      ['north-east', '↖ 东北'], ['north', '↑ 北'], ['north-west', '↗ 西北'],
+      ['east', '← 东'], ['west', '→ 西'],
+      ['south-east', '↙ 东南'], ['south', '↓ 南'], ['south-west', '↘ 西南'],
     ];
     directions.forEach(([direction, label]) => {
       const button = document.createElement('button');
@@ -206,6 +216,7 @@ export const playerMovementLabModule: LabModule = {
       debugMarkerToggle.row,
       keyboardToggle.row,
       continuousMovementToggle.row,
+      eightWayToggle.row,
       createLabField('长按阈值倍率 X', continuousHoldMultiplierInput),
       createLabField('长按阈值偏移（秒）', continuousHoldOffsetInput),
       createLabField('键盘输入优先级', keyboardPriorityInput),
@@ -216,7 +227,7 @@ export const playerMovementLabModule: LabModule = {
       movementTimingField,
       createLabField('转向计时模式', turnTimingSelect),
       turnTimingField,
-      createLabField('东南西北绝对移动', controls),
+      createLabField('绝对方向移动', controls),
       createLabField('相对当前朝向移动', relativeControls),
       createLabField('原地转向', turnControls),
       createLabField('指定格坐标（X / Y）', teleportPositionControls),
@@ -251,11 +262,32 @@ export const playerMovementLabModule: LabModule = {
     let lastJsonUpdateTime = 0;
     const directionalInput = new DungeonPlayerDirectionalInput();
     let continuousHoldMovementDurationSeconds: number | null = null;
+    let pendingEightWayInitialMove = false;
 
     const clearDirectionalInput = (): void => {
       directionalInput.clear();
       continuousHoldMovementDurationSeconds = null;
+      pendingEightWayInitialMove = false;
     };
+    const directionMode = (): DungeonMovementDirectionMode => (
+      eightWayToggle.input.checked ? 'eight-way' : 'four-way'
+    );
+    const syncMovementProfile = (): void => {
+      controls.querySelectorAll<HTMLButtonElement>('[data-move*="-"]').forEach((button) => {
+        button.disabled = !eightWayToggle.input.checked;
+      });
+      if (current) {
+        setDungeonRuntimePlayerMovementProfile(
+          current.runtime,
+          eightWayToggle.input.checked ? 'ground-eight-way' : 'ground-four-way',
+        );
+        status.textContent = eightWayToggle.input.checked
+          ? '玩家已切换为八方向移动；WASD / 方向键可组合斜向。'
+          : '玩家已切换为四方向移动；斜向按钮已禁用。';
+      }
+      clearDirectionalInput();
+    };
+    eightWayToggle.input.addEventListener('change', syncMovementProfile);
 
     const disposeMarker = () => {
       markerRoot?.dispose(false, true);
@@ -327,7 +359,7 @@ export const playerMovementLabModule: LabModule = {
     };
 
     const refreshRuntimeJson = (force = false) => {
-      if (!current) return;
+      if (!current || panel.content.hidden) return;
       const now = performance.now();
       if (!force && now - lastJsonUpdateTime < 250) return;
       lastJsonUpdateTime = now;
@@ -342,6 +374,10 @@ export const playerMovementLabModule: LabModule = {
         obstacleStates: Object.fromEntries(current.runtime.obstacleStates),
       }, null, 2);
     };
+    const panelVisibilityObserver = new MutationObserver(() => {
+      if (!panel.content.hidden) refreshRuntimeJson(true);
+    });
+    panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
 
     const syncMarker = () => {
       if (!current) return;
@@ -374,7 +410,7 @@ export const playerMovementLabModule: LabModule = {
 
     const interceptBlockedAttempt = (
       event: MovementView,
-      direction: DungeonMapDirection,
+      direction: DungeonMovementDirection,
     ): boolean => {
       const inspection = inspectDungeonPlayerMovement(event.runtime, direction, {
         restrictToMapBounds: boundsToggle.input.checked,
@@ -385,7 +421,7 @@ export const playerMovementLabModule: LabModule = {
       return blockedAttemptService.tryHandle(inspection as DungeonPlayerBlockedAttempt);
     };
 
-    const move = (direction: DungeonMapDirection): boolean => {
+    const move = (direction: DungeonMovementDirection): boolean => {
       if (!current) return false;
       const event = current;
       if (interceptBlockedAttempt(event, direction)) {
@@ -510,7 +546,7 @@ export const playerMovementLabModule: LabModule = {
     };
 
     controls.querySelectorAll<HTMLButtonElement>('[data-move]').forEach((button) => {
-      button.addEventListener('click', () => move(button.dataset.move as DungeonMapDirection));
+      button.addEventListener('click', () => move(button.dataset.move as DungeonMovementDirection));
     });
     turnControls.querySelectorAll<HTMLButtonElement>('[data-turn]').forEach((button) => {
       button.addEventListener('click', () => turnPlayer(button.dataset.turn as DungeonPlayerTurn));
@@ -519,10 +555,7 @@ export const playerMovementLabModule: LabModule = {
       button.addEventListener('click', () => moveRelative(button.dataset.relativeMove as DungeonPlayerRelativeMovement));
     });
     teleportPositionButton.addEventListener('click', teleportToPosition);
-    const keyDirections: Readonly<Record<string, DungeonMapDirection>> = {
-      ArrowUp: 'north', KeyW: 'north', ArrowRight: 'east', KeyD: 'west',
-      ArrowDown: 'south', KeyS: 'south', ArrowLeft: 'west', KeyA: 'east',
-    };
+    const keyDirections = DUNGEON_PLAYER_ABSOLUTE_KEY_DIRECTIONS;
     const keyboardRegistration = context.keyboard.register({
       id: 'player-movement',
       label: 'Dungeon 玩家移动',
@@ -536,8 +569,11 @@ export const playerMovementLabModule: LabModule = {
         if (!direction) return 'ignored';
         directionalInput.keyDown(event.code, direction, performance.now(), event.repeat);
         if (!event.repeat) {
-          if (!current?.runtime.playerMovement) {
-            const nextDirection = directionalInput.consume(performance.now());
+          if (!current?.runtime.playerMovement && directionMode() === 'eight-way') {
+            // 延迟到下一渲染帧，让同一帧到达的第二个轴参与当前格步合成。
+            pendingEightWayInitialMove = true;
+          } else if (!current?.runtime.playerMovement) {
+            const nextDirection = directionalInput.consume(performance.now(), 0, directionMode());
             if (nextDirection) move(nextDirection);
           }
         }
@@ -584,12 +620,18 @@ export const playerMovementLabModule: LabModule = {
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
       if (!current) return;
+      if (!current.runtime.playerMovement && pendingEightWayInitialMove) {
+        pendingEightWayInitialMove = false;
+        const nextDirection = directionalInput.consume(performance.now(), 0, 'eight-way');
+        if (nextDirection) move(nextDirection);
+      }
       if (!current.runtime.playerMovement
         && continuousMovementToggle.input.checked
         && continuousHoldMovementDurationSeconds !== null) {
         const nextDirection = directionalInput.consume(
           performance.now(),
           resolveContinuousHoldThreshold(continuousHoldMovementDurationSeconds),
+          directionMode(),
         );
         if (nextDirection) move(nextDirection);
       }
@@ -629,6 +671,7 @@ export const playerMovementLabModule: LabModule = {
         const nextDirection = directionalInput.consume(
           performance.now(),
           completedMovementHoldThresholdSeconds,
+          directionMode(),
         );
         if (!nextDirection) break;
         move(nextDirection);
@@ -645,6 +688,7 @@ export const playerMovementLabModule: LabModule = {
       };
       clearDirectionalInput();
       current = event;
+      syncMovementProfile();
       teleportXInput.max = String(event.runtime.map.width - 1);
       teleportYInput.max = String(event.runtime.map.height - 1);
       teleportXInput.value = String(event.runtime.playerPosition.tileX);
@@ -661,6 +705,7 @@ export const playerMovementLabModule: LabModule = {
       context.scene.onBeforeRenderObservable.remove(frameObserver);
       keyboardRegistration.dispose();
       offKeyboardChanged();
+      panelVisibilityObserver.disconnect();
       debugMarkerToggle.input.removeEventListener('change', renderDebugMarker);
       context.services.delete(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
       disposeMarker();

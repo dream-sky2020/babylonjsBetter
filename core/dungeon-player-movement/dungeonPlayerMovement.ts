@@ -4,12 +4,14 @@ import type {
   DungeonRuntimePlayerPosition,
   DungeonRuntimeWorldPosition,
 } from '../dungeon-runtime';
-import { getDungeonRuntimeNeighbor } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
-
-const DIRECTION_OFFSETS: Readonly<Record<DungeonMapDirection, Readonly<{ x: number; y: number }>>> = {
-  north: { x: 0, y: -1 }, east: { x: 1, y: 0 }, south: { x: 0, y: 1 }, west: { x: -1, y: 0 },
-};
+import {
+  getDungeonMovementDirectionCost,
+  getDungeonMovementDirectionVector,
+  getDungeonMovementDirectionYaw,
+  resolveDungeonCardinalFacing,
+  type DungeonMovementDirection,
+} from '../dungeon-movement/index.ts';
 
 const DIRECTION_YAWS: Readonly<Record<DungeonMapDirection, number>> = {
   north: Math.PI, east: Math.PI / 2, south: 0, west: -Math.PI / 2,
@@ -52,10 +54,10 @@ export type DungeonPlayerMovementOptions = {
 export type DungeonPlayerMovementResult = {
   started: boolean;
   completed: boolean;
-  direction: DungeonMapDirection;
+  direction: DungeonMovementDirection;
   from: DungeonRuntimePlayerPosition;
   to: DungeonRuntimePlayerPosition;
-  blockedReason?: 'map-boundary' | 'movement-obstacle' | 'movement-in-progress';
+  blockedReason?: 'direction-not-supported' | 'map-boundary' | 'movement-obstacle' | 'movement-in-progress';
   blockedObstacleIds?: readonly string[];
 };
 
@@ -67,42 +69,36 @@ export type DungeonPlayerMovementInspectionOptions = Pick<
 /** 无副作用地检查一次移动意图，供上层在阻挡动画开始前接管该操作。 */
 export const inspectDungeonPlayerMovement = (
   runtime: DungeonRuntime,
-  direction: DungeonMapDirection,
+  direction: DungeonMovementDirection,
   options: DungeonPlayerMovementInspectionOptions = {},
 ): DungeonPlayerMovementResult => {
   const from = { ...runtime.playerPosition };
-  const offset = DIRECTION_OFFSETS[direction];
+  const offset = getDungeonMovementDirectionVector(direction);
   const coordinateDestination = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
-  const topologyDestination = getDungeonRuntimeNeighbor(runtime.map, from, direction);
-  const to = topologyDestination ?? coordinateDestination;
   if (runtime.playerMovement) {
-    return { started: false, completed: false, direction, from, to, blockedReason: 'movement-in-progress' };
+    return { started: false, completed: false, direction, from, to: coordinateDestination, blockedReason: 'movement-in-progress' };
   }
-  const outside = topologyDestination === undefined
-    && (to.tileX < 0 || to.tileY < 0 || to.tileX >= runtime.map.width || to.tileY >= runtime.map.height);
-  if ((options.restrictToMapBounds ?? true) && outside) {
-    return { started: false, completed: false, direction, from, to, blockedReason: 'map-boundary' };
-  }
-  if (topologyDestination) {
-    const restrictStatic = options.restrictMovementObstacles ?? true;
-    const fromTileIndex = from.tileY * runtime.map.width + from.tileX;
-    const traversal = runtime.traversal.inspectStep(
-      DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
-      fromTileIndex,
-      direction,
-      {
-        checkTerrain: restrictStatic,
-        checkStaticObstacles: restrictStatic,
-      },
-    );
-    if (traversal.blockedReason) {
+  const restrictStatic = options.restrictMovementObstacles ?? true;
+  const fromTileIndex = from.tileY * runtime.map.width + from.tileX;
+  const traversal = runtime.traversal.inspectStep(
+    DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
+    fromTileIndex,
+    direction,
+    { checkTerrain: restrictStatic, checkStaticObstacles: restrictStatic },
+  );
+  const to = traversal.toTileIndex === undefined ? coordinateDestination : {
+    tileX: traversal.toTileIndex % runtime.map.width,
+    tileY: Math.floor(traversal.toTileIndex / runtime.map.width),
+  };
+  if (traversal.blockedReason) {
+    const blockedReason = traversal.blockedReason === 'map-boundary'
+      ? 'map-boundary'
+      : traversal.blockedReason === 'direction-not-supported'
+        ? 'direction-not-supported'
+        : 'movement-obstacle';
+    if (blockedReason !== 'map-boundary' || (options.restrictToMapBounds ?? true)) {
       return {
-        started: false,
-        completed: false,
-        direction,
-        from,
-        to,
-        blockedReason: 'movement-obstacle',
+        started: false, completed: false, direction, from, to, blockedReason,
         blockedObstacleIds: traversal.blockingEntityIds,
       };
     }
@@ -162,9 +158,11 @@ const BLOCKED_ATTEMPT_TILE_DURATION_RATIO = 0.35;
 
 const resolveMovementDuration = (
   distance: number,
+  direction: DungeonMovementDirection,
   options: DungeonPlayerMovementOptions,
 ): number => options.movementTimingMode === 'seconds-per-tile'
   ? assertPositiveSpeed(options.movementSecondsPerTile ?? 1, '每格移动耗时')
+    * getDungeonMovementDirectionCost(direction)
   : distance / assertPositiveSpeed(options.movementSpeed ?? 6, '移动速度');
 
 const resolveTurnDuration = (
@@ -193,14 +191,14 @@ const resolveStepTurnDuration = (
  */
 export const startDungeonPlayerMovement = (
   runtime: DungeonRuntime,
-  direction: DungeonMapDirection,
+  direction: DungeonMovementDirection,
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => {
   const inspection = inspectDungeonPlayerMovement(runtime, direction, options);
   const { from, to } = inspection;
   if (inspection.blockedReason === 'movement-in-progress') return inspection;
   const startBlockedAttempt = (
-    blockedReason: 'map-boundary' | 'movement-obstacle',
+    blockedReason: 'map-boundary' | 'movement-obstacle' | 'direction-not-supported',
     blockedObstacleIds?: readonly string[],
   ): DungeonPlayerMovementResult => {
     if (options.teleport) {
@@ -213,8 +211,11 @@ export const startDungeonPlayerMovement = (
       lerp(fromWorldPosition[1], resolvedTarget[1], BLOCKED_ATTEMPT_DISTANCE_RATIO),
       lerp(fromWorldPosition[2], resolvedTarget[2], BLOCKED_ATTEMPT_DISTANCE_RATIO),
     ];
-    const targetFacing = (options.faceMovementDirection ?? true) ? direction : runtime.playerFacing;
-    const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[targetFacing]);
+    const targetFacing = (options.faceMovementDirection ?? true)
+      ? resolveDungeonCardinalFacing(direction) : runtime.playerFacing;
+    const targetYaw = (options.faceMovementDirection ?? true)
+      ? getDungeonMovementDirectionYaw(direction) : DIRECTION_YAWS[targetFacing];
+    const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, targetYaw);
     const attemptDistance = distance3d(fromWorldPosition, attemptedWorldPosition) * 2;
     const movementDurationSeconds = options.movementTimingMode === 'seconds-per-tile'
       ? assertPositiveSpeed(options.movementSecondsPerTile ?? 1, '每格移动耗时')
@@ -237,15 +238,22 @@ export const startDungeonPlayerMovement = (
     };
     return { started: true, completed: false, direction, from, to, blockedReason, blockedObstacleIds };
   };
-  if (inspection.blockedReason === 'map-boundary' || inspection.blockedReason === 'movement-obstacle') {
+  if (inspection.blockedReason === 'map-boundary'
+    || inspection.blockedReason === 'movement-obstacle'
+    || inspection.blockedReason === 'direction-not-supported') {
     return startBlockedAttempt(inspection.blockedReason, inspection.blockedObstacleIds);
   }
   const fromWorldPosition: DungeonRuntimeWorldPosition = [...runtime.playerWorldPosition];
   const resolvedTarget = options.resolveWorldPosition(to);
   const toWorldPosition: DungeonRuntimeWorldPosition = [resolvedTarget[0], resolvedTarget[1], resolvedTarget[2]];
-  const targetFacing = (options.faceMovementDirection ?? true) ? direction : runtime.playerFacing;
-  const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, DIRECTION_YAWS[targetFacing]);
-  const movementDurationSeconds = resolveMovementDuration(distance3d(fromWorldPosition, toWorldPosition), options);
+  const targetFacing = (options.faceMovementDirection ?? true)
+    ? resolveDungeonCardinalFacing(direction) : runtime.playerFacing;
+  const targetYaw = (options.faceMovementDirection ?? true)
+    ? getDungeonMovementDirectionYaw(direction) : DIRECTION_YAWS[targetFacing];
+  const yawDelta = shortestAngleDelta(runtime.playerWorldRotationY, targetYaw);
+  const movementDurationSeconds = resolveMovementDuration(
+    distance3d(fromWorldPosition, toWorldPosition), direction, options,
+  );
   const turnDurationSeconds = resolveStepTurnDuration(yawDelta, movementDurationSeconds, options);
   if (options.teleport) {
     runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
@@ -453,7 +461,7 @@ export const updateDungeonPlayerMovement = (
 /** 兼容需要立即完成单步移动的调用；新运行时应使用 start + update。 */
 export const moveDungeonPlayer = (
   runtime: DungeonRuntime,
-  direction: DungeonMapDirection,
+  direction: DungeonMovementDirection,
   options: DungeonPlayerMovementOptions,
 ): DungeonPlayerMovementResult => startDungeonPlayerMovement(runtime, direction, { ...options, teleport: true });
 

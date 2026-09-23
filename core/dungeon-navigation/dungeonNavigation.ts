@@ -1,28 +1,36 @@
-import type { DungeonMapDirection } from '../map/index.ts';
 import { DUNGEON_MAP_DIRECTION_ORDER } from '../map-document/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
+import {
+  getDungeonDiagonalAxes,
+  getDungeonMovementDirectionCost,
+  getDungeonMovementDirectionsForMode,
+  isDungeonDiagonalDirection,
+  type DungeonMovementDirection,
+  type DungeonMovementDirectionMode,
+} from '../dungeon-movement/dungeonMovement.direction.ts';
 
 export type DungeonPathRequest = Readonly<{
   map: DungeonRuntimeMap;
   fromTileIndex: number;
   toTileIndex: number;
   seed?: number;
+  directionMode?: DungeonMovementDirectionMode;
   canTraverse?(
     fromTileIndex: number,
     toTileIndex: number,
-    direction: DungeonMapDirection,
+    direction: DungeonMovementDirection,
   ): boolean;
   getStepCost?(
     fromTileIndex: number,
     toTileIndex: number,
-    direction: DungeonMapDirection,
+    direction: DungeonMovementDirection,
   ): number;
 }>;
 
 export type DungeonPathResult = Readonly<{
   found: boolean;
   tileIndices: readonly number[];
-  directions: readonly DungeonMapDirection[];
+  directions: readonly DungeonMovementDirection[];
   totalCost: number;
   visitedCount: number;
   reason?: 'invalid-start' | 'invalid-goal' | 'unreachable';
@@ -78,6 +86,21 @@ export const findDungeonPath = (request: DungeonPathRequest): DungeonPathResult 
   previousDirections.fill(-1);
   const visited = new Uint8Array(tileCount);
   const open = [fromTileIndex];
+  const directions = getDungeonMovementDirectionsForMode(request.directionMode ?? 'four-way');
+  const cardinalNeighbor = (tileIndex: number, direction: typeof DUNGEON_MAP_DIRECTION_ORDER[number]): number => {
+    const directionIndex = DUNGEON_MAP_DIRECTION_ORDER.indexOf(direction);
+    return map.topology.neighborTileIndices[tileIndex * 4 + directionIndex];
+  };
+  const movementNeighbor = (tileIndex: number, direction: DungeonMovementDirection): number => {
+    if (!isDungeonDiagonalDirection(direction)) return cardinalNeighbor(tileIndex, direction);
+    const [horizontal, vertical] = getDungeonDiagonalAxes(direction);
+    const horizontalTile = cardinalNeighbor(tileIndex, horizontal);
+    const verticalTile = cardinalNeighbor(tileIndex, vertical);
+    const horizontalTarget = horizontalTile < 0 ? -1 : cardinalNeighbor(horizontalTile, vertical);
+    const verticalTarget = verticalTile < 0 ? -1 : cardinalNeighbor(verticalTile, horizontal);
+    if (horizontalTarget >= 0 && verticalTarget >= 0 && horizontalTarget !== verticalTarget) return -1;
+    return horizontalTarget >= 0 ? horizontalTarget : verticalTarget;
+  };
   let visitedCount = 0;
 
   while (open.length) {
@@ -92,13 +115,14 @@ export const findDungeonPath = (request: DungeonPathRequest): DungeonPathResult 
     visitedCount += 1;
     if (current === toTileIndex) break;
 
-    const directionIndices = DUNGEON_MAP_DIRECTION_ORDER.map((_, index) => index)
+    const directionIndices = directions.map((_, index) => index)
       .sort((left, right) => randomPriority(seed, current, left) - randomPriority(seed, current, right));
     directionIndices.forEach((directionIndex) => {
-      const direction = DUNGEON_MAP_DIRECTION_ORDER[directionIndex];
-      const next = map.topology.neighborTileIndices[current * 4 + directionIndex];
+      const direction = directions[directionIndex];
+      const next = movementNeighbor(current, direction);
       if (next < 0 || visited[next] || request.canTraverse?.(current, next, direction) === false) return;
-      const stepCost = request.getStepCost?.(current, next, direction) ?? 1;
+      const stepCost = request.getStepCost?.(current, next, direction)
+        ?? getDungeonMovementDirectionCost(direction);
       if (!Number.isFinite(stepCost) || stepCost <= 0) return;
       const candidateCost = costs[current] + stepCost;
       const existingPrevious = previousTiles[next];
@@ -116,13 +140,13 @@ export const findDungeonPath = (request: DungeonPathRequest): DungeonPathResult 
     return { ...invalid('unreachable'), visitedCount };
   }
   const reversedTiles = [toTileIndex];
-  const reversedDirections: DungeonMapDirection[] = [];
+  const reversedDirections: DungeonMovementDirection[] = [];
   let cursor = toTileIndex;
   while (cursor !== fromTileIndex) {
     const directionIndex = previousDirections[cursor];
     const previous = previousTiles[cursor];
     if (directionIndex < 0 || previous < 0) return { ...invalid('unreachable'), visitedCount };
-    reversedDirections.push(DUNGEON_MAP_DIRECTION_ORDER[directionIndex]);
+    reversedDirections.push(directions[directionIndex]);
     reversedTiles.push(previous);
     cursor = previous;
   }

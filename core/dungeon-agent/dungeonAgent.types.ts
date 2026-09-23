@@ -3,7 +3,7 @@ import type {
   IFactionComponent,
   IGridAgentComponent,
 } from '../entity/index.ts';
-import type { DungeonMapDirection } from '../map/index.ts';
+import type { DungeonMovementDirection } from '../dungeon-movement/index.ts';
 import type { DungeonMapDocumentEntity } from '../map-document/index.ts';
 import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
 import type { DungeonMovementResolver } from '../dungeon-movement/index.ts';
@@ -22,8 +22,8 @@ export type DungeonAgentMovement = {
   requestId?: string;
   fromTileIndex: number;
   toTileIndex: number;
-  fromFacing: DungeonMapDirection;
-  toFacing: DungeonMapDirection;
+  fromFacing: DungeonMovementDirection;
+  toFacing: DungeonMovementDirection;
   elapsedSeconds: number;
   durationSeconds: number;
   visualProgress?: number;
@@ -33,7 +33,7 @@ export type DungeonAgentMovement = {
 export type DungeonRuntimeAgent = {
   readonly binding: DungeonAgentBinding;
   tileIndex: number;
-  facing: DungeonMapDirection;
+  facing: DungeonMovementDirection;
   /** Lab 或游戏流程施加的运行时移动优先级覆盖；不会回写地图文档。 */
   priorityOverride?: number;
   enabled: boolean;
@@ -48,7 +48,7 @@ export type DungeonRuntimeAgent = {
 export type DungeonAgentNavigationPlan = {
   targetTileIndex: number;
   tileIndices: readonly number[];
-  directions: readonly DungeonMapDirection[];
+  directions: readonly DungeonMovementDirection[];
   nextStepIndex: number;
   totalCost: number;
   visitedCount: number;
@@ -74,9 +74,11 @@ export type DungeonAgentMovementBlockedReason =
   | 'agent-not-found'
   | 'agent-disabled'
   | 'movement-in-progress'
+  | 'direction-not-supported'
   | 'map-boundary'
   | 'terrain'
   | 'movement-obstacle'
+  | 'corner-blocked'
   | 'occupied';
 
 export type DungeonAgentMovementResult = Readonly<{

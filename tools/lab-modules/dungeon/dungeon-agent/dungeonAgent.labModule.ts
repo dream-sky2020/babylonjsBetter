@@ -1,4 +1,8 @@
-import type { DungeonMapDirection } from '@/core/map';
+import {
+  getDungeonMovementDirectionYaw,
+  resolveDungeonMovementProfile,
+  type DungeonMovementDirection,
+} from '@/core/dungeon-movement';
 import {
   clearDungeonAgentControllerOverride,
   createDefaultDungeonAgentControllerRegistry,
@@ -12,6 +16,7 @@ import {
   setDungeonAgentControllerOverride,
   startDungeonAgentMovement,
   startDungeonAgentTurn,
+  syncDungeonAgentPathReservation,
   updateDungeonAgentControllers,
   updateDungeonAgentMovements,
   type DungeonAgentControllerAction,
@@ -44,13 +49,6 @@ import {
   createDungeonAgentRuntimeReferences,
   DUNGEON_AGENT_RUNTIME_SERVICE_KEY,
 } from './dungeonAgent.references';
-
-const DIRECTION_YAWS: Readonly<Record<DungeonMapDirection, number>> = {
-  north: Math.PI,
-  east: Math.PI / 2,
-  south: 0,
-  west: -Math.PI / 2,
-};
 
 const FACTION_COLORS: Readonly<Record<string, string>> = {
   hostile: '#ef4444',
@@ -101,6 +99,11 @@ export const dungeonAgentLabModule: LabModule = {
     const selectedAgentSelect = document.createElement('select');
     const positionInput = createReadonlyInput();
     const facingInput = createReadonlyInput();
+    const movementModeSelect = document.createElement('select');
+    movementModeSelect.replaceChildren(
+      Object.assign(document.createElement('option'), { value: 'ground-four-way', textContent: '四方向' }),
+      Object.assign(document.createElement('option'), { value: 'ground-eight-way', textContent: '八方向' }),
+    );
     const controllerSelect = document.createElement('select');
     const controllerDescription = document.createElement('p');
     controllerDescription.className = 'lab-hint';
@@ -126,8 +129,10 @@ export const dungeonAgentLabModule: LabModule = {
     const durationInput = createDurationInput();
     const moveControls = document.createElement('div');
     moveControls.className = 'lab-movement-grid';
-    const directions: ReadonlyArray<readonly [DungeonMapDirection, string]> = [
-      ['north', '↑ 北'], ['west', '← 西'], ['south', '↓ 南'], ['east', '→ 东'],
+    const directions: ReadonlyArray<readonly [DungeonMovementDirection, string]> = [
+      ['north-east', '↖ 东北'], ['north', '↑ 北'], ['north-west', '↗ 西北'],
+      ['east', '← 东'], ['west', '→ 西'],
+      ['south-east', '↙ 东南'], ['south', '↓ 南'], ['south-west', '↘ 西南'],
     ];
     directions.forEach(([direction, label]) => {
       const button = document.createElement('button');
@@ -156,6 +161,7 @@ export const dungeonAgentLabModule: LabModule = {
       createLabField('选择 Agent', selectedAgentSelect),
       createLabField('当前格子', positionInput),
       createLabField('当前朝向', facingInput),
+      createLabField('移动方向能力（本次运行）', movementModeSelect),
       createLabField('控制器', controllerSelect),
       controllerDescription,
       createLabField('配置来源', controllerSource),
@@ -220,7 +226,7 @@ export const dungeonAgentLabModule: LabModule = {
       if (!marker) return;
       const movement = agent.movement;
       if (!movement) {
-        marker.setPose(tileWorldPosition(agent.tileIndex), DIRECTION_YAWS[agent.facing]);
+        marker.setPose(tileWorldPosition(agent.tileIndex), getDungeonMovementDirectionYaw(agent.facing));
         return;
       }
       const progress = movement.visualProgress ?? (movement.durationSeconds <= 0
@@ -228,9 +234,12 @@ export const dungeonAgentLabModule: LabModule = {
         : Math.min(1, movement.elapsedSeconds / movement.durationSeconds));
       const from = tileWorldPosition(movement.fromTileIndex);
       const to = tileWorldPosition(movement.toTileIndex);
-      const fromYaw = DIRECTION_YAWS[movement.fromFacing];
+      const fromYaw = getDungeonMovementDirectionYaw(movement.fromFacing);
       const rotationProgress = movement.rotationProgress ?? progress;
-      const yaw = fromYaw + shortestAngleDelta(fromYaw, DIRECTION_YAWS[movement.toFacing]) * rotationProgress;
+      const yaw = fromYaw + shortestAngleDelta(
+        fromYaw,
+        getDungeonMovementDirectionYaw(movement.toFacing),
+      ) * rotationProgress;
       marker.setPose([
         lerp(from[0], to[0], progress),
         lerp(from[1], to[1], progress),
@@ -287,6 +296,7 @@ export const dungeonAgentLabModule: LabModule = {
         currentAgent,
         current.definition,
         normalizeDungeonAgentControllerParameters(current.definition, parameters),
+        state ?? undefined,
       );
       controllerSource.value = '本次运行覆盖（不写回地图）';
       status.textContent = `已更新 ${current.definition.label} 的“${parameter.label}”。`;
@@ -427,7 +437,12 @@ export const dungeonAgentLabModule: LabModule = {
           const current = effectiveController(agent);
           const parameters = { ...current.config.parameters };
           delete parameters[parameter.key];
-          if (current.definition) setDungeonAgentControllerOverride(agent, current.definition, parameters);
+          if (current.definition) setDungeonAgentControllerOverride(
+            agent,
+            current.definition,
+            parameters,
+            state ?? undefined,
+          );
           refreshPanel();
           return;
         } else {
@@ -482,6 +497,13 @@ export const dungeonAgentLabModule: LabModule = {
         const position = tilePosition(agent.tileIndex);
         positionInput.value = `(${position.tileX}, ${position.tileY}) · index ${agent.tileIndex}`;
         facingInput.value = agent.facing;
+        const actor = state?.traversal.actors.get(agent.binding.entity.id);
+        movementModeSelect.value = resolveDungeonMovementProfile(
+          actor?.movementProfileId ?? agent.binding.gridAgent.movementProfileId,
+        ).directionMode === 'eight-way' ? 'ground-eight-way' : 'ground-four-way';
+        moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move*="-"]').forEach((button) => {
+          button.disabled = movementModeSelect.value !== 'ground-eight-way';
+        });
         controllerSelect.value = current.config.controllerId;
         controllerDescription.textContent = current.definition?.description
           ?? `未注册的 Controller：“${current.config.controllerId}”。`;
@@ -494,6 +516,10 @@ export const dungeonAgentLabModule: LabModule = {
       } else {
         positionInput.value = '';
         facingInput.value = '';
+        movementModeSelect.value = 'ground-four-way';
+        moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move]').forEach((button) => {
+          button.disabled = true;
+        });
         controllerSelect.value = '';
         controllerDescription.textContent = '请先选择一个 Agent。';
         controllerSource.value = '';
@@ -502,37 +528,45 @@ export const dungeonAgentLabModule: LabModule = {
         progressWeightInput.value = '';
       }
       controllerSelect.disabled = !agent;
+      movementModeSelect.disabled = !agent;
       resetControllerButton.disabled = !agent?.controllerOverride;
       resetPriorityButton.disabled = !agent || agent.priorityOverride === undefined;
       renderControllerParameters(agent);
-      runtimeJson.textContent = JSON.stringify(state ? {
-        loadId: loaded?.loadId,
-        turnNumber: state.turnNumber,
-        agents: state.agents.map((item) => ({
-          entityId: item.binding.entity.id,
-          name: item.binding.entity.name,
-          tileIndex: item.tileIndex,
-          tilePosition: tilePosition(item.tileIndex),
-          facing: item.facing,
-          blocksMovement: item.binding.gridAgent.blocksMovement,
-          actionPeriod: item.binding.gridAgent.actionPeriod,
-          priority: item.binding.gridAgent.priority,
-          effectivePriority: resolveDungeonAgentPriority(item),
-          prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
-          movementProfileId: item.binding.gridAgent.movementProfileId,
-          controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
-          controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
-          controllerSource: item.controllerOverride ? 'runtime-override' : 'map',
-          controllerState: item.controllerState,
-          navigationPlan: item.navigationPlan,
-          factionId: item.binding.faction?.factionId ?? 'neutral',
-          movement: item.movement,
-        })),
-        occupantsByTile: state.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
-        pathReservationsByTile: state.traversal.pathReservationsByTile.map((reservations) => Object.fromEntries(reservations)),
-        movement: state.movementResolver.debugSnapshot(),
-      } : { loaded: false }, null, 2);
+      if (!panel.content.hidden) {
+        runtimeJson.textContent = JSON.stringify(state ? {
+          loadId: loaded?.loadId,
+          turnNumber: state.turnNumber,
+          agents: state.agents.map((item) => ({
+            entityId: item.binding.entity.id,
+            name: item.binding.entity.name,
+            tileIndex: item.tileIndex,
+            tilePosition: tilePosition(item.tileIndex),
+            facing: item.facing,
+            blocksMovement: item.binding.gridAgent.blocksMovement,
+            actionPeriod: item.binding.gridAgent.actionPeriod,
+            priority: item.binding.gridAgent.priority,
+            effectivePriority: resolveDungeonAgentPriority(item),
+            prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
+            movementProfileId: state.traversal.actors.get(item.binding.entity.id)?.movementProfileId
+              ?? item.binding.gridAgent.movementProfileId,
+            controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
+            controllerParameters: resolveDungeonAgentControllerConfig(item).parameters,
+            controllerSource: item.controllerOverride ? 'runtime-override' : 'map',
+            controllerState: item.controllerState,
+            navigationPlan: item.navigationPlan,
+            factionId: item.binding.faction?.factionId ?? 'neutral',
+            movement: item.movement,
+          })),
+          occupantsByTile: state.traversal.occupantIdsByTile.map((occupants) => [...occupants]),
+          pathReservationsByTile: state.traversal.pathReservationsByTile.map((reservations) => Object.fromEntries(reservations)),
+          movement: state.movementResolver.debugSnapshot(),
+        } : { loaded: false }, null, 2);
+      }
     };
+    const panelVisibilityObserver = new MutationObserver(() => {
+      if (!panel.content.hidden) refreshPanel();
+    });
+    panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
 
     priorityInput.addEventListener('change', () => {
       const agent = selectedAgent();
@@ -605,7 +639,7 @@ export const dungeonAgentLabModule: LabModule = {
       });
     };
 
-    const moveSelectedAgent = (direction: DungeonMapDirection) => {
+    const moveSelectedAgent = (direction: DungeonMovementDirection) => {
       const agent = selectedAgent();
       if (!agent || !state || !loaded) return;
       const result = startDungeonAgentMovement(
@@ -646,12 +680,22 @@ export const dungeonAgentLabModule: LabModule = {
     };
 
     moveControls.querySelectorAll<HTMLButtonElement>('[data-agent-move]').forEach((button) => {
-      button.addEventListener('click', () => moveSelectedAgent(button.dataset.agentMove as DungeonMapDirection));
+      button.addEventListener('click', () => moveSelectedAgent(button.dataset.agentMove as DungeonMovementDirection));
     });
     turnControls.querySelectorAll<HTMLButtonElement>('[data-agent-turn]').forEach((button) => {
       button.addEventListener('click', () => turnSelectedAgent(button.dataset.agentTurn as DungeonAgentTurn));
     });
     selectedAgentSelect.addEventListener('change', refreshPanel);
+    movementModeSelect.addEventListener('change', () => {
+      const agent = selectedAgent();
+      if (!agent || !state) return;
+      const actor = state.traversal.actors.get(agent.binding.entity.id);
+      if (!actor) return;
+      actor.movementProfileId = movementModeSelect.value;
+      agent.navigationPlan = undefined;
+      syncDungeonAgentPathReservation(state, agent);
+      refreshPanel();
+    });
     controllerSelect.addEventListener('change', () => {
       const agent = selectedAgent();
       const definition = controllerRegistry.get(controllerSelect.value);
@@ -660,6 +704,7 @@ export const dungeonAgentLabModule: LabModule = {
         agent,
         definition,
         createDefaultDungeonAgentControllerParameters(definition),
+        state ?? undefined,
       );
       renderedParameterKey = '';
       status.textContent = `已将 ${agent.binding.entity.name ?? agent.binding.entity.id} 的 Controller 切换为“${definition.label}”；仅影响本次运行。`;
@@ -668,7 +713,7 @@ export const dungeonAgentLabModule: LabModule = {
     resetControllerButton.addEventListener('click', () => {
       const agent = selectedAgent();
       if (!agent) return;
-      clearDungeonAgentControllerOverride(agent);
+      clearDungeonAgentControllerOverride(agent, state ?? undefined);
       renderedParameterKey = '';
       status.textContent = `已恢复 ${agent.binding.entity.name ?? agent.binding.entity.id} 的地图 Controller 配置。`;
       refreshPanel();
@@ -754,6 +799,7 @@ export const dungeonAgentLabModule: LabModule = {
       offMapChanged();
       offRuntimeChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
+      panelVisibilityObserver.disconnect();
       disposeMarkers();
       agentReferenceController.clear();
       context.services.delete(DUNGEON_AGENT_RUNTIME_SERVICE_KEY);
