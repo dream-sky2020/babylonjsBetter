@@ -3,6 +3,7 @@ import type { DungeonMapDirection } from '../map';
 import type { DungeonRuntimeMap } from './dungeonRuntimeMap.ts';
 import type { DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
 import type { DungeonMovementResolver } from '../dungeon-movement/index.ts';
+import type { DungeonMovementDirection } from '../dungeon-movement/index.ts';
 
 /** 玩家在地牢中的权威逻辑格子位置。 */
 export type DungeonRuntimePlayerPosition = {
@@ -18,7 +19,7 @@ export type DungeonRuntimePlayerMovement = {
   /** move/rollback 由共享移动仲裁器推进；turn/blocked 不使用。 */
   requestId?: string;
   /** 实际跨越地图格子的方向。 */
-  direction: DungeonMapDirection;
+  direction: DungeonMovementDirection;
   /** 动作完成后的玩家朝向；横移和后退时可与 direction 不同。 */
   targetFacing: DungeonMapDirection;
   from: DungeonRuntimePlayerPosition;

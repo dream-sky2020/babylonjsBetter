@@ -1,4 +1,4 @@
-import type { DungeonMapDirection } from '../map/index.ts';
+import type { DungeonMovementDirection } from './dungeonMovement.direction.ts';
 
 export type DungeonMoveRequestState =
   | 'forward-before-commit'
@@ -8,9 +8,11 @@ export type DungeonMoveRequestState =
 export type DungeonMoveRequest = {
   readonly id: string;
   readonly actorId: string;
-  readonly direction: DungeonMapDirection;
+  readonly direction: DungeonMovementDirection;
   readonly fromTileIndex: number;
   readonly toTileIndex: number;
+  /** 斜向移动穿越的共享 Point；用于阻止两个 Actor 在途中交叉穿透。 */
+  readonly crossingPointIndex?: number;
   readonly durationSeconds: number;
   readonly commitProgress: number;
   readonly basePriority: number;
@@ -24,7 +26,7 @@ export type DungeonMoveRequest = {
 
 export type DungeonMoveRequestOptions = Readonly<{
   actorId: string;
-  direction: DungeonMapDirection;
+  direction: DungeonMovementDirection;
   durationSeconds: number;
   commitProgress?: number;
   basePriority?: number;
@@ -48,9 +50,11 @@ export type DungeonMoveRequestResult = Readonly<{
   displacedRequestId?: string;
   blockedReason?:
     | 'movement-in-progress'
+    | 'direction-not-supported'
     | 'map-boundary'
     | 'terrain'
     | 'movement-obstacle'
+    | 'corner-blocked'
     | 'occupied'
     | 'reservation-conflict';
   blockingEntityIds: readonly string[];
@@ -82,4 +86,5 @@ export type DungeonMovementDebugSnapshot = Readonly<{
     priority: number;
   }>[];
   movementReservationsByTile: readonly Readonly<Record<string, string>>[];
+  movementReservationsByPoint: readonly Readonly<Record<string, string>>[];
 }>;

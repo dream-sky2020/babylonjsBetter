@@ -1,5 +1,17 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-23：Dungeon 可选八方向格步移动
+
+Dungeon 地图的 Side、Edge、出口和编译拓扑继续保持 NESW 四方向；`core/dungeon-movement/dungeonMovement.direction.ts` 新增独立的八方向移动步类型和 Movement Profile。旧 `ground` 与 `ground-four-way` 默认维持四方向，`ground-eight-way` 为单个玩家或 Agent 开启斜向能力，因此同一地图可混合两种角色而不迁移地图文档。
+
+`DungeonTraversalWorld.inspectStep()` 是方向能力与斜向通行的权威入口。严格禁止切角会验证斜向的两条正交分解路线，动态占位只检查最终目标格；Movement Resolver 除目标格虚占位外还预约斜向经过的共享 Point，避免目标不同的两条对角移动在中途交叉穿透。寻路器按请求的方向模式枚举四或八邻居，正交代价为 1、斜向代价为 √2，并继续叠加路径预约拥堵代价。
+
+玩家运行时可通过 Movement Profile 单独切换四/八方向；玩家 Lab 使用按键状态向量合成斜向输入，四方向模式保留原来的最近按键行为。Agent 继续以 `grid-agent.movementProfileId` 保存地图初始能力，Agent Lab 提供不写回地图的单 Agent 运行时方向模式覆盖。世界单位速度按实际斜向距离计时，每格计时和 Agent 基础格步耗时对斜向乘以 √2。地图/交互逻辑朝向仍保持四方向，八方向 Agent Debug 表现可使用精确移动朝向。
+
+Agent 路径软预约采用按 Actor 增量同步：只有路线创建、推进、清除或 Controller 配置变化时才更新对应 Agent，不再在每个渲染帧前后全量重建。`DungeonTraversalWorld` 维护 Actor 到已预约格子的反向索引，清理复杂度与该 Actor 的实际剩余路线长度相关，不再扫描整张地图。
+
+玩家移动与 Agent 面板折叠时不再生成 Runtime Debug JSON，重新展开后才刷新；系统通信日志折叠时只保留有界 Journal 数据而清空并停止创建条目 DOM，默认展开视图最多渲染最近 50 条，搜索或筛选时仍可查看完整 Journal 范围。
+
 ## 2026-09-22：通用 Editor Inspector UI
 
 `core/ui/editor-kit/` 提供不依赖 Babylon 或具体文档模型的紧凑编辑器层级树和 Inspector 外壳。`ObjectHierarchy` 统一搜索、展开、受控选择、多选提示、状态徽标、右键入口和可选拖拽改父级；拖拽使用明确的 before、after、inside 与 root-end Drop Intent，显示插入线、Group 高亮和目标文字，支持多选拖动、非法循环拒绝、悬停展开和边缘自动滚动。具体修改仍由各领域 Store/History 执行。Animation Workbench 使用 Animation Workspace 对象适配该层级树，`babylon-scene-inspector` 保留原公共接口并在内部适配 Babylon Scene Node，Dialogue Preview Canvas 使用 UI Document 的 `nodes + rootIds` 接入同一层级树和 Inspector 外壳。

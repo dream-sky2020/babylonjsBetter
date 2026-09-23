@@ -1,7 +1,11 @@
-import type { DungeonMapDirection } from '../map/index.ts';
 import type { DungeonRuntimeMap } from '../dungeon-runtime/dungeonRuntimeMap.ts';
 import { createDungeonTraversalWorld, type DungeonTraversalWorld } from '../dungeon-traversal/index.ts';
 import { createDungeonMovementResolver, type DungeonMovementResolver } from '../dungeon-movement/index.ts';
+import {
+  DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS,
+  getDungeonMovementDirectionCost,
+  type DungeonMovementDirection,
+} from '../dungeon-movement/index.ts';
 import { scanDungeonDocumentAgents } from './dungeonAgent.scan.ts';
 import type {
   DungeonAgentMovementResult,
@@ -51,17 +55,22 @@ export const resolveDungeonAgentPriority = (agent: DungeonRuntimeAgent): number 
   agent.priorityOverride ?? agent.binding.gridAgent.priority
 );
 
+export const syncDungeonAgentPathReservation = (
+  state: DungeonAgentRuntimeState,
+  agent: DungeonRuntimeAgent,
+): void => {
+  const actorId = agent.binding.entity.id;
+  const plan = agent.navigationPlan;
+  if (!agent.enabled || !plan) {
+    state.traversal.clearReservations(actorId);
+    return;
+  }
+  state.traversal.replaceReservations(actorId, plan.tileIndices, plan.nextStepIndex + 1);
+};
+
+/** 仅供初始化、恢复与兼容调用；正常帧循环必须使用单 Agent 增量同步。 */
 export const rebuildDungeonAgentPathReservations = (state: DungeonAgentRuntimeState): void => {
-  state.agents.forEach((agent) => {
-    state.traversal.clearReservations(agent.binding.entity.id);
-    const plan = agent.navigationPlan;
-    if (!agent.enabled || !plan) return;
-    state.traversal.replaceReservations(
-      agent.binding.entity.id,
-      plan.tileIndices,
-      plan.nextStepIndex + 1,
-    );
-  });
+  state.agents.forEach((agent) => syncDungeonAgentPathReservation(state, agent));
 };
 
 const requireDuration = (value: number | undefined): number => {
@@ -94,7 +103,7 @@ export const inspectDungeonAgentStepTraversal = (
   map: DungeonRuntimeMap,
   agent: DungeonRuntimeAgent,
   fromTileIndex: number,
-  direction: DungeonMapDirection,
+  direction: DungeonMovementDirection,
   options: DungeonAgentStepTraversalOptions = {},
 ): DungeonAgentStepTraversalResult => {
   void map;
@@ -117,7 +126,7 @@ export const startDungeonAgentMovement = (
   state: DungeonAgentRuntimeState,
   map: DungeonRuntimeMap,
   entityId: string,
-  direction: DungeonMapDirection,
+  direction: DungeonMovementDirection,
   options: DungeonAgentMovementOptions = {},
 ): DungeonAgentMovementResult => {
   const resolved = getAgent(state, entityId);
@@ -139,7 +148,8 @@ export const startDungeonAgentMovement = (
     };
   }
 
-  const durationSeconds = requireDuration(options.durationSeconds);
+  const durationSeconds = requireDuration(options.durationSeconds)
+    * getDungeonMovementDirectionCost(direction);
   const fromFacing = agent.facing;
   const requestResult = state.movementResolver.requestMove({
     actorId: agent.binding.entity.id,
@@ -183,7 +193,7 @@ export const startDungeonAgentMovement = (
   return { started: true, completed: durationSeconds === 0, entityId, fromTileIndex, toTileIndex };
 };
 
-const CLOCKWISE_DIRECTIONS: readonly DungeonMapDirection[] = ['north', 'east', 'south', 'west'];
+const CLOCKWISE_DIRECTIONS = DUNGEON_EIGHT_WAY_MOVEMENT_DIRECTIONS;
 
 export const startDungeonAgentTurn = (
   state: DungeonAgentRuntimeState,
@@ -198,8 +208,8 @@ export const startDungeonAgentTurn = (
   if (agent.movement) return { started: false, completed: false, entityId, blockedReason: 'movement-in-progress' };
   const duration = requireDuration(durationSeconds);
   const currentIndex = CLOCKWISE_DIRECTIONS.indexOf(agent.facing);
-  const offset = turn === 'left' ? -1 : turn === 'right' ? 1 : 2;
-  const nextFacing = CLOCKWISE_DIRECTIONS[(currentIndex + offset + 4) % 4];
+  const offset = turn === 'left' ? -2 : turn === 'right' ? 2 : 4;
+  const nextFacing = CLOCKWISE_DIRECTIONS[(currentIndex + offset + 8) % 8];
   const fromFacing = agent.facing;
   agent.facing = nextFacing;
   agent.movement = duration > 0 ? {
@@ -233,6 +243,7 @@ export const updateDungeonAgentMovements = (
       if (advance.state === 'rollback') {
         agent.movement.kind = 'rollback';
         agent.navigationPlan = undefined;
+        syncDungeonAgentPathReservation(state, agent);
       }
       agent.movement.visualProgress = advance.visualProgress;
       agent.movement.elapsedSeconds = advance.visualProgress * agent.movement.durationSeconds;
@@ -248,6 +259,7 @@ export const updateDungeonAgentMovements = (
         if (plan?.directions[plan.nextStepIndex] === agent.movement.toFacing
           && plan.tileIndices[plan.nextStepIndex] === agent.movement.fromTileIndex) {
           plan.nextStepIndex += 1;
+          syncDungeonAgentPathReservation(state, agent);
         }
       }
       if (!advance.completed) return;

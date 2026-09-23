@@ -5,6 +5,8 @@ import type {
 } from './labCommunicationJournal';
 import { createLabField, createLabStatus, type LabUi } from './labUi';
 
+const DEFAULT_VISIBLE_ENTRY_LIMIT = 50;
+
 const PHASE_LABELS: Record<LabCommunicationLogEntry['phase'], string> = {
   'request-started': '请求开始',
   'request-completed': '请求完成',
@@ -67,7 +69,10 @@ export const createLabCommunicationLogPanel = (
   ui: LabUi,
   journal: LabCommunicationJournalReader,
 ): (() => void) => {
-  const panel = ui.addPanel('system-communication-log', `通信日志 · 最近 ${journal.capacity} 条`);
+  const panel = ui.addPanel(
+    'system-communication-log',
+    `通信日志 · 默认显示最近 ${DEFAULT_VISIBLE_ENTRY_LIMIT} 条`,
+  );
   panel.root.classList.add('lab-system-panel');
   const search = document.createElement('input');
   search.type = 'search';
@@ -110,27 +115,34 @@ export const createLabCommunicationLogPanel = (
   let renderFrame: number | null = null;
   let defaultViewEntries = new Map<number, HTMLElement>();
   let renderedAsDefaultView = false;
+  const clearRenderedEntries = () => {
+    defaultViewEntries.clear();
+    renderedAsDefaultView = false;
+    list.replaceChildren();
+  };
   const render = () => {
     renderFrame = null;
+    if (panel.content.hidden) return;
     const query = search.value.trim().toLocaleLowerCase();
     const mode = filter.value;
     const allEntries = journal.getEntries();
     const defaultView = !query && mode === 'all';
     if (defaultView) {
+      const visibleEntries = allEntries.slice(-DEFAULT_VISIBLE_ENTRY_LIMIT);
       if (!renderedAsDefaultView) {
-        defaultViewEntries = new Map(allEntries.map((entry) => {
+        defaultViewEntries = new Map(visibleEntries.map((entry) => {
           const element = createEntryElement(entry);
           return [entry.sequence, element] as const;
         }));
         list.replaceChildren(...[...defaultViewEntries.values()].reverse());
       } else {
-        const retainedSequences = new Set(allEntries.map(({ sequence }) => sequence));
+        const retainedSequences = new Set(visibleEntries.map(({ sequence }) => sequence));
         defaultViewEntries.forEach((element, sequence) => {
           if (retainedSequences.has(sequence)) return;
           element.remove();
           defaultViewEntries.delete(sequence);
         });
-        allEntries.forEach((entry) => {
+        visibleEntries.forEach((entry) => {
           if (defaultViewEntries.has(entry.sequence)) return;
           const element = createEntryElement(entry);
           defaultViewEntries.set(entry.sequence, element);
@@ -139,7 +151,7 @@ export const createLabCommunicationLogPanel = (
       }
       renderedAsDefaultView = true;
       status.textContent = allEntries.length
-        ? `共保存 ${allEntries.length} 条，当前显示 ${allEntries.length} 条。`
+        ? `共保存 ${allEntries.length} 条，当前显示 ${visibleEntries.length} 条。`
         : '尚无通信记录。';
       return;
     }
@@ -159,9 +171,21 @@ export const createLabCommunicationLogPanel = (
       : '尚无通信记录。';
   };
   const scheduleRender = () => {
+    if (panel.content.hidden) return;
     if (renderFrame !== null) return;
     renderFrame = requestAnimationFrame(render);
   };
+  const panelVisibilityObserver = new MutationObserver(() => {
+    if (panel.content.hidden) {
+      if (renderFrame !== null) cancelAnimationFrame(renderFrame);
+      renderFrame = null;
+      clearRenderedEntries();
+      status.textContent = `已折叠；继续保存最近 ${journal.capacity} 条，但不创建日志 DOM。`;
+      return;
+    }
+    scheduleRender();
+  });
+  panelVisibilityObserver.observe(panel.content, { attributes: true, attributeFilter: ['hidden'] });
   const offJournal = journal.subscribe(scheduleRender);
   search.addEventListener('input', scheduleRender);
   filter.addEventListener('change', scheduleRender);
@@ -184,10 +208,11 @@ export const createLabCommunicationLogPanel = (
     URL.revokeObjectURL(url);
     status.textContent = '通信日志 JSON 已导出。';
   });
-  render();
+  if (!panel.content.hidden) render();
 
   return () => {
     offJournal();
+    panelVisibilityObserver.disconnect();
     if (renderFrame !== null) cancelAnimationFrame(renderFrame);
     panel.root.remove();
   };

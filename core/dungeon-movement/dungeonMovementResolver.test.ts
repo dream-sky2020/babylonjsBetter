@@ -122,3 +122,32 @@ test('可在运行时更新移动进度权重 X', () => {
   assert.equal(resolver.config.progressWeight, 3.5);
   assert.throws(() => resolver.updateConfig({ progressWeight: -1 }), /非负有限数/);
 });
+
+test('相交的两条斜向路径通过共享 Point 预约参与优先级仲裁', () => {
+  const document = migrateDungeonMapToDocumentV2({
+    presetKey: 'diagonal-crossing-test',
+    name: 'Diagonal Crossing Test',
+    map: createDungeonMapData({ id: 'diagonal-crossing-test', width: 2, height: 2 }),
+  }).document;
+  const traversal = createDungeonTraversalWorld(createDungeonRuntimeMap(document));
+  traversal.registerActor({
+    id: 'agent:nw', kind: 'agent', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way',
+  });
+  traversal.registerActor({
+    id: 'agent:ne', kind: 'agent', tileIndex: 1,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way',
+  });
+  const resolver = createDungeonMovementResolver(traversal);
+  const first = resolver.requestMove({
+    actorId: 'agent:nw', direction: 'south-east', durationSeconds: 1, basePriority: 10,
+  });
+  const second = resolver.requestMove({
+    actorId: 'agent:ne', direction: 'south-west', durationSeconds: 1, basePriority: 1,
+  });
+  assert.equal(first.accepted, true);
+  assert.equal(second.accepted, false);
+  assert.equal(second.blockedReason, 'reservation-conflict');
+  const pointIndex = first.request?.crossingPointIndex;
+  assert.equal(pointIndex === undefined ? false : resolver.movementReservationsByPoint[pointIndex].has('agent:nw'), true);
+});

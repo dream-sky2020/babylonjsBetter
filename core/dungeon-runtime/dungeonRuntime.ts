@@ -9,11 +9,16 @@ import {
 } from '../dungeon-traversal/index.ts';
 import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 
+export type DungeonRuntimeCreationOptions = Readonly<{
+  playerMovementProfileId?: string;
+}>;
+
 /** 使用已经解析并校验过的玩家出生点创建地图运行时。 */
 export const createDungeonRuntime = (
   document: DungeonMapDocumentV2,
   playerSpawn: DungeonPlayerSpawnBinding,
   playerFacing: DungeonRuntime['playerFacing'] = 'south',
+  options: DungeonRuntimeCreationOptions = {},
 ): DungeonRuntime => {
   const map = createDungeonRuntimeMap(document);
   const obstacles = scanDungeonDocumentObstacles(document);
@@ -27,7 +32,7 @@ export const createDungeonRuntime = (
     tileIndex: playerTileIndex,
     enabled: true,
     blocksMovement: true,
-    movementProfileId: 'ground',
+    movementProfileId: options.playerMovementProfileId ?? 'ground',
   });
   return {
     map,
@@ -46,6 +51,16 @@ export const createDungeonRuntime = (
     playerMovement: null,
     obstacleStates,
   };
+};
+
+/** 只改变本次运行的玩家移动能力，不写回地图或存档。 */
+export const setDungeonRuntimePlayerMovementProfile = (
+  runtime: DungeonRuntime,
+  movementProfileId: string,
+): void => {
+  const actor = runtime.traversal.actors.get(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+  if (!actor) throw new Error('DungeonRuntime 中不存在玩家通行 Actor。');
+  actor.movementProfileId = movementProfileId;
 };
 
 /**

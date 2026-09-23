@@ -40,6 +40,27 @@ const runtimeForLine = (): DungeonRuntime => {
   };
 };
 
+const runtimeForSquare = (): DungeonRuntime => {
+  const document = migrateDungeonMapToDocumentV2({
+    presetKey: 'movement-square',
+    name: 'Movement Square',
+    map: createDungeonMapData({ id: 'movement-square', width: 3, height: 3, mode: 'bounded' }),
+  }).document;
+  const map = createDungeonRuntimeMap(document);
+  const traversal = createDungeonTraversalWorld(map);
+  const movementResolver = createDungeonMovementResolver(traversal);
+  traversal.registerActor({
+    id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, kind: 'player', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way',
+  });
+  return {
+    map, traversal, movementResolver, obstacles: [],
+    playerPosition: { tileX: 0, tileY: 0 }, playerFacing: 'south',
+    playerWorldPosition: [0, 0, 0], playerWorldRotationY: 0,
+    playerMovement: null, obstacleStates: new Map(),
+  };
+};
+
 const startEast = (runtime: DungeonRuntime) => startDungeonPlayerMovement(runtime, 'east', {
   movementTimingMode: 'world-units-per-second',
   movementSpeed: 1,
@@ -136,4 +157,19 @@ test('玩家的虚占位被更高优先级请求抢走时，从当前视觉位�
   assert.equal(runtime.playerWorldPosition[0], 0);
   assert.deepEqual(runtime.playerPosition, { tileX: 0, tileY: 0 });
   assert.deepEqual([...runtime.traversal.occupantIdsByTile[0]], [DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID]);
+});
+
+test('玩家八方向格步按真实距离计时，并保留四方向逻辑朝向', () => {
+  const runtime = runtimeForSquare();
+  const started = startDungeonPlayerMovement(runtime, 'south-east', {
+    movementTimingMode: 'world-units-per-second', movementSpeed: 1,
+    resolveWorldPosition: ({ tileX, tileY }) => [tileX, 0, tileY],
+  });
+  assert.equal(started.started, true);
+  assert.ok(Math.abs((runtime.playerMovement?.movementDurationSeconds ?? 0) - Math.SQRT2) < 1e-9);
+  const completed = updateDungeonPlayerMovement(runtime, Math.SQRT2);
+  assert.equal(completed.completed, true);
+  assert.deepEqual(runtime.playerPosition, { tileX: 1, tileY: 1 });
+  assert.equal(runtime.playerFacing, 'south');
+  assert.ok(Math.abs(runtime.playerWorldRotationY - Math.PI / 4) < 1e-9);
 });

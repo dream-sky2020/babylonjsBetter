@@ -40,8 +40,13 @@ test('路径预约是软代价数据，不会变成硬阻挡', () => {
   world.replaceReservations('agent:b', [0, 1, 2], 1);
   assert.equal(world.reservationCount(1, 'agent:a'), 1);
   assert.equal(world.inspectStep('agent:a', 0, 'east').blockedReason, undefined);
-  world.clearReservations('agent:b');
+  world.replaceReservations('agent:b', [2, 3, 4], 1);
   assert.equal(world.reservationCount(1), 0);
+  assert.equal(world.reservationCount(3), 1);
+  assert.equal(world.reservationCount(4), 1);
+  world.clearReservations('agent:b');
+  assert.equal(world.reservationCount(3), 0);
+  assert.equal(world.reservationCount(4), 0);
 });
 
 test('可以查询连续移动 X 格的结果与完整合法方向集合', () => {
@@ -62,4 +67,23 @@ test('可以查询连续移动 X 格的结果与完整合法方向集合', () =>
   assert.deepEqual(east.blockingEntityIds, ['agent:blocker']);
   assert.deepEqual(world.getLegalDirections('agent:mover', 12, 2), ['north', 'south', 'west']);
   assert.throws(() => world.getLegalDirections('agent:mover', 12, 0), /正整数/);
+});
+
+test('八方向能力按 Actor 独立生效，并只检查斜向目标格的动态占位', () => {
+  const world = createWorld();
+  world.registerActor({
+    id: 'agent:four', kind: 'agent', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground-four-way',
+  });
+  world.registerActor({
+    id: 'agent:eight', kind: 'agent', tileIndex: 4,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground-eight-way',
+  });
+  assert.equal(world.inspectStep('agent:four', 0, 'south-east').blockedReason, 'direction-not-supported');
+  assert.equal(world.inspectStep('agent:eight', 4, 'south-west').toTileIndex, 8);
+  world.registerActor({
+    id: 'agent:blocker', kind: 'agent', tileIndex: 8,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground',
+  });
+  assert.equal(world.inspectStep('agent:eight', 4, 'south-west').blockedReason, 'occupied');
 });

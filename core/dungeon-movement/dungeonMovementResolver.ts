@@ -7,6 +7,11 @@ import type {
   DungeonMovementDebugSnapshot,
   DungeonMovementResolverConfig,
 } from './dungeonMovement.types.ts';
+import {
+  getDungeonDiagonalCornerIndex,
+  isDungeonDiagonalDirection,
+  resolveDungeonMovementProfile,
+} from './dungeonMovement.direction.ts';
 
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
@@ -25,6 +30,7 @@ export class DungeonMovementResolver {
   readonly traversal: DungeonTraversalWorld;
   config: DungeonMovementResolverConfig;
   readonly movementReservationsByTile: ReadonlyArray<Map<string, string>>;
+  readonly movementReservationsByPoint: ReadonlyArray<Map<string, string>>;
   private readonly requests = new Map<string, DungeonMoveRequest>();
   private readonly activeRequestIdByActor = new Map<string, string>();
   private nextRequestSequence = 1;
@@ -47,6 +53,10 @@ export class DungeonMovementResolver {
     }
     this.movementReservationsByTile = Array.from(
       { length: traversal.occupantIdsByTile.length },
+      () => new Map<string, string>(),
+    );
+    this.movementReservationsByPoint = Array.from(
+      { length: traversal.map.topology.pointIds.length },
       () => new Map<string, string>(),
     );
   }
@@ -89,6 +99,9 @@ export class DungeonMovementResolver {
 
   private releaseReservation(request: DungeonMoveRequest): void {
     this.movementReservationsByTile[request.toTileIndex]?.delete(request.actorId);
+    if (request.crossingPointIndex !== undefined) {
+      this.movementReservationsByPoint[request.crossingPointIndex]?.delete(request.actorId);
+    }
   }
 
   private beginRollback(request: DungeonMoveRequest): void {
@@ -128,6 +141,14 @@ export class DungeonMovementResolver {
       direction: options.direction,
       fromTileIndex: actor.tileIndex,
       toTileIndex: inspection.toTileIndex,
+      ...(isDungeonDiagonalDirection(options.direction)
+        && resolveDungeonMovementProfile(actor.movementProfileId).reserveDiagonalCrossing
+        ? {
+          crossingPointIndex: this.traversal.map.topology.pointIndices[
+            actor.tileIndex * 4 + getDungeonDiagonalCornerIndex(options.direction)
+          ],
+        }
+        : {}),
       durationSeconds: options.durationSeconds,
       commitProgress: requireUnitInterval(options.commitProgress ?? this.config.commitProgress, '提交进度'),
       basePriority: options.basePriority ?? 0,
@@ -135,10 +156,19 @@ export class DungeonMovementResolver {
       state: 'forward-before-commit',
       elapsedSeconds: 0,
     };
-    const winner = this.reservationWinner(request.toTileIndex);
-    if (winner) {
+    const tileWinner = this.reservationWinner(request.toTileIndex);
+    const pointRequestId = request.crossingPointIndex === undefined
+      ? undefined
+      : [...(this.movementReservationsByPoint[request.crossingPointIndex]?.values() ?? [])][0];
+    const pointWinner = pointRequestId ? this.requests.get(pointRequestId) : undefined;
+    const winners = [...new Map(
+      [tileWinner, pointWinner].filter((winner): winner is DungeonMoveRequest => !!winner)
+        .map((winner) => [winner.id, winner]),
+    ).values()];
+    for (const winner of winners) {
       const scoreDelta = this.priorityOf(request) - this.priorityOf(winner);
-      const requestWins = scoreDelta > 0 || (scoreDelta === 0 && request.actorId.localeCompare(winner.actorId) < 0);
+      const requestWins = scoreDelta > 0
+        || (scoreDelta === 0 && request.actorId.localeCompare(winner.actorId) < 0);
       if (!requestWins) {
         return {
           accepted: false,
@@ -146,15 +176,18 @@ export class DungeonMovementResolver {
           blockingEntityIds: [winner.actorId],
         };
       }
-      this.beginRollback(winner);
     }
+    winners.forEach((winner) => this.beginRollback(winner));
     this.requests.set(request.id, request);
     this.activeRequestIdByActor.set(request.actorId, request.id);
     this.movementReservationsByTile[request.toTileIndex].set(request.actorId, request.id);
+    if (request.crossingPointIndex !== undefined && request.crossingPointIndex >= 0) {
+      this.movementReservationsByPoint[request.crossingPointIndex].set(request.actorId, request.id);
+    }
     return {
       accepted: true,
       request,
-      ...(winner ? { displacedRequestId: winner.id } : {}),
+      ...(winners[0] ? { displacedRequestId: winners[0].id } : {}),
       blockingEntityIds: [],
     };
   }
@@ -182,8 +215,8 @@ export class DungeonMovementResolver {
     let committed = false;
     let completed = false;
     let rolledBack = false;
-    let consumedSeconds = 0;
-    let visualProgress = 0;
+    let consumedSeconds: number;
+    let visualProgress: number;
 
     if (request.state === 'rollback') {
       const duration = request.rollbackDurationSeconds ?? 0;
@@ -244,6 +277,8 @@ export class DungeonMovementResolver {
         priority: this.priorityOf(request),
       })),
       movementReservationsByTile: this.movementReservationsByTile
+        .map((reservations) => Object.fromEntries(reservations)),
+      movementReservationsByPoint: this.movementReservationsByPoint
         .map((reservations) => Object.fromEntries(reservations)),
     };
   }
