@@ -309,16 +309,31 @@ const valueWithPath = <T extends object>(source: T, path: string, value: unknown
 };
 
 export const DungeonMapCanvasLab: React.FC = () => {
+  // ---------------------------------------------------------------------------
+  // Canvas 尺寸与地图结构
+  // ---------------------------------------------------------------------------
   const [cellSize, setCellSize] = useState(64);
   const [canvasOuterPadding, setCanvasOuterPadding] = useState(48);
   const [minCanvasWidth, setMinCanvasWidth] = useState(800);
   const [minCanvasHeight, setMinCanvasHeight] = useState(640);
+
+  // 当前地图的正式尺寸和拓扑模式。
   const [mapWidth, setMapWidth] = useState<number>(MAP_ROWS[0].length);
   const [mapHeight, setMapHeight] = useState<number>(MAP_ROWS.length);
   const [topologyMode, setTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
+
+  // 结构编辑表单的草稿值；应用结构修改前不会直接写入当前地图。
   const [draftMapWidth, setDraftMapWidth] = useState<number>(MAP_ROWS[0].length);
   const [draftMapHeight, setDraftMapHeight] = useState<number>(MAP_ROWS.length);
   const [draftTopologyMode, setDraftTopologyMode] = useState<DungeonMapTopologyMode>('bounded');
+
+  // 结构编辑当前定位的行和列。
+  const [structureRowIndex, setStructureRowIndex] = useState(0);
+  const [structureColumnIndex, setStructureColumnIndex] = useState(0);
+
+  // ---------------------------------------------------------------------------
+  // 预设、文档与保存状态
+  // ---------------------------------------------------------------------------
   const [mapPresets, setMapPresets] = useState<DungeonMapPresetLibrary>({});
   const [mapDocuments, setMapDocuments] = useState<DungeonMapDocumentLibraryV2>({});
   const [mapDocument, setMapDocument] = useState<DungeonMapDocumentV2>();
@@ -333,8 +348,10 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [presetSaving, setPresetSaving] = useState(false);
   const [presetReloading, setPresetReloading] = useState(false);
   const [savedPresetFingerprints, setSavedPresetFingerprints] = useState<Record<string, string>>({});
-  const [structureRowIndex, setStructureRowIndex] = useState(0);
-  const [structureColumnIndex, setStructureColumnIndex] = useState(0);
+
+  // ---------------------------------------------------------------------------
+  // Canvas 视口与基础显示选项
+  // ---------------------------------------------------------------------------
   const [mapScale, setMapScale] = useState(1);
   const mapViewportRef = useRef<HTMLDivElement>(null);
   const [mapViewportSize, setMapViewportSize] = useState({ width: 0, height: 0 });
@@ -342,6 +359,10 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [showCoordinates, setShowCoordinates] = useState(false);
   const [fogEnabled, setFogEnabled] = useState(true);
   const [visited] = useState(() => new Set(['1,1']));
+
+  // ---------------------------------------------------------------------------
+  // 地图素材与实体显示外观
+  // ---------------------------------------------------------------------------
   const options = useMemo(() => ({ walls: patternOptions('walls'), tiles: patternOptions('tiles'), characters: patternOptions('characters'), events: patternOptions('events'), edges: patternOptions('edges'), sharedEdges: patternOptions('shared-edges'), sharedPoints: patternOptions('shared-points') }), []);
   const suites = useMemo(() => patternSuites(), []);
   const minimalSuite = suites.find((suite) => suite.name === '极简');
@@ -359,6 +380,11 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const [edgeEditMode, setEdgeEditMode] = useState<'linked' | 'individual'>('linked');
   const [edgeThicknessRatio, setEdgeThicknessRatio] = useState(0.24);
   const [sharedEdgeThicknessRatio, setSharedEdgeThicknessRatio] = useState(0.24);
+
+  // ---------------------------------------------------------------------------
+  // 空间容器数据与 Canvas 选择
+  // ---------------------------------------------------------------------------
+  // 这些 edits 是旧版/兼容编辑路径的局部覆盖；V2 文档存在时，正式数据来自 mapDocument。
   const [selectedDirection, setSelectedDirection] = useState<DungeonMapDirection>('east');
   const [mapDataEdits, setMapDataEdits] = useState<IEntityContainer>();
   const [tileDataEdits, setTileDataEdits] = useState<Record<string, IEntityContainer>>({});
@@ -373,16 +399,28 @@ export const DungeonMapCanvasLab: React.FC = () => {
     text: string;
   }>();
   const canvasSelection = canvasSelections[0];
+
+  // ---------------------------------------------------------------------------
+  // Entity / Component 检查器
+  // ---------------------------------------------------------------------------
   const [selectedEntityId, setSelectedEntityId] = useState('');
   const [selectedComponentId, setSelectedComponentId] = useState('');
   const [componentTypeToAdd, setComponentTypeToAdd] = useState(COMPONENT_DEFINITIONS[0]?.type ?? '');
   const [entityTypeToAdd, setEntityTypeToAdd] = useState(ENTITY_TYPE_DEFINITIONS[0]?.type ?? '');
+
+  // ---------------------------------------------------------------------------
+  // 批量 Entity / Component 编辑
+  // ---------------------------------------------------------------------------
   const [batchEntityTypeToCreate, setBatchEntityTypeToCreate] = useState('');
   const [batchEntityArchetypeDraft, setBatchEntityArchetypeDraft] = useState('');
   const [batchEntityGroupType, setBatchEntityGroupType] = useState('');
   const [batchComponentTypeToCreate, setBatchComponentTypeToCreate] = useState('');
   const [batchComponentSlotDraft, setBatchComponentSlotDraft] = useState('');
   const [batchComponentTypeToEdit, setBatchComponentTypeToEdit] = useState('');
+
+  // ---------------------------------------------------------------------------
+  // 可撤销编辑与面板导航
+  // ---------------------------------------------------------------------------
   const [pendingMutationPlan, setPendingMutationPlan] = useState<LabMutationPlan>();
   const [collapsedPanelIds, setCollapsedPanelIds] = useState<Set<string>>(() => new Set());
   const [panelWorkspace, setPanelWorkspace] = useState<LabPanelWorkspace>('project');
