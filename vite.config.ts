@@ -1,4 +1,5 @@
 import { defineConfig, type Plugin } from 'vite'
+import react from '@vitejs/plugin-react'
 import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
@@ -184,11 +185,12 @@ const sharedConfigPlugin = (): Plugin => ({
 export default defineConfig({
   // 正式构建由 Electron/file:// 直接打开；所有入口必须使用相对资源路径。
   base: './',
-  plugins: [sharedConfigPlugin()],
+  plugins: [react(), sharedConfigPlugin()],
   server: {
     port: 1184, // 将端口设置为你想要的数字
     strictPort: true, // 如果端口被占用，直接报错退出，而不是自动切换到下一个端口
-    open: true // 项目启动后自动在浏览器打开
+    open: true, // 项目启动后自动在浏览器打开
+    hmr: true,
   },
   resolve: {
     alias: {
