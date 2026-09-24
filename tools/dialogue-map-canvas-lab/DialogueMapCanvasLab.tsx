@@ -1,125 +1,1467 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
-  DIALOGUE_MAP_GRID_SIZE, cloneDialogueEditorDocument, createDialogueEditorDocument, createDialogueEditorNode,
-  computeDialogueNodeLayout, DIALOGUE_NODE_LAYOUT_METRICS, dialogueGridRectContains, dialogueLayoutPointToWorld,
-  diagnoseDialogueEditorDocument, diagnoseDialogueEntry, dialogueEdgeId, dialogueLineId, dialogueOutputPortId,
-  encodeDialogueEditorDocumentLibrary, loadDialogueEditorDocumentLibrary, resolveDialogueEditorSelection,
-  saveDialogueEditorDocumentLibrary, validateDialogueEditorDocument,
-  type DialogueEditorDocument, type DialogueEditorDocumentLibrary, type DialogueEditorEdge,
-  type DialogueEditorNode, type DialogueEditorSelection, type DialogueNodeDisplay,
+  DIALOGUE_MAP_GRID_SIZE,
+  cloneDialogueEditorDocument,
+  createDialogueEditorDocument,
+  createDialogueEditorNode,
+  computeDialogueNodeLayout,
+  DIALOGUE_NODE_LAYOUT_METRICS,
+  dialogueGridRectContains,
+  dialogueLayoutPointToWorld,
+  diagnoseDialogueEditorDocument,
+  diagnoseDialogueEntry,
+  dialogueEdgeId,
+  dialogueLineId,
+  dialogueOutputPortId,
+  encodeDialogueEditorDocumentLibrary,
+  loadDialogueEditorDocumentLibrary,
+  resolveDialogueEditorSelection,
+  saveDialogueEditorDocumentLibrary,
+  validateDialogueEditorDocument,
+  type DialogueEditorDocument,
+  type DialogueEditorDocumentLibrary,
+  type DialogueEditorEdge,
+  type DialogueEditorNode,
+  type DialogueEditorSelection,
+  type DialogueNodeDisplay,
 } from '@/core/dialogue-map';
 import './dialogue-map-canvas-lab.css';
 
-const GRID = DIALOGUE_MAP_GRID_SIZE; const WORKSPACE_KEY = 'dialogue-map-canvas-lab:preview-entries';
-const SHAPE_LABEL: Record<DialogueNodeDisplay['shape'], string> = { rectangle: '长方形', rounded: '圆角长方形', diamond: '菱形', hexagon: '六边形', pill: '胶囊形', document: '文档形' };
-const COLORS: Record<string, { body: string; header: string }> = { 'blue-muted': { body: '#17243a', header: '#385675' }, 'violet-muted': { body: '#241f38', header: '#5c4d78' }, 'red-muted': { body: '#302027', header: '#76505a' }, 'green-muted': { body: '#192c29', header: '#456a62' }, 'gray-muted': { body: '#202735', header: '#4b596b' } };
-const makeId = (prefix: string, ids: ReadonlySet<string>) => { let id = prefix; let index = 1; while (ids.has(id)) id = `${prefix}_${index++}`; return id; };
-const snap = (value: number) => Math.round(value / GRID) * GRID; const short = (value: string, length: number) => value.length > length ? `${value.slice(0, length - 1)}…` : value;
-const nodeSize = (node: DialogueEditorNode) => { const layout = computeDialogueNodeLayout(node); return { width: layout.widthUnits * GRID, height: layout.actualHeightUnits * GRID }; };
-const requiredHeight = (node: DialogueEditorNode) => computeDialogueNodeLayout(node).minimumHeightUnits;
-const selected = (selection: DialogueEditorSelection, kind: DialogueEditorSelection['kind'], id: string) => selection.kind === kind && (kind === 'edge' ? 'edgeId' in selection && selection.edgeId === id : kind === 'line' ? 'lineId' in selection && selection.lineId === id : kind === 'node' ? 'nodeId' in selection && selection.nodeId === id : 'portId' in selection && selection.portId === id);
+const GRID = DIALOGUE_MAP_GRID_SIZE;
+const WORKSPACE_KEY = 'dialogue-map-canvas-lab:preview-entries';
+const SHAPE_LABEL: Record<DialogueNodeDisplay['shape'], string> = {
+  rectangle: '长方形',
+  rounded: '圆角长方形',
+  diamond: '菱形',
+  hexagon: '六边形',
+  pill: '胶囊形',
+  document: '文档形',
+};
+const COLORS: Record<string, { body: string; header: string }> = {
+  'blue-muted': { body: '#17243a', header: '#385675' },
+  'violet-muted': { body: '#241f38', header: '#5c4d78' },
+  'red-muted': { body: '#302027', header: '#76505a' },
+  'green-muted': { body: '#192c29', header: '#456a62' },
+  'gray-muted': { body: '#202735', header: '#4b596b' },
+};
+const makeId = (prefix: string, ids: ReadonlySet<string>) => {
+  let id = prefix;
+  let index = 1;
+  while (ids.has(id)) id = `${prefix}_${index++}`;
+  return id;
+};
+const snap = (value: number) => Math.round(value / GRID) * GRID;
+const short = (value: string, length: number) =>
+  value.length > length ? `${value.slice(0, length - 1)}…` : value;
+const nodeSize = (node: DialogueEditorNode) => {
+  const layout = computeDialogueNodeLayout(node);
+  return {
+    width: layout.widthUnits * GRID,
+    height: layout.actualHeightUnits * GRID,
+  };
+};
+const requiredHeight = (node: DialogueEditorNode) =>
+  computeDialogueNodeLayout(node).minimumHeightUnits;
+const selected = (
+  selection: DialogueEditorSelection,
+  kind: DialogueEditorSelection['kind'],
+  id: string,
+) =>
+  selection.kind === kind &&
+  (kind === 'edge'
+    ? 'edgeId' in selection && selection.edgeId === id
+    : kind === 'line'
+      ? 'lineId' in selection && selection.lineId === id
+      : kind === 'node'
+        ? 'nodeId' in selection && selection.nodeId === id
+        : 'portId' in selection && selection.portId === id);
 type Point = { x: number; y: number };
 
 const portPosition = (node: DialogueEditorNode, portId: string): Point => {
-  const layout = computeDialogueNodeLayout(node); const anchor = layout.inputAnchors.get(portId) ?? layout.outputAnchors.get(portId);
-  return anchor ? dialogueLayoutPointToWorld(node, anchor) : { ...node.position };
+  const layout = computeDialogueNodeLayout(node);
+  const anchor =
+    layout.inputAnchors.get(portId) ?? layout.outputAnchors.get(portId);
+  return anchor
+    ? dialogueLayoutPointToWorld(node, anchor)
+    : { ...node.position };
 };
-const edgePoints = (document: DialogueEditorDocument, edge: DialogueEditorEdge): [Point, Point] | undefined => { const from = document.graph.nodes.get(edge.from.nodeId); const to = document.graph.nodes.get(edge.to.nodeId); return from && to ? [portPosition(from, edge.from.portId), portPosition(to, edge.to.portId)] : undefined; };
-const distanceToSegment = (p: Point, a: Point, b: Point) => { const dx = b.x - a.x; const dy = b.y - a.y; if (!dx && !dy) return Math.hypot(p.x - a.x, p.y - a.y); const t = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy))); return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy); };
+const edgePoints = (
+  document: DialogueEditorDocument,
+  edge: DialogueEditorEdge,
+): [Point, Point] | undefined => {
+  const from = document.graph.nodes.get(edge.from.nodeId);
+  const to = document.graph.nodes.get(edge.to.nodeId);
+  return from && to
+    ? [portPosition(from, edge.from.portId), portPosition(to, edge.to.portId)]
+    : undefined;
+};
+const distanceToSegment = (p: Point, a: Point, b: Point) => {
+  const dx = b.x - a.x;
+  const dy = b.y - a.y;
+  if (!dx && !dy) return Math.hypot(p.x - a.x, p.y - a.y);
+  const t = Math.max(
+    0,
+    Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy)),
+  );
+  return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy);
+};
 
-type CanvasProps = { document: DialogueEditorDocument; selection: DialogueEditorSelection; previewEntry?: string; resetViewToken: number; onSelection: (value: DialogueEditorSelection) => void; onMove: (nodeId: string, position: Point) => void; onConnect: (fromNodeId: string, outputId: string, toNodeId: string, inputId: string) => void; onPreview: (nodeId: string) => void };
-const DialogueCanvas: React.FC<CanvasProps> = ({ document, selection, previewEntry, resetViewToken, onSelection, onMove, onConnect, onPreview }) => {
-  const hostRef = useRef<HTMLDivElement>(null); const canvasRef = useRef<HTMLCanvasElement>(null); const [size, setSize] = useState({ width: 1, height: 1 }); const [view, setView] = useState({ x: 48, y: 48, scale: 1 });
-  const gesture = useRef<{ mode: 'pan' | 'node' | 'connect'; start: Point; origin: Point; nodeId?: string; portId?: string; nodeOrigin?: Point }>();
-  useEffect(() => { const host = hostRef.current; if (!host) return; const update = () => setSize({ width: Math.max(1, host.clientWidth), height: Math.max(1, host.clientHeight) }); update(); const observer = new ResizeObserver(update); observer.observe(host); return () => observer.disconnect(); }, []);
-  useEffect(() => { const nodes = [...document.graph.nodes.values()]; if (!nodes.length) return; const minX = Math.min(...nodes.map((n) => n.position.x)); const minY = Math.min(...nodes.map((n) => n.position.y)); const maxX = Math.max(...nodes.map((n) => n.position.x + nodeSize(n).width)); const maxY = Math.max(...nodes.map((n) => n.position.y + nodeSize(n).height)); const scale = Math.min(1.1, Math.max(.3, Math.min((size.width - 96) / Math.max(1, maxX - minX), (size.height - 96) / Math.max(1, maxY - minY))));
+type CanvasProps = {
+  document: DialogueEditorDocument;
+  selection: DialogueEditorSelection;
+  previewEntry?: string;
+  resetViewToken: number;
+  onSelection: (value: DialogueEditorSelection) => void;
+  onMove: (nodeId: string, position: Point) => void;
+  onConnect: (
+    fromNodeId: string,
+    outputId: string,
+    toNodeId: string,
+    inputId: string,
+  ) => void;
+  onPreview: (nodeId: string) => void;
+};
+const DialogueCanvas: React.FC<CanvasProps> = ({
+  document,
+  selection,
+  previewEntry,
+  resetViewToken,
+  onSelection,
+  onMove,
+  onConnect,
+  onPreview,
+}) => {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [size, setSize] = useState({ width: 1, height: 1 });
+  const [view, setView] = useState({ x: 48, y: 48, scale: 1 });
+  const gesture = useRef<{
+    mode: 'pan' | 'node' | 'connect';
+    start: Point;
+    origin: Point;
+    nodeId?: string;
+    portId?: string;
+    nodeOrigin?: Point;
+  }>();
+  useEffect(() => {
+    const host = hostRef.current;
+    if (!host) return;
+    const update = () =>
+      setSize({
+        width: Math.max(1, host.clientWidth),
+        height: Math.max(1, host.clientHeight),
+      });
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(host);
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
+    const nodes = [...document.graph.nodes.values()];
+    if (!nodes.length) return;
+    const minX = Math.min(...nodes.map((n) => n.position.x));
+    const minY = Math.min(...nodes.map((n) => n.position.y));
+    const maxX = Math.max(
+      ...nodes.map((n) => n.position.x + nodeSize(n).width),
+    );
+    const maxY = Math.max(
+      ...nodes.map((n) => n.position.y + nodeSize(n).height),
+    );
+    const scale = Math.min(
+      1.1,
+      Math.max(
+        0.3,
+        Math.min(
+          (size.width - 96) / Math.max(1, maxX - minX),
+          (size.height - 96) / Math.max(1, maxY - minY),
+        ),
+      ),
+    );
     // 预设切换和“适配全部”需要重置视图，而不是派生持久状态。
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setView({ x: (size.width - (maxX - minX) * scale) / 2 - minX * scale, y: (size.height - (maxY - minY) * scale) / 2 - minY * scale, scale });
+    setView({
+      x: (size.width - (maxX - minX) * scale) / 2 - minX * scale,
+      y: (size.height - (maxY - minY) * scale) / 2 - minY * scale,
+      scale,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document.presetKey, resetViewToken, size.width, size.height]);
-  const world = (point: Point) => ({ x: (point.x - view.x) / view.scale, y: (point.y - view.y) / view.scale }); const screen = (point: Point) => ({ x: view.x + point.x * view.scale, y: view.y + point.y * view.scale });
+  const world = (point: Point) => ({
+    x: (point.x - view.x) / view.scale,
+    y: (point.y - view.y) / view.scale,
+  });
+  const screen = (point: Point) => ({
+    x: view.x + point.x * view.scale,
+    y: view.y + point.y * view.scale,
+  });
   const hitTest = (point: Point): DialogueEditorSelection | undefined => {
     const p = world(point);
     for (const node of [...document.graph.nodes.values()].reverse()) {
-      const layout = computeDialogueNodeLayout(node); const portHitRadius = DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * GRID + 5 / view.scale;
-      for (const id of node.inputOrder) { const q = portPosition(node, id); if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius) return { kind: 'input', nodeId: node.id, portId: id }; }
-      for (const id of node.outputOrder) { const q = portPosition(node, id); if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius) return { kind: 'output', nodeId: node.id, portId: id }; }
-      const local = { x: (p.x - node.position.x) / GRID, y: (p.y - node.position.y) / GRID };
-      if (!dialogueGridRectContains({ x: 0, y: 0, width: layout.widthUnits, height: layout.actualHeightUnits }, local)) continue;
-      for (const [id, value] of layout.outputRows) if (dialogueGridRectContains(value.rect, local)) return { kind: 'output', nodeId: node.id, portId: id };
-      for (const [id, value] of layout.lineRows) if (dialogueGridRectContains(value.rect, local)) return { kind: 'line', nodeId: node.id, lineId: id };
+      const layout = computeDialogueNodeLayout(node);
+      const portHitRadius =
+        DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * GRID + 5 / view.scale;
+      for (const id of node.inputOrder) {
+        const q = portPosition(node, id);
+        if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius)
+          return { kind: 'input', nodeId: node.id, portId: id };
+      }
+      for (const id of node.outputOrder) {
+        const q = portPosition(node, id);
+        if (Math.hypot(p.x - q.x, p.y - q.y) <= portHitRadius)
+          return { kind: 'output', nodeId: node.id, portId: id };
+      }
+      const local = {
+        x: (p.x - node.position.x) / GRID,
+        y: (p.y - node.position.y) / GRID,
+      };
+      if (
+        !dialogueGridRectContains(
+          {
+            x: 0,
+            y: 0,
+            width: layout.widthUnits,
+            height: layout.actualHeightUnits,
+          },
+          local,
+        )
+      )
+        continue;
+      for (const [id, value] of layout.outputRows)
+        if (dialogueGridRectContains(value.rect, local))
+          return { kind: 'output', nodeId: node.id, portId: id };
+      for (const [id, value] of layout.lineRows)
+        if (dialogueGridRectContains(value.rect, local))
+          return { kind: 'line', nodeId: node.id, lineId: id };
       return { kind: 'node', nodeId: node.id };
     }
-    for (const edge of document.graph.edges.values()) { const points = edgePoints(document, edge); if (points && distanceToSegment(p, points[0], points[1]) < 9 / view.scale) return { kind: 'edge', edgeId: edge.id }; }
+    for (const edge of document.graph.edges.values()) {
+      const points = edgePoints(document, edge);
+      if (points && distanceToSegment(p, points[0], points[1]) < 9 / view.scale)
+        return { kind: 'edge', edgeId: edge.id };
+    }
     return undefined;
   };
-  useEffect(() => { const canvas = canvasRef.current; if (!canvas) return; const ratio = window.devicePixelRatio || 1; canvas.width = size.width * ratio; canvas.height = size.height * ratio; canvas.style.width = `${size.width}px`; canvas.style.height = `${size.height}px`; const ctx = canvas.getContext('2d'); if (!ctx) return; ctx.setTransform(ratio, 0, 0, ratio, 0, 0); ctx.fillStyle = '#0b1020'; ctx.fillRect(0, 0, size.width, size.height); const spacing = GRID * view.scale; if (spacing > 8) { ctx.strokeStyle = 'rgba(148,163,184,.075)'; ctx.beginPath(); for (let x = ((view.x % spacing) + spacing) % spacing; x < size.width; x += spacing) { ctx.moveTo(x, 0); ctx.lineTo(x, size.height); } for (let y = ((view.y % spacing) + spacing) % spacing; y < size.height; y += spacing) { ctx.moveTo(0, y); ctx.lineTo(size.width, y); } ctx.stroke(); }
-    document.graph.edges.forEach((edge) => { const points = edgePoints(document, edge); if (!points) return; const a = screen(points[0]); const b = screen(points[1]); ctx.strokeStyle = selected(selection, 'edge', edge.id) ? '#cbd5e1' : '#64748b'; ctx.lineWidth = selected(selection, 'edge', edge.id) ? 3 : 1.5; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); });
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = size.width * ratio;
+    canvas.height = size.height * ratio;
+    canvas.style.width = `${size.width}px`;
+    canvas.style.height = `${size.height}px`;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.fillStyle = '#0b1020';
+    ctx.fillRect(0, 0, size.width, size.height);
+    const spacing = GRID * view.scale;
+    if (spacing > 8) {
+      ctx.strokeStyle = 'rgba(148,163,184,.075)';
+      ctx.beginPath();
+      for (
+        let x = ((view.x % spacing) + spacing) % spacing;
+        x < size.width;
+        x += spacing
+      ) {
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, size.height);
+      }
+      for (
+        let y = ((view.y % spacing) + spacing) % spacing;
+        y < size.height;
+        y += spacing
+      ) {
+        ctx.moveTo(0, y);
+        ctx.lineTo(size.width, y);
+      }
+      ctx.stroke();
+    }
+    document.graph.edges.forEach((edge) => {
+      const points = edgePoints(document, edge);
+      if (!points) return;
+      const a = screen(points[0]);
+      const b = screen(points[1]);
+      ctx.strokeStyle = selected(selection, 'edge', edge.id)
+        ? '#cbd5e1'
+        : '#64748b';
+      ctx.lineWidth = selected(selection, 'edge', edge.id) ? 3 : 1.5;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    });
     document.graph.nodes.forEach((node) => {
-      const layout = computeDialogueNodeLayout(node); const p = screen(node.position); const unit = GRID * view.scale; const width = layout.widthUnits * unit; const height = layout.actualHeightUnits * unit; const color = COLORS[node.display.colorToken] ?? COLORS['gray-muted'];
-      const fullDetail = view.scale >= .75; const compactDetail = view.scale >= .45; const contentX = p.x + layout.contentInsetUnits * unit;
-      ctx.fillStyle = color.body; ctx.strokeStyle = selected(selection, 'node', node.id) ? '#cbd5e1' : '#465369'; ctx.lineWidth = selected(selection, 'node', node.id) ? 2.5 : 1.2; ctx.beginPath(); ctx.roundRect(p.x, p.y, width, height, node.display.shape === 'rectangle' ? 0 : 8); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = color.header; ctx.fillRect(p.x, p.y, width, layout.header.height * unit); ctx.fillStyle = '#e5eaf1'; ctx.font = `600 ${12 * view.scale}px Segoe UI`; ctx.textBaseline = 'alphabetic'; ctx.fillText(short(node.title || node.id, 24), contentX, p.y + (layout.header.height / 2 + .18) * unit);
-      if (previewEntry === node.id && compactDetail) { ctx.fillStyle = '#93c5a5'; ctx.textAlign = 'right'; ctx.fillText('PREVIEW', p.x + width - layout.contentInsetUnits * unit, p.y + (layout.header.height / 2 + .18) * unit); ctx.textAlign = 'left'; }
-      layout.separators.forEach((gridY) => { const y = p.y + gridY * unit; ctx.strokeStyle = 'rgba(148,163,184,.15)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, y); ctx.lineTo(p.x + width, y); ctx.stroke(); });
+      const layout = computeDialogueNodeLayout(node);
+      const p = screen(node.position);
+      const unit = GRID * view.scale;
+      const width = layout.widthUnits * unit;
+      const height = layout.actualHeightUnits * unit;
+      const color = COLORS[node.display.colorToken] ?? COLORS['gray-muted'];
+      const fullDetail = view.scale >= 0.75;
+      const compactDetail = view.scale >= 0.45;
+      const contentX = p.x + layout.contentInsetUnits * unit;
+      ctx.fillStyle = color.body;
+      ctx.strokeStyle = selected(selection, 'node', node.id)
+        ? '#cbd5e1'
+        : '#465369';
+      ctx.lineWidth = selected(selection, 'node', node.id) ? 2.5 : 1.2;
+      ctx.beginPath();
+      ctx.roundRect(
+        p.x,
+        p.y,
+        width,
+        height,
+        node.display.shape === 'rectangle' ? 0 : 8,
+      );
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = color.header;
+      ctx.fillRect(p.x, p.y, width, layout.header.height * unit);
+      ctx.fillStyle = '#e5eaf1';
+      ctx.font = `600 ${12 * view.scale}px Segoe UI`;
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(
+        short(node.title || node.id, 24),
+        contentX,
+        p.y + (layout.header.height / 2 + 0.18) * unit,
+      );
+      if (previewEntry === node.id && compactDetail) {
+        ctx.fillStyle = '#93c5a5';
+        ctx.textAlign = 'right';
+        ctx.fillText(
+          'PREVIEW',
+          p.x + width - layout.contentInsetUnits * unit,
+          p.y + (layout.header.height / 2 + 0.18) * unit,
+        );
+        ctx.textAlign = 'left';
+      }
+      layout.separators.forEach((gridY) => {
+        const y = p.y + gridY * unit;
+        ctx.strokeStyle = 'rgba(148,163,184,.15)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, y);
+        ctx.lineTo(p.x + width, y);
+        ctx.stroke();
+      });
       if (compactDetail && !node.display.collapsed) {
-        layout.lineRows.forEach((rowLayout, id) => { const line = node.lines.get(id); if (!line) return; const x = p.x + rowLayout.rect.x * unit; const y = p.y + rowLayout.rect.y * unit; const rowWidth = rowLayout.rect.width * unit; if (selected(selection, 'line', id)) { ctx.fillStyle = 'rgba(168,184,200,.14)'; ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit); } ctx.font = `${10 * view.scale}px Segoe UI`; if (fullDetail) { ctx.fillStyle = '#aeb9c7'; ctx.fillText(short(line.speaker || '无说话者', 20), x, y + .75 * unit); ctx.fillStyle = '#d3dae3'; ctx.fillText(short(line.text || '（空对白）', 30), x, y + 1.55 * unit); } else { ctx.fillStyle = '#d3dae3'; ctx.fillText(short(line.speaker || line.text || '空对白', 24), x, y + (rowLayout.rect.height / 2 + .18) * unit); } });
-        layout.outputRows.forEach((rowLayout, id) => { const output = node.outputs.get(id); if (!output) return; const x = p.x + rowLayout.rect.x * unit; const y = p.y + rowLayout.rect.y * unit; const rowWidth = rowLayout.rect.width * unit; if (selected(selection, 'output', id)) { ctx.fillStyle = 'rgba(167,139,250,.14)'; ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit); } const icon = output.activation.type === 'auto' ? '↪' : output.activation.type === 'event' ? '⚡' : '›'; ctx.font = `${10 * view.scale}px Segoe UI`; ctx.fillStyle = '#d8d0ef'; if (fullDetail) { ctx.fillText(`${icon} ${short(output.label || output.id, 26)}`, x, y + .75 * unit); const detail = output.activation.type === 'auto' ? `自动 · 优先级 ${output.activation.priority ?? 0}` : output.activation.type === 'event' ? `事件 · ${output.activation.eventId || '未设置'}` : '玩家选择'; ctx.fillStyle = '#8f9db1'; ctx.fillText(`${detail}${output.condition ? ' · 有条件' : ''}`, x, y + 1.55 * unit); } else ctx.fillText(`${icon} ${short(output.label || output.id, 22)}`, x, y + (rowLayout.rect.height / 2 + .18) * unit); });
+        layout.lineRows.forEach((rowLayout, id) => {
+          const line = node.lines.get(id);
+          if (!line) return;
+          const x = p.x + rowLayout.rect.x * unit;
+          const y = p.y + rowLayout.rect.y * unit;
+          const rowWidth = rowLayout.rect.width * unit;
+          if (selected(selection, 'line', id)) {
+            ctx.fillStyle = 'rgba(168,184,200,.14)';
+            ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
+          }
+          ctx.font = `${10 * view.scale}px Segoe UI`;
+          if (fullDetail) {
+            ctx.fillStyle = '#aeb9c7';
+            ctx.fillText(
+              short(line.speaker || '无说话者', 20),
+              x,
+              y + 0.75 * unit,
+            );
+            ctx.fillStyle = '#d3dae3';
+            ctx.fillText(
+              short(line.text || '（空对白）', 30),
+              x,
+              y + 1.55 * unit,
+            );
+          } else {
+            ctx.fillStyle = '#d3dae3';
+            ctx.fillText(
+              short(line.speaker || line.text || '空对白', 24),
+              x,
+              y + (rowLayout.rect.height / 2 + 0.18) * unit,
+            );
+          }
+        });
+        layout.outputRows.forEach((rowLayout, id) => {
+          const output = node.outputs.get(id);
+          if (!output) return;
+          const x = p.x + rowLayout.rect.x * unit;
+          const y = p.y + rowLayout.rect.y * unit;
+          const rowWidth = rowLayout.rect.width * unit;
+          if (selected(selection, 'output', id)) {
+            ctx.fillStyle = 'rgba(167,139,250,.14)';
+            ctx.fillRect(x, y, rowWidth, rowLayout.rect.height * unit);
+          }
+          const icon =
+            output.activation.type === 'auto'
+              ? '↪'
+              : output.activation.type === 'event'
+                ? '⚡'
+                : '›';
+          ctx.font = `${10 * view.scale}px Segoe UI`;
+          ctx.fillStyle = '#d8d0ef';
+          if (fullDetail) {
+            ctx.fillText(
+              `${icon} ${short(output.label || output.id, 26)}`,
+              x,
+              y + 0.75 * unit,
+            );
+            const detail =
+              output.activation.type === 'auto'
+                ? `自动 · 优先级 ${output.activation.priority ?? 0}`
+                : output.activation.type === 'event'
+                  ? `事件 · ${output.activation.eventId || '未设置'}`
+                  : '玩家选择';
+            ctx.fillStyle = '#8f9db1';
+            ctx.fillText(
+              `${detail}${output.condition ? ' · 有条件' : ''}`,
+              x,
+              y + 1.55 * unit,
+            );
+          } else
+            ctx.fillText(
+              `${icon} ${short(output.label || output.id, 22)}`,
+              x,
+              y + (rowLayout.rect.height / 2 + 0.18) * unit,
+            );
+        });
       }
       const baseRadius = DIALOGUE_NODE_LAYOUT_METRICS.portRadiusUnits * unit;
-      node.inputOrder.forEach((id) => { const q = screen(portPosition(node, id)); ctx.beginPath(); ctx.arc(q.x, q.y, selected(selection, 'input', id) ? baseRadius * 1.35 : baseRadius, 0, Math.PI * 2); ctx.fillStyle = '#718197'; ctx.fill(); ctx.strokeStyle = '#111827'; ctx.lineWidth = 1; ctx.stroke(); });
-      node.outputOrder.forEach((id) => { const q = screen(portPosition(node, id)); ctx.beginPath(); ctx.arc(q.x, q.y, selected(selection, 'output', id) ? baseRadius * 1.35 : baseRadius, 0, Math.PI * 2); ctx.fillStyle = '#a78bfa'; ctx.fill(); ctx.strokeStyle = '#21193b'; ctx.lineWidth = 1; ctx.stroke(); });
+      node.inputOrder.forEach((id) => {
+        const q = screen(portPosition(node, id));
+        ctx.beginPath();
+        ctx.arc(
+          q.x,
+          q.y,
+          selected(selection, 'input', id) ? baseRadius * 1.35 : baseRadius,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fillStyle = '#718197';
+        ctx.fill();
+        ctx.strokeStyle = '#111827';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+      node.outputOrder.forEach((id) => {
+        const q = screen(portPosition(node, id));
+        ctx.beginPath();
+        ctx.arc(
+          q.x,
+          q.y,
+          selected(selection, 'output', id) ? baseRadius * 1.35 : baseRadius,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fillStyle = '#a78bfa';
+        ctx.fill();
+        ctx.strokeStyle = '#21193b';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document, previewEntry, selection, size, view]);
-  const point = (event: React.PointerEvent<HTMLCanvasElement>) => { const rect = event.currentTarget.getBoundingClientRect(); return { x: event.clientX - rect.left, y: event.clientY - rect.top }; };
-  return <div className="dialogue-canvas" ref={hostRef}><canvas ref={canvasRef}
-    onContextMenu={(event) => { event.preventDefault(); const hit = hitTest(point(event)); if (hit && hit.kind !== 'edge') onPreview(hit.nodeId); }}
-    onPointerDown={(event) => { const p = point(event); const hit = hitTest(p); event.currentTarget.setPointerCapture(event.pointerId); if (hit) { onSelection(hit); if (hit.kind === 'output') gesture.current = { mode: 'connect', start: p, origin: { x: view.x, y: view.y }, nodeId: hit.nodeId, portId: hit.portId }; else if (hit.kind === 'node') { const node = document.graph.nodes.get(hit.nodeId)!; gesture.current = { mode: 'node', start: p, origin: { x: view.x, y: view.y }, nodeId: hit.nodeId, nodeOrigin: { ...node.position } }; } } else gesture.current = { mode: 'pan', start: p, origin: { x: view.x, y: view.y } }; }}
-    onPointerMove={(event) => { const active = gesture.current; if (!active) return; const p = point(event); if (active.mode === 'pan') setView((v) => ({ ...v, x: active.origin.x + p.x - active.start.x, y: active.origin.y + p.y - active.start.y })); if (active.mode === 'node' && active.nodeId && active.nodeOrigin) onMove(active.nodeId, { x: snap(active.nodeOrigin.x + (p.x - active.start.x) / view.scale), y: snap(active.nodeOrigin.y + (p.y - active.start.y) / view.scale) }); }}
-    onPointerUp={(event) => { const active = gesture.current; if (active?.mode === 'connect' && active.nodeId && active.portId) { const hit = hitTest(point(event)); if (hit?.kind === 'input') onConnect(active.nodeId, active.portId, hit.nodeId, hit.portId); } gesture.current = undefined; }} onPointerCancel={() => { gesture.current = undefined; }}
-    onWheel={(event) => { event.preventDefault(); setView((v) => ({ ...v, scale: Math.min(2.2, Math.max(.3, v.scale * (event.deltaY > 0 ? .9 : 1.1))) })); }} />
-    <div className="dialogue-canvas__hint">拖拽紫色输出端口到输入端口连线 · 右键节点从此处预览</div><div className="dialogue-canvas__zoom">{Math.round(view.scale * 100)}%</div></div>;
+  const point = (event: React.PointerEvent<HTMLCanvasElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  };
+  return (
+    <div className="dialogue-canvas" ref={hostRef}>
+      <canvas
+        ref={canvasRef}
+        onContextMenu={(event) => {
+          event.preventDefault();
+          const hit = hitTest(point(event));
+          if (hit && hit.kind !== 'edge') onPreview(hit.nodeId);
+        }}
+        onPointerDown={(event) => {
+          const p = point(event);
+          const hit = hitTest(p);
+          event.currentTarget.setPointerCapture(event.pointerId);
+          if (hit) {
+            onSelection(hit);
+            if (hit.kind === 'output')
+              gesture.current = {
+                mode: 'connect',
+                start: p,
+                origin: { x: view.x, y: view.y },
+                nodeId: hit.nodeId,
+                portId: hit.portId,
+              };
+            else if (hit.kind === 'node') {
+              const node = document.graph.nodes.get(hit.nodeId)!;
+              gesture.current = {
+                mode: 'node',
+                start: p,
+                origin: { x: view.x, y: view.y },
+                nodeId: hit.nodeId,
+                nodeOrigin: { ...node.position },
+              };
+            }
+          } else
+            gesture.current = {
+              mode: 'pan',
+              start: p,
+              origin: { x: view.x, y: view.y },
+            };
+        }}
+        onPointerMove={(event) => {
+          const active = gesture.current;
+          if (!active) return;
+          const p = point(event);
+          if (active.mode === 'pan')
+            setView((v) => ({
+              ...v,
+              x: active.origin.x + p.x - active.start.x,
+              y: active.origin.y + p.y - active.start.y,
+            }));
+          if (active.mode === 'node' && active.nodeId && active.nodeOrigin)
+            onMove(active.nodeId, {
+              x: snap(
+                active.nodeOrigin.x + (p.x - active.start.x) / view.scale,
+              ),
+              y: snap(
+                active.nodeOrigin.y + (p.y - active.start.y) / view.scale,
+              ),
+            });
+        }}
+        onPointerUp={(event) => {
+          const active = gesture.current;
+          if (active?.mode === 'connect' && active.nodeId && active.portId) {
+            const hit = hitTest(point(event));
+            if (hit?.kind === 'input')
+              onConnect(active.nodeId, active.portId, hit.nodeId, hit.portId);
+          }
+          gesture.current = undefined;
+        }}
+        onPointerCancel={() => {
+          gesture.current = undefined;
+        }}
+        onWheel={(event) => {
+          event.preventDefault();
+          setView((v) => ({
+            ...v,
+            scale: Math.min(
+              2.2,
+              Math.max(0.3, v.scale * (event.deltaY > 0 ? 0.9 : 1.1)),
+            ),
+          }));
+        }}
+      />
+      <div className="dialogue-canvas__hint">
+        拖拽紫色输出端口到输入端口连线 · 右键节点从此处预览
+      </div>
+      <div className="dialogue-canvas__zoom">
+        {Math.round(view.scale * 100)}%
+      </div>
+    </div>
+  );
 };
 
-const loadPreviewEntries = (): Record<string, string | undefined> => { try { return JSON.parse(localStorage.getItem(WORKSPACE_KEY) ?? '{}') as Record<string, string | undefined>; } catch { return {}; } };
+const loadPreviewEntries = (): Record<string, string | undefined> => {
+  try {
+    return JSON.parse(localStorage.getItem(WORKSPACE_KEY) ?? '{}') as Record<
+      string,
+      string | undefined
+    >;
+  } catch {
+    return {};
+  }
+};
 export const DialogueMapCanvasLab: React.FC = () => {
-  const [library, setLibrary] = useState<DialogueEditorDocumentLibrary>({}); const [activeKey, setActiveKey] = useState(''); const [selection, setSelection] = useState<DialogueEditorSelection>({ kind: 'node', nodeId: '' }); const [previewEntries, setPreviewEntries] = useState(loadPreviewEntries); const [savedFingerprint, setSavedFingerprint] = useState(''); const [message, setMessage] = useState('正在连接数据源…'); const [isError, setIsError] = useState(false); const [saving, setSaving] = useState(false); const [newKey, setNewKey] = useState('dialogue_map'); const [newName, setNewName] = useState('新对话预设'); const [resetViewToken, setResetViewToken] = useState(0);
-  const document = library[activeKey]; const target = document ? resolveDialogueEditorSelection(document, selection) : undefined; const previewEntry = document && document.graph.nodes.has(previewEntries[activeKey] ?? '') ? previewEntries[activeKey] : document?.graph.nodes.keys().next().value;
-  const setPreviewEntry = (nodeId: string) => setPreviewEntries((current) => { const next = { ...current, [activeKey]: nodeId }; localStorage.setItem(WORKSPACE_KEY, JSON.stringify(next)); return next; });
-  const fingerprint = useMemo(() => JSON.stringify(encodeDialogueEditorDocumentLibrary(library)), [library]); const dirty = Boolean(savedFingerprint && fingerprint !== savedFingerprint);
-  const structuralIssues = useMemo(() => document ? validateDialogueEditorDocument(document) : [], [document]); const issues = useMemo(() => document ? [...structuralIssues, ...diagnoseDialogueEditorDocument(document), ...(previewEntry ? diagnoseDialogueEntry(document, previewEntry) : [])] : [], [document, previewEntry, structuralIssues]);
-  const load = useCallback(async () => { try { const next = await loadDialogueEditorDocumentLibrary(); const key = Object.keys(next)[0] ?? ''; const first = next[key]?.graph.nodes.keys().next().value ?? ''; setLibrary(next); setSavedFingerprint(JSON.stringify(encodeDialogueEditorDocumentLibrary(next))); setActiveKey(key); setSelection({ kind: 'node', nodeId: first }); setMessage(`已载入 ${Object.keys(next).length} 个 V3 对话预设。`); setIsError(false); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); } }, []);
+  const [library, setLibrary] = useState<DialogueEditorDocumentLibrary>({});
+  const [activeKey, setActiveKey] = useState('');
+  const [selection, setSelection] = useState<DialogueEditorSelection>({
+    kind: 'node',
+    nodeId: '',
+  });
+  const [previewEntries, setPreviewEntries] = useState(loadPreviewEntries);
+  const [savedFingerprint, setSavedFingerprint] = useState('');
+  const [message, setMessage] = useState('正在连接数据源…');
+  const [isError, setIsError] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [newKey, setNewKey] = useState('dialogue_map');
+  const [newName, setNewName] = useState('新对话预设');
+  const [resetViewToken, setResetViewToken] = useState(0);
+  const document = library[activeKey];
+  const target = document
+    ? resolveDialogueEditorSelection(document, selection)
+    : undefined;
+  const previewEntry =
+    document && document.graph.nodes.has(previewEntries[activeKey] ?? '')
+      ? previewEntries[activeKey]
+      : document?.graph.nodes.keys().next().value;
+  const setPreviewEntry = (nodeId: string) =>
+    setPreviewEntries((current) => {
+      const next = { ...current, [activeKey]: nodeId };
+      localStorage.setItem(WORKSPACE_KEY, JSON.stringify(next));
+      return next;
+    });
+  const fingerprint = useMemo(
+    () => JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
+    [library],
+  );
+  const dirty = Boolean(savedFingerprint && fingerprint !== savedFingerprint);
+  const structuralIssues = useMemo(
+    () => (document ? validateDialogueEditorDocument(document) : []),
+    [document],
+  );
+  const issues = useMemo(
+    () =>
+      document
+        ? [
+            ...structuralIssues,
+            ...diagnoseDialogueEditorDocument(document),
+            ...(previewEntry
+              ? diagnoseDialogueEntry(document, previewEntry)
+              : []),
+          ]
+        : [],
+    [document, previewEntry, structuralIssues],
+  );
+  const load = useCallback(async () => {
+    try {
+      const next = await loadDialogueEditorDocumentLibrary();
+      const key = Object.keys(next)[0] ?? '';
+      const first = next[key]?.graph.nodes.keys().next().value ?? '';
+      setLibrary(next);
+      setSavedFingerprint(
+        JSON.stringify(encodeDialogueEditorDocumentLibrary(next)),
+      );
+      setActiveKey(key);
+      setSelection({ kind: 'node', nodeId: first });
+      setMessage(`已载入 ${Object.keys(next).length} 个 V3 对话预设。`);
+      setIsError(false);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : String(error));
+      setIsError(true);
+    }
+  }, []);
   useEffect(() => {
     // 初次挂载连接数据源；状态更新发生在异步请求完成后。
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void load();
   }, [load]);
-  const updateDocument = useCallback((mutate: (draft: DialogueEditorDocument) => void) => setLibrary((current) => { const source = current[activeKey]; if (!source) return current; const draft = cloneDialogueEditorDocument(source); mutate(draft); return { ...current, [activeKey]: draft }; }), [activeKey]);
-  const updateNode = (nodeId: string, mutate: (node: DialogueEditorNode, draft: DialogueEditorDocument) => void) => updateDocument((draft) => { const node = draft.graph.nodes.get(nodeId); if (node) mutate(node, draft); });
-  if (!document) return <main className="dialogue-empty"><h1>Dialogue Map Canvas Lab</h1><p className={isError ? 'is-error' : ''}>{message}</p><button onClick={() => void load()}>重新加载</button></main>;
-  const selectPreset = (key: string) => { setActiveKey(key); setSelection({ kind: 'node', nodeId: library[key].graph.nodes.keys().next().value ?? '' }); setResetViewToken((v) => v + 1); };
-  const createPreset = () => { const key = newKey.trim(); if (!/^[A-Za-z0-9_-]+$/.test(key) || library[key]) { setMessage(library[key] ? '这个预设 Key 已存在。' : '预设 Key 格式无效。'); setIsError(true); return; } const next = createDialogueEditorDocument(key, newName.trim() || key); setLibrary((current) => ({ ...current, [key]: next })); setActiveKey(key); setSelection({ kind: 'node', nodeId: 'start' }); setPreviewEntries((current) => { const entries = { ...current, [key]: 'start' }; localStorage.setItem(WORKSPACE_KEY, JSON.stringify(entries)); return entries; }); };
-  const addNode = () => { const id = makeId('node', new Set(document.graph.nodes.keys())); updateDocument((draft) => draft.graph.nodes.set(id, createDialogueEditorNode(id, { x: GRID * (4 + draft.graph.nodes.size * 2), y: GRID * (4 + draft.graph.nodes.size) }))); setSelection({ kind: 'node', nodeId: id }); };
-  const deleteNode = (nodeId: string) => { const remaining = [...document.graph.nodes.keys()].filter((id) => id !== nodeId); updateDocument((draft) => { draft.graph.nodes.delete(nodeId); [...draft.graph.edges].forEach(([id, edge]) => { if (edge.from.nodeId === nodeId || edge.to.nodeId === nodeId) draft.graph.edges.delete(id); }); }); const next = remaining[0] ?? ''; setSelection({ kind: 'node', nodeId: next }); if (previewEntry === nodeId && next) setPreviewEntry(next); };
-  const addLine = (node: DialogueEditorNode) => { const id = makeId(dialogueLineId(node.id, 'line'), new Set(node.lines.keys())); updateNode(node.id, (draft) => { draft.lines.set(id, { id, speaker: '', text: '' }); draft.lineOrder.push(id); }); setSelection({ kind: 'line', nodeId: node.id, lineId: id }); };
-  const addInput = (node: DialogueEditorNode) => { const id = makeId(`port:${node.id}:in`, new Set(node.inputs.keys())); updateNode(node.id, (draft) => { draft.inputs.set(id, { id }); draft.inputOrder.push(id); }); setSelection({ kind: 'input', nodeId: node.id, portId: id }); };
-  const addOutput = (node: DialogueEditorNode) => { const suffix = makeId('choice', new Set(node.outputOrder.map((id) => id.split(':').at(-1) ?? id))); const id = dialogueOutputPortId(node.id, suffix); updateNode(node.id, (draft) => { draft.outputs.set(id, { id, label: '新选择', activation: { type: 'choice' } }); draft.outputOrder.push(id); }); setSelection({ kind: 'output', nodeId: node.id, portId: id }); };
-  const setTarget = (nodeId: string, outputId: string, targetNodeId: string, inputId?: string) => updateDocument((draft) => { [...draft.graph.edges].forEach(([id, edge]) => { if (edge.from.nodeId === nodeId && edge.from.portId === outputId) draft.graph.edges.delete(id); }); if (targetNodeId) { const edgeId = dialogueEdgeId(nodeId, outputId.split(':').at(-1) ?? outputId); const target = draft.graph.nodes.get(targetNodeId); const toPort = inputId ?? target?.inputOrder[0]; if (toPort) draft.graph.edges.set(edgeId, { id: edgeId, from: { nodeId, portId: outputId }, to: { nodeId: targetNodeId, portId: toPort } }); } });
-  const targetFor = (nodeId: string, outputId: string) => [...document.graph.edges.values()].find((edge) => edge.from.nodeId === nodeId && edge.from.portId === outputId)?.to.nodeId ?? '';
-  const save = async () => { const errors = Object.values(library).flatMap(validateDialogueEditorDocument).filter((item) => item.severity === 'error'); if (errors.length) { setMessage(`保存前请修复：${errors[0].message}`); setIsError(true); return; } setSaving(true); try { await saveDialogueEditorDocumentLibrary(library); setSavedFingerprint(JSON.stringify(encodeDialogueEditorDocumentLibrary(library))); setMessage(`已保存 ${Object.keys(library).length} 个 V3 对话预设。`); setIsError(false); } catch (error) { setMessage(error instanceof Error ? error.message : String(error)); setIsError(true); } finally { setSaving(false); } };
-  const selectedNode = target && 'node' in target ? target.node : undefined; const selectedLayout = selectedNode ? computeDialogueNodeLayout(selectedNode) : undefined; const selectedIssues = issues.filter((item) => target?.kind === 'edge' ? item.edgeId === target.edge.id : selectedNode ? item.nodeId === selectedNode.id : false); const outputTargetOptions = [...document.graph.nodes.values()];
-  return <div className="dialogue-lab"><header className="dialogue-lab__header"><div><span className="eyebrow">DIALOGUE DATA WORKBENCH · V3</span><h1>Dialogue Map Canvas Lab</h1></div><div className={`server-status${isError ? ' is-error' : ''}`}><i />{message}</div></header>
-    <aside className="dialogue-lab__sidebar"><section className="panel-card"><div className="panel-card__heading"><div><span>预设库</span><strong>{Object.keys(library).length}</strong></div><button onClick={() => void load()}>重新加载</button></div><label className="field"><span>当前预设</span><select value={activeKey} onChange={(event) => selectPreset(event.target.value)}>{Object.values(library).map((item) => <option key={item.presetKey} value={item.presetKey}>{item.name}</option>)}</select></label><label className="field"><span>当前预览入口</span><select value={previewEntry ?? ''} onChange={(event) => setPreviewEntry(event.target.value)}>{[...document.graph.nodes.values()].map((node) => <option key={node.id} value={node.id}>{node.title} · {node.id}</option>)}</select></label><div className="create-preset"><strong>新建预设</strong><input value={newKey} onChange={(e) => setNewKey(e.target.value)} /><input value={newName} onChange={(e) => setNewName(e.target.value)} /><button onClick={createPreset}>＋ 创建</button></div></section>
-      <section className="panel-card node-list-card"><div className="panel-card__heading"><div><span>统一节点</span><strong>{document.graph.nodes.size}</strong></div><button onClick={addNode}>＋ 节点</button></div><div className="node-list">{[...document.graph.nodes.values()].map((node) => <button key={node.id} className={selection.kind === 'node' && selection.nodeId === node.id ? 'is-active' : ''} onClick={() => setSelection({ kind: 'node', nodeId: node.id })} onContextMenu={(event) => { event.preventDefault(); setPreviewEntry(node.id); }}><i style={{ background: (COLORS[node.display.colorToken] ?? COLORS['gray-muted']).header }} /><span><strong>{node.title || node.id}</strong><small>{node.lines.size} 对白 · {node.outputs.size} 输出</small></span>{previewEntry === node.id ? <em>预览</em> : null}</button>)}</div></section></aside>
-    <main className="dialogue-lab__stage"><div className="stage-toolbar"><div><strong>{document.name}</strong><span>{document.presetKey}</span>{dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}</div><div className="stage-toolbar__actions"><span className={issues.some((i) => i.severity !== 'info') ? 'has-issues' : ''}>{issues.length ? `${issues.length} 项诊断` : '✓ 校验通过'}</span><button onClick={() => setResetViewToken((v) => v + 1)}>适配全部</button><button className="save-button" disabled={saving} onClick={() => void save()}>{saving ? '保存中…' : '保存全部'}</button></div></div><DialogueCanvas document={document} selection={selection} previewEntry={previewEntry} resetViewToken={resetViewToken} onSelection={setSelection} onMove={(id, position) => updateNode(id, (node) => { node.position = position; })} onConnect={setTarget} onPreview={setPreviewEntry} /><div className="stage-status"><span>{document.graph.nodes.size} 个节点</span><span>{document.graph.edges.size} 条连线</span><span>{issues[0]?.message ?? '所有引用有效'}</span></div></main>
-    <aside className="dialogue-lab__inspector"><div className="inspector-title"><div><span>{target?.kind.toUpperCase() ?? 'INSPECTOR'}</span><strong>{target?.kind === 'node' ? target.node.title : target?.kind === 'line' ? '对白' : target?.kind === 'output' ? '输出端口' : target?.kind === 'input' ? '输入端口' : '连线'}</strong></div>{target?.kind === 'node' ? <button className="danger-button" disabled={document.graph.nodes.size <= 1} onClick={() => deleteNode(target.node.id)}>删除节点</button> : target?.kind === 'edge' ? <button className="danger-button" onClick={() => updateDocument((draft) => draft.graph.edges.delete(target.edge.id))}>删除连线</button> : null}</div><div className="inspector-scroll">
-      {target?.kind === 'node' ? <><section className="panel-card"><label className="field"><span>节点 ID</span><input value={target.node.id} disabled /></label><label className="field"><span>标题</span><input value={target.node.title} onChange={(e) => updateNode(target.node.id, (node) => { node.title = e.target.value; })} /></label><label className="field"><span>无可用出口策略</span><select value={target.node.noAvailableOutput ?? ''} onChange={(e) => updateNode(target.node.id, (node) => { node.noAvailableOutput = (e.target.value || undefined) as DialogueEditorNode['noAvailableOutput']; })}><option value="">继承会话</option><option value="end">正常结束</option><option value="show-unavailable">显示无可用选项</option><option value="runtime-error">运行时报错</option></select></label><button className="start-button" disabled={previewEntry === target.node.id} onClick={() => setPreviewEntry(target.node.id)}>{previewEntry === target.node.id ? '✓ 当前预览入口' : '从此处预览'}</button></section><section className="panel-card"><label className="field"><span>形状</span><select value={target.node.display.shape} onChange={(e) => updateNode(target.node.id, (node) => { node.display.shape = e.target.value as DialogueNodeDisplay['shape']; })}>{Object.entries(SHAPE_LABEL).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label><label className="field"><span>颜色 Token</span><select value={target.node.display.colorToken} onChange={(e) => updateNode(target.node.id, (node) => { node.display.colorToken = e.target.value; })}>{Object.keys(COLORS).map((id) => <option key={id}>{id}</option>)}</select></label><div className="field-grid"><label className="field"><span>宽度（格）</span><input type="number" min="4" max="40" value={target.node.display.widthUnits} onChange={(e) => updateNode(target.node.id, (node) => { node.display.widthUnits = Number(e.target.value); })} /></label><label className="field"><span>设定高度（格）</span><input type="number" min="3" max="40" value={target.node.display.heightUnits} onChange={(e) => updateNode(target.node.id, (node) => { node.display.heightUnits = Number(e.target.value); })} /></label></div><dl className="layout-summary"><dt>内容最小高度</dt><dd>{selectedLayout?.minimumHeightUnits} 格</dd><dt>实际渲染高度</dt><dd>{selectedLayout?.actualHeightUnits} 格</dd></dl><button className="fit-content-button" disabled={target.node.display.heightUnits === selectedLayout?.minimumHeightUnits} onClick={() => updateNode(target.node.id, (node) => { node.display.heightUnits = requiredHeight(node); })}>适应内容高度</button><label className="checkbox-field"><input type="checkbox" checked={target.node.display.collapsed ?? false} onChange={(e) => updateNode(target.node.id, (node) => { node.display.collapsed = e.target.checked; })} />折叠内容布局</label></section><section className="panel-card"><div className="panel-card__heading"><div><span>内容与端口</span><strong>{target.node.lines.size + target.node.inputs.size + target.node.outputs.size}</strong></div><div className="inline-actions"><button onClick={() => addLine(target.node)}>＋对白</button><button onClick={() => addInput(target.node)}>＋输入</button><button onClick={() => addOutput(target.node)}>＋输出</button></div></div>{target.node.lineOrder.map((id) => <button className="content-row" key={id} onClick={() => setSelection({ kind: 'line', nodeId: target.node.id, lineId: id })}>对白 · {target.node.lines.get(id)?.speaker || id}</button>)}{target.node.inputOrder.map((id) => <button className="content-row" key={id} onClick={() => setSelection({ kind: 'input', nodeId: target.node.id, portId: id })}>输入 · {target.node.inputs.get(id)?.label || id}</button>)}{target.node.outputOrder.map((id) => <button className="content-row" key={id} onClick={() => setSelection({ kind: 'output', nodeId: target.node.id, portId: id })}>输出 · {target.node.outputs.get(id)?.label || id}</button>)}{!target.node.outputs.size ? <p>运行到此将正常结束对话。</p> : null}</section></> : null}
-      {target?.kind === 'line' ? <section className="panel-card"><label className="field"><span>对白 ID</span><input value={target.line.id} disabled /></label><label className="field"><span>说话者</span><input value={target.line.speaker} onChange={(e) => updateNode(target.node.id, (node) => { const line = node.lines.get(target.line.id); if (line) line.speaker = e.target.value; })} /></label><label className="field"><span>对白内容</span><textarea rows={7} value={target.line.text} onChange={(e) => updateNode(target.node.id, (node) => { const line = node.lines.get(target.line.id); if (line) line.text = e.target.value; })} /></label></section> : null}
-      {target?.kind === 'output' ? <section className="panel-card"><label className="field"><span>输出端口 ID</span><input value={target.port.id} disabled /></label><label className="field"><span>标签</span><input value={target.port.label ?? ''} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (port) port.label = e.target.value || undefined; })} /></label><label className="field"><span>激活方式</span><select value={target.port.activation.type} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (!port) return; const type = e.target.value; port.activation = type === 'auto' ? { type: 'auto', priority: 0 } : type === 'event' ? { type: 'event', eventId: '' } : { type: 'choice' }; })}><option value="choice">玩家选择</option><option value="auto">自动跳转</option><option value="event">事件触发</option></select></label>{target.port.activation.type === 'auto' ? <label className="field"><span>优先级</span><input type="number" value={target.port.activation.priority ?? 0} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (port?.activation.type === 'auto') port.activation.priority = Number(e.target.value); })} /></label> : null}{target.port.activation.type === 'event' ? <label className="field"><span>事件 ID</span><input value={target.port.activation.eventId} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (port?.activation.type === 'event') port.activation.eventId = e.target.value; })} /></label> : null}<label className="field"><span>条件</span><input value={target.port.condition ?? ''} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (port) port.condition = e.target.value || undefined; })} /></label><label className="field"><span>效果事件（逗号分隔）</span><input value={(target.port.effects ?? []).join(', ')} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.outputs.get(target.port.id); if (port) port.effects = e.target.value.split(',').map((v) => v.trim()).filter(Boolean); })} /></label><label className="field"><span>目标节点</span><select value={targetFor(target.node.id, target.port.id)} onChange={(e) => setTarget(target.node.id, target.port.id, e.target.value)}><option value="">未连接</option>{outputTargetOptions.map((node) => <option key={node.id} value={node.id}>{node.title} · {node.id}</option>)}</select></label><button className="danger-wide" onClick={() => { updateNode(target.node.id, (node, draft) => { node.outputs.delete(target.port.id); node.outputOrder = node.outputOrder.filter((id) => id !== target.port.id); [...draft.graph.edges].forEach(([id, edge]) => { if (edge.from.nodeId === node.id && edge.from.portId === target.port.id) draft.graph.edges.delete(id); }); }); setSelection({ kind: 'node', nodeId: target.node.id }); }}>删除输出及连线</button></section> : null}
-      {target?.kind === 'input' ? <section className="panel-card"><label className="field"><span>输入端口 ID</span><input value={target.port.id} disabled /></label><label className="field"><span>标签</span><input value={target.port.label ?? ''} onChange={(e) => updateNode(target.node.id, (node) => { const port = node.inputs.get(target.port.id); if (port) port.label = e.target.value || undefined; })} /></label><button className="danger-wide" onClick={() => { updateNode(target.node.id, (node, draft) => { node.inputs.delete(target.port.id); node.inputOrder = node.inputOrder.filter((id) => id !== target.port.id); [...draft.graph.edges].forEach(([id, edge]) => { if (edge.to.nodeId === node.id && edge.to.portId === target.port.id) draft.graph.edges.delete(id); }); }); setSelection({ kind: 'node', nodeId: target.node.id }); }}>删除输入及连线</button></section> : null}
-      {target?.kind === 'edge' ? <section className="panel-card"><label className="field"><span>连线 ID</span><input value={target.edge.id} disabled /></label><p>{target.edge.from.nodeId} / {target.edge.from.portId}</p><p>→ {target.edge.to.nodeId} / {target.edge.to.portId}</p></section> : null}
-      {selectedIssues.length ? <section className="panel-card issue-card"><strong>选择项诊断</strong>{selectedIssues.map((item, index) => <p key={`${item.code}:${index}`}>{item.message}</p>)}</section> : null}
-    </div></aside></div>;
+  const updateDocument = useCallback(
+    (mutate: (draft: DialogueEditorDocument) => void) =>
+      setLibrary((current) => {
+        const source = current[activeKey];
+        if (!source) return current;
+        const draft = cloneDialogueEditorDocument(source);
+        mutate(draft);
+        return { ...current, [activeKey]: draft };
+      }),
+    [activeKey],
+  );
+  const updateNode = (
+    nodeId: string,
+    mutate: (node: DialogueEditorNode, draft: DialogueEditorDocument) => void,
+  ) =>
+    updateDocument((draft) => {
+      const node = draft.graph.nodes.get(nodeId);
+      if (node) mutate(node, draft);
+    });
+  if (!document)
+    return (
+      <main className="dialogue-empty">
+        <h1>Dialogue Map Canvas Lab</h1>
+        <p className={isError ? 'is-error' : ''}>{message}</p>
+        <button onClick={() => void load()}>重新加载</button>
+      </main>
+    );
+  const selectPreset = (key: string) => {
+    setActiveKey(key);
+    setSelection({
+      kind: 'node',
+      nodeId: library[key].graph.nodes.keys().next().value ?? '',
+    });
+    setResetViewToken((v) => v + 1);
+  };
+  const createPreset = () => {
+    const key = newKey.trim();
+    if (!/^[A-Za-z0-9_-]+$/.test(key) || library[key]) {
+      setMessage(
+        library[key] ? '这个预设 Key 已存在。' : '预设 Key 格式无效。',
+      );
+      setIsError(true);
+      return;
+    }
+    const next = createDialogueEditorDocument(key, newName.trim() || key);
+    setLibrary((current) => ({ ...current, [key]: next }));
+    setActiveKey(key);
+    setSelection({ kind: 'node', nodeId: 'start' });
+    setPreviewEntries((current) => {
+      const entries = { ...current, [key]: 'start' };
+      localStorage.setItem(WORKSPACE_KEY, JSON.stringify(entries));
+      return entries;
+    });
+  };
+  const addNode = () => {
+    const id = makeId('node', new Set(document.graph.nodes.keys()));
+    updateDocument((draft) =>
+      draft.graph.nodes.set(
+        id,
+        createDialogueEditorNode(id, {
+          x: GRID * (4 + draft.graph.nodes.size * 2),
+          y: GRID * (4 + draft.graph.nodes.size),
+        }),
+      ),
+    );
+    setSelection({ kind: 'node', nodeId: id });
+  };
+  const deleteNode = (nodeId: string) => {
+    const remaining = [...document.graph.nodes.keys()].filter(
+      (id) => id !== nodeId,
+    );
+    updateDocument((draft) => {
+      draft.graph.nodes.delete(nodeId);
+      [...draft.graph.edges].forEach(([id, edge]) => {
+        if (edge.from.nodeId === nodeId || edge.to.nodeId === nodeId)
+          draft.graph.edges.delete(id);
+      });
+    });
+    const next = remaining[0] ?? '';
+    setSelection({ kind: 'node', nodeId: next });
+    if (previewEntry === nodeId && next) setPreviewEntry(next);
+  };
+  const addLine = (node: DialogueEditorNode) => {
+    const id = makeId(
+      dialogueLineId(node.id, 'line'),
+      new Set(node.lines.keys()),
+    );
+    updateNode(node.id, (draft) => {
+      draft.lines.set(id, { id, speaker: '', text: '' });
+      draft.lineOrder.push(id);
+    });
+    setSelection({ kind: 'line', nodeId: node.id, lineId: id });
+  };
+  const addInput = (node: DialogueEditorNode) => {
+    const id = makeId(`port:${node.id}:in`, new Set(node.inputs.keys()));
+    updateNode(node.id, (draft) => {
+      draft.inputs.set(id, { id });
+      draft.inputOrder.push(id);
+    });
+    setSelection({ kind: 'input', nodeId: node.id, portId: id });
+  };
+  const addOutput = (node: DialogueEditorNode) => {
+    const suffix = makeId(
+      'choice',
+      new Set(node.outputOrder.map((id) => id.split(':').at(-1) ?? id)),
+    );
+    const id = dialogueOutputPortId(node.id, suffix);
+    updateNode(node.id, (draft) => {
+      draft.outputs.set(id, {
+        id,
+        label: '新选择',
+        activation: { type: 'choice' },
+      });
+      draft.outputOrder.push(id);
+    });
+    setSelection({ kind: 'output', nodeId: node.id, portId: id });
+  };
+  const setTarget = (
+    nodeId: string,
+    outputId: string,
+    targetNodeId: string,
+    inputId?: string,
+  ) =>
+    updateDocument((draft) => {
+      [...draft.graph.edges].forEach(([id, edge]) => {
+        if (edge.from.nodeId === nodeId && edge.from.portId === outputId)
+          draft.graph.edges.delete(id);
+      });
+      if (targetNodeId) {
+        const edgeId = dialogueEdgeId(
+          nodeId,
+          outputId.split(':').at(-1) ?? outputId,
+        );
+        const target = draft.graph.nodes.get(targetNodeId);
+        const toPort = inputId ?? target?.inputOrder[0];
+        if (toPort)
+          draft.graph.edges.set(edgeId, {
+            id: edgeId,
+            from: { nodeId, portId: outputId },
+            to: { nodeId: targetNodeId, portId: toPort },
+          });
+      }
+    });
+  const targetFor = (nodeId: string, outputId: string) =>
+    [...document.graph.edges.values()].find(
+      (edge) => edge.from.nodeId === nodeId && edge.from.portId === outputId,
+    )?.to.nodeId ?? '';
+  const save = async () => {
+    const errors = Object.values(library)
+      .flatMap(validateDialogueEditorDocument)
+      .filter((item) => item.severity === 'error');
+    if (errors.length) {
+      setMessage(`保存前请修复：${errors[0].message}`);
+      setIsError(true);
+      return;
+    }
+    setSaving(true);
+    try {
+      await saveDialogueEditorDocumentLibrary(library);
+      setSavedFingerprint(
+        JSON.stringify(encodeDialogueEditorDocumentLibrary(library)),
+      );
+      setMessage(`已保存 ${Object.keys(library).length} 个 V3 对话预设。`);
+      setIsError(false);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : String(error));
+      setIsError(true);
+    } finally {
+      setSaving(false);
+    }
+  };
+  const selectedNode = target && 'node' in target ? target.node : undefined;
+  const selectedLayout = selectedNode
+    ? computeDialogueNodeLayout(selectedNode)
+    : undefined;
+  const selectedIssues = issues.filter((item) =>
+    target?.kind === 'edge'
+      ? item.edgeId === target.edge.id
+      : selectedNode
+        ? item.nodeId === selectedNode.id
+        : false,
+  );
+  const outputTargetOptions = [...document.graph.nodes.values()];
+  return (
+    <div className="dialogue-lab">
+      <header className="dialogue-lab__header">
+        <div>
+          <span className="eyebrow">DIALOGUE DATA WORKBENCH · V3</span>
+          <h1>Dialogue Map Canvas Lab</h1>
+        </div>
+        <div className={`server-status${isError ? ' is-error' : ''}`}>
+          <i />
+          {message}
+        </div>
+      </header>
+      <aside className="dialogue-lab__sidebar">
+        <section className="panel-card">
+          <div className="panel-card__heading">
+            <div>
+              <span>预设库</span>
+              <strong>{Object.keys(library).length}</strong>
+            </div>
+            <button onClick={() => void load()}>重新加载</button>
+          </div>
+          <label className="field">
+            <span>当前预设</span>
+            <select
+              value={activeKey}
+              onChange={(event) => selectPreset(event.target.value)}
+            >
+              {Object.values(library).map((item) => (
+                <option key={item.presetKey} value={item.presetKey}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="field">
+            <span>当前预览入口</span>
+            <select
+              value={previewEntry ?? ''}
+              onChange={(event) => setPreviewEntry(event.target.value)}
+            >
+              {[...document.graph.nodes.values()].map((node) => (
+                <option key={node.id} value={node.id}>
+                  {node.title} · {node.id}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="create-preset">
+            <strong>新建预设</strong>
+            <input value={newKey} onChange={(e) => setNewKey(e.target.value)} />
+            <input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+            />
+            <button onClick={createPreset}>＋ 创建</button>
+          </div>
+        </section>
+        <section className="panel-card node-list-card">
+          <div className="panel-card__heading">
+            <div>
+              <span>统一节点</span>
+              <strong>{document.graph.nodes.size}</strong>
+            </div>
+            <button onClick={addNode}>＋ 节点</button>
+          </div>
+          <div className="node-list">
+            {[...document.graph.nodes.values()].map((node) => (
+              <button
+                key={node.id}
+                className={
+                  selection.kind === 'node' && selection.nodeId === node.id
+                    ? 'is-active'
+                    : ''
+                }
+                onClick={() => setSelection({ kind: 'node', nodeId: node.id })}
+                onContextMenu={(event) => {
+                  event.preventDefault();
+                  setPreviewEntry(node.id);
+                }}
+              >
+                <i
+                  style={{
+                    background: (
+                      COLORS[node.display.colorToken] ?? COLORS['gray-muted']
+                    ).header,
+                  }}
+                />
+                <span>
+                  <strong>{node.title || node.id}</strong>
+                  <small>
+                    {node.lines.size} 对白 · {node.outputs.size} 输出
+                  </small>
+                </span>
+                {previewEntry === node.id ? <em>预览</em> : null}
+              </button>
+            ))}
+          </div>
+        </section>
+      </aside>
+      <main className="dialogue-lab__stage">
+        <div className="stage-toolbar">
+          <div>
+            <strong>{document.name}</strong>
+            <span>{document.presetKey}</span>
+            {dirty ? <em>● 未保存</em> : <em className="is-saved">✓ 已保存</em>}
+          </div>
+          <div className="stage-toolbar__actions">
+            <span
+              className={
+                issues.some((i) => i.severity !== 'info') ? 'has-issues' : ''
+              }
+            >
+              {issues.length ? `${issues.length} 项诊断` : '✓ 校验通过'}
+            </span>
+            <button onClick={() => setResetViewToken((v) => v + 1)}>
+              适配全部
+            </button>
+            <button
+              className="save-button"
+              disabled={saving}
+              onClick={() => void save()}
+            >
+              {saving ? '保存中…' : '保存全部'}
+            </button>
+          </div>
+        </div>
+        <DialogueCanvas
+          document={document}
+          selection={selection}
+          previewEntry={previewEntry}
+          resetViewToken={resetViewToken}
+          onSelection={setSelection}
+          onMove={(id, position) =>
+            updateNode(id, (node) => {
+              node.position = position;
+            })
+          }
+          onConnect={setTarget}
+          onPreview={setPreviewEntry}
+        />
+        <div className="stage-status">
+          <span>{document.graph.nodes.size} 个节点</span>
+          <span>{document.graph.edges.size} 条连线</span>
+          <span>{issues[0]?.message ?? '所有引用有效'}</span>
+        </div>
+      </main>
+      <aside className="dialogue-lab__inspector">
+        <div className="inspector-title">
+          <div>
+            <span>{target?.kind.toUpperCase() ?? 'INSPECTOR'}</span>
+            <strong>
+              {target?.kind === 'node'
+                ? target.node.title
+                : target?.kind === 'line'
+                  ? '对白'
+                  : target?.kind === 'output'
+                    ? '输出端口'
+                    : target?.kind === 'input'
+                      ? '输入端口'
+                      : '连线'}
+            </strong>
+          </div>
+          {target?.kind === 'node' ? (
+            <button
+              className="danger-button"
+              disabled={document.graph.nodes.size <= 1}
+              onClick={() => deleteNode(target.node.id)}
+            >
+              删除节点
+            </button>
+          ) : target?.kind === 'edge' ? (
+            <button
+              className="danger-button"
+              onClick={() =>
+                updateDocument((draft) =>
+                  draft.graph.edges.delete(target.edge.id),
+                )
+              }
+            >
+              删除连线
+            </button>
+          ) : null}
+        </div>
+        <div className="inspector-scroll">
+          {target?.kind === 'node' ? (
+            <>
+              <section className="panel-card">
+                <label className="field">
+                  <span>节点 ID</span>
+                  <input value={target.node.id} disabled />
+                </label>
+                <label className="field">
+                  <span>标题</span>
+                  <input
+                    value={target.node.title}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        node.title = e.target.value;
+                      })
+                    }
+                  />
+                </label>
+                <label className="field">
+                  <span>无可用出口策略</span>
+                  <select
+                    value={target.node.noAvailableOutput ?? ''}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        node.noAvailableOutput = (e.target.value ||
+                          undefined) as DialogueEditorNode['noAvailableOutput'];
+                      })
+                    }
+                  >
+                    <option value="">继承会话</option>
+                    <option value="end">正常结束</option>
+                    <option value="show-unavailable">显示无可用选项</option>
+                    <option value="runtime-error">运行时报错</option>
+                  </select>
+                </label>
+                <button
+                  className="start-button"
+                  disabled={previewEntry === target.node.id}
+                  onClick={() => setPreviewEntry(target.node.id)}
+                >
+                  {previewEntry === target.node.id
+                    ? '✓ 当前预览入口'
+                    : '从此处预览'}
+                </button>
+              </section>
+              <section className="panel-card">
+                <label className="field">
+                  <span>形状</span>
+                  <select
+                    value={target.node.display.shape}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        node.display.shape = e.target
+                          .value as DialogueNodeDisplay['shape'];
+                      })
+                    }
+                  >
+                    {Object.entries(SHAPE_LABEL).map(([id, label]) => (
+                      <option key={id} value={id}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="field">
+                  <span>颜色 Token</span>
+                  <select
+                    value={target.node.display.colorToken}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        node.display.colorToken = e.target.value;
+                      })
+                    }
+                  >
+                    {Object.keys(COLORS).map((id) => (
+                      <option key={id}>{id}</option>
+                    ))}
+                  </select>
+                </label>
+                <div className="field-grid">
+                  <label className="field">
+                    <span>宽度（格）</span>
+                    <input
+                      type="number"
+                      min="4"
+                      max="40"
+                      value={target.node.display.widthUnits}
+                      onChange={(e) =>
+                        updateNode(target.node.id, (node) => {
+                          node.display.widthUnits = Number(e.target.value);
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="field">
+                    <span>设定高度（格）</span>
+                    <input
+                      type="number"
+                      min="3"
+                      max="40"
+                      value={target.node.display.heightUnits}
+                      onChange={(e) =>
+                        updateNode(target.node.id, (node) => {
+                          node.display.heightUnits = Number(e.target.value);
+                        })
+                      }
+                    />
+                  </label>
+                </div>
+                <dl className="layout-summary">
+                  <dt>内容最小高度</dt>
+                  <dd>{selectedLayout?.minimumHeightUnits} 格</dd>
+                  <dt>实际渲染高度</dt>
+                  <dd>{selectedLayout?.actualHeightUnits} 格</dd>
+                </dl>
+                <button
+                  className="fit-content-button"
+                  disabled={
+                    target.node.display.heightUnits ===
+                    selectedLayout?.minimumHeightUnits
+                  }
+                  onClick={() =>
+                    updateNode(target.node.id, (node) => {
+                      node.display.heightUnits = requiredHeight(node);
+                    })
+                  }
+                >
+                  适应内容高度
+                </button>
+                <label className="checkbox-field">
+                  <input
+                    type="checkbox"
+                    checked={target.node.display.collapsed ?? false}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        node.display.collapsed = e.target.checked;
+                      })
+                    }
+                  />
+                  折叠内容布局
+                </label>
+              </section>
+              <section className="panel-card">
+                <div className="panel-card__heading">
+                  <div>
+                    <span>内容与端口</span>
+                    <strong>
+                      {target.node.lines.size +
+                        target.node.inputs.size +
+                        target.node.outputs.size}
+                    </strong>
+                  </div>
+                  <div className="inline-actions">
+                    <button onClick={() => addLine(target.node)}>＋对白</button>
+                    <button onClick={() => addInput(target.node)}>
+                      ＋输入
+                    </button>
+                    <button onClick={() => addOutput(target.node)}>
+                      ＋输出
+                    </button>
+                  </div>
+                </div>
+                {target.node.lineOrder.map((id) => (
+                  <button
+                    className="content-row"
+                    key={id}
+                    onClick={() =>
+                      setSelection({
+                        kind: 'line',
+                        nodeId: target.node.id,
+                        lineId: id,
+                      })
+                    }
+                  >
+                    对白 · {target.node.lines.get(id)?.speaker || id}
+                  </button>
+                ))}
+                {target.node.inputOrder.map((id) => (
+                  <button
+                    className="content-row"
+                    key={id}
+                    onClick={() =>
+                      setSelection({
+                        kind: 'input',
+                        nodeId: target.node.id,
+                        portId: id,
+                      })
+                    }
+                  >
+                    输入 · {target.node.inputs.get(id)?.label || id}
+                  </button>
+                ))}
+                {target.node.outputOrder.map((id) => (
+                  <button
+                    className="content-row"
+                    key={id}
+                    onClick={() =>
+                      setSelection({
+                        kind: 'output',
+                        nodeId: target.node.id,
+                        portId: id,
+                      })
+                    }
+                  >
+                    输出 · {target.node.outputs.get(id)?.label || id}
+                  </button>
+                ))}
+                {!target.node.outputs.size ? (
+                  <p>运行到此将正常结束对话。</p>
+                ) : null}
+              </section>
+            </>
+          ) : null}
+          {target?.kind === 'line' ? (
+            <section className="panel-card">
+              <label className="field">
+                <span>对白 ID</span>
+                <input value={target.line.id} disabled />
+              </label>
+              <label className="field">
+                <span>说话者</span>
+                <input
+                  value={target.line.speaker}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const line = node.lines.get(target.line.id);
+                      if (line) line.speaker = e.target.value;
+                    })
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>对白内容</span>
+                <textarea
+                  rows={7}
+                  value={target.line.text}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const line = node.lines.get(target.line.id);
+                      if (line) line.text = e.target.value;
+                    })
+                  }
+                />
+              </label>
+            </section>
+          ) : null}
+          {target?.kind === 'output' ? (
+            <section className="panel-card">
+              <label className="field">
+                <span>输出端口 ID</span>
+                <input value={target.port.id} disabled />
+              </label>
+              <label className="field">
+                <span>标签</span>
+                <input
+                  value={target.port.label ?? ''}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const port = node.outputs.get(target.port.id);
+                      if (port) port.label = e.target.value || undefined;
+                    })
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>激活方式</span>
+                <select
+                  value={target.port.activation.type}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const port = node.outputs.get(target.port.id);
+                      if (!port) return;
+                      const type = e.target.value;
+                      port.activation =
+                        type === 'auto'
+                          ? { type: 'auto', priority: 0 }
+                          : type === 'event'
+                            ? { type: 'event', eventId: '' }
+                            : { type: 'choice' };
+                    })
+                  }
+                >
+                  <option value="choice">玩家选择</option>
+                  <option value="auto">自动跳转</option>
+                  <option value="event">事件触发</option>
+                </select>
+              </label>
+              {target.port.activation.type === 'auto' ? (
+                <label className="field">
+                  <span>优先级</span>
+                  <input
+                    type="number"
+                    value={target.port.activation.priority ?? 0}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        const port = node.outputs.get(target.port.id);
+                        if (port?.activation.type === 'auto')
+                          port.activation.priority = Number(e.target.value);
+                      })
+                    }
+                  />
+                </label>
+              ) : null}
+              {target.port.activation.type === 'event' ? (
+                <label className="field">
+                  <span>事件 ID</span>
+                  <input
+                    value={target.port.activation.eventId}
+                    onChange={(e) =>
+                      updateNode(target.node.id, (node) => {
+                        const port = node.outputs.get(target.port.id);
+                        if (port?.activation.type === 'event')
+                          port.activation.eventId = e.target.value;
+                      })
+                    }
+                  />
+                </label>
+              ) : null}
+              <label className="field">
+                <span>条件</span>
+                <input
+                  value={target.port.condition ?? ''}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const port = node.outputs.get(target.port.id);
+                      if (port) port.condition = e.target.value || undefined;
+                    })
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>效果事件（逗号分隔）</span>
+                <input
+                  value={(target.port.effects ?? []).join(', ')}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const port = node.outputs.get(target.port.id);
+                      if (port)
+                        port.effects = e.target.value
+                          .split(',')
+                          .map((v) => v.trim())
+                          .filter(Boolean);
+                    })
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>目标节点</span>
+                <select
+                  value={targetFor(target.node.id, target.port.id)}
+                  onChange={(e) =>
+                    setTarget(target.node.id, target.port.id, e.target.value)
+                  }
+                >
+                  <option value="">未连接</option>
+                  {outputTargetOptions.map((node) => (
+                    <option key={node.id} value={node.id}>
+                      {node.title} · {node.id}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                className="danger-wide"
+                onClick={() => {
+                  updateNode(target.node.id, (node, draft) => {
+                    node.outputs.delete(target.port.id);
+                    node.outputOrder = node.outputOrder.filter(
+                      (id) => id !== target.port.id,
+                    );
+                    [...draft.graph.edges].forEach(([id, edge]) => {
+                      if (
+                        edge.from.nodeId === node.id &&
+                        edge.from.portId === target.port.id
+                      )
+                        draft.graph.edges.delete(id);
+                    });
+                  });
+                  setSelection({ kind: 'node', nodeId: target.node.id });
+                }}
+              >
+                删除输出及连线
+              </button>
+            </section>
+          ) : null}
+          {target?.kind === 'input' ? (
+            <section className="panel-card">
+              <label className="field">
+                <span>输入端口 ID</span>
+                <input value={target.port.id} disabled />
+              </label>
+              <label className="field">
+                <span>标签</span>
+                <input
+                  value={target.port.label ?? ''}
+                  onChange={(e) =>
+                    updateNode(target.node.id, (node) => {
+                      const port = node.inputs.get(target.port.id);
+                      if (port) port.label = e.target.value || undefined;
+                    })
+                  }
+                />
+              </label>
+              <button
+                className="danger-wide"
+                onClick={() => {
+                  updateNode(target.node.id, (node, draft) => {
+                    node.inputs.delete(target.port.id);
+                    node.inputOrder = node.inputOrder.filter(
+                      (id) => id !== target.port.id,
+                    );
+                    [...draft.graph.edges].forEach(([id, edge]) => {
+                      if (
+                        edge.to.nodeId === node.id &&
+                        edge.to.portId === target.port.id
+                      )
+                        draft.graph.edges.delete(id);
+                    });
+                  });
+                  setSelection({ kind: 'node', nodeId: target.node.id });
+                }}
+              >
+                删除输入及连线
+              </button>
+            </section>
+          ) : null}
+          {target?.kind === 'edge' ? (
+            <section className="panel-card">
+              <label className="field">
+                <span>连线 ID</span>
+                <input value={target.edge.id} disabled />
+              </label>
+              <p>
+                {target.edge.from.nodeId} / {target.edge.from.portId}
+              </p>
+              <p>
+                → {target.edge.to.nodeId} / {target.edge.to.portId}
+              </p>
+            </section>
+          ) : null}
+          {selectedIssues.length ? (
+            <section className="panel-card issue-card">
+              <strong>选择项诊断</strong>
+              {selectedIssues.map((item, index) => (
+                <p key={`${item.code}:${index}`}>{item.message}</p>
+              ))}
+            </section>
+          ) : null}
+        </div>
+      </aside>
+    </div>
+  );
 };
