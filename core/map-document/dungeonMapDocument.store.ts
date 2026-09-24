@@ -373,6 +373,48 @@ export class DungeonMapDocumentStore {
     });
   }
 
+  /**
+   * 原子移动一个 Entity 的单次空间挂载。
+   *
+   * Entity 可以同时挂载到多个目标，因此这里仅替换 fromTarget，
+   * 不会影响它在其他位置上的挂载，也不会改变 Entity/Component ID。
+   */
+  moveEntity(
+    entityId: string,
+    fromTarget: DungeonMapSpatialTarget,
+    toTarget: DungeonMapSpatialTarget,
+    label = '移动 Entity',
+  ): boolean {
+    return this.execute({
+      label,
+      apply: (document) => {
+        const indexes = createDungeonMapDocumentIndexes(document);
+        if (!indexes.entityById.has(entityId)) throw new Error(`Entity“${entityId}”不存在。`);
+        const fromKey = dungeonMapSpatialTargetKey(fromTarget);
+        const toKey = dungeonMapSpatialTargetKey(toTarget);
+        if (fromKey === toKey) return document;
+
+        const attachments = [...(document.components['spatial-attachment'] ?? [])]
+          .map((component) => cloneRecord(component)) as DungeonMapSpatialAttachmentComponent[];
+        const attachmentIndex = attachments.findIndex((attachment) => attachment.entityId === entityId
+          && attachment.targets.some((target) => dungeonMapSpatialTargetKey(target) === fromKey));
+        if (attachmentIndex < 0) throw new Error(`Entity“${entityId}”没有挂载在源空间目标“${fromKey}”。`);
+
+        const attachment = attachments[attachmentIndex];
+        const withoutSource = attachment.targets.filter(
+          (target) => dungeonMapSpatialTargetKey(target) !== fromKey,
+        );
+        if (!withoutSource.some((target) => dungeonMapSpatialTargetKey(target) === toKey)) {
+          withoutSource.push(cloneRecord(toTarget));
+        }
+
+        if (withoutSource.length > 0) attachments[attachmentIndex] = { ...attachment, targets: withoutSource };
+        else attachments.splice(attachmentIndex, 1);
+        return withoutEmptyComponentTable(document, 'spatial-attachment', attachments);
+      },
+    });
+  }
+
   /** 将完整 Entity 直接写入标准化表并挂载到一个空间目标，作为单条历史记录。 */
   addEntityAt(target: DungeonMapSpatialTarget, source: IEntity, label = '添加 Entity'): boolean {
     return this.execute({

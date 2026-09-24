@@ -64,6 +64,8 @@ import {
 } from '@/tools/entity-container-editor';
 import {
   DungeonMapCanvas,
+  type DungeonMapEntityMove,
+  type DungeonMapEntityViewMode,
   type DungeonMapPatternRendering,
   type DungeonMapSelection,
   type DungeonMapSelectionMode,
@@ -345,6 +347,7 @@ export const DungeonMapCanvasLab: React.FC = () => {
   const minimalSuite = suites.find((suite) => suite.name === '极简');
   const [selectedSuite, setSelectedSuite] = useState(minimalSuite?.name ?? '');
   const [patternRendering, setPatternRendering] = useState<DungeonMapPatternRendering>('canvas');
+  const [entityViewMode, setEntityViewMode] = useState<DungeonMapEntityViewMode>('overview');
   const [patterns, setPatterns] = useState(() => ({
     wall: minimalSuite?.wall ?? patternOptions('walls')[0]?.url ?? '', floor: minimalSuite?.floor ?? patternOptions('tiles')[0]?.url ?? '',
     player: patternOptions('characters')[0]?.url ?? '', event: patternOptions('events')[0]?.url ?? '',
@@ -1348,6 +1351,63 @@ export const DungeonMapCanvasLab: React.FC = () => {
     if (next[0]?.direction) setSelectedDirection(next[0].direction);
   }, []);
 
+  const handleEntityMove = useCallback((move: DungeonMapEntityMove) => {
+    if (!mapStore || !documentQuery || pendingMutationPlan) return;
+    const fromTarget = resolveDocumentSpatialTarget(move.from);
+    const toTarget = resolveDocumentSpatialTarget(move.to);
+    if (!fromTarget || !toTarget) {
+      setPresetError(true);
+      setPresetMessage('Entity 移动失败：源位置或目标位置无效。');
+      return;
+    }
+    const sourceEntity = documentQuery.getEntitySnapshot(move.entityId);
+    if (!sourceEntity) {
+      setPresetError(true);
+      setPresetMessage(`Entity 移动失败：找不到 ${move.entityId}。`);
+      return;
+    }
+    const targetKind: EntityContainerKind = move.to.mode === 'map'
+      ? 'map'
+      : move.to.mode === 'tile'
+        ? 'tile'
+        : move.to.mode === 'edge'
+          ? 'tile-edge'
+          : move.to.mode === 'shared'
+            ? 'shared-edge'
+            : 'shared-point';
+    const definition = ENTITY_TYPE_REGISTRY.get(sourceEntity.entityType);
+    if (definition && !definition.allowedContainers.includes(targetKind)) {
+      setPresetError(true);
+      setPresetMessage(`不能把“${sourceEntity.name || sourceEntity.entityType}”放入${targetKind}容器。`);
+      return;
+    }
+    const targetContainer = documentQuery.getContainerAt(toTarget);
+    const sameTarget = dungeonMapSpatialTargetKey(fromTarget) === dungeonMapSpatialTargetKey(toTarget);
+    if (!sameTarget && definition?.allowMultiplePerContainer === false
+      && targetContainer.entities.some((entity) => (
+        entity.id !== sourceEntity.id && entity.entityType === sourceEntity.entityType
+      ))) {
+      setPresetError(true);
+      setPresetMessage(`目标位置已经存在“${definition.label}”，不能重复放置。`);
+      return;
+    }
+    try {
+      if (move.copy) {
+        mapStore.attachEntity(move.entityId, toTarget, `复制挂载 Entity：${sourceEntity.name || sourceEntity.entityType}`);
+      } else if (!sameTarget) {
+        mapStore.moveEntity(move.entityId, fromTarget, toTarget, `移动 Entity：${sourceEntity.name || sourceEntity.entityType}`);
+      }
+      setSelectedEntityId(move.entityId);
+      setSelectedComponentId('');
+      setCanvasSelections([move.to]);
+      setPresetError(false);
+      setPresetMessage(move.copy ? '已复制 Entity 挂载。' : '已移动 Entity。');
+    } catch (error) {
+      setPresetError(true);
+      setPresetMessage(`Entity 移动失败：${error instanceof Error ? error.message : String(error)}`);
+    }
+  }, [documentQuery, mapStore, pendingMutationPlan, resolveDocumentSpatialTarget]);
+
   const selectionCounts = useMemo(() => canvasSelections.reduce<Record<DungeonMapSelection['mode'], number>>(
     (counts, item) => {
       counts[item.mode] += 1;
@@ -1955,6 +2015,11 @@ export const DungeonMapCanvasLab: React.FC = () => {
               {hasUnsavedCurrentPreset ? <i title="存在未保存修改">● 未保存</i> : <i className="is-saved">✓ 已保存</i>}
             </div>
             <div className="editor-command-bar__selection">
+              <span>显示</span>
+              <div className="selection-mode-toolbar" role="group" aria-label="Entity 显示方式">
+                <button type="button" className={entityViewMode === 'overview' ? 'is-active' : ''} aria-pressed={entityViewMode === 'overview'} onClick={() => setEntityViewMode('overview')}>概览</button>
+                <button type="button" className={entityViewMode === 'entities' ? 'is-active' : ''} aria-pressed={entityViewMode === 'entities'} onClick={() => setEntityViewMode('entities')}>实体展开</button>
+              </div>
               <span>选择</span>
               <div className="selection-mode-toolbar" role="group" aria-label="Canvas 选择类型">
                 {([['all', '自动'], ['map', '地图'], ['tile', '格子'], ['edge', '单格边'], ['shared', '公用边'], ['point', '公用点']] as const).map(([mode, label]) => <button type="button" key={mode} className={selectionMode === mode ? 'is-active' : ''} aria-pressed={selectionMode === mode} onClick={() => changeSelectionMode(mode)}>{label}</button>)}
@@ -1981,12 +2046,20 @@ export const DungeonMapCanvasLab: React.FC = () => {
               showCoordinates={showCoordinates}
               patterns={patterns}
               patternRendering={patternRendering}
+              entityViewMode={entityViewMode}
               entityTypeColors={ENTITY_TYPE_COLORS}
               edgeThicknessRatio={edgeThicknessRatio}
               sharedEdgeThicknessRatio={sharedEdgeThicknessRatio}
               selectionMode={selectionMode}
               selections={canvasSelections}
+              selectedEntityId={selectedEntityId}
               onSelectionsChange={handleCanvasSelectionsChange}
+              onEntitySelect={(entityId, location) => {
+                setSelectedEntityId(entityId);
+                setSelectedComponentId('');
+                setCanvasSelections([location]);
+              }}
+              onEntityMove={handleEntityMove}
               keyboardEnabled={false}
             />
           </div>

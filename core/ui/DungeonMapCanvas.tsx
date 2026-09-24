@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { IEntity, IEntityContainer } from '@/core/entity';
 import type {
   DungeonMapData,
   DungeonMapDocumentV2,
@@ -39,6 +40,14 @@ export type DungeonMapSelection = {
 
 export type DungeonMapSelectionMode = DungeonMapSelection['mode'] | 'all';
 export type DungeonMapPatternRendering = 'canvas' | 'svg';
+export type DungeonMapEntityViewMode = 'overview' | 'entities';
+
+export type DungeonMapEntityMove = {
+  entityId: string;
+  from: DungeonMapSelection;
+  to: DungeonMapSelection;
+  copy: boolean;
+};
 
 type DungeonMapDragBox = {
   startX: number;
@@ -77,6 +86,8 @@ export type DungeonMapCanvasProps = DungeonMapCanvasDataSource & {
   patterns?: DungeonMapPatterns;
   /** `canvas` 使用程序化几何；`svg` 使用并按 Entity 数据染色素材。 */
   patternRendering?: DungeonMapPatternRendering;
+  /** `overview` 使用空间容器的聚合外观；`entities` 展开每个 Entity 实例。 */
+  entityViewMode?: DungeonMapEntityViewMode;
   /** Entity Type Registry 提供的 Lab 主色；存在时启用数据着色。 */
   entityTypeColors?: DungeonMapEntityTypeColors;
   edgeThicknessRatio?: number;
@@ -87,6 +98,9 @@ export type DungeonMapCanvasProps = DungeonMapCanvasDataSource & {
   selections?: DungeonMapSelection[];
   onSelectionChange?: (selection: DungeonMapSelection) => void;
   onSelectionsChange?: (selections: DungeonMapSelection[]) => void;
+  selectedEntityId?: string;
+  onEntitySelect?: (entityId: string, location: DungeonMapSelection) => void;
+  onEntityMove?: (move: DungeonMapEntityMove) => void;
   onTileClick?: (x: number, y: number, tile: DungeonMapTileContainer | undefined) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -121,6 +135,66 @@ const topologyColors = {
   point: '#62a98b',
   outline: 'rgba(151, 211, 185, .24)',
 } as const;
+
+const STRUCTURAL_ENTITY_TYPES = new Set(['map', 'tile', 'tile-edge', 'shared-edge', 'shared-point']);
+
+type DungeonMapEntityRegion = {
+  entity: IEntity;
+  location: DungeonMapSelection;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  color: string;
+  label: string;
+};
+
+const visibleEntities = (data: IEntityContainer | undefined): readonly IEntity[] => (
+  data?.entities.filter((entity) => (
+    !STRUCTURAL_ENTITY_TYPES.has(entity.entityType)
+    || entity.components.some((component) => component.type !== 'legacy-data')
+  )) ?? []
+);
+
+const entityColor = (entity: IEntity, colors: DungeonMapEntityTypeColors | undefined): string => (
+  colors?.[entity.entityType] ?? '#94a3b8'
+);
+
+const entityLabel = (entity: IEntity, index: number): string => {
+  const source = entity.name?.trim() || entity.entityType;
+  return source.length > 5 ? source.slice(0, 5) : source || String(index + 1);
+};
+
+const layoutEntityRegions = (
+  data: IEntityContainer | undefined,
+  location: DungeonMapSelection,
+  bounds: { x: number; y: number; width: number; height: number },
+  colors: DungeonMapEntityTypeColors | undefined,
+): DungeonMapEntityRegion[] => {
+  const entities = visibleEntities(data);
+  if (entities.length === 0) return [];
+  const width = Math.max(18, bounds.width);
+  const height = Math.max(16, bounds.height);
+  const columns = Math.max(1, Math.min(4, Math.ceil(Math.sqrt(entities.length * width / height))));
+  const rows = Math.ceil(entities.length / columns);
+  const gap = Math.max(2, Math.min(5, Math.round(Math.min(width, height) * 0.08)));
+  const cardWidth = Math.max(10, (width - gap * (columns - 1)) / columns);
+  const cardHeight = Math.max(10, (height - gap * (rows - 1)) / rows);
+  return entities.map((entity, index) => {
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    return {
+      entity,
+      location,
+      x: bounds.x + column * (cardWidth + gap),
+      y: bounds.y + row * (cardHeight + gap),
+      width: cardWidth,
+      height: cardHeight,
+      color: entityColor(entity, colors),
+      label: entityLabel(entity, index),
+    };
+  });
+};
 
 const hasData = (value: unknown) =>
   value != null &&
@@ -315,6 +389,7 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
   showCoordinates = false,
   patterns,
   patternRendering = 'canvas',
+  entityViewMode = 'overview',
   entityTypeColors,
   edgeThicknessRatio = 0.12,
   sharedEdgeThicknessRatio = 0.24,
@@ -323,6 +398,9 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
   selections,
   onSelectionChange,
   onSelectionsChange,
+  selectedEntityId,
+  onEntitySelect,
+  onEntityMove,
   onTileClick,
   className,
   style,
@@ -335,11 +413,24 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
   const mapCanvasRef = useRef<HTMLCanvasElement>(null);
   const selectionCanvasRef = useRef<HTMLCanvasElement>(null);
   const dragOverlayRef = useRef<HTMLDivElement>(null);
+  const entityDragOverlayRef = useRef<HTMLDivElement>(null);
+  const entityRegionsRef = useRef<DungeonMapEntityRegion[]>([]);
+  const entityDragRef = useRef<{
+    entityId: string;
+    source: DungeonMapSelection;
+    startX: number;
+    startY: number;
+    endX: number;
+    endY: number;
+    copy: boolean;
+    target?: DungeonMapSelection;
+  }>();
   const suppressClickRef = useRef(false);
   const suppressContextMenuRef = useRef(false);
   const imagesRef = useRef<Record<string, HTMLImageElement>>({});
   const dragBoxRef = useRef<DungeonMapDragBox>();
   const dragFrameRef = useRef<number>();
+  const [entityDragTarget, setEntityDragTarget] = useState<DungeonMapSelection>();
   const [imageRevision, setImageRevision] = useState(0);
   const [tintCache] = useState(() => new DungeonMapSvgTintCache());
   const sharedEdgeById = useMemo(() => new Map(
@@ -499,6 +590,42 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
       const appearance = resolveAppearance(data);
       return appearance && source ? tintCache.get(source, appearance.mixedColor) ?? fallback : fallback;
     };
+    const entityRegions: DungeonMapEntityRegion[] = [];
+    const drawEntityCards = (
+      data: IEntityContainer | undefined,
+      location: DungeonMapSelection,
+      bounds: { x: number; y: number; width: number; height: number },
+    ) => {
+      const regions = layoutEntityRegions(data, location, bounds, entityTypeColors);
+      entityRegions.push(...regions);
+      regions.forEach((region) => {
+        const isSelected = region.entity.id === selectedEntityId;
+        const radius = Math.min(5, region.height / 3, region.width / 3);
+        context.save();
+        context.globalAlpha = entityDragRef.current?.entityId === region.entity.id ? 0.32 : 1;
+        context.fillStyle = region.color;
+        context.strokeStyle = isSelected ? '#ffffff' : 'rgba(4, 14, 10, .9)';
+        context.lineWidth = isSelected ? 2 : 1;
+        context.beginPath();
+        context.roundRect(region.x, region.y, region.width, region.height, radius);
+        context.fill();
+        context.stroke();
+        if (region.width >= 24 && region.height >= 13) {
+          context.fillStyle = '#07100d';
+          context.font = `${Math.max(8, Math.min(11, region.height * 0.62))}px Segoe UI, sans-serif`;
+          context.textAlign = 'center';
+          context.textBaseline = 'middle';
+          context.fillText(region.label, region.x + region.width / 2, region.y + region.height / 2);
+        } else {
+          context.fillStyle = '#07100d';
+          context.font = `${Math.max(8, Math.min(11, Math.min(region.width, region.height) * 0.7))}px Segoe UI, sans-serif`;
+          context.textAlign = 'center';
+          context.textBaseline = 'middle';
+          context.fillText(region.label.slice(0, 1), region.x + region.width / 2, region.y + region.height / 2);
+        }
+        context.restore();
+      });
+    };
 
     // Pass 1: topology structure. Every target gets a stable geometric slot:
     // center square = Tile, trapezoids = Sides, rectangles = shared Edges,
@@ -564,23 +691,34 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         const left = originX + x * pitch;
         const top = originY + y * pitch;
         const tileBodySize = Math.max(0, cell - edgeThickness * 2);
-        const appearance = resolveAppearance(tile.data);
-        context.fillStyle = '#294c3f';
-        context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
-        if (patternRendering === 'svg' && imagesRef.current.floor) {
-          context.drawImage(
-            resolveImage(tile.data, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
-            left + edgeThickness,
-            top + edgeThickness,
-            tileBodySize,
-            tileBodySize,
-          );
-        } else if (appearance) {
-          context.save();
-          context.globalAlpha = 0.42;
-          context.fillStyle = appearance.mixedColor;
+        if (entityViewMode === 'entities') {
+          context.fillStyle = '#11291f';
           context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
-          context.restore();
+          drawEntityCards(tile.data, { mode: 'tile', x, y }, {
+            x: left + edgeThickness + 2,
+            y: top + edgeThickness + 2,
+            width: Math.max(16, tileBodySize - 4),
+            height: Math.max(16, tileBodySize - 4),
+          });
+        } else {
+          const appearance = resolveAppearance(tile.data);
+          context.fillStyle = '#294c3f';
+          context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
+          if (patternRendering === 'svg' && imagesRef.current.floor) {
+            context.drawImage(
+              resolveImage(tile.data, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
+              left + edgeThickness,
+              top + edgeThickness,
+              tileBodySize,
+              tileBodySize,
+            );
+          } else if (appearance) {
+            context.save();
+            context.globalAlpha = 0.42;
+            context.fillStyle = appearance.mixedColor;
+            context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
+            context.restore();
+          }
         }
       }
     }
@@ -594,6 +732,21 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
             !hasData(tile.edges[direction].data)
           ) return;
           const data = tile.edges[direction].data;
+          if (entityViewMode === 'entities') {
+            const left = originX + x * pitch;
+            const top = originY + y * pitch;
+            const sideSize = Math.max(18, edgeThickness + 4);
+            const location: DungeonMapSelection = { mode: 'edge', x, y, direction };
+            const bounds = direction === 'north'
+              ? { x: left + 2, y: top + 1, width: Math.max(16, cell - 4), height: sideSize }
+              : direction === 'east'
+                ? { x: left + cell - sideSize, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) }
+                : direction === 'south'
+                  ? { x: left + 2, y: top + cell - sideSize, width: Math.max(16, cell - 4), height: sideSize }
+                  : { x: left + 1, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) };
+            drawEntityCards(data, location, bounds);
+            return;
+          }
           const appearance = resolveAppearance(data);
           const source = patterns?.[patternKey[direction]];
           const image = resolveImage(data, source, imagesRef.current[patternKey[direction]]);
@@ -623,6 +776,28 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
 
     if (hasSharedLayer) (map.sharedEdges ?? []).forEach((edge) => {
       if (!hasData(edge.edge.data)) return;
+      if (entityViewMode === 'entities') {
+        getSharedEdgeVisualSides(edge).forEach((side) => {
+          const left = originX + side.x * pitch;
+          const top = originY + side.y * pitch;
+          const sideSize = Math.max(18, sharedThickness + 4);
+          const bounds = side.direction === 'north'
+            ? { x: left + 2, y: top - sideSize + 2, width: Math.max(16, cell - 4), height: sideSize }
+            : side.direction === 'east'
+              ? { x: left + cell - 2, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) }
+              : side.direction === 'south'
+                ? { x: left + 2, y: top + cell - 2, width: Math.max(16, cell - 4), height: sideSize }
+                : { x: left - sideSize + 2, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) };
+          drawEntityCards(edge.edge.data, {
+            mode: 'shared',
+            x: side.x,
+            y: side.y,
+            direction: side.direction,
+            sharedEdgeId: edge.id,
+          }, bounds);
+        });
+        return;
+      }
       const appearance = resolveAppearance(edge.edge.data);
       const image = resolveImage(edge.edge.data, patterns?.sharedEdge, imagesRef.current.sharedEdge);
       const length = cell;
@@ -643,6 +818,20 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
 
     if (hasSharedLayer) (map.sharedPoints ?? []).forEach((sharedPoint) => {
       if (!hasData(sharedPoint.point.data)) return;
+      if (entityViewMode === 'entities') {
+        sharedPoint.positions.forEach((position) => {
+          const centerX = originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch);
+          const centerY = originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch);
+          const size = Math.max(20, pointSize + 4);
+          drawEntityCards(sharedPoint.point.data, {
+            mode: 'point',
+            x: position.gridX,
+            y: position.gridY,
+            sharedPointId: sharedPoint.id,
+          }, { x: centerX - size / 2, y: centerY - size / 2, width: size, height: size });
+        });
+        return;
+      }
       const appearance = resolveAppearance(sharedPoint.point.data);
       const image = resolveImage(sharedPoint.point.data, patterns?.sharedPoint, imagesRef.current.sharedPoint);
       sharedPoint.positions.forEach((position) => {
@@ -656,6 +845,9 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         }
       });
     });
+
+    if (entityViewMode === 'entities') entityRegionsRef.current = entityRegions;
+    else entityRegionsRef.current = [];
 
     if (showCoordinates) for (let y = 0; y < map.height; y += 1) for (let x = 0; x < map.width; x += 1) {
       context.fillStyle = '#d8ffea';
@@ -680,8 +872,10 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
     imageRevision,
     getSharedEdgeVisualSides,
     entityTypeColors,
+    entityViewMode,
     patterns,
     patternRendering,
+    selectedEntityId,
     tintCache,
   ]);
 
@@ -741,6 +935,35 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
     // fallback for consumers that have not migrated to the list API yet.
     const drawableSelections = selections ?? (selection ? [selection] : []);
     drawableSelections.forEach((item) => drawResolvedSelection(item));
+
+    if (entityViewMode === 'entities') {
+      entityRegionsRef.current.filter((region) => region.entity.id === selectedEntityId).forEach((region) => {
+        context.save();
+        context.strokeStyle = '#ffffff';
+        context.lineWidth = 2.5;
+        context.strokeRect(region.x - 2, region.y - 2, region.width + 4, region.height + 4);
+        context.restore();
+      });
+      if (entityDragTarget) {
+        context.save();
+        context.globalAlpha = 0.85;
+        drawSelection(
+          context,
+          entityDragTarget,
+          cell,
+          gap,
+          pitch,
+          edgeThickness,
+          sharedThickness,
+          pointSize,
+          originX,
+          originY,
+          map.width,
+          map.height,
+        );
+        context.restore();
+      }
+    }
   }, [
     selection,
     selections,
@@ -756,6 +979,9 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
     originY,
     edgeThickness,
     getSharedEdgeVisualSides,
+    entityDragTarget,
+    entityViewMode,
+    selectedEntityId,
     sharedEdgeById,
     sharedPointById,
     map.height,
@@ -886,6 +1112,143 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
     if (nextSelections[0]) onSelectionChange?.(nextSelections[0]);
   };
 
+  const selectionAtPoint = useCallback((localX: number, localY: number, forceAutomatic = false): DungeonMapSelection => {
+    const contentX = localX - originX;
+    const contentY = localY - originY;
+    const x = Math.min(map.width - 1, Math.max(0, Math.floor(contentX / pitch)));
+    const y = Math.min(map.height - 1, Math.max(0, Math.floor(contentY / pitch)));
+    const offsetX = contentX - x * pitch;
+    const offsetY = contentY - y * pitch;
+    const direction = ([
+      ['north', offsetY],
+      ['east', cell - offsetX],
+      ['south', cell - offsetY],
+      ['west', offsetX],
+    ] as [DungeonMapDirection, number][]).sort((a, b) => a[1] - b[1])[0][0];
+    const sharedHit = (map.sharedEdges ?? [])
+      .filter(() => hasSharedLayer)
+      .flatMap((edge) => getSharedEdgeVisualSides(edge).map((side) => {
+        const vector = directionVector[side.direction];
+        const centerX = originX + side.x * pitch + cell / 2 + vector.x * (cell / 2 + gap / 2);
+        const centerY = originY + side.y * pitch + cell / 2 + vector.y * (cell / 2 + gap / 2);
+        const tangentX = -vector.y;
+        const tangentY = vector.x;
+        const halfLength = cell / 2;
+        return {
+          edge,
+          side,
+          distance: distanceToSegment(
+            localX,
+            localY,
+            centerX - tangentX * halfLength,
+            centerY - tangentY * halfLength,
+            centerX + tangentX * halfLength,
+            centerY + tangentY * halfLength,
+          ),
+        };
+      }))
+      .sort((left, right) => left.distance - right.distance)[0];
+    const sharedEdge = sharedHit && sharedHit.distance <= sharedThickness / 2 + 5
+      ? sharedHit
+      : undefined;
+    const sharedPointHit = (hasSharedLayer ? map.sharedPoints ?? [] : [])
+      .flatMap((point) => point.positions.map((position) => ({
+        point,
+        position,
+        distance: Math.hypot(
+          localX - (originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch)),
+          localY - (originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch)),
+        ),
+      })))
+      .sort((left, right) => left.distance - right.distance)[0];
+    const sharedPoint = sharedPointHit && sharedPointHit.distance <= pointSize / 2 + 5
+      ? sharedPointHit.point
+      : undefined;
+    const directionDistance = Math.max(0, Math.min(
+      direction === 'north' ? offsetY
+        : direction === 'east' ? cell - offsetX
+          : direction === 'south' ? cell - offsetY
+            : offsetX,
+      cell,
+    ));
+    const singleEdgeIsHit = edgeThickness > 0 && directionDistance <= edgeThickness + 5;
+    const automaticSelection: DungeonMapSelection = sharedPoint
+      ? {
+          mode: 'point',
+          x: sharedPointHit.position.gridX,
+          y: sharedPointHit.position.gridY,
+          sharedPointId: sharedPoint.id,
+        }
+      : sharedEdge
+        ? {
+            mode: 'shared',
+            x: sharedEdge.side.x,
+            y: sharedEdge.side.y,
+            direction: sharedEdge.side.direction,
+            sharedEdgeId: sharedEdge.edge.id,
+          }
+        : singleEdgeIsHit
+          ? { mode: 'edge', x, y, direction }
+          : { mode: 'tile', x, y };
+    if (forceAutomatic || selectionMode === 'all') return automaticSelection;
+    if (selectionMode === 'map') return { mode: 'map', x: 0, y: 0 };
+    if (selectionMode === 'tile') return { mode: 'tile', x, y };
+    if (selectionMode === 'shared') {
+      return sharedEdge
+        ? {
+            mode: 'shared',
+            x: sharedEdge.side.x,
+            y: sharedEdge.side.y,
+            direction: sharedEdge.side.direction,
+            sharedEdgeId: sharedEdge.edge.id,
+          }
+        : { mode: 'shared', x, y, direction };
+    }
+    if (selectionMode === 'point') {
+      return sharedPoint
+        ? {
+            mode: 'point',
+            x: sharedPointHit.position.gridX,
+            y: sharedPointHit.position.gridY,
+            sharedPointId: sharedPoint.id,
+          }
+        : { mode: 'point', x, y };
+    }
+    return { mode: 'edge', x, y, direction };
+  }, [
+    cell,
+    edgeThickness,
+    gap,
+    getSharedEdgeVisualSides,
+    hasSharedLayer,
+    map.height,
+    map.sharedEdges,
+    map.sharedPoints,
+    map.width,
+    originX,
+    originY,
+    pitch,
+    pointSize,
+    selectionMode,
+    sharedThickness,
+  ]);
+
+  const clearEntityDrag = () => {
+    entityDragRef.current = undefined;
+    setEntityDragTarget(undefined);
+    const overlay = entityDragOverlayRef.current;
+    if (overlay) overlay.style.display = 'none';
+  };
+
+  const updateEntityDragOverlay = (point: { x: number; y: number }, entityId: string, copy: boolean) => {
+    const overlay = entityDragOverlayRef.current;
+    if (!overlay) return;
+    overlay.textContent = `${copy ? '复制' : '移动'} ${entityId}`;
+    overlay.style.display = 'block';
+    overlay.style.left = `${Math.max(0, Math.min(width - 150, point.x + 10))}px`;
+    overlay.style.top = `${Math.max(0, Math.min(height - 26, point.y + 10))}px`;
+  };
+
   return (
     <div
       className={className}
@@ -935,12 +1298,58 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         }}
       />
       <div
+        ref={entityDragOverlayRef}
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          display: 'none',
+          zIndex: 3,
+          maxWidth: 150,
+          overflow: 'hidden',
+          padding: '4px 7px',
+          border: '1px solid rgba(103, 232, 249, .72)',
+          borderRadius: 6,
+          color: '#e6fcff',
+          background: 'rgba(5, 31, 35, .92)',
+          boxShadow: '0 6px 18px rgba(0,0,0,.32)',
+          font: '10px Consolas, monospace',
+          pointerEvents: 'none',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      />
+      <div
       onPointerDown={(event) => {
         if (event.button !== 0 && event.button !== 2) return;
         // A drag does not consistently emit a trailing click in every browser.
         // Never let a stale suppression flag consume the user's next real click.
         suppressClickRef.current = false;
         const point = canvasPoint(event);
+        if (entityViewMode === 'entities' && event.button === 0) {
+          const region = [...entityRegionsRef.current]
+            .reverse()
+            .find((candidate) => point.x >= candidate.x
+              && point.x <= candidate.x + candidate.width
+              && point.y >= candidate.y
+              && point.y <= candidate.y + candidate.height);
+          if (region) {
+            event.currentTarget.setPointerCapture(event.pointerId);
+            entityDragRef.current = {
+              entityId: region.entity.id,
+              source: region.location,
+              startX: point.x,
+              startY: point.y,
+              endX: point.x,
+              endY: point.y,
+              copy: event.altKey,
+              target: region.location,
+            };
+            setEntityDragTarget(region.location);
+            onEntitySelect?.(region.entity.id, region.location);
+            updateEntityDragOverlay(point, region.entity.id, event.altKey);
+            return;
+          }
+        }
         event.currentTarget.setPointerCapture(event.pointerId);
         dragBoxRef.current = {
           startX: point.x,
@@ -952,6 +1361,17 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         scheduleDragOverlay();
       }}
       onPointerMove={(event) => {
+        const entityDrag = entityDragRef.current;
+        if (entityDrag && event.currentTarget.hasPointerCapture(event.pointerId)) {
+          const point = canvasPoint(event);
+          const target = selectionAtPoint(point.x, point.y, true);
+          entityDrag.endX = point.x;
+          entityDrag.endY = point.y;
+          entityDrag.target = target;
+          setEntityDragTarget(target);
+          updateEntityDragOverlay(point, entityDrag.entityId, entityDrag.copy);
+          return;
+        }
         const dragBox = dragBoxRef.current;
         if (!dragBox || !event.currentTarget.hasPointerCapture(event.pointerId)) return;
         const point = canvasPoint(event);
@@ -959,8 +1379,34 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         dragBox.endY = point.y;
         scheduleDragOverlay();
       }}
-      onPointerCancel={clearDragBox}
+      onPointerCancel={() => {
+        if (entityDragRef.current) clearEntityDrag();
+        clearDragBox();
+      }}
       onPointerUp={(event) => {
+        const entityDrag = entityDragRef.current;
+        if (entityDrag) {
+          const point = canvasPoint(event);
+          const finished = { ...entityDrag, endX: point.x, endY: point.y };
+          const distance = Math.hypot(finished.endX - finished.startX, finished.endY - finished.startY);
+          const target = finished.target ?? selectionAtPoint(point.x, point.y, true);
+          clearEntityDrag();
+          suppressClickRef.current = true;
+          window.setTimeout(() => {
+            suppressClickRef.current = false;
+          }, 0);
+          if (distance < 5) {
+            onEntitySelect?.(finished.entityId, finished.source);
+            return;
+          }
+          onEntityMove?.({
+            entityId: finished.entityId,
+            from: finished.source,
+            to: target,
+            copy: finished.copy,
+          });
+          return;
+        }
         const dragBox = dragBoxRef.current;
         if (!dragBox) return;
         const point = canvasPoint(event);

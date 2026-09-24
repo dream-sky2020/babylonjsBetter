@@ -157,3 +157,28 @@ test('Inspector 可直接添加 Entity，并按空间目标移除多挂载 Entit
   store.undo();
   assert.equal(store.getDocument().entities[0].id, 'actor:native-inspector');
 });
+
+test('移动 Entity 只替换当前挂载，保留身份、组件和其他挂载，并只产生一次历史记录', () => {
+  const store = createStore();
+  const [firstTileId, secondTileId] = store.getDocument().grid.tileIds;
+  const firstTarget = { kind: 'tile' as const, tileId: firstTileId };
+  const secondTarget = { kind: 'tile' as const, tileId: secondTileId };
+  const thirdTarget = { kind: 'map' as const };
+  store.addEntityAt(firstTarget, {
+    id: 'actor:moving',
+    entityType: 'dungeon-actor',
+    name: '可移动 Actor',
+    components: [{ id: 'actor:moving:state', type: 'state', version: 1, current: 'idle' }],
+  });
+  store.attachEntity('actor:moving', thirdTarget);
+  store.markSaved();
+
+  assert.equal(store.moveEntity('actor:moving', firstTarget, secondTarget), true);
+  const moved = store.getDocument();
+  assert.equal(moved.entities[0].id, 'actor:moving');
+  assert.equal(moved.components.state[0].entityId, 'actor:moving');
+  assert.deepEqual(moved.components['spatial-attachment'][0].targets, [thirdTarget, secondTarget]);
+  assert.equal(store.undo(), true);
+  assert.deepEqual(store.getDocument().components['spatial-attachment'][0].targets, [firstTarget, thirdTarget]);
+  assert.equal(store.canUndo, true);
+});
