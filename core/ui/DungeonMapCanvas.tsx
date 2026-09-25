@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { IEntity, IEntityContainer } from '@/core/entity';
+import type { IEntityContainer } from '@/core/entity';
 import type {
   DungeonMapData,
   DungeonMapDocumentV2,
@@ -15,6 +15,17 @@ import {
   createDungeonMapCanvasView,
   createLegacyDungeonMapCanvasView,
 } from './dungeon-map-canvas-view';
+import {
+  layoutDungeonMapEntityStack,
+  visibleDungeonMapEntities,
+  type DungeonMapEntityRegion,
+} from './dungeon-map-entity-stack';
+import {
+  dungeonMapGridPointPosition as gridPointPosition,
+  dungeonMapSpaceMetrics,
+  dungeonMapTopologyColors as topologyColors,
+  northTileSidePolygon,
+} from './dungeon-map-space-geometry';
 
 export type DungeonMapPatterns = {
   wall?: string;
@@ -128,74 +139,6 @@ const patternKey = {
   west: 'edgeWest',
 } as const;
 
-const topologyColors = {
-  tile: '#172c25',
-  side: '#315044',
-  sharedEdge: '#437762',
-  point: '#62a98b',
-  outline: 'rgba(151, 211, 185, .24)',
-} as const;
-
-const STRUCTURAL_ENTITY_TYPES = new Set(['map', 'tile', 'tile-edge', 'shared-edge', 'shared-point']);
-
-type DungeonMapEntityRegion = {
-  entity: IEntity;
-  location: DungeonMapSelection;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  color: string;
-  label: string;
-};
-
-const visibleEntities = (data: IEntityContainer | undefined): readonly IEntity[] => (
-  data?.entities.filter((entity) => (
-    !STRUCTURAL_ENTITY_TYPES.has(entity.entityType)
-    || entity.components.some((component) => component.type !== 'legacy-data')
-  )) ?? []
-);
-
-const entityColor = (entity: IEntity, colors: DungeonMapEntityTypeColors | undefined): string => (
-  colors?.[entity.entityType] ?? '#94a3b8'
-);
-
-const entityLabel = (entity: IEntity, index: number): string => {
-  const source = entity.name?.trim() || entity.entityType;
-  return source.length > 5 ? source.slice(0, 5) : source || String(index + 1);
-};
-
-const layoutEntityRegions = (
-  data: IEntityContainer | undefined,
-  location: DungeonMapSelection,
-  bounds: { x: number; y: number; width: number; height: number },
-  colors: DungeonMapEntityTypeColors | undefined,
-): DungeonMapEntityRegion[] => {
-  const entities = visibleEntities(data);
-  if (entities.length === 0) return [];
-  const width = Math.max(18, bounds.width);
-  const height = Math.max(16, bounds.height);
-  const columns = Math.max(1, Math.min(4, Math.ceil(Math.sqrt(entities.length * width / height))));
-  const rows = Math.ceil(entities.length / columns);
-  const gap = Math.max(2, Math.min(5, Math.round(Math.min(width, height) * 0.08)));
-  const cardWidth = Math.max(10, (width - gap * (columns - 1)) / columns);
-  const cardHeight = Math.max(10, (height - gap * (rows - 1)) / rows);
-  return entities.map((entity, index) => {
-    const column = index % columns;
-    const row = Math.floor(index / columns);
-    return {
-      entity,
-      location,
-      x: bounds.x + column * (cardWidth + gap),
-      y: bounds.y + row * (cardHeight + gap),
-      width: cardWidth,
-      height: cardHeight,
-      color: entityColor(entity, colors),
-      label: entityLabel(entity, index),
-    };
-  });
-};
-
 const hasData = (value: unknown) =>
   value != null &&
   (!Array.isArray(value) || value.length > 0) &&
@@ -232,18 +175,6 @@ const distanceToSegment = (
     pointX - (startX + segmentX * projection),
     pointY - (startY + segmentY * projection),
   );
-};
-
-const gridPointPosition = (
-  index: number,
-  count: number,
-  cell: number,
-  gap: number,
-  pitch: number,
-) => {
-  if (index <= 0) return -gap / 2;
-  if (index >= count) return count * cell + Math.max(0, count - 1) * gap + gap / 2;
-  return index * pitch - gap / 2;
 };
 
 const drawThreeSlice = (
@@ -293,15 +224,12 @@ const traceTileEdgeTrapezoid = (
   cell: number,
   edgeThickness: number,
 ) => {
-  const half = cell / 2;
-  const depth = Math.min(half, Math.max(0, edgeThickness));
-  const outerY = -half;
-  const innerY = outerY + depth;
+  const [outerLeft, outerRight, innerRight, innerLeft] = northTileSidePolygon(cell, edgeThickness);
   context.beginPath();
-  context.moveTo(-half, outerY);
-  context.lineTo(half, outerY);
-  context.lineTo(half - depth, innerY);
-  context.lineTo(-half + depth, innerY);
+  context.moveTo(outerLeft.x, outerLeft.y);
+  context.lineTo(outerRight.x, outerRight.y);
+  context.lineTo(innerRight.x, innerRight.y);
+  context.lineTo(innerLeft.x, innerLeft.y);
   context.closePath();
 };
 
@@ -440,14 +368,10 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
     (map.sharedPoints ?? []).map((point) => [point.id, point]),
   ), [map.sharedPoints]);
   const cell = Math.max(8, cellSize);
-  const sharedThickness = Math.max(0, cell * sharedEdgeThicknessRatio);
-  const edgeThickness = Math.min(cell / 2, Math.max(0, cell * edgeThicknessRatio));
-  const hasSharedLayer = sharedThickness > 0;
+  const spaceMetrics = dungeonMapSpaceMetrics(cell, edgeThicknessRatio, sharedEdgeThicknessRatio);
+  const { sharedThickness, edgeThickness, hasSharedLayer, gap, pointSize, pitch } = spaceMetrics;
   // The shared-edge slot must be exactly as wide as the rendered shared edge.
   // Extra gutter space exposes the dark canvas between tile and shared layers.
-  const gap = hasSharedLayer ? sharedThickness : 0;
-  const pointSize = hasSharedLayer ? gap : 0;
-  const pitch = cell + gap;
   const contentWidth = map.width * cell + Math.max(0, map.width - 1) * gap;
   const contentHeight = map.height * cell + Math.max(0, map.height - 1) * gap;
   // topologyMargin belongs to the map itself; canvasPadding is interaction space outside the map.
@@ -539,19 +463,29 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
       const key = `${source}|${appearance.mixedColor}`;
       if (!requests.has(key)) requests.set(key, tintCache.load(source, appearance.mixedColor));
     };
+    const requestContainerTint = (data: IEntityContainer | undefined, source: string | undefined) => {
+      if (entityViewMode === 'entities') {
+        const entities = visibleDungeonMapEntities(data);
+        if (entities.length > 0) {
+          entities.forEach((entity) => requestTint({ entities: [entity] }, source));
+          return;
+        }
+      }
+      requestTint(data, source);
+    };
     map.tiles.forEach((tile) => {
-      requestTint(tile.data, patterns?.floor);
-      directions.forEach((direction) => requestTint(tile.edges[direction].data, patterns?.[patternKey[direction]]));
+      requestContainerTint(tile.data, patterns?.floor);
+      directions.forEach((direction) => requestContainerTint(tile.edges[direction].data, patterns?.[patternKey[direction]]));
     });
-    map.sharedEdges?.forEach((edge) => requestTint(edge.edge.data, patterns?.sharedEdge));
-    map.sharedPoints?.forEach((point) => requestTint(point.point.data, patterns?.sharedPoint));
+    map.sharedEdges?.forEach((edge) => requestContainerTint(edge.edge.data, patterns?.sharedEdge));
+    map.sharedPoints?.forEach((point) => requestContainerTint(point.point.data, patterns?.sharedPoint));
     void Promise.allSettled(requests.values()).then(() => {
       if (active && requests.size > 0) setImageRevision((value) => value + 1);
     });
     return () => {
       active = false;
     };
-  }, [entityTypeColors, map, patternRendering, patterns, tintCache]);
+  }, [entityTypeColors, entityViewMode, map, patternRendering, patterns, tintCache]);
 
   useEffect(() => () => tintCache.clear(), [tintCache]);
 
@@ -591,40 +525,27 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
       return appearance && source ? tintCache.get(source, appearance.mixedColor) ?? fallback : fallback;
     };
     const entityRegions: DungeonMapEntityRegion[] = [];
-    const drawEntityCards = (
+    const drawContainerLayers = (
       data: IEntityContainer | undefined,
       location: DungeonMapSelection,
       bounds: { x: number; y: number; width: number; height: number },
+      drawSurface: (surfaceData: IEntityContainer | undefined) => void,
     ) => {
-      const regions = layoutEntityRegions(data, location, bounds, entityTypeColors);
-      entityRegions.push(...regions);
-      regions.forEach((region) => {
-        const isSelected = region.entity.id === selectedEntityId;
-        const radius = Math.min(5, region.height / 3, region.width / 3);
+      const regions = entityViewMode === 'entities'
+        ? layoutDungeonMapEntityStack(data, location, bounds)
+        : [];
+      if (regions.length === 0) {
+        drawSurface(data);
+        return;
+      }
+      for (const region of regions) {
+        entityRegions.push(region);
         context.save();
-        context.globalAlpha = entityDragRef.current?.entityId === region.entity.id ? 0.32 : 1;
-        context.fillStyle = region.color;
-        context.strokeStyle = isSelected ? '#ffffff' : 'rgba(4, 14, 10, .9)';
-        context.lineWidth = isSelected ? 2 : 1;
-        context.beginPath();
-        context.roundRect(region.x, region.y, region.width, region.height, radius);
-        context.fill();
-        context.stroke();
-        if (region.width >= 24 && region.height >= 13) {
-          context.fillStyle = '#07100d';
-          context.font = `${Math.max(8, Math.min(11, region.height * 0.62))}px Segoe UI, sans-serif`;
-          context.textAlign = 'center';
-          context.textBaseline = 'middle';
-          context.fillText(region.label, region.x + region.width / 2, region.y + region.height / 2);
-        } else {
-          context.fillStyle = '#07100d';
-          context.font = `${Math.max(8, Math.min(11, Math.min(region.width, region.height) * 0.7))}px Segoe UI, sans-serif`;
-          context.textAlign = 'center';
-          context.textBaseline = 'middle';
-          context.fillText(region.label.slice(0, 1), region.x + region.width / 2, region.y + region.height / 2);
-        }
+        context.translate(region.x - bounds.x, region.y - bounds.y);
+        if (entityDragRef.current?.entityId === region.entity.id) context.globalAlpha = 0.32;
+        drawSurface({ entities: [region.entity] });
         context.restore();
-      });
+      }
     };
 
     // Pass 1: topology structure. Every target gets a stable geometric slot:
@@ -634,7 +555,7 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
       for (let x = 0; x < map.width; x += 1) {
         const left = originX + x * pitch;
         const top = originY + y * pitch;
-        context.fillStyle = '#0b1713';
+        context.fillStyle = topologyColors.background;
         context.fillRect(left, top, cell, cell);
         if (showGrid) {
           context.save();
@@ -691,22 +612,18 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
         const left = originX + x * pitch;
         const top = originY + y * pitch;
         const tileBodySize = Math.max(0, cell - edgeThickness * 2);
-        if (entityViewMode === 'entities') {
-          context.fillStyle = '#11291f';
-          context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
-          drawEntityCards(tile.data, { mode: 'tile', x, y }, {
-            x: left + edgeThickness + 2,
-            y: top + edgeThickness + 2,
-            width: Math.max(16, tileBodySize - 4),
-            height: Math.max(16, tileBodySize - 4),
-          });
-        } else {
-          const appearance = resolveAppearance(tile.data);
+        drawContainerLayers(tile.data, { mode: 'tile', x, y }, {
+          x: left + edgeThickness,
+          y: top + edgeThickness,
+          width: tileBodySize,
+          height: tileBodySize,
+        }, (surfaceData) => {
+          const appearance = resolveAppearance(surfaceData);
           context.fillStyle = '#294c3f';
           context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
           if (patternRendering === 'svg' && imagesRef.current.floor) {
             context.drawImage(
-              resolveImage(tile.data, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
+              resolveImage(surfaceData, patterns?.floor, imagesRef.current.floor) ?? imagesRef.current.floor,
               left + edgeThickness,
               top + edgeThickness,
               tileBodySize,
@@ -719,7 +636,7 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
             context.fillRect(left + edgeThickness, top + edgeThickness, tileBodySize, tileBodySize);
             context.restore();
           }
-        }
+        });
       }
     }
 
@@ -732,117 +649,100 @@ const DungeonMapCanvasComponent: React.FC<DungeonMapCanvasProps> = ({
             !hasData(tile.edges[direction].data)
           ) return;
           const data = tile.edges[direction].data;
-          if (entityViewMode === 'entities') {
-            const left = originX + x * pitch;
-            const top = originY + y * pitch;
-            const sideSize = Math.max(18, edgeThickness + 4);
-            const location: DungeonMapSelection = { mode: 'edge', x, y, direction };
-            const bounds = direction === 'north'
-              ? { x: left + 2, y: top + 1, width: Math.max(16, cell - 4), height: sideSize }
-              : direction === 'east'
-                ? { x: left + cell - sideSize, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) }
-                : direction === 'south'
-                  ? { x: left + 2, y: top + cell - sideSize, width: Math.max(16, cell - 4), height: sideSize }
-                  : { x: left + 1, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) };
-            drawEntityCards(data, location, bounds);
-            return;
-          }
-          const appearance = resolveAppearance(data);
-          const source = patterns?.[patternKey[direction]];
-          const image = resolveImage(data, source, imagesRef.current[patternKey[direction]]);
-          context.save();
-          context.translate(originX + x * pitch + cell / 2, originY + y * pitch + cell / 2);
-          context.rotate(directionAngle[direction] + Math.PI / 2);
-          traceTileEdgeTrapezoid(context, cell, edgeThickness);
-          if (image) {
-            context.clip();
-            drawThreeSlice(
-              context,
-              image,
-              -cell / 2,
-              -cell / 2,
-              cell,
-              edgeThickness,
-              edgeThickness,
-            );
-          } else {
-            context.fillStyle = appearance?.mixedColor ?? '#8fb9a8';
-            context.fill();
-          }
-          context.restore();
+          const left = originX + x * pitch;
+          const top = originY + y * pitch;
+          const bounds = direction === 'north'
+            ? { x: left, y: top, width: cell, height: edgeThickness }
+            : direction === 'east'
+              ? { x: left + cell - edgeThickness, y: top, width: edgeThickness, height: cell }
+              : direction === 'south'
+                ? { x: left, y: top + cell - edgeThickness, width: cell, height: edgeThickness }
+                : { x: left, y: top, width: edgeThickness, height: cell };
+          drawContainerLayers(data, { mode: 'edge', x, y, direction }, bounds, (surfaceData) => {
+            const appearance = resolveAppearance(surfaceData);
+            const source = patterns?.[patternKey[direction]];
+            const image = resolveImage(surfaceData, source, imagesRef.current[patternKey[direction]]);
+            context.save();
+            context.translate(left + cell / 2, top + cell / 2);
+            context.rotate(directionAngle[direction] + Math.PI / 2);
+            traceTileEdgeTrapezoid(context, cell, edgeThickness);
+            if (image) {
+              context.clip();
+              drawThreeSlice(context, image, -cell / 2, -cell / 2, cell, edgeThickness, edgeThickness);
+            } else {
+              context.fillStyle = appearance?.mixedColor ?? '#8fb9a8';
+              context.fill();
+            }
+            context.restore();
+          });
         });
       }
     }
 
     if (hasSharedLayer) (map.sharedEdges ?? []).forEach((edge) => {
       if (!hasData(edge.edge.data)) return;
-      if (entityViewMode === 'entities') {
-        getSharedEdgeVisualSides(edge).forEach((side) => {
-          const left = originX + side.x * pitch;
-          const top = originY + side.y * pitch;
-          const sideSize = Math.max(18, sharedThickness + 4);
-          const bounds = side.direction === 'north'
-            ? { x: left + 2, y: top - sideSize + 2, width: Math.max(16, cell - 4), height: sideSize }
-            : side.direction === 'east'
-              ? { x: left + cell - 2, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) }
-              : side.direction === 'south'
-                ? { x: left + 2, y: top + cell - 2, width: Math.max(16, cell - 4), height: sideSize }
-                : { x: left - sideSize + 2, y: top + 2, width: sideSize, height: Math.max(16, cell - 4) };
-          drawEntityCards(edge.edge.data, {
-            mode: 'shared',
-            x: side.x,
-            y: side.y,
-            direction: side.direction,
-            sharedEdgeId: edge.id,
-          }, bounds);
-        });
-        return;
-      }
-      const appearance = resolveAppearance(edge.edge.data);
-      const image = resolveImage(edge.edge.data, patterns?.sharedEdge, imagesRef.current.sharedEdge);
-      const length = cell;
       getSharedEdgeVisualSides(edge).forEach((side) => {
-        context.save();
-        context.translate(originX + side.x * pitch + cell / 2, originY + side.y * pitch + cell / 2);
-        context.rotate(directionAngle[side.direction] + Math.PI / 2);
-        const y = -cell / 2 - gap / 2 - sharedThickness / 2;
-        if (image) {
-          drawThreeSlice(context, image, -length / 2, y, length, sharedThickness, sharedThickness / 2);
-        } else {
-          context.fillStyle = appearance?.mixedColor ?? '#7ee8bb';
-          context.fillRect(-length / 2, y, length, sharedThickness);
-        }
-        context.restore();
+        const left = originX + side.x * pitch;
+        const top = originY + side.y * pitch;
+        const vector = directionVector[side.direction];
+        const centerX = left + cell / 2 + vector.x * (cell / 2 + gap / 2);
+        const centerY = top + cell / 2 + vector.y * (cell / 2 + gap / 2);
+        const horizontal = side.direction === 'north' || side.direction === 'south';
+        const bounds = {
+          x: centerX - (horizontal ? cell : sharedThickness) / 2,
+          y: centerY - (horizontal ? sharedThickness : cell) / 2,
+          width: horizontal ? cell : sharedThickness,
+          height: horizontal ? sharedThickness : cell,
+        };
+        drawContainerLayers(edge.edge.data, {
+          mode: 'shared',
+          x: side.x,
+          y: side.y,
+          direction: side.direction,
+          sharedEdgeId: edge.id,
+        }, bounds, (surfaceData) => {
+          const appearance = resolveAppearance(surfaceData);
+          const image = resolveImage(surfaceData, patterns?.sharedEdge, imagesRef.current.sharedEdge);
+          context.save();
+          context.translate(left + cell / 2, top + cell / 2);
+          context.rotate(directionAngle[side.direction] + Math.PI / 2);
+          const stripY = -cell / 2 - gap / 2 - sharedThickness / 2;
+          if (image) {
+            drawThreeSlice(context, image, -cell / 2, stripY, cell, sharedThickness, sharedThickness / 2);
+          } else {
+            context.fillStyle = appearance?.mixedColor ?? '#7ee8bb';
+            context.fillRect(-cell / 2, stripY, cell, sharedThickness);
+          }
+          context.restore();
+        });
       });
     });
 
     if (hasSharedLayer) (map.sharedPoints ?? []).forEach((sharedPoint) => {
       if (!hasData(sharedPoint.point.data)) return;
-      if (entityViewMode === 'entities') {
-        sharedPoint.positions.forEach((position) => {
-          const centerX = originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch);
-          const centerY = originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch);
-          const size = Math.max(20, pointSize + 4);
-          drawEntityCards(sharedPoint.point.data, {
-            mode: 'point',
-            x: position.gridX,
-            y: position.gridY,
-            sharedPointId: sharedPoint.id,
-          }, { x: centerX - size / 2, y: centerY - size / 2, width: size, height: size });
-        });
-        return;
-      }
-      const appearance = resolveAppearance(sharedPoint.point.data);
-      const image = resolveImage(sharedPoint.point.data, patterns?.sharedPoint, imagesRef.current.sharedPoint);
       sharedPoint.positions.forEach((position) => {
         const centerX = originX + gridPointPosition(position.gridX, map.width, cell, gap, pitch);
         const centerY = originY + gridPointPosition(position.gridY, map.height, cell, gap, pitch);
-        if (image) {
-          context.drawImage(image, centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
-        } else {
-          context.fillStyle = appearance?.mixedColor ?? '#9af2cd';
-          context.fillRect(centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
-        }
+        drawContainerLayers(sharedPoint.point.data, {
+          mode: 'point',
+          x: position.gridX,
+          y: position.gridY,
+          sharedPointId: sharedPoint.id,
+        }, {
+          x: centerX - pointSize / 2,
+          y: centerY - pointSize / 2,
+          width: pointSize,
+          height: pointSize,
+        }, (surfaceData) => {
+          const appearance = resolveAppearance(surfaceData);
+          const image = resolveImage(surfaceData, patterns?.sharedPoint, imagesRef.current.sharedPoint);
+          if (image) {
+            context.drawImage(image, centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
+          } else {
+            context.fillStyle = appearance?.mixedColor ?? '#9af2cd';
+            context.fillRect(centerX - pointSize / 2, centerY - pointSize / 2, pointSize, pointSize);
+          }
+        });
       });
     });
 
