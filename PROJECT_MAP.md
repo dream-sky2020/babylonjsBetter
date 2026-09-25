@@ -1,5 +1,17 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-25：Dungeon Map Canvas Lab 的 Activity / View 分工
+
+`tools/dungeon-map-canvas-lab/DungeonMapCanvasLab.tsx` 只连接页面 Activity 与 View。`DungeonMapCanvasLabActivity.ts` 拥有编辑状态、初始化、加载保存和地图操作；`DungeonMapCanvasLabView.tsx` 承接面板、表单、Inspector 与 Canvas 布局，通过由 Activity 返回值推导的 `DungeonMapCanvasLabViewModel` 取得数据和操作。Lab 普通概览继续使用共享的 `core/ui/DungeonMapCanvas.tsx` 绘制 2D 地图；实体展开切换到 `DungeonMapCanvas3D.tsx` 的 Three.js 场景。两种视图的地图修改仍由 `DungeonMapDocumentStore` 提交。
+
+`DungeonMapCanvas` 的 `overview` 与 `entities` 模式共用格子、单格边、公用边、公用点的几何和 SVG 着色绘制路径。展开模式按 Entity 稳定 ID 排序，首个实体位于原结构绘制位置，其后每层向左上各偏移 6 个 Canvas 单位；`core/ui/dungeon-map-entity-stack.ts` 只生成显示与命中坐标，不改变 Entity 所属空间或文档数据。SVG 染色预热在展开模式按单个 Entity 进行。
+
+Lab 的 3D 展开沿用 `createDungeonMapCanvasView()` 的 V2/V1 空间视图和 `visibleDungeonMapEntities()` 的过滤、稳定 ID 顺序。`core/ui/dungeon-map-space-geometry.ts` 提供 2D 概览和 3D 底图共同消费的结构颜色、格子/边/点间距与单格边梯形轮廓；3D 底图按 2D 的方格底色、格子中心、四侧梯形、公用边长条和公用点方块绘制，3D 命中按点、共有边、单格边、格子的优先顺序及 5 像素边缘余量选出同一空间目标。`layoutDungeonMapEntityDepthStack()` 将同一容器的 Entity 沿 Z 轴分层；`dungeonMapCanvas3DVisual.ts` 只按格子、单格边、公用边、交汇点和地图级空间生成不同几何，同一空间内不同 Entity Type 保持相同形状，类型只影响颜色和标签。地图级 Entity 使用地图边缘的独立基座。正交相机、光照和 OrbitControls 提供观察，Raycaster 将拾取结果转回原 Entity ID 与空间选择。叠放位置只存在于显示层。共享 Canvas 原有 2D `entities` 接口继续可供其他调用方使用，Lab 不再通过该接口绘制展开模式。
+
+3D 拖动在目标空间显示半透明实体及沿场景 Z 轴的落点引导线，预览层级按目标已有 Entity 的稳定 ID 顺序求解；松手仍交给 Activity/Store 校验和提交。实体与空间的选中态直接改变材质颜色，不再绘制选区圆圈。
+
+3D 场景、相机和 OrbitControls 只在进入视图时创建；文档变化通过稳定 Entity ID 对照现有模型，位置变化只更新对应对象的变换，空间种类、标签或颜色变化才替换该实体模型。拓扑或显示设置变化只重建空间基座，不重建场景和相机；视角只在首次进入或用户按下“重置视角”时初始化。
+
 ## 2026-09-23：Dungeon 可选八方向格步移动
 
 Dungeon 地图的 Side、Edge、出口和编译拓扑继续保持 NESW 四方向；`core/dungeon-movement/dungeonMovement.direction.ts` 新增独立的八方向移动步类型和 Movement Profile。旧 `ground` 与 `ground-four-way` 默认维持四方向，`ground-eight-way` 为单个玩家或 Agent 开启斜向能力，因此同一地图可混合两种角色而不迁移地图文档。
