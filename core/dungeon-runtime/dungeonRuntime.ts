@@ -1,5 +1,5 @@
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
-import { createDungeonObstacleStatesFromBindings, scanDungeonDocumentObstacles } from '../dungeon-obstacle';
+import { createDungeonObstacleStatesFromBindings, scanDungeonDocumentObstacles } from '../dungeon-obstacle/dungeonObstacle.ts';
 import type { DungeonMapDocumentV2 } from '../map-document/index.ts';
 import type { DungeonRuntime, DungeonRuntimePlayerPosition } from './dungeonRuntime.types';
 import { createDungeonRuntimeMap, isDungeonRuntimePositionInside } from './dungeonRuntimeMap.ts';

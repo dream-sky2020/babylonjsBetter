@@ -1,4 +1,5 @@
 import type { LabModuleCatalog } from '@/tools/lab-kit';
+import { dungeonOverheadViewLabModule } from './dungeon-overhead-view';
 import { viewportLayersLabModule } from '@/tools/lab-modules/shared/viewport-layers';
 import { dungeonConfigLabModule } from './dungeon-config';
 import { dungeonAgentLabModule } from './dungeon-agent';
@@ -15,6 +16,7 @@ import { playerMovementLabModule } from './player-movement';
 import { playerSpawnLabModule } from './player-spawn';
 
 export const dungeonLabModuleCatalog: LabModuleCatalog = {
+  [dungeonOverheadViewLabModule.id]: dungeonOverheadViewLabModule,
   [viewportLayersLabModule.id]: viewportLayersLabModule,
   [dungeonLibrariesLabModule.id]: dungeonLibrariesLabModule,
   [dungeonMapLoaderLabModule.id]: dungeonMapLoaderLabModule,
@@ -32,6 +34,7 @@ export const dungeonLabModuleCatalog: LabModuleCatalog = {
 };
 
 export * from './dungeon-config';
+export * from './dungeon-overhead-view';
 export * from './dungeon-agent';
 export * from './dungeon-first-person-camera';
 export * from './dungeon-player-camera';

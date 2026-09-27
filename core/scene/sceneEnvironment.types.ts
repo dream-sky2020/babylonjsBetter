@@ -1,5 +1,6 @@
-import type { TransformNode } from '@babylonjs/core';
-import type { ModelEntity, ModelTransparencyPolicy } from '../model';
+import type { TransformNode, Node } from '@babylonjs/core';
+import type { ModelEntity } from '../model/types/model.types';
+import type { ModelTransparencyPolicy } from '../model/material/applyModelMaterialPolicy';
 import type { ShadowQualityReference } from './shadowQualityPreset.types';
 
 export type SceneEnvironmentVector3 = readonly [number, number, number];
@@ -97,5 +98,7 @@ export type SceneEnvironmentInstance = {
   presetKey: string;
   root: TransformNode;
   models: readonly { definition: SceneEnvironmentModel; entity: ModelEntity }[];
+  /** Stable declaration identities; imported render children are intentionally not edit targets. */
+  nodes: ReadonlyMap<string, Node>;
   dispose: () => void;
 };

@@ -137,8 +137,6 @@
       {
         "entityId": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad",
         "id": "component:ddbadf54-d317-4d60-91b6-283b2debfd23",
-        "tileX": 7,
-        "tileY": 0,
         "type": "actor-spawn",
         "version": 1
       }
@@ -452,7 +450,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,0"
+            "tileId": "tile:7,1"
           }
         ],
         "type": "spatial-attachment",
@@ -678,7 +676,8 @@
         "id": "entity:d477fa49-e827-4e19-b73e-6f458cbf2bad:spatial-attachment",
         "targets": [
           {
-            "kind": "map"
+            "kind": "tile",
+            "tileId": "tile:7,6"
           }
         ],
         "type": "spatial-attachment",

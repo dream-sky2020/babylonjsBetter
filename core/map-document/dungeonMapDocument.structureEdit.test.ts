@@ -49,7 +49,7 @@ const createPreset = (mode: DungeonMapTopologyMode = 'bounded', includeSpawn = t
   }),
 });
 
-test('原生插入行保留既有拓扑 ID，并移动 Spawn 坐标', () => {
+test('原生插入行保留既有拓扑 ID，并保留 Spawn 的格子挂载', () => {
   const source = migrateDungeonMapToDocumentV2(createPreset()).document;
   const before = new DungeonMapDocumentQuery(source);
   const tileId = before.getTileIdAt(1, 1)!;
@@ -59,7 +59,8 @@ test('原生插入行保留既有拓扑 ID，并移动 Spawn 坐标', () => {
   assert.equal(result.document.grid.height, 3);
   assert.equal(after.getTileIdAt(1, 2), tileId);
   assert.equal(after.getSide(tileId, 'east')?.id, sideId);
-  assert.equal(result.document.components['actor-spawn'][0].tileY, 2);
+  assert.ok(after.getEntitiesAt({ kind: 'tile', tileId }).some(({ id }) => id === 'spawn'));
+  assert.equal(result.document.components['actor-spawn'][0].tileY, undefined);
   assert.deepEqual(validateDungeonMapDocumentV2(result.document), []);
 });
 
@@ -82,9 +83,11 @@ test('删除列会清理失效空间挂载、孤儿 ECS 数据与 Marker', () =>
   assert.deepEqual(validateDungeonMapDocumentV2(result.document), []);
 });
 
-test('删除包含 Spawn 的行会在修改文档前被拒绝', () => {
+test('删除包含 Spawn 的行会清理孤儿出生点', () => {
   const source = migrateDungeonMapToDocumentV2(createPreset()).document;
-  assert.throws(() => deleteDungeonMapDocumentRow(source, 1), /玩家出生点/);
+  const result = deleteDungeonMapDocumentRow(source, 1);
+  assert.ok(!result.document.entities.some(({ id }) => id === 'spawn'));
+  assert.equal(result.document.components['actor-spawn'], undefined);
   assert.equal(source.grid.height, 2);
 });
 

@@ -24,7 +24,10 @@
 .editor-hierarchy-row.drop-inside { outline: 1px solid var(--editor-accent, #6ca2bf); outline-offset: -2px; background: color-mix(in srgb, var(--editor-accent, #6ca2bf) 20%, var(--editor-selected, #334958)); }
 .editor-hierarchy-row.drop-invalid { outline-color: #d66c75; }.editor-hierarchy-row.drop-invalid::before, .editor-hierarchy-row.drop-invalid::after { border-color: #d66c75; background: #d66c75; box-shadow: none; }
 .editor-hierarchy-drop-hint { position: absolute; right: 6px; z-index: 6; max-width: 72%; overflow: hidden; border-radius: 2px; padding: 2px 5px; color: #eff9fc; background: #304b58ee; font-size: 8px; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }.editor-hierarchy-row.drop-invalid .editor-hierarchy-drop-hint { background: #61363bee; color: #ffd9dc; }
-.editor-hierarchy-chevron { display: grid; place-items: center; width: 15px; height: 22px; border: 0; padding: 0; background: transparent; color: #8b9097; }
+/* Keep disclosure controls independent of workbench-wide button sizing. */
+.editor-hierarchy .editor-hierarchy-chevron { appearance: none; box-sizing: border-box; display: grid; place-items: center; align-self: center; width: 15px; min-width: 15px; max-width: 15px; height: 22px; min-height: 22px; max-height: 22px; margin: 0; border: 0; border-radius: 2px; padding: 0; background: transparent; box-shadow: none; color: #8b9097; line-height: 1; }
+.editor-hierarchy .editor-hierarchy-chevron:hover { background: var(--editor-hover, #303236); color: #dfe1e5; }
+.editor-hierarchy .editor-hierarchy-chevron:focus-visible { outline: 1px solid var(--editor-accent, #6ca2bf); outline-offset: -1px; }
 .editor-hierarchy-chevron.empty { visibility: hidden; }.editor-hierarchy-chevron svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.8; transition: transform .1s; }.editor-hierarchy-chevron.open svg { transform: rotate(90deg); }
 .editor-hierarchy-icon { display: grid; place-items: center; width: 15px; height: 15px; color: #9aa6ae; }.editor-hierarchy-icon > svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.45; }
 .editor-hierarchy-icon > i { width: 7px; height: 7px; border: 1px solid currentColor; transform: rotate(45deg); }

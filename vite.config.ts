@@ -1,8 +1,10 @@
+import { writeSceneEnvironmentPresets } from './scripts/sceneEnvironmentPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 import fs from 'fs'
 import fsp from 'fs/promises'
+import { parseSceneEnvironmentPresetLibrary } from './core/scene/sceneEnvironment.parser.ts'
 import { parseWeaponLibrary } from './core/model/preset/firstPersonWeaponPreset.ts'
 
 const CONFIG_ROUTE = '/config'
@@ -11,6 +13,7 @@ const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
 const DIALOGUE_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dialogueMapPresets')
 const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
+const SCENE_ENVIRONMENT_PRESETS_PATH = path.resolve(CONFIG_DIR, 'sceneEnvironmentPresets.json')
 const ANIMATION_SCENE_PRESETS_PATH = path.resolve(CONFIG_DIR, 'animationScenePresets.json')
 
 const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
@@ -78,7 +81,7 @@ const sharedConfigPlugin = (): Plugin => ({
     handler({ file }) {
       const changedPath = path.resolve(file)
       if (changedPath === path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')) return []
-      if (changedPath === ANIMATION_SCENE_PRESETS_PATH) return []
+      if (changedPath === ANIMATION_SCENE_PRESETS_PATH || changedPath === SCENE_ENVIRONMENT_PRESETS_PATH) return []
       if (changedPath === DUNGEON_MAP_PRESETS_DIR
         || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
       if (changedPath === DIALOGUE_MAP_PRESETS_DIR
@@ -121,6 +124,42 @@ const sharedConfigPlugin = (): Plugin => ({
             await fsp.writeFile(tempPath, JSON.stringify(library, null, 2) + '\n', 'utf8')
             await fsp.rename(tempPath, FIRST_PERSON_WEAPON_PRESETS_PATH)
             sendJson(200, { success: true, count: Object.keys(library).length, path: FIRST_PERSON_WEAPON_PRESETS_PATH })
+          } catch (error) {
+            sendJson(400, { success: false, message: error instanceof Error ? error.message : String(error) })
+          }
+        })()
+        return
+      }
+      if (pathname === '/api/scene-environment-presets') {
+        void (async () => {
+          const sendJson = (statusCode: number, payload: unknown) => {
+            res.statusCode = statusCode
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.end(JSON.stringify(payload))
+          }
+          try {
+            if (req.method === 'GET') {
+              const raw = JSON.parse(await fsp.readFile(SCENE_ENVIRONMENT_PRESETS_PATH, 'utf8')) as unknown
+              parseSceneEnvironmentPresetLibrary(raw)
+              sendJson(200, { success: true, count: Object.keys(raw as object).length, data: raw, valid: true })
+              return
+            }
+            if (req.method !== 'PUT') {
+              sendJson(405, { success: false, message: 'method not allowed' })
+              return
+            }
+            const chunks: Buffer[] = []
+            let byteLength = 0
+            for await (const chunk of req) {
+              const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+              byteLength += buffer.length
+              if (byteLength > 5 * 1024 * 1024) throw new Error('payload too large')
+              chunks.push(buffer)
+            }
+            const library = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+            parseSceneEnvironmentPresetLibrary(library)
+            await writeSceneEnvironmentPresets(SCENE_ENVIRONMENT_PRESETS_PATH, library)
+            sendJson(200, { success: true, count: Object.keys(library).length, path: SCENE_ENVIRONMENT_PRESETS_PATH })
           } catch (error) {
             sendJson(400, { success: false, message: error instanceof Error ? error.message : String(error) })
           }
@@ -250,6 +289,7 @@ export default defineConfig({
         dungeonPlayerSpawnLab: path.resolve(__dirname, 'tools/dungeon-player-spawn-lab/index.html'),
         dungeonPlayerMovementLab: path.resolve(__dirname, 'tools/dungeon-player-movement-lab/index.html'),
         dungeonFirstPersonCameraLab: path.resolve(__dirname, 'tools/dungeon-first-person-camera-lab/index.html'),
+        dungeonOverheadViewLab: path.resolve(__dirname, 'tools/dungeon-overhead-view-lab/index.html'),
         dungeonTransitionLab: path.resolve(__dirname, 'tools/dungeon-transition-lab/index.html'),
         dungeonAgentLab: path.resolve(__dirname, 'tools/dungeon-agent-lab/index.html'),
         sceneEnvironmentLab: path.resolve(__dirname, 'tools/scene-environment-lab/index.html'),

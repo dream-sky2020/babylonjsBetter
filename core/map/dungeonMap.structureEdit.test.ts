@@ -13,7 +13,7 @@ const container = (entityType: string, x: number, y: number): IEntityContainer =
   entities: [{
     id: `${entityType}:${x},${y}`,
     entityType,
-    components: [{ id: `legacy:${x},${y}`, type: 'legacy-data', version: 1 }],
+    components: [{ id: `legacy:${entityType}:${x},${y}`, type: 'legacy-data', version: 1 }],
   }],
 });
 
@@ -38,16 +38,20 @@ test('row insertion shifts existing content, spawn and markers while retaining v
   source.markers = [{ id: 'goal', x: 1, y: 1 }];
   const originalTileData = source.tiles[3].data;
   const result = insertDungeonMapRow(source, 1);
-  const spawn = result.map.data?.entities[0]?.components[0];
+  const spawn = result.map.tiles[5].data?.entities.find(({ id }) => id === 'spawn')?.components[0];
   assert.equal(result.map.height, 3);
-  assert.equal(result.map.tiles[2 * result.map.width + 1].data, originalTileData);
-  assert.deepEqual([spawn?.tileX, spawn?.tileY], [1, 2]);
+  assert.deepEqual(result.map.tiles[5].data?.entities[0], originalTileData?.entities[0]);
+  assert.ok(spawn);
+  assert.equal(spawn.tileX, undefined);
+  assert.equal(spawn.tileY, undefined);
+  assert.ok(!result.map.data?.entities.some(({ id }) => id === 'spawn'));
   assert.deepEqual(result.map.markers, [{ id: 'goal', x: 1, y: 2 }]);
   assert.deepEqual(validateDungeonMapData(result.map), []);
 });
 
-test('deleting a row containing player spawn is rejected', () => {
-  assert.throws(() => deleteDungeonMapRow(createMap(), 1), /玩家出生点/);
+test('deleting a row containing player spawn removes the attached entity', () => {
+  const result = deleteDungeonMapRow(createMap(), 1);
+  assert.ok(result.map.tiles.every((tile) => !tile.data?.entities.some(({ id }) => id === 'spawn')));
 });
 
 test('column deletion removes its markers and closes the map with valid default seams', () => {

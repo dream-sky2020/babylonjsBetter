@@ -1,3 +1,5 @@
+import { createDungeonViewConsumer, applyDungeonViewToNode, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { DUNGEON_GRID_VIEW_SERVICE_KEY } from './dungeonGridDebug.view';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
 import { createLabSwitch, type LabModule } from '@/tools/lab-kit';
@@ -23,6 +25,8 @@ export const dungeonGridDebugLabModule: LabModule = {
     });
     panel.content.append(toggle.row);
     let root: TransformNode | null = null;
+    let view: ResolvedDungeonView | null = null;
+    const viewConsumer = createDungeonViewConsumer(next => { view = next; if (root) applyDungeonViewToNode(root, view); });
     let current: LoadedDungeonReferences | null = null;
     const dispose = () => {
       root?.dispose(false, true);
@@ -33,6 +37,7 @@ export const dungeonGridDebugLabModule: LabModule = {
       if (!toggle.input.checked || !current) return;
       const loaded = current;
       root = new TransformNode(`dungeon_grid_debug_${loaded.loadId}`, context.scene);
+      applyDungeonViewToNode(root, view);
       const material = new StandardMaterial(`dungeon_grid_debug_material_${loaded.loadId}`, context.scene);
       material.diffuseColor = Color3.FromHexString('#36bff2');
       material.emissiveColor = Color3.FromHexString('#17698a');
@@ -59,12 +64,14 @@ export const dungeonGridDebugLabModule: LabModule = {
       });
     };
     toggle.input.addEventListener('change', render);
+    context.services.set(DUNGEON_GRID_VIEW_SERVICE_KEY, { acquire: viewConsumer.acquire,
+      setVisible(visible: boolean) { toggle.input.checked = visible; render(); } });
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
       const loaded = references.current;
       if (!loaded || loaded.loadId !== next.loadId) return;
       current = loaded;
       render();
     });
-    return () => { off(); dispose(); };
+    return () => { off(); viewConsumer.dispose(); context.services.delete(DUNGEON_GRID_VIEW_SERVICE_KEY); dispose(); };
   },
 };

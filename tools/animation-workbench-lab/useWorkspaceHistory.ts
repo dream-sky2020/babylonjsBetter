@@ -12,6 +12,7 @@ type WorkspaceHistoryAction =
   | Readonly<{ type: 'commit'; update: SetStateAction<AnimationWorkspace> }>
   | Readonly<{ type: 'begin' }>
   | Readonly<{ type: 'end' }>
+  | Readonly<{ type: 'cancel' }>
   | Readonly<{ type: 'undo' }>
   | Readonly<{ type: 'redo' }>;
 
@@ -19,6 +20,7 @@ const HISTORY_LIMIT = 100;
 const append = (items: readonly AnimationWorkspace[], workspace: AnimationWorkspace) => [...items.slice(-(HISTORY_LIMIT - 1)), workspace];
 
 export function workspaceHistoryReducer(state: WorkspaceHistoryState, action: WorkspaceHistoryAction): WorkspaceHistoryState {
+  if (action.type === 'cancel') return state.transactionStart ? { ...state, present: state.transactionStart, transactionStart: null } : state;
   if (action.type === 'commit') {
     const next = typeof action.update === 'function' ? action.update(state.present) : action.update;
     if (Object.is(next, state.present)) return state;
@@ -49,6 +51,7 @@ export function useWorkspaceHistory(initial: AnimationWorkspace) {
     redo: useCallback(() => dispatch({ type: 'redo' }), []),
     beginTransaction: useCallback(() => dispatch({ type: 'begin' }), []),
     endTransaction: useCallback(() => dispatch({ type: 'end' }), []),
+    cancelTransaction: useCallback(() => dispatch({ type: 'cancel' }), []),
     canUndo: state.past.length > 0,
     canRedo: state.future.length > 0,
   };

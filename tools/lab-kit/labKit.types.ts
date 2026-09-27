@@ -7,7 +7,7 @@ import type { LabExecutionPlan } from './execution-plan';
 import type { LabUi } from './labUi';
 import type { LabViewportManager } from './labViewportManager';
 import type { LabKeyboardRouter } from './keyboard';
-import type { CameraLabController } from '@/core/camera/cameraLabController.ts';
+import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
 
 export type LabContext = {
   /** 当前 Lab 独占的活数据引用注册中心；模块仍直接使用自己持有的引用。 */
@@ -48,6 +48,8 @@ export type LabModuleSetupResult = void | (() => void) | LabModuleLifecycle;
 export type LabModuleCatalog = Readonly<Record<string, LabModule>>;
 
 export type CreateLabOptions = {
+  initialCamera?: Partial<CameraLabControllerState>;
+  cameraPresets?: readonly CameraViewPreset[];
   root: HTMLElement;
   title: string;
   description: string;

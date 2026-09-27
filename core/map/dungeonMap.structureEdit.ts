@@ -1,5 +1,6 @@
 import { isEntityContainer } from '../entity/entity.utils.ts';
-import type { IActorSpawnComponent } from '../entity/components/actor-spawn.component.ts';
+import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
+import { projectDungeonMapDocumentToLegacyMap } from '../map-document/dungeonMapDocument.projection.ts';
 import type { IEntityContainer } from '../entity/entity.types.ts';
 import {
   createDungeonMapData,
@@ -29,7 +30,6 @@ export type DungeonMapStructureImpact = Readonly<{
   removedExitEntityIds: readonly string[];
   removedObstacleEntityIds: readonly string[];
   removedMarkerIds: readonly string[];
-  blockedSpawnEntityIds: readonly string[];
 }>;
 
 export type DungeonMapStructureEditResult = Readonly<{
@@ -51,7 +51,6 @@ const emptyImpact = (edit: Edit): DungeonMapStructureImpact => ({
   removedExitEntityIds: [],
   removedObstacleEntityIds: [],
   removedMarkerIds: [],
-  blockedSpawnEntityIds: [],
 });
 
 const mapCoordinate = (value: number, edit: Edit): number | null => {
@@ -90,16 +89,6 @@ const pointSideKey = (sides: readonly DungeonMapPointEndpoint[]): string => side
   .sort()
   .join('|');
 
-const entityContainers = (map: DungeonMapData): IEntityContainer[] => [
-  ...(isEntityContainer(map.data) ? [map.data] : []),
-  ...map.tiles.flatMap((tile) => [
-    ...(isEntityContainer(tile.data) ? [tile.data] : []),
-    ...Object.values(tile.edges).flatMap((edge) => isEntityContainer(edge.data) ? [edge.data] : []),
-  ]),
-  ...(map.sharedEdges ?? []).flatMap(({ edge }) => isEntityContainer(edge.data) ? [edge.data] : []),
-  ...(map.sharedPoints ?? []).flatMap(({ point }) => isEntityContainer(point.data) ? [point.data] : []),
-];
-
 const collectContainerImpact = (
   containers: readonly IEntityContainer[],
 ): Pick<DungeonMapStructureImpact,
@@ -112,23 +101,6 @@ const collectContainerImpact = (
       .map((component) => String(component.entranceId ?? entity.id))),
     removedExitEntityIds: entities.filter((entity) => entity.entityType === 'dungeon-exit').map(({ id }) => id),
     removedObstacleEntityIds: entities.filter((entity) => entity.entityType === 'obstacle').map(({ id }) => id),
-  };
-};
-
-const transformMapData = (data: DungeonMapData['data'], edit: Edit): DungeonMapData['data'] => {
-  if (!isEntityContainer(data)) return data;
-  return {
-    ...data,
-    entities: data.entities.map((entity) => ({
-      ...entity,
-      components: entity.components.map((component) => {
-        if (component.type !== 'actor-spawn') return component;
-        const spawn = component as IActorSpawnComponent;
-        const position = mapTilePosition(spawn.tileX, spawn.tileY, edit);
-        if (!position) throw new Error(`删除位置包含玩家出生点实体“${entity.id}”，请先移动 Spawn。`);
-        return { ...spawn, tileX: position.x, tileY: position.y };
-      }),
-    })),
   };
 };
 
@@ -147,6 +119,12 @@ const editDungeonMapStructure = (
   defaults: DungeonMapStructureDefaults = {},
 ): DungeonMapStructureEditResult => {
   validateEdit(map, edit);
+  // 旧地图级出生点只在兼容入口转换一次，后续随 Tile 容器整体移动/删除。
+  if (isEntityContainer(map.data) && map.data.entities.some(({ entityType }) => entityType === 'spawn-point')) {
+    map = projectDungeonMapDocumentToLegacyMap(migrateDungeonMapToDocumentV2({
+      presetKey: map.id, name: map.id, map,
+    }).document);
+  }
   const width = map.width + (edit.axis === 'column' ? edit.operation === 'insert' ? 1 : -1 : 0);
   const height = map.height + (edit.axis === 'row' ? edit.operation === 'insert' ? 1 : -1 : 0);
   const topology = createDungeonMapData({
@@ -155,7 +133,7 @@ const editDungeonMapStructure = (
     height,
     mode: map.topologyMode,
     ...defaults,
-    createMapData: () => transformMapData(map.data, edit),
+    createMapData: () => map.data,
   });
 
   const targetTiles = new Map(topology.tiles.map((tile) => [`${tile.x},${tile.y}`, tile]));
@@ -242,16 +220,6 @@ const editDungeonMapStructure = (
     if (!position) { removedMarkers.push(marker); return []; }
     return [{ ...marker, x: position.x, y: position.y }];
   });
-  const blockedSpawnEntityIds = entityContainers(map).flatMap((container) => container.entities
-    .filter((entity) => entity.components.some((component) => {
-      if (component.type !== 'actor-spawn') return false;
-      const spawn = component as IActorSpawnComponent;
-      return !mapTilePosition(spawn.tileX, spawn.tileY, edit);
-    }))
-    .map(({ id }) => id));
-  if (blockedSpawnEntityIds.length) {
-    throw new Error(`删除位置包含玩家出生点：${blockedSpawnEntityIds.join('、')}。请先移动 Spawn。`);
-  }
   const removed = collectContainerImpact(removedContainers);
   return {
     map: {
@@ -267,7 +235,6 @@ const editDungeonMapStructure = (
       ...removed,
       removedTiles: map.tiles.length - transferredTileKeys.size,
       removedMarkerIds: removedMarkers.map(({ id }) => id),
-      blockedSpawnEntityIds,
     },
   };
 };

@@ -1,5 +1,5 @@
-import type { CameraLabController, CameraLabMode, CameraLockPlaneAxis, CameraPositionAxis } from '@/core/camera/cameraLabController.ts';
-import { CAMERA_LAB_MODE_LABELS } from '@/core/camera/cameraLabController.ts';
+import type { CameraLabController, CameraLabMode, CameraLockPlaneAxis, CameraPositionAxis, CameraProjection } from '../camera/cameraLabController.ts';
+import { CAMERA_LAB_MODE_LABELS } from '../camera/cameraLabController.ts';
 
 export interface FloatingCameraControlPanel {
   element: HTMLDivElement;
@@ -24,6 +24,12 @@ const html = `
   <div data-role="header" style="flex:0 0 auto;"><div data-role="drag" style="box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;cursor:move;padding:7px 9px 7px 13px;border-bottom:1px solid rgba(148,163,184,.24);background:rgba(18,25,34,.82);font-weight:700;"><span>摄像机控制</span><button data-role="toggle" type="button">折叠</button></div></div>
   <div data-role="body" style="flex:1 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;padding:12px;">
     <label><span>预览模式</span></label><select data-field="mode"></select>
+    <section data-arc-only><label>投影方式</label><select data-field="projection"><option value="perspective">透视</option><option value="orthographic">正交</option></select></section>
+    <section data-orbit-only><label>视角预设</label><select data-field="viewPreset"></select>
+      <label>锁定观察方向</label><select data-field="viewLocked"><option value="false">自由编辑</option><option value="true">锁定方向</option></select>
+      <div class="camera-grid">${['lowerAlphaLimit', 'upperAlphaLimit', 'lowerBetaLimit', 'upperBetaLimit'].map((key, index) => `<div><label>${['方位角下限', '方位角上限', '俯仰 beta 下限', '俯仰 beta 上限'][index]} °（空=无限制）</label><input data-field="${key}" type="number" step="1" /></div>`).join('')}</div>
+    </section>
+    <section data-orthographic-only><label>正交垂直半范围（世界单位）</label><input data-field="orthographicSize" type="number" min="0.0001" step="0.1" /><div class="camera-grid"><div><label>最小半范围</label><input data-field="orthographicMinSize" type="number" min="0.0001" step="0.1" /></div><div><label>最大半范围</label><input data-field="orthographicMaxSize" type="number" min="0.0001" step="1" /></div></div></section>
     <div data-role="camera-position">${nativeLabel('position', '相机位置')}<div class="camera-vector"><div data-position-axis="x"><small>X</small><input data-field="position.x" type="number" step="0.1" /></div><div data-position-axis="y"><small>Y</small><input data-field="position.y" type="number" step="0.1" /></div><div data-position-axis="z"><small>Z</small><input data-field="position.z" type="number" step="0.1" /></div></div></div>
 
     <section data-orbit-only>
@@ -99,16 +105,30 @@ export const createFloatingCameraControlPanel = (
   host.appendChild(panel);
 
   const modeSelect = panel.querySelector<HTMLSelectElement>('select[data-field="mode"]');
+  const projectionSelect = panel.querySelector<HTMLSelectElement>('select[data-field="projection"]');
+  const presetSelect = panel.querySelector<HTMLSelectElement>('select[data-field="viewPreset"]');
+  if (presetSelect) {
+    presetSelect.add(new Option('自定义视角', ''));
+    for (const preset of controller.presets) presetSelect.add(new Option(preset.label, preset.id));
+  }
   if (modeSelect) modeSelect.innerHTML = Object.entries(CAMERA_LAB_MODE_LABELS).map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
   const draftState = panel.querySelector<HTMLElement>('[data-role="draft-state"]');
   let dirty = false;
   let visible = true;
-  const find = (field: string): HTMLInputElement | HTMLSelectElement | null => panel.querySelector(`[data-field="${field}"]`);
+  const find = (field: string): HTMLInputElement | HTMLSelectElement | null => Array.from(panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(`[data-field="${field}"]`))
+    .find(node => (!node.closest('[data-first-person-only]') || controller.state.mode === 'firstPerson')
+      && (!node.closest('[data-drone-only]') || controller.state.mode === 'drone')) ?? null;
   const read = (field: string, fallback: number): number => { const value = Number(find(field)?.value); return Number.isFinite(value) ? value : fallback; };
   const write = (field: string, value: string | number): void => { panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>(`[data-field="${field}"]`).forEach((node) => node.value = String(value)); };
   const updateDraftState = (): void => { if (!draftState) return; draftState.textContent = dirty ? '有尚未应用的面板修改。刷新会放弃这些修改。' : '面板值已与当前相机同步。'; draftState.style.color = dirty ? '#fbbf24' : '#aebdce'; };
   const syncVisibility = (): void => {
     const mode = controller.state.mode; const axes = new Set(controller.getEditablePositionAxes());
+    const orthographic = controller.state.projection === 'orthographic';
+    panel.querySelectorAll<HTMLElement>('[data-arc-only]').forEach(node => node.style.display = mode === 'orbit' || mode === 'lockPan' ? '' : 'none');
+    panel.querySelectorAll<HTMLElement>('[data-orthographic-only]').forEach(node => node.style.display = orthographic ? '' : 'none');
+    const fovContainer = find('fovDeg')?.parentElement; if (fovContainer) fovContainer.style.display = orthographic ? 'none' : '';
+    const radius = find('orbitRadius'); if (radius) { radius.disabled = orthographic; radius.title = orthographic ? '正交缩放使用垂直半范围' : ''; }
+    for (const key of ['lowerAlphaLimit', 'upperAlphaLimit', 'lowerBetaLimit', 'upperBetaLimit']) { const field = find(key); if (field) field.disabled = controller.state.viewLocked; }
     const positionGroup = panel.querySelector<HTMLElement>('[data-role="camera-position"]'); if (positionGroup) positionGroup.style.display = axes.size ? '' : 'none';
     panel.querySelectorAll<HTMLElement>('[data-position-axis]').forEach((node) => node.style.display = axes.has(node.dataset.positionAxis as CameraPositionAxis) ? '' : 'none');
     panel.querySelectorAll<HTMLElement>('[data-orbit-only]').forEach((node) => node.style.display = mode === 'orbit' ? '' : 'none');
@@ -117,11 +137,22 @@ export const createFloatingCameraControlPanel = (
     panel.querySelectorAll<HTMLElement>('[data-lock-only]').forEach((node) => node.style.display = mode === 'lockPan' ? '' : 'none');
     const button = panel.querySelector<HTMLButtonElement>('button[data-role="native-defaults"]'); if (button) { button.disabled = mode === 'lockPan'; button.title = mode === 'lockPan' ? '自定义模式没有对应的 Babylon 原生参数' : ''; }
   };
-  const updateStatus = (): void => { if (status) status.value = controller.getStatusText(); };
+  const renderStatus = (): void => { if (status) status.value = controller.getStatusText(); };
+  let lastSyncTime = 0;
+  const updateStatus = (): void => {
+    if (!dirty && performance.now() - lastSyncTime > 100) {
+      lastSyncTime = performance.now();
+      controller.refreshStateFromActiveCamera();
+      populate();
+    } else renderStatus();
+  };
   const populate = (force = false): void => {
-    if (dirty && !force) { updateStatus(); return; }
+    if (dirty && !force) { renderStatus(); return; }
     const state = controller.state; const position = controller.getPosition();
     write('mode', state.mode); write('position.x', position.x); write('position.y', position.y); write('position.z', position.z);
+    write('projection', state.projection); write('viewPreset', state.viewPreset ?? ''); write('viewLocked', String(state.viewLocked));
+    write('orthographicSize', state.orthographicSize); write('orthographicMinSize', state.orthographicMinSize); write('orthographicMaxSize', state.orthographicMaxSize);
+    for (const key of ['lowerAlphaLimit', 'upperAlphaLimit', 'lowerBetaLimit', 'upperBetaLimit'] as const) write(key, state[key] === null ? '' : radToDeg(state[key]));
     write('orbitAlphaDeg', radToDeg(Math.PI / 2 - state.orbitYaw)); write('orbitBetaDeg', 90 - state.orbitPitchDeg); write('orbitRadius', state.orbitRadius);
     write('orbitInertia', state.orbitInertia); write('orbitPanningInertia', state.orbitPanningInertia); write('orbitAngularSensibilityX', state.orbitAngularSensibilityX); write('orbitAngularSensibilityY', state.orbitAngularSensibilityY); write('orbitPanningSensibility', state.orbitPanningSensibility); write('orbitWheelPrecision', state.orbitWheelPrecision);
     write('orbitCenter.x', state.orbitCenter.x); write('orbitCenter.y', state.orbitCenter.y); write('orbitCenter.z', state.orbitCenter.z);
@@ -131,11 +162,16 @@ export const createFloatingCameraControlPanel = (
     write('lockPlaneAxis', state.lockPlaneAxis); write('lockPlaneValue', state.lockPlaneValue); write('moveSpeed', state.moveSpeed); write('moveAcceleration', state.moveAcceleration); write('moveDeceleration', state.moveDeceleration); write('lookSmoothing', state.lookSmoothing); write('panSensitivity', state.panSensitivity);
     write('lockTarget.x', state.lockTarget.x); write('lockTarget.y', state.lockTarget.y); write('lockTarget.z', state.lockTarget.z);
     write('fovDeg', state.fovDeg); write('minZ', state.minZ); write('maxZ', state.maxZ);
-    dirty = false; syncVisibility(); updateDraftState(); updateStatus();
+    dirty = false; syncVisibility(); updateDraftState(); renderStatus();
   };
 
   const applyDraft = (): void => {
     const state = controller.state; const position = controller.getPosition();
+    state.viewLocked = find('viewLocked')?.value === 'true';
+    state.orthographicMinSize = Math.max(.0001, read('orthographicMinSize', state.orthographicMinSize));
+    state.orthographicMaxSize = Math.max(state.orthographicMinSize, read('orthographicMaxSize', state.orthographicMaxSize));
+    state.orthographicSize = clamp(read('orthographicSize', state.orthographicSize), state.orthographicMinSize, state.orthographicMaxSize);
+    for (const key of ['lowerAlphaLimit', 'upperAlphaLimit', 'lowerBetaLimit', 'upperBetaLimit'] as const) state[key] = find(key)?.value.trim() ? degToRad(read(key, 0)) : null;
     for (const axis of controller.getEditablePositionAxes()) position[axis] = read(`position.${axis}`, position[axis]);
     state.orbitYaw = Math.PI / 2 - degToRad(read('orbitAlphaDeg', radToDeg(Math.PI / 2 - state.orbitYaw))); state.orbitPitchDeg = 90 - read('orbitBetaDeg', 90 - state.orbitPitchDeg); state.orbitRadius = clamp(read('orbitRadius', state.orbitRadius), 1, 300);
     state.orbitCenter.set(read('orbitCenter.x', state.orbitCenter.x), read('orbitCenter.y', state.orbitCenter.y), read('orbitCenter.z', state.orbitCenter.z));
@@ -151,6 +187,8 @@ export const createFloatingCameraControlPanel = (
 
   panel.addEventListener('input', (event) => { const target = event.target; if (!(target instanceof HTMLInputElement) && !(target instanceof HTMLSelectElement)) return; if (target.dataset.field === 'mode') return; dirty = true; updateDraftState(); });
   modeSelect?.addEventListener('change', () => { controller.setMode(modeSelect.value as CameraLabMode); dirty = false; controller.refreshStateFromActiveCamera(); populate(true); });
+  projectionSelect?.addEventListener('change', () => { controller.setProjection(projectionSelect.value as CameraProjection); dirty = false; controller.refreshStateFromActiveCamera(); populate(true); });
+  presetSelect?.addEventListener('change', () => { if (presetSelect.value) controller.applyPreset(presetSelect.value); dirty = false; controller.refreshStateFromActiveCamera(); populate(true); });
   panel.querySelector('button[data-role="refresh"]')?.addEventListener('click', () => { controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });
   panel.querySelector('button[data-role="apply"]')?.addEventListener('click', applyDraft);
   panel.querySelector('button[data-role="native-defaults"]')?.addEventListener('click', () => { controller.resetActiveCameraToNativeDefaults(); controller.refreshStateFromActiveCamera(); dirty = false; populate(true); });

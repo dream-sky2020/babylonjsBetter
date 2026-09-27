@@ -54,6 +54,11 @@ export class LabViewportManager {
     return [...this.layers.values()].some((entry) => entry.visible && entry.pauseBabylonRendering);
   }
 
+  /** Viewport 覆盖层导致的暂停，独立于用户的鼠标/键盘开关。 */
+  get isBabylonInputPaused(): boolean {
+    return [...this.layers.values()].some((entry) => entry.visible && entry.interactive);
+  }
+
   get visibleLayerIds(): readonly string[] {
     return [...this.layers.values()].filter(({ visible }) => visible).map(({ id }) => id);
   }
@@ -107,8 +112,7 @@ export class LabViewportManager {
   }
 
   private syncBabylonInput(): void {
-    const locked = [...this.layers.values()].some((entry) => entry.visible && entry.interactive);
-    this.inputGate.setInputEnabled(!locked);
+    this.inputGate.setInputEnabled(!this.isBabylonInputPaused);
   }
 
   private show(id: string): void {

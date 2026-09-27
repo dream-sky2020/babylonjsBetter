@@ -204,7 +204,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   markKeyboardSettingsChanged = keyboardStateRegistration.markChanged;
   const disposeLabStatePanel = createLabStatePanel(ui, labState);
   const disposeKeyboardPanel = createLabKeyboardDebugPanel(ui, keyboard);
-  const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard);
+  const cameraSystem = createLabCameraSystem(stage, ui, camera, keyboard, options.initialCamera, options.cameraPresets);
   const viewport = new LabViewportManager(stage, canvas, cameraSystem, () => engine.resize());
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));

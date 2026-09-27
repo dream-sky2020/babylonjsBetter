@@ -152,5 +152,17 @@ export const validateDungeonMapDocumentV2 = (
     });
   });
 
+  document.entities.filter(({ entityType }) => entityType === 'spawn-point').forEach((entity) => {
+    const owned = attachments.filter(({ entityId }) => entityId === entity.id);
+    const targets = owned.flatMap((attachment) => Array.isArray(attachment.targets) ? attachment.targets : []);
+    if (owned.length !== 1 || targets.length !== 1 || targets[0]?.kind !== 'tile') {
+      add('spawn.attachment', `出生点“${entity.id}”必须唯一挂载到 tile 空间。`, 'components.spatial-attachment');
+    }
+  });
+  (document.components['actor-spawn'] ?? []).forEach((component, index) => {
+    if ('tileX' in component || 'tileY' in component) {
+      add('spawn.legacy-position', 'actor-spawn 不能保存 tileX/tileY；出生位置由空间挂载表达。', `components.actor-spawn[${index}]`);
+    }
+  });
   return issues;
 };

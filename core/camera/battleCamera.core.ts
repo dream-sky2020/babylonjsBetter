@@ -1,4 +1,5 @@
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
+import { applyOrthographicFrustum } from './orthographicFrustum.ts';
 
 export const DEFAULT_BATTLE_ORTHO_SIZE = 5;
 export const MIN_BATTLE_ORTHO_SIZE = 1.5;
@@ -24,13 +25,7 @@ export const applyBattleOrthographicFrustum = (
   engine: Engine,
   orthoSize: number
 ): void => {
-  const width = Math.max(1, engine.getRenderWidth());
-  const height = Math.max(1, engine.getRenderHeight());
-  const aspectRatio = width / height;
-  camera.orthoTop = orthoSize;
-  camera.orthoBottom = -orthoSize;
-  camera.orthoLeft = -orthoSize * aspectRatio;
-  camera.orthoRight = orthoSize * aspectRatio;
+  applyOrthographicFrustum(camera, orthoSize, engine.getRenderWidth(), engine.getRenderHeight());
 };
 
 export const panBattleCameraTargetByPixels = (

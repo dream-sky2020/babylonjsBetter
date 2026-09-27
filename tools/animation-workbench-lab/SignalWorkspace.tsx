@@ -25,6 +25,7 @@ type Props = Readonly<{
   time: number;
   recordMode: TransformRecordMode;
   recordOperation: ContributionOperation;
+  onPlayingChange?(playing: boolean): void;
   onTimeChange: Dispatch<SetStateAction<number>>;
   onRecordModeChange(mode: TransformRecordMode): void;
   onRecordOperationChange(operation: ContributionOperation): void;
@@ -61,11 +62,12 @@ const inputDefault = (node: SignalGraphNode, port: SignalPortDefinition) => {
   return raw && typeof raw === 'object' && !Array.isArray(raw) ? finite((raw as Record<string, unknown>)[port.id], finite(port.defaultValue)) : finite(port.defaultValue);
 };
 
-export function SignalWorkspace({ graph, bindings, objects, selectedObjectId, transport, events, time, recordMode, recordOperation, onTimeChange, onRecordModeChange, onRecordOperationChange, onRecordContributionProperty, onBeginEdit, onEndEdit, onGraphChange, onBindingsChange, onTransportChange, onEventsChange, onEvaluate }: Props) {
+export function SignalWorkspace({ onPlayingChange, graph, bindings, objects, selectedObjectId, transport, events, time, recordMode, recordOperation, onTimeChange, onRecordModeChange, onRecordOperationChange, onRecordContributionProperty, onBeginEdit, onEndEdit, onGraphChange, onBindingsChange, onTransportChange, onEventsChange, onEvaluate }: Props) {
   const [tab, setTab] = useState<WorkspaceTab>('graph');
   const [selectedNodeId, setSelectedNodeId] = useState(graph.nodes[0]?.id ?? null);
   const [pendingPort, setPendingPort] = useState<PendingPort | null>(null);
   const [playing, setPlaying] = useState(false);
+  useEffect(() => { onPlayingChange?.(playing); }, [playing, onPlayingChange]);
   const { duration, loop, playbackSpeed } = transport;
   const lastFrameRef = useRef<number | null>(null);
   const onEvaluateRef = useRef(onEvaluate);

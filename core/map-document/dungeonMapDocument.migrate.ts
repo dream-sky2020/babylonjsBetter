@@ -1,3 +1,4 @@
+import { migrateLegacyDungeonSpawnAttachments } from './dungeonMapDocument.spawnMigration.ts';
 import { isEntityContainer } from '../entity/entity.utils.ts';
 import type { IComponent, IEntity, IEntityContainer } from '../entity/entity.types.ts';
 import type {
@@ -50,7 +51,13 @@ const sameJson = (left: unknown, right: unknown): boolean => JSON.stringify(left
 export const migrateDungeonMapToDocumentV2 = (
   preset: DungeonMapPreset,
 ): MigrateDungeonMapToDocumentResult => {
-  const { map } = preset;
+  // V2 tileIds 的顺序就是位置；不能让旧数组顺序或缺格把出生坐标映射到别的格子。
+  const map = { ...preset.map, tiles: [...preset.map.tiles].sort((a, b) => a.y - b.y || a.x - b.x) };
+  if (map.tiles.length !== map.width * map.height || map.tiles.some((tile, index) => (
+    tile.x !== index % map.width || tile.y !== Math.floor(index / map.width)
+  ))) {
+    throw new Error(`地图“${map.id}”迁移失败：格子坐标缺失、重复或超出地图范围，无法建立有效 tile 挂载。`);
+  }
   const warnings: string[] = [];
   const entitiesById = new Map<string, DungeonMapDocumentEntity>();
   const componentsById = new Map<string, DungeonMapDocumentComponent>();
@@ -203,7 +210,7 @@ export const migrateDungeonMapToDocumentV2 = (
 
   const terrain = compactDungeonMapTerrain(tileIds, tileTerrainProperties);
   return {
-    document: {
+    document: migrateLegacyDungeonSpawnAttachments({
       schemaVersion: DUNGEON_MAP_DOCUMENT_SCHEMA_VERSION,
       identity: { id: map.id, presetKey: preset.presetKey, name: preset.name },
       grid: {
@@ -230,7 +237,7 @@ export const migrateDungeonMapToDocumentV2 = (
             }
           : {}
       ),
-    },
+    }),
     warnings,
   };
 };

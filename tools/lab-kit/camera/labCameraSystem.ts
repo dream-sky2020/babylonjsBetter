@@ -1,5 +1,5 @@
 import type { ArcRotateCamera } from '@babylonjs/core';
-import { createCameraLabController, type CameraLabController, type CameraLabMode } from '@/core/camera/cameraLabController.ts';
+import { createCameraLabController, type CameraLabController, type CameraLabControllerState, type CameraViewPreset, type CameraLabMode } from '@/core/camera/cameraLabController.ts';
 import { createFloatingCameraControlPanel, type FloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel.ts';
 import type { LabKeyboardConsumerHandle, LabKeyboardRouter } from '../keyboard';
 import type { LabUi } from '../labUi.ts';
@@ -27,6 +27,8 @@ export const createLabCameraSystem = (
   ui: LabUi,
   camera: ArcRotateCamera,
   keyboard: LabKeyboardRouter,
+  initialCamera: Partial<CameraLabControllerState> = {},
+  presets: readonly CameraViewPreset[] = [],
 ): LabCameraSystem => {
   const controller = createCameraLabController(camera, {
     mode: 'orbit',
@@ -43,7 +45,8 @@ export const createLabCameraSystem = (
     fovDeg: radToDeg(camera.fov),
     minZ: camera.minZ,
     maxZ: camera.maxZ,
-  });
+    ...initialCamera,
+  }, presets);
   const floatingPanelCollapsedPreference = ui.createBooleanPreference(
     'lab:host/camera-floating-panel-collapsed',
     false,
@@ -92,7 +95,7 @@ export const createLabCameraSystem = (
   };
   const syncNativeKeyboardCodes = (): void => {
     const active = keyboardDesiredEnabled && viewportInputEnabled;
-    controller.setOwnedKeyboardCodes(active ? new Set(keyboardCodesForMode(mode)) : new Set());
+    controller.setOwnedKeyboardCodes(active ? ownedCodes : new Set());
   };
   const syncInput = (): void => {
     controller.setInputEnabled(pointerToggle.input.checked && viewportInputEnabled);
@@ -104,15 +107,17 @@ export const createLabCameraSystem = (
     id: 'camera',
     label: '摄像机',
     keys: keyboardCodesForMode(mode),
-    enabled: false,
+    enabled: keyboardDesiredEnabled && viewportInputEnabled,
     priority: Number(priority.value),
     intercept: interceptToggle.input.checked,
     preventDefault: preventDefaultToggle.input.checked,
     allowNativePropagation: true,
-    onKeyDown: () => 'handled',
-    onKeyUp: () => 'handled',
+    onKeyDown: (event) => { if (mode === 'lockPan') controller.keys.add(event.code); return 'handled'; },
+    onKeyUp: (event) => { controller.keys.delete(event.code); return 'handled'; },
     onOwnershipChanged: (nextOwnedCodes) => {
       ownedCodes = nextOwnedCodes;
+      controller.setOwnedKeyboardCodes(nextOwnedCodes);
+      for (const code of controller.keys) if (!nextOwnedCodes.has(code)) controller.keys.delete(code);
       renderStatus();
     },
   });

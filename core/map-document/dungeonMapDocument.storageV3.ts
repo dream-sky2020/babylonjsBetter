@@ -1,3 +1,4 @@
+import { migrateLegacyDungeonSpawnAttachments } from './dungeonMapDocument.spawnMigration.ts';
 import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import type { DungeonMapDirection } from '../map/dungeonMap.types.ts';
 import { compactGeneratedDungeonMapShells } from './dungeonMapDocument.compact.ts';
@@ -130,7 +131,7 @@ export const isDungeonMapDocumentV3 = (value: unknown): value is DungeonMapDocum
 );
 
 export const encodeDungeonMapDocumentV3 = (source: DungeonMapDocumentV2): DungeonMapDocumentV3 => {
-  const compacted = compactGeneratedDungeonMapShells(source);
+  const compacted = compactGeneratedDungeonMapShells(migrateLegacyDungeonSpawnAttachments(source));
   const issues = validateDungeonMapDocumentV2(compacted);
   if (issues.length > 0) throw new Error(`地图 V2 文档校验失败：${issues[0].message}`);
   const derivedGrid = createDerivedGrid({
@@ -182,7 +183,7 @@ export const parseDungeonMapDocumentV3 = (
   const legacy = candidate.legacy?.markers !== undefined
     ? { markers: cloneJson(candidate.legacy.markers) }
     : undefined;
-  const document: DungeonMapDocumentV2 = {
+  const document: DungeonMapDocumentV2 = migrateLegacyDungeonSpawnAttachments({
     schemaVersion: 2,
     identity: cloneJson(candidate.identity),
     grid: derivedGrid,
@@ -191,7 +192,7 @@ export const parseDungeonMapDocumentV3 = (
     ...(terrain ? { terrain } : {}),
     ...(candidate.metadata ? { metadata: cloneJson(candidate.metadata) } : {}),
     ...(legacy ? { legacy } : {}),
-  };
+  });
   const issues = validateDungeonMapDocumentV2(document);
   if (issues.length > 0) {
     throw new Error(`地图 V3 文档展开后校验失败：${issues[0].message}${issues.length > 1 ? `（另有 ${issues.length - 1} 项）` : ''}`);

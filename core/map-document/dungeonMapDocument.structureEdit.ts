@@ -301,23 +301,6 @@ const editDungeonMapDocumentStructure = (
     return [{ ...attachment, targets }];
   });
 
-  const spawnTable = source.components['actor-spawn'] ?? [];
-  const blockedSpawnEntityIds: string[] = [];
-  const transformedSpawns = spawnTable.map((component) => {
-    const tileX = Number(component.tileX);
-    const tileY = Number(component.tileY);
-    if (!Number.isInteger(tileX) || !Number.isInteger(tileY)) return component;
-    const position = mapPosition(tileX, tileY, edit);
-    if (!position) {
-      blockedSpawnEntityIds.push(component.entityId);
-      return component;
-    }
-    return { ...component, tileX: position.x, tileY: position.y };
-  });
-  if (blockedSpawnEntityIds.length > 0) {
-    throw new Error(`删除位置包含玩家出生点：${blockedSpawnEntityIds.join('、')}。请先移动 Spawn。`);
-  }
-
   const removedEntities = source.entities.filter(({ id }) => orphanEntityIds.has(id));
   const removedEntranceIds = (source.components['dungeon-entrance'] ?? [])
     .filter(({ entityId }) => orphanEntityIds.has(entityId))
@@ -325,7 +308,7 @@ const editDungeonMapDocumentStructure = (
   const components = Object.fromEntries(Object.entries(source.components).flatMap(([type, table]) => {
     const next = type === 'spatial-attachment'
       ? attachments
-      : (type === 'actor-spawn' ? transformedSpawns : table).filter(({ entityId }) => !orphanEntityIds.has(entityId));
+      : table.filter(({ entityId }) => !orphanEntityIds.has(entityId));
     return next.length > 0 ? [[type, next]] : [];
   })) as Record<string, DungeonMapDocumentComponent[]>;
 
@@ -390,7 +373,6 @@ const editDungeonMapDocumentStructure = (
       removedExitEntityIds: removedEntities.filter(({ entityType }) => entityType === 'dungeon-exit').map(({ id }) => id),
       removedObstacleEntityIds: removedEntities.filter(({ entityType }) => entityType === 'obstacle').map(({ id }) => id),
       removedMarkerIds,
-      blockedSpawnEntityIds: [],
     },
   };
 };

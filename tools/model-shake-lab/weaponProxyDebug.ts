@@ -4,8 +4,9 @@ import type { InteractionVolume, WeaponProxy } from '@/core/model/preset/firstPe
 const radians = Math.PI / 180;
 
 /** Debug geometry never owns or scales the model installation node. +Z forward, +Y up. */
-export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, proxy: WeaponProxy, bodyVisible: boolean, markersVisible: boolean, handLabel = '', tint = new Color3(.2, .8, .9)) {
+export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, proxy: WeaponProxy, bodyVisible: boolean, markersVisible: boolean, handLabel = '', tint = new Color3(.2, .8, .9), anchors?: { proxyAnchor: TransformNode; gripAnchor: TransformNode; attackAnchor: TransformNode; muzzleAnchor: TransformNode }) {
   const root = new TransformNode('weapon-proxy-debug', scene); root.parent = parent;
+  const moved: TransformNode[] = [];
   const materials: StandardMaterial[] = []; const textures: DynamicTexture[] = []; const labels: Mesh[] = [];
   const mat = (name: string, color: Color3, alpha = 1) => { const material = new StandardMaterial(name, scene); material.diffuseColor = color; material.emissiveColor = color; material.disableLighting = true; material.alpha = alpha; materials.push(material); return material; };
   const attach = (mesh: Mesh, material: StandardMaterial) => { mesh.parent = root; mesh.material = material; mesh.isPickable = false; return mesh; };
@@ -21,6 +22,8 @@ export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, prox
     if (isAxial) { const diameter = volume.shape === 'capsule' ? .4 : 1; mesh.scaling.set(volume.size.x / diameter, volume.size.z, volume.size.y / diameter); }
     else mesh.scaling.set(volume.size.x, volume.size.y, volume.size.z);
     mesh.position.set(volume.center.x, volume.center.y, volume.center.z); orient(mesh, isAxial ? { ...volume.rotation, x: volume.rotation.x + 90 } : volume.rotation);
+    const anchor = name === 'grip-volume' ? anchors?.gripAnchor : anchors?.attackAnchor;
+    if (anchor) { moved.push(mesh); mesh.parent = anchor; mesh.position.setAll(0); mesh.rotationQuaternion = Quaternion.FromEulerAngles(isAxial ? Math.PI / 2 : 0, 0, 0); const diameter = volume.shape === 'capsule' ? .4 : 1; mesh.scaling.set(isAxial ? 1 / diameter : 1, 1, isAxial ? 1 / diameter : 1); mesh.isPickable = true; }
     if (volume.shape === 'box') { mesh.enableEdgesRendering(); mesh.edgesColor = new Color4(color.r, color.g, color.b, .95); mesh.edgesWidth = 2; }
   };
   const labelAt = (name: string, point: Vector3, color: Color3, dot = false) => {
@@ -41,6 +44,7 @@ export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, prox
     if (isAxial) { const diameter = proxy.shape === 'capsule' ? .4 : 1; body.scaling.set(proxy.size.x / diameter, proxy.size.z, proxy.size.y / diameter); }
     else body.scaling.set(proxy.size.x, proxy.size.y, proxy.size.z);
     body.position.set(proxy.center.x, proxy.center.y, proxy.center.z); orient(body, isAxial ? { ...proxy.rotation, x: proxy.rotation.x + 90 } : proxy.rotation); body.enableEdgesRendering(); body.edgesColor = new Color4(tint.r, tint.g, tint.b, .65);
+    if (anchors) { moved.push(body); body.parent = anchors.proxyAnchor; body.position.setAll(0); body.rotationQuaternion = Quaternion.FromEulerAngles(isAxial ? Math.PI / 2 : 0, 0, 0); const diameter = proxy.shape === 'capsule' ? .4 : 1; body.scaling.set(isAxial ? 1 / diameter : 1, 1, isAxial ? 1 / diameter : 1); body.isPickable = true; }
     volumeMesh('grip-volume', proxy.gripVolume, new Color3(1, .58, .08));
     volumeMesh('attack-volume', proxy.attackVolume, new Color3(1, .16, .34));
   }
@@ -51,6 +55,7 @@ export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, prox
     if (proxy.attackVolume.enabled) labelAt('攻击体', new Vector3(proxy.attackVolume.center.x, proxy.attackVolume.center.y, proxy.attackVolume.center.z), new Color3(1, .16, .34));
     if (proxy.muzzle.enabled) {
       const muzzleRoot = new TransformNode('muzzle-direction', scene); muzzleRoot.parent = root; muzzleRoot.position.set(proxy.muzzle.position.x, proxy.muzzle.position.y, proxy.muzzle.position.z); orient(muzzleRoot, proxy.muzzle.rotation);
+      if (anchors) { moved.push(muzzleRoot); muzzleRoot.parent = anchors.muzzleAnchor; muzzleRoot.position.setAll(0); muzzleRoot.rotationQuaternion = Quaternion.Identity(); }
       const color = new Color3(1, .25, .78); const line = MeshBuilder.CreateLines('muzzle-ray', { points: [Vector3.Zero(), new Vector3(0, 0, .32), new Vector3(-.035, 0, .25), new Vector3(0, 0, .32), new Vector3(.035, 0, .25)] }, scene); line.parent = muzzleRoot; line.color = color;
       labelAt('发射端', new Vector3(proxy.muzzle.position.x, proxy.muzzle.position.y, proxy.muzzle.position.z), color, true);
     }
@@ -60,5 +65,5 @@ export function createWeaponProxyDebug(scene: Scene, parent: TransformNode, prox
     }
   }
   const observer = scene.onBeforeRenderObservable.add(() => { const camera = scene.activeCamera; if (!camera) return; for (const label of labels) { const distance = Vector3.Distance(camera.globalPosition, label.getAbsolutePosition()); label.scaling.setAll(Math.max(.2, distance * 2 * Math.tan(camera.fov / 2) * 24 / scene.getEngine().getRenderHeight() / .09)); } });
-  return () => { scene.onBeforeRenderObservable.remove(observer); root.dispose(); materials.forEach(material => material.dispose()); textures.forEach(texture => texture.dispose()); };
+  return () => { scene.onBeforeRenderObservable.remove(observer); root.dispose(); moved.forEach(node => node.dispose()); materials.forEach(material => material.dispose()); textures.forEach(texture => texture.dispose()); };
 }

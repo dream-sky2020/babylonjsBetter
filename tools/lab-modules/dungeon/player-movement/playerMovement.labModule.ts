@@ -1,3 +1,5 @@
+import { createDungeonViewConsumer, applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from './playerMovement.view';
 import { Color3, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
   inspectDungeonPlayerMovement,
@@ -258,6 +260,9 @@ export const playerMovementLabModule: LabModule = {
 
     let current: MovementView | null = null;
     let markerRoot: TransformNode | null = null;
+    const displayRoot = new TransformNode('player_display_mapping', context.scene);
+    const viewConsumer = createDungeonViewConsumer(view => applyDungeonViewToNode(displayRoot, view));
+    context.services.set(PLAYER_MOVEMENT_VIEW_SERVICE_KEY, viewConsumer);
     let markerVerticalOffset = 0;
     let lastJsonUpdateTime = 0;
     const directionalInput = new DungeonPlayerDirectionalInput();
@@ -308,6 +313,7 @@ export const playerMovementLabModule: LabModule = {
       const markerHeight = Math.max(layout.size[1] * 1.5, 1.2);
       markerVerticalOffset = layout.size[1] / 2;
       markerRoot = new TransformNode('composable_player_pose', context.scene);
+      markerRoot.parent = displayRoot;
       const playerMaterial = new StandardMaterial('composable_player_debug_material', context.scene);
       playerMaterial.diffuseColor = Color3.FromHexString('#35c76f');
       playerMaterial.emissiveColor = Color3.FromHexString('#0b542c');
@@ -709,6 +715,9 @@ export const playerMovementLabModule: LabModule = {
       debugMarkerToggle.input.removeEventListener('change', renderDebugMarker);
       context.services.delete(PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY);
       disposeMarker();
+      viewConsumer.dispose();
+      context.services.delete(PLAYER_MOVEMENT_VIEW_SERVICE_KEY);
+      displayRoot.dispose();
     };
   },
 };

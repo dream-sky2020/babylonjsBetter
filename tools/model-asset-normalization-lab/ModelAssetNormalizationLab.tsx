@@ -26,6 +26,10 @@ import {
 } from '@/core/model';
 import { loadModelAssetManifest } from '@/core/resources';
 import { downloadConfigJson, isConfigWritable } from '@/core/config';
+import { InspectorPanel } from '@/core/ui/editor-kit';
+import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
+import { SceneEditorHierarchy, SceneEditorToolbar, SceneTransformFields } from '@/core/scene-editor/SceneEditorPanels';
+import { createNormalizationSceneAdapter } from './normalizationSceneAdapter';
 
 type Bounds = { size: ModelAssetVector3; center: ModelAssetVector3; min: ModelAssetVector3; max: ModelAssetVector3 };
 type ComparisonTransform = { position: ModelAssetVector3; rotationDeg: ModelAssetVector3; scale: number };
@@ -64,12 +68,6 @@ const NumericInput = ({ value, onChange, step = 0.01 }: { value: number; onChang
   <input type="number" value={Number.isFinite(value) ? value : 0} step={step} onChange={(event) => onChange(Number(event.target.value))} />
 );
 
-const VectorEditor = ({ value, onChange, step = 0.01 }: { value: ModelAssetVector3; onChange: (value: ModelAssetVector3) => void; step?: number }) => (
-  <div className="vector-editor">
-    {(['x', 'y', 'z'] as const).map((axis) => <label key={axis}><span>{axis.toUpperCase()}</span><NumericInput value={value[axis]} step={step} onChange={(number) => onChange({ ...value, [axis]: number })} /></label>)}
-  </div>
-);
-
 export function ModelAssetNormalizationLab() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRef = useRef<Scene | null>(null);
@@ -81,9 +79,38 @@ export function ModelAssetNormalizationLab() {
   const [assetPath, setAssetPath] = useState('');
   const [loaded, setLoaded] = useState<LoadedModel[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [library, setLibrary] = useState<ModelAssetProfileLibrary>({});
+  const [library, renderLibrary] = useState<ModelAssetProfileLibrary>({});
   const [targetSize, setTargetSize] = useState(2);
   const [status, setStatus] = useState('正在读取模型清单…');
+
+  const [editor, setEditor] = useState<SceneEditor | null>(null);
+  const editorRef = useRef<SceneEditor | null>(null);
+  type EditDocument = { library: ModelAssetProfileLibrary; comparisons: Record<number, ComparisonTransform> };
+  const history = useRef<DocumentHistory<EditDocument> | null>(null);
+  history.current ??= new DocumentHistory<EditDocument>({ library: {}, comparisons: {} }, value => {
+    libraryRef.current = value.library; renderLibrary(value.library);
+    const next = loadedRef.current.map(item => {
+      const updated = { ...item, comparison: value.comparisons[item.id] ?? item.comparison };
+      item.entity.normalizationRoot.rotationQuaternion = null;
+      applyModelAssetProfile(item.entity, value.library[item.path] ?? createDefaultModelAssetProfile(item.path));
+      applyModelMaterialPolicy(item.entity.meshes, (value.library[item.path] ?? createDefaultModelAssetProfile(item.path)).transparencyPolicy);
+      item.entity.root.rotationQuaternion = null; applyComparison(updated); return updated;
+    });
+    loadedRef.current = next; setLoaded(next);
+  });
+  const setLibrary = (update: ModelAssetProfileLibrary | ((v: ModelAssetProfileLibrary) => ModelAssetProfileLibrary)) => {
+    const value = typeof update === 'function' ? update(libraryRef.current) : update;
+    history.current!.set({ ...history.current!.value, library: value });
+  };
+  const writeComparison = (id: number, comparison: ComparisonTransform) => history.current!.set({ ...history.current!.value, comparisons: { ...history.current!.value.comparisons, [id]: comparison } });
+  useEffect(() => { editor?.refresh(); }, [editor, library, loaded]);
+  useEffect(() => {
+    const key = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || !['z', 'y'].includes(event.key.toLowerCase())) return;
+      event.preventDefault(); if (event.shiftKey || event.key.toLowerCase() === 'y') editorRef.current?.redo(); else editorRef.current?.undo();
+    };
+    window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key);
+  }, []);
 
   useEffect(() => { loadedRef.current = loaded; }, [loaded]);
   useEffect(() => { libraryRef.current = library; }, [library]);
@@ -111,11 +138,18 @@ export function ModelAssetNormalizationLab() {
     reference.material = referenceMaterial;
     sceneRef.current = scene;
     cameraRef.current = camera;
+    const controller = new SceneEditor(scene, createNormalizationSceneAdapter({
+      instances: () => loadedRef.current, profile: path => libraryRef.current[path] ?? createDefaultModelAssetProfile(path),
+      writeProfile: (path, profile) => setLibrary(current => ({ ...current, [path]: sanitizeModelAssetProfile(profile, path) })),
+      writeComparison, select: setSelectedId, undo: () => history.current!.undo(), redo: () => history.current!.redo(),
+    }));
+    editorRef.current = controller; setEditor(controller);
     engine.runRenderLoop(() => scene.render());
     const resize = () => engine.resize();
     window.addEventListener('resize', resize);
     return () => {
       window.removeEventListener('resize', resize);
+      controller.dispose(); editorRef.current = null;
       loadedRef.current.forEach((item) => item.entity.dispose());
       scene.dispose(); engine.dispose();
       sceneRef.current = null; cameraRef.current = null;
@@ -123,11 +157,16 @@ export function ModelAssetNormalizationLab() {
   }, []);
 
   useEffect(() => {
+    let active = true;
     Promise.all([loadModelAssetManifest(), loadModelAssetProfileLibrary()]).then(([paths, profiles]) => {
+      if (!active) return;
       const supported = paths.filter((path) => /\.(glb|gltf)$/i.test(path)).map(normalizeModelAssetProfilePath);
-      setAssets(supported); setAssetPath(supported[0] ?? ''); setLibrary(profiles);
+      setAssets(supported); setAssetPath(supported[0] ?? '');
+      history.current!.value = { ...history.current!.value, library: profiles };
+      libraryRef.current = profiles; renderLibrary(profiles);
       setStatus(supported.length ? `已发现 ${supported.length} 个可校准模型` : '没有找到 GLB/GLTF 模型');
-    }).catch((error) => setStatus(`读取失败：${error instanceof Error ? error.message : String(error)}`));
+    }).catch((error) => { if (active) setStatus(`读取失败：${error instanceof Error ? error.message : String(error)}`); });
+    return () => { active = false; };
   }, []);
 
   const selected = useMemo(() => loaded.find((item) => item.id === selectedId) ?? null, [loaded, selectedId]);
@@ -151,6 +190,7 @@ export function ModelAssetNormalizationLab() {
     try {
       const path = normalizeModelAssetProfilePath(assetPath);
       const entity = await createModelEntity(scene, path, { applyAssetProfile: false, autoPlayAnimation: true });
+      if (sceneRef.current !== scene || scene.isDisposed) { entity.dispose(); return; }
       const rawBounds = measureEntity(entity);
       const profile = libraryRef.current[path] ?? {
         ...createDefaultModelAssetProfile(path),
@@ -165,7 +205,9 @@ export function ModelAssetNormalizationLab() {
       };
       applyComparison(item);
       setLibrary((current) => current[path] ? current : ({ ...current, [path]: profile }));
-      setLoaded((current) => [...current, item]); setSelectedId(item.id);
+      loadedRef.current = [...loadedRef.current, item]; setLoaded(loadedRef.current);
+      history.current!.value = { ...history.current!.value, comparisons: { ...history.current!.value.comparisons, [item.id]: item.comparison } };
+      editorRef.current?.refresh(); editorRef.current?.select(`${item.id}:profile`);
       setStatus(`已加入 ${path.split('/').pop()}；可继续加入其他模型对比`);
     } catch (error) {
       setStatus(`加载失败：${error instanceof Error ? error.message : String(error)}`);
@@ -174,16 +216,12 @@ export function ModelAssetNormalizationLab() {
 
   const removeModel = (id: number) => {
     const item = loadedRef.current.find((entry) => entry.id === id);
+    editorRef.current?.cancel();
     item?.entity.dispose();
+    loadedRef.current = loadedRef.current.filter(entry => entry.id !== id);
+    editorRef.current?.refresh();
     setLoaded((current) => current.filter((entry) => entry.id !== id));
     if (selectedId === id) setSelectedId(null);
-  };
-
-  const updateComparison = (next: ComparisonTransform) => {
-    if (!selected) return;
-    const updated = { ...selected, comparison: next };
-    applyComparison(updated);
-    setLoaded((current) => current.map((item) => item.id === updated.id ? updated : item));
   };
 
   const fitAll = () => {
@@ -218,7 +256,7 @@ export function ModelAssetNormalizationLab() {
     catch (error) { setStatus(`保存失败：${error instanceof Error ? error.message : String(error)}`); }
   };
 
-  return <main className="normalization-lab">
+  return <main className="normalization-lab scene-workbench">
     <header>
       <div><h1>模型资产标准化 Lab</h1><p>手动校准是主流程；自动按钮只填写建议值。蓝色半透明盒子为 1m 参照物。</p></div>
       <div className="toolbar">
@@ -230,22 +268,16 @@ export function ModelAssetNormalizationLab() {
       <output>{status}</output>
     </header>
     <section className="workspace">
-      <aside className="model-list"><h2>对比模型（{loaded.length}）</h2>{loaded.map((item) => <div className={`model-item ${item.id === selectedId ? 'selected' : ''}`} key={item.id} onClick={() => setSelectedId(item.id)}><button className="model-name">{item.path.split('/').pop()}</button><small>实例 #{item.id}</small><button className="remove" onClick={(event) => { event.stopPropagation(); removeModel(item.id); }}>移除</button></div>)}</aside>
-      <div className="viewport"><canvas ref={canvasRef} /></div>
-      <aside className="inspector">{selected && selectedProfile ? <>
+      <aside className="model-list"><SceneEditorHierarchy editor={editor} /><button disabled={!selected} onClick={() => selected && removeModel(selected.id)}>移除选中实例</button></aside>
+      <div className="viewport"><SceneEditorToolbar editor={editor} /><canvas ref={canvasRef} /></div>
+      <InspectorPanel className="inspector" title="资产与对比"><div onFocusCapture={() => history.current!.begin()} onBlurCapture={() => history.current!.commit()}><SceneTransformFields editor={editor} />{selected && selectedProfile ? <>
         <h2>{selected.path.split('/').pop()}</h2><code>{selected.path}</code>
-        <h3>全局标准化（会保存）</h3>
-        <label className="field"><span>统一缩放</span><NumericInput value={selectedProfile.uniformScale} step={0.001} onChange={(uniformScale) => updateProfile({ ...selectedProfile, uniformScale })} /></label>
+        <h3>全局标准化（会保存）</h3><button onClick={() => editor?.select(`${selected.id}:profile`)}>编辑 Profile</button>
         <label className="field"><span>材质透明策略</span><select value={selectedProfile.transparencyPolicy} onChange={(event) => updateProfile({ ...selectedProfile, transparencyPolicy: event.target.value as ModelAssetProfile['transparencyPolicy'] })}><option value="depth-safe-cutout">深度安全裁切</option><option value="source">保留模型原始透明</option></select></label>
-        <label>旋转（度）</label><VectorEditor value={selectedProfile.rotationDeg} step={1} onChange={(rotationDeg) => updateProfile({ ...selectedProfile, rotationDeg })} />
-        <label>原点偏移</label><VectorEditor value={selectedProfile.positionOffset} onChange={(positionOffset) => updateProfile({ ...selectedProfile, positionOffset })} />
         <div className="assist"><h3>自动辅助</h3><div className="inline"><NumericInput value={targetSize} step={0.1} onChange={setTargetSize} /><span>m 最长边</span><button onClick={() => { const maxSize = Math.max(selected.rawBounds.size.x, selected.rawBounds.size.y, selected.rawBounds.size.z); if (maxSize > 0) updateProfile({ ...selectedProfile, uniformScale: targetSize / maxSize }); }}>生成缩放建议</button></div><button onClick={bottomCenter}>按旋转后包围盒底部居中</button></div>
         <p className="bounds">原始尺寸：{selected.rawBounds.size.x.toFixed(3)} × {selected.rawBounds.size.y.toFixed(3)} × {selected.rawBounds.size.z.toFixed(3)}</p>
-        <h3>对比实例（不会保存）</h3>
-        <label>位置</label><VectorEditor value={selected.comparison.position} onChange={(position) => updateComparison({ ...selected.comparison, position })} />
-        <label>旋转（度）</label><VectorEditor value={selected.comparison.rotationDeg} step={1} onChange={(rotationDeg) => updateComparison({ ...selected.comparison, rotationDeg })} />
-        <label className="field"><span>临时缩放</span><NumericInput value={selected.comparison.scale} onChange={(scale) => updateComparison({ ...selected.comparison, scale })} /></label>
-      </> : <p className="empty">从顶部选择模型并加入对比，然后在左侧选择一个实例。</p>}</aside>
+        <h3>对比实例（不会保存）</h3><button onClick={() => editor?.select(`${selected.id}:instance`)}>编辑临时摆放</button>
+      </> : <p className="empty">从顶部选择模型并加入对比，然后在左侧选择一个实例。</p>}</div></InspectorPanel>
     </section>
   </main>;
 }

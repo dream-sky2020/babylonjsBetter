@@ -1,3 +1,4 @@
+import { migrateLegacyDungeonSpawnAttachments } from './dungeonMapDocument.spawnMigration.ts';
 import type { DungeonMapDocumentV2 } from './dungeonMapDocument.types.ts';
 import { compactGeneratedDungeonMapShells } from './dungeonMapDocument.compact.ts';
 import { normalizeDungeonMapTerrain } from './dungeonMapDocument.terrain.ts';
@@ -29,7 +30,7 @@ export const parseDungeonMapDocumentV2 = (
   if (expectedPresetKey !== undefined && candidate.identity.presetKey !== expectedPresetKey) {
     throw new Error(`地图 V2 文档的 presetKey 应为“${expectedPresetKey}”。`);
   }
-  const document = cloneJson(candidate);
+  const document = migrateLegacyDungeonSpawnAttachments(cloneJson(candidate));
   const terrain = normalizeDungeonMapTerrain(document.grid.tileIds, document.terrain, document.legacy);
   if (terrain) document.terrain = terrain;
   else delete document.terrain;

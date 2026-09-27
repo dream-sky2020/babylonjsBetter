@@ -12,6 +12,7 @@ import {
   TransformNode,
   Vector3,
   type Light,
+  type Node,
 } from '@babylonjs/core';
 import type { SceneEnvironmentInstance, SceneEnvironmentLight, SceneEnvironmentObject, SceneEnvironmentPreset } from './sceneEnvironment.types';
 import { createModelEntity, type ModelEntity } from '../model';
@@ -102,6 +103,7 @@ const applyCascadedShadowSettings = (
 };
 
 export type CreateSceneEnvironmentOptions = {
+  signal?: AbortSignal;
   shadowQualityPresets: ShadowQualityPresetLibrary;
   shadowQualityTier?: ShadowQualityTier;
   /** 运行时覆盖全部 CSM 的级联着色调试状态，不修改预设数据。 */
@@ -113,11 +115,18 @@ const createSceneEnvironmentRuntime = (
   preset: SceneEnvironmentPreset,
   options: CreateSceneEnvironmentOptions,
 ): { instance: SceneEnvironmentInstance; shadowGenerators: ShadowGenerator[] } => {
+  // Validate shadow references before allocating scene resources, including unsupported CSM lights.
+  for (const definition of preset.lights) if ('shadow' in definition && definition.shadow) {
+    const shadow = resolveShadowQuality(definition.shadow, options.shadowQualityPresets, options.shadowQualityTier);
+    if (shadow.enabled && shadow.generator.type === 'cascaded' && definition.light.primitive !== 'directional') throw new Error(`光源 ${definition.id} 使用了 CSM，但 CSM 仅支持 directional 光源`);
+  }
   const root = new TransformNode(`scene_environment_${preset.presetKey}`, scene);
+  const nodes = new Map<string, Node>();
   const shadowGenerators: ShadowGenerator[] = [];
   scene.clearColor = Color4.FromHexString(preset.clearColor);
   preset.lights.forEach((definition) => {
     const light = createLight(scene, preset.presetKey, definition);
+    nodes.set(`light:${definition.id}`, light);
     light.parent = root;
     if (
       'shadow' in definition
@@ -159,6 +168,7 @@ const createSceneEnvironmentRuntime = (
           tessellation: geometry.tessellation,
         }, scene);
     mesh.parent = root;
+    nodes.set(`object:${object.id}`, mesh);
     mesh.position.set(...object.position);
     if (object.rotation) mesh.rotation.set(...object.rotation);
     mesh.material = createMaterial(scene, preset.presetKey, object);
@@ -169,6 +179,7 @@ const createSceneEnvironmentRuntime = (
     presetKey: preset.presetKey,
     root,
     models: [],
+    nodes,
     dispose: () => {
       shadowGenerators.forEach((generator) => generator.dispose());
       root.dispose(false, true);
@@ -195,14 +206,18 @@ export const createSceneEnvironmentAsync = async (
   preset: SceneEnvironmentPreset,
   options: CreateSceneEnvironmentOptions,
 ): Promise<SceneEnvironmentInstance> => {
+  options.signal?.throwIfAborted();
   const runtime = createSceneEnvironmentRuntime(scene, preset, options);
   const loadedModels: { definition: SceneEnvironmentPreset['models'][number]; entity: ModelEntity }[] = [];
   try {
     for (const definition of preset.models) {
+      options.signal?.throwIfAborted();
       const entity = await createModelEntity(scene, definition.modelPath, {
         name: `${preset.presetKey}:${definition.id}`,
         transparencyPolicy: definition.transparencyPolicy,
       });
+      if (options.signal?.aborted || scene.isDisposed) { entity.dispose(); throw new Error('场景加载已取消'); }
+      (runtime.instance.nodes as Map<string, Node>).set(`model:${definition.id}`, entity.root);
       entity.root.parent = runtime.instance.root;
       entity.root.position.set(...definition.position);
       if (definition.rotation) entity.root.rotation.set(...definition.rotation);

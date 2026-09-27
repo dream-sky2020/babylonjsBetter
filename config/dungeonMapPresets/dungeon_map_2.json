@@ -167,8 +167,6 @@
       {
         "entityId": "entity:28c19b69-10f2-4b9d-b5c4-f30aa776b1e7",
         "id": "component:bb2a536e-057f-4393-b903-7e6f5922fb4a",
-        "tileX": 0,
-        "tileY": 0,
         "type": "actor-spawn",
         "version": 1
       }
@@ -733,7 +731,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:1,1"
+            "tileId": "tile:1,3"
           }
         ],
         "type": "spatial-attachment",
@@ -925,7 +923,7 @@
         "targets": [
           {
             "kind": "tile",
-            "tileId": "tile:7,8"
+            "tileId": "tile:6,9"
           }
         ],
         "type": "spatial-attachment",
@@ -1007,7 +1005,8 @@
         "id": "entity:28c19b69-10f2-4b9d-b5c4-f30aa776b1e7:spatial-attachment",
         "targets": [
           {
-            "kind": "map"
+            "kind": "tile",
+            "tileId": "tile:0,0"
           }
         ],
         "type": "spatial-attachment",

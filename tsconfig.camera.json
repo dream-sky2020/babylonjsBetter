@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["vite/client", "node"] },
+  "include": ["core/camera/**/*.ts", "core/dungeon-view/**/*.ts", "core/entity/components/dungeon-overhead-view.component.ts", "core/entity/entity-types/dungeon-overhead-view.entity-type.ts", "core/ui/FloatingCameraControlPanel.ts", "core/scene/createCameraLabScene.ts"],
+  "exclude": ["node_modules"]
+}

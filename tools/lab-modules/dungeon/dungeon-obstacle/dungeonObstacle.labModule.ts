@@ -1,3 +1,5 @@
+import { createDungeonViewConsumer, applyDungeonViewToNode, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { DUNGEON_OBSTACLE_VIEW_SERVICE_KEY } from './dungeonObstacle.view';
 import { Color3, Mesh, MeshBuilder, StandardMaterial, TransformNode } from '@babylonjs/core';
 import {
   setDungeonObstacleActive,
@@ -48,6 +50,8 @@ export const dungeonObstacleLabModule: LabModule = {
     panel.content.append(debugToggle.row, debugLegend, list, runtimeJson);
     let current: LoadedDungeonReferences | null = null;
     let debugRoot: TransformNode | null = null;
+    let view: ResolvedDungeonView | null = null;
+    const viewConsumer = createDungeonViewConsumer(next => { view = next; if (debugRoot) applyDungeonViewToNode(debugRoot, view); });
     let occupancyMaterial: StandardMaterial | null = null;
     let reservationMaterial: StandardMaterial | null = null;
     let movementReservationMaterial: StandardMaterial | null = null;
@@ -220,6 +224,7 @@ export const dungeonObstacleLabModule: LabModule = {
       inactiveMaterial.alpha = 0.14;
       inactiveMaterial.wireframe = true;
       debugRoot = new TransformNode(`obstacle_debug_${loaded.loadId}`, context.scene);
+      applyDungeonViewToNode(debugRoot, view);
       loaded.obstacles.forEach((binding) => {
         const active = loaded.runtime.obstacleStates.get(binding.entity.id) === true;
         const layout = resolveDungeonObstacleDebugLayout(
@@ -286,6 +291,8 @@ export const dungeonObstacleLabModule: LabModule = {
       }));
     };
     debugToggle.input.addEventListener('change', renderDebug);
+    context.services.set(DUNGEON_OBSTACLE_VIEW_SERVICE_KEY, { acquire: viewConsumer.acquire,
+      setVisible(visible: boolean) { debugToggle.input.checked = visible; renderDebug(); } });
     const off = context.communication.on(dungeonMapChangedEvent, (next) => {
       const loaded = references.current;
       if (!loaded || loaded.loadId !== next.loadId) return;
@@ -312,6 +319,8 @@ export const dungeonObstacleLabModule: LabModule = {
       if (debugToggle.input.checked) syncTraversalDebug();
     });
     return () => {
+      viewConsumer.dispose();
+      context.services.delete(DUNGEON_OBSTACLE_VIEW_SERVICE_KEY);
       off();
       offRuntime();
       offAgents();

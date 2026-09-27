@@ -32,7 +32,7 @@ export function useWeaponSlot(runtimeRef: RefObject<WeaponLabRuntime | null>, ha
   useEffect(() => {
     const runtime = runtimeRef.current; if (!runtime || !track.enabled) return;
     return createWeaponProxyDebug(runtime.scene, runtime.slots[hand].weaponPose, track.proxy, showProxy, showMarkers, name,
-      hand === 'right' ? new Color3(.2, .8, .9) : new Color3(.75, .45, 1));
+      hand === 'right' ? new Color3(.2, .8, .9) : new Color3(.75, .45, 1), runtime.slots[hand]);
   }, [runtimeRef, hand, name, track.proxy, track.enabled, showProxy, showMarkers]);
   useEffect(() => {
     const runtime = runtimeRef.current; if (!runtime) return;

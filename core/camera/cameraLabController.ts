@@ -1,4 +1,19 @@
-import { ArcRotateCamera, UniversalCamera, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, UniversalCamera, Vector3, type ArcRotateCameraMouseWheelInput } from '@babylonjs/core';
+import { applyOrthographicFrustum } from './orthographicFrustum.ts';
+
+export type CameraProjection = 'perspective' | 'orthographic';
+export type CameraViewConfiguration = Partial<Pick<CameraLabControllerState,
+  'projection' | 'orbitCenter' | 'orbitYaw' | 'orbitPitchDeg' | 'orbitRadius' |
+  'fovDeg' | 'minZ' | 'maxZ' | 'orthographicSize' | 'orthographicMinSize' |
+  'orthographicMaxSize' | 'viewLocked' | 'lowerAlphaLimit' | 'upperAlphaLimit' |
+  'lowerBetaLimit' | 'upperBetaLimit'>>;
+export type CameraViewPreset = Readonly<{ id: string; label: string; view: CameraViewConfiguration }>;
+export const CAMERA_VIEW_PRESETS: readonly CameraViewPreset[] = [
+  { id: 'free', label: '自由透视环绕', view: { projection: 'perspective', viewLocked: false } },
+  { id: 'top', label: '正交俯视', view: { projection: 'orthographic', orbitYaw: 0, orbitPitchDeg: 89.99, viewLocked: true } },
+  { id: 'side', label: '正交侧视', view: { projection: 'orthographic', orbitYaw: Math.PI / 2, orbitPitchDeg: 0, viewLocked: true } },
+  { id: 'isometric', label: '正交等距', view: { projection: 'orthographic', orbitYaw: Math.PI / 4, orbitPitchDeg: 35.26438968, viewLocked: true } },
+];
 
 export type CameraLabMode = 'firstPerson' | 'drone' | 'orbit' | 'lockPan';
 export type CameraLookControlMode = 'pointerLock' | 'drag';
@@ -17,6 +32,18 @@ export type CameraFirstPersonPoseBinding = Readonly<{
 }>;
 
 export interface CameraLabControllerState {
+  projection: CameraProjection;
+  viewPreset: string | null;
+  /** 垂直可见半范围（世界单位），完整可见高度为此值的两倍。 */
+  orthographicSize: number;
+  orthographicMinSize: number;
+  orthographicMaxSize: number;
+  viewLocked: boolean;
+  /** 自由编辑时的 Babylon alpha/beta 限制（弧度，null 无限制）；锁定时保留用于解锁。 */
+  lowerAlphaLimit: number | null;
+  upperAlphaLimit: number | null;
+  lowerBetaLimit: number | null;
+  upperBetaLimit: number | null;
   mode: CameraLabMode;
   lookControlMode: CameraLookControlMode;
   moveSpeed: number;
@@ -79,6 +106,13 @@ export interface CameraLabControllerState {
 }
 
 export interface CameraLabController {
+  /** 当前输入门是否开启（含 Viewport 暂停）；姿态绑定更新不受此门影响。 */
+  readonly inputEnabled: boolean;
+  readonly presets: readonly CameraViewPreset[];
+  setProjection: (projection: CameraProjection) => boolean;
+  setOrthographicSize: (size: number) => boolean;
+  setView: (view: CameraViewConfiguration) => void;
+  applyPreset: (preset: string | CameraViewPreset) => boolean;
   state: CameraLabControllerState;
   readonly activeCamera: ArcRotateCamera | UniversalCamera;
   keys: Set<string>;
@@ -119,6 +153,16 @@ export const CAMERA_LAB_MODE_LABELS: Record<CameraLabMode, string> = {
 };
 
 export const CAMERA_LAB_DEFAULT_STATE: CameraLabControllerState = {
+  projection: 'perspective',
+  viewPreset: null,
+  orthographicSize: 10,
+  orthographicMinSize: 0.01,
+  orthographicMaxSize: 10000,
+  viewLocked: false,
+  lowerAlphaLimit: null,
+  upperAlphaLimit: null,
+  lowerBetaLimit: 0.01,
+  upperBetaLimit: Math.PI - 0.01,
   mode: 'orbit',
   lookControlMode: 'drag',
   moveSpeed: 18,
@@ -210,10 +254,15 @@ const projectOntoLockPlane = (
 
 export const createCameraLabController = (
   camera: ArcRotateCamera,
-  initialState: Partial<CameraLabControllerState> = {}
+  initialState: Partial<CameraLabControllerState> = {},
+  customPresets: readonly CameraViewPreset[] = [],
 ): CameraLabController => {
   const state = cloneState({
     ...CAMERA_LAB_DEFAULT_STATE,
+    lowerAlphaLimit: camera.lowerAlphaLimit,
+    upperAlphaLimit: camera.upperAlphaLimit,
+    lowerBetaLimit: camera.lowerBetaLimit,
+    upperBetaLimit: camera.upperBetaLimit,
     ...initialState
   });
   const initialPoseState = cloneState(state);
@@ -275,6 +324,25 @@ export const createCameraLabController = (
   let disposed = false;
   let ownedKeyboardCodes: ReadonlySet<string> = new Set();
   let firstPersonPoseBinding: CameraFirstPersonPoseBinding | null = null;
+  const presets = [...CAMERA_VIEW_PRESETS, ...customPresets];
+  let arcProjection = state.projection;
+  let hasOrthographicSize = initialState.orthographicSize !== undefined || state.projection === 'orthographic';
+  const freeProjection = new Map<UniversalCamera, { fovDeg: number; horizontalFovDeg: number; fovReference: CameraFovReference; minZ: number; maxZ: number }>();
+  let arcPerspective = { fovDeg: state.fovDeg, horizontalFovDeg: state.horizontalFovDeg, fovReference: state.fovReference, minZ: state.minZ, maxZ: state.maxZ };
+  const wheelInput = camera.inputs.attached.mousewheel as ArcRotateCameraMouseWheelInput;
+  const originalWheelCompute = wheelInput.customComputeDeltaFromMouseWheel;
+  const computeOrthographicWheel = (delta: number): number => {
+    if (inputEnabled) {
+      const exponent = clamp(-delta / (Math.max(.01, state.orbitWheelPrecision) * 1000), -20, 20);
+      setOrthographicSize(state.orthographicSize * Math.exp(exponent));
+    }
+    return 0;
+  };
+  const syncWheelProjection = (): void => {
+    wheelInput.customComputeDeltaFromMouseWheel = state.projection === 'orthographic'
+      ? computeOrthographicWheel
+      : originalWheelCompute;
+  };
 
   firstPersonCamera.keysUp = [87];
   firstPersonCamera.keysDown = [83];
@@ -380,7 +448,7 @@ export const createCameraLabController = (
     if (attachedNativeCamera === camera) {
       syncOrbitStateFromCamera();
       stopNativeOrbitMotion();
-    } else {
+    } else if (attachedNativeCamera instanceof UniversalCamera) {
       const mode = attachedNativeCamera === firstPersonCamera ? 'firstPerson' : 'drone';
       syncFreeCameraState(attachedNativeCamera, mode);
       attachedNativeCamera.cameraDirection.setAll(0);
@@ -457,7 +525,9 @@ export const createCameraLabController = (
 
   const applyProjection = (): void => {
     const engine = camera.getEngine();
-    const aspectRatio = Math.max(0.0001, engine.getRenderWidth() / Math.max(1, engine.getRenderHeight()));
+    const activeCamera = scene.activeCamera ?? camera;
+    if (activeCamera !== camera && activeCamera !== firstPersonCamera && activeCamera !== droneCamera) return;
+    const aspectRatio = Math.max(0.0001, engine.getRenderWidth() * activeCamera.viewport.width / Math.max(1, engine.getRenderHeight() * activeCamera.viewport.height));
     if (state.fovReference === 'horizontal') {
       state.horizontalFovDeg = clamp(state.horizontalFovDeg, 1, 179);
       state.fovDeg = horizontalToVerticalFov(state.horizontalFovDeg, aspectRatio);
@@ -465,26 +535,54 @@ export const createCameraLabController = (
       state.fovDeg = clamp(state.fovDeg, 1, 179);
       state.horizontalFovDeg = verticalToHorizontalFov(state.fovDeg, aspectRatio);
     }
-    const activeCamera = scene.activeCamera ?? camera;
+    if (activeCamera === camera) {
+      camera.mode = state.projection === 'orthographic' ? ArcRotateCamera.ORTHOGRAPHIC_CAMERA : ArcRotateCamera.PERSPECTIVE_CAMERA;
+      arcProjection = state.projection;
+      syncWheelProjection();
+      if (state.projection === 'orthographic') {
+        state.orthographicMinSize = Math.max(.0001, state.orthographicMinSize);
+        state.orthographicMaxSize = Math.max(state.orthographicMinSize, state.orthographicMaxSize);
+        state.orthographicSize = clamp(state.orthographicSize, state.orthographicMinSize, state.orthographicMaxSize);
+        applyOrthographicFrustum(camera, state.orthographicSize, engine.getRenderWidth() * camera.viewport.width, engine.getRenderHeight() * camera.viewport.height);
+      }
+    } else {
+      state.projection = 'perspective';
+      activeCamera.mode = ArcRotateCamera.PERSPECTIVE_CAMERA;
+    }
     activeCamera.fov = degToRad(clamp(state.fovDeg, 1, 179));
+    activeCamera.fovMode = ArcRotateCamera.FOVMODE_VERTICAL_FIXED;
     activeCamera.minZ = Math.max(0.001, state.minZ);
     activeCamera.maxZ = Math.max(activeCamera.minZ + 0.001, state.maxZ);
   };
 
   const syncProjectionStateFromCamera = (): void => {
     const activeCamera = scene.activeCamera ?? camera;
+    if (activeCamera !== camera && activeCamera !== firstPersonCamera && activeCamera !== droneCamera) return;
     const engine = camera.getEngine();
-    const aspectRatio = Math.max(0.0001, engine.getRenderWidth() / Math.max(1, engine.getRenderHeight()));
-    state.fovDeg = clamp(radToDeg(activeCamera.fov), 1, 179);
+    const aspectRatio = Math.max(0.0001, engine.getRenderWidth() * activeCamera.viewport.width / Math.max(1, engine.getRenderHeight() * activeCamera.viewport.height));
+    state.fovDeg = clamp(activeCamera.fovMode === ArcRotateCamera.FOVMODE_HORIZONTAL_FIXED
+      ? horizontalToVerticalFov(radToDeg(activeCamera.fov), aspectRatio) : radToDeg(activeCamera.fov), 1, 179);
     state.horizontalFovDeg = verticalToHorizontalFov(state.fovDeg, aspectRatio);
-    state.fovReference = 'vertical';
     state.minZ = activeCamera.minZ;
     state.maxZ = activeCamera.maxZ;
+    state.projection = activeCamera.mode === ArcRotateCamera.ORTHOGRAPHIC_CAMERA ? 'orthographic' : 'perspective';
+    if (activeCamera === camera && state.projection === 'orthographic') {
+      state.orthographicSize = Math.abs((camera.orthoTop ?? state.orthographicSize) - (camera.orthoBottom ?? -state.orthographicSize)) / 2;
+      hasOrthographicSize = true;
+    }
   };
 
   const refreshStateFromActiveCamera = (): void => {
     if (state.mode === 'orbit') {
       syncOrbitStateFromCamera();
+      state.viewLocked = camera.lowerAlphaLimit !== null && camera.lowerAlphaLimit === camera.upperAlphaLimit
+        && camera.lowerBetaLimit !== null && camera.lowerBetaLimit === camera.upperBetaLimit;
+      if (!state.viewLocked) {
+        state.lowerAlphaLimit = camera.lowerAlphaLimit;
+        state.upperAlphaLimit = camera.upperAlphaLimit;
+        state.lowerBetaLimit = camera.lowerBetaLimit;
+        state.upperBetaLimit = camera.upperBetaLimit;
+      }
       state.orbitInertia = camera.inertia;
       state.orbitPanningInertia = camera.panningInertia;
       state.orbitAngularSensibilityX = camera.angularSensibilityX;
@@ -512,6 +610,7 @@ export const createCameraLabController = (
   };
 
   const resetActiveCameraToNativeDefaults = (): void => {
+    refreshStateFromActiveCamera();
     const defaults = state.mode === 'firstPerson'
       ? nativeDefaults.firstPerson
       : state.mode === 'drone'
@@ -541,6 +640,11 @@ export const createCameraLabController = (
   };
 
   const resetInitialPose = (): void => {
+    arcProjection = initialPoseState.projection;
+    state.projection = state.mode === 'firstPerson' || state.mode === 'drone' ? 'perspective' : arcProjection;
+    for (const key of ['orthographicSize', 'orthographicMinSize', 'orthographicMaxSize', 'viewPreset', 'viewLocked', 'lowerAlphaLimit', 'upperAlphaLimit', 'lowerBetaLimit', 'upperBetaLimit'] as const) {
+      Object.assign(state, { [key]: initialPoseState[key] });
+    }
     state.yaw = initialPoseState.yaw;
     state.pitch = initialPoseState.pitch;
     state.firstPersonHeight = initialPoseState.firstPersonHeight;
@@ -562,12 +666,22 @@ export const createCameraLabController = (
   };
 
   const applyPose = (): void => {
+    if (disposed) return;
     if (state.mode === 'orbit') {
+      stopNativeOrbitMotion();
       const pitch = degToRad(state.orbitPitchDeg);
       camera.setTarget(state.orbitCenter);
       camera.alpha = Math.PI / 2 - state.orbitYaw;
       camera.beta = Math.PI / 2 - pitch;
-      camera.radius = clamp(state.orbitRadius, 1, 300);
+      camera.radius = clamp(state.orbitRadius, Math.max(1, camera.lowerRadiusLimit ?? 1), Math.min(300, camera.upperRadiusLimit ?? 300));
+      camera.lowerAlphaLimit = state.viewLocked ? camera.alpha : state.lowerAlphaLimit;
+      camera.upperAlphaLimit = state.viewLocked ? camera.alpha : state.upperAlphaLimit;
+      camera.lowerBetaLimit = state.viewLocked ? camera.beta : state.lowerBetaLimit;
+      camera.upperBetaLimit = state.viewLocked ? camera.beta : state.upperBetaLimit;
+      if (camera.lowerAlphaLimit !== null && camera.upperAlphaLimit !== null && camera.lowerAlphaLimit > camera.upperAlphaLimit) camera.upperAlphaLimit = camera.lowerAlphaLimit;
+      if (camera.lowerBetaLimit !== null && camera.upperBetaLimit !== null && camera.lowerBetaLimit > camera.upperBetaLimit) camera.upperBetaLimit = camera.lowerBetaLimit;
+      camera.alpha = clamp(camera.alpha, camera.lowerAlphaLimit ?? -Infinity, camera.upperAlphaLimit ?? Infinity);
+      camera.beta = clamp(camera.beta, camera.lowerBetaLimit ?? -Infinity, camera.upperBetaLimit ?? Infinity);
       attachNativeOrbit();
       applyProjection();
       return;
@@ -593,6 +707,8 @@ export const createCameraLabController = (
     applyProjection();
 
     if (state.mode === 'lockPan') {
+      camera.lowerAlphaLimit = camera.upperAlphaLimit = null;
+      camera.lowerBetaLimit = camera.upperBetaLimit = null;
       setAxisValue(state.lockPosition, state.lockPlaneAxis, state.lockPlaneValue);
       camera.position.copyFrom(state.lockPosition);
       camera.setTarget(state.lockTarget);
@@ -603,6 +719,7 @@ export const createCameraLabController = (
   };
 
   const update = (dt: number): void => {
+    if (disposed) return;
     const frameDt = Math.min(0.1, Math.max(0, dt));
     if (state.mode === 'orbit') {
       // ArcRotateCamera 在 scene.render() 内消化输入与惯性。
@@ -619,6 +736,7 @@ export const createCameraLabController = (
       applyProjection();
       return;
     }
+    if (!inputEnabled) { applyProjection(); return; }
     const pointerAlpha = smoothingAlpha(state.lookSmoothing, frameDt);
     const pointerX = pendingPointerX * pointerAlpha;
     const pointerY = pendingPointerY * pointerAlpha;
@@ -650,7 +768,7 @@ export const createCameraLabController = (
   };
 
   const handlePointerDelta = (dx: number, dy: number): void => {
-    if (state.mode !== 'lockPan') return;
+    if (!inputEnabled || state.mode !== 'lockPan') return;
     pendingPointerX += dx;
     pendingPointerY += dy;
   };
@@ -662,8 +780,10 @@ export const createCameraLabController = (
 
   const reset = (): void => {
     detachActiveNativeCamera();
-    const next = cloneState(CAMERA_LAB_DEFAULT_STATE);
+    const next = cloneState(initialPoseState);
     Object.assign(state, next);
+    arcProjection = next.projection;
+    freeProjection.clear();
     keys.clear();
     movementVelocity.setAll(0);
     pendingPointerX = 0;
@@ -694,7 +814,7 @@ export const createCameraLabController = (
   };
 
   const setVerticalFovDeg = (value: number): boolean => {
-    if (!Number.isFinite(value)) return false;
+    if (!Number.isFinite(value) || state.projection === 'orthographic') return false;
     state.fovDeg = clamp(value, 1, 179);
     state.fovReference = 'vertical';
     applyPose();
@@ -702,7 +822,7 @@ export const createCameraLabController = (
   };
 
   const setHorizontalFovDeg = (value: number): boolean => {
-    if (!Number.isFinite(value)) return false;
+    if (!Number.isFinite(value) || state.projection === 'orthographic') return false;
     state.horizontalFovDeg = clamp(value, 1, 179);
     state.fovReference = 'horizontal';
     applyPose();
@@ -710,13 +830,15 @@ export const createCameraLabController = (
   };
 
   const getStatusText = (): string => {
-    const activeCamera = scene.activeCamera ?? camera;
+    const activeCamera = controller.activeCamera;
     const target = activeCamera.getTarget();
     const commonLines = [
-      `模式: ${CAMERA_LAB_MODE_LABELS[state.mode]}`,
+      `模式: ${CAMERA_LAB_MODE_LABELS[state.mode]} · ${state.projection} · ${state.viewPreset ?? '自定义'}`,
       `position: x=${formatNumber(activeCamera.position.x)}, y=${formatNumber(activeCamera.position.y)}, z=${formatNumber(activeCamera.position.z)}`,
       `target:   x=${formatNumber(target.x)}, y=${formatNumber(target.y)}, z=${formatNumber(target.z)}`,
-      `vfov=${formatNumber(state.fovDeg)}°, hfov=${formatNumber(state.horizontalFovDeg)}° (${state.fovReference}), clip=${formatNumber(state.minZ)}..${formatNumber(state.maxZ)}`
+      state.projection === 'orthographic'
+        ? `orthographicSize=${formatNumber(state.orthographicSize)}（垂直半范围）, clip=${formatNumber(state.minZ)}..${formatNumber(state.maxZ)}`
+        : `vfov=${formatNumber(state.fovDeg)}°, hfov=${formatNumber(state.horizontalFovDeg)}° (${state.fovReference}), clip=${formatNumber(state.minZ)}..${formatNumber(state.maxZ)}`
     ];
     if (state.mode === 'orbit') commonLines.push(
       `alpha=${formatNumber(radToDeg(camera.alpha))}°, beta=${formatNumber(radToDeg(camera.beta))}°, radius=${formatNumber(camera.radius)}`,
@@ -739,10 +861,58 @@ export const createCameraLabController = (
     return commonLines.join('\n');
   };
 
+  const setOrthographicSize = (size: number): boolean => {
+    if (!Number.isFinite(size) || size <= 0) return false;
+    state.orthographicSize = clamp(size, state.orthographicMinSize, state.orthographicMaxSize);
+    hasOrthographicSize = true;
+    applyProjection();
+    return true;
+  };
+  const setProjection = (projection: CameraProjection): boolean => {
+    if (state.mode === 'firstPerson' || state.mode === 'drone') return projection === 'perspective';
+    refreshStateFromActiveCamera();
+    if (state.projection === projection) return true;
+    stopNativeOrbitMotion();
+    if (projection === 'orthographic' && !hasOrthographicSize) {
+      state.orthographicSize = camera.radius * Math.tan(camera.fov / 2);
+      hasOrthographicSize = true;
+    }
+    state.projection = projection;
+    state.viewPreset = null;
+    applyProjection();
+    return true;
+  };
+  const setView = (view: CameraViewConfiguration): void => {
+    for (const value of Object.values(view)) {
+      if (typeof value === 'number' && !Number.isFinite(value)) throw new RangeError('Camera view numbers must be finite');
+      if (value instanceof Vector3 && ![value.x, value.y, value.z].every(Number.isFinite)) throw new RangeError('Camera target must be finite');
+    }
+    controller.setMode('orbit');
+    refreshStateFromActiveCamera();
+    if (view.projection) setProjection(view.projection);
+    Object.assign(state, view, { orbitCenter: view.orbitCenter?.clone() ?? state.orbitCenter, viewPreset: null });
+    if (view.orthographicSize !== undefined) hasOrthographicSize = true;
+    if (view.fovDeg !== undefined) state.fovReference = 'vertical';
+    applyPose();
+    refreshStateFromActiveCamera();
+  };
+  const resizeObserver = camera.getEngine().onResizeObservable.add(() => { if (!disposed) applyProjection(); });
   const controller: CameraLabController = {
+    get inputEnabled() { return inputEnabled && !disposed; },
+    presets,
+    setProjection,
+    setOrthographicSize,
+    setView,
+    applyPreset: (preset) => {
+      const resolved = typeof preset === 'string' ? presets.find(item => item.id === preset) : preset;
+      if (!resolved) return false;
+      setView({ viewLocked: false, lowerAlphaLimit: null, upperAlphaLimit: null, lowerBetaLimit: .0001, upperBetaLimit: Math.PI - .0001, ...resolved.view });
+      state.viewPreset = resolved.id;
+      return true;
+    },
     state,
     get activeCamera() {
-      return scene.activeCamera === firstPersonCamera || scene.activeCamera === droneCamera
+      return scene.activeCamera instanceof UniversalCamera && (scene.activeCamera === firstPersonCamera || scene.activeCamera === droneCamera)
         ? scene.activeCamera
         : camera;
     },
@@ -758,18 +928,32 @@ export const createCameraLabController = (
     setVerticalFovDeg,
     setHorizontalFovDeg,
     refreshStateFromActiveCamera,
-    applyStateToActiveCamera: applyPose,
+    applyStateToActiveCamera: () => { applyPose(); refreshStateFromActiveCamera(); },
     resetActiveCameraToNativeDefaults,
     resetInitialPose,
     setInputEnabled: (enabled) => {
       if (inputEnabled === enabled) return;
       inputEnabled = enabled;
+      if (!enabled) { keys.clear(); movementVelocity.setAll(0); pendingPointerX = 0; pendingPointerY = 0; }
       if (!enabled) detachActiveNativeCamera();
       else applyPose();
     },
     setOwnedKeyboardCodes: (codes) => {
+      const lostOwnership = [...ownedKeyboardCodes].some(code => !codes.has(code));
       ownedKeyboardCodes = new Set(codes);
       applyOwnedKeyboardCodes();
+      for (const code of keys) if (!codes.has(code)) keys.delete(code);
+      if (lostOwnership) {
+        movementVelocity.setAll(0);
+        // Flush native held-key caches: a swallowed keyup must not restart movement
+        // when this consumer wins the key back later.
+        const native = attachedNativeCamera;
+        const keyboardInput = native?.inputs.attached.keyboard;
+        keyboardInput?.detachControl();
+        if (native instanceof UniversalCamera) native.cameraDirection.setAll(0);
+        else if (native === camera) stopNativeOrbitMotion();
+        if (inputEnabled) keyboardInput?.attachControl(true);
+      }
     },
     bindFirstPersonPose: (binding) => {
       firstPersonPoseBinding = binding;
@@ -778,13 +962,26 @@ export const createCameraLabController = (
     dispose: () => {
       if (disposed) return;
       disposed = true;
+      camera.getEngine().onResizeObservable.remove(resizeObserver);
+      camera.onDisposeObservable.remove(disposeObserver);
+      wheelInput.customComputeDeltaFromMouseWheel = originalWheelCompute;
       detachActiveNativeCamera();
       firstPersonCamera.dispose();
       droneCamera.dispose();
     },
     setMode: (mode) => {
-      if (state.mode !== mode) detachActiveNativeCamera();
+      if (state.mode === mode) return;
+      refreshStateFromActiveCamera();
+      const projectionSnapshot = { fovDeg: state.fovDeg, horizontalFovDeg: state.horizontalFovDeg, fovReference: state.fovReference, minZ: state.minZ, maxZ: state.maxZ };
+      if (state.mode === 'firstPerson' || state.mode === 'drone') freeProjection.set(state.mode === 'firstPerson' ? firstPersonCamera : droneCamera, projectionSnapshot);
+      else { arcPerspective = projectionSnapshot; arcProjection = state.projection; }
+      detachActiveNativeCamera();
       state.mode = mode;
+      if (mode === 'firstPerson' || mode === 'drone') {
+        const native = mode === 'firstPerson' ? firstPersonCamera : droneCamera;
+        Object.assign(state, freeProjection.get(native) ?? { fovDeg: radToDeg(native.fov), fovReference: 'vertical', minZ: native.minZ, maxZ: native.maxZ });
+        state.projection = 'perspective';
+      } else { Object.assign(state, arcPerspective); state.projection = arcProjection; }
       movementVelocity.setAll(0);
       pendingPointerX = 0;
       pendingPointerY = 0;
@@ -793,6 +990,10 @@ export const createCameraLabController = (
     getStatusText
   };
 
+  const disposeObserver = camera.onDisposeObservable.add(() => controller.dispose());
   applyPose();
+  if (initialState.viewPreset && controller.applyPreset(initialState.viewPreset)) {
+    Object.assign(initialPoseState, cloneState(state));
+  }
   return controller;
 };

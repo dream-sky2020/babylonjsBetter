@@ -1,0 +1,19 @@
+/* Shared compact workbench language extracted from Animation Workbench. */
+.scene-workbench, .awb-shell { --line:#3c3e42; --panel:#25262a; --panel-deep:#202124; --hover:#33353a; --selected:#334958; --accent:#6ca2bf; color:#dfe1e5; font:12px "Segoe UI","Microsoft YaHei",sans-serif; }
+.scene-workbench { background:var(--panel-deep); }
+.scene-workbench :where(button, input:not([type=checkbox]):not([type=range]), select), .scene-editor-toolbar button { font:inherit; color:inherit; border:1px solid #494c51; border-radius:2px; background:#202124; min-height:25px; padding:3px 6px; }
+.scene-workbench button { cursor:pointer; }
+.scene-workbench button:hover, .scene-editor-toolbar button:hover { background:var(--hover); }
+.scene-workbench button.active, .scene-editor-toolbar button.active { background:var(--selected); color:#eef8ff; }
+.scene-workbench :disabled, .scene-editor-toolbar :disabled { opacity:.4; cursor:default; }
+.scene-workbench input:focus, .scene-workbench select:focus { outline:1px solid var(--accent); }
+.scene-editor-toolbar { display:flex; flex-wrap:wrap; gap:3px; align-items:center; padding:5px; border-bottom:1px solid var(--line); background:#2b2d30; font-size:10px; }
+.scene-editor-vector { display:grid; grid-template-columns:48px repeat(3,minmax(0,1fr)); gap:4px; align-items:center; margin:6px 0; font-size:10px; }
+.scene-editor-vector label { display:flex; align-items:center; min-width:0; background:#1e1f22; border:1px solid #494c51; }
+.scene-editor-vector b { padding:0 3px; font-size:9px; color:#6e9cdf; }
+.scene-editor-vector [data-axis=x] b { color:#e16f72; }.scene-editor-vector [data-axis=y] b { color:#75c486; }
+.scene-editor-vector input { width:100%; min-width:0; height:25px; border:0; background:transparent; color:inherit; font:inherit; }
+.scene-editor-hierarchy { min-height:0; height:100%; border-right:1px solid var(--line); }
+.scene-workbench .editor-inspector { min-height:0; border-left:1px solid var(--line); }
+
+.scene-workbench .editor-inspector-section-body { gap:4px; padding:7px 9px; }.scene-editor-vector { margin:2px 0; }.scene-workbench input[type=checkbox] { min-height:0; width:15px; height:15px; accent-color:var(--accent); }.scene-workbench .editor-inspector-heading { min-height:39px; }.scene-workbench .editor-inspector-scroll { min-height:0; overflow:auto; }.scene-workbench :is(.timeline-editor,.timeline-toolbar,.timeline-panel,.gizmo-toolbar,.semantic-targets,.view-switch) { background:var(--panel); border-color:var(--line); border-radius:2px; box-shadow:none; }.scene-workbench :is(.view-switch,.semantic-targets,.gizmo-toolbar) button.active { background:var(--selected); border-color:var(--accent); color:#eef8ff; box-shadow:none; }

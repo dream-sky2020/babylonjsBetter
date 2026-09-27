@@ -7,7 +7,7 @@ import type {
   SceneEnvironmentPresetLibrary,
   SceneEnvironmentVector3,
 } from './sceneEnvironment.types';
-import { parseShadowQualityReference } from './shadowQualityPreset.parser';
+import { parseShadowQualityReference } from './shadowQualityPreset.parser.ts';
 
 const isRecord = (value: unknown): value is Record<string, unknown> => (
   typeof value === 'object' && value !== null && !Array.isArray(value)

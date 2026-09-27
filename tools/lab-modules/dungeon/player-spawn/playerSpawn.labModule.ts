@@ -41,7 +41,7 @@ export const playerSpawnLabModule: LabModule = {
       const box = MeshBuilder.CreateBox(`player_spawn_debug_box_${current.loadId}`, {
         width: layout.size[0], height: layout.size[1], depth: layout.size[2],
       }, context.scene);
-      box.position.set(...layout.center);
+      box.position.set(...current.spawn.worldPosition);
       box.material = material;
       box.parent = root;
       box.isPickable = false;

@@ -1,5 +1,9 @@
 import { Vector3 } from '@babylonjs/core';
-import { resolveDungeonMapTileWorldLayout } from '@/core/scene';
+import { createDungeonViewConsumer, mapDungeonDisplayPosition, type ResolvedDungeonView } from '@/core/dungeon-view/dungeonOverheadView.ts';
+import { DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY } from '../dungeon-player-camera/dungeonPlayerCamera.view';
+import { resolveDungeonMapTileWorldLayout } from '@/core/scene/dungeonMapSceneLayout.ts';
+import type { CameraProjection } from '@/core/camera/cameraLabController.ts';
+import { validatePlayerCameraProjection, type DungeonPlayerCameraProjectionSettings } from '../dungeon-player-camera/dungeonPlayerCamera.projection';
 import {
   createLabField,
   createLabJson,
@@ -97,7 +101,18 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const overheadYawInput = createNumberInput(0, -180, 180, 1);
     const overheadTargetHeightInput = createNumberInput(0.8, -10, 20, 0.1);
     const overheadFollowInput = createNumberInput(14, 0, 60, 1);
+    const projectionSettings: DungeonPlayerCameraProjectionSettings = { projection: 'perspective', orthographicSize: null };
+    let projectionDirty = true;
+    const projectionSelect = document.createElement('select');
+    projectionSelect.dataset.playerCamera = 'projection';
+    projectionSelect.append(new Option('透视', 'perspective'), new Option('正交', 'orthographic'));
+    const orthographicSizeInput = createNumberInput(context.cameraController.state.orthographicSize,
+      context.cameraController.state.orthographicMinSize, context.cameraController.state.orthographicMaxSize, 0.1);
+    orthographicSizeInput.dataset.playerCamera = 'orthographicSize';
+    orthographicSizeInput.value = '';
+    orthographicSizeInput.placeholder = '首次切换时匹配当前构图';
     const status = createLabStatus('等待 Dungeon Runtime。');
+    const externalViewNote = createLabStatus('');
     const debug = createLabJson();
     panel.content.append(
       enabledToggle.row,
@@ -119,18 +134,26 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       autoRecenterToggle.row,
       createLabField('回正耗时（秒）', recenterDurationInput),
       recenterActions,
+      createLabField('俯视投影（第一人称固定透视）', projectionSelect),
+      createLabField('正交垂直可见半范围（世界单位）', orthographicSizeInput),
       createLabField('俯视距离', overheadDistanceInput),
       createLabField('俯视仰角（度）', overheadPitchInput),
       createLabField('俯视水平朝向（度，0=北朝上）', overheadYawInput),
       createLabField('俯视目标高度', overheadTargetHeightInput),
       createLabField('俯视跟随响应（0=立即）', overheadFollowInput),
       status,
+      externalViewNote,
       debug,
     );
 
     const previousMode = context.cameraController.state.mode;
-    let current: LoadedDungeonReferences | null = null;
+    const previousProjection = context.cameraController.state.projection;
+    const previousOrthographicSize = context.cameraController.state.orthographicSize;
+    let current: LoadedDungeonReferences | null = references.current;
     let activeMode = modeSelect.value as DungeonPlayerCameraMode;
+    const modeListeners = new Set<() => void>();
+    let externalView: ResolvedDungeonView | null = null;
+    let savedConstraints: Pick<typeof context.cameraController.state, 'viewLocked' | 'lowerAlphaLimit' | 'upperAlphaLimit' | 'lowerBetaLimit' | 'upperBetaLimit'> | null = null;
     let tileTopOffset = 0;
     let lastDebugTime = 0;
     let dragPointerId: number | null = null;
@@ -148,6 +171,25 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const overheadTarget = Vector3.Zero();
     const desiredOverheadTarget = Vector3.Zero();
     let overheadTargetInitialized = false;
+    const syncProjectionControls = (): void => {
+      for (const input of [projectionSelect, orthographicSizeInput, overheadPitchInput, overheadYawInput]) input.parentElement!.hidden = externalView !== null;
+      externalViewNote.hidden = !externalView;
+      externalViewNote.textContent = externalView ? `由统一俯视配置控制：${externalView.config.pitchDeg}° / ${externalView.config.projection === 'orthographic' ? `正交，半范围 ${externalView.config.orthographicSize}` : '透视'}` : '';
+      projectionSelect.value = projectionSettings.projection;
+      projectionSelect.disabled = !enabledToggle.input.checked || activeMode !== 'overhead';
+      orthographicSizeInput.disabled = projectionSelect.disabled || projectionSettings.projection !== 'orthographic';
+      overheadDistanceInput.disabled = projectionSelect.disabled || (externalView?.config.projection ?? projectionSettings.projection) === 'orthographic';
+      if (document.activeElement !== orthographicSizeInput) orthographicSizeInput.value = projectionSettings.orthographicSize === null ? '' : String(projectionSettings.orthographicSize);
+    };
+    // When the shared panel or native wheel changes the actual camera, read it back
+    // rather than restoring stale module UI values on the following frame.
+    const readSharedProjection = (): void => {
+      if (externalView || projectionDirty || !enabledToggle.input.checked || activeMode !== 'overhead'
+        || context.cameraController.state.mode !== 'orbit') return;
+      context.cameraController.refreshStateFromActiveCamera();
+      projectionSettings.projection = context.cameraController.state.projection;
+      if (projectionSettings.projection === 'orthographic') projectionSettings.orthographicSize = context.cameraController.state.orthographicSize;
+    };
 
     const updateTileTopOffset = (): void => {
       if (!current) {
@@ -212,7 +254,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     };
 
     const onPointerDown = (event: PointerEvent): void => {
-      if (event.button !== 0 || !enabledToggle.input.checked
+      if (!context.cameraController.inputEnabled || event.button !== 0 || !enabledToggle.input.checked
         || activeMode !== 'first-person' || !freeLookToggle.input.checked) return;
       dragPointerId = event.pointerId;
       cancelRecenter();
@@ -222,6 +264,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     };
     const onPointerMove = (event: PointerEvent): void => {
       if (dragPointerId !== event.pointerId) return;
+      if (!context.cameraController.inputEnabled) { finishDragging(event.pointerId); return; }
       const sensitivity = readClampedNumber(sensitivityInput, 1) * 0.0025;
       const horizontalLimit = degToRad(readClampedNumber(horizontalLimitInput, 60));
       const upLimit = degToRad(readClampedNumber(lookUpLimitInput, 60));
@@ -239,9 +282,11 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     context.canvas.addEventListener('pointercancel', onPointerUp);
     context.canvas.addEventListener('lostpointercapture', onLostPointerCapture);
 
-    const applyOverheadPose = (deltaSeconds: number, snap = false): void => {
-      if (!current) return;
-      const [x, y, z] = current.runtime.playerWorldPosition;
+    const applyOverheadPose = (deltaSeconds: number, snap = false, restoreUnbound = false): void => {
+      if (!current || (!enabledToggle.input.checked && !restoreUnbound)) return;
+      readSharedProjection();
+      context.cameraController.setMode('orbit');
+      const [x, y, z] = mapDungeonDisplayPosition(externalView, current.runtime.playerWorldPosition);
       desiredOverheadTarget.set(
         x,
         y + tileTopOffset + readClampedNumber(overheadTargetHeightInput, 0.8),
@@ -257,14 +302,25 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       }
       const cameraState = context.cameraController.state;
       cameraState.orbitCenter.copyFrom(overheadTarget);
-      cameraState.orbitYaw = degToRad(readClampedNumber(overheadYawInput, 0));
-      cameraState.orbitPitchDeg = readClampedNumber(overheadPitchInput, 55);
+      cameraState.orbitYaw = degToRad(externalView?.config.yawDeg ?? readClampedNumber(overheadYawInput, 0));
+      cameraState.orbitPitchDeg = externalView?.config.pitchDeg ?? readClampedNumber(overheadPitchInput, 55);
+      if (externalView) Object.assign(cameraState, { viewLocked: true, lowerAlphaLimit: null, upperAlphaLimit: null, lowerBetaLimit: .0001, upperBetaLimit: Math.PI - .0001 });
       cameraState.orbitRadius = readClampedNumber(overheadDistanceInput, 32);
-      if (cameraState.mode !== 'orbit') context.cameraController.setMode('orbit');
-      else context.cameraController.applyPose();
+      context.cameraController.applyPose();
+      const projection = externalView?.config.projection ?? projectionSettings.projection;
+      const size = externalView?.config.orthographicSize ?? projectionSettings.orthographicSize;
+      if (cameraState.projection !== projection) context.cameraController.setProjection(projection);
+      if (projection === 'orthographic') {
+        if (size !== null) context.cameraController.setOrthographicSize(size);
+        if (!externalView) projectionSettings.orthographicSize = cameraState.orthographicSize;
+      }
+      projectionDirty = false;
+      syncProjectionControls();
     };
 
     const syncBinding = (snapOverhead = false): void => {
+      projectionDirty = true;
+      syncProjectionControls();
       if (enabledToggle.input.checked && activeMode === 'first-person') {
         context.cameraController.bindFirstPersonPose(binding);
         context.cameraController.setMode('firstPerson');
@@ -289,12 +345,14 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     ): void => {
       if (activeMode === mode) return;
       const previousPlayerMode = activeMode;
+      readSharedProjection();
       activeMode = mode;
       modeSelect.value = mode;
       if (dragPointerId !== null) finishDragging(dragPointerId);
       recenterImmediately();
       overheadTargetInitialized = false;
       syncBinding(mode === 'overhead');
+      modeListeners.forEach(listener => listener());
       void context.communication.publish(dungeonPlayerCameraModeChangedEvent, {
         mode,
         previousMode: previousPlayerMode,
@@ -309,10 +367,28 @@ export const dungeonPlayerCameraLabModule: LabModule = {
 
     const cameraService: DungeonPlayerCameraService = {
       get mode() { return activeMode; },
+      get bindingEnabled() { return enabledToggle.input.checked; },
+      subscribe: listener => { modeListeners.add(listener); return () => { modeListeners.delete(listener); }; },
       setMode: (mode) => setPlayerCameraMode(mode, 'service'),
       toggleMode: () => togglePlayerCameraMode('service'),
     };
     context.services.set(DUNGEON_PLAYER_CAMERA_SERVICE_KEY, cameraService);
+    const viewConsumer = createDungeonViewConsumer(view => {
+      const wasExternallyControlled = externalView !== null;
+      if (!externalView && view) {
+        readSharedProjection();
+        const s = context.cameraController.state;
+        savedConstraints = { viewLocked: s.viewLocked, lowerAlphaLimit: s.lowerAlphaLimit, upperAlphaLimit: s.upperAlphaLimit, lowerBetaLimit: s.lowerBetaLimit, upperBetaLimit: s.upperBetaLimit };
+      }
+      if (!view && savedConstraints) { Object.assign(context.cameraController.state, savedConstraints); savedConstraints = null; }
+      externalView = view;
+      projectionDirty = true;
+      overheadTargetInitialized = false;
+      syncProjectionControls();
+      if (activeMode === 'overhead') applyOverheadPose(0, true,
+        wasExternallyControlled && !view && context.cameraController.state.mode === 'orbit');
+    });
+    context.services.set(DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY, viewConsumer);
 
     const refreshDebug = (force = false): void => {
       const now = performance.now();
@@ -323,6 +399,9 @@ export const dungeonPlayerCameraLabModule: LabModule = {
         bindingEnabled: enabledToggle.input.checked,
         playerCameraMode: activeMode,
         cameraMode: context.cameraController.state.mode,
+        projection: context.cameraController.state.projection,
+        overheadProjection: projectionSettings.projection,
+        orthographicSize: projectionSettings.orthographicSize,
         mapId: current?.runtime.map.id ?? null,
         playerTile: current?.runtime.playerPosition ?? null,
         playerFacing: current?.runtime.playerFacing ?? null,
@@ -345,9 +424,40 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       }, null, 2);
     };
 
+    const projectionRegistration = context.labState.registerReference({
+      moduleId: 'dungeon-player-camera', key: 'projection', version: 1,
+      value: projectionSettings,
+      inspect: (value) => ({ ...value }),
+      save: {
+        serialize: (value) => { readSharedProjection(); return { ...value }; },
+        validate: validatePlayerCameraProjection,
+        restore: (value, saved) => { Object.assign(value, saved); projectionDirty = true; },
+        afterRestore: () => { syncBinding(); refreshDebug(true); },
+      },
+    });
+    projectionSelect.addEventListener('change', () => {
+      if (projectionSelect.disabled) return;
+      readSharedProjection();
+      projectionSettings.projection = projectionSelect.value as CameraProjection;
+      projectionDirty = true;
+      applyOverheadPose(0);
+      syncProjectionControls();
+      projectionRegistration.markChanged();
+      refreshDebug(true);
+    });
+    orthographicSizeInput.addEventListener('input', () => {
+      if (orthographicSizeInput.disabled || !orthographicSizeInput.value.trim()) return;
+      projectionSettings.orthographicSize = readClampedNumber(orthographicSizeInput, context.cameraController.state.orthographicSize);
+      projectionDirty = true;
+      applyOverheadPose(0);
+      projectionRegistration.markChanged();
+      refreshDebug(true);
+    });
+
     enabledToggle.input.addEventListener('change', () => {
       if (!enabledToggle.input.checked && dragPointerId !== null) finishDragging(dragPointerId);
       syncBinding(activeMode === 'overhead');
+      modeListeners.forEach(listener => listener());
       refreshDebug(true);
     });
     modeSelect.addEventListener('change', () => {
@@ -406,6 +516,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       // 真正的文本编辑控件仍保留 V 给用户输入。
       allowWhenEditing: true,
       onKeyDown: (event) => {
+        if (context.viewport.isBabylonInputPaused) return 'ignored';
         const target = event.nativeEvent?.target;
         if (target instanceof HTMLTextAreaElement
           || (target instanceof HTMLElement && target.isContentEditable)
@@ -447,6 +558,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     syncKeyboardControls();
 
     const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
+      if (!context.cameraController.inputEnabled && dragPointerId !== null) finishDragging(dragPointerId);
       const deltaSeconds = Math.min(0.1, Math.max(0, context.engine.getDeltaTime() / 1000));
       if (recentering) {
         recenterElapsed += deltaSeconds;
@@ -485,10 +597,16 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       refreshDebug(true);
     });
 
+    updateTileTopOffset();
     syncBinding();
     refreshDebug(true);
     return () => {
+      viewConsumer.dispose();
+      modeListeners.clear();
+      context.services.delete(DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY);
+      context.services.delete(DUNGEON_PLAYER_CAMERA_SERVICE_KEY);
       offMapChanged();
+      projectionRegistration.unregister();
       keyboardRegistration.dispose();
       offKeyboardChanged();
       context.scene.onBeforeRenderObservable.remove(frameObserver);
@@ -502,6 +620,11 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       }
       context.cameraController.bindFirstPersonPose(null);
       context.cameraController.setMode(previousMode);
+      if (previousMode === 'orbit' || previousMode === 'lockPan') {
+        context.cameraController.setProjection(previousProjection);
+        context.cameraController.setOrthographicSize(previousOrthographicSize);
+      }
+      panel.root.remove();
     };
   },
 };

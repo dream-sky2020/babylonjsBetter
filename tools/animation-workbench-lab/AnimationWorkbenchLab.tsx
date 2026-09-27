@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type PointerEvent as ReactPointerEvent } from 'react';
 import {
-  ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, GizmoCoordinatesMode,
-  GizmoManager, HemisphericLight, MeshBuilder, PointerEventTypes, Scene, StandardMaterial,
+  ArcRotateCamera, Color3, Color4, DirectionalLight, Engine,
+  HemisphericLight, MeshBuilder, Scene, StandardMaterial,
   Vector3, type TransformNode,
 } from '@babylonjs/core';
 import { openCommandMenuAtPoint, openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
-import { ObjectHierarchy, type EditorHierarchyItem } from '@/core/ui/editor-kit';
+import { ObjectHierarchy, InspectorPanel, type EditorHierarchyItem } from '@/core/ui/editor-kit';
 import { createModelEntity, type ModelEntity } from '@/core/model';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 import { createWeaponAnimationExamples } from '@/core/model/preset/firstPersonWeaponExamples.ts';
@@ -13,21 +13,23 @@ import { loadWeaponPresets } from '@/core/model/preset/firstPersonWeaponPresetAp
 import { loadAnimationScenePresets, migrateFirstPersonWeaponPreset, saveAnimationScenePresets, type AnimationScenePresetLibrary } from '@/core/animation/preset';
 import {
   createDefaultAnimationWorkspace, parseAnimationWorkspace, scenePresetToWorkspace, workspaceToScenePreset,
-  type AnimationObjectRecord, type AnimationWorkspace, type WorkbenchVec3,
+  type AnimationObjectRecord, type AnimationWorkspace,
 } from './animationWorkspace.ts';
 import { animationObjectFactories, animationObjectFactoryById, type AnimationObjectLayer, type AnimationObjectProperty } from './animationObjectRegistry.ts';
 import { SignalWorkspace } from './SignalWorkspace.tsx';
-import { recordContributionProperty, recordTransformKey, type ContributionOperation, type ContributionRecordProperty, type TransformPropertyPath, type TransformRecordMode } from './transformRecording.ts';
+import { recordContributionProperty, type ContributionOperation, type ContributionRecordProperty, type TransformRecordMode } from './transformRecording.ts';
 import { useWorkspaceHistory } from './useWorkspaceHistory.ts';
 import type { SignalGraphEvaluation } from '@/core/animation/signal';
 import type { NumericContributionMix } from '@/core/animation/contribution';
+import { SceneEditor, writeTransform } from '@/core/scene-editor';
+import { SceneEditorToolbar, SceneTransformFields } from '@/core/scene-editor/SceneEditorPanels';
+import { createAnimationSceneAdapter } from './animationSceneAdapter';
 
-type GizmoMode = 'position' | 'rotation' | 'scale';
 type Runtime = {
   engine: Engine;
   scene: Scene;
   camera: ArcRotateCamera;
-  gizmo: GizmoManager;
+  editor: SceneEditor;
   nodes: Map<string, TransformNode>;
   previewSignatures: Map<string, string>;
   assetEntities: Map<string, { path: string; entity: ModelEntity }>;
@@ -41,24 +43,15 @@ const createPresetBootstrap = () => Promise.all([
 ]);
 let presetBootstrapPromise: ReturnType<typeof createPresetBootstrap> | null = null;
 const loadPresetLibraries = () => presetBootstrapPromise ??= createPresetBootstrap();
-const DEG = 180 / Math.PI;
 const RAD = Math.PI / 180;
 const makeId = () => globalThis.crypto?.randomUUID?.() ?? `object_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
-const round = (value: number) => Number(value.toFixed(4));
 const factoryLabel = (typeId: string) => animationObjectFactoryById.get(typeId)?.label ?? typeId;
 
 const setNodeComponent = (node: TransformNode, path: string, value: number) => {
   const [group, axis] = path.split('.') as ['position' | 'rotation' | 'scaling', 'x' | 'y' | 'z'];
   if (!['position', 'rotation', 'scaling'].includes(group) || !['x', 'y', 'z'].includes(axis)) return;
+  if (node.rotationQuaternion) { node.rotation.copyFrom(node.rotationQuaternion.toEulerAngles()); node.rotationQuaternion = null; }
   node[group][axis] = group === 'rotation' ? value * RAD : value;
-};
-
-const configureGizmo = (gizmo: GizmoManager, mode: GizmoMode, localSpace: boolean, node: TransformNode | null) => {
-  gizmo.positionGizmoEnabled = mode === 'position';
-  gizmo.rotationGizmoEnabled = mode === 'rotation';
-  gizmo.scaleGizmoEnabled = mode === 'scale';
-  gizmo.coordinatesMode = localSpace ? GizmoCoordinatesMode.Local : GizmoCoordinatesMode.World;
-  gizmo.attachToNode(node);
 };
 
 const loadInitialWorkspace = (): AnimationWorkspace => {
@@ -91,31 +84,17 @@ const Icon = ({ name }: { name: 'add' | 'save' | 'load' | 'download' | 'upload' 
   {name === 'model' && <><path d="M4 4h16v16H4zM4 15l4-4 3 3 3-4 6 6" /><circle cx="15.5" cy="8" r="1.5" /></>}
 </svg>;
 
-const VectorEditor = ({ label, value, min, onChange, onEditStart, onEditEnd }: { label: string; value: WorkbenchVec3; min?: number; onChange: (value: WorkbenchVec3) => void; onEditStart(): void; onEditEnd(): void }) => {
-  const update = (axis: keyof WorkbenchVec3, raw: string) => {
-    const number = Number(raw);
-    if (!Number.isFinite(number)) return;
-    onChange({ ...value, [axis]: min === undefined ? number : Math.max(min, number) });
-  };
-  return <div className="awb-vector-row">
-    <span>{label}</span>
-    {(['x', 'y', 'z'] as const).map(axis => <label key={axis} data-axis={axis}><b>{axis.toUpperCase()}</b><input type="number" step="0.01" value={value[axis]} onFocus={onEditStart} onBlur={onEditEnd} onKeyDown={event => { if (event.key === 'Enter') event.currentTarget.blur(); }} onChange={event => update(axis, event.target.value)} /></label>)}
-  </div>;
-};
-
 export function AnimationWorkbenchLab() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const importRef = useRef<HTMLInputElement>(null);
   const runtimeRef = useRef<Runtime | null>(null);
   const initialWorkspace = useMemo(() => loadInitialWorkspace(), []);
-  const { workspace, setWorkspace, undo, redo, beginTransaction, endTransaction, canUndo, canRedo } = useWorkspaceHistory(initialWorkspace);
+  const { workspace, setWorkspace, undo, redo, beginTransaction, endTransaction, cancelTransaction, canUndo, canRedo } = useWorkspaceHistory(initialWorkspace);
   const workspaceRef = useRef<AnimationWorkspace>(workspace);
   const selectedIdRef = useRef<string | null>('preview-object');
-  const syncFromGizmoRef = useRef<() => void>(() => undefined);
+  const playingRef = useRef(false);
   const [selectedId, setSelectedId] = useState<string | null>('preview-object');
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(['workspace-root', 'first-person-rig', 'right-hand-socket']));
-  const [gizmoMode, setGizmoMode] = useState<GizmoMode>('position');
-  const [localSpace, setLocalSpace] = useState(true);
   const [runtimeReady, setRuntimeReady] = useState(false);
   const [status, setStatus] = useState('动画对象工作区已就绪');
   const [modelAssets, setModelAssets] = useState<string[]>([]);
@@ -129,7 +108,6 @@ export function AnimationWorkbenchLab() {
   const currentTimeRef = useRef(0);
   const recordModeRef = useRef<TransformRecordMode>('off');
   const recordOperationRef = useRef<ContributionOperation>('override');
-  const gizmoModeRef = useRef<GizmoMode>('position');
 
   useEffect(() => { void loadModelAssetManifestByExtension(/\.(glb|gltf)$/i).then(setModelAssets).catch(() => setStatus('模型资源清单读取失败')); }, []);
   useEffect(() => {
@@ -149,38 +127,17 @@ export function AnimationWorkbenchLab() {
   useEffect(() => { currentTimeRef.current = currentTime; }, [currentTime]);
   useEffect(() => { recordModeRef.current = recordMode; }, [recordMode]);
   useEffect(() => { recordOperationRef.current = recordOperation; }, [recordOperation]);
-  useEffect(() => { gizmoModeRef.current = gizmoMode; }, [gizmoMode]);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!(event.ctrlKey || event.metaKey) || event.altKey) return;
+      runtimeRef.current?.editor.cancel();
       if (event.key.toLowerCase() === 'z') { event.preventDefault(); if (event.shiftKey) redo(); else undo(); }
       else if (event.key.toLowerCase() === 'y') { event.preventDefault(); redo(); }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [undo, redo]);
-  useEffect(() => {
-    syncFromGizmoRef.current = () => {
-      const runtime = runtimeRef.current; const id = selectedIdRef.current; if (!runtime || !id) return;
-      const node = runtime.nodes.get(id); if (!node) return;
-      const group = gizmoModeRef.current === 'scale' ? 'scaling' : gizmoModeRef.current;
-      const value = group === 'position'
-        ? { x: round(node.position.x), y: round(node.position.y), z: round(node.position.z) }
-        : group === 'rotation'
-          ? { x: round(node.rotation.x * DEG), y: round(node.rotation.y * DEG), z: round(node.rotation.z * DEG) }
-          : { x: round(node.scaling.x), y: round(node.scaling.y), z: round(node.scaling.z) };
-      setWorkspace(current => {
-        const source = current.objects.find(object => object.id === id); if (!source) return current;
-        let next: AnimationWorkspace = recordModeRef.current === 'off' ? { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) } : current;
-        (['x', 'y', 'z'] as const).forEach(axis => {
-          if (Math.abs(source[group][axis] - value[axis]) < .00001) return;
-          next = recordTransformKey(next, id, `${group}.${axis}` as TransformPropertyPath, value[axis], source[group][axis], currentTimeRef.current, recordModeRef.current, recordOperationRef.current);
-        });
-        return next;
-      });
-    };
-    return () => { syncFromGizmoRef.current = () => undefined; };
-  }, [setWorkspace]);
+  useEffect(() => { runtimeRef.current?.editor.cancel(); runtimeRef.current?.editor.refresh(); }, [currentTime, recordMode, recordOperation]);
   const selectedObject = useMemo(() => workspace.objects.find(object => object.id === selectedId) ?? null, [workspace.objects, selectedId]);
   const selectedFactory = selectedObject ? animationObjectFactoryById.get(selectedObject.factoryTypeId) : undefined;
   const selectedConfig = selectedObject && selectedFactory ? { ...selectedFactory.defaultConfig, ...selectedObject.config } : {};
@@ -198,17 +155,6 @@ export function AnimationWorkbenchLab() {
 
   const updateObject = (id: string, patch: Partial<AnimationObjectRecord>) => {
     setWorkspace(current => ({ ...current, objects: current.objects.map(object => object.id === id ? { ...object, ...patch } : object) }));
-  };
-  const updateAnimatedVector = (id: string, group: 'position' | 'rotation' | 'scaling', value: WorkbenchVec3) => {
-    setWorkspace(current => {
-      const source = current.objects.find(object => object.id === id); if (!source) return current;
-      let next: AnimationWorkspace = recordMode === 'off' ? { ...current, objects: current.objects.map(object => object.id === id ? { ...object, [group]: value } : object) } : current;
-      (['x', 'y', 'z'] as const).forEach(axis => {
-        if (Math.abs(source[group][axis] - value[axis]) < .00001) return;
-        next = recordTransformKey(next, id, `${group}.${axis}`, value[axis], source[group][axis], currentTime, recordMode, recordOperation);
-      });
-      return next;
-    });
   };
   const updateContributionProperty = (bindingId: string, property: Exclude<ContributionRecordProperty, 'value'>, value: number) => {
     setWorkspace(current => recordContributionProperty(current, bindingId, property, value, currentTime, recordMode));
@@ -231,31 +177,21 @@ export function AnimationWorkbenchLab() {
     const axisX = MeshBuilder.CreateLines('axis-x', { points: [new Vector3(-10, 0.006, 0), new Vector3(10, 0.006, 0)] }, scene); axisX.color = new Color3(0.55, 0.16, 0.18); axisX.isPickable = false;
     const axisZ = MeshBuilder.CreateLines('axis-z', { points: [new Vector3(0, 0.006, -10), new Vector3(0, 0.006, 10)] }, scene); axisZ.color = new Color3(0.15, 0.38, 0.68); axisZ.isPickable = false;
 
-    const gizmo = new GizmoManager(scene, 1.05);
-    gizmo.enableAutoPicking = false; gizmo.usePointerToAttachGizmos = false; gizmo.clearGizmoOnEmptyPointerEvent = false;
-    gizmo.positionGizmoEnabled = true;
-    const suspendCamera = () => { beginTransaction(); camera.detachControl(); };
-    const resumeCamera = () => camera.attachControl(canvas, true);
-    const sync = () => syncFromGizmoRef.current();
-    const bindGizmo = (gizmoPart: { onDragStartObservable: { add(callback: () => void): unknown }; onDragObservable: { add(callback: () => void): unknown }; onDragEndObservable: { add(callback: () => void): unknown } } | null | undefined) => {
-      gizmoPart?.onDragStartObservable.add(suspendCamera);
-      gizmoPart?.onDragObservable.add(sync);
-      gizmoPart?.onDragEndObservable.add(() => { sync(); endTransaction(); resumeCamera(); setStatus(recordModeRef.current === 'off' ? '已通过 Gizmo 更新对象变换' : `已在 ${currentTimeRef.current.toFixed(3)}s 记录关键帧`); });
-    };
-    bindGizmo(gizmo.gizmos.positionGizmo); bindGizmo(gizmo.gizmos.rotationGizmo); bindGizmo(gizmo.gizmos.scaleGizmo);
-    scene.onPointerObservable.add(pointer => {
-      if (pointer.type !== PointerEventTypes.POINTERDOWN) return;
-      const objectId = pointer.pickInfo?.pickedMesh?.metadata?.animationWorkbenchObjectId;
-      if (typeof objectId === 'string') setSelectedId(objectId);
-    });
-    const runtime: Runtime = { engine, scene, camera, gizmo, nodes: new Map(), previewSignatures: new Map(), assetEntities: new Map(), assetLoadTokens: new Map() };
+    const nodes = new Map<string, TransformNode>();
+    const editor = new SceneEditor(scene, createAnimationSceneAdapter(nodes, {
+      read: () => workspaceRef.current, write: value => { workspaceRef.current = value; setWorkspace(value); },
+      playing: () => playingRef.current, mode: () => recordModeRef.current, operation: () => recordOperationRef.current, time: () => currentTimeRef.current,
+      select: id => { selectedIdRef.current = id; setSelectedId(id); },
+      begin: beginTransaction, end: endTransaction, cancel: cancelTransaction, undo, redo,
+    }));
+    const runtime: Runtime = { engine, scene, camera, editor, nodes, previewSignatures: new Map(), assetEntities: new Map(), assetLoadTokens: new Map() };
     runtimeRef.current = runtime;
     setRuntimeReady(true);
     engine.runRenderLoop(() => scene.render());
     const resize = () => engine.resize(); window.addEventListener('resize', resize);
     return () => {
       window.removeEventListener('resize', resize); setRuntimeReady(false); runtime.assetEntities.forEach(entry => entry.entity.dispose()); runtimeRef.current = null;
-      gizmo.dispose(); scene.dispose(); engine.dispose();
+      editor.dispose(); scene.dispose(); engine.dispose();
     };
   }, [beginTransaction, endTransaction, setWorkspace]);
 
@@ -286,9 +222,7 @@ export function AnimationWorkbenchLab() {
     workspace.objects.forEach(object => {
       const node = runtime.nodes.get(object.id); if (!node) return;
       node.name = object.name;
-      node.position.set(object.position.x, object.position.y, object.position.z);
-      node.rotation.set(object.rotation.x * RAD, object.rotation.y * RAD, object.rotation.z * RAD);
-      node.scaling.set(object.scaling.x, object.scaling.y, object.scaling.z);
+      if (!(runtime.editor.editing && runtime.editor.selectedId === object.id)) writeTransform(node, object);
       node.setEnabled(object.enabled);
       const layer = animationObjectFactoryById.get(object.factoryTypeId)?.layer ?? 'visual';
       runtime.scene.meshes.filter(mesh => mesh.metadata?.animationWorkbenchOwnerId === object.id).forEach(mesh => mesh.setEnabled(visibleLayers[layer]));
@@ -297,7 +231,7 @@ export function AnimationWorkbenchLab() {
       const node = runtime.nodes.get(object.id); if (!node) return;
       node.parent = object.parentId ? runtime.nodes.get(object.parentId) ?? null : null;
     });
-    runtime.gizmo.attachToNode(selectedId ? runtime.nodes.get(selectedId) ?? null : null);
+    runtime.editor.select(selectedId); runtime.editor.refresh();
   }, [workspace, selectedId, runtimeReady, visibleLayers]);
 
   useEffect(() => {
@@ -321,11 +255,6 @@ export function AnimationWorkbenchLab() {
       }).catch(error => { if (runtime.assetLoadTokens.get(object.id) === token) setStatus(`模型加载失败：${error instanceof Error ? error.message : String(error)}`); });
     });
   }, [workspace.objects, runtimeReady, visibleLayers.visual]);
-
-  useEffect(() => {
-    const runtime = runtimeRef.current; if (!runtime) return;
-    configureGizmo(runtime.gizmo, gizmoMode, localSpace, selectedId ? runtime.nodes.get(selectedId) ?? null : null);
-  }, [gizmoMode, localSpace, selectedId, runtimeReady]);
 
   const createObject = (factoryTypeId: string, parentId = selectedId) => {
     const factory = animationObjectFactoryById.get(factoryTypeId); if (!factory) return;
@@ -419,7 +348,7 @@ export function AnimationWorkbenchLab() {
     contributionMix.values.forEach((value, targetKey) => {
       const separator = targetKey.indexOf(':'); if (separator < 1) return;
       const objectId = targetKey.slice(0, separator); const path = targetKey.slice(separator + 1); const node = runtime.nodes.get(objectId);
-      if (node) setNodeComponent(node, path, value);
+      if (node && !(runtime.editor.editing && runtime.editor.selectedId === objectId)) setNodeComponent(node, path, value);
     });
   };
 
@@ -446,7 +375,7 @@ export function AnimationWorkbenchLab() {
     disabled: !object.enabled,
     searchText: object.factoryTypeId,
   }]));
-  return <main className="awb-shell">
+  return <main className="awb-shell scene-workbench">
     <header className="awb-topbar">
       <div className="awb-brand"><strong>ANIMATION WORKBENCH</strong><span>动态值动画创作工作台</span></div>
       <div className="awb-document"><input value={workspace.name} aria-label="工作区名称" onChange={event => setWorkspace(current => ({ ...current, name: event.target.value }))} /><select aria-label="动画场景预设" value={selectedPreset} onChange={event => setSelectedPreset(event.target.value)}><option value="">选择预设…</option>{Object.keys(presetLibrary).length > 0 && <optgroup label="动画场景预设">{Object.entries(presetLibrary).map(([key, preset]) => <option key={`saved:${key}`} value={`saved:${key}`}>{preset.name}</option>)}</optgroup>}{Object.keys(migratedLibrary).length > 0 && <optgroup label="待迁移的 model-shake-lab 动作">{Object.entries(migratedLibrary).map(([key, preset]) => <option key={`legacy:${key}`} value={`legacy:${key}`}>{preset.name}</option>)}</optgroup>}</select><button onClick={loadSelectedPreset}>载入</button><i>{workspace.objects.length} objects</i></div>
@@ -466,31 +395,26 @@ export function AnimationWorkbenchLab() {
       items={hierarchyItems} rootIds={rootObjects.map(object => object.id)} selectedIds={selectedId ? [selectedId] : []}
       expandedIds={expanded} onExpandedChange={setExpanded} searchPlaceholder="搜索动画对象"
       action={<button onPointerDown={event => event.stopPropagation()} onClick={openCreateMenu} title="创建对象"><Icon name="add" /></button>}
-      onSelectionChange={ids => setSelectedId(ids[0] ?? null)}
+      onSelectionChange={ids => runtimeRef.current?.editor.select(ids[0] ?? null)} onClearSelection={() => runtimeRef.current?.editor.select(null)} onFocus={id => runtimeRef.current?.editor.focus(id)}
       onContextMenu={(event, id) => { const object = workspace.objects.find(item => item.id === id); if (!object) return; event.preventDefault(); setSelectedId(id); openCommandMenuAtPoint(event.clientX, event.clientY, objectMenuItems(object), `${object.name} 操作`); }}
       footer={<span>{workspace.objects.length} 个动画对象</span>}
     />
     <section className="awb-viewport">
       <canvas ref={canvasRef} />
-      <div className="awb-gizmo-toolbar">
-        {(['position', 'rotation', 'scale'] as const).map(mode => <button key={mode} className={gizmoMode === mode ? 'active' : ''} onClick={() => setGizmoMode(mode)} title={{ position: '移动', rotation: '旋转', scale: '缩放' }[mode]}><Icon name={{ position: 'move', rotation: 'rotate', scale: 'scale' }[mode]} /></button>)}
-        <span />
-        <button className={localSpace ? 'active text' : 'text'} onClick={() => setLocalSpace(value => !value)}>{localSpace ? 'LOCAL' : 'WORLD'}</button>
-      </div>
+      <SceneEditorToolbar editor={runtimeRef.current?.editor ?? null} />
       <div className="awb-layer-toolbar"><span>LAYERS</span>{([['visual','模型'],['semantic','语义体'],['helper','辅助']] as const).map(([layer, label]) => <button key={layer} className={visibleLayers[layer] ? 'active' : ''} onClick={() => setVisibleLayers(current => ({ ...current, [layer]: !current[layer] }))}><i />{label}</button>)}</div>
       <div className="awb-stage-label"><b>PREVIEW STAGE</b><span>固定舞台，不写入动画资产</span></div>
     </section>
-    <aside className="awb-inspector">
-      <div className="awb-panel-heading"><div><b>INSPECTOR</b><span>{selectedObject ? factoryLabel(selectedObject.factoryTypeId) : '未选择对象'}</span></div>{selectedObject && <button title="更多操作" onClick={event => openCommandMenuFromElement(event.currentTarget, objectMenuItems(selectedObject), { align: 'end', ariaLabel: `${selectedObject.name} 操作` })}><Icon name="more" /></button>}</div>
+    <InspectorPanel className="awb-inspector" title={selectedObject ? factoryLabel(selectedObject.factoryTypeId) : '未选择对象'} action={selectedObject && <button title="更多操作" onClick={event => openCommandMenuFromElement(event.currentTarget, objectMenuItems(selectedObject), { align: 'end', ariaLabel: '对象操作' })}><Icon name="more" /></button>}>
       {selectedObject ? <div className="awb-inspector-scroll">
         <section className="awb-object-summary"><span className="awb-large-object-icon"><Icon name={selectedFactory?.icon ?? 'object'} /></span><div><input value={selectedObject.name} onChange={event => updateObject(selectedObject.id, { name: event.target.value })} /><small>{selectedObject.id}</small></div></section>
         <section className="awb-component open"><header><svg viewBox="0 0 16 16"><path d="m5 3 5 5-5 5" /></svg><strong>Object</strong><em>{selectedFactory?.category}</em></header><div className="awb-component-body"><label className="awb-check"><span>Enabled</span><input type="checkbox" checked={selectedObject.enabled} onChange={event => updateObject(selectedObject.id, { enabled: event.target.checked })} /></label><label className="awb-readonly"><span>Factory</span><code>{selectedObject.factoryTypeId}</code></label><label className="awb-readonly"><span>Layer</span><code>{selectedFactory?.layer ?? 'unknown'}</code></label><label className="awb-check"><span>可挂载外部对象</span><input type="checkbox" checked={workspace.mountPoints.some(mount => mount.objectId === selectedObject.id)} onChange={event => setWorkspace(current => ({ ...current, mountPoints: event.target.checked ? [...current.mountPoints, { id: `mount-${selectedObject.id}`, name: selectedObject.name, objectId: selectedObject.id, role: 'item', tags: [] }] : current.mountPoints.filter(mount => mount.objectId !== selectedObject.id) }))} /></label></div></section>
-        <section className="awb-component open"><header><svg viewBox="0 0 16 16"><path d="m5 3 5 5-5 5" /></svg><strong>Transform</strong><em>{recordMode === 'off' ? '基础值' : `${recordMode.toUpperCase()} · ${currentTime.toFixed(3)}s`}</em></header><div className="awb-component-body"><VectorEditor label="Position" value={selectedObject.position} onEditStart={beginTransaction} onEditEnd={endTransaction} onChange={position => updateAnimatedVector(selectedObject.id, 'position', position)} /><VectorEditor label="Rotation" value={selectedObject.rotation} onEditStart={beginTransaction} onEditEnd={endTransaction} onChange={rotation => updateAnimatedVector(selectedObject.id, 'rotation', rotation)} /><VectorEditor label="Scale" value={selectedObject.scaling} min={0.001} onEditStart={beginTransaction} onEditEnd={endTransaction} onChange={scaling => updateAnimatedVector(selectedObject.id, 'scaling', scaling)} /></div></section>
+        <SceneTransformFields editor={runtimeRef.current?.editor ?? null} />
         {selectedFactory && selectedFactory.properties.length > 0 && <section className="awb-component open"><header><svg viewBox="0 0 16 16"><path d="m5 3 5 5-5 5" /></svg><strong>{selectedFactory.layer === 'semantic' ? 'Semantic Visual' : selectedObject.factoryTypeId === 'asset.model' ? 'Model Asset' : 'Appearance'}</strong><em>对象专属配置</em></header><div className="awb-component-body">{selectedFactory.properties.map(renderObjectProperty)}</div></section>}
         <button className="awb-delete" disabled={selectedObject.id === 'workspace-root'} onClick={() => deleteObject(selectedObject.id)}><Icon name="trash" />删除对象</button>
       </div> : <div className="awb-empty">从左侧选择一个动画对象</div>}
-    </aside>
-    <SignalWorkspace graph={workspace.signalGraph} bindings={workspace.previewBindings} objects={workspace.objects} selectedObjectId={selectedId} transport={workspace.transport} events={workspace.events} time={currentTime} recordMode={recordMode} recordOperation={recordOperation} onTimeChange={setCurrentTime} onRecordModeChange={setRecordMode} onRecordOperationChange={setRecordOperation} onRecordContributionProperty={updateContributionProperty} onBeginEdit={beginTransaction} onEndEdit={endTransaction} onGraphChange={signalGraph => setWorkspace(current => ({ ...current, signalGraph }))} onBindingsChange={previewBindings => setWorkspace(current => ({ ...current, previewBindings }))} onTransportChange={transport => setWorkspace(current => ({ ...current, transport }))} onEventsChange={events => setWorkspace(current => ({ ...current, events }))} onEvaluate={applySignalPreview} />
+    </InspectorPanel>
+    <SignalWorkspace onPlayingChange={value => { playingRef.current = value; runtimeRef.current?.editor.refresh(); }} graph={workspace.signalGraph} bindings={workspace.previewBindings} objects={workspace.objects} selectedObjectId={selectedId} transport={workspace.transport} events={workspace.events} time={currentTime} recordMode={recordMode} recordOperation={recordOperation} onTimeChange={setCurrentTime} onRecordModeChange={setRecordMode} onRecordOperationChange={setRecordOperation} onRecordContributionProperty={updateContributionProperty} onBeginEdit={beginTransaction} onEndEdit={endTransaction} onGraphChange={signalGraph => setWorkspace(current => ({ ...current, signalGraph }))} onBindingsChange={previewBindings => setWorkspace(current => ({ ...current, previewBindings }))} onTransportChange={transport => setWorkspace(current => ({ ...current, transport }))} onEventsChange={events => setWorkspace(current => ({ ...current, events }))} onEvaluate={applySignalPreview} />
     <footer className="awb-status"><span>{status}</span><code>WORKSPACE v{workspace.version} · SIGNAL GRAPH v{workspace.signalGraph.version}</code></footer>
   </main>;
 }
