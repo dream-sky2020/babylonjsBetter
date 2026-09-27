@@ -7,7 +7,7 @@ const unique = (values: readonly (readonly string[] | undefined)[]) => [...new S
 const composeStage = (source: string, stage: 'vertex' | 'fragment', recipe: SpriteShaderRecipe): string => {
   const slots: Array<keyof ShaderStageSlots> = stage === 'vertex'
     ? ['declarations', 'functions', 'beforePosition', 'transformPosition', 'afterPosition']
-    : ['declarations', 'functions', 'afterSample', 'modifyField', 'modifyColor', 'beforeOutput'];
+    : ['declarations', 'functions', 'afterSample', 'modifyField', 'modifyColor', 'beforeOutput', 'afterOutput'];
   return slots.reduce((result, slot) => result.replace(
     slotMarker(stage, slot),
     recipe.modules.map((module) => module[stage]?.[slot] ?? '').join('\n')

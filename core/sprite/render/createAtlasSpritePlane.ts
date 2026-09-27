@@ -1,4 +1,5 @@
 import { Color3, Mesh, Scene, Texture, VertexData } from '@babylonjs/core';
+import { getVisualDeformationRegistry, type VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { IconPlaneController, SpriteFrameRegion } from '@/core/sprite/types/sprite.types.ts';
 import {
@@ -14,6 +15,7 @@ import type { SpriteVisualEffectState } from './spriteVisualEffect.types.ts';
 import { resolveAppAssetUrl } from '@/core/resources/appAssetUrl.ts';
 
 export type CreateAtlasSpritePlaneOptions = {
+  deformation?: VisualDeformationMetadata | false;
   /** 同一 atlas 路径共享 GPU 纹理（多部件推荐开启） */
   shareTexture?: boolean;
   /** 世界单位 / 像素，用于按 sourceSize 自动换算尺寸 */
@@ -164,6 +166,10 @@ export const createAtlasSpritePlane = (
   });
   plane.material = surface.material;
   applyTextureRegion(null);
+  const unregisterDeformation = options.deformation === false ? () => {} : getVisualDeformationRegistry(scene).register({
+    root: plane, meshes: [plane], kind: 'sprite', groupId: options.surfaceRole ?? 'generic-sprite', anchor: [0, -.5, 0],
+    ...options.deformation,
+  });
 
   return {
     mesh: plane,
@@ -186,6 +192,7 @@ export const createAtlasSpritePlane = (
       applyTextureRegion(region);
     },
     dispose: () => {
+      unregisterDeformation();
       surface.dispose();
       iconTexture.dispose();
       if (shareTexture) {

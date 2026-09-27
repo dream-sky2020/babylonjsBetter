@@ -57,6 +57,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
     let leases: DungeonViewLease[] = [];
     let resolved: ResolvedDungeonView | null = null;
     let effective: ResolvedDungeonView | null = null;
+    const viewListeners = new Set<() => void>();
     let previousMode: DungeonPlayerCameraService['mode'] | null = null;
     let updating = false;
     const release = () => {
@@ -71,6 +72,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
       const before = effective;
       try { leases.forEach(lease => lease.apply(next)); effective = next; }
       catch (error) { leases.forEach(lease => lease.apply(before)); throw error; }
+      viewListeners.forEach(listener => listener());
       status.textContent = !resolved ? '原布局：没有启用的地图配置或测试草稿。'
         : !effective ? '俯视显示已暂停：第一人称或玩家相机绑定关闭。'
           : `${settings.draft ? '测试草稿' : '地图组件'} · ${resolved.config.pitchDeg}° · X ${resolved.scaleX.toFixed(3)} / Z ${resolved.scaleZ.toFixed(3)}；不改变移动数据。`;
@@ -103,7 +105,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
           resolved = next;
         }
       } catch (error) {
-        release(); throw error;
+        release(); viewListeners.forEach(listener => listener()); throw error;
       } finally { updating = false; }
       syncEffective(); syncForm();
     };
@@ -116,6 +118,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
     });
     const service: DungeonOverheadViewService = {
       get view() { return effective; },
+      subscribe(listener) { viewListeners.add(listener); return () => { viewListeners.delete(listener); }; },
       setDraft(config) { settings.draft = config === null ? null : parseOverheadView(config); reconcile(); registration.markChanged(); },
       setEnabled(enabled) { settings.enabled = enabled; reconcile(); registration.markChanged(); },
     };
@@ -134,7 +137,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
     const offMap = context.communication.on(dungeonMapChangedEvent, safelyReconcile);
     safelyReconcile();
     return () => {
-      offCamera(); offMap(); updating = true; release(); registration.unregister();
+      offCamera(); offMap(); updating = true; release(); viewListeners.forEach(listener => listener()); viewListeners.clear(); registration.unregister();
       context.services.delete(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY); panel.root.remove();
     };
   },

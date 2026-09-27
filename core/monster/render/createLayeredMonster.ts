@@ -1,4 +1,5 @@
 import { Color3, TransformNode, Vector3, type Scene } from '@babylonjs/core';
+import { getVisualDeformationRegistry, type VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import { createAtlasSpritePlane } from '@/core/sprite/render/createAtlasSpritePlane.ts';
 import type { SpriteDissolveEffectState } from '@/core/sprite/dissolve/spriteDissolve.types.ts';
 import type { StripeLayerProgressOptions, StripeProgressMaskOptions } from '@/core/sprite/render/spriteVisualEffect.types.ts';
@@ -34,7 +35,7 @@ export type LayeredMonsterController = {
   dispose: () => void;
 };
 
-export type CreateLayeredMonsterOptions = { surfaceFactory?: SpriteVisualSurfaceFactory };
+export type CreateLayeredMonsterOptions = { surfaceFactory?: SpriteVisualSurfaceFactory; deformation?: VisualDeformationMetadata | false };
 
 export const createLayeredMonster = (
   scene: Scene,
@@ -43,10 +44,12 @@ export const createLayeredMonster = (
 ): LayeredMonsterController => {
   const root = new TransformNode(`${name}_root`, scene);
   const layers = new Map<MonsterLayerKey, LayerHandle>();
+  let unregisterDeformation = () => {};
   let facingAxis: MonsterFacingAxis = '+Z';
   const basePosition = new Vector3(0, 0, 0);
 
   const disposeLayers = () => {
+    unregisterDeformation(); unregisterDeformation = () => {};
     for (const handle of layers.values()) {
       handle.sprite.dispose?.();
     }
@@ -69,6 +72,7 @@ export const createLayeredMonster = (
       const stripeKey = layerStyle?.stripePresetKey || STRIPE_NONE;
       const stripePreset = stripePresets[stripeKey];
       const sprite = createAtlasSpritePlane(scene, textureUrl, 2.8, {
+        deformation: false,
         shareTexture: false,
         subdivisions: 12,
         surfaceRole: 'monster-layer',
@@ -92,6 +96,9 @@ export const createLayeredMonster = (
     root.scaling.setAll(scale);
     basePosition.set(config.scene3dOffsetX, config.scene3dHeight, root.position.z);
     root.position.copyFrom(basePosition);
+    if (options.deformation !== false && layers.size) unregisterDeformation = getVisualDeformationRegistry(scene).register({
+      root, meshes: [...layers.values()].map(handle => handle.sprite.mesh), kind: 'sprite', groupId: 'monsters', anchor: [0, -1.4, 0], ...options.deformation,
+    });
   };
 
   return {

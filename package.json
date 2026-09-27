@@ -5,6 +5,9 @@
   "main": "electron/main.cjs",
   "type": "module",
   "scripts": {
+    "test:deformation": "node --experimental-strip-types --test core/render-deformation/*.test.ts core/render-deformation/*.test.mjs",
+    "test:deformation-webgl": "node scripts/runDeformationWebGL.mjs",
+    "typecheck:deformation": "tsc --noEmit -p tsconfig.deformation.json",
     "test:camera": "node --experimental-strip-types --test core/camera/*.test.ts core/camera/*.test.mjs",
     "test:dungeon-overhead-view": "node --experimental-strip-types --test core/dungeon-view/*.test.ts core/dungeon-view/*.test.mjs",
     "typecheck:camera": "tsc --noEmit -p tsconfig.camera.json",

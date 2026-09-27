@@ -9,6 +9,7 @@ import {
   Vector3
 } from '@babylonjs/core';
 import { resolvePublicResourceUrl } from '@/core/resources/appAssetUrl.ts';
+import { registerParticleDeformation } from '../../render-deformation/particleDeformation.ts';
 import type {
   ParticleController,
   ParticleEffectConfig
@@ -160,6 +161,8 @@ export const createBurstParticleEffect = (
   const startNow = () => {
     particleSystem.start();
   };
+
+  registerParticleDeformation(scene, particleSystem);
 
   return {
     system: particleSystem,

@@ -1,4 +1,5 @@
-import { Color3, TransformNode, type Scene } from '@babylonjs/core';
+import { Color3, Matrix, TransformNode, Vector3, type Scene } from '@babylonjs/core';
+import { getVisualDeformationRegistry, type VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import type { TexturePackerAtlas } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
 import { toFrameRegion } from '@/core/sprite/editor/spriteAnchorEditorHelpers.ts';
@@ -17,6 +18,7 @@ import { resolvePartAtlas } from '@/core/sprite/composition/resolvePartAtlas.ts'
 export type AtlasBundle = Record<string, TexturePackerAtlas>;
 
 export type CreateCompositeSpriteOptions = {
+  deformation?: VisualDeformationMetadata | false;
   nameSuffix?: string;
   pickable?: boolean;
   /** 附加到所有部件 position.z，残影层用负值压到后方 */
@@ -131,6 +133,7 @@ export const createCompositeSprite = (
     }
 
     const plane = createAtlasSpritePlane(scene, atlasImagePath, baseSize, {
+      deformation: false,
       shareTexture: true,
       worldUnitsPerPixel
     });
@@ -247,6 +250,11 @@ export const createCompositeSprite = (
     }
   };
 
+  const foot = Vector3.TransformCoordinates(root.getHierarchyBoundingVectors(true).min, Matrix.Invert(root.getWorldMatrix()));
+  const unregisterDeformation = options.deformation === false || !parts.size ? () => {} : getVisualDeformationRegistry(scene).register({
+    root, meshes: [...parts.values()].map(part => part.plane.mesh), kind: 'sprite', groupId: 'composite-sprites', anchor: [0, foot.y, 0], ...options.deformation,
+  });
+
   return {
     root,
     rig,
@@ -286,6 +294,7 @@ export const createCompositeSprite = (
       applyStyleToMaterials();
     },
     dispose: () => {
+      unregisterDeformation();
       for (const part of parts.values()) {
         part.plane.dispose?.();
       }

@@ -16,6 +16,7 @@ import {
 } from '@babylonjs/core';
 import type { SceneEnvironmentInstance, SceneEnvironmentLight, SceneEnvironmentObject, SceneEnvironmentPreset } from './sceneEnvironment.types';
 import { createModelEntity, type ModelEntity } from '../model';
+import { getVisualDeformationRegistry } from '../render-deformation/visualDeformationRegistry.ts';
 import type { ShadowQualityPresetLibrary, ShadowQualitySettings, ShadowQualityTier } from './shadowQualityPreset.types';
 import { resolveShadowQuality } from './resolveShadowQuality';
 
@@ -172,6 +173,11 @@ const createSceneEnvironmentRuntime = (
     mesh.position.set(...object.position);
     if (object.rotation) mesh.rotation.set(...object.rotation);
     mesh.material = createMaterial(scene, preset.presetKey, object);
+    getVisualDeformationRegistry(scene).register({ root: mesh, meshes: [mesh], kind: 'geometry', groupId: 'scene-geometry',
+      id: `scene:${preset.presetKey}:object:${object.id}`, label: object.id,
+      anchor: [0, mesh.getBoundingInfo().boundingBox.minimum.y, 0],
+      tags: [preset.presetKey],
+    });
     mesh.receiveShadows = object.shadow?.receive ?? false;
     if (object.shadow?.cast) shadowGenerators.forEach((generator) => generator.addShadowCaster(mesh));
   });
@@ -215,6 +221,7 @@ export const createSceneEnvironmentAsync = async (
       const entity = await createModelEntity(scene, definition.modelPath, {
         name: `${preset.presetKey}:${definition.id}`,
         transparencyPolicy: definition.transparencyPolicy,
+        deformation: { id: `scene:${preset.presetKey}:model:${definition.id}`, groupId: 'scene-models', label: definition.id, tags: [preset.presetKey] },
       });
       if (options.signal?.aborted || scene.isDisposed) { entity.dispose(); throw new Error('场景加载已取消'); }
       (runtime.instance.nodes as Map<string, Node>).set(`model:${definition.id}`, entity.root);

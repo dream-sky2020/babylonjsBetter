@@ -8,6 +8,7 @@ export type ShaderStageSlots = {
   modifyField?: string;
   modifyColor?: string;
   beforeOutput?: string;
+  afterOutput?: string;
 };
 
 export type SpriteShaderRuntimeToggle = {

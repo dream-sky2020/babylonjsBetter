@@ -1,5 +1,17 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-27：可选世界对象俯视顶点变形
+
+`core/render-deformation/` 新增 Scene 级显示对象注册表与可释放的独占控制句柄，统一拥有自动俯角补偿/手动倾斜公式、分组/标签/类型/对象规则、材质绑定、显示包围盒、仿射拾取和深度适配。当前俯角继续从 `dungeon-overhead-view` 的有效配置订阅，不另存相机角度；地面格距仍由 `core/dungeon-view` 管理，物体变形不修改 Runtime、节点姿态、原始顶点或粒子模拟。
+
+Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通过末尾 `visualDeformationModule` 与新增 `afterOutput` 插槽接入；每次绘制绑定对象矩阵，允许共享材质下不同强度。模型、场景几何、Atlas 精灵、多层怪物、组合精灵、消散预览和三类粒子创建入口自动注册。多层/组合精灵共用整体脚点；场景声明使用稳定 ID。`createModelEntity` 保留原 `instantiateModelsToScene` 调用（Babylon 9.11 默认独立 Mesh、共享材质/几何），不改变旧 Lab 的实例策略。
+
+阴影使用 ShadowDepthWrapper；DepthRenderer 通过 render-pass 材质覆盖复用同一变形与 alpha，销毁时恢复原覆盖。自动深度发现和粒子模板注入封装 Babylon 9.11 的版本依赖。当前覆盖 WebGL/GLSL；实例批次、全朝向 Billboard、未知材质和 WebGPU 会明确排除，PrePass/G-buffer 未适配时保持原形。详细边界见 `core/render-deformation/README.md`。
+
+可选 `tools/lab-modules/dungeon/dungeon-visual-deformation/` 依赖俯视模块与 Map Loader，提供批量面板和 `dungeon:visual-deformation` 服务。正式设置为原地图级俯视 Entity 上的 `visual-deformation` Component v1，沿现有地图 V3 保存通道持久化；测试草稿注册为 LabState `dungeon-visual-deformation/settings` v1 `{draft}`。临时对象规则不保存；无组件/草稿默认关闭。进入第一人称、无有效俯视或卸载恢复原形，输入与 Viewport 沿用现有所有权。
+
+`tools/dungeon-overhead-view-lab/` 增加共享材质双方柱、骨骼模型和 2D Shader 示例，默认规则只控制示例组。新增 `test:deformation`、`typecheck:deformation`、`test:deformation-webgl`；WebGL 验证覆盖真实着色、共享材质隔离、恢复、阴影/深度、CPU/GPU 粒子与完整 Lab 启动。继续使用 `build:camera-labs` 构建入口；没有新开另一套场景或相机系统。
+
 ## 2026-09-27：可选 Dungeon 俯视显示协调与测试 Lab
 
 `core/dungeon-view/` 拥有俯视配置校验、地图组件解析、格子比例计算、显示坐标映射和可释放的独占控制句柄。新增地图级 `dungeon-overhead-view` Entity / Component（v1），由现有 Entity Definition Catalog 自动发现、地图编辑器编辑并沿既有地图保存路径持久化。`pitchDeg` 是观察方向与水平地面的夹角；自动补偿只支持正交与 yaw 0° / ±180°，按 tileSize 的 X/Z 比及目标屏幕高宽比计算 Z 倍率。正交大小仍为垂直可见半范围。

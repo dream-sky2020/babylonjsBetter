@@ -83,8 +83,11 @@ export const exampleModule: SpriteShaderModule = {
 - `modifyField`
 - `modifyColor`
 - `beforeOutput`
+- `afterOutput`：输出颜色完成后处理 alpha / 专用深度通道。
 
 同一插槽内按 Recipe 中的模块顺序拼接。因此依赖模块必须排在使用者之前。
+
+普通、条纹和消散 Recipe 末尾常驻 `visualDeformationModule`。它在精灵自身顶点效果后应用对象局部仿射矩阵，默认矩阵为单位矩阵；矩阵由 `core/render-deformation` 按绘制对象提供，不作为共用材质的业务状态保存。多层怪物和组合精灵按整对象注册共同脚点，避免零件各自倾斜。详见 `core/render-deformation/README.md`。
 
 ### Recipe
 

@@ -8,6 +8,7 @@ export type { IEventComponent } from './components/event.component';
 export type { IStateComponent } from './components/state.component';
 export type { IActorSpawnComponent } from './components/actor-spawn.component';
 export type { IDungeonOverheadViewComponent } from './components/dungeon-overhead-view.component';
+export type { IVisualDeformationComponent } from './components/visual-deformation.component';
 export type { IGridAgentComponent } from './components/grid-agent.component';
 export type { IAgentControllerComponent } from './components/agent-controller.component';
 export type { IFactionComponent } from './components/faction.component';

@@ -1,4 +1,5 @@
 import { Mesh, Scene, ShaderMaterial, Texture, VertexData } from '@babylonjs/core';
+import { getVisualDeformationRegistry } from '../../render-deformation/visualDeformationRegistry.ts';
 import { StandardMaterial } from '@babylonjs/core/Materials/standardMaterial';
 import { createSpriteNoiseErodeOptions } from '@/core/sprite/dissolve/createSpriteNoiseErodeOptions.ts';
 import { createProfiledSpriteVisualSurface } from '@/core/sprite/render/createProfiledSpriteVisualSurface.ts';
@@ -69,6 +70,7 @@ export const createSpriteAshEffect = (
   });
   const material = surface.material as ShaderMaterial;
   mesh.material = material;
+  getVisualDeformationRegistry(scene).register({ root: mesh, meshes: [mesh], kind: 'sprite', groupId: 'effect-preview', anchor: [0, -.5, 0] });
   const particles = createSpriteDissolveParticles(scene, mesh, preset);
 
   const applyScale = () => {

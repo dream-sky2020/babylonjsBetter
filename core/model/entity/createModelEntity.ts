@@ -4,6 +4,7 @@ import {
   type Scene
 } from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
+import { getVisualDeformationRegistry } from '../../render-deformation/visualDeformationRegistry.ts';
 import type {
   CreateModelEntityOptions,
   ModelEntity,
@@ -39,6 +40,7 @@ export const createModelEntity = async (
   const root = new TransformNode(options.name ?? `model:${fileName}`, scene);
   const normalizationRoot = new TransformNode(`${root.name}:asset-profile`, scene);
   normalizationRoot.parent = root;
+  const registry = getVisualDeformationRegistry(scene);
   const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name);
 
   const profile = options.applyAssetProfile === false
@@ -53,6 +55,7 @@ export const createModelEntity = async (
   const skeletons = prefabInstance.entries.skeletons;
 
   let disposed = false;
+  let unregisterDeformation = () => {};
   const entity: ModelEntity = {
     root,
     normalizationRoot,
@@ -73,12 +76,17 @@ export const createModelEntity = async (
     dispose: () => {
       if (disposed) return;
       disposed = true;
+      unregisterDeformation();
       prefabInstance.release();
       root.dispose();
     }
   };
 
   if (profile) applyModelAssetProfile(entity, profile);
+  if (options.deformation !== false) unregisterDeformation = registry.register({
+    root, meshes: entity.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath],
+    ...options.deformation,
+  });
 
   if (options.autoPlayAnimation) {
     entity.playAnimation(typeof options.autoPlayAnimation === 'string'

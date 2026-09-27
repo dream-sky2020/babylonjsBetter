@@ -1,4 +1,5 @@
 import { Mesh, ParticleSystem, Scene, Texture, Vector3 } from '@babylonjs/core';
+import { registerParticleDeformation } from '../../../render-deformation/particleDeformation.ts';
 import type { SpriteAshPreset, SpriteDissolveParticleMode } from '@/core/sprite/ash/spriteAsh.types.ts';
 import { configureAshParticles } from '@/core/effects/sprite-death/particles/ashParticles.ts';
 import { configureEmberParticles } from '@/core/effects/sprite-death/particles/emberParticles.ts';
@@ -38,6 +39,7 @@ export const createSpriteDeathParticles = (
   particleTexture.hasAlpha = true;
   system.particleTexture = particleTexture;
   system.emitter = emitter;
+  registerParticleDeformation(scene, system, { groupId: 'sprite-death-particles' });
   system.minEmitBox = new Vector3(-.52, -.018, -.015);
   system.maxEmitBox = new Vector3(.52, .018, .015);
   system.updateSpeed = .012;

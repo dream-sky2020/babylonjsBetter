@@ -1,4 +1,5 @@
 import { baseSpriteModule } from '../modules/baseSprite.module.ts';
+import { visualDeformationModule } from '../modules/visualDeformation.module.ts';
 import { stripeModule } from '../modules/stripe.module.ts';
 import { colorOverlayModule } from '../modules/colorOverlay.module.ts';
 import { noiseErodeAshTrailModule, noiseErodeCharModule, noiseErodeCrystalModule, noiseErodeDirectionalFieldModule, noiseErodeDomainWarpModule, noiseErodeEdgeModule, noiseErodeModule, noiseErodeOutputModule, noiseErodeRadialFieldModule, noiseErodeResidueModule, noiseErodeSpiralModule, noiseErodeVertexDeformModule, noiseErodeVertexMotionModule, noiseErodeVoidModule } from '../modules/noiseErode.module.ts';
@@ -13,6 +14,6 @@ export const deathDissolveRecipe: SpriteShaderRecipe = {
     noiseErodeSpiralModule, noiseErodeDomainWarpModule,
     noiseErodeVertexMotionModule, noiseErodeVoidModule, noiseErodeVertexDeformModule,
     noiseErodeEdgeModule, noiseErodeCharModule, noiseErodeResidueModule,
-    noiseErodeAshTrailModule, noiseErodeOutputModule
+    noiseErodeAshTrailModule, noiseErodeOutputModule, visualDeformationModule
   ]
 };

@@ -6,11 +6,14 @@ import type {
   TransformNode
 } from '@babylonjs/core';
 import type { ModelTransparencyPolicy } from '@/core/model/material/applyModelMaterialPolicy.ts';
+import type { VisualDeformationMetadata } from '../../render-deformation/visualDeformationRegistry.ts';
 import type { ModelAssetProfile } from '@/core/model/types/model-asset-profile.types.ts';
 
 export type ModelFileFormat = 'glb' | 'gltf';
 
 export type CreateModelEntityOptions = {
+  /** Optional stable display identity; false excludes this model from visual deformation. */
+  deformation?: VisualDeformationMetadata | false;
   name?: string;
   autoPlayAnimation?: boolean | string;
   /** 默认使用深度安全的裁切透明；真正的玻璃/半透明模型可指定 source。 */

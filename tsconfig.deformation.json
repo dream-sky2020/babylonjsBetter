@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["vite/client", "node"] },
+  "include": ["core/render-deformation/**/*.ts", "core/sprite/shader/**/*.ts", "core/entity/components/visual-deformation.component.ts"],
+  "exclude": ["node_modules"]
+}

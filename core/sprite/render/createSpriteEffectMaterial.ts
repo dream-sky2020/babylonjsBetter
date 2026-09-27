@@ -1,4 +1,5 @@
 import { Color3, DynamicTexture, Effect, Scene, ShaderMaterial, Texture, Vector2, type BaseTexture } from '@babylonjs/core';
+import { ensureDeformationMaterial } from '../../render-deformation/deformationMaterial.ts';
 import {
   progressDirectionValue,
   progressShapeValue,
@@ -333,6 +334,7 @@ const ensureShaderRegistered = () => {
         /* mySprite:fragment:modifyField */
         /* mySprite:fragment:beforeOutput */
         gl_FragColor = vec4(colorOut, maskAlpha * alphaOut);
+        /* mySprite:fragment:afterOutput */
       }
     `;
     Effect.ShadersStore[`${FRAGMENT_SHADER_NAME}PixelShader`] = fragmentShader;
@@ -446,6 +448,7 @@ export const createSpriteEffectMaterial = (
     }
   );
   material.backFaceCulling = false;
+  ensureDeformationMaterial(material, false);
   material.needAlphaBlending = () => true;
   material.alphaMode = 2;
 
