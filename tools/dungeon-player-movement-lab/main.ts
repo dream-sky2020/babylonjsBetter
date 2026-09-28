@@ -10,7 +10,7 @@ const host = await createLab({
   title: '地牢玩家移动 Lab',
   description: '通过可组合模块自动加载场景、格子 Debug、玩家出生点、阻碍和玩家移动系统。',
   badge: 'Composable Lab · dungeon-runtime + player-movement',
-  modules: ['dungeon-config', 'dungeon-runtime', 'player-movement'],
+  modules: ['dungeon-config', 'dungeon-grid', 'dungeon-traversal', 'dungeon-movement', 'dungeon-runtime', 'dungeon-obstacle', 'player-movement'],
   catalog: dungeonLabModuleCatalog,
 });
 

@@ -10,7 +10,7 @@ const host = await createLab({
   title: 'Dungeon 地图传送 Lab',
   description: '验证格子、单向边和公用边出口到目标地图唯一入口的无表现传送流程。',
   badge: 'Composable Lab · Dungeon Transition',
-  modules: ['dungeon-config', 'dungeon-player-camera', 'dungeon-transition'],
+  modules: ['dungeon-config', 'dungeon-grid', 'dungeon-traversal', 'dungeon-movement', 'dungeon-obstacle', 'dungeon-player-camera', 'dungeon-transition'],
   catalog: dungeonLabModuleCatalog,
 });
 

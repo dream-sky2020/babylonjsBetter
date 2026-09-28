@@ -1,3 +1,4 @@
+import { SystemRunner, SystemTaskFailure } from '@/core/system-runtime/SystemRunner';
 import { ArcRotateCamera, Engine, Scene, Vector3 } from '@babylonjs/core';
 import {
   LabExecutionMonitor,
@@ -159,9 +160,10 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       void hostCommunication.publish(labKeyboardConflictDetectedEvent, { code, consumerIds });
     },
   });
+  const runner = new SystemRunner();
   const services = new LabServiceRegistry();
   const ui = new LabUi(panels, status);
-  const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor);
+  const disposeExecutionPlanPanel = createLabExecutionPlanPanel(ui, executionMonitor, runner, services, communication);
   const disposeCommunicationLogPanel = createLabCommunicationLogPanel(ui, communication.journal);
   const labState = createLabState();
   const keyboardStateRegistration = labState.registerReference<KeyboardSettingsState, KeyboardSettingsState>({
@@ -209,6 +211,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
   stage.append(badge);
   const allModuleIds = new Set(executionPlan.entries.map(({ moduleId }) => moduleId));
   const context: LabContext = {
+    scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register('lab:host', task) },
     labState,
     engine,
     scene,
@@ -237,6 +240,8 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
         errors.push(error);
         executionMonitor.fail(entry.moduleId, error);
       } finally {
+        runner.removeOwner(entry.moduleId);
+        services.removeOwner(entry.moduleId);
         moduleCommunication.dispose();
         if (!failed) executionMonitor.completeDispose(entry.moduleId);
       }
@@ -253,13 +258,18 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       try {
         const result = await entry.module.setup({
           ...context,
+          ui: ui.scope(entry.module),
+          scheduler: { get isPaused() { return runner.isPaused; }, register: task => runner.register(entry.moduleId, task) },
           communication: moduleCommunication,
-          services: services.scope(entry.moduleId, collectDependencyIds(entry.moduleId, executionPlan)),
+          services: services.scope(entry.moduleId, entry.module.manifest
+            ? new Set(entry.dependencies) : collectDependencyIds(entry.moduleId, executionPlan)),
         });
         activeModules.push({ entry, communication: moduleCommunication, lifecycle: normalizeLifecycle(result) });
         executionMonitor.completeSetup(entry.moduleId);
       } catch (error) {
         executionMonitor.fail(entry.moduleId, error);
+        runner.removeOwner(entry.moduleId);
+        services.removeOwner(entry.moduleId);
         moduleCommunication.dispose();
         throw moduleFailure(entry, 'setup', error, options.modules, executionPlan);
       }
@@ -282,8 +292,23 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
 
     services.setPhase('ready');
     engine.runRenderLoop(() => {
-      cameraSystem.update(engine.getDeltaTime() / 1000);
-      if (!viewport.isBabylonRenderingPaused) scene.render();
+      const deltaSeconds = engine.getDeltaTime() / 1000;
+      try {
+        runner.update('simulation', deltaSeconds);
+        cameraSystem.update(deltaSeconds);
+        if (!viewport.isBabylonRenderingPaused) {
+          runner.update('presentation', deltaSeconds);
+          scene.render();
+        }
+        runner.update('debug', deltaSeconds);
+      } catch (error) {
+        // Fail closed: never continue a partially executed simulation frame.
+        runner.setPaused(true);
+        if (error instanceof SystemTaskFailure) executionMonitor.fail(error.owner, error);
+        context.ui.setStatus(error instanceof Error ? error.message : String(error), true);
+        engine.stopRenderLoop();
+        console.error(error);
+      }
     });
     context.ui.setStatus(`已组合 ${executionPlan.entries.length} 个 Lab 模块。`);
   } catch (error) {
@@ -297,6 +322,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
     disposeCommunicationLogPanel();
     disposeExecutionPlanPanel();
     communication.dispose();
+    runner.dispose();
     services.clear();
     scene.dispose();
     engine.dispose();
@@ -324,6 +350,7 @@ export const createLab = async (options: CreateLabOptions): Promise<LabHost> => 
       disposeCommunicationLogPanel();
       disposeExecutionPlanPanel();
       communication.dispose();
+      runner.dispose();
       services.clear();
       scene.dispose();
       engine.dispose();

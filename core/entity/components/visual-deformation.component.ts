@@ -5,8 +5,9 @@ import { DEFAULT_DEFORMATION_SETTINGS, parseDeformationSettings, type Deformatio
 export type IVisualDeformationComponent = IComponent & DeformationSettings & { type: 'visual-deformation' };
 export const componentDefinition: ComponentDefinition<IVisualDeformationComponent> = {
   type: 'visual-deformation', version: 1, label: '显示顶点变形', allowedEntityTypes: ['dungeon-overhead-view'], allowMultiple: false,
-  description: '俯视显示对象的倾斜与高度补偿；角度读取同实体的俯视配置。',
+  description: '显示对象的倾斜与高度补偿；角度读取同实体的俯视配置，可选择离开俯视后是否恢复原形。',
   fields: [
+    { path: 'restoreOutsideOverhead', label: '离开俯视视角时恢复原形', control: 'checkbox' },
     { path: 'selection', label: '作用范围', control: 'select', options: [{ value: 'all', label: '全部已接入对象' }, { value: 'rules', label: '仅匹配规则' }] },
     { path: 'config.mode', label: '变形方式', control: 'select', options: [{ value: 'automatic', label: '按俯角补偿' }, { value: 'manual', label: '手动倾斜' }] },
     { path: 'config.referencePitchDeg', label: '参考俯角', control: 'number', min: 0, max: 89.99, step: 1 },

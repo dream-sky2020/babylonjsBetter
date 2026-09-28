@@ -65,6 +65,16 @@ export class LabCommunication {
     this.journal = new LabCommunicationJournal(options.journalCapacity);
   }
 
+  /** Installed routing, independent of traffic frequency and journal retention. */
+  inspectBindings() {
+    return {
+      requests: [...this.requestHandlers].map(([protocol, handler]) => ({ protocol, owner: handler.moduleId })),
+      events: [...this.eventListeners].map(([protocol, listeners]) => ({
+        protocol, consumers: [...new Set([...listeners].map(listener => listener.moduleId))],
+      })),
+    };
+  }
+
   scope(moduleId: string): LabCommunicationScope {
     const id = moduleId.trim();
     if (!id) throw new Error('Lab 通信作用域的 moduleId 不能为空。');

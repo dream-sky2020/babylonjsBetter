@@ -5,11 +5,15 @@ import type { LabCommunicationJournalReader } from './labCommunicationJournal';
 import type { LabServiceScope } from './labServiceRegistry';
 import type { LabExecutionPlan } from './execution-plan';
 import type { LabUi } from './labUi';
+import type { SystemTask } from '@/core/system-runtime/SystemRunner';
+import type { LabSystemManifest } from './systemManifest';
 import type { LabViewportManager } from './labViewportManager';
 import type { LabKeyboardRouter } from './keyboard';
 import type { CameraLabController, CameraLabControllerState, CameraViewPreset } from '@/core/camera/cameraLabController.ts';
 
 export type LabContext = {
+  /** Host owns cleanup; task phase/order is independent of panel order. */
+  scheduler: { readonly isPaused: boolean; register(task: SystemTask): () => void };
   /** 当前 Lab 独占的活数据引用注册中心；模块仍直接使用自己持有的引用。 */
   labState: LabState;
   engine: Engine;
@@ -33,6 +37,7 @@ export type LabContext = {
 
 export type LabModule = {
   id: string;
+  manifest?: LabSystemManifest;
   dependencies?: readonly string[];
   setup(context: LabContext): LabModuleSetupResult | Promise<LabModuleSetupResult>;
 };

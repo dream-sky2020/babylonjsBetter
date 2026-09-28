@@ -1,7 +1,9 @@
 import { openCommandMenuFromElement, type CommandMenuEntry } from '@/core/ui/menu';
+import { createSystemDescription } from './systemManifest';
+import type { LabModule } from './labKit.types';
 
 export type LabPanel = {
-  root: HTMLDivElement;
+  root: HTMLElement;
   content: HTMLDivElement;
 };
 
@@ -35,15 +37,32 @@ type PanelEntry = LabPanel & {
 const createDefaultPreferences = (): LabUiPreferences => ({ version: 1, panels: {}, switches: {} });
 
 export class LabUi {
+  /** A bound facade keeps delayed panel creation associated with its owner. */
+  scope(module: LabModule): LabUi {
+    return new Proxy(this, {
+      get: (target, key) => {
+        if (key === 'addPanel') return (id: string, title: string, options?: LabPanelOptions) => {
+          const panel = target.addPanel(id, title, options);
+          panel.content.prepend(createSystemDescription(module.id, module.dependencies ?? [], module.manifest));
+          panel.root.dataset.systemOwner = module.id;
+          return panel;
+        };
+        const value = Reflect.get(target, key);
+        return typeof value === 'function' ? value.bind(target) : value;
+      },
+    });
+  }
   private readonly panels = new Map<string, PanelEntry>();
   private readonly boundBooleanPreferenceKeys = new Set<string>();
   private readonly storageKey: string;
   private preferences: LabUiPreferences;
 
-  constructor(
-    readonly sidebar: HTMLElement,
-    readonly status: HTMLDivElement,
-  ) {
+  readonly sidebar: HTMLElement;
+  readonly status: HTMLDivElement;
+
+  constructor(sidebar: HTMLElement, status: HTMLDivElement) {
+    this.sidebar = sidebar;
+    this.status = status;
     const path = typeof location === 'undefined' ? 'unknown' : location.pathname;
     this.storageKey = `babylonjsBetter:lab-ui:${path}`;
     this.preferences = this.readPreferences();

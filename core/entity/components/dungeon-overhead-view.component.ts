@@ -16,6 +16,7 @@ export const componentDefinition: ComponentDefinition<IDungeonOverheadViewCompon
     { path: 'screenAspect', label: '目标屏幕高宽比', control: 'number', min: .1, max: 10, step: .1 },
     { path: 'scaleX', label: '手动 X 倍率', control: 'number', min: .1, max: 20, step: .1 },
     { path: 'scaleZ', label: '手动 Z 倍率', control: 'number', min: .1, max: 20, step: .1 },
+    { path: 'restoreDisplayInFirstPerson', label: '切到第一人称时恢复地图原比例', control: 'checkbox' },
   ],
   validate: value => { try { parseOverheadView(value); return []; } catch (e) { return [String(e instanceof Error ? e.message : e)]; } },
   migrate: data => ({ ...DEFAULT_OVERHEAD_VIEW, ...data, id: typeof data.id === 'string' ? data.id : createEntityDataId('component'), type: 'dungeon-overhead-view', version: 1 }),

@@ -1,3 +1,4 @@
+import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
 import {
   Color3,
   DynamicTexture,
@@ -31,7 +32,6 @@ import type { DungeonLabLibrariesReference } from '../dungeon-libraries/dungeonL
 import {
   dungeonMapChangedEvent,
   dungeonMapSwitchRequest,
-  dungeonRuntimeChangedEvent,
   dungeonRuntimeCommitRequest,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import {
@@ -53,7 +53,6 @@ import {
   type DungeonTransitionDebugBinding,
 } from './dungeonTransitionDebugLayout';
 
-type TilePosition = Readonly<{ tileX: number; tileY: number }>;
 type DebugLocationKind = 'entrance' | 'tile' | 'tile-edge' | 'shared-edge';
 type DebugMaterialStyle = 'solid' | 'wire';
 
@@ -66,8 +65,9 @@ const triggerLabel = (triggers: readonly DungeonExitTrigger[]): string => {
 
 export const dungeonTransitionLabModule: LabModule = {
   id: 'dungeon-transition',
-  dependencies: ['player-movement'],
+  dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-libraries'],
   setup(context) {
+    const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
     const references = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
@@ -103,7 +103,6 @@ export const dungeonTransitionLabModule: LabModule = {
       debug,
     );
 
-    let lastPlayerPosition: TilePosition | null = null;
     let inputLock: LabKeyboardLockHandle | null = null;
     let debugRoot: TransformNode | null = null;
 
@@ -244,10 +243,13 @@ export const dungeonTransitionLabModule: LabModule = {
       ).loaded,
     });
 
+    let pendingTransition = false;
+    let disposed = false;
     const executeTransition = async (exit: DungeonExitBinding): Promise<void> => {
-      if (!enabledToggle.input.checked || controller.transitioning) return;
+      if (disposed || pendingTransition || !enabledToggle.input.checked || controller.transitioning) return;
       const source = references.current;
       if (!source) return;
+      pendingTransition = true;
       const payload: DungeonTransitionEventPayload = {
         sourcePresetKey: source.presetKey,
         targetPresetKey: exit.component.targetMapPresetKey,
@@ -263,11 +265,11 @@ export const dungeonTransitionLabModule: LabModule = {
         status.textContent = `正在切换到 ${payload.targetPresetKey} / ${payload.targetEntranceId}……`;
         refreshDebug();
         await context.communication.publish(dungeonTransitionStartedEvent, payload);
+        if (disposed) return;
         const result = await controller.transition(exit);
+        if (disposed) return;
         if (!result.transitioned) throw new Error(`地图切换未完成：${result.reason ?? 'unknown'}。`);
         await context.communication.request(dungeonRuntimeCommitRequest, { reason: 'dungeon-transition-arrived' });
-        const loaded = references.current;
-        lastPlayerPosition = loaded ? { ...loaded.runtime.playerPosition } : null;
         status.textContent = `已抵达 ${payload.targetPresetKey} / ${payload.targetEntranceId}。`;
         await context.communication.publish(dungeonTransitionCompletedEvent, payload);
       } catch (error) {
@@ -275,6 +277,7 @@ export const dungeonTransitionLabModule: LabModule = {
         status.textContent = `地图传送失败：${message}`;
         await context.communication.publish(dungeonTransitionFailedEvent, { ...payload, message });
       } finally {
+        pendingTransition = false;
         inputLock?.release();
         inputLock = null;
         refreshDebug();
@@ -306,6 +309,8 @@ export const dungeonTransitionLabModule: LabModule = {
 
     const offBlockedAttempt = blockedAttempts.register((attempt) => {
       if (!enabledToggle.input.checked || !moveAttemptToggle.input.checked || controller.transitioning) return false;
+      if (attempt.direction !== 'north' && attempt.direction !== 'east'
+        && attempt.direction !== 'south' && attempt.direction !== 'west') return false;
       const loaded = references.current;
       if (!loaded) return false;
       try {
@@ -337,24 +342,22 @@ export const dungeonTransitionLabModule: LabModule = {
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const loaded = references.current;
       if (!loaded || loaded.loadId !== changed.loadId) return;
-      lastPlayerPosition = { ...loaded.runtime.playerPosition };
       status.textContent = `地图“${loaded.presetKey}”已加载；等待移动或交互出口。`;
       refreshDebug();
       renderDebugBoxes();
     });
-    const offRuntimeChanged = context.communication.on(dungeonRuntimeChangedEvent, (changed) => {
+    const offRuntimeChanged = playerSteps.subscribe('dungeon-transition', 100, (changed) => {
+      if (pendingTransition) return true;
       const loaded = references.current;
       if (!loaded || loaded.loadId !== changed.loadId) return;
-      const nextPosition = { ...loaded.runtime.playerPosition };
-      const previousPosition = lastPlayerPosition;
-      lastPlayerPosition = nextPosition;
+      const nextPosition = changed.to;
+      const previousPosition = changed.from;
       refreshDebug();
       if (!enabledToggle.input.checked || !enterToggle.input.checked || controller.transitioning || !previousPosition) return;
-      if (changed.reason !== 'player-movement-completed'
-        && changed.reason !== 'player-relative-movement-completed') return;
+
       try {
         const exit = findDungeonDocumentExitAfterMovement(loaded.runtime.map, previousPosition, nextPosition);
-        if (exit) void executeTransition(exit);
+        if (exit) { void executeTransition(exit); return true; }
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : String(error);
       }
@@ -362,6 +365,7 @@ export const dungeonTransitionLabModule: LabModule = {
 
     refreshDebug();
     return () => {
+      disposed = true;
       offMapChanged();
       offRuntimeChanged();
       offBlockedAttempt();

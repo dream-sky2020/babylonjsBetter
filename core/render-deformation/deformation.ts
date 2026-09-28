@@ -47,12 +47,13 @@ export type DeformationTargetInfo = Readonly<{
   persistent: boolean; supported: boolean; reason?: string;
 }>;
 export type DeformationRule = { selector: 'group' | 'tag' | 'kind' | 'id'; value: string; strength: number };
-export type DeformationSettings = { enabled: boolean; selection: 'all' | 'rules'; config: VisualDeformationConfig; rules: DeformationRule[] };
-export const DEFAULT_DEFORMATION_SETTINGS: DeformationSettings = { enabled: false, selection: 'all', config: { ...DEFAULT_VISUAL_DEFORMATION }, rules: [] };
+export type DeformationSettings = { enabled: boolean; restoreOutsideOverhead: boolean; selection: 'all' | 'rules'; config: VisualDeformationConfig; rules: DeformationRule[] };
+export const DEFAULT_DEFORMATION_SETTINGS: DeformationSettings = { enabled: false, restoreOutsideOverhead: false, selection: 'all', config: { ...DEFAULT_VISUAL_DEFORMATION }, rules: [] };
 export function parseDeformationSettings(value: unknown, version = 1): DeformationSettings {
   if (version !== 1 || !value || typeof value !== 'object') throw new Error('变形设置版本或格式无效');
   const v = value as Record<string, unknown>;
   if (typeof v.enabled !== 'boolean' || (v.selection !== 'all' && v.selection !== 'rules') || !Array.isArray(v.rules)) throw new Error('变形设置格式无效');
+  if (v.restoreOutsideOverhead !== undefined && typeof v.restoreOutsideOverhead !== 'boolean') throw new Error('restoreOutsideOverhead 必须为布尔值');
   const rules = v.rules.map((raw: unknown): DeformationRule => {
     if (!raw || typeof raw !== 'object') throw new Error('分组规则无效');
     const r = raw as Record<string, unknown>;
@@ -60,7 +61,10 @@ export function parseDeformationSettings(value: unknown, version = 1): Deformati
       || typeof r.strength !== 'number' || !Number.isFinite(r.strength) || r.strength < 0 || r.strength > 1) throw new Error('规则必须包含选择类型、名称和 0–1 强度');
     return { selector: r.selector as DeformationRule['selector'], value: r.value, strength: r.strength };
   });
-  return { enabled: v.enabled, selection: v.selection, config: parseVisualDeformation(v.config), rules };
+  return { enabled: v.enabled, restoreOutsideOverhead: v.restoreOutsideOverhead ?? false, selection: v.selection, config: parseVisualDeformation(v.config), rules };
+}
+export function selectDeformationView(settings: DeformationSettings, active: DeformationView | null, configured: DeformationView | null): DeformationView | null {
+  return active ?? (settings.restoreOutsideOverhead ? null : configured);
 }
 /** ID > tag > group > kind > default. Last rule of equal specificity wins, never multiply rules. */
 export function resolveTargetStrength(target: DeformationTargetInfo, settings: DeformationSettings): number {

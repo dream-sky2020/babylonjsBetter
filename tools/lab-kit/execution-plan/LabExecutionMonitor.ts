@@ -18,7 +18,9 @@ export class LabExecutionMonitor {
   private readonly states = new Map<string, MutableExecution>();
   private readonly listeners = new Set<LabExecutionListener>();
 
-  constructor(readonly plan: LabExecutionPlan) {
+  readonly plan: LabExecutionPlan;
+  constructor(plan: LabExecutionPlan) {
+    this.plan = plan;
     plan.entries.forEach(({ moduleId }) => this.states.set(moduleId, { status: 'pending' }));
   }
 

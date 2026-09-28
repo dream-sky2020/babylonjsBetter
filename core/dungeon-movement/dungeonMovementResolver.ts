@@ -6,6 +6,7 @@ import type {
   DungeonMoveRequestResult,
   DungeonMovementDebugSnapshot,
   DungeonMovementResolverConfig,
+  DungeonMovementChange,
 } from './dungeonMovement.types.ts';
 import {
   getDungeonDiagonalCornerIndex,
@@ -34,6 +35,24 @@ export class DungeonMovementResolver {
   private readonly requests = new Map<string, DungeonMoveRequest>();
   private readonly activeRequestIdByActor = new Map<string, string>();
   private nextRequestSequence = 1;
+  private readonly changeListeners = new Set<(change: DungeonMovementChange) => void>();
+
+  subscribe(listener: (change: DungeonMovementChange) => void): () => void {
+    this.changeListeners.add(listener);
+    return () => { this.changeListeners.delete(listener); };
+  }
+
+  private changed(change: DungeonMovementChange): void {
+    this.changeListeners.forEach((listener) => {
+      try { listener(change); } catch (error) { console.error('Dungeon 移动状态监听失败。', error); }
+    });
+  }
+
+  private rejected(actorId: string, result: DungeonMoveRequestResult): DungeonMoveRequestResult {
+    this.changed({ kind: 'request-rejected', actorId, blockedReason: result.blockedReason,
+      blockingEntityIds: result.blockingEntityIds });
+    return result;
+  }
 
   constructor(
     traversal: DungeonTraversalWorld,
@@ -76,6 +95,7 @@ export class DungeonMovementResolver {
       commitProgress: requireUnitInterval(commitProgress, '默认提交进度'),
       playerBasePriority,
     };
+    this.changed({ kind: 'config-changed' });
   }
 
   getActiveRequest(actorId: string): DungeonMoveRequest | undefined {
@@ -86,6 +106,8 @@ export class DungeonMovementResolver {
   getRequest(requestId: string): DungeonMoveRequest | undefined {
     return this.requests.get(requestId);
   }
+
+  get hasActiveRequests(): boolean { return this.requests.size > 0; }
 
   priorityOf(request: DungeonMoveRequest): number {
     const progress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
@@ -112,6 +134,8 @@ export class DungeonMovementResolver {
     request.rollbackStartProgress = progress;
     request.rollbackElapsedSeconds = 0;
     request.rollbackDurationSeconds = progress <= 0 ? 0 : Math.max(0.08, request.durationSeconds * progress);
+    this.changed({ kind: 'rollback-started', actorId: request.actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
   }
 
   requestMove(options: DungeonMoveRequestOptions): DungeonMoveRequestResult {
@@ -119,7 +143,8 @@ export class DungeonMovementResolver {
       throw new RangeError('移动时长必须是非负有限数。');
     }
     if (this.activeRequestIdByActor.has(options.actorId)) {
-      return { accepted: false, blockedReason: 'movement-in-progress', blockingEntityIds: [] };
+      return this.rejected(options.actorId,
+        { accepted: false, blockedReason: 'movement-in-progress', blockingEntityIds: [] });
     }
     const actor = this.traversal.actors.get(options.actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${options.actorId}”。`);
@@ -128,11 +153,11 @@ export class DungeonMovementResolver {
       checkStaticObstacles: options.checkStaticObstacles,
     });
     if (inspection.blockedReason || inspection.toTileIndex === undefined) {
-      return {
+      return this.rejected(options.actorId, {
         accepted: false,
         blockedReason: inspection.blockedReason ?? 'map-boundary',
         blockingEntityIds: inspection.blockingEntityIds,
-      };
+      });
     }
 
     const request: DungeonMoveRequest = {
@@ -170,11 +195,11 @@ export class DungeonMovementResolver {
       const requestWins = scoreDelta > 0
         || (scoreDelta === 0 && request.actorId.localeCompare(winner.actorId) < 0);
       if (!requestWins) {
-        return {
+        return this.rejected(options.actorId, {
           accepted: false,
           blockedReason: 'reservation-conflict',
           blockingEntityIds: [winner.actorId],
-        };
+        });
       }
     }
     winners.forEach((winner) => this.beginRollback(winner));
@@ -184,6 +209,9 @@ export class DungeonMovementResolver {
     if (request.crossingPointIndex !== undefined && request.crossingPointIndex >= 0) {
       this.movementReservationsByPoint[request.crossingPointIndex].set(request.actorId, request.id);
     }
+    this.changed({ kind: 'request-accepted', actorId: request.actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex,
+      crossingPointIndex: request.crossingPointIndex });
     return {
       accepted: true,
       request,
@@ -198,6 +226,8 @@ export class DungeonMovementResolver {
     this.releaseReservation(request);
     this.activeRequestIdByActor.delete(actorId);
     this.requests.delete(request.id);
+    this.changed({ kind: 'cancelled', actorId, requestId: request.id,
+      fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
   }
 
   advanceActor(actorId: string, deltaSeconds: number): DungeonMoveAdvanceResult {
@@ -234,10 +264,12 @@ export class DungeonMovementResolver {
       request.elapsedSeconds += consumedSeconds;
       visualProgress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
       if (request.state === 'forward-before-commit' && visualProgress >= request.commitProgress) {
-        this.traversal.moveActor(request.actorId, request.toTileIndex);
+        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id);
         this.releaseReservation(request);
         request.state = 'forward-after-commit';
         committed = true;
+        this.changed({ kind: 'committed', actorId, requestId: request.id,
+          fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
       }
       if (visualProgress >= 1) completed = true;
     }
@@ -245,6 +277,8 @@ export class DungeonMovementResolver {
     if (completed) {
       this.activeRequestIdByActor.delete(actorId);
       this.requests.delete(request.id);
+      this.changed({ kind: rolledBack ? 'rolled-back' : 'completed', actorId, requestId: request.id,
+        fromTileIndex: request.fromTileIndex, toTileIndex: request.toTileIndex });
     }
     return {
       active: !completed,

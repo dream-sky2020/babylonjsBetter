@@ -15,6 +15,26 @@ const createWorld = () => {
   return createDungeonTraversalWorld(createDungeonRuntimeMap(document));
 };
 
+test('通行变化只在占位、能力和路径预约实际改变时通知', () => {
+  const world = createWorld();
+  const changes: string[] = [];
+  const off = world.subscribe(change => changes.push(change.kind));
+  world.registerActor({ id: 'agent:watch', kind: 'agent', tileIndex: 0,
+    enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+  world.setActorMovementProfile('agent:watch', 'ground-eight-way');
+  world.setActorMovementProfile('agent:watch', 'ground-eight-way');
+  world.moveActor('agent:watch', 1);
+  world.replaceReservations('agent:watch', [1, 2], 1);
+  world.replaceReservations('agent:watch', [1, 2], 1);
+  world.clearReservations('agent:watch');
+  off();
+  world.unregisterActor('agent:watch');
+  assert.deepEqual(changes, [
+    'actor-registered', 'actor-profile-changed', 'actor-moved',
+    'path-reservations-changed', 'path-reservations-changed',
+  ]);
+});
+
 test('共享通行世界统一维护动态占位、移动和注销', () => {
   const world = createWorld();
   world.registerActor({

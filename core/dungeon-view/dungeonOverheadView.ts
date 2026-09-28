@@ -7,10 +7,11 @@ export type DungeonOverheadViewConfig = {
   screenAspect: number;
   scaleX: number;
   scaleZ: number;
+  restoreDisplayInFirstPerson: boolean;
 };
 export const DEFAULT_OVERHEAD_VIEW: Readonly<DungeonOverheadViewConfig> = Object.freeze({
   pitchDeg: 45, yawDeg: 0, projection: 'orthographic', orthographicSize: 35,
-  proportion: 'compensate', screenAspect: 1, scaleX: 1, scaleZ: 1,
+  proportion: 'compensate', screenAspect: 1, scaleX: 1, scaleZ: 1, restoreDisplayInFirstPerson: false,
 });
 export const parseOverheadView = (value: unknown): DungeonOverheadViewConfig => {
   if (!value || typeof value !== 'object') throw new Error('俯视配置必须为对象');
@@ -22,11 +23,13 @@ export const parseOverheadView = (value: unknown): DungeonOverheadViewConfig => 
   };
   if (v.projection !== 'perspective' && v.projection !== 'orthographic') throw new Error('投影类型无效');
   if (!['original', 'compensate', 'manual'].includes(String(v.proportion))) throw new Error('格子比例策略无效');
+  if (v.restoreDisplayInFirstPerson !== undefined && typeof v.restoreDisplayInFirstPerson !== 'boolean') throw new Error('restoreDisplayInFirstPerson 必须为布尔值');
   const config: DungeonOverheadViewConfig = {
     projection: v.projection, proportion: v.proportion as DungeonOverheadViewConfig['proportion'],
     pitchDeg: number('pitchDeg', 15, 89.99), yawDeg: number('yawDeg', -180, 180),
     orthographicSize: number('orthographicSize', .01, 10000), screenAspect: number('screenAspect', .1, 10),
     scaleX: number('scaleX', .1, 20), scaleZ: number('scaleZ', .1, 20),
+    restoreDisplayInFirstPerson: v.restoreDisplayInFirstPerson ?? false,
   };
   if (config.proportion === 'compensate' && (config.projection !== 'orthographic' || Math.abs(config.yawDeg % 180) > 1e-6)) {
     throw new Error('自动补偿要求正交投影，水平朝向为 0° 或 ±180°；斜向观察请使用原比例或手动比例');
@@ -52,6 +55,9 @@ export const resolveOverheadView = (config: DungeonOverheadViewConfig,
 export const mapDungeonDisplayPosition = (view: ResolvedDungeonView | null, p: readonly [number, number, number]): [number, number, number] => view
   ? [view.origin[0] + (p[0] - view.origin[0]) * view.scaleX, p[1], view.origin[2] + (p[2] - view.origin[2]) * view.scaleZ]
   : [...p];
+
+export const selectDungeonDisplayView = (active: ResolvedDungeonView | null, configured: ResolvedDungeonView | null): ResolvedDungeonView | null =>
+  active ?? (configured?.config.restoreDisplayInFirstPerson ? null : configured);
 
 export type DungeonViewLease = { apply(view: ResolvedDungeonView | null): void; release(): void };
 export type DungeonViewConsumer = { acquire(owner: string): DungeonViewLease };

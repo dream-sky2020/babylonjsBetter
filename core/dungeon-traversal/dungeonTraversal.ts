@@ -29,6 +29,18 @@ export type DungeonTraversalActor = {
   movementProfileId: string;
 };
 
+/** 离散的通行状态变化；连续的显示位置不属于此通知。 */
+export type DungeonTraversalChange = Readonly<{
+  kind: 'actor-registered' | 'actor-unregistered' | 'actor-moved' | 'actor-profile-changed'
+    | 'path-reservations-changed' | 'obstacle-state-changed';
+  actorId?: string;
+  requestId?: string;
+  obstacleId?: string;
+  fromTileIndex?: number;
+  toTileIndex?: number;
+  tileIndices?: readonly number[];
+}>;
+
 export type DungeonTraversalBlockedReason =
   | 'direction-not-supported'
   | 'map-boundary'
@@ -76,6 +88,30 @@ export class DungeonTraversalWorld {
   readonly reservationsByTile: ReadonlyArray<Map<string, number>>;
   /** 反向索引让单个 Actor 清理预约时只访问其实际路线，而不扫描整张地图。 */
   private readonly pathReservationTileIndicesByActor = new Map<string, Set<number>>();
+  private readonly changeListeners = new Set<(change: DungeonTraversalChange) => void>();
+
+  subscribe(listener: (change: DungeonTraversalChange) => void): () => void {
+    this.changeListeners.add(listener);
+    return () => { this.changeListeners.delete(listener); };
+  }
+
+  private changed(change: DungeonTraversalChange): void {
+    this.changeListeners.forEach((listener) => {
+      try { listener(change); } catch (error) { console.error('Dungeon 通行状态监听失败。', error); }
+    });
+  }
+
+  notifyObstacleStateChanged(obstacleId: string): void {
+    this.changed({ kind: 'obstacle-state-changed', obstacleId });
+  }
+
+  setActorMovementProfile(actorId: string, movementProfileId: string): void {
+    const actor = this.actors.get(actorId);
+    if (!actor) throw new Error(`不存在通行 Actor“${actorId}”。`);
+    if (actor.movementProfileId === movementProfileId) return;
+    actor.movementProfileId = movementProfileId;
+    this.changed({ kind: 'actor-profile-changed', actorId, toTileIndex: actor.tileIndex });
+  }
 
   constructor(
     map: DungeonRuntimeMap,
@@ -107,6 +143,7 @@ export class DungeonTraversalWorld {
     const stored = { ...actor };
     this.actors.set(stored.id, stored);
     this.occupantIdsByTile[stored.tileIndex].add(stored.id);
+    this.changed({ kind: 'actor-registered', actorId: stored.id, toTileIndex: stored.tileIndex });
   }
 
   unregisterActor(actorId: string): void {
@@ -115,9 +152,10 @@ export class DungeonTraversalWorld {
     this.occupantIdsByTile[actor.tileIndex].delete(actorId);
     this.clearReservations(actorId);
     this.actors.delete(actorId);
+    this.changed({ kind: 'actor-unregistered', actorId, fromTileIndex: actor.tileIndex });
   }
 
-  moveActor(actorId: string, toTileIndex: number): void {
+  moveActor(actorId: string, toTileIndex: number, requestId?: string): void {
     const actor = this.actors.get(actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${actorId}”。`);
     if (!Number.isInteger(toTileIndex) || !this.occupantIdsByTile[toTileIndex]) {
@@ -129,9 +167,13 @@ export class DungeonTraversalWorld {
         throw new Error(`格子“${this.map.topology.tileIds[toTileIndex]}”已被 ${conflicts.join('、')} 占据。`);
       }
     }
-    this.occupantIdsByTile[actor.tileIndex].delete(actorId);
+    const fromTileIndex = actor.tileIndex;
+    this.occupantIdsByTile[fromTileIndex].delete(actorId);
     actor.tileIndex = toTileIndex;
     this.occupantIdsByTile[toTileIndex].add(actorId);
+    if (fromTileIndex !== toTileIndex) {
+      this.changed({ kind: 'actor-moved', actorId, requestId, fromTileIndex, toTileIndex });
+    }
   }
 
   private inspectCardinalStep(
@@ -374,19 +416,28 @@ export class DungeonTraversalWorld {
     if (!tileIndices) return;
     tileIndices.forEach((tileIndex) => this.pathReservationsByTile[tileIndex]?.delete(actorId));
     this.pathReservationTileIndicesByActor.delete(actorId);
+    this.changed({ kind: 'path-reservations-changed', actorId, tileIndices: [...tileIndices] });
   }
 
   replaceReservations(actorId: string, tileIndices: readonly number[], startIndex: number): void {
-    this.clearReservations(actorId);
-    const reservedTileIndices = new Set<number>();
+    const previous = this.pathReservationTileIndicesByActor.get(actorId);
+    const next = new Map<number, number>();
     for (let index = startIndex; index < tileIndices.length; index += 1) {
       const tileIndex = tileIndices[index];
-      const reservations = this.pathReservationsByTile[tileIndex];
-      if (!reservations) continue;
-      reservations.set(actorId, index - startIndex + 1);
-      reservedTileIndices.add(tileIndex);
+      if (this.pathReservationsByTile[tileIndex]) next.set(tileIndex, index - startIndex + 1);
     }
+    if ((previous?.size ?? 0) === next.size
+      && [...next].every(([tileIndex, distance]) => previous?.has(tileIndex)
+        && this.pathReservationsByTile[tileIndex].get(actorId) === distance)) return;
+    previous?.forEach((tileIndex) => this.pathReservationsByTile[tileIndex]?.delete(actorId));
+    this.pathReservationTileIndicesByActor.delete(actorId);
+    const reservedTileIndices = new Set(next.keys());
+    next.forEach((distance, tileIndex) => this.pathReservationsByTile[tileIndex].set(actorId, distance));
     if (reservedTileIndices.size) this.pathReservationTileIndicesByActor.set(actorId, reservedTileIndices);
+    if (previous?.size || reservedTileIndices.size) {
+      this.changed({ kind: 'path-reservations-changed', actorId,
+        tileIndices: [...new Set([...(previous ?? []), ...reservedTileIndices])] });
+    }
   }
 
   reservationCount(tileIndex: number, excludeActorId?: string): number {

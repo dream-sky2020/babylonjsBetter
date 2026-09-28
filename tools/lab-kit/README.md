@@ -1,5 +1,21 @@
 # 可组合 Lab 模块规范
 
+## 系统装配契约（2026-09-28）
+
+- Dungeon catalog 的 manifest 是系统说明的统一来源；kind 区分 system、debug、configuration、compatibility。系统数量不包含 Host 基础设施、纯观察面板或配置选择器。
+- 模块添加能力必须安装对应 Core 工厂或系统；Debug 面板不能隐式创建另一份游戏 Runtime。Legacy 完整 Runtime 工厂只用于未迁移调用方。
+- 已声明 manifest 的模块只能读取自身或直接 dependencies 所有者的服务。新增服务使用 Core ServiceToken；禁止通过调用方自行选择泛型伪装服务类型。
+- Host 为模块绑定 UI、通信和调度作用域。所有面板自动显示所属系统及追溯信息；所有周期任务通过 context.scheduler.register 注册，由 Host 在失败/卸载时兜底清理。
+- simulation 处理逻辑推进，presentation 处理相机/连续显示，debug 处理合并后的观察刷新。order 只定义同阶段顺序；安装顺序不充当运行顺序。Viewport 绘制暂停不暂停模拟；模拟暂停为独立控制。
+- Core 系统不得读取 DOM。Lab 输入适配器可以读取控件来构造命令或更新普通配置；目前玩家续步输入适配仍由 Lab 持有。
+- Service 查询保持同步；命令有唯一处理者；事件表达已提交事实。历史事实必须复制当时必要字段，不得从之后的 Runtime 推测过去位置。
+- DungeonPlayerStepEvents 是必需格步规则边界：传送 order 100，Agent order 200；返回 true 停止后续规则及当前续步。Lab Communication 只观察这些事实，不能代替必需初始化或规则执行。
+- Session 流程为准备资源、创建已安装能力、恢复存档/入口、准备玩家/Agent、提交引用、通知观察者、释放旧资源。失败保留旧 Runtime；调试显示失败不得销毁已经提交的新 Runtime。
+- 单次 Core 变化只标脏并累计受影响 ID；Debug 在统一阶段合并更新。Actor 选项集合无变化不重建，折叠时不生成摘要，连续显示采样必须限频。
+- 新增系统必须登记职责、直接依赖、Core 路径/关键符号、服务和协议、调度方式及释放逻辑。manifest 的人工说明不能替代实际服务访问和任务清单。
+- 第一阶段不支持系统热卸载，也未将所有旧接口改成只读能力接口；不要将这些未迁移边界描述为已经完成。
+
+
 ## 页面入口
 
 Lab 页面只负责声明标题和顶层模块：
@@ -64,6 +80,15 @@ lab:ready / 用户选择地牢
 ```
 
 地图 Debug、出生点、Runtime、阻碍和移动模块消费同一个 `dungeon:map-changed`，并从各自服务读取数据，不得自行创建另一条地图装载链。
+
+## Dungeon 模块状态与通信约定
+
+- `Service` 提供当前 Session 的活引用和同步查询；`Request` 表示跨模块命令；`Event` 表示已经发生的离散变化；通信日志用于追踪请求与事件。不要为了展示最新状态而在每帧请求整份 Runtime。
+- 地图切换由 Loader 先原子提交引用，再发布带 `loadId` 的地图变化事件。通行和移动事件也带 `loadId`，消费者必须拒绝旧 Session 的事件，并在地图切换时释放旧订阅及 Debug 对象。
+- 玩家与 Agent 共用的通行占位、路径预约和移动预留分别由 Core 的 `DungeonTraversalWorld`、`DungeonMovementResolver` 修改。`dungeon-traversal` 和 `dungeon-movement` Lab Module 订阅 Core 的离散变化，将小型事件转发至 Communication；事件不携带全图快照。移动请求与实占位提交共用 `requestId` 作为 `correlationId`。
+- 显示模块收到变化事件后从当前 Service 读取受影响状态；移动中的连续动画由拥有者逐帧推进。不得逐帧发布 Communication 事件，也不得逐帧重建全图占位或预约 JSON。
+- 必须完成的初始化使用声明的模块依赖、稳定 Service 或可等待的 Request。`publish()` 的监听者并行执行，失败以报告返回；广播事件不能作为事务提交或必需初始化成功的保证。
+- 共享设置只有一个编辑入口：仲裁器配置在 `dungeon-movement`；角色专属移动速度、控制器和优先级覆盖分别留在玩家与 Agent 模块。显示偏好只保存 Debug 显示，运行规则不写入页面偏好。
 
 ## UI 与样式
 

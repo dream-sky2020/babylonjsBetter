@@ -1,3 +1,4 @@
+import type { DungeonRuntimeFactories } from './dungeonRuntimeAssembly';
 import type { DungeonPlayerSpawnBinding } from '../dungeon-player-spawn';
 import { createDungeonObstacleStatesFromBindings, scanDungeonDocumentObstacles } from '../dungeon-obstacle/dungeonObstacle.ts';
 import type { DungeonMapDocumentV2 } from '../map-document/index.ts';
@@ -11,6 +12,9 @@ import { createDungeonMovementResolver } from '../dungeon-movement/index.ts';
 
 export type DungeonRuntimeCreationOptions = Readonly<{
   playerMovementProfileId?: string;
+  /** Explicit assembly: an empty object installs no traversal or movement capability. */
+  systems?: DungeonRuntimeFactories;
+  registerPlayer?: boolean;
 }>;
 
 /** 使用已经解析并校验过的玩家出生点创建地图运行时。 */
@@ -21,12 +25,16 @@ export const createDungeonRuntime = (
   options: DungeonRuntimeCreationOptions = {},
 ): DungeonRuntime => {
   const map = createDungeonRuntimeMap(document);
-  const obstacles = scanDungeonDocumentObstacles(document);
+  const factories = options.systems ?? {
+    obstacles: scanDungeonDocumentObstacles, traversal: createDungeonTraversalWorld, movement: createDungeonMovementResolver,
+  };
+  const obstacles = factories.obstacles?.(document) ?? [];
   const obstacleStates = createDungeonObstacleStatesFromBindings(obstacles);
-  const traversal = createDungeonTraversalWorld(map, obstacles, obstacleStates);
-  const movementResolver = createDungeonMovementResolver(traversal);
+  if (factories.movement && !factories.traversal) throw new Error('移动系统需要先安装通行系统。');
+  const traversal = factories.traversal?.(map, obstacles, obstacleStates);
+  const movementResolver = traversal ? factories.movement?.(traversal) : undefined;
   const playerTileIndex = playerSpawn.tilePosition.y * map.width + playerSpawn.tilePosition.x;
-  traversal.registerActor({
+  if (options.registerPlayer !== false) traversal?.registerActor({
     id: DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
     kind: 'player',
     tileIndex: playerTileIndex,
@@ -37,8 +45,16 @@ export const createDungeonRuntime = (
   });
   return {
     map,
-    traversal,
-    movementResolver,
+    // Compatibility facade: absent capabilities fail explicitly, never silently create systems.
+    get traversal() {
+      if (!traversal) throw new Error('当前 Session 未安装 dungeon-traversal 系统。');
+      return traversal;
+    },
+    get movementResolver() {
+      if (!movementResolver) throw new Error('当前 Session 未安装 dungeon-movement 系统。');
+      return movementResolver;
+    },
+    installedSystems: Object.freeze({ obstacles: !!factories.obstacles, traversal: !!traversal, movement: !!movementResolver }),
     obstacles,
     playerPosition: {
       tileX: playerSpawn.tilePosition.x,
@@ -59,9 +75,7 @@ export const setDungeonRuntimePlayerMovementProfile = (
   runtime: DungeonRuntime,
   movementProfileId: string,
 ): void => {
-  const actor = runtime.traversal.actors.get(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
-  if (!actor) throw new Error('DungeonRuntime 中不存在玩家通行 Actor。');
-  actor.movementProfileId = movementProfileId;
+  runtime.traversal.setActorMovementProfile(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, movementProfileId);
 };
 
 /**
@@ -78,8 +92,9 @@ export const setDungeonRuntimePlayerPosition = (
       `玩家位置 (${nextPosition.tileX}, ${nextPosition.tileY}) 超出地图“${runtime.map.id}”的有效范围。`,
     );
   }
-  runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
-  runtime.traversal.moveActor(
+  if (runtime.installedSystems?.movement !== false) runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
+  if (runtime.installedSystems?.traversal !== false
+    && runtime.traversal.actors.has(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)) runtime.traversal.moveActor(
     DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
     nextPosition.tileY * runtime.map.width + nextPosition.tileX,
   );

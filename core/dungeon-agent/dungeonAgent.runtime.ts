@@ -48,6 +48,7 @@ export const createDungeonAgentRuntimeState = (
     });
   });
   return {
+    activeAgents: new Set(),
     turnNumber: 0,
     agents,
     agentIndexByEntityId: new Map(agents.map((agent, index) => [agent.binding.entity.id, index])),
@@ -200,6 +201,7 @@ export const startDungeonAgentMovement = (
     visualProgress: 0,
     rotationProgress: 0,
   };
+  if (durationSeconds > 0) state.activeAgents?.add(agent);
   if (durationSeconds === 0) {
     const advance = state.movementResolver.advanceActor(entityId, 0);
     if (advance.committed) {
@@ -239,6 +241,7 @@ export const startDungeonAgentTurn = (
     elapsedSeconds: 0,
     durationSeconds: duration,
   } : null;
+  if (agent.movement) state.activeAgents?.add(agent);
   return {
     started: true,
     completed: duration === 0,
@@ -254,8 +257,8 @@ export const updateDungeonAgentMovements = (
 ): readonly string[] => {
   if (!Number.isFinite(deltaSeconds) || deltaSeconds < 0) throw new RangeError('Agent 帧时间必须是非负有限数。');
   const completed: string[] = [];
-  state.agents.forEach((agent) => {
-    if (!agent.movement) return;
+  (state.activeAgents ?? state.agents).forEach((agent) => {
+    if (!agent.movement) { state.activeAgents?.delete(agent); return; }
     if (agent.movement.kind === 'move' || agent.movement.kind === 'rollback') {
       const advance = state.movementResolver.advanceActor(agent.binding.entity.id, deltaSeconds);
       if (advance.state === 'rollback') {
@@ -283,12 +286,14 @@ export const updateDungeonAgentMovements = (
       if (!advance.completed) return;
       if (advance.rolledBack) agent.facing = agent.movement.toFacing;
       agent.movement = null;
+      state.activeAgents?.delete(agent);
       completed.push(agent.binding.entity.id);
       return;
     }
     agent.movement.elapsedSeconds += deltaSeconds;
     if (agent.movement.elapsedSeconds < agent.movement.durationSeconds) return;
     agent.movement = null;
+    state.activeAgents?.delete(agent);
     completed.push(agent.binding.entity.id);
   });
   return completed;

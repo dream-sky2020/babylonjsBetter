@@ -159,7 +159,9 @@ export const setDungeonObstacleActive = (
   if (!runtime.obstacleStates.has(obstacleEntityId)) {
     throw new Error(`DungeonRuntime 中不存在阻碍“${obstacleEntityId}”。`);
   }
+  if (runtime.obstacleStates.get(obstacleEntityId) === active) return;
   runtime.obstacleStates.set(obstacleEntityId, active);
+  if (runtime.installedSystems?.traversal !== false) runtime.traversal.notifyObstacleStateChanged(obstacleEntityId);
 };
 
 const OPPOSITE_DIRECTION: Readonly<Record<DungeonMapDirection, DungeonMapDirection>> = {

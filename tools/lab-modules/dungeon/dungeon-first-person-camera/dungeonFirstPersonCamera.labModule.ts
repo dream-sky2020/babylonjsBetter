@@ -57,7 +57,7 @@ const createModeSelect = (): HTMLSelectElement => {
 
 export const dungeonPlayerCameraLabModule: LabModule = {
   id: 'dungeon-player-camera',
-  dependencies: ['player-movement'],
+  dependencies: ['player-movement', 'dungeon-map-loader'],
   setup(context) {
     const references = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
@@ -210,7 +210,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const binding = {
       readPose: () => {
         if (!enabledToggle.input.checked || activeMode !== 'first-person' || !current) return null;
-        const [x, y, z] = current.runtime.playerWorldPosition;
+        const [x, y, z] = mapDungeonDisplayPosition(externalView, current.runtime.playerWorldPosition);
         eyePosition.set(x, y + tileTopOffset + readClampedNumber(eyeHeightInput, 1.65), z);
         pose.yaw = current.runtime.playerWorldRotationY + currentYawOffset;
         pose.pitch = degToRad(readClampedNumber(pitchInput, 0)) + currentPitchOffset;
@@ -387,10 +387,12 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       syncProjectionControls();
       if (activeMode === 'overhead') applyOverheadPose(0, true,
         wasExternallyControlled && !view && context.cameraController.state.mode === 'orbit');
+      else if (enabledToggle.input.checked) context.cameraController.applyPose();
     });
     context.services.set(DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY, viewConsumer);
 
     const refreshDebug = (force = false): void => {
+      if (panel.content.hidden) return;
       const now = performance.now();
       if (!force && now - lastDebugTime < 250) return;
       lastDebugTime = now;
@@ -557,35 +559,38 @@ export const dungeonPlayerCameraLabModule: LabModule = {
     const offKeyboardChanged = context.keyboard.subscribe(syncKeyboardControls);
     syncKeyboardControls();
 
-    const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
-      if (!context.cameraController.inputEnabled && dragPointerId !== null) finishDragging(dragPointerId);
-      const deltaSeconds = Math.min(0.1, Math.max(0, context.engine.getDeltaTime() / 1000));
-      if (recentering) {
-        recenterElapsed += deltaSeconds;
-        const progress = clamp(recenterElapsed / recenterDuration, 0, 1);
-        const eased = 1 - (1 - progress) ** 3;
-        currentYawOffset = recenterFromYaw * (1 - eased);
-        currentPitchOffset = recenterFromPitch * (1 - eased);
-        if (progress >= 1) {
-          currentYawOffset = 0;
-          currentPitchOffset = 0;
-          recentering = false;
-          status.textContent = '镜头已平滑回正；玩家朝向保持不变。';
+    const stopFrameTask = context.scheduler.register({
+      id: 'update', phase: 'presentation', order: 100, description: '玩家相机平滑和姿态',
+      run: (deltaSeconds) => {
+        if (!context.cameraController.inputEnabled && dragPointerId !== null) finishDragging(dragPointerId);
+        deltaSeconds = Math.min(0.1, deltaSeconds);
+        if (recentering) {
+          recenterElapsed += deltaSeconds;
+          const progress = clamp(recenterElapsed / recenterDuration, 0, 1);
+          const eased = 1 - (1 - progress) ** 3;
+          currentYawOffset = recenterFromYaw * (1 - eased);
+          currentPitchOffset = recenterFromPitch * (1 - eased);
+          if (progress >= 1) {
+            currentYawOffset = 0;
+            currentPitchOffset = 0;
+            recentering = false;
+            status.textContent = '镜头已平滑回正；玩家朝向保持不变。';
+          }
+        } else {
+          const response = readClampedNumber(smoothingInput, 18);
+          const alpha = response <= 0 ? 1 : 1 - Math.exp(-response * deltaSeconds);
+          currentYawOffset += (targetYawOffset - currentYawOffset) * alpha;
+          currentPitchOffset += (targetPitchOffset - currentPitchOffset) * alpha;
         }
-      } else {
-        const response = readClampedNumber(smoothingInput, 18);
-        const alpha = response <= 0 ? 1 : 1 - Math.exp(-response * deltaSeconds);
-        currentYawOffset += (targetYawOffset - currentYawOffset) * alpha;
-        currentPitchOffset += (targetPitchOffset - currentPitchOffset) * alpha;
-      }
-      if (enabledToggle.input.checked) {
-        if (activeMode === 'first-person') {
-          if (context.cameraController.state.mode !== 'firstPerson') {
-            context.cameraController.setMode('firstPerson');
-          } else context.cameraController.applyPose();
-        } else applyOverheadPose(deltaSeconds);
-      }
-      refreshDebug();
+        if (enabledToggle.input.checked) {
+          if (activeMode === 'first-person') {
+            if (context.cameraController.state.mode !== 'firstPerson') {
+              context.cameraController.setMode('firstPerson');
+            } else context.cameraController.applyPose();
+          } else applyOverheadPose(deltaSeconds);
+        }
+        refreshDebug();
+      },
     });
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const loaded = references.current;
@@ -609,7 +614,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
       projectionRegistration.unregister();
       keyboardRegistration.dispose();
       offKeyboardChanged();
-      context.scene.onBeforeRenderObservable.remove(frameObserver);
+      stopFrameTask();
       context.canvas.removeEventListener('pointerdown', onPointerDown);
       context.canvas.removeEventListener('pointermove', onPointerMove);
       context.canvas.removeEventListener('pointerup', onPointerUp);
@@ -631,6 +636,7 @@ export const dungeonPlayerCameraLabModule: LabModule = {
 
 /** @deprecated 新 Lab 应使用 dungeon-player-camera；此 ID 仅保留旧组合配置兼容。 */
 export const dungeonFirstPersonCameraLabModule: LabModule = {
-  ...dungeonPlayerCameraLabModule,
   id: 'dungeon-first-person-camera',
+  dependencies: ['dungeon-player-camera'],
+  setup() {},
 };

@@ -72,6 +72,8 @@ export type DungeonAgentControllerConfig = Readonly<{
 }>;
 
 export type DungeonAgentRuntimeState = {
+  /** Maintained by Core start/update APIs; legacy external states may omit it. */
+  activeAgents?: Set<DungeonRuntimeAgent>;
   turnNumber: number;
   agents: DungeonRuntimeAgent[];
   agentIndexByEntityId: ReadonlyMap<string, number>;

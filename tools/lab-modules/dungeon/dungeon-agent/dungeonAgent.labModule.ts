@@ -1,3 +1,6 @@
+import { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
+import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
+import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import {
   getDungeonMovementDirectionYaw,
   resolveDungeonMovementProfile,
@@ -7,18 +10,14 @@ import {
   clearDungeonAgentControllerOverride,
   createDefaultDungeonAgentControllerRegistry,
   createDefaultDungeonAgentControllerParameters,
-  createDungeonAgentRuntimeState,
   normalizeDungeonAgentControllerParameters,
   normalizeDungeonAgentTilePointList,
   resolveDungeonAgentPriority,
   resolveDungeonAgentControllerConfig,
-  runDungeonAgentControllersAfterPlayerStep,
   setDungeonAgentControllerOverride,
   startDungeonAgentMovement,
   startDungeonAgentTurn,
   syncDungeonAgentPathReservation,
-  updateDungeonAgentControllers,
-  updateDungeonAgentMovements,
   type DungeonAgentControllerAction,
   type DungeonAgentControllerParameter,
   type DungeonAgentTilePoint,
@@ -36,7 +35,6 @@ import {
 } from '@/tools/lab-kit';
 import {
   dungeonMapChangedEvent,
-  dungeonRuntimeChangedEvent,
 } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import {
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
@@ -81,11 +79,16 @@ const lerp = (from: number, to: number, progress: number): number => from + (to 
 
 export const dungeonAgentLabModule: LabModule = {
   id: 'dungeon-agent',
-  dependencies: ['player-movement'],
+  dependencies: ['player-movement', 'dungeon-map-loader'],
   setup(context) {
+    const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
     const mapReferences = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
+    const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
+    const offPreparation = assembly.registerPreparation('dungeon-agent', runtime =>
+      new DungeonAgentSystem(runtime, controllerRegistry));
+    let agentSystem: DungeonAgentSystem | null = null;
     const agentReferenceController = createDungeonAgentRuntimeReferences();
     context.services.set(DUNGEON_AGENT_RUNTIME_SERVICE_KEY, agentReferenceController.references);
 
@@ -118,11 +121,6 @@ export const dungeonAgentLabModule: LabModule = {
     priorityInput.type = 'number';
     priorityInput.step = '1';
     priorityInput.title = '本次运行覆盖，不写回地图组件';
-    const progressWeightInput = document.createElement('input');
-    progressWeightInput.type = 'number';
-    progressWeightInput.min = '0';
-    progressWeightInput.step = '0.1';
-    progressWeightInput.title = '公式：Y + X × 移动进度；修改共享移动仲裁器配置';
     const resetPriorityButton = document.createElement('button');
     resetPriorityButton.type = 'button';
     resetPriorityButton.textContent = '恢复地图优先级';
@@ -169,7 +167,6 @@ export const dungeonAgentLabModule: LabModule = {
       resetControllerButton,
       createLabField('阵营', factionInput),
       createLabField('移动冲突优先级（本次运行）', priorityInput),
-      createLabField('移动进度权重 X（本次运行）', progressWeightInput),
       resetPriorityButton,
       createLabField('移动 / 转向耗时（秒）', durationInput),
       createLabField('手动格步移动', moveControls),
@@ -417,7 +414,7 @@ export const dungeonAgentLabModule: LabModule = {
           option.textContent = label;
           return option;
         }));
-      } else {
+      } else if (control instanceof HTMLInputElement) {
         control.type = parameter.type === 'boolean' ? 'checkbox' : parameter.type;
         if (parameter.type === 'number') {
           if (parameter.min !== undefined) control.min = String(parameter.min);
@@ -512,7 +509,6 @@ export const dungeonAgentLabModule: LabModule = {
           : '地图初始配置';
         factionInput.value = agent.binding.faction?.factionId ?? 'neutral';
         priorityInput.value = String(resolveDungeonAgentPriority(agent));
-        progressWeightInput.value = String(state?.movementResolver.config.progressWeight ?? '');
       } else {
         positionInput.value = '';
         facingInput.value = '';
@@ -525,7 +521,6 @@ export const dungeonAgentLabModule: LabModule = {
         controllerSource.value = '';
         factionInput.value = '';
         priorityInput.value = '';
-        progressWeightInput.value = '';
       }
       controllerSelect.disabled = !agent;
       movementModeSelect.disabled = !agent;
@@ -547,9 +542,9 @@ export const dungeonAgentLabModule: LabModule = {
             priority: item.binding.gridAgent.priority,
             effectivePriority: resolveDungeonAgentPriority(item),
             prioritySource: item.priorityOverride === undefined ? 'map' : 'runtime-override',
-            movementProfileId: state.traversal.actors.get(item.binding.entity.id)?.movementProfileId
+            movementProfileId: state!.traversal.actors.get(item.binding.entity.id)?.movementProfileId
               ?? item.binding.gridAgent.movementProfileId,
-            spatialFootprint: state.traversal.actors.get(item.binding.entity.id)?.spatialFootprint
+            spatialFootprint: state!.traversal.actors.get(item.binding.entity.id)?.spatialFootprint
               ?? item.binding.gridAgent.spatialFootprint
               ?? 'center',
             controllerId: resolveDungeonAgentControllerConfig(item).controllerId,
@@ -581,17 +576,6 @@ export const dungeonAgentLabModule: LabModule = {
       }
       agent.priorityOverride = value;
       status.textContent = `已将移动冲突优先级设为 ${value}（仅本次运行）。`;
-      refreshPanel();
-    });
-    progressWeightInput.addEventListener('change', () => {
-      const value = Number(progressWeightInput.value);
-      if (!state || !Number.isFinite(value) || value < 0) {
-        status.textContent = '移动进度权重 X 必须是非负有限数。';
-        refreshPanel();
-        return;
-      }
-      state.movementResolver.updateConfig({ progressWeight: value });
-      status.textContent = `已将移动进度权重 X 设为 ${value}（仅本次运行）。`;
       refreshPanel();
     });
     resetPriorityButton.addEventListener('click', () => {
@@ -644,7 +628,7 @@ export const dungeonAgentLabModule: LabModule = {
 
     const moveSelectedAgent = (direction: DungeonMovementDirection) => {
       const agent = selectedAgent();
-      if (!agent || !state || !loaded) return;
+      if (!agent || !state || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
       const result = startDungeonAgentMovement(
         state,
         loaded.runtime.map,
@@ -668,7 +652,7 @@ export const dungeonAgentLabModule: LabModule = {
 
     const turnSelectedAgent = (turn: DungeonAgentTurn) => {
       const agent = selectedAgent();
-      if (!agent || !state || !loaded) return;
+      if (!agent || !state || !loaded || assembly.isPaused || context.scheduler.isPaused) return;
       const result = startDungeonAgentTurn(state, agent.binding.entity.id, turn, movementDuration());
       status.textContent = result.started
         ? `${agent.binding.entity.name ?? agent.binding.entity.id} 开始${turn}转向。`
@@ -694,7 +678,7 @@ export const dungeonAgentLabModule: LabModule = {
       if (!agent || !state) return;
       const actor = state.traversal.actors.get(agent.binding.entity.id);
       if (!actor) return;
-      actor.movementProfileId = movementModeSelect.value;
+      state.traversal.setActorMovementProfile(actor.id, movementModeSelect.value);
       agent.navigationPlan = undefined;
       syncDungeonAgentPathReservation(state, agent);
       refreshPanel();
@@ -721,45 +705,44 @@ export const dungeonAgentLabModule: LabModule = {
       status.textContent = `已恢复 ${agent.binding.entity.name ?? agent.binding.entity.id} 的地图 Controller 配置。`;
       refreshPanel();
     });
+    controllerToggle.input.addEventListener('change', () => {
+      if (agentSystem) agentSystem.settings.controllersEnabled = controllerToggle.input.checked;
+    });
     debugToggle.input.addEventListener('change', renderMarkers);
 
-    const frameObserver = context.scene.onBeforeRenderObservable.add(() => {
-      if (!state || !loaded) return;
-      const deltaSeconds = context.engine.getDeltaTime() / 1000;
-      const completed = updateDungeonAgentMovements(state, deltaSeconds);
-      const actions = controllerToggle.input.checked
-        ? updateDungeonAgentControllers(state, loaded.runtime.map, controllerRegistry, deltaSeconds, {
-          playerTileIndex: loaded.runtime.playerPosition.tileY * loaded.runtime.map.width
-            + loaded.runtime.playerPosition.tileX,
-          reservationPenalty: 2,
-        })
-        : [];
-      state.agents.forEach(syncMarker);
-      if (!completed.length && !actions.length) return;
-      status.textContent = actions.length
-        ? describeControllerActions(actions)
-        : `${completed.length} 个 Agent 完成移动或转向。`;
-      refreshPanel();
-      publishControllerActions(actions);
-      if (completed.length) void context.communication.publish(dungeonAgentsChangedEvent, {
-        loadId: loaded.loadId,
-        entityIds: completed,
-        reason: 'movement-completed',
-      });
+    const stopFrameTask = context.scheduler.register({
+      id: 'update', phase: 'simulation', order: 200, description: '推进 Agent 动作和决策',
+      enabled: () => !assembly.isPaused,
+      run: (deltaSeconds) => {
+        if (!state || !loaded) return;
+
+        if (!agentSystem) return;
+        const { completed, actions, changed } = agentSystem.update(deltaSeconds);
+        changed.forEach(syncMarker);
+        if (!completed.length && !actions.length) return;
+        status.textContent = actions.length
+          ? describeControllerActions(actions)
+          : `${completed.length} 个 Agent 完成移动或转向。`;
+        refreshPanel();
+        publishControllerActions(actions);
+        if (completed.length) void context.communication.publish(dungeonAgentsChangedEvent, {
+          loadId: loaded.loadId,
+          entityIds: completed,
+          reason: 'movement-completed',
+        });
+      },
     });
 
     const offMapChanged = context.communication.on(dungeonMapChangedEvent, (changed) => {
       const next = mapReferences.current;
       if (!next || next.loadId !== changed.loadId) return;
       loaded = next;
-      disposeMarkers();
+      agentSystem = assembly.readPreparation<DungeonAgentSystem>(next.runtime, 'dungeon-agent');
+      agentSystem.settings.controllersEnabled = controllerToggle.input.checked;
+      state = agentSystem.state;
+      agentReferenceController.commit({ loadId: next.loadId, state });
       try {
-        state = createDungeonAgentRuntimeState(
-          next.runtime.map,
-          next.runtime.traversal,
-          next.runtime.movementResolver,
-        );
-        agentReferenceController.commit({ loadId: next.loadId, state });
+        disposeMarkers();
         populateAgentSelect();
         renderMarkers();
         status.textContent = state.agents.length
@@ -770,38 +753,30 @@ export const dungeonAgentLabModule: LabModule = {
           agentCount: state.agents.length,
         });
       } catch (error) {
-        state = null;
-        agentReferenceController.clear();
-        populateAgentSelect();
+
         status.textContent = error instanceof Error ? error.message : String(error);
       }
       refreshPanel();
     });
 
-    const offRuntimeChanged = context.communication.on(dungeonRuntimeChangedEvent, (changed) => {
-      if (!controllerToggle.input.checked || !loaded || !state || changed.loadId !== loaded.loadId) return;
-      if (changed.reason !== 'player-movement-completed'
-        && changed.reason !== 'player-relative-movement-completed') return;
-      const actions = runDungeonAgentControllersAfterPlayerStep(
-        state,
-        loaded.runtime.map,
-        controllerRegistry,
-        {
-          playerTileIndex: loaded.runtime.playerPosition.tileY * loaded.runtime.map.width
-            + loaded.runtime.playerPosition.tileX,
-          reservationPenalty: 2,
-        },
-      );
-      state.agents.forEach(syncMarker);
+    const offRuntimeChanged = playerSteps.subscribe('dungeon-agent', 200, (changed) => {
+      if (!agentSystem?.settings.controllersEnabled || !loaded || !state || changed.loadId !== loaded.loadId) return;
+
+      const actions = agentSystem?.afterPlayerStep(changed) ?? [];
+      actions.forEach(action => {
+        const index = state!.agentIndexByEntityId.get(action.entityId);
+        if (index !== undefined) syncMarker(state!.agents[index]!);
+      });
       status.textContent = `玩家格步触发第 ${state.turnNumber} 回合；${describeControllerActions(actions)}`;
       refreshPanel();
       publishControllerActions(actions);
     });
 
     return () => {
+      offPreparation();
       offMapChanged();
       offRuntimeChanged();
-      context.scene.onBeforeRenderObservable.remove(frameObserver);
+      stopFrameTask();
       panelVisibilityObserver.disconnect();
       disposeMarkers();
       agentReferenceController.clear();

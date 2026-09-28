@@ -10,7 +10,7 @@ const host = await createLab({
   title: 'Dungeon 玩家相机 Lab',
   description: '验证格步移动驱动的 DRPG 第一人称与第三人称俯视跟随，并支持运行中切换。',
   badge: 'Composable Lab · Player Camera',
-  modules: ['dungeon-config', 'dungeon-player-camera'],
+  modules: ['dungeon-config', 'dungeon-grid', 'dungeon-traversal', 'dungeon-movement', 'dungeon-obstacle', 'dungeon-player-camera'],
   catalog: dungeonLabModuleCatalog,
 });
 

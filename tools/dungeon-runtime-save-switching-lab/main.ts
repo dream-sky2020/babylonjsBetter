@@ -10,7 +10,7 @@ const host = await createLab({
   title: '地牢运行时存档切换 Lab',
   description: '修改玩家位置、朝向与阻碍状态，切换地牢后再返回，验证 dungeonSaveStates 的保存与恢复。',
   badge: 'Composable Lab · Dungeon Runtime Save',
-  modules: ['dungeon-runtime-save-switch', 'viewport-layers'],
+  modules: ['dungeon-grid', 'dungeon-traversal', 'dungeon-movement', 'dungeon-runtime-save-switch', 'viewport-layers'],
   catalog: dungeonLabModuleCatalog,
 });
 

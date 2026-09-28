@@ -138,3 +138,56 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-communication-log-entry[data-status="pending"] .lab-communication-log-status { color: #e4ca79; }
 .lab-communication-log-route { padding: 0 8px 7px; color: #7890a2; overflow-wrap: anywhere; }
 .lab-communication-log-json { max-height: 260px; border-top: 1px solid #263746; }
+.lab-deformation-rules { display: grid; gap: 7px; padding-top: 9px; border-top: 1px solid #314659; }
+.lab-deformation-rules-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #d9e9f4; font-size: 12px; }
+.lab-deformation-rules-heading small, .lab-deformation-target-count { color: #7890a2; font-size: 11px; }
+.lab-deformation-empty { margin: 0; padding: 9px; border: 1px dashed #3a5163; color: #91a7b8; font-size: 11px; line-height: 1.45; }
+.lab-deformation-rule-list { display: grid; gap: 6px; max-height: 330px; overflow: auto; }
+.lab-deformation-rule-entry, .lab-deformation-targets { min-width: 0; border: 1px solid #314659; background: #0b141c; }
+.lab-deformation-rule-entry > summary, .lab-deformation-targets > summary { padding: 8px; color: #d9e9f4; cursor: pointer; font-size: 11px; overflow-wrap: anywhere; }
+.lab-deformation-rule-entry > summary { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 7px; }
+.lab-deformation-rule-entry > summary strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-deformation-rule-ordinal { color: #7f99ac; font: 10px Consolas, monospace; }
+.lab-deformation-rule-amount { color: #6fd5a8; font-size: 10px; }
+.lab-deformation-rule-entry > summary:hover, .lab-deformation-targets > summary:hover { background: #152632; }
+.lab-deformation-rule-fields { display: grid; gap: 8px; padding: 9px; border-top: 1px solid #263746; }
+.lab-deformation-rule-fields button { height: 30px; background: #693c3c; font-size: 11px; }
+.lab-deformation-rule-fields button:hover { background: #8a4a4a; }
+.lab-deformation-rules > button { height: 32px; background: #276078; font-size: 11px; }
+.lab-deformation-rules > button:hover { background: #327b99; }
+.lab-deformation-targets > :not(summary) { margin: 8px; }
+.lab-deformation-target-count { display: block; line-height: 1.45; }
+.lab-deformation-target-list { display: grid; gap: 6px; max-height: 280px; overflow: auto; }
+.lab-deformation-target-entry { display: grid; grid-template-columns: minmax(0, 1fr) 104px; align-items: center; gap: 8px; padding: 7px; border: 1px solid #314659; background: #101a22; }
+.lab-deformation-target-entry > div { min-width: 0; }
+.lab-deformation-target-entry strong, .lab-deformation-target-entry small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lab-deformation-target-entry strong { color: #d9e9f4; font-size: 11px; }
+.lab-deformation-target-entry small { margin-top: 3px; color: #7890a2; font-size: 10px; }
+.lab-deformation-target-entry button { min-width: 0; height: 30px; padding: 0 4px; font-size: 10px; }
+.lab-overhead-transition-settings { display: grid; gap: 8px; padding: 10px; border: 1px solid #314659; background: #0b141c; }
+.lab-overhead-transition-settings > strong { color: #d9e9f4; font-size: 12px; }
+.lab-overhead-transition-controls { display: grid; gap: 8px; }
+.lab-overhead-transition-controls > .lab-switch:first-child { padding-top: 9px; border-top: 1px solid #314659; }
+.lab-overhead-transition-settings > small { color: #7890a2; font-size: 11px; line-height: 1.45; }
+
+/* System contracts remain readable inside narrow, collapsible module cards. */
+.lab-system-description {
+  margin: 8px 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(148, 163, 184, .25);
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+  font-size: 12px;
+}
+.lab-system-description summary { cursor: pointer; font-weight: 600; }
+.lab-system-description p { margin: 6px 0; line-height: 1.6; }
+.lab-execution-list + pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+.lab-system-source {
+  max-height: 420px;
+  overflow: auto;
+  white-space: pre;
+  tab-size: 2;
+  padding: 8px;
+  background: rgba(0, 0, 0, .2);
+  user-select: text;
+}

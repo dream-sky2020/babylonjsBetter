@@ -88,3 +88,16 @@ export type DungeonMovementDebugSnapshot = Readonly<{
   movementReservationsByTile: readonly Readonly<Record<string, string>>[];
   movementReservationsByPoint: readonly Readonly<Record<string, string>>[];
 }>;
+
+/** 实际移动仲裁的离散变化，不包含逐帧的进度更新。 */
+export type DungeonMovementChange = Readonly<{
+  kind: 'config-changed' | 'request-rejected' | 'request-accepted'
+    | 'rollback-started' | 'committed' | 'completed' | 'rolled-back' | 'cancelled';
+  actorId?: string;
+  requestId?: string;
+  fromTileIndex?: number;
+  toTileIndex?: number;
+  crossingPointIndex?: number;
+  blockedReason?: DungeonMoveRequestResult['blockedReason'];
+  blockingEntityIds?: readonly string[];
+}>;

@@ -15,7 +15,10 @@ app.whenReady().then(async () => {
     const smoke = await window.webContents.executeJavaScript(`new Promise((resolve, reject) => {
       let count = 0; const poll = () => {
         const text = document.body.textContent;
-        if (text.includes('shared-full') && text.includes('显示变形 · 批量控制') && !text.includes('正在初始化 Lab 模块')) return resolve('Lab started with samples');
+        if (text.includes('俯视显示') && text.includes('物体变形') && !text.includes('正在初始化 Lab 模块')) {
+          if (text.includes('shared-full')) return reject(new Error('俯视 Lab 加载了变形样例'));
+          return resolve('Overhead Lab started with deformation controls and no samples');
+        }
         if (++count > 150) return reject(new Error(document.body.textContent.slice(-3000)));
         setTimeout(poll, 100);
       }; poll();

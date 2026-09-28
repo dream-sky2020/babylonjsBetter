@@ -4,7 +4,7 @@ import {
   validateDungeonTransitionDocument,
 } from '@/core/dungeon-transition';
 import { resolveDungeonDocumentPlayerSpawn } from '@/core/dungeon-player-spawn';
-import { createDungeonRuntime } from '@/core/dungeon-runtime';
+import { DungeonRuntimeAssembly, DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
 import {
   applyDungeonRuntimeSaveState,
   createDungeonRuntimeSaveState,
@@ -102,9 +102,16 @@ export const dungeonMapLoaderLabModule: LabModule = {
   dependencies: ['dungeon-libraries'],
   setup(context) {
     const librariesReference = context.services.get<DungeonLabLibrariesReference>(DUNGEON_LIBRARIES_SERVICE_KEY);
+    const assembly = new DungeonRuntimeAssembly();
+    context.services.set(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
     const referenceController = createDungeonMapLoaderReferences();
     context.services.set(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, referenceController.references);
     const panel = context.ui.addPanel('dungeon-map-loader', '当前地图');
+    const sessionStatus = createLabJson('');
+    const refreshSessionStatus = () => { sessionStatus.textContent = JSON.stringify(assembly.inspect(), null, 2); };
+    const offSessionStatus = assembly.subscribe(refreshSessionStatus);
+    refreshSessionStatus();
+    panel.content.append(createLabField('Session 准备顺序与状态', sessionStatus));
     const mapKey = document.createElement('input');
     mapKey.readOnly = true;
     const sceneKey = document.createElement('input');
@@ -125,6 +132,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
     );
 
     let generation = 0;
+    let pendingLoad: AbortController | null = null;
     let activeLoadId = 0;
     let runtimeRevision = 0;
     let activePresetKey: string | null = null;
@@ -232,7 +240,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         },
         restore: (states, saved) => {
           Object.keys(states).forEach((key) => delete states[key]);
-          Object.entries(saved).forEach(([key, state]) => { states[key] = structuredClone(state); });
+          Object.entries(saved).forEach(([key, state]) => { states[key] = structuredClone(state as DungeonRuntimeSaveState); });
         },
       },
     });
@@ -242,78 +250,111 @@ export const dungeonMapLoaderLabModule: LabModule = {
         const libraries = librariesReference.require();
         const preset = libraries.maps[presetKey];
         if (!preset) throw new Error(`找不到地牢预设“${presetKey}”。`);
-        if (!restoringLabState) {
-          saveActiveRuntime();
-          captureActiveMapDelta();
-        }
         const loadId = ++generation;
-        const baseDocument = preset;
-        const liveDocument = dungeonMapDeltaStore.restore(presetKey, baseDocument);
-        const transitionIssues = validateDungeonTransitionDocument(liveDocument);
-        if (transitionIssues.length) {
-          throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
-        }
-        const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
-        const instance = await createDungeonDocumentSceneEnvironmentAsync(
-          context.scene, liveDocument, libraries.environments, { shadowQualityPresets: libraries.shadows },
-        );
-        if (loadId !== generation) { instance.dispose(); return false; }
+        assembly.beginSession(loadId);
+        const releasePause = assembly.acquirePause();
         try {
-          const spawn = resolveDungeonDocumentPlayerSpawn(liveDocument, libraries.environments);
-          const runtime = createDungeonRuntime(liveDocument, spawn);
-          const saved = dungeonSaveStates[presetKey];
-          const warnings = saved
-            ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
-              spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height,
-              position.tileX, position.tileY,
-            ).center).warnings
-            : [];
-          if (options?.entranceId) {
-            const entrance = findDungeonDocumentEntrance(liveDocument, options.entranceId);
-            applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
+          if (!restoringLabState) {
+            saveActiveRuntime();
+            captureActiveMapDelta();
           }
-          const obstacles = runtime.obstacles;
-          const previousPresetKey = activePresetKey;
-          const previousInstance = activeInstance;
-          activeInstance = instance;
-          activePresetKey = presetKey;
-          activeRuntime = runtime;
-          activeSpawn = spawn;
-          activeBaseDocument = baseDocument;
-          activeLiveDocument = liveDocument;
-          activeLoadId = loadId;
-          runtimeRevision = 0;
-          referenceController.commit({
-            loadId,
-            presetKey,
-            document: liveDocument,
-            map: createDungeonMapCanvasView(liveDocument),
-            sceneBinding: binding,
-            spawn,
-            runtime,
-            obstacles,
-          });
-          loadedStateRegistration.markChanged();
-          mapKey.value = presetKey;
-          sceneKey.value = binding.component.presetKey;
-          json.textContent = JSON.stringify({ loadId, presetKey, mapId: liveDocument.identity.id,
-            mapSize: [liveDocument.grid.width, liveDocument.grid.height],
-            obstacleIds: obstacles.map(({ entity }) => entity.id), runtimeSaveWarnings: warnings }, null, 2);
-          refreshDeltaPanel();
-          status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;
-          await context.communication.publish(
-            dungeonMapChangedEvent,
-            { loadId, revision: runtimeRevision, previousPresetKey, presetKey,
-              mapId: liveDocument.identity.id,
-              width: liveDocument.grid.width,
-              height: liveDocument.grid.height },
-          );
-          previousInstance?.dispose();
-          return true;
-        } catch (error) { instance.dispose(); throw error; }
+          pendingLoad?.abort();
+          const abort = new AbortController();
+          pendingLoad = abort;
+          const baseDocument = preset;
+          const liveDocument = dungeonMapDeltaStore.restore(presetKey, baseDocument);
+          const transitionIssues = validateDungeonTransitionDocument(liveDocument);
+          if (transitionIssues.length) {
+            throw new Error(`地图“${presetKey}”的入口/出口配置无效：${transitionIssues.map(({ message }) => message).join(' ')}`);
+          }
+          const binding = resolveDungeonDocumentSceneEnvironment(liveDocument, libraries.environments);
+          let instance: DungeonMapSceneEnvironmentInstance;
+          try {
+            instance = await createDungeonDocumentSceneEnvironmentAsync(
+              context.scene, liveDocument, libraries.environments,
+              { shadowQualityPresets: libraries.shadows, signal: abort.signal },
+            );
+          } catch (error) {
+            if (abort.signal.aborted || loadId !== generation) return false;
+            throw error;
+          } finally {
+            if (pendingLoad === abort) pendingLoad = null;
+          }
+          if (loadId !== generation) { instance.dispose(); return false; }
+          let committed = false;
+          try {
+            const spawn = resolveDungeonDocumentPlayerSpawn(liveDocument, libraries.environments);
+            const runtime = assembly.create(liveDocument, spawn);
+            const saved = dungeonSaveStates[presetKey];
+            const warnings = saved
+              ? applyDungeonRuntimeSaveState(runtime, saved, (position) => resolveDungeonMapTileWorldLayout(
+                spawn.sceneEnvironmentComponent, liveDocument.grid.width, liveDocument.grid.height,
+                position.tileX, position.tileY,
+              ).center).warnings
+              : [];
+            if (options?.entranceId) {
+              const entrance = findDungeonDocumentEntrance(liveDocument, options.entranceId);
+              applyDungeonEntranceToRuntime(runtime, entrance, spawn.sceneEnvironmentComponent);
+            }
+            assembly.prepare(runtime, loadId);
+            const mapView = createDungeonMapCanvasView(liveDocument);
+            const obstacles = runtime.obstacles;
+            const previousPresetKey = activePresetKey;
+            const previousInstance = activeInstance;
+            activeInstance = instance;
+            activePresetKey = presetKey;
+            activeRuntime = runtime;
+            activeSpawn = spawn;
+            activeBaseDocument = baseDocument;
+            activeLiveDocument = liveDocument;
+            activeLoadId = loadId;
+            runtimeRevision = 0;
+            referenceController.commit({
+              loadId,
+              presetKey,
+              document: liveDocument,
+              map: mapView,
+              sceneBinding: binding,
+              spawn,
+              runtime,
+              obstacles,
+            });
+            committed = true;
+            assembly.commitSession(loadId);
+            try {
+              loadedStateRegistration.markChanged();
+              mapKey.value = presetKey;
+              sceneKey.value = binding.component.presetKey;
+              json.textContent = JSON.stringify({ loadId, presetKey, mapId: liveDocument.identity.id,
+                mapSize: [liveDocument.grid.width, liveDocument.grid.height],
+                obstacleIds: obstacles.map(({ entity }) => entity.id), runtimeSaveWarnings: warnings }, null, 2);
+              refreshDeltaPanel();
+              status.textContent = warnings.length ? warnings.join(' ') : `地图已切换到“${preset.identity.name}”。`;
+            } catch (error) {
+              console.error('Session 已提交，但 Loader 面板更新失败。', error);
+            }
+            try {
+              await context.communication.publish(
+                dungeonMapChangedEvent,
+                { loadId, revision: runtimeRevision, previousPresetKey, presetKey,
+                  mapId: liveDocument.identity.id,
+                  width: liveDocument.grid.width,
+                  height: liveDocument.grid.height },
+              );
+            } catch (error) {
+              console.error('Session 已提交，但 Lab 观察界面更新失败。', error);
+            } finally {
+              previousInstance?.dispose();
+            }
+            return loadId === generation;
+          } catch (error) { if (!committed) instance.dispose(); throw error; }
+        } catch (error) { assembly.failSession(loadId, error); throw error; }
+        finally { releasePause(); }
       },
       dispose() {
         generation += 1;
+        pendingLoad?.abort();
+        pendingLoad = null;
         saveActiveRuntime();
         try { captureActiveMapDelta(); } catch (error) { console.error('无法保存当前地图 Delta。', error); }
         activeInstance?.dispose();
@@ -366,9 +407,12 @@ export const dungeonMapLoaderLabModule: LabModule = {
       dispose() {
         deltaRefreshButton.removeEventListener('click', refreshDelta);
         loader.dispose();
+        offSessionStatus();
+        assembly.dispose();
         runtimeStatesRegistration?.unregister();
         deltaStateRegistration?.unregister();
         loadedStateRegistration.unregister();
+        context.services.delete(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
         context.services.delete(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
       },
     };

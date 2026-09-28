@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { MeshBuilder, NullEngine, Ray, Scene, StandardMaterial, Vector3 } from '@babylonjs/core';
-import { DEFAULT_DEFORMATION_SETTINGS, DEFAULT_VISUAL_DEFORMATION, deformPosition, resolveDeformation, resolveTargetStrength, parseDeformationSettings } from './deformation.ts';
+import { DEFAULT_DEFORMATION_SETTINGS, DEFAULT_VISUAL_DEFORMATION, deformPosition, resolveDeformation, resolveTargetStrength, parseDeformationSettings, selectDeformationView } from './deformation.ts';
 import { getVisualDeformationRegistry } from './visualDeformationRegistry.ts';
 import { meshDeformationMatrices } from './deformationMaterial.ts';
 import { createEntityContainer } from '../entity/entity.utils.ts';
@@ -13,7 +13,7 @@ import { readDeformationSettings } from './deformation.document.ts';
 const near = (a: number, b: number) => assert.ok(Math.abs(a - b) < 1e-5, `${a} != ${b}`);
 const view = { pitchDeg: 45, yawDeg: 0, projection: 'orthographic' as const };
 test('map component uses existing V3 persistence and absent or disabled entities preserve old scenes', () => {
-  const settings = { ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true };
+  const settings = { ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true, restoreOutsideOverhead: true };
   const entity = { id: 'overhead', entityType: 'dungeon-overhead-view', enabled: true,
     components: [{ ...settings, id: 'deformation', type: 'visual-deformation', version: 1 }] };
   const make = (entities: typeof entity[]) => migrateDungeonMapToDocumentV2({ presetKey: 'test', name: 'Test',
@@ -45,6 +45,16 @@ test('selection precedence is deterministic and settings reject invalid values',
   near(resolveTargetStrength(target, settings), .2);
   assert.throws(() => parseDeformationSettings({ ...settings, config: { ...settings.config, strength: Infinity } }));
   assert.throws(() => parseDeformationSettings({ ...settings, rules: [{ selector: 'name', value: 'a', strength: 1 }] }));
+  assert.throws(() => parseDeformationSettings({ ...settings, restoreOutsideOverhead: 'yes' }));
+});
+test('deformation can stay active outside overhead and legacy settings default to retaining it', () => {
+  const settings = { ...structuredClone(DEFAULT_DEFORMATION_SETTINGS), enabled: true };
+  const configured = { ...view, pitchDeg: 30 };
+  assert.equal(selectDeformationView(settings, view, configured), view);
+  assert.equal(selectDeformationView(settings, null, configured), configured);
+  assert.equal(selectDeformationView({ ...settings, restoreOutsideOverhead: true }, null, configured), null);
+  assert.equal(selectDeformationView(settings, null, null), null);
+  assert.equal(parseDeformationSettings({ ...settings, restoreOutsideOverhead: undefined }).restoreOutsideOverhead, false);
 });
 test('shared materials remain independent, GPU matrices match picking/bounds, leases restore and late targets inherit', () => {
   const engine = new NullEngine(); const scene = new Scene(engine);

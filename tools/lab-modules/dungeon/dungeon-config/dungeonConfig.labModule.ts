@@ -18,7 +18,7 @@ export const dungeonConfigLabModule: LabModule = {
     const status = createLabStatus('正在读取配置……');
     panel.content.append(createLabField('地图预设', select), loadButton, status);
 
-    const loadSelected = async () => {
+    const loadSelected = async (required = false) => {
       const catalog = await context.communication.request(dungeonMapCatalogRequest, undefined);
       const preset = catalog.find(({ presetKey }) => presetKey === select.value);
       if (!preset) return;
@@ -35,6 +35,7 @@ export const dungeonConfigLabModule: LabModule = {
         const message = error instanceof Error ? error.message : String(error);
         status.textContent = message;
         context.ui.setStatus(message, true);
+        if (required) throw error;
       } finally {
         loadButton.disabled = false;
       }
@@ -51,7 +52,7 @@ export const dungeonConfigLabModule: LabModule = {
           return option;
         }));
         if (!select.options.length) throw new Error('配置中没有可用地图预设。');
-        await loadSelected();
+        await loadSelected(true);
       },
     };
   },

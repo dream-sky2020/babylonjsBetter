@@ -29,6 +29,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const { LabKeyboardRouter } = await server.ssrLoadModule('/tools/lab-kit/keyboard/LabKeyboardRouter.ts');
     const { LabViewportManager } = await server.ssrLoadModule('/tools/lab-kit/labViewportManager.ts');
     const { dungeonLabModuleCatalog: catalog } = await server.ssrLoadModule('/tools/lab-modules/dungeon/index.ts');
+    const { getVisualDeformationRegistry } = await server.ssrLoadModule('/core/render-deformation/visualDeformationRegistry.ts');
     const definitions = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     const viewEntity = definitions.entityTypeRegistry.get('dungeon-overhead-view');
     assert.deepEqual(viewEntity.allowedContainers, ['map']);
@@ -36,6 +37,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     assert.equal(declared.components[0].pitchDeg, 45);
     const { dungeonMapChangedEvent } = await server.ssrLoadModule('/tools/lab-modules/dungeon/dungeon-map-loader/dungeonMapLoader.protocol.ts');
     engine = new NullEngine(); scene = new Scene(engine); keyboard = new LabKeyboardRouter(null); labState = new LabState();
+    const deformationRegistry = getVisualDeformationRegistry(scene);
     const camera = new ArcRotateCamera('camera', 1, 1, 40, Vector3.Zero(), scene); c = createCameraLabController(camera);
     const canvas = document.querySelector('canvas'); canvas.hasPointerCapture = () => false;
     viewport = new LabViewportManager(document.body, canvas, c, () => {});
@@ -47,7 +49,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     };
     const context = { engine, scene, canvas, camera, cameraController: c, keyboard, labState, viewport, services, communication,
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')) };
-    for (const id of ['dungeon-player-camera', 'player-movement', 'dungeon-grid-debug', 'dungeon-obstacle', 'dungeon-overhead-view']) cleanups.push(catalog[id].setup(context));
+    for (const id of ['dungeon-player-camera', 'player-movement', 'dungeon-grid-debug', 'dungeon-obstacle', 'dungeon-overhead-view', 'dungeon-visual-deformation']) cleanups.push(catalog[id].setup(context));
     const coordinator = services.get('dungeon:overhead-view'); const playerCamera = services.get('dungeon:player-camera');
     const environment = { tileSize: [2, 1, 2], tileSpacing: [2, 2], mapOffset: [10, 0, 20], mapAnchorMode: 'first-tile' };
     const map = createDungeonMapData({ id: 'test', width: 4, height: 4 });
@@ -69,6 +71,9 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     c.setVerticalFovDeg(73);
     const playerData = JSON.stringify({ p: runtime.playerPosition, w: runtime.playerWorldPosition, y: runtime.playerWorldRotationY, m: runtime.playerMovement });
     coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW, pitchDeg: 30, orthographicSize: 11 });
+    assert.equal(services.get('dungeon:visual-deformation').settings.enabled, true);
+    assert.equal(deformationRegistry.controlled, true);
+    assert.equal(coordinator.configuredView.config.pitchDeg, 30);
     near(coordinator.view.scaleZ, 2); assert.equal(camera.mode, ArcRotateCamera.ORTHOGRAPHIC_CAMERA); near(camera.orthoTop, 11);
     near(camera.getTarget().z, 24); near(c.state.orbitPitchDeg, 30);
     const roots = () => ['player_display_mapping', `dungeon_grid_debug_${refs.current.loadId}`, `obstacle_debug_${refs.current.loadId}`].map(name => scene.getTransformNodeByName(name));
@@ -92,15 +97,38 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const overlay = viewport.openHtmlLayer({ id: 'pause', title: 'Pause', mode: 'overlay' }); overlay.show();
     keyboard.route({ phase: 'keydown', code: 'KeyV', key: 'v', repeat: false, targetKind: 'canvas' }); assert.equal(playerCamera.mode, 'overhead');
     overlay.hide(); playerCamera.setMode('first-person'); assert.equal(coordinator.view, null);
-    roots().forEach(root => near(root.scaling.z, 1)); near(c.activeCamera.position.z, 22); near(c.activeCamera.fov, 73 * Math.PI / 180);
+    assert.equal(coordinator.configuredView.config.pitchDeg, 30);
+    roots().forEach(root => { near(root.scaling.z, 2); near(root.position.z, -20); });
+    near(c.activeCamera.position.z, 24); near(c.activeCamera.fov, 73 * Math.PI / 180);
+    coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW, pitchDeg: 30, orthographicSize: 11, restoreDisplayInFirstPerson: true });
+    roots().forEach(root => { near(root.scaling.z, 1); near(root.position.z, 0); }); near(c.activeCamera.position.z, 22);
+    coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW, pitchDeg: 30, orthographicSize: 11 });
+    roots().forEach(root => near(root.scaling.z, 2)); near(c.activeCamera.position.z, 24);
+    const overheadPanel = document.querySelector('[data-lab-panel="dungeon-overhead-view"]');
+    const displayRestore = [...overheadPanel.querySelectorAll('label')].find(row => row.textContent.includes('格子与玩家显示原比例')).querySelector('input');
+    const deformationRestore = overheadPanel.querySelector('[data-deformation-restore-outside-overhead]');
+    assert.ok(deformationRestore);
+    const applyOverhead = [...overheadPanel.querySelectorAll('button')].find(button => button.textContent === '应用测试草稿');
+    displayRestore.checked = true; deformationRestore.checked = true; applyOverhead.click();
+    assert.equal(coordinator.configuredView.config.restoreDisplayInFirstPerson, true);
+    assert.equal(services.get('dungeon:visual-deformation').settings.restoreOutsideOverhead, true);
+    assert.equal(deformationRegistry.controlled, false);
+    roots().forEach(root => near(root.scaling.z, 1));
+    displayRestore.checked = false; deformationRestore.checked = false; applyOverhead.click();
+    assert.equal(services.get('dungeon:visual-deformation').settings.restoreOutsideOverhead, false);
+    assert.equal(deformationRegistry.controlled, true);
+    roots().forEach(root => near(root.scaling.z, 2));
     playerCamera.setMode('overhead'); near(coordinator.view.scaleZ, 2);
     const bindingToggle = [...document.querySelectorAll('label')].find(row => row.textContent.includes('绑定相机到玩家')).querySelector('input');
     bindingToggle.checked = false; bindingToggle.dispatchEvent(new dom.window.Event('change'));
     assert.equal(coordinator.view, null); roots().forEach(root => near(root.scaling.z, 1));
     assert.equal(camera.mode, ArcRotateCamera.PERSPECTIVE_CAMERA); near(camera.getTarget().z, 22);
     bindingToggle.checked = true; bindingToggle.dispatchEvent(new dom.window.Event('change')); near(coordinator.view.scaleZ, 2);
-    coordinator.setEnabled(false); assert.equal(playerCamera.mode, 'first-person'); roots().forEach(root => near(root.scaling.z, 1));
-    coordinator.setEnabled(true); near(coordinator.view.scaleZ, 2);
+    coordinator.setEnabled(false); assert.equal(coordinator.configuredView, null);
+    assert.equal(services.get('dungeon:visual-deformation').settings.enabled, true);
+    assert.equal(deformationRegistry.controlled, false);
+    assert.equal(playerCamera.mode, 'first-person'); roots().forEach(root => near(root.scaling.z, 1));
+    coordinator.setEnabled(true); near(coordinator.view.scaleZ, 2); assert.equal(deformationRegistry.controlled, true);
     // Rebuilt consumer resources consume the same mapping with a new map origin.
     const nextEnvironment = { ...environment, mapOffset: [0, 0, 0] };
     refs.current = { ...refs.current, loadId: 2, spawn: { ...spawn, sceneEnvironmentComponent: nextEnvironment }, sceneBinding: { component: nextEnvironment } };
@@ -121,6 +149,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     assert.equal(playerCamera.mode, 'overhead'); near(camera.orthoTop, 9); near(camera.fov, 57 * Math.PI / 180);
     playerCamera.setMode('first-person');
     coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW });
+    const cleanupDeformation = cleanups.pop(); cleanupDeformation();
     const cleanupCoordinator = cleanups.pop(); cleanupCoordinator();
     roots().forEach(root => near(root.scaling.z, 1)); assert.equal(playerCamera.mode, 'first-person');
     while (cleanups.length) cleanups.pop()();

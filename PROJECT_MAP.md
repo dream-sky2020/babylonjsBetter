@@ -1,5 +1,29 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
+
+入口仍为 tools/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。tools/lab-modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
+
+core/system-runtime/SystemRunner.ts 提供 simulation / presentation / debug 显式阶段和稳定任务顺序，不依赖 Babylon 或 DOM。模拟暂停独立于 Viewport 绘制暂停；现有玩家、Agent、玩家相机与移动 Debug 已从各自 onBeforeRender 回调迁入运行器。新增 ServiceToken 将新增服务的 Key 与类型绑定；带 manifest 的模块必须直接声明其读取服务的所有者。未迁移模块保留旧依赖闭包兼容行为。
+
+core/dungeon-runtime/dungeonRuntimeAssembly.ts 是每 Host 的显式系统安装及 Session 准备器。障碍、通行、移动模块分别安装工厂；Loader 不再无条件创建这些能力，也不再预先注册玩家占位。玩家系统准备时注册玩家 Actor。旧 createDungeonRuntime() 仍为其他调用方提供完整 Runtime；组合装配显式传入 systems，缺失能力的兼容属性访问会报错，不会偷偷创建对象。
+
+core/dungeon-player-movement/dungeonPlayerSystem.ts 和 core/dungeon-agent/dungeonAgentSystem.ts 是不依赖 DOM 的系统实现；模块负责安装、输入适配与调试。两者在地图候选 Runtime 恢复存档及入口后、原子提交前准备，Agent 初始化失败不能伪装为地图加载成功。Loader 面板区分模块安装与 Session 准备/失败/就绪，加载期间暂停游戏推进并取消被后续请求取代的资源加载。
+
+DungeonPlayerStepEvents 携带不可变 from/to、loadId、stepId、可用时的 requestId。必需格步规则同步执行，传送先于 Agent；传送可阻止续步。Lab 的 dungeon.player.step-completed 只记录观察事实，runtime.changed 不再承担 Agent 回合和入口触发的规则职责。
+
+Agent 活动动作使用活动集合；连续 Controller 决策默认 100ms 一次，每次寻路预算默认 2，玩家格步 Controller 仍即时触发。Traversal/Movement Debug 合并同一帧的变化，按 Actor/格子缓存并增量更新标记；折叠摘要不生成 JSON，Actor 下拉框仅在集合变化后刷新。
+
+本阶段保留既有相机、俯视、变形及传送 UI 适配代码，未实现运行中任意系统热插拔、通用 ECS 存储、全局到期任务堆或完整只读 Runtime 接口。系统声明中的说明性文字与 Core 引用仍需随实现维护，实际依赖、服务关系和周期任务由运行记录显示。未运行测试、构建或浏览器；只进行了源码检查和不产物的 TypeScript 静态类型检查，全仓既有类型错误仍需独立处理。
+
+
+## 2026-09-28：Dungeon 格子、通行与移动 Lab 拆分
+
+`tools/lab-modules/dungeon/dungeon-grid/` 负责格坐标、索引、世界位置查询和格子 Debug；旧 `dungeon-grid-debug` ID 作为无 UI 的兼容依赖，格子 View Service Key 与显示偏好保持原值。`dungeon-traversal/` 展示 Actor 实占位、路径软预约和单步通行结果；`dungeon-movement/` 展示目标格临时预留、交叉点预约、移动请求和共享仲裁器本次运行参数。`dungeon-obstacle/` 只绘制静态阻碍，玩家与 Agent 面板继续管理各自的输入和控制器。俯视显示分别接入三层 Debug View Consumer。
+
+
+Core 的 `DungeonTraversalWorld` 与 `DungeonMovementResolver` 在离散状态变化时发同步订阅通知，Lab 模块将其转换成带 `loadId` 的类型化 Communication 事件；同一次移动的请求与实占位提交用 `requestId` 关联。逐帧动画仍直接推进 Core，不逐帧广播或扫描全图 Debug。模块 Session 读取 Loader 的原子引用，切图时释放旧 Core 订阅。通信与状态边界见 `tools/lab-kit/README.md`。
+
 ## 2026-09-27：可选世界对象俯视顶点变形
 
 `core/render-deformation/` 新增 Scene 级显示对象注册表与可释放的独占控制句柄，统一拥有自动俯角补偿/手动倾斜公式、分组/标签/类型/对象规则、材质绑定、显示包围盒、仿射拾取和深度适配。当前俯角继续从 `dungeon-overhead-view` 的有效配置订阅，不另存相机角度；地面格距仍由 `core/dungeon-view` 管理，物体变形不修改 Runtime、节点姿态、原始顶点或粒子模拟。
@@ -8,9 +32,9 @@ Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通�
 
 阴影使用 ShadowDepthWrapper；DepthRenderer 通过 render-pass 材质覆盖复用同一变形与 alpha，销毁时恢复原覆盖。自动深度发现和粒子模板注入封装 Babylon 9.11 的版本依赖。当前覆盖 WebGL/GLSL；实例批次、全朝向 Billboard、未知材质和 WebGPU 会明确排除，PrePass/G-buffer 未适配时保持原形。详细边界见 `core/render-deformation/README.md`。
 
-可选 `tools/lab-modules/dungeon/dungeon-visual-deformation/` 依赖俯视模块与 Map Loader，提供批量面板和 `dungeon:visual-deformation` 服务。正式设置为原地图级俯视 Entity 上的 `visual-deformation` Component v1，沿现有地图 V3 保存通道持久化；测试草稿注册为 LabState `dungeon-visual-deformation/settings` v1 `{draft}`。临时对象规则不保存；无组件/草稿默认关闭。进入第一人称、无有效俯视或卸载恢复原形，输入与 Viewport 沿用现有所有权。
+可选 `tools/lab-modules/dungeon/dungeon-visual-deformation/` 依赖俯视模块与 Map Loader，提供“物体变形”面板和 `dungeon:visual-deformation` 服务。正式设置为原地图级俯视 Entity 上的 `visual-deformation` Component v1，沿现有地图 V3 保存通道持久化；测试草稿注册为 LabState `dungeon-visual-deformation/settings` v1 `{draft}`。临时对象规则不保存；无组件/草稿时使用默认变形参数，随有效俯视配置自动生效。地图组件的通用禁用状态和旧草稿的 `enabled: false` 仍生效。默认在第一人称及玩家绑定关闭时沿用已配置的俯视角保持变形；地图组件或草稿的 `restoreOutsideOverhead` 可改为离开俯视时恢复原形。Lab 中变形模块只把离开俯视时恢复原形开关挂到“俯视显示”面板，面板的应用按钮会调用变形模块原有草稿通道；强度与规则仍在“物体变形”面板，未加载变形模块时不显示该控件。无有效俯视配置或模块卸载始终释放变形控制并恢复原形，输入与 Viewport 沿用现有所有权。
 
-`tools/dungeon-overhead-view-lab/` 增加共享材质双方柱、骨骼模型和 2D Shader 示例，默认规则只控制示例组。新增 `test:deformation`、`typecheck:deformation`、`test:deformation-webgl`；WebGL 验证覆盖真实着色、共享材质隔离、恢复、阴影/深度、CPU/GPU 粒子与完整 Lab 启动。继续使用 `build:camera-labs` 构建入口；没有新开另一套场景或相机系统。
+共享材质双方柱、骨骼模型和 2D Shader 示例只由 `tools/dungeon-overhead-view-lab/verification.html` 独立渲染验证页创建；俯视 Lab 入口保留变形模块与批量面板，但不创建示例，也不启用针对示例的变形草稿。地图组件配置与手动应用的草稿仍可控制场景对象变形。新增 `test:deformation`、`typecheck:deformation`、`test:deformation-webgl`；WebGL 验证覆盖真实着色、共享材质隔离、恢复、阴影/深度、CPU/GPU 粒子与俯视 Lab 启动。继续使用 `build:camera-labs` 构建入口；没有新开另一套场景或相机系统。
 
 ## 2026-09-27：可选 Dungeon 俯视显示协调与测试 Lab
 
@@ -18,7 +42,7 @@ Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通�
 
 可选 `tools/lab-modules/dungeon/dungeon-overhead-view/` 是唯一协调者：读取组件或显式测试草稿，通过消费者各自提供的 `*:view` 服务 acquire/apply/release。`player-movement` 只变换玩家标记父节点，`dungeon-grid-debug` 与 `dungeon-obstacle` 只变换 Debug 根（含边界、实占位、虚占位和预约）；相机通过现有玩家相机模块及公共 CameraLabController 应用投影、角度和映射后的跟随目标。Runtime 坐标、格子拓扑、碰撞和移动耗时不变；场景美术不参与本轮映射。
 
-没有协调模块，或没有启用的组件且没有测试草稿时，保持原布局。进入第一人称或关闭玩家绑定时暂停所有显示映射，返回俯视时恢复；清除配置、切换到无配置地图或卸载时释放句柄并恢复接管前的玩家模式及独立相机参数。角度由声明驱动，不从相机交互反向推算。Viewport 与键盘所有权沿原输入路径；没有新增相机、resize 或输入监听。
+没有协调模块，或没有启用的组件且没有测试草稿时，保持原布局。进入第一人称时默认保留格子、障碍与占位 Debug、玩家标记及相机位置的显示映射，俯视相机投影和角度暂停；配置 `restoreDisplayInFirstPerson` 可改为切换时恢复原比例。关闭玩家绑定、清除配置、切换到无配置地图或卸载时释放显示映射并恢复接管前的玩家模式及独立相机参数。角度由声明驱动，不从相机交互反向推算。Viewport 与键盘所有权沿原输入路径；没有新增相机、resize 或输入监听。
 
 协调设置以 `dungeon-overhead-view/settings` v1 注册到 LabState，保存 `{enabled,draft}`；草稿通过 Snapshot 显式导入/导出，不写入地图。正式配置由地图级组件保存。新增 `/tools/dungeon-overhead-view-lab/index.html`，已接首页、Vite 和 `build:camera-labs`，默认独立 45° 正交草稿并打开两个 Debug 层。它加载既有地图，不改写地图配置。
 
@@ -640,13 +664,17 @@ config/monsterDisplayConfigs.json
 | `dungeon-libraries` | 无 | 只读加载地图、场景环境和阴影配置库 |
 | `dungeon-map-loader` | `dungeon-libraries` | 组合地图场景、Spawn、Runtime 与阻碍 Core，原子提交只读活引用快照 |
 | `dungeon-config` | `dungeon-map-loader` | 普通 Dungeon Lab 的地图选择器，调用 loader 切换地图 |
-| `dungeon-grid-debug` | `dungeon-map-loader` | 消费活地图与 Scene Binding，重建全部格子的 3D Debug |
+| `dungeon-grid` | `dungeon-map-loader` | 格坐标与世界布局查询、格子 3D Debug；旧 `dungeon-grid-debug` ID 是兼容入口 |
+| `dungeon-traversal` | `dungeon-map-loader`、`dungeon-obstacle` | 安装通行世界、实占位、路径软预约与变化通知 |
+| `dungeon-movement` | `dungeon-map-loader`、`dungeon-traversal` | 安装移动仲裁器、预留及变化通知 |
 | `player-spawn` | `dungeon-map-loader` | 读取 Spawn 服务并展示出生格 Debug |
 | `dungeon-runtime` | `dungeon-map-loader` | 读取当前 `DungeonRuntime` 服务 |
-| `dungeon-obstacle` | `dungeon-map-loader` | 读取阻碍、Runtime 和 Spawn 服务，提供启停面板和 Debug |
-| `player-movement` | `dungeon-grid-debug`、`dungeon-obstacle` | 操作当前 Session 的 Runtime，并在 Session 切换时重建玩家 Debug |
-| `dungeon-first-person-camera` | `player-movement` | 将玩家连续世界姿态绑定到默认 Camera System，并提供不改变玩家朝向的自由观察与回正 |
-| `dungeon-transition` | `player-movement` | 解析 enter/interact/move-attempt 出口、在阻挡反馈前接管移动意图、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
+| `dungeon-obstacle` | `dungeon-map-loader` | 安装静态阻碍扫描工厂、状态启停与 Debug |
+| `player-movement` | `dungeon-map-loader`、`dungeon-movement` | 安装玩家 Core 系统，输入适配、格步事实与 Debug |
+| `dungeon-player-camera` | `player-movement`、`dungeon-map-loader` | 玩家相机系统，在 presentation 阶段更新 |
+| `dungeon-first-person-camera` | `dungeon-player-camera` | 旧 ID 兼容入口，不重复安装相机 |
+| `dungeon-agent` | `player-movement`、`dungeon-map-loader` | 安装 Agent Core 系统，候选 Session 准备、决策与活动动作推进 |
+| `dungeon-transition` | `player-movement`、`dungeon-map-loader`、`dungeon-libraries` | 解析 enter/interact/move-attempt 出口、在阻挡反馈前接管移动意图、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
 | `dungeon-runtime-save-switch` | `dungeon-obstacle`、`player-movement` | 人工切换地牢并查询 Loader 保存的运行态 |
 
 依赖自动展开的主链：
@@ -654,10 +682,13 @@ config/monsterDisplayConfigs.json
 ```text
 dungeon-libraries → dungeon-map-loader
                          ├→ dungeon-config
-                         ├→ dungeon-grid-debug
+                         ├→ dungeon-grid
+                         ├→ dungeon-traversal
+                         ├→ dungeon-movement
                          ├→ player-spawn
                          ├→ dungeon-runtime
-                         └→ dungeon-obstacle → player-movement
+                         ├→ dungeon-obstacle
+                         └→ player-movement → dungeon-player-camera / dungeon-transition / dungeon-agent
 ```
 
 装载只允许一个提交事件：
@@ -671,7 +702,7 @@ lab:ready / 用户选择地牢
   → dungeon:runtime-changed（移动、转向或阻碍状态变化时重复）
 ```
 
-跨模块长期对象使用所有者定义的稳定 Key 存入服务注册表：Libraries 使用 `DUNGEON_LIBRARIES_SERVICE_KEY`；Loader 使用 `DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY` 注册一个稳定 Reader。所有消费者在 `setup()` 时取得一次 Reader，并使用 Loader 原子提交的同一份 `current`，不能自行创建另一套地图、场景 Binding、出生点、Runtime 或阻碍 Binding。
+跨模块长期对象使用所有者定义的稳定 Key 存入服务注册表：Libraries 使用 `DUNGEON_LIBRARIES_SERVICE_KEY`；Loader 使用 `DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY` 注册一个稳定 Reader，并通过类型化 `DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY` 提供系统安装接口。所有消费者在 `setup()` 时取得一次 Reader，并使用 Loader 原子提交的同一份 `current`，不能自行创建另一套地图、场景 Binding、出生点、Runtime 或阻碍 Binding。
 
 ## 5. Monster Lab 职责
 
@@ -708,9 +739,9 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 - `battle-skill-slots-lab/`
 - `dungeon-map-canvas-lab/`：测试共享 2D 地牢地图、数据结构校验、探索迷雾、点击瞬移、穿墙、地图边缘循环、格步移动、转向与横移输入。
 - `dialogue-map-canvas-lab/`：创建和编辑对话图预设，以可拖动 Canvas 节点和连接快速理解分支、条件、事件及不可达节点。
-- `dungeon-scene-loader-lab/`：由 `dungeon-grid-debug` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
-- `dungeon-obstacle-lab/`：显式组合 `dungeon-runtime + dungeon-obstacle + dungeon-grid-debug`，集中浏览 Runtime，并测试阻碍状态编辑、红色/灰色阻碍 Debug 和全部格子 Debug。
-- `dungeon-player-spawn-lab/`：显式组合 `player-spawn + dungeon-runtime + dungeon-grid-debug`，验证出生点只提供初始化信息，再由 Runtime 模块唯一创建地牢动态数据。
+- `dungeon-scene-loader-lab/`：由 `dungeon-grid` 顶层模块自动组合地图配置、场景环境与全部格子 Debug。
+- `dungeon-obstacle-lab/`：组合 Grid、Traversal、Movement、Runtime 和 Obstacle，分别检查静态阻碍、实占位与移动预留。
+- `dungeon-player-spawn-lab/`：组合 `player-spawn + dungeon-runtime + dungeon-grid`，验证出生点只提供初始化信息，由 Loader 调用显式系统装配器创建地牢动态数据；Runtime 面板只观察。
 - `dungeon-player-movement-lab/`：入口声明 `dungeon-config + dungeon-runtime + player-movement`，独立 Runtime 卡片集中显示权威格子位置、连续世界位置、朝向、移动过程和阻碍状态。移动面板分别提供东南西北绝对移动、相对朝向的前进/后退/左右横移、原地左转/后转/右转；移动与转向均可切换速度或单次耗时模式，并保留各模式的手动值和瞬移开关。
 - `dungeon-first-person-camera-lab/`：在不修改玩家格步与正式朝向规则的前提下，把默认 Camera System 绑定为 DRPG 第一人称视角，并测试自由观察、松开回正与手动回正。
 - `dungeon-transition-lab/`：组合第一人称相机、格步移动和地图传送，验证格子/单向边/公用边出口到目标地图唯一入口的无表现切换流程。

@@ -42,6 +42,8 @@ export type DungeonRuntimePlayerMovement = {
  * 玩家状态保存在这里；玩家、Agent 和其他动态 Actor 的通行占位统一交给 traversal。
  */
 export type DungeonRuntime = {
+  /** Undefined only for legacy externally constructed runtimes. */
+  readonly installedSystems?: Readonly<{ obstacles?: boolean; traversal: boolean; movement: boolean }>;
   readonly map: DungeonRuntimeMap;
   /** 玩家、Agent、静态阻碍、动态占位与路径预约的统一通行权威。 */
   readonly traversal: DungeonTraversalWorld;

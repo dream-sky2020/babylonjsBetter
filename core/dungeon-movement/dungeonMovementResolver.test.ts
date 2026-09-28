@@ -24,6 +24,20 @@ const createResolver = () => {
   return { traversal, resolver: createDungeonMovementResolver(traversal) };
 };
 
+test('移动仲裁通知只覆盖请求、提交和完成，不逐帧广播进度', () => {
+  const { resolver } = createResolver();
+  const changes: string[] = [];
+  const off = resolver.subscribe(change => changes.push(change.kind));
+  const requested = resolver.requestMove({ actorId: 'agent:left', direction: 'east', durationSeconds: 1 });
+  assert.equal(requested.accepted, true);
+  resolver.advanceActor('agent:left', 0.1);
+  resolver.advanceActor('agent:left', 0.1);
+  resolver.advanceActor('agent:left', 0.3);
+  resolver.advanceActor('agent:left', 0.5);
+  off();
+  assert.deepEqual(changes, ['request-accepted', 'committed', 'completed']);
+});
+
 test('申请虚占位后立即开始 Forward，但实占位留在起点直到 Commit', () => {
   const { traversal, resolver } = createResolver();
   const requested = resolver.requestMove({
