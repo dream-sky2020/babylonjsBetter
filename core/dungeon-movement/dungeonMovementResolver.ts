@@ -148,10 +148,18 @@ export class DungeonMovementResolver {
     }
     const actor = this.traversal.actors.get(options.actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${options.actorId}”。`);
-    const inspection = this.traversal.inspectStep(actor.id, actor.tileIndex, options.direction, {
+    const outsideTarget = options.outsideMapStep?.toTileIndex;
+    if (outsideTarget !== undefined && (outsideTarget !== -1 && (!Number.isInteger(outsideTarget) || !this.traversal.occupantIdsByTile[outsideTarget]))) throw new RangeError('地图外移动的目标索引无效。');
+    const inspection = outsideTarget !== undefined ? {
+      toTileIndex: outsideTarget,
+      blockingEntityIds: options.ignoreDynamicOccupancy ? [] : this.traversal.blockingOccupants(outsideTarget, actor.id),
+      blockedReason: undefined,
+    } : this.traversal.inspectStep(actor.id, actor.tileIndex, options.direction, {
       checkTerrain: options.checkTerrain,
       checkStaticObstacles: options.checkStaticObstacles,
+      ignoreDynamicOccupancy: options.ignoreDynamicOccupancy,
     });
+    if (outsideTarget !== undefined && inspection.blockingEntityIds.length) return this.rejected(actor.id, { accepted: false, blockedReason: 'occupied', blockingEntityIds: inspection.blockingEntityIds });
     if (inspection.blockedReason || inspection.toTileIndex === undefined) {
       return this.rejected(options.actorId, {
         accepted: false,
@@ -167,6 +175,7 @@ export class DungeonMovementResolver {
       fromTileIndex: actor.tileIndex,
       toTileIndex: inspection.toTileIndex,
       ...(isDungeonDiagonalDirection(options.direction)
+        && !options.ignoreDynamicOccupancy && outsideTarget === undefined
         && resolveDungeonMovementProfile(actor.movementProfileId).reserveDiagonalCrossing
         ? {
           crossingPointIndex: this.traversal.map.topology.pointIndices[
@@ -178,10 +187,12 @@ export class DungeonMovementResolver {
       commitProgress: requireUnitInterval(options.commitProgress ?? this.config.commitProgress, '提交进度'),
       basePriority: options.basePriority ?? 0,
       progressWeight: options.progressWeight ?? this.config.progressWeight,
+      ignoreDynamicOccupancy: options.ignoreDynamicOccupancy,
+      allowOutsideMap: outsideTarget !== undefined,
       state: 'forward-before-commit',
       elapsedSeconds: 0,
     };
-    const tileWinner = this.reservationWinner(request.toTileIndex);
+    const tileWinner = options.ignoreDynamicOccupancy ? undefined : this.reservationWinner(request.toTileIndex);
     const pointRequestId = request.crossingPointIndex === undefined
       ? undefined
       : [...(this.movementReservationsByPoint[request.crossingPointIndex]?.values() ?? [])][0];
@@ -205,7 +216,7 @@ export class DungeonMovementResolver {
     winners.forEach((winner) => this.beginRollback(winner));
     this.requests.set(request.id, request);
     this.activeRequestIdByActor.set(request.actorId, request.id);
-    this.movementReservationsByTile[request.toTileIndex].set(request.actorId, request.id);
+    if (!options.ignoreDynamicOccupancy) this.movementReservationsByTile[request.toTileIndex]?.set(request.actorId, request.id);
     if (request.crossingPointIndex !== undefined && request.crossingPointIndex >= 0) {
       this.movementReservationsByPoint[request.crossingPointIndex].set(request.actorId, request.id);
     }
@@ -264,7 +275,12 @@ export class DungeonMovementResolver {
       request.elapsedSeconds += consumedSeconds;
       visualProgress = request.durationSeconds <= 0 ? 1 : clamp01(request.elapsedSeconds / request.durationSeconds);
       if (request.state === 'forward-before-commit' && visualProgress >= request.commitProgress) {
-        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id);
+        // A debug/teleporting actor can enter an already reserved tile between request and commit.
+        if (!request.ignoreDynamicOccupancy && this.traversal.blockingOccupants(request.toTileIndex, request.actorId).length) {
+          this.beginRollback(request);
+          return { active: true, completed: false, committed: false, rolledBack: false, state: request.state, request, visualProgress, consumedSeconds, remainingSeconds: 0 };
+        }
+        this.traversal.moveActor(request.actorId, request.toTileIndex, request.id, request);
         this.releaseReservation(request);
         request.state = 'forward-after-commit';
         committed = true;

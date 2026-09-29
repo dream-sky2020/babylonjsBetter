@@ -105,7 +105,7 @@ test('玩家通过共享通行世界被阻挡型 Agent 挡住', () => {
   assert.deepEqual(inspection.blockedObstacleIds, ['agent:blocker']);
   assert.equal(
     inspectDungeonPlayerMovement(runtime, 'east', { restrictMovementObstacles: false }).blockedReason,
-    'movement-obstacle',
+    undefined,
   );
 });
 
@@ -157,6 +157,50 @@ test('玩家的虚占位被更高优先级请求抢走时，从当前视觉位�
   assert.equal(runtime.playerWorldPosition[0], 0);
   assert.deepEqual(runtime.playerPosition, { tileX: 0, tileY: 0 });
   assert.deepEqual([...runtime.traversal.occupantIdsByTile[0]], [DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID]);
+});
+
+for (const teleport of [false, true]) {
+  test(`关闭边界限制可越界、在地图外连续移动并返回，不能将越界 X 误作下一行（瞬移=${teleport}）`, () => {
+    const runtime = runtimeForSquare();
+    const options = { restrictToMapBounds: false, teleport, movementSecondsPerTile: 1, movementTimingMode: 'seconds-per-tile' as const, resolveWorldPosition: ({ tileX, tileY }: { tileX: number; tileY: number }) => [tileX, 0, tileY] as const };
+    const move = (direction: 'west' | 'east' | 'south') => {
+      const result = startDungeonPlayerMovement(runtime, direction, options);
+      assert.equal(result.blockedReason, undefined); assert.equal(result.started, true);
+      if (!teleport) assert.equal(updateDungeonPlayerMovement(runtime, 2).completed, true);
+    };
+    move('west'); move('south');
+    assert.deepEqual(runtime.playerPosition, { tileX: -1, tileY: 1 });
+    assert.equal(runtime.traversal.actors.get(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)?.tileIndex, -1);
+    assert.equal(runtime.traversal.occupantIdsByTile.some(ids => ids.has(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)), false);
+    assert.equal(inspectDungeonPlayerMovement(runtime, 'west', { restrictToMapBounds: true }).blockedReason, 'map-boundary');
+    move('east');
+    assert.deepEqual(runtime.playerPosition, { tileX: 0, tileY: 1 });
+    assert.equal(runtime.traversal.occupantIdsByTile[3].has(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID), true);
+    assert.equal(inspectDungeonPlayerMovement(runtime, 'west').blockedReason, 'map-boundary');
+  });
+  test(`关闭障碍限制可穿过 Agent，占位提交不报错，地图边界仍独立限制（瞬移=${teleport}）`, () => {
+    const runtime = runtimeForLine();
+    runtime.traversal.registerActor({ id: 'blocker', kind: 'agent', tileIndex: 1, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+    const options = { restrictMovementObstacles: false, teleport, movementSpeed: 1, resolveWorldPosition: ({ tileX }: { tileX: number }) => [tileX, 0, 0] as const };
+    assert.equal(startDungeonPlayerMovement(runtime, 'east', options).blockedReason, undefined);
+    if (!teleport) updateDungeonPlayerMovement(runtime, 2);
+    assert.deepEqual(runtime.playerPosition, { tileX: 1, tileY: 0 });
+    assert.deepEqual([...runtime.traversal.occupantIdsByTile[1]].sort(), [DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID, 'blocker'].sort());
+    assert.equal(startDungeonPlayerMovement(runtime, 'north', options).blockedReason, 'map-boundary');
+  });
+}
+
+test('关闭障碍限制忽略移动预约，正常 Actor 在提交时发现新增占位会安全回退', () => {
+  const runtime = runtimeForLine();
+  runtime.traversal.registerActor({ id: 'agent', kind: 'agent', tileIndex: 2, enabled: true, blocksMovement: true, movementProfileId: 'ground' });
+  const reserved = runtime.movementResolver.requestMove({ actorId: 'agent', direction: 'west', durationSeconds: 1, basePriority: 99999 });
+  assert.equal(reserved.accepted, true);
+  assert.equal(startDungeonPlayerMovement(runtime, 'east', { restrictMovementObstacles: false, movementSpeed: 1, resolveWorldPosition: ({ tileX }) => [tileX, 0, 0] }).blockedReason, undefined);
+  updateDungeonPlayerMovement(runtime, .6);
+  assert.equal(runtime.playerPosition.tileX, 1);
+  const advance = runtime.movementResolver.advanceActor('agent', .6);
+  assert.equal(advance.state, 'rollback');
+  assert.equal(runtime.traversal.actors.get('agent')?.tileIndex, 2);
 });
 
 test('玩家八方向格步按真实距离计时，并保留四方向逻辑朝向', () => {

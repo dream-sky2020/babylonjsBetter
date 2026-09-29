@@ -21,6 +21,7 @@ export const DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID = '$dungeon-player';
 export type DungeonTraversalActor = {
   id: string;
   kind: 'player' | 'agent' | 'dynamic';
+  /** -1 represents an explicitly allowed off-map actor with no tile occupancy. */
   tileIndex: number;
   enabled: boolean;
   blocksMovement: boolean;
@@ -149,28 +150,28 @@ export class DungeonTraversalWorld {
   unregisterActor(actorId: string): void {
     const actor = this.actors.get(actorId);
     if (!actor) return;
-    this.occupantIdsByTile[actor.tileIndex].delete(actorId);
+    this.occupantIdsByTile[actor.tileIndex]?.delete(actorId);
     this.clearReservations(actorId);
     this.actors.delete(actorId);
     this.changed({ kind: 'actor-unregistered', actorId, fromTileIndex: actor.tileIndex });
   }
 
-  moveActor(actorId: string, toTileIndex: number, requestId?: string): void {
+  moveActor(actorId: string, toTileIndex: number, requestId?: string, options: { allowOutsideMap?: boolean; ignoreDynamicOccupancy?: boolean } = {}): void {
     const actor = this.actors.get(actorId);
     if (!actor) throw new Error(`不存在通行 Actor“${actorId}”。`);
-    if (!Number.isInteger(toTileIndex) || !this.occupantIdsByTile[toTileIndex]) {
+    if ((!Number.isInteger(toTileIndex) || !this.occupantIdsByTile[toTileIndex]) && !(options.allowOutsideMap && toTileIndex === -1)) {
       throw new RangeError(`通行 Actor“${actorId}”的目标格子索引无效。`);
     }
-    if (actor.enabled && actor.blocksMovement) {
+    if (actor.enabled && actor.blocksMovement && !options.ignoreDynamicOccupancy) {
       const conflicts = this.blockingOccupants(toTileIndex, actorId);
       if (conflicts.length) {
         throw new Error(`格子“${this.map.topology.tileIds[toTileIndex]}”已被 ${conflicts.join('、')} 占据。`);
       }
     }
     const fromTileIndex = actor.tileIndex;
-    this.occupantIdsByTile[fromTileIndex].delete(actorId);
+    this.occupantIdsByTile[fromTileIndex]?.delete(actorId);
     actor.tileIndex = toTileIndex;
-    this.occupantIdsByTile[toTileIndex].add(actorId);
+    this.occupantIdsByTile[toTileIndex]?.add(actorId);
     if (fromTileIndex !== toTileIndex) {
       this.changed({ kind: 'actor-moved', actorId, requestId, fromTileIndex, toTileIndex });
     }
@@ -248,6 +249,7 @@ export class DungeonTraversalWorld {
     direction: DungeonMovementDirection,
     options: DungeonTraversalInspectionOptions = {},
   ): DungeonTraversalInspection {
+    if (!this.occupantIdsByTile[fromTileIndex]) return { blockedReason: 'map-boundary', blockingEntityIds: [] };
     const actor = this.actors.get(actorId);
     const profile = resolveDungeonMovementProfile(actor?.movementProfileId ?? 'ground');
     if (isDungeonDiagonalDirection(direction) && profile.directionMode !== 'eight-way') {

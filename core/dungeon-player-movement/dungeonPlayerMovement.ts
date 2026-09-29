@@ -5,11 +5,16 @@ import type {
   DungeonRuntimeWorldPosition,
 } from '../dungeon-runtime';
 import { DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID } from '../dungeon-traversal/index.ts';
+import { findDungeonMovementObstaclesFromBindings } from '../dungeon-obstacle/dungeonObstacle.ts';
+import { getDungeonMapTerrainProperties } from '../map-document/dungeonMapDocument.terrain.ts';
 import {
   getDungeonMovementDirectionCost,
   getDungeonMovementDirectionVector,
   getDungeonMovementDirectionYaw,
   resolveDungeonCardinalFacing,
+  resolveDungeonMovementProfile,
+  isDungeonDiagonalDirection,
+  getDungeonDiagonalAxes,
   type DungeonMovementDirection,
 } from '../dungeon-movement/index.ts';
 
@@ -29,7 +34,7 @@ export type DungeonPlayerTurnTimingMode = typeof DUNGEON_PLAYER_TURN_TIMING_MODE
 export type DungeonPlayerMovementOptions = {
   /** 默认开启；开启后目标格超出地图尺寸时拒绝移动。 */
   restrictToMapBounds?: boolean;
-  /** 默认开启；开启后玩家不能进入阻碍格或跨越带启用阻碍的独立边/公用边。 */
+  /** 默认开启；关闭后忽略地形、静态阻碍、动态占位和移动预约。 */
   restrictMovementObstacles?: boolean;
   /** 移动计时模式；默认按世界单位/秒。 */
   movementTimingMode?: DungeonPlayerMovementTimingMode;
@@ -66,6 +71,40 @@ export type DungeonPlayerMovementInspectionOptions = Pick<
   'restrictToMapBounds' | 'restrictMovementObstacles'
 >;
 
+const insideMap = (runtime: DungeonRuntime, position: DungeonRuntimePlayerPosition): boolean => (
+  position.tileX >= 0 && position.tileX < runtime.map.width && position.tileY >= 0 && position.tileY < runtime.map.height
+);
+const positionIndex = (runtime: DungeonRuntime, position: DungeonRuntimePlayerPosition): number => (
+  insideMap(runtime, position) ? position.tileY * runtime.map.width + position.tileX : -1
+);
+/** Boundary steps use coordinates, never a flattened out-of-range index that can alias another row. */
+const inspectBoundaryStep = (runtime: DungeonRuntime, direction: DungeonMovementDirection, options: DungeonPlayerMovementInspectionOptions): DungeonPlayerMovementResult => {
+  const from = { ...runtime.playerPosition };
+  const offset = getDungeonMovementDirectionVector(direction);
+  const to = { tileX: from.tileX + offset.x, tileY: from.tileY + offset.y };
+  const result: DungeonPlayerMovementResult = { started: false, completed: false, direction, from, to };
+  const profile = resolveDungeonMovementProfile(runtime.traversal.actors.get(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID)?.movementProfileId ?? 'ground');
+  if (isDungeonDiagonalDirection(direction) && profile.directionMode !== 'eight-way') return { ...result, blockedReason: 'direction-not-supported' };
+  if (!insideMap(runtime, to) && (options.restrictToMapBounds ?? true)) return { ...result, blockedReason: 'map-boundary' };
+  if (options.restrictMovementObstacles === false) return result;
+  const inspectLeg = (start: DungeonRuntimePlayerPosition, end: DungeonRuntimePlayerPosition, leg: DungeonMapDirection): string[] => {
+    const index = positionIndex(runtime, end);
+    const ids = findDungeonMovementObstaclesFromBindings(runtime.obstacles, runtime.obstacleStates, start, end, leg).map(binding => binding.entity.id);
+    if (index >= 0) {
+      if (getDungeonMapTerrainProperties(runtime.map.document.terrain, runtime.map.topology.tileIds[index])?.walkable === false) ids.push('$terrain');
+      ids.push(...runtime.traversal.blockingOccupants(index, DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID));
+    }
+    return ids;
+  };
+  let blocking: string[];
+  if (isDungeonDiagonalDirection(direction)) {
+    const [horizontal, vertical] = getDungeonDiagonalAxes(direction);
+    const h = { tileX: to.tileX, tileY: from.tileY }, v = { tileX: from.tileX, tileY: to.tileY };
+    blocking = [...inspectLeg(from, h, horizontal), ...inspectLeg(h, to, vertical), ...inspectLeg(from, v, vertical), ...inspectLeg(v, to, horizontal)];
+  } else blocking = inspectLeg(from, to, direction);
+  return blocking.length ? { ...result, blockedReason: 'movement-obstacle', blockedObstacleIds: [...new Set(blocking)] } : result;
+};
+
 /** 无副作用地检查一次移动意图，供上层在阻挡动画开始前接管该操作。 */
 export const inspectDungeonPlayerMovement = (
   runtime: DungeonRuntime,
@@ -78,19 +117,21 @@ export const inspectDungeonPlayerMovement = (
   if (runtime.playerMovement) {
     return { started: false, completed: false, direction, from, to: coordinateDestination, blockedReason: 'movement-in-progress' };
   }
+  if (!insideMap(runtime, from)) return inspectBoundaryStep(runtime, direction, options);
   const restrictStatic = options.restrictMovementObstacles ?? true;
   const fromTileIndex = from.tileY * runtime.map.width + from.tileX;
   const traversal = runtime.traversal.inspectStep(
     DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
     fromTileIndex,
     direction,
-    { checkTerrain: restrictStatic, checkStaticObstacles: restrictStatic },
+    { checkTerrain: restrictStatic, checkStaticObstacles: restrictStatic, ignoreDynamicOccupancy: !restrictStatic },
   );
   const to = traversal.toTileIndex === undefined ? coordinateDestination : {
     tileX: traversal.toTileIndex % runtime.map.width,
     tileY: Math.floor(traversal.toTileIndex / runtime.map.width),
   };
   if (traversal.blockedReason) {
+    if (traversal.blockedReason === 'map-boundary' && options.restrictToMapBounds === false) return inspectBoundaryStep(runtime, direction, options);
     const blockedReason = traversal.blockedReason === 'map-boundary'
       ? 'map-boundary'
       : traversal.blockedReason === 'direction-not-supported'
@@ -259,7 +300,9 @@ export const startDungeonPlayerMovement = (
     runtime.movementResolver.cancelActor(DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID);
     runtime.traversal.moveActor(
       DUNGEON_PLAYER_TRAVERSAL_ACTOR_ID,
-      to.tileY * runtime.map.width + to.tileX,
+      positionIndex(runtime, to),
+      undefined,
+      { allowOutsideMap: true, ignoreDynamicOccupancy: options.restrictMovementObstacles === false },
     );
     runtime.playerPosition = { ...to };
     runtime.playerWorldPosition = [...toWorldPosition];
@@ -277,6 +320,8 @@ export const startDungeonPlayerMovement = (
     progressWeight: runtime.movementResolver.config.progressWeight,
     checkTerrain: options.restrictMovementObstacles ?? true,
     checkStaticObstacles: options.restrictMovementObstacles ?? true,
+    ignoreDynamicOccupancy: options.restrictMovementObstacles === false,
+    ...(!insideMap(runtime, from) || !insideMap(runtime, to) ? { outsideMapStep: { toTileIndex: positionIndex(runtime, to) } } : {}),
   });
   if (!requestResult.accepted || !requestResult.request) {
     return startBlockedAttempt(

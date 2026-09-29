@@ -17,6 +17,8 @@ export type DungeonMoveRequest = {
   readonly commitProgress: number;
   readonly basePriority: number;
   readonly progressWeight: number;
+  readonly ignoreDynamicOccupancy?: boolean;
+  readonly allowOutsideMap?: boolean;
   state: DungeonMoveRequestState;
   elapsedSeconds: number;
   rollbackStartProgress?: number;
@@ -33,6 +35,9 @@ export type DungeonMoveRequestOptions = Readonly<{
   progressWeight?: number;
   checkTerrain?: boolean;
   checkStaticObstacles?: boolean;
+  ignoreDynamicOccupancy?: boolean;
+  /** Player debug boundary step, already inspected in coordinate space; -1 means off-map. */
+  outsideMapStep?: Readonly<{ toTileIndex: number }>;
 }>;
 
 export type DungeonMovementResolverConfig = Readonly<{
