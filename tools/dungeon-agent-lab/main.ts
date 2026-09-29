@@ -1,4 +1,5 @@
 import { createLab } from '@/tools/lab-kit';
+import { DEFAULT_OVERHEAD_VIEW } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import { dungeonLabModuleCatalog } from '@/tools/lab-modules/dungeon';
 import '@/tools/lab-kit/styles.css';
 
@@ -12,6 +13,9 @@ const host = await createLab({
   badge: 'Composable Lab · Dungeon Transition + Agent',
   modules: ['dungeon-config', 'dungeon-transition', 'dungeon-agent', 'dungeon-visual-deformation'],
   catalog: dungeonLabModuleCatalog,
+  initialState: { format: 'lab-state', version: 1, createdAt: '', modules: {
+    'dungeon-overhead-view': { settings: { version: 1, data: { enabled: true, draft: { ...DEFAULT_OVERHEAD_VIEW } } } },
+  } },
 });
 
 window.addEventListener('beforeunload', () => host.dispose(), { once: true });

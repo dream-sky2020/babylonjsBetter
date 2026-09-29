@@ -133,6 +133,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
     const service: DungeonOverheadViewService = {
       get view() { return effective; },
       get configuredView() { return resolved; },
+      get displayedView() { return displayed; },
       subscribe(listener) { viewListeners.add(listener); return () => { viewListeners.delete(listener); }; },
       mountTransitionControl(row, applyTransition) {
         if (transitionApply) throw new Error('切换视角设置已被其他模块接入');

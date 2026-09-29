@@ -1,4 +1,5 @@
 import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
+import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import {
   Color3,
   DynamicTexture,
@@ -38,6 +39,7 @@ import {
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
   type DungeonMapLoaderReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
+import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import {
   PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
   type DungeonPlayerBlockedAttemptService,
@@ -65,7 +67,7 @@ const triggerLabel = (triggers: readonly DungeonExitTrigger[]): string => {
 
 export const dungeonTransitionLabModule: LabModule = {
   id: 'dungeon-transition',
-  dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-libraries'],
+  dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-libraries', 'dungeon-overhead-view'],
   setup(context) {
     const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
     const references = context.services.get<DungeonMapLoaderReferences>(
@@ -75,6 +77,7 @@ export const dungeonTransitionLabModule: LabModule = {
     const blockedAttempts = context.services.get<DungeonPlayerBlockedAttemptService>(
       PLAYER_MOVEMENT_BLOCKED_ATTEMPT_SERVICE_KEY,
     );
+    const overheadView = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const panel = context.ui.addPanel('dungeon-transition', '地牢地图传送');
     const enabledToggle = createLabSwitch('启用地图传送', true);
     const enterToggle = createLabSwitch('移动后触发 enter 出口', true);
@@ -105,6 +108,10 @@ export const dungeonTransitionLabModule: LabModule = {
 
     let inputLock: LabKeyboardLockHandle | null = null;
     let debugRoot: TransformNode | null = null;
+    const syncDebugView = (): void => {
+      if (debugRoot) applyDungeonViewToNode(debugRoot, overheadView.displayedView);
+    };
+    const offView = overheadView.subscribe(syncDebugView);
 
     const disposeDebugBoxes = (): void => {
       debugRoot?.dispose(false, true);
@@ -136,6 +143,7 @@ export const dungeonTransitionLabModule: LabModule = {
         return material;
       };
       debugRoot = new TransformNode(`dungeon_transition_debug_${loaded.loadId}`, context.scene);
+      syncDebugView();
       const targets: DungeonTransitionDebugBinding[] = [
         ...scanDungeonDocumentEntrances(loaded.runtime.map.document)
           .map((binding) => ({ kind: 'entrance' as const, binding })),
@@ -369,6 +377,7 @@ export const dungeonTransitionLabModule: LabModule = {
       offMapChanged();
       offRuntimeChanged();
       offBlockedAttempt();
+      offView();
       keyboardRegistration.dispose();
       interactButton.removeEventListener('click', tryInteraction);
       inputLock?.release();

@@ -38,7 +38,7 @@
     "test:ui-document": "node --experimental-strip-types --test core/ui-document/*.test.ts",
     "test:dungeon-runtime-map": "node --experimental-strip-types --test core/dungeon-runtime/dungeonRuntimeMap.test.ts",
     "test:dungeon-player-movement": "node --experimental-strip-types --test core/dungeon-player-movement/dungeonPlayerMovement.test.ts tools/lab-modules/dungeon/player-movement/playerMovement.directionalInput.test.ts",
-    "test:dungeon-agent": "node --experimental-strip-types --test core/dungeon-agent/*.test.ts",
+    "test:dungeon-agent": "node --experimental-strip-types --test core/dungeon-agent/*.test.ts tools/lab-modules/dungeon/dungeon-agent/*.test.mjs",
     "test:dungeon-navigation": "node --experimental-strip-types --test core/dungeon-navigation/*.test.ts",
     "test:dungeon-traversal": "node --experimental-strip-types --test core/dungeon-traversal/*.test.ts",
     "test:dungeon-movement": "node --experimental-strip-types --test core/dungeon-movement/*.test.ts",

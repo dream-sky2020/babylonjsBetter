@@ -21,6 +21,7 @@ export const createLabExecutionPlanPanel = (
   explanation.textContent = '安装：依赖先于消费者，同层按发现顺序。启动同序，释放逆序。运行任务按阶段和显式 order 排序，与面板顺序无关。Host 基础设施不计入游戏系统。';
   const list = document.createElement('div');
   list.className = 'lab-execution-list';
+  const systemCards = new Map<string, HTMLDetailsElement>();
   const pause = document.createElement('button');
   pause.type = 'button';
   pause.textContent = '暂停模拟';
@@ -44,24 +45,33 @@ export const createLabExecutionPlanPanel = (
       + ' · 自动依赖 ' + entries.filter(e => !e.requested).length + ' · 未迁移声明 ' + undeclared;
     list.replaceChildren(...entries.map(entry => {
       const module = monitor.plan.entries.find(item => item.moduleId === entry.moduleId)!.module;
-      const row = document.createElement('div');
+      const row = document.createElement('details');
       row.className = 'lab-execution-entry';
       row.dataset.status = entry.status;
+      // Read the live state before replacing the card; native toggle events are asynchronous.
+      row.open = systemCards.get(entry.moduleId)?.open ?? true;
+      systemCards.set(entry.moduleId, row);
+      const header = document.createElement('summary');
+      header.className = 'lab-execution-entry-header';
       const title = document.createElement('strong');
       title.textContent = (entry.executionIndex + 1) + '. ' + entry.moduleId + ' · ' + (module.manifest?.kind ?? '未声明');
       const badge = document.createElement('span');
       badge.textContent = entry.status;
+      header.append(title, badge);
+      const content = document.createElement('div');
+      content.className = 'lab-execution-entry-content';
+      row.append(header, content);
       const meta = document.createElement('small');
       const consumers = monitor.plan.entries.filter(item => item.dependencies.includes(entry.moduleId)).map(item => item.moduleId);
       meta.textContent = (entry.requested ? '页面声明' : '自动依赖') + ' · 被依赖于 ' + (consumers.join(', ') || '无')
         + ' · depth ' + entry.depth + ' · setup ' + formatDuration(entry.setupDurationMs) + ' · start ' + formatDuration(entry.startDurationMs);
-      row.append(title, badge, meta, createSystemDescription(module.id, module.dependencies ?? [], module.manifest));
+      content.append(meta, createSystemDescription(module.id, module.dependencies ?? [], module.manifest));
       const serviceInfo = document.createElement('small');
       serviceInfo.textContent = '实际服务关系：' + (services?.inspect()
         .filter(service => service.owner === entry.moduleId || service.consumers.includes(entry.moduleId))
         .map(service => service.id + ' [所有者 ' + service.owner + ' → ' + (service.consumers.join(', ') || '尚无消费者') + ']')
         .join('；') || '无');
-      row.append(serviceInfo);
+      content.append(serviceInfo);
       const protocols = communication?.inspectBindings();
       const protocolInfo = document.createElement('small');
       protocolInfo.textContent = '实际协议绑定：' + [
@@ -70,12 +80,12 @@ export const createLabExecutionPlanPanel = (
         ...(protocols?.events.filter(binding => binding.consumers.includes(entry.moduleId))
           .map(binding => '订阅 ' + binding.protocol) ?? []),
       ].join('；');
-      row.append(protocolInfo);
+      content.append(protocolInfo);
       if (entry.error) {
         const error = document.createElement('small');
         error.className = 'lab-execution-error';
         error.textContent = entry.error;
-        row.append(error);
+        content.append(error);
       }
       return row;
     }));
@@ -88,5 +98,5 @@ export const createLabExecutionPlanPanel = (
   const offTasks = runner?.subscribe(render);
   const offServices = services?.subscribe(render);
   render();
-  return () => { off(); offTasks?.(); offServices?.(); panel.root.remove(); };
+  return () => { off(); offTasks?.(); offServices?.(); systemCards.clear(); panel.root.remove(); };
 };

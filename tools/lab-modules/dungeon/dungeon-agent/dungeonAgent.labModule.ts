@@ -1,6 +1,8 @@
 import { DungeonAgentSystem } from '@/core/dungeon-agent/dungeonAgentSystem';
 import { DUNGEON_PLAYER_STEP_SERVICE_KEY } from '@/core/dungeon-player-movement/dungeonPlayerStepEvents';
+import { applyDungeonViewToNode } from '@/core/dungeon-view/dungeonOverheadView.ts';
 import { DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } from '@/core/dungeon-runtime/dungeonRuntimeAssembly';
+import { TransformNode } from '@babylonjs/core';
 import {
   getDungeonMovementDirectionYaw,
   resolveDungeonMovementProfile,
@@ -41,6 +43,7 @@ import {
   type DungeonMapLoaderReferences,
   type LoadedDungeonReferences,
 } from '../dungeon-map-loader/dungeonMapLoader.references';
+import { DUNGEON_OVERHEAD_VIEW_SERVICE_KEY, type DungeonOverheadViewService } from '../dungeon-overhead-view/dungeonOverheadView.references';
 import { createDungeonAgentDebugMarker, type DungeonAgentDebugMarker } from './dungeonAgentDebugMarker';
 import { dungeonAgentsChangedEvent, dungeonAgentsLoadedEvent } from './dungeonAgent.protocol';
 import {
@@ -79,12 +82,13 @@ const lerp = (from: number, to: number, progress: number): number => from + (to 
 
 export const dungeonAgentLabModule: LabModule = {
   id: 'dungeon-agent',
-  dependencies: ['player-movement', 'dungeon-map-loader'],
+  dependencies: ['player-movement', 'dungeon-map-loader', 'dungeon-overhead-view'],
   setup(context) {
     const playerSteps = context.services.get(DUNGEON_PLAYER_STEP_SERVICE_KEY);
     const mapReferences = context.services.get<DungeonMapLoaderReferences>(
       DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
     );
+    const overheadView = context.services.get<DungeonOverheadViewService>(DUNGEON_OVERHEAD_VIEW_SERVICE_KEY);
     const assembly = context.services.get(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
     const offPreparation = assembly.registerPreparation('dungeon-agent', runtime =>
       new DungeonAgentSystem(runtime, controllerRegistry));
@@ -178,6 +182,10 @@ export const dungeonAgentLabModule: LabModule = {
     let loaded: LoadedDungeonReferences | null = null;
     let state: DungeonAgentRuntimeState | null = null;
     const controllerRegistry = createDefaultDungeonAgentControllerRegistry();
+    const displayRoot = new TransformNode('dungeon_agent_display_mapping', context.scene);
+    const syncDisplayView = () => applyDungeonViewToNode(displayRoot, overheadView.displayedView);
+    const offView = overheadView.subscribe(syncDisplayView);
+    syncDisplayView();
     const markers = new Map<string, DungeonAgentDebugMarker>();
     type ParameterControl = Readonly<{
       element: HTMLElement;
@@ -263,6 +271,7 @@ export const dungeonAgentLabModule: LabModule = {
           layout,
           FACTION_COLORS[factionId] ?? '#94a3b8',
         );
+        marker.root.parent = displayRoot;
         markers.set(agent.binding.entity.id, marker);
         syncMarker(agent);
       });
@@ -776,9 +785,11 @@ export const dungeonAgentLabModule: LabModule = {
       offPreparation();
       offMapChanged();
       offRuntimeChanged();
+      offView();
       stopFrameTask();
       panelVisibilityObserver.disconnect();
       disposeMarkers();
+      displayRoot.dispose();
       agentReferenceController.clear();
       context.services.delete(DUNGEON_AGENT_RUNTIME_SERVICE_KEY);
     };

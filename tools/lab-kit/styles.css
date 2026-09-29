@@ -111,14 +111,21 @@ body { min-width: 820px; overflow: hidden; background: #080d12; color: #e2edf5; 
 .lab-keyboard-consumer > small { color: #8399aa; font: 10px/1.45 Consolas, monospace; overflow-wrap: anywhere; }
 .lab-keyboard-routes { max-height: 300px; }
 .lab-execution-list { display: grid; gap: 6px; }
-.lab-execution-entry { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 8px; padding: 7px; border: 1px solid #314659; background: #0b141c; }
-.lab-execution-entry > strong { min-width: 0; overflow: hidden; color: #d9e9f4; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
-.lab-execution-entry > span { color: #e4ca79; font: 10px Consolas, monospace; }
-.lab-execution-entry > small { grid-column: 1 / -1; color: #7890a2; font: 10px/1.45 Consolas, monospace; overflow-wrap: anywhere; }
-.lab-execution-entry[data-status="started"] > span,
-.lab-execution-entry[data-status="setup"] > span { color: #6fd5a8; }
+.lab-execution-entry { border: 1px solid #314659; background: #0b141c; }
+.lab-execution-entry-header { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 7px; cursor: pointer; list-style: none; }
+.lab-execution-entry-header::-webkit-details-marker { display: none; }
+.lab-execution-entry-header::before { content: '▸'; color: #7890a2; }
+.lab-execution-entry[open] > .lab-execution-entry-header::before { transform: rotate(90deg); }
+.lab-execution-entry-header:hover { background: #14212d; }
+.lab-execution-entry-header:focus-visible { outline: 2px solid #6fd5a8; outline-offset: -2px; }
+.lab-execution-entry-header > strong { min-width: 0; overflow: hidden; color: #d9e9f4; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.lab-execution-entry-header > span { color: #e4ca79; font: 10px Consolas, monospace; }
+.lab-execution-entry-content { display: grid; gap: 4px; padding: 7px; border-top: 1px solid #314659; }
+.lab-execution-entry-content > small { color: #7890a2; font: 10px/1.45 Consolas, monospace; overflow-wrap: anywhere; }
+.lab-execution-entry[data-status="started"] > .lab-execution-entry-header > span,
+.lab-execution-entry[data-status="setup"] > .lab-execution-entry-header > span { color: #6fd5a8; }
 .lab-execution-entry[data-status="failed"] { border-color: #8b4545; }
-.lab-execution-entry[data-status="failed"] > span,
+.lab-execution-entry[data-status="failed"] > .lab-execution-entry-header > span,
 .lab-execution-error { color: #ff9d9d !important; }
 .lab-communication-log-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
 .lab-communication-log-actions button { min-width: 0; padding: 0 5px; font-size: 11px; }

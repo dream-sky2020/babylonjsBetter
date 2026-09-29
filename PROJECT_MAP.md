@@ -2,7 +2,7 @@
 
 ## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
 
-入口仍为 tools/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。tools/lab-modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
+入口仍为 tools/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。Agent Lab 启动时注入与俯视 Lab 相同的 45° 正交俯视测试草稿，使已安装的视觉变形模块默认生效；该草稿只属于 LabState，不写入地图。Agent Debug 模型挂在共享显示根节点下，订阅俯视服务的有效显示映射；移动姿态继续使用原地图坐标，视角切换与切图时由根节点统一调整和恢复。tools/lab-modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
 
 core/system-runtime/SystemRunner.ts 提供 simulation / presentation / debug 显式阶段和稳定任务顺序，不依赖 Babylon 或 DOM。模拟暂停独立于 Viewport 绘制暂停；现有玩家、Agent、玩家相机与移动 Debug 已从各自 onBeforeRender 回调迁入运行器。新增 ServiceToken 将新增服务的 Key 与类型绑定；带 manifest 的模块必须直接声明其读取服务的所有者。未迁移模块保留旧依赖闭包兼容行为。
 
@@ -40,7 +40,7 @@ Standard/PBR 使用 MaterialPlugin，Sprite 的普通/条纹/死亡 Recipe 通�
 
 `core/dungeon-view/` 拥有俯视配置校验、地图组件解析、格子比例计算、显示坐标映射和可释放的独占控制句柄。新增地图级 `dungeon-overhead-view` Entity / Component（v1），由现有 Entity Definition Catalog 自动发现、地图编辑器编辑并沿既有地图保存路径持久化。`pitchDeg` 是观察方向与水平地面的夹角；自动补偿只支持正交与 yaw 0° / ±180°，按 tileSize 的 X/Z 比及目标屏幕高宽比计算 Z 倍率。正交大小仍为垂直可见半范围。
 
-可选 `tools/lab-modules/dungeon/dungeon-overhead-view/` 是唯一协调者：读取组件或显式测试草稿，通过消费者各自提供的 `*:view` 服务 acquire/apply/release。`player-movement` 只变换玩家标记父节点，`dungeon-grid-debug` 与 `dungeon-obstacle` 只变换 Debug 根（含边界、实占位、虚占位和预约）；相机通过现有玩家相机模块及公共 CameraLabController 应用投影、角度和映射后的跟随目标。Runtime 坐标、格子拓扑、碰撞和移动耗时不变；场景美术不参与本轮映射。
+可选 `tools/lab-modules/dungeon/dungeon-overhead-view/` 是俯视协调者：读取组件或显式测试草稿，通过消费者各自提供的 `*:view` 服务 acquire/apply/release。`player-movement` 只变换玩家标记父节点，`dungeon-grid-debug` 与 `dungeon-obstacle` 只变换 Debug 根（含边界、实占位、虚占位和预约）；`dungeon-transition` 依赖俯视模块，订阅其有效显示映射，对入口 / 出口 Debug 根应用相同的格子显示变换，包括第一人称保留比例、关闭相机绑定和清除配置时的恢复。相机通过现有玩家相机模块及公共 CameraLabController 应用投影、角度和映射后的跟随目标。Runtime 坐标、格子拓扑、碰撞和移动耗时不变；场景美术不参与本轮映射。
 
 没有协调模块，或没有启用的组件且没有测试草稿时，保持原布局。进入第一人称时默认保留格子、障碍与占位 Debug、玩家标记及相机位置的显示映射，俯视相机投影和角度暂停；配置 `restoreDisplayInFirstPerson` 可改为切换时恢复原比例。关闭玩家绑定、清除配置、切换到无配置地图或卸载时释放显示映射并恢复接管前的玩家模式及独立相机参数。角度由声明驱动，不从相机交互反向推算。Viewport 与键盘所有权沿原输入路径；没有新增相机、resize 或输入监听。
 
@@ -673,8 +673,8 @@ config/monsterDisplayConfigs.json
 | `player-movement` | `dungeon-map-loader`、`dungeon-movement` | 安装玩家 Core 系统，输入适配、格步事实与 Debug |
 | `dungeon-player-camera` | `player-movement`、`dungeon-map-loader` | 玩家相机系统，在 presentation 阶段更新 |
 | `dungeon-first-person-camera` | `dungeon-player-camera` | 旧 ID 兼容入口，不重复安装相机 |
-| `dungeon-agent` | `player-movement`、`dungeon-map-loader` | 安装 Agent Core 系统，候选 Session 准备、决策与活动动作推进 |
-| `dungeon-transition` | `player-movement`、`dungeon-map-loader`、`dungeon-libraries` | 解析 enter/interact/move-attempt 出口、在阻挡反馈前接管移动意图、锁定输入、切换地图并应用目标入口落点与朝向；不负责传送表现 |
+| `dungeon-agent` | `player-movement`、`dungeon-map-loader`、`dungeon-overhead-view` | 安装 Agent Core 系统，候选 Session 准备、决策与活动动作推进；Agent Debug 根节点跟随俯视显示映射 |
+| `dungeon-transition` | `player-movement`、`dungeon-map-loader`、`dungeon-libraries`、`dungeon-overhead-view` | 解析 enter/interact/move-attempt 出口、在阻挡反馈前接管移动意图、锁定输入、切换地图并应用目标入口落点与朝向；入口/出口 Debug 跟随俯视显示映射，不负责传送表现 |
 | `dungeon-runtime-save-switch` | `dungeon-obstacle`、`player-movement` | 人工切换地牢并查询 Loader 保存的运行态 |
 
 依赖自动展开的主链：
