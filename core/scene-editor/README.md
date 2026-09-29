@@ -42,7 +42,7 @@ editor.dispose();
 | Animation Workbench | `animationSceneAdapter.ts` | 写 AnimationWorkspace，接 useWorkspaceHistory；EDIT 修改基础姿态，AUTO/REC 使用既有 recordTransformKey；播放期间不接受变换提交 |
 | Scene Environment | `sceneEnvironmentAdapter.ts` | geometry/model/light 前缀 + 预设 ID；写预设草稿，显式保存通过 Vite GET/PUT API；构建版导出 JSON |
 
-显隐在 Animation Workbench 写 enabled 并可撤销，其他三个 Lab 默认是临时预览状态，不写配置、不进入变换历史。对象结构编辑仍由各 Lab 负责。场景几何体仅开放 position/rotation；点光和方向光仅开放 position；半球光及渲染辅助节点只读。暂不提供共享多选变换、改父级、灯光方向 Gizmo 或几何尺寸建模。负尺度/非均匀缩放父级下的 World 旋转受 Babylon 分解能力限制，精确编辑请用 Local。
+显隐在 Animation Workbench 写 enabled 并可撤销，其他 Lab 的共享显隐默认是临时预览状态。对象结构编辑仍由各 Lab 负责。Scene Environment 的 Gizmo 通道为几何 position/rotation、模型 position/rotation/scaling、点光和方向光 position；独立声明 Inspector 另外编辑几何尺寸、模型参数、三类光源及场景配置，半球光属性也可编辑，不使用运行时反射面板。预设保存为 `config/sceneEnvironmentPresets/` 下单场景文件，保留继承链接。暂不提供共享多选变换、改父级或灯光方向 Gizmo。负尺度/非均匀缩放父级下的 World 旋转受 Babylon 分解能力限制，精确编辑请用 Local。
 
 ## 验证
 

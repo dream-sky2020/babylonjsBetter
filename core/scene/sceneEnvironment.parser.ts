@@ -17,6 +17,11 @@ const readString = (value: unknown, path: string): string => {
   if (typeof value !== 'string' || value.trim() === '') throw new Error(`${path} 必须是非空字符串`);
   return value;
 };
+const readColor = (value: unknown, path: string, alpha = false): string => {
+  const color = readString(value, path);
+  if (!(alpha ? /^#[0-9a-f]{6}([0-9a-f]{2})?$/i : /^#[0-9a-f]{6}$/i).test(color)) throw new Error(`${path} 必须是 ${alpha ? '#RRGGBB 或 #RRGGBBAA' : '#RRGGBB'}`);
+  return color;
+};
 
 const readPositiveNumber = (value: unknown, path: string): number => {
   if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) throw new Error(`${path} 必须是大于 0 的有限数字`);
@@ -54,6 +59,7 @@ const parseGeometry = (value: unknown, path: string): SceneEnvironmentGeometry =
     return { primitive: 'box', width: readPositiveNumber(value.width, `${path}.width`), height: readPositiveNumber(value.height, `${path}.height`), depth: readPositiveNumber(value.depth, `${path}.depth`) };
   }
   if (value.primitive === 'cylinder') {
+    if (value.tessellation !== undefined && (!Number.isInteger(value.tessellation) || Number(value.tessellation) < 3)) throw new Error(`${path}.tessellation 必须是至少 3 的整数`);
     return {
       primitive: 'cylinder',
       height: readPositiveNumber(value.height, `${path}.height`),
@@ -75,7 +81,7 @@ const parseObject = (value: unknown, path: string): SceneEnvironmentObject => {
     geometry: parseGeometry(value.geometry, `${path}.geometry`),
     position: readVector3(value.position, `${path}.position`),
     rotation: value.rotation === undefined ? undefined : readVector3(value.rotation, `${path}.rotation`),
-    color: readString(value.color, `${path}.color`),
+    color: readColor(value.color, `${path}.color`),
     shadow: shadow === undefined ? undefined : {
       cast: readOptionalBoolean(shadow.cast, `${path}.shadow.cast`),
       receive: readOptionalBoolean(shadow.receive, `${path}.shadow.receive`),
@@ -122,12 +128,12 @@ const parseLight = (value: unknown, path: string): SceneEnvironmentLight => {
     id: readString(value.id, `${path}.id`),
     name: readString(value.name, `${path}.name`),
     intensity: readNonNegativeNumber(value.intensity, `${path}.intensity`),
-    color: readString(value.color, `${path}.color`),
+    color: readColor(value.color, `${path}.color`),
   };
   const light = value.light;
   if (light.primitive === 'hemispheric') {
     if (value.shadow !== undefined) throw new Error(`${path}.shadow 不能用于 hemispheric 光源`);
-    return { ...base, light: { primitive: 'hemispheric', direction: readVector3(light.direction, `${path}.light.direction`), groundColor: readString(light.groundColor, `${path}.light.groundColor`) } };
+    return { ...base, light: { primitive: 'hemispheric', direction: readVector3(light.direction, `${path}.light.direction`), groundColor: readColor(light.groundColor, `${path}.light.groundColor`) } };
   }
   if (light.primitive === 'directional') {
     return { ...base, light: { primitive: 'directional', direction: readVector3(light.direction, `${path}.light.direction`), position: light.position === undefined ? undefined : readVector3(light.position, `${path}.light.position`) }, shadow: parseShadowQualityReference(value.shadow, `${path}.shadow`) };
@@ -155,12 +161,12 @@ export const parseSceneEnvironmentPreset = (value: unknown, key: string): SceneE
     if (nodeIds.has(node.id)) throw new Error(`${path} 中存在重复节点 ID：${node.id}`);
     nodeIds.add(node.id);
   });
-  return { presetKey, name: readString(value.name, `${path}.name`), clearColor: readString(value.clearColor, `${path}.clearColor`), lights, objects, models };
+  return { presetKey, name: readString(value.name, `${path}.name`), clearColor: readColor(value.clearColor, `${path}.clearColor`, true), lights, objects, models };
 };
 
 export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnvironmentPresetLibrary => {
   if (!isRecord(value)) throw new Error('场景预设配置根节点必须是对象');
-  const resolved: SceneEnvironmentPresetLibrary = {};
+  const resolved: SceneEnvironmentPresetLibrary = Object.create(null);
   const resolving = new Set<string>();
   const resolvePreset = (key: string): SceneEnvironmentPreset => {
     if (resolved[key]) return resolved[key];
@@ -174,18 +180,20 @@ export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnviron
     if (resolving.has(key)) throw new Error(`场景预设继承存在循环：${[...resolving, key].join(' -> ')}`);
     resolving.add(key);
     const extendsPresetKey = readString(raw.extendsPresetKey, `预设 ${key}.extendsPresetKey`);
-    if (!(extendsPresetKey in value)) throw new Error(`预设 ${key} 找不到基础预设 ${extendsPresetKey}`);
+    if (!Object.hasOwn(value, extendsPresetKey)) throw new Error(`预设 ${key} 找不到基础预设 ${extendsPresetKey}`);
     const base = resolvePreset(extendsPresetKey);
     const presetKey = readString(raw.presetKey, `预设 ${key}.presetKey`);
     if (presetKey !== key) throw new Error(`预设 ${key}.presetKey 必须与配置键一致`);
     const shadowOverrides = raw.lightShadowOverrides;
     if (shadowOverrides !== undefined && !isRecord(shadowOverrides)) throw new Error(`预设 ${key}.lightShadowOverrides 必须是对象`);
     const overrideEntries = shadowOverrides === undefined ? [] : Object.entries(shadowOverrides);
-    const lightIds = new Set(base.lights.map((light) => light.id));
+    if (raw.lights !== undefined && !Array.isArray(raw.lights)) throw new Error(`预设 ${key}.lights 必须是数组`);
+    const declaredLights = raw.lights === undefined ? base.lights : (raw.lights as unknown[]).map((light, index) => parseLight(light, `预设 ${key}.lights[${index}]`));
+    const lightIds = new Set(declaredLights.map((light) => light.id));
     overrideEntries.forEach(([lightId]) => {
       if (!lightIds.has(lightId)) throw new Error(`预设 ${key}.lightShadowOverrides 引用了不存在的光源 ${lightId}`);
     });
-    const lights = base.lights.map((light) => {
+    const lights = declaredLights.map((light) => {
       if (shadowOverrides === undefined || !(light.id in shadowOverrides)) return light;
       if (!('shadow' in light)) throw new Error(`预设 ${key} 不能为 hemispheric 光源 ${light.id} 覆盖阴影`);
       return {
@@ -193,13 +201,15 @@ export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnviron
         shadow: parseShadowQualityReference(shadowOverrides[light.id], `预设 ${key}.lightShadowOverrides.${light.id}`),
       };
     });
-    const preset: SceneEnvironmentPreset = {
+    const preset = parseSceneEnvironmentPreset({
       ...base,
       presetKey,
       name: readString(raw.name, `预设 ${key}.name`),
       clearColor: raw.clearColor === undefined ? base.clearColor : readString(raw.clearColor, `预设 ${key}.clearColor`),
+      objects: raw.objects === undefined ? base.objects : raw.objects,
+      models: raw.models === undefined ? base.models : raw.models,
       lights,
-    };
+    }, key);
     resolving.delete(key);
     resolved[key] = preset;
     return preset;

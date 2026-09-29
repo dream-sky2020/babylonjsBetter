@@ -1,4 +1,4 @@
-import { writeSceneEnvironmentPresets } from './scripts/sceneEnvironmentPresetStore.ts'
+import { writeSceneEnvironmentPreset, readSceneEnvironmentPresets } from './scripts/sceneEnvironmentPresetStore.ts'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
@@ -13,7 +13,7 @@ const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
 const DIALOGUE_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dialogueMapPresets')
 const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
-const SCENE_ENVIRONMENT_PRESETS_PATH = path.resolve(CONFIG_DIR, 'sceneEnvironmentPresets.json')
+const SCENE_ENVIRONMENT_PRESETS_PATH = path.resolve(CONFIG_DIR, 'sceneEnvironmentPresets')
 const ANIMATION_SCENE_PRESETS_PATH = path.resolve(CONFIG_DIR, 'animationScenePresets.json')
 
 const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
@@ -82,6 +82,7 @@ const sharedConfigPlugin = (): Plugin => ({
       const changedPath = path.resolve(file)
       if (changedPath === path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')) return []
       if (changedPath === ANIMATION_SCENE_PRESETS_PATH || changedPath === SCENE_ENVIRONMENT_PRESETS_PATH) return []
+      if (changedPath.startsWith(`${SCENE_ENVIRONMENT_PRESETS_PATH}${path.sep}`)) return []
       if (changedPath === DUNGEON_MAP_PRESETS_DIR
         || changedPath.startsWith(`${DUNGEON_MAP_PRESETS_DIR}${path.sep}`)) return []
       if (changedPath === DIALOGUE_MAP_PRESETS_DIR
@@ -139,7 +140,7 @@ const sharedConfigPlugin = (): Plugin => ({
           }
           try {
             if (req.method === 'GET') {
-              const raw = JSON.parse(await fsp.readFile(SCENE_ENVIRONMENT_PRESETS_PATH, 'utf8')) as unknown
+              const raw = await readSceneEnvironmentPresets(SCENE_ENVIRONMENT_PRESETS_PATH)
               parseSceneEnvironmentPresetLibrary(raw)
               sendJson(200, { success: true, count: Object.keys(raw as object).length, data: raw, valid: true })
               return
@@ -157,9 +158,8 @@ const sharedConfigPlugin = (): Plugin => ({
               chunks.push(buffer)
             }
             const library = JSON.parse(Buffer.concat(chunks).toString('utf8'))
-            parseSceneEnvironmentPresetLibrary(library)
-            await writeSceneEnvironmentPresets(SCENE_ENVIRONMENT_PRESETS_PATH, library)
-            sendJson(200, { success: true, count: Object.keys(library).length, path: SCENE_ENVIRONMENT_PRESETS_PATH })
+            await writeSceneEnvironmentPreset(SCENE_ENVIRONMENT_PRESETS_PATH, library.presetKey, library.declaration)
+            sendJson(200, { success: true, presetKey: library.presetKey })
           } catch (error) {
             sendJson(400, { success: false, message: error instanceof Error ? error.message : String(error) })
           }

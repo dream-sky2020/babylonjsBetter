@@ -104,6 +104,8 @@ const applyCascadedShadowSettings = (
 };
 
 export type CreateSceneEnvironmentOptions = {
+  /** Build a disabled candidate without changing scene background; caller activates after replacement. */
+  staged?: boolean;
   signal?: AbortSignal;
   shadowQualityPresets: ShadowQualityPresetLibrary;
   shadowQualityTier?: ShadowQualityTier;
@@ -122,76 +124,83 @@ const createSceneEnvironmentRuntime = (
     if (shadow.enabled && shadow.generator.type === 'cascaded' && definition.light.primitive !== 'directional') throw new Error(`光源 ${definition.id} 使用了 CSM，但 CSM 仅支持 directional 光源`);
   }
   const root = new TransformNode(`scene_environment_${preset.presetKey}`, scene);
+  if (options.staged) root.setEnabled(false);
   const nodes = new Map<string, Node>();
   const shadowGenerators: ShadowGenerator[] = [];
-  scene.clearColor = Color4.FromHexString(preset.clearColor);
-  preset.lights.forEach((definition) => {
-    const light = createLight(scene, preset.presetKey, definition);
-    nodes.set(`light:${definition.id}`, light);
-    light.parent = root;
-    if (
-      'shadow' in definition
-      && definition.shadow
-      && (light instanceof DirectionalLight || light instanceof PointLight)
-    ) {
-      const shadow = resolveShadowQuality(definition.shadow, options.shadowQualityPresets, options.shadowQualityTier);
-      if (!shadow.enabled) return;
-      if (shadow.generator.type === 'cascaded' && !(light instanceof DirectionalLight)) {
-        throw new Error(`光源 ${definition.id} 使用了 CSM，但 CSM 仅支持 directional 光源`);
+  if (!options.staged) scene.clearColor = Color4.FromHexString(preset.clearColor);
+  try {
+    preset.lights.forEach((definition) => {
+      const light = createLight(scene, preset.presetKey, definition);
+      nodes.set(`light:${definition.id}`, light);
+      light.parent = root;
+      if (
+        'shadow' in definition
+        && definition.shadow
+        && (light instanceof DirectionalLight || light instanceof PointLight)
+      ) {
+        const shadow = resolveShadowQuality(definition.shadow, options.shadowQualityPresets, options.shadowQualityTier);
+        if (!shadow.enabled) return;
+        if (shadow.generator.type === 'cascaded' && !(light instanceof DirectionalLight)) {
+          throw new Error(`光源 ${definition.id} 使用了 CSM，但 CSM 仅支持 directional 光源`);
+        }
+        if (light instanceof DirectionalLight && shadow.generator.type === 'standard') applyDirectionalShadowFrustum(light, shadow);
+        const generator = shadow.generator.type === 'cascaded'
+          ? new CascadedShadowGenerator(shadow.mapSize ?? 1024, light as DirectionalLight, true, scene.activeCamera)
+          : new ShadowGenerator(shadow.mapSize ?? 1024, light);
+        shadowGenerators.push(generator);
+        if (generator instanceof CascadedShadowGenerator) {
+          applyCascadedShadowSettings(generator, shadow, options.cascadedShadowDebug);
+        }
+        generator.bias = shadow.bias ?? 0.0005;
+        generator.normalBias = shadow.normalBias ?? 0.02;
+        generator.setDarkness(shadow.darkness ?? 0.25);
+        generator.forceBackFacesOnly = shadow.forceBackFacesOnly ?? false;
+        if (shadow.frustumEdgeFalloff !== undefined) generator.frustumEdgeFalloff = shadow.frustumEdgeFalloff;
+        if (shadow.depthScale !== undefined) generator.depthScale = shadow.depthScale;
+        applyShadowFilter(generator, shadow);
       }
-      if (light instanceof DirectionalLight && shadow.generator.type === 'standard') applyDirectionalShadowFrustum(light, shadow);
-      const generator = shadow.generator.type === 'cascaded'
-        ? new CascadedShadowGenerator(shadow.mapSize ?? 1024, light as DirectionalLight, true, scene.activeCamera)
-        : new ShadowGenerator(shadow.mapSize ?? 1024, light);
-      if (generator instanceof CascadedShadowGenerator) {
-        applyCascadedShadowSettings(generator, shadow, options.cascadedShadowDebug);
-      }
-      generator.bias = shadow.bias ?? 0.0005;
-      generator.normalBias = shadow.normalBias ?? 0.02;
-      generator.setDarkness(shadow.darkness ?? 0.25);
-      generator.forceBackFacesOnly = shadow.forceBackFacesOnly ?? false;
-      if (shadow.frustumEdgeFalloff !== undefined) generator.frustumEdgeFalloff = shadow.frustumEdgeFalloff;
-      if (shadow.depthScale !== undefined) generator.depthScale = shadow.depthScale;
-      applyShadowFilter(generator, shadow);
-      shadowGenerators.push(generator);
-    }
-  });
-  preset.objects.forEach((object) => {
-    const geometry = object.geometry;
-    const mesh = geometry.primitive === 'ground'
-      ? MeshBuilder.CreateGround(object.id, { width: geometry.width, height: geometry.height }, scene)
-      : geometry.primitive === 'box'
-        ? MeshBuilder.CreateBox(object.id, { width: geometry.width, height: geometry.height, depth: geometry.depth }, scene)
-        : MeshBuilder.CreateCylinder(object.id, {
-          height: geometry.height,
-          diameterTop: geometry.diameterTop,
-          diameterBottom: geometry.diameterBottom,
-          tessellation: geometry.tessellation,
-        }, scene);
-    mesh.parent = root;
-    nodes.set(`object:${object.id}`, mesh);
-    mesh.position.set(...object.position);
-    if (object.rotation) mesh.rotation.set(...object.rotation);
-    mesh.material = createMaterial(scene, preset.presetKey, object);
-    getVisualDeformationRegistry(scene).register({ root: mesh, meshes: [mesh], kind: 'geometry', groupId: 'scene-geometry',
-      id: `scene:${preset.presetKey}:object:${object.id}`, label: object.id,
-      anchor: [0, mesh.getBoundingInfo().boundingBox.minimum.y, 0],
-      tags: [preset.presetKey],
     });
-    mesh.receiveShadows = object.shadow?.receive ?? false;
-    if (object.shadow?.cast) shadowGenerators.forEach((generator) => generator.addShadowCaster(mesh));
-  });
-  const instance: SceneEnvironmentInstance = {
-    presetKey: preset.presetKey,
-    root,
-    models: [],
-    nodes,
-    dispose: () => {
-      shadowGenerators.forEach((generator) => generator.dispose());
-      root.dispose(false, true);
-    },
-  };
-  return { instance, shadowGenerators };
+    preset.objects.forEach((object) => {
+      const geometry = object.geometry;
+      const mesh = geometry.primitive === 'ground'
+        ? MeshBuilder.CreateGround(object.id, { width: geometry.width, height: geometry.height }, scene)
+        : geometry.primitive === 'box'
+          ? MeshBuilder.CreateBox(object.id, { width: geometry.width, height: geometry.height, depth: geometry.depth }, scene)
+          : MeshBuilder.CreateCylinder(object.id, {
+            height: geometry.height,
+            diameterTop: geometry.diameterTop,
+            diameterBottom: geometry.diameterBottom,
+            tessellation: geometry.tessellation,
+          }, scene);
+      mesh.parent = root;
+      nodes.set(`object:${object.id}`, mesh);
+      mesh.position.set(...object.position);
+      if (object.rotation) mesh.rotation.set(...object.rotation);
+      mesh.material = createMaterial(scene, preset.presetKey, object);
+      getVisualDeformationRegistry(scene).register({ root: mesh, meshes: [mesh], kind: 'geometry', groupId: 'scene-geometry',
+        id: `scene:${preset.presetKey}:object:${object.id}`, label: object.id,
+        anchor: [0, mesh.getBoundingInfo().boundingBox.minimum.y, 0],
+        tags: [preset.presetKey],
+      });
+      mesh.receiveShadows = object.shadow?.receive ?? false;
+      if (object.shadow?.cast) shadowGenerators.forEach((generator) => generator.addShadowCaster(mesh));
+    });
+    const instance: SceneEnvironmentInstance = {
+      presetKey: preset.presetKey,
+      root,
+      models: [],
+      nodes,
+      dispose: () => {
+        shadowGenerators.forEach((generator) => generator.dispose());
+        root.dispose(false, true);
+      },
+    };
+    return { instance, shadowGenerators };
+  } catch (error) {
+    shadowGenerators.forEach(generator => generator.dispose());
+    root.dispose(false, true);
+    throw error;
+  }
 };
 
 /** 同步创建灯光和基础几何；模型声明由异步接口加载。 */
@@ -219,11 +228,13 @@ export const createSceneEnvironmentAsync = async (
     for (const definition of preset.models) {
       options.signal?.throwIfAborted();
       const entity = await createModelEntity(scene, definition.modelPath, {
+        parent: runtime.instance.root,
         name: `${preset.presetKey}:${definition.id}`,
         transparencyPolicy: definition.transparencyPolicy,
         deformation: { id: `scene:${preset.presetKey}:model:${definition.id}`, groupId: 'scene-models', label: definition.id, tags: [preset.presetKey] },
       });
       if (options.signal?.aborted || scene.isDisposed) { entity.dispose(); throw new Error('场景加载已取消'); }
+      loadedModels.push({ definition, entity });
       (runtime.instance.nodes as Map<string, Node>).set(`model:${definition.id}`, entity.root);
       entity.root.parent = runtime.instance.root;
       entity.root.position.set(...definition.position);
@@ -238,7 +249,6 @@ export const createSceneEnvironmentAsync = async (
       if (definition.animation?.autoplay === true) {
         entity.playAnimation(definition.animation?.name, definition.animation?.loop ?? true);
       }
-      loadedModels.push({ definition, entity });
     }
   } catch (error) {
     loadedModels.forEach(({ entity }) => entity.dispose());

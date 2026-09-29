@@ -1,5 +1,6 @@
 # server.py
 from weapon_presets import validate_weapon_presets
+from scene_environment_presets import read_scene_environment_presets
 from animation_scene_presets import validate_animation_scene_presets
 import argparse
 import mimetypes
@@ -79,7 +80,7 @@ DIALOGUE_MAP_PRESET_INDEX_PATH = os.path.join(DIALOGUE_MAP_PRESET_CONFIG_DIR, "i
 DIALOGUE_PREVIEW_PRESET_CONFIG_DIR = os.path.join(PROJECT_ROOT, "config", "dialoguePreviewPresets")
 DIALOGUE_PREVIEW_PRESET_INDEX_PATH = os.path.join(DIALOGUE_PREVIEW_PRESET_CONFIG_DIR, "index.json")
 DIALOGUE_MAP_GRID_SIZE = 24
-SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets.json")
+SCENE_ENVIRONMENT_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "sceneEnvironmentPresets")
 SHADOW_QUALITY_PRESET_CONFIG_PATH = os.path.join(PROJECT_ROOT, "config", "shadowQualityPresets.json")
 IMAGE_DIR = os.path.join(PROJECT_DIR, "Identity_Skill_Icons")
 DEV_PORT_MIN = 4550
@@ -904,13 +905,8 @@ def handle_dialogue_preview_presets():
 
 @app.route("/api/scene-environment-presets", methods=["GET"])
 def handle_scene_environment_presets():
-    if not os.path.isfile(SCENE_ENVIRONMENT_PRESET_CONFIG_PATH):
-        return jsonify({"success": True, "count": 0, "data": {}})
     try:
-        with open(SCENE_ENVIRONMENT_PRESET_CONFIG_PATH, "r", encoding="utf-8") as file:
-            data = json.load(file)
-        if not isinstance(data, dict):
-            return jsonify({"success": False, "message": "scene environment preset root must be an object"}), 500
+        data = read_scene_environment_presets(SCENE_ENVIRONMENT_PRESET_CONFIG_PATH)
         return jsonify({"success": True, "count": len(data), "data": data})
     except Exception as exc:
         return jsonify({"success": False, "message": f"failed to read scene environment presets: {exc}"}), 500

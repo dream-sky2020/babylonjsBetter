@@ -15,3 +15,8 @@ body { margin:0; height:100vh; overflow:hidden; }
 .key-copy-row, .switch-row { display:flex; align-items:center; gap:6px; }.key-copy-row input { min-width:0; }
 .badge { position:absolute; right:8px; bottom:8px; font-size:10px; color:#aaaeb5; pointer-events:none; }
 #scene-inspector p { padding:8px; color:#aaaeb5; font-size:10px; }
+.environment-fields { border:0; margin:0; padding:8px; min-width:0; }
+.environment-fields label { display:block; margin-bottom:10px; font-size:11px; }
+.environment-fields label > span { display:block; margin-bottom:4px; color:#aaaeb5; }
+.environment-fields input, .environment-fields select, .environment-fields textarea { width:100%; min-width:0; }
+.environment-fields button { margin:4px 5px 4px 0; }

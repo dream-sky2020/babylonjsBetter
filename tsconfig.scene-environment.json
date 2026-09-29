@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["vite/client", "node"] },
+  "include": ["tools/scene-environment-lab/**/*.ts", "tools/scene-environment-lab/**/*.tsx", "core/scene/sceneEnvironment*.ts", "scripts/sceneEnvironmentPresetStore*.ts", "scripts/migrateSceneEnvironmentPresets.ts"],
+  "exclude": ["node_modules"]
+}

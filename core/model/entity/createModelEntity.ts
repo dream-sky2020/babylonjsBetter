@@ -38,61 +38,72 @@ export const createModelEntity = async (
   getModelFormat(sourcePath);
   const fileName = sourcePath.split('/').pop() ?? sourcePath;
   const root = new TransformNode(options.name ?? `model:${fileName}`, scene);
+  root.parent = options.parent ?? null;
   const normalizationRoot = new TransformNode(`${root.name}:asset-profile`, scene);
   normalizationRoot.parent = root;
   const registry = getVisualDeformationRegistry(scene);
-  const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name);
-
-  const profile = options.applyAssetProfile === false
-    ? null
-    : options.assetProfile ?? (await loadModelAssetProfileLibrary())[normalizeModelAssetProfilePath(sourcePath)] ?? null;
-  applyModelMaterialPolicy(prefabInstance.meshes, options.transparencyPolicy ?? profile?.transparencyPolicy);
-
-  for (const node of prefabInstance.entries.rootNodes) {
-    if (!node.parent) node.parent = normalizationRoot;
-  }
-  const animationGroups = prefabInstance.entries.animationGroups;
-  const skeletons = prefabInstance.entries.skeletons;
-
-  let disposed = false;
+  let releasePrefab = () => {};
   let unregisterDeformation = () => {};
-  const entity: ModelEntity = {
-    root,
-    normalizationRoot,
-    sourcePath,
-    meshes: prefabInstance.meshes,
-    transformNodes: prefabInstance.transformNodes,
-    skeletons,
-    animationGroups,
-    playAnimation: (name?: string, loop = true) => {
-      const animation = findAnimation(animationGroups, name);
-      if (!animation) return null;
-      animation.start(loop);
-      return animation;
-    },
-    stopAnimations: () => {
-      animationGroups.forEach((animation) => animation.stop());
-    },
-    dispose: () => {
-      if (disposed) return;
-      disposed = true;
-      unregisterDeformation();
-      prefabInstance.release();
-      root.dispose();
+  try {
+    const prefabInstance = await instantiateModelPrefab(scene, sourcePath, root.name);
+    releasePrefab = prefabInstance.release;
+
+    for (const node of prefabInstance.entries.rootNodes) {
+      if (!node.parent) node.parent = normalizationRoot;
     }
-  };
 
-  if (profile) applyModelAssetProfile(entity, profile);
-  if (options.deformation !== false) unregisterDeformation = registry.register({
-    root, meshes: entity.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath],
-    ...options.deformation,
-  });
+    const profile = options.applyAssetProfile === false
+      ? null
+      : options.assetProfile ?? (await loadModelAssetProfileLibrary())[normalizeModelAssetProfilePath(sourcePath)] ?? null;
+    applyModelMaterialPolicy(prefabInstance.meshes, options.transparencyPolicy ?? profile?.transparencyPolicy);
 
-  if (options.autoPlayAnimation) {
-    entity.playAnimation(typeof options.autoPlayAnimation === 'string'
-      ? options.autoPlayAnimation
-      : undefined);
+    const animationGroups = prefabInstance.entries.animationGroups;
+    const skeletons = prefabInstance.entries.skeletons;
+
+    let disposed = false;
+    const entity: ModelEntity = {
+      root,
+      normalizationRoot,
+      sourcePath,
+      meshes: prefabInstance.meshes,
+      transformNodes: prefabInstance.transformNodes,
+      skeletons,
+      animationGroups,
+      playAnimation: (name?: string, loop = true) => {
+        const animation = findAnimation(animationGroups, name);
+        if (!animation) return null;
+        animation.start(loop);
+        return animation;
+      },
+      stopAnimations: () => {
+        animationGroups.forEach((animation) => animation.stop());
+      },
+      dispose: () => {
+        if (disposed) return;
+        disposed = true;
+        unregisterDeformation();
+        prefabInstance.release();
+        root.dispose();
+      }
+    };
+
+    if (profile) applyModelAssetProfile(entity, profile);
+    if (options.deformation !== false) unregisterDeformation = registry.register({
+      root, meshes: entity.meshes.filter(mesh => mesh.getTotalVertices() > 0), kind: 'model', groupId: 'models', tags: [sourcePath],
+      ...options.deformation,
+    });
+
+    if (options.autoPlayAnimation) {
+      entity.playAnimation(typeof options.autoPlayAnimation === 'string'
+        ? options.autoPlayAnimation
+        : undefined);
+    }
+
+    return entity;
+  } catch (error) {
+    unregisterDeformation();
+    releasePrefab();
+    root.dispose();
+    throw error;
   }
-
-  return entity;
 };

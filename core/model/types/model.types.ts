@@ -12,6 +12,8 @@ import type { ModelAssetProfile } from '@/core/model/types/model-asset-profile.t
 export type ModelFileFormat = 'glb' | 'gltf';
 
 export type CreateModelEntityOptions = {
+  /** Attach before asynchronous preparation so staged scenes can keep models hidden. */
+  parent?: TransformNode;
   /** Optional stable display identity; false excludes this model from visual deformation. */
   deformation?: VisualDeformationMetadata | false;
   name?: string;

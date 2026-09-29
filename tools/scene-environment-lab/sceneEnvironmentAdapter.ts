@@ -1,7 +1,7 @@
 import { DirectionalLight, PointLight, TransformNode } from '@babylonjs/core';
 import { writeTransform } from '../../core/scene-editor/transform.ts';
 import type { EditorTransform, SceneEditorAdapter, SceneEditorObject } from '../../core/scene-editor/types.ts';
-import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3, SceneEnvironmentLight } from '@/core/scene';
+import type { SceneEnvironmentInstance, SceneEnvironmentPreset, SceneEnvironmentVector3, SceneEnvironmentLight } from '@/core/scene/sceneEnvironment.types';
 const tuple = (v: EditorTransform['position']): SceneEnvironmentVector3 => [v.x, v.y, v.z];
 const radians = (v: EditorTransform['rotation']): SceneEnvironmentVector3 => [v.x * Math.PI / 180, v.y * Math.PI / 180, v.z * Math.PI / 180];
 export function updateEnvironmentTransform(preset: SceneEnvironmentPreset, id: string, value: EditorTransform): SceneEnvironmentPreset {
@@ -19,13 +19,14 @@ export function createEnvironmentAdapter(instance: SceneEnvironmentInstance, hos
   const objects = (): SceneEditorObject[] => {
     const p = host.read();
     return [
+      { id: 'scene', name: '场景配置', channels: [] as const, definition: p },
       ...p.objects.map(o => ({ id: `object:${o.id}`, name: o.name, channels: ['position', 'rotation'] as const, definition: o })),
       ...p.models.map(o => ({ id: `model:${o.id}`, name: o.name, channels: ['position', 'rotation', 'scaling'] as const, definition: o })),
       ...p.lights.map(o => ({ id: `light:${o.id}`, name: o.name, channels: o.light.primitive === 'hemispheric' ? [] : ['position'] as const, definition: o })),
     ].flatMap(o => {
-      const node = instance.nodes.get(o.id); if (!node) return [];
+      const node = o.id === 'scene' ? instance.root : instance.nodes.get(o.id); if (!node) return [];
       const target = proxies.get(o.id) ?? (node instanceof TransformNode ? node : undefined);
-      return [{ id: o.id, name: o.name, parentId: null, node, target, channels: o.channels, readonly: !target, description: '场景预设 · 显式保存' }];
+      return [{ id: o.id, name: o.name, parentId: null, node, target, channels: o.channels, readonly: false, description: '场景预设 · 显式保存' }];
     });
   };
   const sync = () => {

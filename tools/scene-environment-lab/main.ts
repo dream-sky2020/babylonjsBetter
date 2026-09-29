@@ -1,21 +1,21 @@
 import {
   ArcRotateCamera,
+  Color4,
   Engine,
   Scene,
   Vector3,
 } from '@babylonjs/core';
-import type { ISceneEnvironmentComponent } from '@/core/entity';
+import type { ISceneEnvironmentComponent } from '@/core/entity/components/scene-environment.component';
 import { createCameraLabController } from '@/core/camera/cameraLabController';
 import { createFloatingCameraControlPanel } from '@/core/ui/FloatingCameraControlPanel';
-import {
-  createSceneEnvironmentAsync,
-  parseSceneEnvironmentPresetLibrary,
-  parseShadowQualityPresetLibrary,
-  resolveShadowQuality,
-  type SceneEnvironmentInstance,
-  type SceneEnvironmentPresetLibrary,
-  type ShadowQualityPresetLibrary,
-} from '@/core/scene';
+import { createSceneEnvironmentAsync } from '@/core/scene/createSceneEnvironment';
+import { parseSceneEnvironmentPresetLibrary } from '@/core/scene/sceneEnvironment.parser';
+import { parseShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.parser';
+import { resolveShadowQuality } from '@/core/scene/resolveShadowQuality';
+import type { SceneEnvironmentInstance, SceneEnvironmentPresetLibrary, SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
+import type { ShadowQualityPresetLibrary } from '@/core/scene/shadowQualityPreset.types';
+import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.loader';
+import { editSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.catalog';
 import { loadConfig, downloadConfigJson } from '@/core/config';
 import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
 import { createEnvironmentAdapter } from './sceneEnvironmentAdapter';
@@ -122,22 +122,39 @@ let loadGeneration = 0;
 let loadAbort: AbortController | null = null;
 let binding: ReturnType<typeof createEnvironmentAdapter> | null = null;
 let savedSnapshot = '';
-let rawLibrary: Record<string, unknown> = {};
-let loadedSnapshot: SceneEnvironmentPresetLibrary = {};
-const history = new DocumentHistory<SceneEnvironmentPresetLibrary>({}, value => {
-  library = value;
+let rawLibrary: SceneEnvironmentDeclarations = {};
+let savedDeclarations: SceneEnvironmentDeclarations = {};
+let activeKey = '';
+let previewQueued = false;
+const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
+  rawLibrary = value;
+  library = parseSceneEnvironmentPresetLibrary(value);
   presetJson.textContent = JSON.stringify(library[currentInstance?.presetKey ?? ''], null, 2);
   setStatus('场景预设草稿已更新；点击保存预设写入配置');
+  if (!previewQueued) {
+    previewQueued = true;
+    queueMicrotask(() => { previewQueued = false; void loadByComponentPresetKey(activeKey); });
+  }
 });
 const editor = new SceneEditor(scene, {
-  objects: () => binding?.adapter.objects() ?? [],
+  objects: () => currentInstance?.presetKey === activeKey ? binding?.adapter.objects() ?? [] : [],
   preview: (edit, value) => binding?.adapter.preview?.(edit, value),
   commit: (edit, value) => binding?.adapter.commit(edit, value),
   cancel: edit => binding?.adapter.cancel?.(edit),
   sync: id => binding?.adapter.sync?.(id),
-  undo: () => binding?.adapter.undo?.(), redo: () => binding?.adapter.redo?.(),
+  undo: () => history.undo(), redo: () => history.redo(),
 }, { cameraInput: suspended => { drag.active = false; cameraController.keys.clear(); cameraController.setInputEnabled(!suspended); }, resetView: () => cameraController.resetInitialPose() });
-const unmountEditor = mountEnvironmentEditor(editor);
+const writePreset = (preset: SceneEnvironmentPreset) => {
+  const next = editSceneEnvironmentDeclaration(rawLibrary, preset.presetKey, preset);
+  const resolved = parseSceneEnvironmentPresetLibrary(next);
+  for (const scenePreset of Object.values(resolved)) for (const light of scenePreset.lights) {
+    if (!('shadow' in light) || !light.shadow) continue;
+    const settings = resolveShadowQuality(light.shadow, shadowQualityLibrary);
+    if (settings.enabled && settings.generator.type === 'cascaded' && light.light.primitive !== 'directional') throw new Error('CSM 仅支持方向光');
+  }
+  history.set(next);
+};
+const unmountEditor = mountEnvironmentEditor(editor, { read: () => library[activeKey], write: writePreset, shadowKeys: () => Object.keys(shadowQualityLibrary) });
 
 
 const component: ISceneEnvironmentComponent = {
@@ -161,33 +178,33 @@ const fetchPresetLibraries = async (): Promise<{
   library: SceneEnvironmentPresetLibrary;
   shadowQualityLibrary: ShadowQualityPresetLibrary;
   source: string;
-  rawLibrary: Record<string, unknown>;
+  rawLibrary: SceneEnvironmentDeclarations;
 }> => {
   const selectData = (payload: unknown) => (payload as Record<string, unknown>).data;
   const [scenePresets, shadowPresets] = await Promise.all([
-    loadConfig<unknown>('sceneEnvironmentPresets.json', {
-      devApiPath: '/api/scene-environment-presets',
-      selectDevPayload: selectData
-    }),
+    loadSceneEnvironmentDeclarations(),
     loadConfig<unknown>('shadowQualityPresets.json', {
       devApiPath: '/api/shadow-quality-presets',
       selectDevPayload: selectData
     })
   ]);
   return {
-    rawLibrary: scenePresets as Record<string, unknown>,
+    rawLibrary: scenePresets,
     library: parseSceneEnvironmentPresetLibrary(scenePresets),
     shadowQualityLibrary: parseShadowQualityPresetLibrary(shadowPresets),
-    source: import.meta.env.DEV ? '统一配置入口（开发时优先 Python API）' : '应用内置配置'
+    source: import.meta.env.DEV ? '统一场景目录（同源开发 API）' : '应用内置场景目录'
   };
 };
 
-const loadByComponentPresetKey = async () => {
+const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
   if (disposed) return;
+  const selectedId = requestedKey === activeKey ? editor.selectedId : null;
   editor.cancel(); editor.enabled = false; editor.refresh();
   loadAbort?.abort(); loadAbort = new AbortController();
   const generation = ++loadGeneration;
-  component.presetKey = presetSelect.value;
+  component.presetKey = requestedKey;
+  activeKey = requestedKey;
+  editor.refresh();
   componentJson.textContent = JSON.stringify(component, null, 2);
   const preset = library[component.presetKey];
   if (!preset) {
@@ -200,6 +217,7 @@ const loadByComponentPresetKey = async () => {
   let nextInstance: SceneEnvironmentInstance;
   try {
     nextInstance = await createSceneEnvironmentAsync(scene, preset, {
+      staged: true,
       signal: loadAbort.signal,
       shadowQualityPresets: shadowQualityLibrary,
       cascadedShadowDebug: csmDebugToggle.checked,
@@ -217,12 +235,15 @@ const loadByComponentPresetKey = async () => {
   editor.select(null); binding?.dispose(); binding = null;
   currentInstance?.dispose();
   currentInstance = nextInstance;
+  nextInstance.root.setEnabled(true);
+  scene.clearColor = Color4.FromHexString(preset.clearColor);
   const key = nextInstance.presetKey;
   binding = createEnvironmentAdapter(nextInstance, {
-    read: () => library[key], write: value => history.set({ ...library, [key]: value }),
+    read: () => library[key], write: writePreset,
     undo: () => history.undo(), redo: () => history.redo(),
   });
   editor.refresh();
+  editor.select(selectedId);
   currentSceneKeyInput.value = currentInstance.presetKey;
   const referencedShadowPresets = Object.fromEntries(preset.lights.flatMap((light) => {
     if (!('shadow' in light) || !light.shadow) return [];
@@ -251,22 +272,24 @@ const saveButton = requireElement('#save-preset', HTMLButtonElement);
 saveButton.addEventListener('click', () => { void (async () => {
   editor.commit();
   parseSceneEnvironmentPresetLibrary(library);
-  const snapshot = JSON.stringify(library);
-  // Preserve untouched inherited declarations. Only an edited preset becomes an explicit standalone preset.
-  const storage = Object.fromEntries(Object.entries(library).map(([key, value]) => [key, JSON.stringify(value) === JSON.stringify(loadedSnapshot[key]) ? rawLibrary[key] ?? value : value]));
-  const body = JSON.stringify(storage);
-  if (!import.meta.env.DEV) { downloadConfigJson('sceneEnvironmentPresets.json', storage); return; }
+  const key = activeKey;
+  if (!rawLibrary[key]) return;
+  const declaration = structuredClone(rawLibrary[key]);
+  const body = JSON.stringify({ presetKey: key, declaration });
+  if (!import.meta.env.DEV) { downloadConfigJson(`${key}.json`, declaration); return; }
   saveButton.disabled = true;
   try {
     const response = await fetch('/api/scene-environment-presets', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body });
     const payload = await response.json();
     if (!response.ok || !payload.success) throw new Error(payload.message ?? response.statusText);
-    savedSnapshot = snapshot; rawLibrary = storage; loadedSnapshot = JSON.parse(snapshot); setStatus('已保存到 config/sceneEnvironmentPresets.json；重新加载后保留变换');
+    savedDeclarations = { ...savedDeclarations, [key]: declaration };
+    savedSnapshot = JSON.stringify(savedDeclarations);
+    setStatus(`已保存到 config/sceneEnvironmentPresets/${key}.json；刷新页面后恢复。其他场景未写入。`);
   } catch (error) { setStatus(String(error), true); }
   finally { saveButton.disabled = false; }
 })(); });
 const beforeUnload = (event: BeforeUnloadEvent) => {
-  if (JSON.stringify(library) !== savedSnapshot) { event.preventDefault(); event.returnValue = ''; }
+  if (JSON.stringify(rawLibrary) !== savedSnapshot) { event.preventDefault(); event.returnValue = ''; }
 };
 window.addEventListener('beforeunload', beforeUnload);
 const historyKey = (event: KeyboardEvent) => {
@@ -291,7 +314,7 @@ copySceneKeyButton.addEventListener('click', () => {
     window.setTimeout(() => { copySceneKeyButton.textContent = '复制'; }, 1200);
   });
 });
-csmDebugToggle.addEventListener('change', () => { void loadByComponentPresetKey(); });
+csmDebugToggle.addEventListener('change', () => { void loadByComponentPresetKey(activeKey); });
 presetSelect.addEventListener('change', () => {
   component.presetKey = presetSelect.value;
   componentJson.textContent = JSON.stringify(component, null, 2);
@@ -299,7 +322,7 @@ presetSelect.addEventListener('change', () => {
 
 void fetchPresetLibraries().then((result) => {
   if (disposed) return;
-  library = result.library; history.value = library; savedSnapshot = JSON.stringify(library); rawLibrary = result.rawLibrary; loadedSnapshot = structuredClone(library);
+  library = result.library; rawLibrary = result.rawLibrary; history.value = rawLibrary; savedDeclarations = structuredClone(rawLibrary); savedSnapshot = JSON.stringify(rawLibrary);
   shadowQualityLibrary = result.shadowQualityLibrary;
   presetSelect.replaceChildren(...Object.values(library).map((preset) => {
     const option = document.createElement('option');

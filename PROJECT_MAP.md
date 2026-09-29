@@ -1,5 +1,15 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-29：Scene Environment 声明 Inspector 与单场景持久化
+
+`tools/scene-environment-lab/sceneEnvironmentFields.ts` 定义场景、三类几何、模型和三类光源的显式字段，React Inspector 按选区生成可编辑表单，统一校验、草稿应用与 DocumentHistory 撤销/重做，不反射 Babylon 属性。几何/模型/阴影等变更通过隐藏候选实例异步重建，成功后替换旧实例，保留稳定 ID、选区、相机和 Gizmo；失败保留旧预览，过期请求按 AbortSignal 与代次释放。
+
+`core/model/entity/createModelEntity.ts` 在加载/应用资产配置失败时清理临时节点与 prefab 实例；可选 parent 在异步准备前挂载模型根，供场景候选隐藏加载使用。场景工厂同步创建失败也释放已分配的阴影和根节点。
+
+场景事实源现为 `config/sceneEnvironmentPresets/index.json` 与同目录每预设一个 JSON。`core/scene/sceneEnvironment.catalog.ts` 拥有目录校验、组装和继承声明编辑；`sceneEnvironment.loader.ts` 为 Lab / Dungeon 统一读取入口，开发同源 API、构建 eager glob 收录目录。Vite GET 组装库，PUT 接收 `{presetKey,declaration}`，由 `scripts/sceneEnvironmentPresetStore.ts` 串行验证整库及阴影引用后仅原子替换当前文件；目录 HMR 被抑制以保护草稿。Python GET 使用 `python/scene_environment_presets.py` 只读组装，完整类型校验继续由 TS 消费者承担。
+
+继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`scripts/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。当前 Inspector 不增删对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
+
 ## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
 
 入口仍为 tools/dungeon-agent-lab/main.ts，仅显式选择配置、Agent、传送和视觉变形；其余能力按依赖自动安装。Agent Lab 启动时注入与俯视 Lab 相同的 45° 正交俯视测试草稿，使已安装的视觉变形模块默认生效；该草稿只属于 LabState，不写入地图。Agent Debug 模型挂在共享显示根节点下，订阅俯视服务的有效显示映射；移动姿态继续使用原地图坐标，视角切换与切图时由根节点统一调整和恢复。tools/lab-modules/dungeon/dungeonSystem.manifests.ts 提供统一职责、Core 源码、服务、协议与调度说明，区分游戏系统、Debug、配置界面及兼容入口。Host 的系统装配面板显示系统计数、安装顺序及原因、真实服务访问关系、协议处理/订阅和运行任务；各调试面板自动附带说明，所列 Core 文件按需读取源码。
@@ -803,7 +813,7 @@ Monster 3D Visual Lab 当前输入规则：怪物大小、3D 倍率、高度和�
 | `popNumberPresets.json`、`burstCapsulePresets.json` | Hit/effect labs |
 | `dungeonMapPresets/index.json` 与同目录单地图 JSON | Dungeon Map Canvas、组合式 Dungeon Lab，以及 World Loader 引用的地图目录和实际地图预设 |
 | `dialogueMapPresets/index.json` 与同目录单预设 JSON | Dialogue Map Canvas Lab 与后续对话运行时共享的节点图预设 |
-| `sceneEnvironmentPresets.json` | Scene Environment Lab；Vite `/api/scene-environment-presets` GET/PUT 读取与原子保存，Python 接口只读 |
+| `sceneEnvironmentPresets/index.json` 与同目录单场景 JSON | Scene Environment Lab / Dungeon 统一 loader；Vite GET 组装库、PUT 只原子保存当前预设，Python 接口只读 |
 | `shadowQualityPresets.json` | 场景阴影性能档位；由光源 `qualityPresetKey` 引用，并由 `/api/shadow-quality-presets` 只读获取 |
 | `animationScenePresets.json` | Animation Workbench 与游戏运行时共享的通用动画场景预设；开发期由 `/api/animation-scene-presets` 校验并原子保存。现有 `model-shake-lab` 动作已逐项迁入，可用 `npm run migrate:animation-scene-presets` 重复同步并保留其他通用预设 |
 

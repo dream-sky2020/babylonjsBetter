@@ -1,4 +1,5 @@
 import { loadConfig } from '@/core/config';
+import { loadSceneEnvironmentDeclarations } from '@/core/scene/sceneEnvironment.loader';
 import { validateDungeonTransitionDocumentLibrary } from '@/core/dungeon-transition';
 import { loadDungeonMapDocumentLibraryV2 } from '@/core/map';
 import { parseSceneEnvironmentPresetLibrary, parseShadowQualityPresetLibrary } from '@/core/scene';
@@ -45,7 +46,7 @@ export const dungeonLibrariesLabModule: LabModule = {
       async start() {
         const [maps, environments, shadows] = await Promise.all([
           loadDungeonMapDocumentLibraryV2(),
-          loadConfig<unknown>('sceneEnvironmentPresets.json', { devApiPath: '/api/scene-environment-presets', selectDevPayload: selectDevData }),
+          loadSceneEnvironmentDeclarations(),
           loadConfig<unknown>('shadowQualityPresets.json', { devApiPath: '/api/shadow-quality-presets', selectDevPayload: selectDevData }),
         ]);
         const transitionIssues = validateDungeonTransitionDocumentLibrary(maps);
