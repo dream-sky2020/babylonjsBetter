@@ -6,7 +6,7 @@ const shadowFlags = [field('shadow.cast', '投射阴影', 'boolean', true), fiel
 export function environmentTarget(preset: SceneEnvironmentPreset, id: string | null): Record<string, unknown> {
   if (!id || id === 'scene') return preset as unknown as Record<string, unknown>;
   const split = id.indexOf(':'); const kind = id.slice(0, split); const key = id.slice(split + 1);
-  const list = kind === 'object' ? preset.objects : kind === 'model' ? preset.models : preset.lights;
+  const list = kind === 'transform' ? preset.transformNodes ?? [] : kind === 'object' ? preset.objects : kind === 'model' ? preset.models : preset.lights;
   const target = list.find(item => item.id === key);
   if (!target) throw new Error(`找不到声明：${id}`);
   return target as unknown as Record<string, unknown>;
@@ -16,10 +16,11 @@ export function environmentFields(preset: SceneEnvironmentPreset, id: string | n
   const target = environmentTarget(preset, id);
   const common = [field('name', '名称', 'text')];
   if (!id || id === 'scene') return [...common, field('clearColor', '背景颜色', 'color')];
+  if (id.startsWith('transform:')) return [...common, field('role', '用途', 'select', true, ['empty', 'rig', 'socket']), field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('scaling', '缩放', 'vector', true)];
   if (id.startsWith('object:')) {
     const geometry = target.geometry as { primitive: string };
     const sizes = geometry.primitive === 'ground' ? ['width', 'height'] : geometry.primitive === 'box' ? ['width', 'height', 'depth'] : ['height', 'diameterTop', 'diameterBottom', 'tessellation'];
-    return [...common, field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('color', '颜色', 'color'),
+    return [...common, field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('scaling', '缩放', 'vector', true), field('color', '颜色', 'color'),
       ...sizes.map(path => ({ ...field(`geometry.${path}`, ({ width: '宽度', height: '高度 / 地面深度', depth: '深度', diameterTop: '顶部直径', diameterBottom: '底部直径', tessellation: '圆周细分' })[path] ?? path, 'number', path === 'tessellation'), min: path === 'diameterTop' ? 0 : path === 'tessellation' ? 3 : Number.MIN_VALUE, integer: path === 'tessellation' })), ...shadowFlags];
   }
   if (id.startsWith('model:')) return [...common, field('modelPath', '模型路径（GLB / GLTF）', 'text'), field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('scaling', '缩放', 'vector', true), field('transparencyPolicy', '透明策略', 'select', true, ['source', 'depth-safe-cutout']), field('animation.name', '动画名称', 'text', true), field('animation.autoplay', '自动播放', 'boolean', true), field('animation.loop', '循环动画', 'boolean', true), ...shadowFlags];

@@ -14,7 +14,7 @@
 
 `resolveOverheadView()` 返回不可变结果。`mapDungeonDisplayPosition()` 映射跟随目标；`applyDungeonViewToNode()` 对根节点应用同一变换。传 null 恢复单位缩放。务必使用专属显示父节点，不传拥有自身布局变换的模型根。
 
-`sceneEnvironmentDisplay.ts` 把场景预设中的几何、模型和有位置的光源按同一映射移动到显示坐标，保持 3D 对象自身尺寸和原声明位置不变；平面地面另外按 Grid 的 X/Z 倍率调整覆盖范围。模型锚点若原本位于格子中心，变换后仍与格子中心重合；模型自身的横向占地范围不会跟着 Grid 拉伸。Loader 通过独立 View Consumer 持有当前场景实例，切图时把映射交给新实例并恢复旧实例；俯视协调器仅持有控制句柄。
+`sceneEnvironmentDisplay.ts` 把场景预设顶层的空节点、几何、模型和有位置的光源按同一映射移动到显示坐标，保持 3D 对象自身尺寸和原声明位置不变。有父节点的对象保留局部坐标，将整棵子树作为一个装配移动，不重复映射子节点位置。平面地面通过 `instance.groundMeshes` 对独立渲染网格按 Grid 倍率沿地面局部 X/Z 轴调整覆盖范围，不修改逻辑节点缩放或拉伸子节点；旋转地面不自动对齐世界格轴。顶层模型锚点若原本位于格子中心，变换后仍与格子中心重合；模型自身的横向占地范围不会跟着 Grid 拉伸。Loader 通过独立 View Consumer 持有当前场景实例，切图时把映射交给新实例并恢复旧实例；俯视协调器仅持有控制句柄。
 
 消费者通过 `createDungeonViewConsumer(callback)` 暴露 `acquire(owner)`；句柄支持 apply / release。一次只允许一个协调者；失效句柄不能再写入；release 恢复 null，dispose 清理消费者。资源由消费者持有，协调者不能直接操作 Mesh。
 

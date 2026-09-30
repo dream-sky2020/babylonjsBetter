@@ -14,6 +14,12 @@ export type SceneEditorObject = {
   readonly?: boolean; hidden?: boolean; uniformScale?: boolean;
   minScale?: number;
   description?: string;
+  /** Optional compact display glyph; domain adapters own its meaning. */
+  icon?: string;
+  draggable?: boolean;
+  acceptsChildren?: boolean;
+  /** Editor-owned visual handles that select this domain object without becoming edit targets. */
+  pickNodes?: readonly Node[];
 };
 export type TransformEdit = { id: string; channel: TransformChannel; source: 'gizmo' | 'inspector'; before: EditorTransform };
 export interface SceneEditorAdapter {

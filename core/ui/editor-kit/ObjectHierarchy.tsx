@@ -140,6 +140,7 @@ export function ObjectHierarchy({
     const activeDrop = dropIntent?.targetId === id ? dropIntent : null; const dropValid = activeDrop ? validIntent(activeDrop) : false;
     return <div className="editor-hierarchy-branch" key={id}>
       <div className={`editor-hierarchy-row${selected.has(id) ? ' selected' : ''}${item.disabled ? ' disabled' : ''}${activeDrop ? ` drop-${activeDrop.placement}${dropValid ? '' : ' drop-invalid'}` : ''}`}
+        data-object-id={id}
         style={{ paddingLeft: 6 + depth * 14 }} title={item.title}
         draggable={Boolean(onMove) && item.draggable !== false && !item.locked}
         onDragStart={event => { const ids = selected.has(id) ? selectedIds.filter(selectedId => items[selectedId] && !items[selectedId].locked && items[selectedId].draggable !== false) : [id]; event.dataTransfer.effectAllowed = 'move'; event.dataTransfer.setData('application/x-editor-objects', JSON.stringify(ids)); setDragIds(ids); }}

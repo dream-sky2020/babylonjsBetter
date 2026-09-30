@@ -1,6 +1,7 @@
 import { DirectionalLight, PointLight, TransformNode } from '@babylonjs/core';
 import type { SceneEnvironmentInstance, SceneEnvironmentPreset } from '../scene/sceneEnvironment.types.ts';
 import { createDungeonViewConsumer, mapDungeonDisplayPosition, type ResolvedDungeonView } from './dungeonOverheadView.ts';
+import { environmentNodeEntries } from '../scene/sceneEnvironment.hierarchy.ts';
 
 /** Map authored world positions into the grid's display space without stretching 3D objects. */
 export function applySceneEnvironmentDisplayView(
@@ -8,22 +9,25 @@ export function applySceneEnvironmentDisplayView(
   preset: SceneEnvironmentPreset,
   view: ResolvedDungeonView | null,
 ): void {
-  for (const object of preset.objects) {
-    const node = instance.nodes.get(`object:${object.id}`);
-    if (!(node instanceof TransformNode)) continue;
-    node.position.set(...mapDungeonDisplayPosition(view, object.position));
-    // A ground plane represents the map surface; its footprint follows grid scale.
-    if (object.geometry.primitive === 'ground') node.scaling.set(view?.scaleX ?? 1, 1, view?.scaleZ ?? 1);
-  }
-  for (const model of preset.models) {
-    const node = instance.nodes.get(`model:${model.id}`);
-    if (node instanceof TransformNode) node.position.set(...mapDungeonDisplayPosition(view, model.position));
-  }
-  for (const definition of preset.lights) {
-    const light = definition.light;
-    if (light.primitive === 'hemispheric' || (light.primitive === 'directional' && !light.position)) continue;
-    const node = instance.nodes.get(`light:${definition.id}`);
-    if (node instanceof PointLight || node instanceof DirectionalLight) node.position.set(...mapDungeonDisplayPosition(view, light.position!));
+  for (const { id, definition } of environmentNodeEntries(preset)) {
+    const node = instance.nodes.get(id);
+    if ('light' in definition) {
+      const light = definition.light;
+      if (light.primitive === 'hemispheric' || (light.primitive === 'directional' && !light.position)) continue;
+      if (node instanceof PointLight || node instanceof DirectionalLight) node.position.set(...(definition.parentId ? light.position! : mapDungeonDisplayPosition(view, light.position!)));
+    } else if (node instanceof TransformNode) {
+      // A hierarchy is one placed assembly; never map its child-local coordinates again.
+      node.position.set(...(definition.parentId ? definition.position : mapDungeonDisplayPosition(view, definition.position)));
+      if ('geometry' in definition && definition.geometry.primitive === 'ground') {
+        const mesh = instance.groundMeshes?.get(id);
+        if (mesh) mesh.scaling.set(view?.scaleX ?? 1, 1, view?.scaleZ ?? 1);
+        else {
+          // Compatibility with older instances whose ground mesh was the logical node.
+          const scale = definition.scaling ?? [1, 1, 1];
+          node.scaling.set(scale[0] * (view?.scaleX ?? 1), scale[1], scale[2] * (view?.scaleZ ?? 1));
+        }
+      }
+    }
   }
 }
 

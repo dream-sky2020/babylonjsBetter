@@ -28,7 +28,7 @@ export async function readSceneEnvironmentCatalog(read: (file: string) => Promis
 export function editSceneEnvironmentDeclaration(raw: SceneEnvironmentDeclarations, key: string, edited: SceneEnvironmentPreset): SceneEnvironmentDeclarations {
   const previous = parseSceneEnvironmentPresetLibrary(raw)[key];
   const next = { ...raw[key] };
-  for (const field of ['name', 'clearColor', 'objects', 'models', 'lights'] as const) {
+  for (const field of ['name', 'clearColor', 'objects', 'models', 'lights', 'transformNodes'] as const) {
     if (JSON.stringify(previous[field]) !== JSON.stringify(edited[field])) next[field] = edited[field];
   }
   if (JSON.stringify(previous.lights) !== JSON.stringify(edited.lights)) delete next.lightShadowOverrides;

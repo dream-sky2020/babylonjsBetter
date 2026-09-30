@@ -31,6 +31,8 @@ editor.dispose();
 
 `SceneEditorPanels.tsx` 提供 `SceneEditorHierarchy`、`SceneEditorToolbar`、`SceneTransformFields`、`SceneEditorInspector`。Hierarchy 直接适配 `core/ui/editor-kit/ObjectHierarchy`，Inspector 复用 `InspectorPanel/InspectorSection`；导入节点只读属性复用既有 `BabylonSceneInspector`。`withReadOnlyDescendants` 可为浏览生成以领域 ID 为根的子路径，不使用 uniqueId；视口拾取仍向上寻找领域可编辑目标。
 
+Hierarchy 可选接收 `canDrop/onMove`，将结构意图交回领域层；对象以 `draggable/acceptsChildren` 声明能力，只读对象不可拖动或接收子节点。未传入 `onMove` 的 Lab 保持原交互。`withReadOnlyDescendants` 可指定 `rootIds/pathKey`，使模型浏览跳过已注册领域子节点并保持重建后的路径身份。只读后代默认不自动展开。对象可提供 `pickNodes` 将编辑器辅助标记映射到领域选区，标记不会成为 Gizmo 写入目标，生命周期由提供标记的 Lab 管理。
+
 `scene-editor.css` 提取 Animation Workbench 的中性深灰面板、蓝灰选中态、边框、字体和紧凑控件；四个 Lab 共用，领域 CSS 只保留各自布局和专用区域。统一采用左树、中间视口、右 Inspector，时间轴/状态区独立排列。
 
 ## 领域边界
@@ -42,7 +44,7 @@ editor.dispose();
 | Animation Workbench | `animationSceneAdapter.ts` | 写 AnimationWorkspace，接 useWorkspaceHistory；EDIT 修改基础姿态，AUTO/REC 使用既有 recordTransformKey；播放期间不接受变换提交 |
 | Scene Environment | `sceneEnvironmentAdapter.ts` | geometry/model/light 前缀 + 预设 ID；写预设草稿，显式保存通过 Vite GET/PUT API；构建版导出 JSON |
 
-显隐在 Animation Workbench 写 enabled 并可撤销，其他 Lab 的共享显隐默认是临时预览状态。对象结构编辑仍由各 Lab 负责。Scene Environment 的 Gizmo 通道为几何 position/rotation、模型 position/rotation/scaling、点光和方向光 position；独立声明 Inspector 另外编辑几何尺寸、模型参数、三类光源及场景配置，半球光属性也可编辑，不使用运行时反射面板。预设保存为 `config/sceneEnvironmentPresets/` 下单场景文件，保留继承链接。暂不提供共享多选变换、改父级或灯光方向 Gizmo。负尺度/非均匀缩放父级下的 World 旋转受 Babylon 分解能力限制，精确编辑请用 Local。
+显隐在 Animation Workbench 写 enabled 并可撤销，其他 Lab 的共享显隐默认是临时预览状态。对象结构编辑仍由各 Lab 负责。Scene Environment 的 Gizmo 通道为空节点/几何/模型 position/rotation/scaling、点光和方向光 position；独立声明 Inspector 另外编辑几何尺寸、模型参数、三类光源及场景配置，半球光属性也可编辑，不使用运行时反射面板。该 Lab 的声明支持 `transformNodes` 与 `parentId/order`，通过自身父节点表单和右键菜单提交结构历史，改父级保持世界姿态，拒绝无法分解的剪切；灯光代理使用实际父节点。预设保存为 `config/sceneEnvironmentPresets/` 下单场景文件，保留继承链接。共享 Hierarchy 支持可选图标并在异步新增节点时展开，保留已有折叠状态；共享控制器暂不提供多选变换、改父级或灯光方向 Gizmo。负尺度/非均匀缩放父级下的 World 旋转受 Babylon 分解能力限制，精确编辑请用 Local。
 
 ## 验证
 

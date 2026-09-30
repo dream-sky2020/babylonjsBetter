@@ -1,9 +1,24 @@
-import type { TransformNode, Node } from '@babylonjs/core';
+import type { TransformNode, Node, Mesh } from '@babylonjs/core';
 import type { ModelEntity } from '../model/types/model.types';
 import type { ModelTransparencyPolicy } from '../model/material/applyModelMaterialPolicy';
 import type { ShadowQualityReference } from './shadowQualityPreset.types';
 
 export type SceneEnvironmentVector3 = readonly [number, number, number];
+
+export type SceneEnvironmentHierarchy = {
+  /** Stable, type-prefixed declaration ID. Missing/null means the environment root. */
+  parentId?: string | null;
+  order?: number;
+};
+
+export type SceneEnvironmentTransformNode = SceneEnvironmentHierarchy & {
+  id: string;
+  name: string;
+  role?: 'empty' | 'rig' | 'socket';
+  position: SceneEnvironmentVector3;
+  rotation?: SceneEnvironmentVector3;
+  scaling?: SceneEnvironmentVector3;
+};
 
 export type SceneEnvironmentGeometry =
   | { primitive: 'ground'; width: number; height: number }
@@ -16,13 +31,14 @@ export type SceneEnvironmentGeometry =
       tessellation?: number;
     };
 
-export type SceneEnvironmentObject = {
+export type SceneEnvironmentObject = SceneEnvironmentHierarchy & {
   id: string;
   /** 仅供人和编辑器辨认，不参与渲染分派。 */
   name: string;
   geometry: SceneEnvironmentGeometry;
   position: SceneEnvironmentVector3;
   rotation?: SceneEnvironmentVector3;
+  scaling?: SceneEnvironmentVector3;
   color: string;
   shadow?: {
     cast?: boolean;
@@ -30,7 +46,7 @@ export type SceneEnvironmentObject = {
   };
 };
 
-export type SceneEnvironmentModel = {
+export type SceneEnvironmentModel = SceneEnvironmentHierarchy & {
   id: string;
   name: string;
   modelPath: string;
@@ -49,7 +65,7 @@ export type SceneEnvironmentModel = {
   };
 };
 
-type SceneEnvironmentLightBase = {
+type SceneEnvironmentLightBase = SceneEnvironmentHierarchy & {
   id: string;
   name: string;
   intensity: number;
@@ -90,6 +106,7 @@ export type SceneEnvironmentPreset = {
   lights: readonly SceneEnvironmentLight[];
   objects: readonly SceneEnvironmentObject[];
   models: readonly SceneEnvironmentModel[];
+  transformNodes?: readonly SceneEnvironmentTransformNode[];
 };
 
 export type SceneEnvironmentPresetLibrary = Record<string, SceneEnvironmentPreset>;
@@ -100,5 +117,7 @@ export type SceneEnvironmentInstance = {
   models: readonly { definition: SceneEnvironmentModel; entity: ModelEntity }[];
   /** Stable declaration identities; imported render children are intentionally not edit targets. */
   nodes: ReadonlyMap<string, Node>;
+  /** Ground visuals are separate from their logical parent so display scaling never stretches children. */
+  groundMeshes?: ReadonlyMap<string, Mesh>;
   dispose: () => void;
 };

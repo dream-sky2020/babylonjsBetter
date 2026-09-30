@@ -39,7 +39,7 @@ export class SceneEditor {
       let node: Node | null = info.pickInfo?.pickedMesh ?? null;
       const objects = this.objects();
       while (node) {
-        const found = objects.find(o => (o.node === node || o.target === node) && !o.id.includes('/render:'));
+        const found = objects.find(o => (o.node === node || o.target === node || o.pickNodes?.includes(node!)) && !o.id.includes('/render:'));
         if (found) { this.select(found.id); return; }
         node = node.parent;
       }

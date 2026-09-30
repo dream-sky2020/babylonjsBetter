@@ -19,6 +19,8 @@ import { editSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } fr
 import { loadConfig, downloadConfigJson } from '@/core/config';
 import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
 import { createEnvironmentAdapter } from './sceneEnvironmentAdapter';
+import { moveEnvironmentNode, reparentEnvironmentNode } from './sceneEnvironmentHierarchy';
+import type { EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
 import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import './scene-environment-editor.css';
@@ -128,6 +130,7 @@ let savedDeclarations: SceneEnvironmentDeclarations = {};
 let activeKey = '';
 let previewQueued = false;
 let pendingSelectionId: string | null = null;
+let markersVisible = true;
 const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
   rawLibrary = value;
   library = parseSceneEnvironmentPresetLibrary(value);
@@ -156,15 +159,55 @@ const writePreset = (preset: SceneEnvironmentPreset) => {
   }
   history.set(next);
 };
+// Pointer dragover can fire many times without changing its semantic placement.
+let dropPreview: { preset: SceneEnvironmentPreset; signature: string; result?: SceneEnvironmentPreset; error?: unknown } | undefined;
+const prepareMove = (preset: SceneEnvironmentPreset, intent: EditorHierarchyDropIntent) => {
+  const signature = JSON.stringify([intent.sourceIds, intent.targetId, intent.parentId, intent.placement]);
+  if (!dropPreview || dropPreview.preset !== preset || dropPreview.signature !== signature) {
+    try { dropPreview = { preset, signature, result: moveEnvironmentNode(preset, intent) }; }
+    catch (error) { dropPreview = { preset, signature, error }; }
+  }
+  if (dropPreview.error) throw dropPreview.error;
+  return dropPreview.result!;
+};
 const editorHost = {
   read: () => library[activeKey],
   write: writePreset,
   shadowKeys: () => Object.keys(shadowQualityLibrary),
-  create: (kind: EnvironmentObjectKind, modelPath?: string) => {
+  markersVisible: () => markersVisible,
+  modelAssetProperties: (id: string) => binding?.modelAssetProperties(id),
+  setMarkersVisible: (visible: boolean) => { markersVisible = visible; binding?.setMarkersVisible(visible); editor.refresh(); },
+  canMove: (intent: EditorHierarchyDropIntent) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return false;
+    try { prepareMove(preset, intent); return true; } catch { return false; }
+  },
+  move: (intent: EditorHierarchyDropIntent) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return;
+    editor.cancel();
+    try {
+      const next = prepareMove(preset, intent);
+      if (next === preset) return;
+      pendingSelectionId = intent.sourceIds[0];
+      writePreset(next);
+    } catch (error) {
+      pendingSelectionId = null;
+      setStatus(`移动失败：${error instanceof Error ? error.message : String(error)}`, true);
+    }
+  },
+  reparent: (id: string, parentId: string | null) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return;
+    editor.cancel();
+    try { writePreset(reparentEnvironmentNode(preset, id, parentId)); }
+    catch (error) { setStatus(`修改父节点失败：${error instanceof Error ? error.message : String(error)}`, true); throw error; }
+  },
+  create: (kind: EnvironmentObjectKind, modelPath?: string, parentId: string | null = null) => {
     const preset = library[activeKey];
     if (!preset || !editor.enabled) return;
     try {
-      const result = addEnvironmentObject(preset, kind, modelPath);
+      const result = addEnvironmentObject(preset, kind, modelPath, parentId);
       pendingSelectionId = result.selectedId;
       writePreset(result.preset);
     }
@@ -265,6 +308,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
     read: () => library[key], write: writePreset,
     undo: () => history.undo(), redo: () => history.redo(),
   });
+  binding.setMarkersVisible(markersVisible);
   editor.refresh();
   editor.select(selectedId);
   currentSceneKeyInput.value = currentInstance.presetKey;

@@ -1,5 +1,23 @@
 # Babylon.js Better 项目地图
 
+## 2026-10-01：Scene Environment 父子节点第二阶段
+
+最终展示约定：Lab 左侧树只使用场景声明的对象与 parentId，不调用 `withReadOnlyDescendants`，不展示任何 GLTF 内部根、网格或变换包装。用户手动挂载的子对象继续显示。共享资产校正值属于模型 Inspector 的“模型资产校正”只读折叠区；不更改资产配置或运行时父子关系。
+
+Scene Environment Lab 接入共享 `ObjectHierarchy` 的拖入、前后排序和根末尾投放。`sceneEnvironmentHierarchy.ts` 根据声明 ID 解析目标，忽略包含只读行的 UI 索引，复用保持世界姿态的改父级逻辑，一次提交结构历史；`sceneEnvironment.hierarchy.ts` 统一排序，新建对象前归一化旧声明顺序，避免按类型数组插入引起无关同级节点跳动。只读节点、循环关系及无法保持姿态的变换在预览和提交边界拦截，拖动验证按声明与投放目标缓存。
+
+`sceneEnvironmentMarkers.ts` 由 Lab adapter 创建并释放编辑器专属标记，独立跟随空节点/Rig/Socket 的世界位置和朝向，按相机保持近似固定屏幕大小；共享 SceneEditor 的 `pickNodes` 将辅助网格拾取映射至声明节点。显隐属于当前页面预览偏好，重建后保留，不写预设；标记不进入 Dungeon 工厂、阴影或变形注册。
+
+视口拾取模型内部网格仍选中模型实例，内部渲染节点不成为编辑器对象。共享 Hierarchy 的拖放回调为可选参数，其他 Lab 保持原有结构操作。验证覆盖跨类型排序、无效投放、历史、JSON 往返、标记真实射线拾取/释放，以及多层导入节点不泄漏到树、手动子节点保留；浏览器验证模型无手动子节点时仅一行、无展开箭头，并验证拖放、属性面板、标记显隐和保存刷新。
+
+## 2026-10-01：Scene Environment 父子节点第一阶段
+
+`core/scene/sceneEnvironment.types.ts` 新增可选 `transformNodes` 和节点 `parentId/order`，几何声明补充局部缩放；`sceneEnvironment.hierarchy.ts` 提供稳定类型前缀索引、父节点候选和无环/唯一 ID 校验。旧预设继续按根层级加载，继承与保存将 transformNodes 作为整体数组覆盖，并在合并后验证引用。`createSceneEnvironment.ts` 在所有模型准备后建立实际层级；地面拆分逻辑变换节点与独立渲染网格，`ParentLocalHemisphericLight` 补足半球光父级方向继承。
+
+`tools/scene-environment-lab` 右键可创建空节点/Rig/Socket 和子对象，Inspector 父节点选择器或根层级菜单保持声明世界姿态地改父级；结构/局部变换接入现有声明历史与单场景保存，不添加独立存储。`sceneEnvironmentHierarchy.ts` 从声明计算世界矩阵，拒绝循环、零缩放父节点及无法分解的剪切。Rig/Socket 当前仅为用途标签；无拖拽结构操作、骨骼绑定或可拾取挂点标记。共享 SceneEditor Hierarchy 复用既有树组件、显示图标/类型标签并展开新节点，领域规则仍归 Lab。
+
+Dungeon `sceneEnvironmentDisplay.ts` 仅映射声明顶层位置，将子树作为装配保留局部布局；地面覆盖缩放仅作用于渲染网格，不影响子节点。旋转地面按自身局部 X/Z 轴扩展，不自动对齐世界格轴。验证包含 scene-environment/scene-editor/dungeon-overhead-view 测试、scene-environment 类型检查、四编辑器生产构建和临时预设浏览器往返测试；浏览器覆盖空节点→Rig→Socket→几何、父级移动、改父级姿态保持、撤销与重载，真实用户预设不回写。
+
 ## 2026-09-30：Dungeon 俯视场景对象坐标协调
 
 `dungeon-overhead-view` 现在取得 Map Loader 提供的场景对象 View Consumer，与 Grid、玩家及 Debug 使用同一 `ResolvedDungeonView`。`core/dungeon-view/sceneEnvironmentDisplay.ts` 将场景几何、模型及有位置的光源映射到 Grid 显示坐标，模型自身 X/Z 尺寸与场景声明坐标保持不变，地面平面的覆盖范围随 Grid 比例调整。Loader 在切图时将当前映射交给新场景并恢复旧场景；关闭俯视、切换第一人称或释放控制时沿用现有显示恢复规则。Shader 高度倾斜仍由 `core/render-deformation/` 独立负责。

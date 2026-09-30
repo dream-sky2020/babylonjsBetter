@@ -6,7 +6,10 @@ import type {
   SceneEnvironmentPreset,
   SceneEnvironmentPresetLibrary,
   SceneEnvironmentVector3,
+  SceneEnvironmentTransformNode,
+  SceneEnvironmentHierarchy,
 } from './sceneEnvironment.types';
+import { validateEnvironmentHierarchy } from './sceneEnvironment.hierarchy.ts';
 import { parseShadowQualityReference } from './shadowQualityPreset.parser.ts';
 
 const isRecord = (value: unknown): value is Record<string, unknown> => (
@@ -71,14 +74,39 @@ const parseGeometry = (value: unknown, path: string): SceneEnvironmentGeometry =
   throw new Error(`${path}.primitive 只允许 ground、box 或 cylinder`);
 };
 
+const parseHierarchy = (value: Record<string, unknown>, path: string): SceneEnvironmentHierarchy => {
+  const result: SceneEnvironmentHierarchy = {};
+  if (value.parentId !== undefined) result.parentId = value.parentId === null ? null : readString(value.parentId, `${path}.parentId`);
+  if (value.order !== undefined) {
+    if (typeof value.order !== 'number' || !Number.isFinite(value.order)) throw new Error(`${path}.order 必须是有限数字`);
+    result.order = value.order;
+  }
+  return result;
+};
+
+const parseTransformNode = (value: unknown, path: string): SceneEnvironmentTransformNode => {
+  if (!isRecord(value)) throw new Error(`${path} 必须是对象`);
+  if (value.role !== undefined && (typeof value.role !== 'string' || !['empty', 'rig', 'socket'].includes(value.role))) throw new Error(`${path}.role 只允许 empty、rig 或 socket`);
+  return {
+    ...parseHierarchy(value, path),
+    id: readString(value.id, `${path}.id`), name: readString(value.name, `${path}.name`),
+    role: value.role as SceneEnvironmentTransformNode['role'],
+    position: readVector3(value.position, `${path}.position`),
+    rotation: value.rotation === undefined ? undefined : readVector3(value.rotation, `${path}.rotation`),
+    scaling: value.scaling === undefined ? undefined : readVector3(value.scaling, `${path}.scaling`),
+  };
+};
+
 const parseObject = (value: unknown, path: string): SceneEnvironmentObject => {
   if (!isRecord(value)) throw new Error(`${path} 必须是对象`);
   const shadow = value.shadow;
   if (shadow !== undefined && !isRecord(shadow)) throw new Error(`${path}.shadow 必须是对象`);
   return {
+    ...parseHierarchy(value, path),
     id: readString(value.id, `${path}.id`),
     name: readString(value.name, `${path}.name`),
     geometry: parseGeometry(value.geometry, `${path}.geometry`),
+    scaling: value.scaling === undefined ? undefined : readVector3(value.scaling, `${path}.scaling`),
     position: readVector3(value.position, `${path}.position`),
     rotation: value.rotation === undefined ? undefined : readVector3(value.rotation, `${path}.rotation`),
     color: readColor(value.color, `${path}.color`),
@@ -102,6 +130,7 @@ const parseModel = (value: unknown, path: string): SceneEnvironmentModel => {
   const modelPath = readString(value.modelPath, `${path}.modelPath`);
   if (!/\.(?:glb|gltf)(?:[?#].*)?$/i.test(modelPath)) throw new Error(`${path}.modelPath 只支持 GLB 或 GLTF`);
   return {
+    ...parseHierarchy(value, path),
     id: readString(value.id, `${path}.id`),
     name: readString(value.name, `${path}.name`),
     modelPath,
@@ -125,6 +154,7 @@ const parseLight = (value: unknown, path: string): SceneEnvironmentLight => {
   if (!isRecord(value)) throw new Error(`${path} 必须是对象`);
   if (!isRecord(value.light)) throw new Error(`${path}.light 必须是对象`);
   const base = {
+    ...parseHierarchy(value, path),
     id: readString(value.id, `${path}.id`),
     name: readString(value.name, `${path}.name`),
     intensity: readNonNegativeNumber(value.intensity, `${path}.intensity`),
@@ -156,12 +186,11 @@ export const parseSceneEnvironmentPreset = (value: unknown, key: string): SceneE
   const lights = value.lights.map((item, index) => parseLight(item, `${path}.lights[${index}]`));
   const objects = value.objects.map((item, index) => parseObject(item, `${path}.objects[${index}]`));
   const models = (value.models ?? []).map((item, index) => parseModel(item, `${path}.models[${index}]`));
-  const nodeIds = new Set<string>();
-  [...lights, ...objects, ...models].forEach((node) => {
-    if (nodeIds.has(node.id)) throw new Error(`${path} 中存在重复节点 ID：${node.id}`);
-    nodeIds.add(node.id);
-  });
-  return { presetKey, name: readString(value.name, `${path}.name`), clearColor: readColor(value.clearColor, `${path}.clearColor`, true), lights, objects, models };
+  if (value.transformNodes !== undefined && !Array.isArray(value.transformNodes)) throw new Error(`${path}.transformNodes 必须是数组`);
+  const transformNodes = (value.transformNodes ?? []).map((item, index) => parseTransformNode(item, `${path}.transformNodes[${index}]`));
+  const preset = { presetKey, name: readString(value.name, `${path}.name`), clearColor: readColor(value.clearColor, `${path}.clearColor`, true), lights, objects, models, transformNodes };
+  validateEnvironmentHierarchy(preset);
+  return preset;
 };
 
 export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnvironmentPresetLibrary => {
@@ -208,6 +237,7 @@ export const parseSceneEnvironmentPresetLibrary = (value: unknown): SceneEnviron
       clearColor: raw.clearColor === undefined ? base.clearColor : readString(raw.clearColor, `预设 ${key}.clearColor`),
       objects: raw.objects === undefined ? base.objects : raw.objects,
       models: raw.models === undefined ? base.models : raw.models,
+      transformNodes: raw.transformNodes === undefined ? base.transformNodes : raw.transformNodes,
       lights,
     }, key);
     resolving.delete(key);

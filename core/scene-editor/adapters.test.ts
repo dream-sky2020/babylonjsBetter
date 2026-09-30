@@ -56,9 +56,9 @@ test('workspace EDIT uses existing history and cancellation restores transaction
   const canceled = workspaceHistoryReducer(active, { type: 'cancel' }); assert.equal(canceled.present, workspace); assert.equal(canceled.past.length, 0);
   const committed = workspaceHistoryReducer(active, { type: 'end' }); assert.equal(committed.past.length, 1);
 });
-test('environment writes supported preset fields only; geometry has no persisted scaling', () => {
+test('environment persists parent-local geometry/model scaling and supported light fields', () => {
   const preset: SceneEnvironmentPreset = { presetKey: 'test', name: 'test', clearColor: '#000000', lights: [{ id: 'light', name: 'light', intensity: 1, color: '#ffffff', light: { primitive: 'point', position: [0, 0, 0] } }], objects: [{ id: 'box', name: 'box', geometry: { primitive: 'box', width: 1, height: 1, depth: 1 }, position: [0, 0, 0], color: '#ffffff' }], models: [{ id: 'model', name: 'model', modelPath: 'test.glb', position: [0, 0, 0] }] };
-  const object = updateEnvironmentTransform(preset, 'object:box', value); assert.deepEqual(object.objects[0].rotation, [Math.PI / 2, 0, 0]); assert.equal('scaling' in object.objects[0], false);
+  const object = updateEnvironmentTransform(preset, 'object:box', value); assert.deepEqual(object.objects[0].rotation, [Math.PI / 2, 0, 0]); assert.deepEqual(object.objects[0].scaling, [2, 2, 2]);
   const model = updateEnvironmentTransform(preset, 'model:model', value); assert.deepEqual(model.models[0].scaling, [2, 2, 2]);
   const light = updateEnvironmentTransform(preset, 'light:light', value); assert.deepEqual((light.lights[0].light as { position: unknown }).position, [3, 4, 5]);
   assert.deepEqual(JSON.parse(JSON.stringify(model)), model);

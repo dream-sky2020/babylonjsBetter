@@ -13,12 +13,23 @@ import {
   Vector3,
   type Light,
   type Node,
+  type Mesh,
 } from '@babylonjs/core';
 import type { SceneEnvironmentInstance, SceneEnvironmentLight, SceneEnvironmentObject, SceneEnvironmentPreset } from './sceneEnvironment.types';
 import { createModelEntity, type ModelEntity } from '../model';
 import { getVisualDeformationRegistry } from '../render-deformation/visualDeformationRegistry.ts';
 import type { ShadowQualityPresetLibrary, ShadowQualitySettings, ShadowQualityTier } from './shadowQualityPreset.types';
 import { resolveShadowQuality } from './resolveShadowQuality';
+import { environmentNodeEntries, validateEnvironmentHierarchy } from './sceneEnvironment.hierarchy.ts';
+import { ParentLocalHemisphericLight } from './ParentLocalHemisphericLight.ts';
+
+function attachEnvironmentHierarchy(instance: SceneEnvironmentInstance, preset: SceneEnvironmentPreset) {
+  for (const { id, definition } of environmentNodeEntries(preset)) {
+    const node = instance.nodes.get(id);
+    if (!node) throw new Error(`场景节点尚未创建：${id}`);
+    node.parent = definition.parentId ? instance.nodes.get(definition.parentId)! : instance.root;
+  }
+}
 
 const createMaterial = (scene: Scene, presetKey: string, object: SceneEnvironmentObject): StandardMaterial => {
   const material = new StandardMaterial(`${presetKey}_${object.id}_material`, scene);
@@ -32,7 +43,7 @@ const toVector3 = (value: readonly [number, number, number]): Vector3 => new Vec
 const createLight = (scene: Scene, presetKey: string, definition: SceneEnvironmentLight): Light => {
   const config = definition.light;
   const light = config.primitive === 'hemispheric'
-    ? new HemisphericLight(definition.id, toVector3(config.direction), scene)
+    ? new ParentLocalHemisphericLight(definition.id, toVector3(config.direction), scene)
     : config.primitive === 'directional'
       ? new DirectionalLight(definition.id, toVector3(config.direction), scene)
       : new PointLight(definition.id, toVector3(config.position), scene);
@@ -118,6 +129,7 @@ const createSceneEnvironmentRuntime = (
   preset: SceneEnvironmentPreset,
   options: CreateSceneEnvironmentOptions,
 ): { instance: SceneEnvironmentInstance; shadowGenerators: ShadowGenerator[] } => {
+  validateEnvironmentHierarchy(preset);
   // Validate shadow references before allocating scene resources, including unsupported CSM lights.
   for (const definition of preset.lights) if ('shadow' in definition && definition.shadow) {
     const shadow = resolveShadowQuality(definition.shadow, options.shadowQualityPresets, options.shadowQualityTier);
@@ -126,9 +138,18 @@ const createSceneEnvironmentRuntime = (
   const root = new TransformNode(`scene_environment_${preset.presetKey}`, scene);
   if (options.staged) root.setEnabled(false);
   const nodes = new Map<string, Node>();
+  const groundMeshes = new Map<string, Mesh>();
   const shadowGenerators: ShadowGenerator[] = [];
   if (!options.staged) scene.clearColor = Color4.FromHexString(preset.clearColor);
   try {
+    for (const definition of preset.transformNodes ?? []) {
+      const node = new TransformNode(definition.id, scene);
+      node.parent = root;
+      nodes.set(`transform:${definition.id}`, node);
+      node.position.set(...definition.position);
+      if (definition.rotation) node.rotation.set(...definition.rotation);
+      if (definition.scaling) node.scaling.set(...definition.scaling);
+    }
     preset.lights.forEach((definition) => {
       const light = createLight(scene, preset.presetKey, definition);
       nodes.set(`light:${definition.id}`, light);
@@ -172,10 +193,13 @@ const createSceneEnvironmentRuntime = (
             diameterBottom: geometry.diameterBottom,
             tessellation: geometry.tessellation,
           }, scene);
-      mesh.parent = root;
-      nodes.set(`object:${object.id}`, mesh);
-      mesh.position.set(...object.position);
-      if (object.rotation) mesh.rotation.set(...object.rotation);
+      const node = geometry.primitive === 'ground' ? new TransformNode(`${object.id}:transform`, scene) : mesh;
+      node.parent = root;
+      if (node !== mesh) { mesh.parent = node; groundMeshes.set(`object:${object.id}`, mesh); }
+      nodes.set(`object:${object.id}`, node);
+      node.position.set(...object.position);
+      if (object.rotation) node.rotation.set(...object.rotation);
+      if (object.scaling) node.scaling.set(...object.scaling);
       mesh.material = createMaterial(scene, preset.presetKey, object);
       getVisualDeformationRegistry(scene).register({ root: mesh, meshes: [mesh], kind: 'geometry', groupId: 'scene-geometry',
         id: `scene:${preset.presetKey}:object:${object.id}`, label: object.id,
@@ -190,11 +214,13 @@ const createSceneEnvironmentRuntime = (
       root,
       models: [],
       nodes,
+      groundMeshes,
       dispose: () => {
         shadowGenerators.forEach((generator) => generator.dispose());
         root.dispose(false, true);
       },
     };
+    if (!preset.models.length) attachEnvironmentHierarchy(instance, preset);
     return { instance, shadowGenerators };
   } catch (error) {
     shadowGenerators.forEach(generator => generator.dispose());
@@ -250,6 +276,7 @@ export const createSceneEnvironmentAsync = async (
         entity.playAnimation(definition.animation?.name, definition.animation?.loop ?? true);
       }
     }
+    attachEnvironmentHierarchy(runtime.instance, preset);
   } catch (error) {
     loadedModels.forEach(({ entity }) => entity.dispose());
     runtime.instance.dispose();

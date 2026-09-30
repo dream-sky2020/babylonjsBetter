@@ -7,7 +7,7 @@
   "scripts": {
     "migrate:scene-environment-presets": "node --experimental-strip-types scripts/migrateSceneEnvironmentPresets.ts",
     "typecheck:scene-environment": "tsc --noEmit -p tsconfig.scene-environment.json",
-    "test:scene-environment": "node --experimental-strip-types --test scripts/sceneEnvironmentPresetStore.test.ts tools/scene-environment-lab/sceneEnvironmentFields.test.ts",
+    "test:scene-environment": "node --experimental-strip-types --test scripts/sceneEnvironmentPresetStore.test.ts tools/scene-environment-lab/*.test.ts tools/scene-environment-lab/*.test.mjs",
     "test:scene-environment-browser": "node --experimental-strip-types scripts/runSceneEnvironmentBrowser.mjs",
     "test:deformation": "node --experimental-strip-types --test core/render-deformation/*.test.ts core/render-deformation/*.test.mjs",
     "test:deformation-webgl": "node scripts/runDeformationWebGL.mjs",
