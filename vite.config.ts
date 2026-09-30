@@ -10,26 +10,31 @@ import { parseWeaponLibrary } from './core/model/preset/firstPersonWeaponPreset.
 const CONFIG_ROUTE = '/config'
 const CONFIG_DIR = path.resolve(__dirname, 'config')
 const RESOURCE_DIR = path.resolve(__dirname, 'public/resources')
+const PUBLIC_DIR = path.resolve(__dirname, 'public')
 const DUNGEON_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dungeonMapPresets')
 const DIALOGUE_MAP_PRESETS_DIR = path.resolve(CONFIG_DIR, 'dialogueMapPresets')
 const FIRST_PERSON_WEAPON_PRESETS_PATH = path.resolve(CONFIG_DIR, 'firstPersonWeaponPresets.json')
 const SCENE_ENVIRONMENT_PRESETS_PATH = path.resolve(CONFIG_DIR, 'sceneEnvironmentPresets')
 const ANIMATION_SCENE_PRESETS_PATH = path.resolve(CONFIG_DIR, 'animationScenePresets.json')
 
-const collectResourceAssets = async (dir = RESOURCE_DIR): Promise<string[]> => {
+const collectPublicAssets = async (dir = PUBLIC_DIR): Promise<string[]> => {
   if (!fs.existsSync(dir)) return []
   const entries = await fsp.readdir(dir, { withFileTypes: true })
   const nested = await Promise.all(entries.map(async (entry) => {
     const absPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) return collectResourceAssets(absPath)
-    const relativePath = path.relative(RESOURCE_DIR, absPath).split(path.sep).map(encodeURIComponent).join('/')
-    return [`/resources/${relativePath}`]
+    if (entry.isDirectory()) return collectPublicAssets(absPath)
+    if (!entry.isFile()) return []
+    const relativePath = path.relative(PUBLIC_DIR, absPath).split(path.sep).map(encodeURIComponent).join('/')
+    return [`/${relativePath}`]
   }))
   return nested.flat().sort((left, right) => left.localeCompare(right))
 }
 
+const collectResourceAssets = async (): Promise<string[]> =>
+  (await collectPublicAssets(RESOURCE_DIR)).filter((asset) => asset.startsWith('/resources/'))
+
 const collectModelAssets = async (): Promise<string[]> =>
-  (await collectResourceAssets()).filter((asset) => /\.(?:glb|fbx)$/i.test(asset))
+  (await collectPublicAssets()).filter((asset) => /\.(?:glb|gltf|fbx)$/i.test(asset))
 
 const copyDir = async (srcDir: string, destDir: string): Promise<void> => {
   await fsp.mkdir(destDir, { recursive: true })

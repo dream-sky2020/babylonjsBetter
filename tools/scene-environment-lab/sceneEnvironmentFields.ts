@@ -19,15 +19,15 @@ export function environmentFields(preset: SceneEnvironmentPreset, id: string | n
   if (id.startsWith('object:')) {
     const geometry = target.geometry as { primitive: string };
     const sizes = geometry.primitive === 'ground' ? ['width', 'height'] : geometry.primitive === 'box' ? ['width', 'height', 'depth'] : ['height', 'diameterTop', 'diameterBottom', 'tessellation'];
-    return [...common, field('position', '位置 XYZ', 'vector'), field('rotation', '旋转 XYZ（弧度）', 'vector', true), field('color', '颜色', 'color'),
+    return [...common, field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('color', '颜色', 'color'),
       ...sizes.map(path => ({ ...field(`geometry.${path}`, ({ width: '宽度', height: '高度 / 地面深度', depth: '深度', diameterTop: '顶部直径', diameterBottom: '底部直径', tessellation: '圆周细分' })[path] ?? path, 'number', path === 'tessellation'), min: path === 'diameterTop' ? 0 : path === 'tessellation' ? 3 : Number.MIN_VALUE, integer: path === 'tessellation' })), ...shadowFlags];
   }
-  if (id.startsWith('model:')) return [...common, field('modelPath', '模型路径（GLB / GLTF）', 'text'), field('position', '位置 XYZ', 'vector'), field('rotation', '旋转 XYZ（弧度）', 'vector', true), field('scaling', '缩放 XYZ', 'vector', true), field('transparencyPolicy', '透明策略', 'select', true, ['source', 'depth-safe-cutout']), field('animation.name', '动画名称', 'text', true), field('animation.autoplay', '自动播放', 'boolean', true), field('animation.loop', '循环动画', 'boolean', true), ...shadowFlags];
+  if (id.startsWith('model:')) return [...common, field('modelPath', '模型路径（GLB / GLTF）', 'text'), field('position', '位置', 'vector'), field('rotation', '旋转（弧度）', 'vector', true), field('scaling', '缩放', 'vector', true), field('transparencyPolicy', '透明策略', 'select', true, ['source', 'depth-safe-cutout']), field('animation.name', '动画名称', 'text', true), field('animation.autoplay', '自动播放', 'boolean', true), field('animation.loop', '循环动画', 'boolean', true), ...shadowFlags];
   const light = target.light as { primitive: string };
   const fields = [...common, { ...field('intensity', '强度', 'number'), min: 0 }, field('color', '颜色', 'color')];
-  if (light.primitive !== 'point') fields.push(field('light.direction', '方向 XYZ', 'vector'));
+  if (light.primitive !== 'point') fields.push(field('light.direction', '方向', 'vector'));
   if (light.primitive === 'hemispheric') return [...fields, field('light.groundColor', '地面颜色', 'color')];
-  fields.push(field('light.position', '位置 XYZ', 'vector', light.primitive === 'directional'));
+  fields.push(field('light.position', '位置', 'vector', light.primitive === 'directional'));
   if (light.primitive === 'point') fields.push({ ...field('light.range', '照明范围', 'number', true), min: Number.MIN_VALUE });
   fields.push(field('shadow.qualityPresetKey', '阴影预设（清空关闭阴影）', 'select', true, shadowKeys), field('shadow.qualityTier', '阴影档位', 'select', true, ['low', 'medium', 'high', 'ultra']), field('shadow.overrides', '阴影局部覆盖（JSON）', 'json', true));
   return fields;
@@ -61,7 +61,7 @@ export function applyEnvironmentFields(preset: SceneEnvironmentPreset, id: strin
       if (!(alpha ? /^#[0-9a-f]{6}([0-9a-f]{2})?$/i : /^#[0-9a-f]{6}$/i).test(text)) throw new Error(`${f.label}使用 ${alpha ? '#RRGGBB 或 #RRGGBBAA' : '#RRGGBB'}`);
     }
     else if (f.type === 'vector' || f.type === 'json') {
-      try { value = JSON.parse(text); } catch { throw new Error(`${f.label}不是合法 JSON`); }
+      try { value = JSON.parse(text); } catch { throw new Error(f.type === 'vector' ? `${f.label}的 X、Y、Z 都必须填写有限数字` : `${f.label}不是合法 JSON`); }
       if (f.type === 'vector' && (!Array.isArray(value) || value.length !== 3 || value.some(v => typeof v !== 'number' || !Number.isFinite(v)))) throw new Error(`${f.label}必须包含三个有限数字`);
     }
     assign(target, f.path.split('.'), value);

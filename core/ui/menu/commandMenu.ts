@@ -156,6 +156,7 @@ const createMenuElement = (items: readonly CommandMenuEntry[], closeAll: () => v
     button.type = 'button';
     button.className = 'command-menu-button';
     button.disabled = item.disabled === true;
+    button.title = item.label;
     button.dataset.commandMenuItem = item.id;
     if (item.danger) button.classList.add('is-danger');
     if (item.checked !== undefined) {

@@ -19,7 +19,8 @@ import { editSceneEnvironmentDeclaration, type SceneEnvironmentDeclarations } fr
 import { loadConfig, downloadConfigJson } from '@/core/config';
 import { SceneEditor, DocumentHistory } from '@/core/scene-editor';
 import { createEnvironmentAdapter } from './sceneEnvironmentAdapter';
-import { mountEnvironmentEditor } from './sceneEnvironmentEditorView';
+import { mountEnvironmentEditor, openEnvironmentCreateMenu } from './sceneEnvironmentEditorView';
+import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import './scene-environment-editor.css';
 
 const requireElement = <T extends Element>(selector: string, constructor: { new(): T }): T => {
@@ -126,6 +127,7 @@ let rawLibrary: SceneEnvironmentDeclarations = {};
 let savedDeclarations: SceneEnvironmentDeclarations = {};
 let activeKey = '';
 let previewQueued = false;
+let pendingSelectionId: string | null = null;
 const history = new DocumentHistory<SceneEnvironmentDeclarations>({}, value => {
   rawLibrary = value;
   library = parseSceneEnvironmentPresetLibrary(value);
@@ -154,7 +156,27 @@ const writePreset = (preset: SceneEnvironmentPreset) => {
   }
   history.set(next);
 };
-const unmountEditor = mountEnvironmentEditor(editor, { read: () => library[activeKey], write: writePreset, shadowKeys: () => Object.keys(shadowQualityLibrary) });
+const editorHost = {
+  read: () => library[activeKey],
+  write: writePreset,
+  shadowKeys: () => Object.keys(shadowQualityLibrary),
+  create: (kind: EnvironmentObjectKind, modelPath?: string) => {
+    const preset = library[activeKey];
+    if (!preset || !editor.enabled) return;
+    try {
+      const result = addEnvironmentObject(preset, kind, modelPath);
+      pendingSelectionId = result.selectedId;
+      writePreset(result.preset);
+    }
+    catch (error) { pendingSelectionId = null; setStatus(`添加失败：${error instanceof Error ? error.message : String(error)}`, true); }
+  },
+};
+const unmountEditor = mountEnvironmentEditor(editor, editorHost);
+const canvasContextMenu = (event: MouseEvent) => {
+  event.preventDefault();
+  if (editor.enabled) void openEnvironmentCreateMenu(event.clientX, event.clientY, editorHost);
+};
+canvas.addEventListener('contextmenu', canvasContextMenu);
 
 
 const component: ISceneEnvironmentComponent = {
@@ -198,7 +220,8 @@ const fetchPresetLibraries = async (): Promise<{
 
 const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
   if (disposed) return;
-  const selectedId = requestedKey === activeKey ? editor.selectedId : null;
+  const selectedId = pendingSelectionId ?? (requestedKey === activeKey ? editor.selectedId : null);
+  pendingSelectionId = null;
   editor.cancel(); editor.enabled = false; editor.refresh();
   loadAbort?.abort(); loadAbort = new AbortController();
   const generation = ++loadGeneration;
@@ -357,6 +380,7 @@ const dispose = () => {
   canvas.removeEventListener('pointerup', pointerEnd);
   canvas.removeEventListener('pointercancel', pointerEnd);
   canvas.removeEventListener('wheel', wheel);
+  canvas.removeEventListener('contextmenu', canvasContextMenu);
   document.removeEventListener('mousemove', lockedPointerMove);
   document.removeEventListener('pointerlockchange', pointerLockChange);
   window.removeEventListener('beforeunload', beforeUnload);

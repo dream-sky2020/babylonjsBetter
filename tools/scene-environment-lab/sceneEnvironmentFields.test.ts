@@ -4,11 +4,45 @@ import { environmentFields, applyEnvironmentFields, fieldValue, formatField, env
 import { parseSceneEnvironmentPresetLibrary } from '../../core/scene/sceneEnvironment.parser.ts';
 import { editSceneEnvironmentDeclaration } from '../../core/scene/sceneEnvironment.catalog.ts';
 import { DocumentHistory } from '../../core/scene-editor/DocumentHistory.ts';
+import { addEnvironmentObject, type EnvironmentObjectKind } from './sceneEnvironmentObjects.ts';
+import { modelAssetMenuEntries } from './modelAssetMenu.ts';
 const raw = { base: { presetKey: 'base', name: 'Base', clearColor: '#000000', objects: [{ id: 'o', name: 'Box', color: '#ffffff', position: [0, 0, 0], geometry: { primitive: 'box', width: 1, height: 2, depth: 3 } }], models: [{ id: 'm', name: 'Model', modelPath: '/resources/a.glb', position: [0, 0, 0] }], lights: [
   { id: 'h', name: 'Hemi', intensity: 1, color: '#ffffff', light: { primitive: 'hemispheric', direction: [0, 1, 0], groundColor: '#000000' } },
   { id: 'd', name: 'Sun', intensity: 1, color: '#ffffff', light: { primitive: 'directional', direction: [0, -1, 0] } },
   { id: 'p', name: 'Point', intensity: 1, color: '#ffffff', light: { primitive: 'point', position: [0, 2, 0] } },
 ] }, child: { presetKey: 'child', name: 'Child', extendsPresetKey: 'base' } };
+test('right-click object templates create valid, unique scene declarations', () => {
+  let preset = parseSceneEnvironmentPresetLibrary(raw).child;
+  const kinds: EnvironmentObjectKind[] = ['ground', 'box', 'cylinder', 'model', 'hemispheric', 'directional', 'point', 'box'];
+  const selected = new Set<string>();
+  for (const kind of kinds) {
+    const result = addEnvironmentObject(preset, kind, kind === 'model' ? '/resources/Model/GLB/cuboid.glb' : undefined);
+    assert.ok(!selected.has(result.selectedId));
+    selected.add(result.selectedId);
+    preset = parseSceneEnvironmentPresetLibrary(editSceneEnvironmentDeclaration(raw, 'child', result.preset)).child;
+  }
+  assert.equal(preset.objects.length, raw.base.objects.length + 4);
+  assert.equal(preset.models.length, raw.base.models.length + 1);
+  assert.equal(preset.lights.length, raw.base.lights.length + 3);
+  assert.equal(raw.child.extendsPresetKey, 'base');
+});
+test('model menu keeps distinct files and collapses shared public directories', () => {
+  const chosen: string[] = [];
+  const entries = modelAssetMenuEntries([
+    '/resources/Model/GLB/cuboid.glb',
+    '/resources/Model/GLB/cuboid2.glb',
+    '/resources/Model/Characters/Hero/hero.gltf',
+  ], path => chosen.push(path));
+  assert.deepEqual(entries.map(item => 'label' in item ? item.label : ''), ['Characters / Hero', 'GLB']);
+  const glb = entries.find(item => 'label' in item && item.label === 'GLB');
+  assert.ok(glb && 'children' in glb);
+  assert.deepEqual(glb.children?.map(item => 'label' in item ? item.label : ''), ['cuboid.glb', 'cuboid2.glb']);
+  const leaf = glb.children?.[1];
+  if (leaf && 'action' in leaf) leaf.action?.();
+  assert.deepEqual(chosen, ['/resources/Model/GLB/cuboid2.glb']);
+  const flat = modelAssetMenuEntries(['/resources/Model/GLB/cuboid.glb'], () => {});
+  assert.equal('label' in flat[0] ? flat[0].label : '', 'cuboid.glb');
+});
 test('applicable fields come from explicit declaration variants including scene and all light types', () => {
   const p = parseSceneEnvironmentPresetLibrary(raw).base;
   const paths = (id: string | null) => environmentFields(p, id, []).map(f => f.path);

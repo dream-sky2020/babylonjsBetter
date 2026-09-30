@@ -8,7 +8,7 @@
 
 场景事实源现为 `config/sceneEnvironmentPresets/index.json` 与同目录每预设一个 JSON。`core/scene/sceneEnvironment.catalog.ts` 拥有目录校验、组装和继承声明编辑；`sceneEnvironment.loader.ts` 为 Lab / Dungeon 统一读取入口，开发同源 API、构建 eager glob 收录目录。Vite GET 组装库，PUT 接收 `{presetKey,declaration}`，由 `scripts/sceneEnvironmentPresetStore.ts` 串行验证整库及阴影引用后仅原子替换当前文件；目录 HMR 被抑制以保护草稿。Python GET 使用 `python/scene_environment_presets.py` 只读组装，完整类型校验继续由 TS 消费者承担。
 
-继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`scripts/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。当前 Inspector 不增删对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
+继承保留 `extendsPresetKey` 与 `lightShadowOverrides`，新增明确的 objects/models/lights 顶层覆盖，编辑只写派生文件。`scripts/migrateSceneEnvironmentPresets.ts` 可重跑，比较迁移前后解析结果后移除旧总文件，拒绝覆盖不同内容的现有文件；5 个预设已迁移。对象树与画布右键可添加几何体、光源，并从 `public` 模型清单的压缩目录树中选取 GLB/GLTF 文件；新对象进入声明历史并通过当前预设保存。Inspector 不删除对象或改 ID，阴影高级覆盖使用 JSON；模型路径资源存在性在预览时检测，保存没有跨进程冲突检测。详情与验证命令见 `tools/scene-environment-lab/README.md`。本节取代 2026-09-26 条目中的场景整库保存和继承物化说明。
 
 ## 2026-09-28：组合式 Dungeon 系统装配工作台（第一阶段）
 

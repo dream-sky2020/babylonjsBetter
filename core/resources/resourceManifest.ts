@@ -3,7 +3,7 @@ import bundledResourceAssets from 'virtual:app-resource-assets';
 import { resolvePublicResourceUrl } from './appAssetUrl.ts';
 
 /**
- * 模型清单在构建期由 `vite.config.ts` 扫描 `public/resources` 生成，
+ * 模型清单在构建期由 `vite.config.ts` 扫描整个 `public` 生成，
  * 正式构建不再依赖 `/api/model-assets`。
  */
 export const readBundledModelAssetPaths = (): string[] => [...bundledModelAssets];

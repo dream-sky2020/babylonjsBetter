@@ -128,6 +128,11 @@
   pointer-events: none;
 }
 
+.command-submenu:not(:has(.command-submenu)) {
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+}
+
 .command-submenu.opens-left {
   right: calc(100% - 2px);
   left: auto;

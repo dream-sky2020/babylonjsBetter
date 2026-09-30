@@ -1,4 +1,4 @@
-import { useEffect, useReducer, type ReactNode } from 'react';
+import { useEffect, useReducer, type MouseEvent, type ReactNode } from 'react';
 import { ObjectHierarchy, InspectorPanel, InspectorSection, type EditorHierarchyItem } from '../ui/editor-kit';
 import { BabylonSceneInspector } from '../ui/babylon-scene-inspector';
 import { readTransform } from './transform.ts';
@@ -10,7 +10,7 @@ export function useSceneEditor(editor: SceneEditor | null) {
   const [, update] = useReducer(n => n + 1, 0);
   useEffect(() => editor?.subscribe(update), [editor]);
 }
-export function SceneEditorHierarchy({ editor, className = '' }: { editor: SceneEditor | null; className?: string }) {
+export function SceneEditorHierarchy({ editor, className = '', onContextMenu }: { editor: SceneEditor | null; className?: string; onContextMenu?: (event: MouseEvent, id: string) => void }) {
   useSceneEditor(editor);
   const objects = editor?.objects() ?? [];
   const items = Object.fromEntries(objects.map((o): [string, EditorHierarchyItem] => [o.id, {
@@ -19,7 +19,7 @@ export function SceneEditorHierarchy({ editor, className = '' }: { editor: Scene
     typeLabel: o.readonly ? '只读' : o.description, badges: o.readonly ? ['locked'] : !o.node.isEnabled() ? ['hidden'] : [],
   }]));
   return <ObjectHierarchy className={`scene-editor-hierarchy ${className}`} items={items} rootIds={objects.filter(o => !items[o.id].parentId).map(o => o.id)} selectedIds={editor?.selectedId ? [editor.selectedId] : []}
-    defaultExpandedIds={objects.map(o => o.id)} onSelectionChange={ids => editor?.select(ids[0] ?? null)} onClearSelection={() => editor?.select(null)} onFocus={id => editor?.focus(id)} />;
+    defaultExpandedIds={objects.map(o => o.id)} onSelectionChange={ids => editor?.select(ids[0] ?? null)} onClearSelection={() => editor?.select(null)} onFocus={id => editor?.focus(id)} onContextMenu={onContextMenu} />;
 }
 export function SceneEditorToolbar({ editor }: { editor: SceneEditor | null }) {
   useSceneEditor(editor);

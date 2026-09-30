@@ -23,10 +23,24 @@ app.whenReady().then(async () => {
       const width = () => runtime().getMeshByName('box').getBoundingInfo().boundingBox.extendSize.x * 2;
       const preset = document.querySelector('#preset'); preset.value='child'; preset.dispatchEvent(new Event('change',{bubbles:true})); document.querySelector('#load').click();
       await wait(()=>ready() && document.querySelector('#current-scene-key').value==='child');
+      const boxRow = [...document.querySelectorAll('.editor-hierarchy-row')].find(row=>row.querySelector('.editor-hierarchy-label')?.textContent==='Browser Box');
+      check(boxRow, 'Missing box row for context menu');
+      boxRow.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,button:2,clientX:120,clientY:120}));
+      await wait(()=>button('添加模型'));
+      button('添加模型').click();
+      await wait(()=>button('cuboid2.glb'));
+      button('cuboid2.glb').click();
+      await wait(()=>ready() && draft().models.length===2 && draft().models[1].modelPath.endsWith('cuboid2.glb'));
+      button('撤销').click(); await wait(()=>ready() && draft().models.length===1);
       select('Browser Hemi'); await wait(()=>input('地面颜色')); check(!input('阴影预设（清空关闭阴影）'),'Hemi exposed shadow');
       select('Browser Sun'); await wait(()=>input('阴影预设（清空关闭阴影）')); check(!input('照明范围'),'Sun exposed point range');
       select('Browser Point'); await wait(()=>input('照明范围'));
       select('Browser Model'); await wait(()=>input('模型路径（GLB / GLTF）'));
+      check(input('旋转（弧度） X')?.value==='0' && input('缩放 Y')?.value==='1','Optional vector defaults not shown per axis');
+      set('旋转（弧度） X','0.5'); set('缩放 Y','2');
+      await wait(()=>!button('应用并预览').disabled); button('应用并预览').click();
+      await wait(()=>ready() && draft().models[0].rotation?.[0]===0.5 && draft().models[0].scaling?.[1]===2);
+      button('撤销').click(); await wait(()=>ready() && draft().models[0].rotation===undefined && draft().models[0].scaling===undefined);
       const transformCount = runtime().transformNodes.length;
       set('模型路径（GLB / GLTF）','resources/Model/GLB/scene-environment-test-missing.glb'); await new Promise(r=>setTimeout(r,50)); button('应用并预览').click();
       await wait(()=>document.querySelector('#status').textContent.includes('加载失败'));
@@ -51,6 +65,7 @@ app.whenReady().then(async () => {
       for(let i=0;i<600;i++) { const select=document.querySelector('#preset'); if(select?.options.length && !document.querySelector('#load').disabled) { select.value='child'; select.dispatchEvent(new Event('change',{bubbles:true})); document.querySelector('#load').click(); break; } await new Promise(r=>setTimeout(r,50)); }
       for(let i=0;i<600;i++) { if(document.querySelector('#current-scene-key').value==='child' && !document.querySelector('#load').disabled) { const p=JSON.parse(document.querySelector('#preset-json').textContent).scene; if(p.objects[0].geometry.width!==6) throw new Error('Saved width not restored'); return; } await new Promise(r=>setTimeout(r,50)); } throw new Error('Refresh timeout');
     })()`);
+    await window.webContents.executeJavaScript(`(async()=>{ const row=[...document.querySelectorAll('.editor-hierarchy-row')].find(item=>item.querySelector('.editor-hierarchy-label')?.textContent==='Browser Model'); if(!row) throw new Error('Missing model row for screenshot'); row.click(); for(let i=0;i<40;i++){if(document.querySelector('[aria-label="缩放 X"]')) return; await new Promise(resolve=>setTimeout(resolve,50));} throw new Error('Model vector inputs did not render'); })()`);
     const capture = await window.webContents.capturePage();
     fs.writeFileSync('node_modules/.cache/scene-environment-browser.png', capture.toPNG());
     await window.loadURL(process.env.SCENE_ENVIRONMENT_PRODUCTION_URL);
