@@ -1,5 +1,9 @@
 # Babylon.js Better 项目地图
 
+## 2026-09-30：Dungeon 俯视场景对象坐标协调
+
+`dungeon-overhead-view` 现在取得 Map Loader 提供的场景对象 View Consumer，与 Grid、玩家及 Debug 使用同一 `ResolvedDungeonView`。`core/dungeon-view/sceneEnvironmentDisplay.ts` 将场景几何、模型及有位置的光源映射到 Grid 显示坐标，模型自身 X/Z 尺寸与场景声明坐标保持不变，地面平面的覆盖范围随 Grid 比例调整。Loader 在切图时将当前映射交给新场景并恢复旧场景；关闭俯视、切换第一人称或释放控制时沿用现有显示恢复规则。Shader 高度倾斜仍由 `core/render-deformation/` 独立负责。
+
 ## 2026-09-29：Scene Environment 声明 Inspector 与单场景持久化
 
 `tools/scene-environment-lab/sceneEnvironmentFields.ts` 定义场景、三类几何、模型和三类光源的显式字段，React Inspector 按选区生成可编辑表单，统一校验、草稿应用与 DocumentHistory 撤销/重做，不反射 Babylon 属性。几何/模型/阴影等变更通过隐藏候选实例异步重建，成功后替换旧实例，保留稳定 ID、选区、相机和 Gizmo；失败保留旧预览，过期请求按 AbortSignal 与代次释放。

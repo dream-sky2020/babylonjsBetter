@@ -153,6 +153,9 @@ export const dungeonVisualDeformationLabModule: LabModule = {
       setDraft(settings) { state.draft = settings === null ? null : parseDeformationSettings(settings); reconcile(); registration.markChanged(); },
     };
     context.services.set(DUNGEON_VISUAL_DEFORMATION_SERVICE_KEY, service);
+    restoreOutsideOverhead.input.addEventListener('change', () => {
+      service.setDraft({ ...current, restoreOutsideOverhead: restoreOutsideOverhead.input.checked });
+    });
     const unmountTransitionControl = view.mountTransitionControl(restoreOutsideOverhead.row, () => {
       if (restoreOutsideOverhead.input.checked !== current.restoreOutsideOverhead) {
         service.setDraft({ ...current, restoreOutsideOverhead: restoreOutsideOverhead.input.checked });

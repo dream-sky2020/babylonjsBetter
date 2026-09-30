@@ -25,6 +25,7 @@ import {
   resolveDungeonMapTileWorldLayout,
   type DungeonMapSceneEnvironmentInstance,
 } from '@/core/scene';
+import { createSceneEnvironmentViewController } from '@/core/dungeon-view/sceneEnvironmentDisplay.ts';
 import { createDungeonMapCanvasView } from '@/core/ui';
 import {
   createLabField,
@@ -52,6 +53,7 @@ import {
   createDungeonMapLoaderReferences,
   DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY,
 } from './dungeonMapLoader.references';
+import { DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY } from './dungeonMapLoader.view';
 import {
   createDungeonMapDeltaStore,
   type DungeonMapDeltaStore,
@@ -146,6 +148,8 @@ export const dungeonMapLoaderLabModule: LabModule = {
     let deltaStateRegistration: LabStateRegistration<DungeonMapDeltaStore> | null = null;
     let runtimeStatesRegistration: LabStateRegistration<Record<string, DungeonRuntimeSaveState>> | null = null;
     let activeInstance: DungeonMapSceneEnvironmentInstance | null = null;
+    const sceneView = createSceneEnvironmentViewController();
+    context.services.set(DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY, sceneView.consumer);
     const saveActiveRuntime = () => {
       if (!activePresetKey || !activeRuntime || !activeSpawn) return;
       const saveState = createDungeonRuntimeSaveState(activePresetKey, activeRuntime, activeSpawn);
@@ -302,6 +306,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
             const previousPresetKey = activePresetKey;
             const previousInstance = activeInstance;
             activeInstance = instance;
+            sceneView.setCurrent(instance, binding.preset);
             activePresetKey = presetKey;
             activeRuntime = runtime;
             activeSpawn = spawn;
@@ -357,6 +362,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         pendingLoad = null;
         saveActiveRuntime();
         try { captureActiveMapDelta(); } catch (error) { console.error('无法保存当前地图 Delta。', error); }
+        sceneView.setCurrent(null, null);
         activeInstance?.dispose();
         activeInstance = null;
         activePresetKey = null;
@@ -407,6 +413,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
       dispose() {
         deltaRefreshButton.removeEventListener('click', refreshDelta);
         loader.dispose();
+        sceneView.dispose();
         offSessionStatus();
         assembly.dispose();
         runtimeStatesRegistration?.unregister();
@@ -414,6 +421,7 @@ export const dungeonMapLoaderLabModule: LabModule = {
         loadedStateRegistration.unregister();
         context.services.delete(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY);
         context.services.delete(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
+        context.services.delete(DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY);
       },
     };
   },

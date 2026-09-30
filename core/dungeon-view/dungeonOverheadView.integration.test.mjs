@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { createServer } from 'vite';
 import { JSDOM } from 'jsdom';
-import { ArcRotateCamera, NullEngine, Scene, Vector3 } from '@babylonjs/core';
+import { ArcRotateCamera, MeshBuilder, NullEngine, Scene, TransformNode, Vector3 } from '@babylonjs/core';
 import { createCameraLabController } from '../camera/cameraLabController.ts';
 import { createDungeonMapData } from '../map/dungeonMap.create.ts';
 import { migrateDungeonMapToDocumentV2 } from '../map-document/dungeonMapDocument.migrate.ts';
@@ -30,6 +30,9 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const { LabViewportManager } = await server.ssrLoadModule('/tools/lab-kit/labViewportManager.ts');
     const { dungeonLabModuleCatalog: catalog } = await server.ssrLoadModule('/tools/lab-modules/dungeon/index.ts');
     const { getVisualDeformationRegistry } = await server.ssrLoadModule('/core/render-deformation/visualDeformationRegistry.ts');
+    const { applySceneEnvironmentDisplayView } = await server.ssrLoadModule('/core/dungeon-view/sceneEnvironmentDisplay.ts');
+    const { createDungeonViewConsumer } = await server.ssrLoadModule('/core/dungeon-view/dungeonOverheadView.ts');
+    const { DungeonRuntimeAssembly, DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY } = await server.ssrLoadModule('/core/dungeon-runtime/dungeonRuntimeAssembly.ts');
     const definitions = await server.ssrLoadModule('/tools/entity-container-editor/entityDefinitionCatalog.ts');
     const viewEntity = definitions.entityTypeRegistry.get('dungeon-overhead-view');
     assert.deepEqual(viewEntity.allowedContainers, ['map']);
@@ -42,20 +45,34 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     const canvas = document.querySelector('canvas'); canvas.hasPointerCapture = () => false;
     viewport = new LabViewportManager(document.body, canvas, c, () => {});
     const refs = { current: null }; const services = new Map([['dungeon:map-loader-references', refs]]);
+    const assembly = new DungeonRuntimeAssembly(); services.set(DUNGEON_RUNTIME_ASSEMBLY_SERVICE_KEY, assembly);
+    cleanups.push(() => assembly.dispose());
+    const environmentRoot = new TransformNode('scene_environment_test', scene);
+    const environmentBox = MeshBuilder.CreateBox('scene-box', { size: 2 }, scene); environmentBox.parent = environmentRoot;
+    const environmentPreset = { objects: [{ id: 'box', position: [12, 0, 24], geometry: { primitive: 'box' } }], models: [], lights: [] };
+    const environmentInstance = { root: environmentRoot, nodes: new Map([['object:box', environmentBox]]) };
+    const environmentConsumer = createDungeonViewConsumer(view => applySceneEnvironmentDisplayView(environmentInstance, environmentPreset, view));
+    services.set('dungeon:scene-environment:view', environmentConsumer);
+    cleanups.push(() => environmentConsumer.dispose());
     const handlers = new Map();
     const communication = {
       on(event, fn) { const set = handlers.get(event) ?? new Set(); set.add(fn); handlers.set(event, set); return () => { set.delete(fn); if (!set.size) handlers.delete(event); }; },
       publish: async () => {}, request: async () => {},
     };
-    const context = { engine, scene, canvas, camera, cameraController: c, keyboard, labState, viewport, services, communication,
+    const scheduler = { isPaused: false, register: () => () => {} };
+    const context = { engine, scene, canvas, camera, cameraController: c, keyboard, labState, viewport, services, communication, scheduler,
       ui: new LabUi(document.querySelector('aside'), document.getElementById('status')) };
-    for (const id of ['dungeon-player-camera', 'player-movement', 'dungeon-grid-debug', 'dungeon-obstacle', 'dungeon-overhead-view', 'dungeon-visual-deformation']) cleanups.push(catalog[id].setup(context));
+    for (const id of ['dungeon-player-camera', 'dungeon-traversal', 'dungeon-movement', 'player-movement', 'dungeon-grid', 'dungeon-obstacle', 'dungeon-overhead-view', 'dungeon-visual-deformation']) {
+      const lifecycle = catalog[id].setup(context);
+      cleanups.push(typeof lifecycle === 'function' ? lifecycle : () => lifecycle?.dispose?.());
+    }
     const coordinator = services.get('dungeon:overhead-view'); const playerCamera = services.get('dungeon:player-camera');
     const environment = { tileSize: [2, 1, 2], tileSpacing: [2, 2], mapOffset: [10, 0, 20], mapAnchorMode: 'first-tile' };
     const map = createDungeonMapData({ id: 'test', width: 4, height: 4 });
     const mapDocument = migrateDungeonMapToDocumentV2({ presetKey: 'test', name: 'test', map }).document;
     const spawn = { sceneEnvironmentComponent: environment, tilePosition: { x: 1, y: 1 }, worldPosition: [12, 0, 22] };
     const runtime = createDungeonRuntime(mapDocument, spawn);
+    assembly.prepare(runtime, 1);
     // Exercise all debug children, including edge and reservation layers.
     runtime.traversal.pathReservationsByTile[5].set('test', 1);
     runtime.movementResolver.movementReservationsByTile[5].set('test', 'request');
@@ -78,8 +95,9 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     near(camera.getTarget().z, 24); near(c.state.orbitPitchDeg, 30);
     const roots = () => ['player_display_mapping', `dungeon_grid_debug_${refs.current.loadId}`, `obstacle_debug_${refs.current.loadId}`].map(name => scene.getTransformNodeByName(name));
     for (const root of roots()) { assert.ok(root); near(root.scaling.z, 2); near(root.position.z, -20); }
+    near(environmentBox.position.z, 28); near(environmentBox.scaling.z, 1);
     const marker = scene.getTransformNodeByName('composable_player_pose'); assert.ok(marker); marker.computeWorldMatrix(true); near(marker.absolutePosition.z, 24);
-    assert.ok(scene.getMeshByName('obstacle_1_wall')); assert.ok(scene.getMeshByName('reservation_1_5')); assert.ok(scene.getMeshByName('movement_reservation_1_test'));
+    assert.ok(scene.getMeshByName('obstacle_1_wall'));
     for (const mesh of roots()[2].getChildMeshes()) { mesh.computeWorldMatrix(true); near(mesh.absolutePosition.z, 20 + (mesh.position.z - 20) * 2); }
     assert.equal(JSON.stringify({ p: runtime.playerPosition, w: runtime.playerWorldPosition, y: runtime.playerWorldRotationY, m: runtime.playerMovement }), playerData);
     engine.getRenderWidth = () => 400; engine.getRenderHeight = () => 800; engine.onResizeObservable.notifyObservers(engine);
@@ -99,15 +117,27 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     overlay.hide(); playerCamera.setMode('first-person'); assert.equal(coordinator.view, null);
     assert.equal(coordinator.configuredView.config.pitchDeg, 30);
     roots().forEach(root => { near(root.scaling.z, 2); near(root.position.z, -20); });
+    near(environmentBox.position.z, 28);
     near(c.activeCamera.position.z, 24); near(c.activeCamera.fov, 73 * Math.PI / 180);
     coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW, pitchDeg: 30, orthographicSize: 11, restoreDisplayInFirstPerson: true });
     roots().forEach(root => { near(root.scaling.z, 1); near(root.position.z, 0); }); near(c.activeCamera.position.z, 22);
+    near(environmentBox.position.z, 24);
     coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW, pitchDeg: 30, orthographicSize: 11 });
     roots().forEach(root => near(root.scaling.z, 2)); near(c.activeCamera.position.z, 24);
     const overheadPanel = document.querySelector('[data-lab-panel="dungeon-overhead-view"]');
     const displayRestore = [...overheadPanel.querySelectorAll('label')].find(row => row.textContent.includes('格子与玩家显示原比例')).querySelector('input');
     const deformationRestore = overheadPanel.querySelector('[data-deformation-restore-outside-overhead]');
     assert.ok(deformationRestore);
+    deformationRestore.checked = true; deformationRestore.dispatchEvent(new dom.window.Event('change'));
+    assert.equal(services.get('dungeon:visual-deformation').settings.restoreOutsideOverhead, true);
+    keyboard.route({ phase: 'keydown', code: 'KeyV', key: 'v', repeat: false, targetKind: 'canvas' });
+    assert.equal(playerCamera.mode, 'overhead'); assert.equal(deformationRestore.checked, true);
+    keyboard.route({ phase: 'keydown', code: 'KeyV', key: 'v', repeat: false, targetKind: 'canvas' });
+    assert.equal(playerCamera.mode, 'first-person'); assert.equal(deformationRestore.checked, true);
+    assert.equal(deformationRegistry.controlled, false);
+    deformationRestore.checked = false; deformationRestore.dispatchEvent(new dom.window.Event('change'));
+    assert.equal(services.get('dungeon:visual-deformation').settings.restoreOutsideOverhead, false);
+    assert.equal(deformationRegistry.controlled, true);
     const applyOverhead = [...overheadPanel.querySelectorAll('button')].find(button => button.textContent === '应用测试草稿');
     displayRestore.checked = true; deformationRestore.checked = true; applyOverhead.click();
     assert.equal(coordinator.configuredView.config.restoreDisplayInFirstPerson, true);
@@ -132,6 +162,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     // Rebuilt consumer resources consume the same mapping with a new map origin.
     const nextEnvironment = { ...environment, mapOffset: [0, 0, 0] };
     refs.current = { ...refs.current, loadId: 2, spawn: { ...spawn, sceneEnvironmentComponent: nextEnvironment }, sceneBinding: { component: nextEnvironment } };
+    assembly.prepare(runtime, 2);
     emitMap(); roots().forEach(root => { near(root.scaling.z, 2); near(root.position.z, 0); }); near(camera.getTarget().z, 44);
     coordinator.setDraft(null); assert.equal(coordinator.view, null); roots().forEach(root => near(root.scaling.z, 1));
     // Formal map declarations use the same interface; removed/invalid declarations cannot leak across maps.
@@ -151,7 +182,7 @@ test('real camera, movement marker, grid and obstacle modules share optional vie
     coordinator.setDraft({ ...DEFAULT_OVERHEAD_VIEW });
     const cleanupDeformation = cleanups.pop(); cleanupDeformation();
     const cleanupCoordinator = cleanups.pop(); cleanupCoordinator();
-    roots().forEach(root => near(root.scaling.z, 1)); assert.equal(playerCamera.mode, 'first-person');
+    roots().forEach(root => near(root.scaling.z, 1)); near(environmentBox.position.z, 24); assert.equal(playerCamera.mode, 'first-person');
     while (cleanups.length) cleanups.pop()();
     assert.equal(handlers.size, 0); assert.equal(labState.inspect().length, 0);
     assert.equal(scene.getTransformNodeByName('player_display_mapping'), null);

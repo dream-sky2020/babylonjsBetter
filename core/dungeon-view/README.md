@@ -14,8 +14,10 @@
 
 `resolveOverheadView()` 返回不可变结果。`mapDungeonDisplayPosition()` 映射跟随目标；`applyDungeonViewToNode()` 对根节点应用同一变换。传 null 恢复单位缩放。务必使用专属显示父节点，不传拥有自身布局变换的模型根。
 
+`sceneEnvironmentDisplay.ts` 把场景预设中的几何、模型和有位置的光源按同一映射移动到显示坐标，保持 3D 对象自身尺寸和原声明位置不变；平面地面另外按 Grid 的 X/Z 倍率调整覆盖范围。模型锚点若原本位于格子中心，变换后仍与格子中心重合；模型自身的横向占地范围不会跟着 Grid 拉伸。Loader 通过独立 View Consumer 持有当前场景实例，切图时把映射交给新实例并恢复旧实例；俯视协调器仅持有控制句柄。
+
 消费者通过 `createDungeonViewConsumer(callback)` 暴露 `acquire(owner)`；句柄支持 apply / release。一次只允许一个协调者；失效句柄不能再写入；release 恢复 null，dispose 清理消费者。资源由消费者持有，协调者不能直接操作 Mesh。
 
 `readDungeonOverheadView()` 从地图级启用的专用 Entity/Component 读取配置；无配置返回 null，重复声明、非法参数与不支持版本报错。
 
-验证：`npm run test:dungeon-overhead-view`。真实 Babylon NullEngine 投影测试覆盖多角度、横竖画布和长方形原始格子；DOM 集成验证四个模块的实际节点与相机、快照、切图、移动状态及释放，不替代 WebGL 人工视觉验收。
+验证：`npm run test:dungeon-overhead-view`。真实 Babylon NullEngine 投影测试覆盖多角度、横竖画布和长方形原始格子，并验证不同地图锚定方式、格子间距和显示倍率下模型锚点与 Grid 中心重合；DOM 集成验证实际节点与相机、快照、切图、移动状态及释放，不替代 WebGL 人工视觉验收。

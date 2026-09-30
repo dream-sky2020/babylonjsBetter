@@ -3,6 +3,7 @@ import { readDungeonOverheadView } from '@/core/dungeon-view/dungeonOverheadView
 import { createLabSwitch, type LabModule } from '@/tools/lab-kit';
 import { dungeonMapChangedEvent } from '../dungeon-map-loader/dungeonMapLoader.protocol';
 import { DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY, type DungeonMapLoaderReferences } from '../dungeon-map-loader/dungeonMapLoader.references';
+import { DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY } from '../dungeon-map-loader/dungeonMapLoader.view';
 import { DUNGEON_PLAYER_CAMERA_SERVICE_KEY, type DungeonPlayerCameraService } from '../dungeon-player-camera/dungeonPlayerCamera.references';
 import { DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY } from '../dungeon-player-camera/dungeonPlayerCamera.view';
 import { PLAYER_MOVEMENT_VIEW_SERVICE_KEY } from '../player-movement/playerMovement.view';
@@ -27,7 +28,7 @@ export const dungeonOverheadViewLabModule: LabModule = {
   setup(context) {
     const references = context.services.get<DungeonMapLoaderReferences>(DUNGEON_MAP_LOADER_REFERENCES_SERVICE_KEY);
     const camera = context.services.get<DungeonPlayerCameraService>(DUNGEON_PLAYER_CAMERA_SERVICE_KEY);
-    const consumers = [PLAYER_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_GRID_VIEW_SERVICE_KEY, DUNGEON_TRAVERSAL_VIEW_SERVICE_KEY, DUNGEON_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_OBSTACLE_VIEW_SERVICE_KEY, DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY]
+    const consumers = [PLAYER_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_GRID_VIEW_SERVICE_KEY, DUNGEON_TRAVERSAL_VIEW_SERVICE_KEY, DUNGEON_MOVEMENT_VIEW_SERVICE_KEY, DUNGEON_OBSTACLE_VIEW_SERVICE_KEY, DUNGEON_PLAYER_CAMERA_VIEW_SERVICE_KEY, DUNGEON_SCENE_ENVIRONMENT_VIEW_SERVICE_KEY]
       .map(key => context.services.get<DungeonViewConsumer>(key));
     const panel = context.ui.addPanel('dungeon-overhead-view', '俯视显示');
     const toggle = createLabSwitch('启用俯视显示协调', true);
