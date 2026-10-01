@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { environmentFields, applyEnvironmentFields, fieldValue, formatField, environmentTarget } from './sceneEnvironmentFields.ts';
+import { environmentFields, applyEnvironmentFields, applyEnvironmentBatchFields, commonEnvironmentFields, fieldValue, formatField, environmentTarget } from './sceneEnvironmentFields.ts';
 import { parseSceneEnvironmentPresetLibrary } from '../../core/scene/sceneEnvironment.parser.ts';
 import { editSceneEnvironmentDeclaration } from '../../core/scene/sceneEnvironment.catalog.ts';
 import { DocumentHistory } from '../../core/scene-editor/DocumentHistory.ts';
@@ -79,4 +79,20 @@ test('non-light edits keep explicit inherited lightShadowOverrides intact', () =
   assert.equal(changed.child.lightShadowOverrides, undefined);
   const sun = parseSceneEnvironmentPresetLibrary(changed).child.lights.find(light => light.id === 'd');
   assert.equal(sun && 'shadow' in sun ? sun.shadow?.qualityPresetKey : undefined, 'compact-standard');
+});
+test('batch fields intersect declared properties and update only changed axes in one history entry', () => {
+  const preset = parseSceneEnvironmentPresetLibrary(raw).base;
+  const ids = ['object:o', 'model:m'];
+  const paths = commonEnvironmentFields(preset, ids, []).map(field => field.path);
+  assert.ok(paths.includes('position')); assert.ok(paths.includes('scaling'));
+  assert.ok(!paths.includes('name')); assert.ok(!paths.includes('modelPath')); assert.ok(!paths.includes('geometry.width'));
+  assert.equal(commonEnvironmentFields(preset, ['light:d', 'light:p'], []).find(field => field.path === 'light.position')?.optional, false);
+  const next = applyEnvironmentBatchFields(preset, ids, {}, { position: { 0: '5' } }, []);
+  assert.deepEqual(next.objects[0].position, [5, 0, 0]);
+  assert.deepEqual(next.models[0].position, [5, 0, 0]);
+  assert.deepEqual(preset.objects[0].position, [0, 0, 0]);
+  assert.throws(() => applyEnvironmentBatchFields(preset, ids, {}, { position: { 1: '' } }, []));
+  assert.throws(() => applyEnvironmentBatchFields(preset, ids, { 'geometry.width': '4' }, {}, []));
+  const history = new DocumentHistory(preset, () => {});
+  history.set(next); history.undo(); assert.deepEqual(history.value, preset);
 });

@@ -1,16 +1,17 @@
 import { createRoot } from 'react-dom/client';
-import { useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import type { SceneEditor } from '@/core/scene-editor';
 import { SceneEditorHierarchy, SceneEditorToolbar, useSceneEditor } from '@/core/scene-editor/SceneEditorPanels';
 import { InspectorPanel, InspectorSection, type EditorHierarchyDropIntent } from '@/core/ui/editor-kit';
 import { openCommandMenuAtPoint, type CommandMenuEntry } from '@/core/ui/menu';
 import { loadModelAssetManifestByExtension } from '@/core/resources';
 import type { SceneEnvironmentPreset } from '@/core/scene/sceneEnvironment.types';
-import { applyEnvironmentFields, environmentFields, environmentTarget, fieldValue, formatField, type EnvironmentField } from './sceneEnvironmentFields';
+import { applyEnvironmentBatchFields, applyEnvironmentFields, commonEnvironmentFields, environmentFields, environmentTarget, fieldValue, formatField, type EnvironmentField, type EnvironmentVectorChanges } from './sceneEnvironmentFields';
 import { modelAssetMenuEntries } from './modelAssetMenu';
 import type { EnvironmentObjectKind } from './sceneEnvironmentObjects';
 import type { EnvironmentModelAssetProperties } from './sceneEnvironmentAdapter';
 import { environmentNodeEntries, environmentParentCandidates } from '@/core/scene/sceneEnvironment.hierarchy';
+import { EnvironmentSelection } from './sceneEnvironmentSelection';
 export type EnvironmentEditorHost = {
   read(): SceneEnvironmentPreset | undefined; write(preset: SceneEnvironmentPreset): void;
   create(kind: EnvironmentObjectKind, modelPath?: string, parentId?: string | null): void;
@@ -122,10 +123,61 @@ function DeclarationForm({ editor, host, preset }: { editor: SceneEditor; host: 
     </InspectorSection>}
   </InspectorPanel>;
 }
-function EnvironmentInspector({ editor, host }: { editor: SceneEditor; host: EnvironmentEditorHost }) {
+function BatchForm({ editor, host, preset, ids }: { editor: SceneEditor; host: EnvironmentEditorHost; preset: SceneEnvironmentPreset; ids: string[] }) {
+  const fields = commonEnvironmentFields(preset, ids, host.shadowKeys());
+  const targets = ids.map(id => environmentTarget(preset, id));
+  const [scalar, setScalar] = useState<Record<string, string>>({});
+  const [vectors, setVectors] = useState<EnvironmentVectorChanges>({});
+  const [error, setError] = useState('');
+  const dirty = Object.keys(scalar).length > 0 || Object.keys(vectors).length > 0;
+  const same = (values: unknown[]) => values.every(value => JSON.stringify(value) === JSON.stringify(values[0]));
+  return <InspectorPanel title={`已选择 ${ids.length} 个对象`} status={dirty ? '批量修改未应用' : '共同属性'}>
+    <InspectorSection title="批量赋予属性" subtitle="只显示所有选中对象都具有的字段">
+      <p>混合值留空显示；只修改填写过的字段。向量可单独修改 X/Y/Z，其他轴保持各对象原值。应用后可一步撤销。</p>
+      <fieldset disabled={!editor.enabled} className="environment-fields">
+        {fields.length ? fields.map(field => {
+          if (field.type === 'vector') {
+            const values = targets.map(target => fieldValue(target, field.path));
+            return <div className="environment-vector-field" key={field.path}><span className="environment-vector-caption">{field.label}</span><div className="environment-vector-axes">
+              {(['X', 'Y', 'Z'] as const).map((axis, index) => {
+                const axisValues = values.map(value => Array.isArray(value) ? value[index] : field.path === 'scaling' ? 1 : 0);
+                const override = vectors[field.path]?.[index as 0 | 1 | 2];
+                return <label key={axis} className="environment-vector-axis" data-axis={axis.toLowerCase()}><b>{axis}</b><input aria-label={`批量${field.label} ${axis}`} type="number" step="any" placeholder={same(axisValues) ? '' : '混合'} value={override ?? (same(axisValues) ? String(axisValues[0]) : '')} onChange={event => { const text = event.currentTarget.value; setVectors(current => {
+                  const next = { ...current }, axes = { ...next[field.path] };
+                  if (text === '') delete axes[index as 0 | 1 | 2]; else axes[index as 0 | 1 | 2] = text;
+                  if (Object.keys(axes).length) next[field.path] = axes; else delete next[field.path];
+                  return next;
+                }); }} /></label>;
+              })}
+            </div></div>;
+          }
+          const values = targets.map(target => fieldValue(target, field.path));
+          const mixed = !same(values);
+          const value = scalar[field.path] ?? (mixed && (field.type === 'select' || field.type === 'boolean') ? '__mixed__' : mixed ? '' : formatField(values[0], field.type));
+          return <label key={field.path}><span>{field.label}{mixed ? ' · 混合值' : ''}</span>
+            {field.type === 'select' || field.type === 'boolean' ? <select aria-label={`批量${field.label}`} value={value} onChange={event => setScalar(current => ({ ...current, [field.path]: event.target.value }))}>
+              {mixed && !Object.hasOwn(scalar, field.path) && <option value="__mixed__" disabled>混合值（未修改）</option>}
+              {field.optional && <option value="">默认 / 不设置</option>}
+              {(field.type === 'boolean' ? ['true', 'false'] : field.options ?? []).map(option => <option key={option} value={option}>{option === 'true' ? '是' : option === 'false' ? '否' : option}</option>)}
+            </select> : field.type === 'json' ? <textarea aria-label={`批量${field.label}`} rows={4} placeholder={mixed ? '混合值' : ''} value={value} onChange={event => setScalar(current => ({ ...current, [field.path]: event.target.value }))} />
+              : <input aria-label={`批量${field.label}`} type={field.type === 'number' ? 'number' : 'text'} step={field.integer ? 1 : 'any'} min={field.min} placeholder={mixed ? '混合值' : ''} value={value} onChange={event => setScalar(current => ({ ...current, [field.path]: event.target.value }))} />}
+            {field.optional && field.type !== 'select' && field.type !== 'boolean' && <button type="button" onClick={() => setScalar(current => ({ ...current, [field.path]: '' }))}>设为默认</button>}
+          </label>;
+        }) : <p>所选对象没有可共同编辑的属性。</p>}
+        <button disabled={!dirty} onClick={() => { try { host.write(applyEnvironmentBatchFields(preset, ids, scalar, vectors, host.shadowKeys())); setError(''); } catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); } }}>批量应用并预览</button>
+        <button disabled={!dirty} onClick={() => { setScalar({}); setVectors({}); setError(''); }}>放弃输入</button>
+      </fieldset>
+      {error && <p role="alert">{error}</p>}
+      <p>多选时 Gizmo 仍只作用于最后选中的对象；批量修改请使用上方字段。</p>
+    </InspectorSection>
+  </InspectorPanel>;
+}
+function EnvironmentInspector({ editor, host, selection }: { editor: SceneEditor; host: EnvironmentEditorHost; selection: EnvironmentSelection }) {
   useSceneEditor(editor);
+  const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot);
   const preset = host.read();
   if (!preset) return <p>请选择并加载场景。</p>;
+  if (ids.length > 1) return <BatchForm key={`${preset.presetKey}:${ids.join('|')}:${JSON.stringify(preset)}`} editor={editor} host={host} preset={preset} ids={ids} />;
   // Preserve unsubmitted text across runtime refreshes; reset only on selection/document changes.
   return <DeclarationForm key={`${preset.presetKey}:${editor.selectedId}:${JSON.stringify(preset)}`} editor={editor} host={host} preset={preset} />;
 }
@@ -136,13 +188,18 @@ function EnvironmentToolbar({ editor, host }: { editor: SceneEditor; host: Envir
   </div>;
 }
 export function mountEnvironmentEditor(editor: SceneEditor, host: EnvironmentEditorHost) {
+  const selection = new EnvironmentSelection(editor);
   const hierarchy = createRoot(document.getElementById('scene-hierarchy')!);
   const inspector = createRoot(document.getElementById('scene-inspector')!);
   const toolbar = createRoot(document.getElementById('scene-toolbar')!);
-  hierarchy.render(<div className="environment-hierarchy-menu-area" onContextMenu={event => { event.preventDefault(); void openEnvironmentCreateMenu(event.clientX, event.clientY, host); }}>
-    <SceneEditorHierarchy editor={editor} canDrop={host.canMove} onMove={host.move} onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); editor.select(id); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
-  </div>);
-  inspector.render(<EnvironmentInspector editor={editor} host={host} />);
+  function Hierarchy() {
+    const ids = useSyncExternalStore(selection.subscribe, selection.getSnapshot);
+    return <div className="environment-hierarchy-menu-area" onContextMenu={event => { event.preventDefault(); void openEnvironmentCreateMenu(event.clientX, event.clientY, host); }}>
+      <SceneEditorHierarchy editor={editor} selectedIds={ids} enableRangeSelection onSelectionChange={(next, mode) => selection.change(next, mode)} canDrop={host.canMove} onMove={host.move} onContextMenu={(event, id) => { event.preventDefault(); event.stopPropagation(); selection.replace([id]); void openEnvironmentCreateMenu(event.clientX, event.clientY, host, id); }} />
+    </div>;
+  }
+  hierarchy.render(<Hierarchy />);
+  inspector.render(<EnvironmentInspector editor={editor} host={host} selection={selection} />);
   toolbar.render(<EnvironmentToolbar editor={editor} host={host} />);
-  return () => { hierarchy.unmount(); inspector.unmount(); toolbar.unmount(); };
+  return { selection, dispose: () => { hierarchy.unmount(); inspector.unmount(); toolbar.unmount(); selection.dispose(); } };
 }

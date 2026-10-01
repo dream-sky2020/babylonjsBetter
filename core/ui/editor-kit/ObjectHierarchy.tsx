@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type DragEvent, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState, type DragEvent, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 
 export type EditorHierarchyItem = {
   id: string;
@@ -38,9 +38,10 @@ export type ObjectHierarchyProps = {
   searchPlaceholder?: string;
   className?: string;
   expandedIds?: ReadonlySet<string>;
+  enableRangeSelection?: boolean;
   defaultExpandedIds?: Iterable<string>;
   onExpandedChange?(ids: Set<string>): void;
-  onSelectionChange(ids: string[], mode: 'replace' | 'toggle'): void;
+  onSelectionChange(ids: string[], mode: 'replace' | 'toggle' | 'range'): void;
   onFocus?(id: string): void;
   onContextMenu?(event: MouseEvent, id: string): void;
   canDrop?(intent: EditorHierarchyDropIntent): boolean;
@@ -54,13 +55,15 @@ const Chevron = () => <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 
 export function ObjectHierarchy({
   items, rootIds, selectedIds, eyebrow = 'OBJECTS', title = '层级', status, action, footer,
   emptyLabel = '没有匹配对象', searchPlaceholder = '搜索对象', className = '', expandedIds,
-  defaultExpandedIds, onExpandedChange, onSelectionChange, onFocus, onContextMenu, canDrop, onMove, onClearSelection,
+  defaultExpandedIds, onExpandedChange, onSelectionChange, onFocus, onContextMenu, canDrop, onMove, onClearSelection, enableRangeSelection = false,
 }: ObjectHierarchyProps) {
   const [query, setQuery] = useState('');
   const [localExpanded, setLocalExpanded] = useState<Set<string>>(() => new Set(defaultExpandedIds));
   const [dragIds, setDragIds] = useState<string[]>([]);
   const [dropIntent, setDropIntent] = useState<EditorHierarchyDropIntent | null>(null);
   const treeRef = useRef<HTMLDivElement>(null);
+  const anchorRef = useRef<string | null>(null);
+  const cursorRef = useRef<string | null>(null);
   const expandTimerRef = useRef<number | undefined>(undefined);
   const expandTargetRef = useRef<string | null>(null);
   const expanded = expandedIds ?? localExpanded;
@@ -68,6 +71,12 @@ export function ObjectHierarchy({
   const normalizedQuery = query.trim().toLocaleLowerCase();
 
   useEffect(() => () => window.clearTimeout(expandTimerRef.current), []);
+  useEffect(() => {
+    if (cursorRef.current && !selectedIds.includes(cursorRef.current)) {
+      cursorRef.current = selectedIds.at(-1) ?? null;
+      anchorRef.current = cursorRef.current;
+    }
+  }, [selectedIds]);
   const selectedAncestors = useMemo(() => {
     const result = new Set<string>();
     selectedIds.forEach((id) => { let parentId = items[id]?.parentId ?? null; while (parentId) { result.add(parentId); parentId = items[parentId]?.parentId ?? null; } });
@@ -82,7 +91,41 @@ export function ObjectHierarchy({
   const visibleRoots = normalizedQuery ? rootIds.filter(matches) : rootIds.filter((id) => Boolean(items[id]));
   const setExpanded = (next: Set<string>) => { if (!expandedIds) setLocalExpanded(next); onExpandedChange?.(next); };
   const toggle = (id: string) => { const next = new Set(expanded); if (next.has(id)) next.delete(id); else next.add(id); setExpanded(next); };
-  const select = (event: MouseEvent, id: string) => onSelectionChange([id], event.ctrlKey || event.metaKey || event.shiftKey ? 'toggle' : 'replace');
+  const visibleIds = () => [...(treeRef.current?.querySelectorAll<HTMLElement>('.editor-hierarchy-row[data-object-id]') ?? [])].map(row => row.dataset.objectId!).filter(Boolean);
+  const range = (anchor: string, cursor: string) => {
+    const ids = visibleIds(); const start = ids.indexOf(anchor), end = ids.indexOf(cursor);
+    return start < 0 || end < 0 ? [cursor] : ids.slice(Math.min(start, end), Math.max(start, end) + 1);
+  };
+  const select = (event: MouseEvent, id: string) => {
+    if (enableRangeSelection) treeRef.current?.focus();
+    if (enableRangeSelection && event.shiftKey) {
+      const anchor = anchorRef.current ?? selectedIds[0] ?? id;
+      anchorRef.current = anchor; cursorRef.current = id;
+      onSelectionChange(range(anchor, id), 'range');
+    } else {
+      anchorRef.current = id; cursorRef.current = id;
+      onSelectionChange([id], event.ctrlKey || event.metaKey ? 'toggle' : 'replace');
+    }
+  };
+  const selectArrow = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!enableRangeSelection || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') || event.altKey || event.ctrlKey || event.metaKey) return;
+    const ids = visibleIds(); if (!ids.length) return;
+    const cursor = cursorRef.current && ids.includes(cursorRef.current) ? cursorRef.current : null;
+    const current = cursor ?? selectedIds.at(-1);
+    const index = current ? ids.indexOf(current) : -1;
+    const next = ids[Math.max(0, Math.min(ids.length - 1, index + (event.key === 'ArrowDown' ? 1 : -1)))];
+    if (!next) return;
+    event.preventDefault(); event.stopPropagation();
+    if (event.shiftKey) {
+      if (!cursor || !anchorRef.current || !ids.includes(anchorRef.current)) anchorRef.current = current && ids.includes(current) ? current : next;
+      cursorRef.current = next;
+      onSelectionChange(range(anchorRef.current, next), 'range');
+    } else {
+      anchorRef.current = next; cursorRef.current = next;
+      onSelectionChange([next], 'replace');
+    }
+    [...(treeRef.current?.querySelectorAll<HTMLElement>('.editor-hierarchy-row[data-object-id]') ?? [])].find(row => row.dataset.objectId === next)?.scrollIntoView({ block: 'nearest' });
+  };
   const clearDrag = () => { window.clearTimeout(expandTimerRef.current); expandTargetRef.current = null; setDragIds([]); setDropIntent(null); };
   const siblingsOf = (parentId: string | null) => parentId ? items[parentId]?.childIds ?? [] : rootIds;
   const isDescendantOf = (candidateId: string | null, ancestorId: string) => {
@@ -159,7 +202,7 @@ export function ObjectHierarchy({
   return <aside className={`editor-hierarchy ${className}`.trim()} aria-label={`${title}层级`}>
     <header className="editor-hierarchy-heading"><div><b>{eyebrow}</b><span>{title}</span></div><div className="editor-hierarchy-heading-actions">{status && <em>{status}</em>}{action}</div></header>
     <label className="editor-hierarchy-search"><SearchIcon /><input value={query} onChange={event => setQuery(event.target.value)} placeholder={searchPlaceholder} /></label>
-    <div ref={treeRef} className="editor-hierarchy-tree" onClick={event => { if (event.target === event.currentTarget) onClearSelection?.(); }}>{visibleRoots.length ? visibleRoots.map(id => renderItem(id, 0)) : <p>{emptyLabel}</p>}</div>
+    <div ref={treeRef} className="editor-hierarchy-tree" tabIndex={enableRangeSelection ? 0 : undefined} onKeyDown={selectArrow} onClick={event => { if (event.target === event.currentTarget) { anchorRef.current = cursorRef.current = null; onClearSelection?.(); } }}>{visibleRoots.length ? visibleRoots.map(id => renderItem(id, 0)) : <p>{emptyLabel}</p>}</div>
     {onMove && <div className={`editor-hierarchy-root-drop${activeRootDrop ? ` active${rootDropValid ? '' : ' invalid'}` : ''}`}
       onDragOver={event => { event.preventDefault(); const intent = rootIntent(); event.dataTransfer.dropEffect = validIntent(intent) ? 'move' : 'none'; setDropIntent(intent); }}
       onDrop={event => { event.preventDefault(); const intent = rootIntent(); if (validIntent(intent)) onMove(intent); clearDrag(); }}>

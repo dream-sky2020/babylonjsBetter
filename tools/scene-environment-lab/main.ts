@@ -214,7 +214,7 @@ const editorHost = {
     catch (error) { pendingSelectionId = null; setStatus(`添加失败：${error instanceof Error ? error.message : String(error)}`, true); }
   },
 };
-const unmountEditor = mountEnvironmentEditor(editor, editorHost);
+const editorView = mountEnvironmentEditor(editor, editorHost);
 const canvasContextMenu = (event: MouseEvent) => {
   event.preventDefault();
   if (editor.enabled) void openEnvironmentCreateMenu(event.clientX, event.clientY, editorHost);
@@ -264,6 +264,7 @@ const fetchPresetLibraries = async (): Promise<{
 const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
   if (disposed) return;
   const selectedId = pendingSelectionId ?? (requestedKey === activeKey ? editor.selectedId : null);
+  const selectedIds = pendingSelectionId ? [pendingSelectionId] : requestedKey === activeKey ? editorView.selection.ids : [];
   pendingSelectionId = null;
   editor.cancel(); editor.enabled = false; editor.refresh();
   loadAbort?.abort(); loadAbort = new AbortController();
@@ -311,6 +312,7 @@ const loadByComponentPresetKey = async (requestedKey = presetSelect.value) => {
   binding.setMarkersVisible(markersVisible);
   editor.refresh();
   editor.select(selectedId);
+  editorView.selection.replace(selectedIds);
   currentSceneKeyInput.value = currentInstance.presetKey;
   const referencedShadowPresets = Object.fromEntries(preset.lights.flatMap((light) => {
     if (!('shadow' in light) || !light.shadow) return [];
@@ -418,7 +420,7 @@ let disposed = false;
 const dispose = () => {
   if (disposed) return;
   disposed = true; loadGeneration++; loadAbort?.abort();
-  editor.dispose(); binding?.dispose(); unmountEditor();
+  editor.dispose(); binding?.dispose(); editorView.dispose();
   canvas.removeEventListener('pointerdown', pointerDown);
   canvas.removeEventListener('pointermove', pointerMove);
   canvas.removeEventListener('pointerup', pointerEnd);

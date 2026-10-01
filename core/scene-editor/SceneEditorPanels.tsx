@@ -10,7 +10,7 @@ export function useSceneEditor(editor: SceneEditor | null) {
   const [, update] = useReducer(n => n + 1, 0);
   useEffect(() => editor?.subscribe(update), [editor]);
 }
-export function SceneEditorHierarchy({ editor, className = '', onContextMenu, canDrop, onMove }: { editor: SceneEditor | null; className?: string; onContextMenu?: (event: MouseEvent, id: string) => void; canDrop?: (intent: EditorHierarchyDropIntent) => boolean; onMove?: (intent: EditorHierarchyDropIntent) => void }) {
+export function SceneEditorHierarchy({ editor, className = '', onContextMenu, canDrop, onMove, selectedIds, onSelectionChange, enableRangeSelection = false }: { editor: SceneEditor | null; className?: string; onContextMenu?: (event: MouseEvent, id: string) => void; canDrop?: (intent: EditorHierarchyDropIntent) => boolean; onMove?: (intent: EditorHierarchyDropIntent) => void; selectedIds?: string[]; onSelectionChange?: (ids: string[], mode: 'replace' | 'toggle' | 'range') => void; enableRangeSelection?: boolean }) {
   useSceneEditor(editor);
   const objects = editor?.objects() ?? [];
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
@@ -31,9 +31,9 @@ export function SceneEditorHierarchy({ editor, className = '', onContextMenu, ca
     childIds: objects.filter(c => c.parentId === o.id).map(c => c.id),
     typeLabel: o.readonly ? '只读' : o.description, badges: o.readonly ? ['locked'] : !o.node.isEnabled() ? ['hidden'] : [],
   }]));
-  return <ObjectHierarchy className={`scene-editor-hierarchy ${className}`} items={items} rootIds={objects.filter(o => !items[o.id].parentId).map(o => o.id)} selectedIds={editor?.selectedId ? [editor.selectedId] : []}
+  return <ObjectHierarchy className={`scene-editor-hierarchy ${className}`} items={items} rootIds={objects.filter(o => !items[o.id].parentId).map(o => o.id)} selectedIds={selectedIds ?? (editor?.selectedId ? [editor.selectedId] : [])} enableRangeSelection={enableRangeSelection}
     expandedIds={expanded} onExpandedChange={setExpanded} canDrop={intent => Boolean(editor?.enabled) && (canDrop?.(intent) ?? true)} onMove={onMove}
-    onSelectionChange={ids => editor?.select(ids[0] ?? null)} onClearSelection={() => editor?.select(null)} onFocus={id => editor?.focus(id)} onContextMenu={onContextMenu} />;
+    onSelectionChange={(ids, mode) => onSelectionChange ? onSelectionChange(ids, mode) : editor?.select(ids[0] ?? null)} onClearSelection={() => onSelectionChange ? onSelectionChange([], 'replace') : editor?.select(null)} onFocus={id => editor?.focus(id)} onContextMenu={onContextMenu} />;
 }
 export function SceneEditorToolbar({ editor }: { editor: SceneEditor | null }) {
   useSceneEditor(editor);

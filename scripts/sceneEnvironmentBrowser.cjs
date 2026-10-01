@@ -10,7 +10,8 @@ app.whenReady().then(async () => {
     await window.loadURL(process.env.SCENE_ENVIRONMENT_TEST_URL);
     const result = await window.webContents.executeJavaScript(`(async () => {
       const check = (value, message) => { if (!value) throw new Error(message); };
-      const wait = async predicate => { for (let i=0;i<600;i++) { if (predicate()) return; await new Promise(r=>setTimeout(r,50)); } throw new Error(document.querySelector('#status')?.textContent || 'Timeout'); };
+      let phase = 'initial';
+      const wait = async predicate => { for (let i=0;i<600;i++) { if (predicate()) return; await new Promise(r=>setTimeout(r,50)); } throw new Error(phase + ': ' + (document.querySelector('#status')?.textContent || 'Timeout')); };
       const ready = () => !document.querySelector('#load').disabled && document.querySelector('#status').textContent.includes('已通过');
       const select = name => { const row = [...document.querySelectorAll('.editor-hierarchy-row')].find(row=>row.querySelector('.editor-hierarchy-label').textContent === name); check(row, 'Missing row '+name); row.click(); };
       const input = label => document.querySelector('[aria-label="'+label+'"]');
@@ -23,6 +24,23 @@ app.whenReady().then(async () => {
       const width = () => runtime().getMeshByName('box').getBoundingInfo().boundingBox.extendSize.x * 2;
       const preset = document.querySelector('#preset'); preset.value='child'; preset.dispatchEvent(new Event('change',{bubbles:true})); document.querySelector('#load').click();
       await wait(()=>ready() && document.querySelector('#current-scene-key').value==='child');
+      phase = 'range down to 2';
+      select('Browser Box');
+      const tree = document.querySelector('#scene-hierarchy .editor-hierarchy-tree');
+      const shiftArrow = key => tree.dispatchEvent(new KeyboardEvent('keydown',{key,shiftKey:true,bubbles:true}));
+      shiftArrow('ArrowDown'); await wait(()=>document.querySelector('#scene-inspector').textContent.includes('已选择 2 个对象'));
+      phase = 'range down to 3';
+      shiftArrow('ArrowDown'); await wait(()=>document.querySelector('#scene-inspector').textContent.includes('已选择 3 个对象'));
+      phase = 'range up to 2';
+      shiftArrow('ArrowUp'); await wait(()=>document.querySelector('#scene-inspector').textContent.includes('已选择 2 个对象'));
+      check(input('批量位置 X'),'Common vector field missing from multi-selection');
+      check(!input('批量模型路径（GLB / GLTF）'),'Non-common model field shown for geometry selection');
+      set('批量位置 X','6'); await wait(()=>!button('批量应用并预览').disabled); button('批量应用并预览').click();
+      phase = 'batch apply';
+      await wait(()=>ready() && draft().objects[0].position[0]===6 && draft().objects[1].position[0]===6);
+      check(document.querySelector('#scene-inspector').textContent.includes('已选择 2 个对象'),'Batch selection was lost after rebuild');
+      button('撤销').click(); await wait(()=>ready() && draft().objects[0].position[0]===0 && draft().objects[1].position[0]===0);
+      phase = 'existing regression';
       const boxRow = [...document.querySelectorAll('.editor-hierarchy-row')].find(row=>row.querySelector('.editor-hierarchy-label')?.textContent==='Browser Box');
       check(boxRow, 'Missing box row for context menu');
       boxRow.dispatchEvent(new MouseEvent('contextmenu',{bubbles:true,button:2,clientX:120,clientY:120}));

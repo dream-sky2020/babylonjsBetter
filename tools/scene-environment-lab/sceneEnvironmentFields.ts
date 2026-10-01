@@ -39,6 +39,17 @@ export function fieldValue(target: Record<string, unknown>, path: string): unkno
 export function formatField(value: unknown, type: EnvironmentField['type']) {
   return value === undefined ? '' : type === 'vector' || type === 'json' ? JSON.stringify(value) : String(value);
 }
+export type EnvironmentVectorChanges = Record<string, Partial<Record<0 | 1 | 2, string>>>;
+export function commonEnvironmentFields(preset: SceneEnvironmentPreset, ids: readonly string[], shadowKeys: readonly string[]): EnvironmentField[] {
+  if (!ids.length) return [];
+  const [first, ...rest] = ids.map(id => environmentFields(preset, id, shadowKeys));
+  return first.filter(field => field.path !== 'name' && rest.every(fields => fields.some(candidate => candidate.path === field.path && candidate.type === field.type))).map(field => {
+    const variants = [field, ...rest.map(fields => fields.find(candidate => candidate.path === field.path)!)];
+    const minimums = variants.flatMap(candidate => candidate.min === undefined ? [] : [candidate.min]);
+    return { ...field, optional: variants.every(candidate => candidate.optional), min: minimums.length ? Math.max(...minimums) : undefined,
+      integer: variants.some(candidate => candidate.integer), options: field.options?.filter(option => variants.every(candidate => candidate.options?.includes(option))) };
+  });
+}
 function assign(target: Record<string, unknown>, path: string[], value: unknown) {
   const [key, ...tail] = path;
   if (!tail.length) { if (value === undefined) delete target[key]; else target[key] = value; return; }
@@ -46,27 +57,51 @@ function assign(target: Record<string, unknown>, path: string[], value: unknown)
   assign(child, tail, value);
   if (Object.keys(child).length) target[key] = child; else delete target[key];
 }
+function parseField(f: EnvironmentField, text: string): unknown {
+  let value: unknown = text;
+  if (!text) { if (!f.optional) throw new Error(`${f.label}不能为空`); value = undefined; }
+  else if (f.type === 'number') {
+    value = Number(text);
+    if (!Number.isFinite(value) || (f.min !== undefined && Number(value) < f.min) || (f.integer && !Number.isInteger(value))) throw new Error(`${f.label}不是合法数值`);
+  } else if (f.type === 'boolean') { if (!['true', 'false'].includes(text)) throw new Error(`${f.label}必须是布尔值`); value = text === 'true'; }
+  else if (f.type === 'select') { if (!f.options?.includes(text)) throw new Error(`${f.label}选项无效`); }
+  else if (f.type === 'color') {
+    const alpha = f.path === 'clearColor';
+    if (!(alpha ? /^#[0-9a-f]{6}([0-9a-f]{2})?$/i : /^#[0-9a-f]{6}$/i).test(text)) throw new Error(`${f.label}使用 ${alpha ? '#RRGGBB 或 #RRGGBBAA' : '#RRGGBB'}`);
+  }
+  else if (f.type === 'vector' || f.type === 'json') {
+    try { value = JSON.parse(text); } catch { throw new Error(f.type === 'vector' ? `${f.label}的 X、Y、Z 都必须填写有限数字` : `${f.label}不是合法 JSON`); }
+    if (f.type === 'vector' && (!Array.isArray(value) || value.length !== 3 || value.some(v => typeof v !== 'number' || !Number.isFinite(v)))) throw new Error(`${f.label}必须包含三个有限数字`);
+  }
+  return value;
+}
 export function applyEnvironmentFields(preset: SceneEnvironmentPreset, id: string | null, fields: EnvironmentField[], values: Record<string, string>): SceneEnvironmentPreset {
   const next = structuredClone(preset); const target = environmentTarget(next, id);
   for (const f of fields) {
     const text = values[f.path]?.trim() ?? '';
-    let value: unknown = text;
-    if (!text) { if (!f.optional) throw new Error(`${f.label}不能为空`); value = undefined; }
-    else if (f.type === 'number') {
-      value = Number(text);
-      if (!Number.isFinite(value) || (f.min !== undefined && Number(value) < f.min) || (f.integer && !Number.isInteger(value))) throw new Error(`${f.label}不是合法数值`);
-    } else if (f.type === 'boolean') { if (!['true', 'false'].includes(text)) throw new Error(`${f.label}必须是布尔值`); value = text === 'true'; }
-    else if (f.type === 'select') { if (!f.options?.includes(text)) throw new Error(`${f.label}选项无效`); }
-    else if (f.type === 'color') {
-      const alpha = f.path === 'clearColor';
-      if (!(alpha ? /^#[0-9a-f]{6}([0-9a-f]{2})?$/i : /^#[0-9a-f]{6}$/i).test(text)) throw new Error(`${f.label}使用 ${alpha ? '#RRGGBB 或 #RRGGBBAA' : '#RRGGBB'}`);
-    }
-    else if (f.type === 'vector' || f.type === 'json') {
-      try { value = JSON.parse(text); } catch { throw new Error(f.type === 'vector' ? `${f.label}的 X、Y、Z 都必须填写有限数字` : `${f.label}不是合法 JSON`); }
-      if (f.type === 'vector' && (!Array.isArray(value) || value.length !== 3 || value.some(v => typeof v !== 'number' || !Number.isFinite(v)))) throw new Error(`${f.label}必须包含三个有限数字`);
-    }
-    assign(target, f.path.split('.'), value);
+    assign(target, f.path.split('.'), parseField(f, text));
   }
   if (id?.startsWith('light:') && !values['shadow.qualityPresetKey']) delete target.shadow;
+  return next;
+}
+export function applyEnvironmentBatchFields(preset: SceneEnvironmentPreset, ids: readonly string[], scalarChanges: Readonly<Record<string, string>>, vectorChanges: Readonly<EnvironmentVectorChanges>, shadowKeys: readonly string[]): SceneEnvironmentPreset {
+  const fields = commonEnvironmentFields(preset, ids, shadowKeys);
+  const byPath = new Map(fields.map(field => [field.path, field]));
+  if (![...Object.keys(scalarChanges), ...Object.keys(vectorChanges)].every(path => byPath.has(path))) throw new Error('批量字段不属于所有选中对象');
+  const next = structuredClone(preset);
+  for (const id of ids) {
+    const target = environmentTarget(next, id);
+    for (const [path, text] of Object.entries(scalarChanges)) assign(target, path.split('.'), parseField(byPath.get(path)!, text.trim()));
+    for (const [path, axes] of Object.entries(vectorChanges)) {
+      const old = fieldValue(target, path);
+      const vector = Array.isArray(old) ? [...old] : path === 'scaling' ? [1, 1, 1] : [0, 0, 0];
+      for (const [axis, text] of Object.entries(axes)) {
+        if (!text.trim()) throw new Error(`${byPath.get(path)!.label}的 X、Y、Z 必须填写有限数字`);
+        vector[Number(axis)] = Number(text);
+      }
+      assign(target, path.split('.'), parseField(byPath.get(path)!, JSON.stringify(vector)));
+    }
+    if (Object.hasOwn(scalarChanges, 'shadow.qualityPresetKey') && !scalarChanges['shadow.qualityPresetKey']) delete target.shadow;
+  }
   return next;
 }
